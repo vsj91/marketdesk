@@ -12,7 +12,7 @@ from .intraday_data import atomic_json
 
 REVISION=5
 INCOME_REVISION=2
-_pdf_slots=threading.BoundedSemaphore(4)
+_pdf_slots=threading.BoundedSemaphore(6)
 NUM=r'(?:\(?-?\d[\d,]*(?:\.\d+)?\)?|[-–—]|Nil|NIL)'
 NOTE_REF=r'\d+[a-z]*(?:\([a-z0-9]+\)|\.\d+)*'
 LEASE_ROLLFORWARD=r'(?:carrying amounts of (?:the )?lease liabilities|reconciliation of (?:the )?lease liabilities|movement in (?:the )?lease liabilities)'
@@ -271,6 +271,20 @@ def save_excerpt(folder,source,raw_hash):
     if hashlib.sha256(target.read_bytes()).hexdigest()!=excerpt_hash:raise ValueError('Saved evidence hash mismatch')
     return target,excerpt_hash
 
+def known_archive_duplicate(row,previous,seen_hashes):
+    """Reuse today's exact archive/hash observation only after a fresh copy matched.
+
+    Company URLs can change in place, so they are never deduplicated this way.
+    This avoids downloading the same NSE/BSE filing twice without changing the
+    evidence used for recovered fields or increasing the provider request rate.
+    """
+    from .report_sources import fresh
+    if row.get('provider') not in ('NSE','BSE') or not fresh(previous):return None
+    for attempt in previous.get('attempts',[]):
+        if attempt.get('source_url')==row['fileName'] and attempt.get('provider')==row['provider'] and attempt.get('raw_sha256') in seen_hashes:
+            return {'raw_sha256':attempt['raw_sha256'],'previous_observed_at':previous['observed_at']}
+    return None
+
 class AnnualReportSources:
     def fetch(self,symbol,isin,details):
         from .financial_sources import request
@@ -280,7 +294,7 @@ class AnnualReportSources:
         income_needed=latest.get('finance_costs') is None and latest.get('profit_before_tax') is not None
         folder=ROOT/'data/annual-reports'/symbol;folder.mkdir(parents=True,exist_ok=True)
         key=hashlib.sha256(json.dumps(latest,sort_keys=True).encode()).hexdigest()[:16]
-        cache=folder/(key+'.json')
+        cache=folder/(key+'.json');old={}
         if cache.exists():
             old=json.loads(cache.read_text())
             if old.get('revision')==REVISION and (not income_needed or old.get('income_revision')==INCOME_REVISION) and old.get('symbol')==symbol and old.get('isin')==isin and fresh(old):
@@ -316,6 +330,11 @@ class AnnualReportSources:
                 return []
         def parse(row):
             url=row['fileName'];attempt={'provider':row['provider'],'source_url':url};result['attempts'].append(attempt)
+            if (old.get('symbol'),old.get('isin'))==(symbol,isin):
+                duplicate=known_archive_duplicate(row,old,seen_hashes)
+                if duplicate:
+                    attempt.update(duplicate,status='unresolved',reason='Identical archived report already parsed; reused earlier SHA-256 check')
+                    return False
             try:
                 with _pdf_slots:
                     if shutil.disk_usage(ROOT).free<1_000_000_000:raise ValueError('Less than 1 GB free; PDF fetch deferred')

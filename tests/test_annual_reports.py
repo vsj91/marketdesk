@@ -206,3 +206,11 @@ Closing balance     50.00      -
     doc.save(root/'r.pdf');doc.close();(root/'c.json').write_text(json.dumps({'latest':BASE}));pdf_worker(root/'r.pdf',root/'c.json',root/'r.json');r=json.loads((root/'r.json').read_text())
     self.assertEqual(r['status'],expected,r)
     if expected=='verified':self.assertEqual(r['evidence']['lease_note_evidence']['value'],.5);self.assertIn(2,r['evidence']['pages'])
+ def test_archive_dedup_requires_fresh_observation_and_fresh_matching_copy(self):
+  from marketdesk.annual_reports import known_archive_duplicate
+  row={'provider':'BSE','fileName':'https://www.bseindia.com/xml-data/corpfiling/AttachHis/a.pdf'}
+  old={'observed_at':datetime.now(timezone.utc).isoformat(),'attempts':[{'provider':'BSE','source_url':row['fileName'],'raw_sha256':'abc'}]}
+  self.assertEqual(known_archive_duplicate(row,old,{'abc'})['raw_sha256'],'abc')
+  self.assertIsNone(known_archive_duplicate(row,old,{'different'}))
+  self.assertIsNone(known_archive_duplicate({**row,'provider':'Company website'},old,{'abc'}))
+  self.assertIsNone(known_archive_duplicate(row,{**old,'observed_at':(datetime.now(timezone.utc)-timedelta(days=2)).isoformat()},{'abc'}))
