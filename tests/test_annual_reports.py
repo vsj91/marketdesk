@@ -188,3 +188,21 @@ Current liabilities   -       -
   d=apply_report({'latest':copy.deepcopy(BASE),'sector':'Tech'},report)
   apply_report(d,{'status':'unresolved','reason':'New field unavailable'})
   self.assertEqual(d['annual_report_check'],report);self.assertEqual(d['annual_report_attempt']['status'],'unresolved')
+ def test_note_recovery_still_requires_two_balance_anchors(self):
+  import pymupdf
+  note='''Notes to Consolidated Financial Statements
+Set out below are the carrying amounts of lease liabilities and the movements during the year:
+Rs in lakhs
+Particulars              March 31, 2026      March 31, 2025
+Closing balance     50.00      -
+'''
+  for cash,expected in [(500,'verified'),(700,'unresolved')]:
+   with tempfile.TemporaryDirectory() as tmp:
+    root=Path(tmp);doc=pymupdf.open()
+    balance=TEXT.replace('500.00',str(cash)+'.00').replace('20.00     10.00','-     10.00')
+    for txt in (balance,note):
+     p=doc.new_page(width=600,height=840)
+     for n,line in enumerate(txt.splitlines()):p.insert_text((25,40+n*17),line,fontname='cour',fontsize=7)
+    doc.save(root/'r.pdf');doc.close();(root/'c.json').write_text(json.dumps({'latest':BASE}));pdf_worker(root/'r.pdf',root/'c.json',root/'r.json');r=json.loads((root/'r.json').read_text())
+    self.assertEqual(r['status'],expected,r)
+    if expected=='verified':self.assertEqual(r['evidence']['lease_note_evidence']['value'],.5);self.assertIn(2,r['evidence']['pages'])
