@@ -10,7 +10,7 @@ from urllib.parse import urlsplit
 from .storage import ROOT,now
 from .intraday_data import atomic_json
 
-REVISION=5
+REVISION=6
 INCOME_REVISION=2
 _pdf_slots=threading.BoundedSemaphore(6)
 NUM=r'(?:\(?-?\d[\d,]*(?:\.\d+)?\)?|[-–—]|Nil|NIL)'
@@ -31,6 +31,7 @@ def amount(token):
 def caption(value):
     value=re.sub(r'^\s*(?:(?:\([ivxa-z0-9]+\)|[ivx]+[.)]|[a-z]\)|[0-9]+[.)]?)\s*)+','',value.lower())
     value=re.sub(r'\s*-\s*','-',value.replace('–','-').replace('‑','-'))
+    value=re.sub(r'^[-•●]+\s*','',value)
     return ' '.join(value.split()).strip(': ')
 
 def statement_context(text,latest,kind='balance'):
@@ -103,14 +104,26 @@ def parse_lease_note(text,latest):
 def parse_balance(text,latest,allow_existing=False):
     """Two-column annual balance only; period, basis, scale and 2 anchors required."""
     text,basis,(unit,scale)=statement_context(text,latest)
-    section=None;found={};evidence={}
+    section=None;found={};evidence={};equity_section=False;previous_key=None
     def record(key,value,line):
+        nonlocal previous_key
+        previous_key=key
         if key in found:raise ValueError('Duplicate PDF balance caption: '+key)
         found[key]=None if value is None else value*scale;evidence[key]=line.strip()
     for line in text.splitlines():
         # Stop at the next financial statement; don't read cash-flow lease payments.
         if re.search(r'^(?:standalone |consolidated )?statement of (?:profit|cash|changes)',line.strip().lower()):break
         clean=caption(line)
+        if clean=='equity':equity_section=True
+        if 'liabilities' in clean and not re.search(r'\d',clean):equity_section=False
+        # Some reports print the equity subtotal without a label. Accept only
+        # the row directly after its explicit components, with exact arithmetic.
+        subtotal=re.fullmatch('('+NUM+r')\s{2,}('+NUM+')',line.strip())
+        if equity_section and previous_key in ('other_equity','nci') and subtotal and found.get('share_capital') is not None and found.get('other_equity') is not None:
+            value=amount(subtotal[1]);total=found['share_capital']+found['other_equity']+(found.get('nci') or 0)
+            if value is not None and abs(value*scale-total)<=scale*.015:
+                record('equity',value,line);equity_section=False
+        if section=='current' and re.match(r'^total (?:equity (?:and|&) liabilities|liabilities (?:and|&) equity|liabilities)\s{2,}',line.strip(),re.I):break
         if re.fullmatch(r'non[- ]current liabilities',clean):section='non_current'
         elif re.fullmatch(r'current liabilities',clean):section='current'
         m=re.search(r'\s{2,}('+NUM+r')\s{2,}('+NUM+r')\s*$',line)

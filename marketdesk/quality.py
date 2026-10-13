@@ -27,14 +27,14 @@ def source_reasons(f,times,clock):
     nse=f.get('selected_source')=='nse_audited_filing';summary=f.get('summary') or {}
     required=[] if nse else ['income_statement','balance_sheet','cash_flow']
     growth=[key for key in ('revenue','net_profit') if summary.get(key+'_growth_yoy') is not None]
-    if nse and any(summary.get('growth_sources',{}).get(key)!='nse_audited_filing' for key in growth):required.append('income_statement')
+    if nse and any(summary.get('growth_sources',{}).get(key) not in ('nse_audited_filing','company_annual_report') for key in growth):required.append('income_statement')
     observations=[times.get(k) for k in required]
     for evidence in (f.get('latest') or {}).get('sources',{}).values():
         if isinstance(evidence,dict) and evidence.get('source')=='company_annual_report':observations.append(evidence.get('observed_at'))
     if f.get('selected_source')=='nse_audited_filing':observations.append((f.get('latest') or {}).get('observed_at') or (f.get('fallbacks') or {}).get('nse',{}).get('observed_at'))
     if nse:
         for key in growth:
-            if summary.get('growth_sources',{}).get(key)=='nse_audited_filing':observations.extend(summary.get('growth_observed_at',{}).get(key) or [None])
+            if summary.get('growth_sources',{}).get(key) in ('nse_audited_filing','company_annual_report'):observations.extend(summary.get('growth_observed_at',{}).get(key) or [None])
     for stamp in observations:
         try:
             if not 0<=(clock-datetime.fromisoformat(stamp)).total_seconds()<=30*86400:return ['Underlying financial evidence older than 30 days or future dated']

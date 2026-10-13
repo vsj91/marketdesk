@@ -83,7 +83,7 @@ class AnnualReportTests(unittest.TestCase):
   report={'status':'verified','evidence':e,'source_url':'https://example.test/report.pdf','observed_at':datetime.now(timezone.utc).isoformat(),'raw_sha256':'abc','evidence_path':'data/report.pdf'}
   got=apply_report(detail,report);self.assertEqual(got['latest']['total_borrowings'],5);self.assertEqual(got['source_conflicts'][0]['annual_report'],3)
  def test_borrowings_can_be_recovered_without_guessing_missing_leases(self):
-  text=TEXT.replace('30.00','-').replace('Current liabilities','Borrowings    49    200.00    190.00\nCurrent liabilities')+'Borrowings    49    100.00    90.00\n'
+  text=TEXT.replace('30.00','-').replace('Current liabilities','Borrowings    49    200.00    190.00\nCurrent liabilities').replace('Total equity and liabilities','Borrowings    49    100.00    90.00\nTotal equity and liabilities')
   got=parse_balance(text,BASE)
   self.assertIsNone(got['value']);self.assertEqual(got['values']['total_borrowings'],3)
  def test_spread_pdf_and_auditor_context(self):
@@ -214,3 +214,17 @@ Closing balance     50.00      -
   self.assertIsNone(known_archive_duplicate(row,old,{'different'}))
   self.assertIsNone(known_archive_duplicate({**row,'provider':'Company website'},old,{'abc'}))
   self.assertIsNone(known_archive_duplicate(row,{**old,'observed_at':(datetime.now(timezone.utc)-timedelta(days=2)).isoformat()},{'abc'}))
+
+class BalanceLayoutRecoveryTests(unittest.TestCase):
+ def test_bullet_prefixes_do_not_hide_cash_or_leases(self):
+  text=TEXT.replace('Cash and cash equivalents','- Cash and cash equivalents').replace('(ii) Lease liabilities','-Lease liabilities')
+  self.assertEqual(parse_balance(text,BASE)['value'],.5)
+ def test_unlabelled_equity_subtotal_requires_component_arithmetic(self):
+  text=TEXT.replace('Total equity                      5000.00    4500.00','Equity\nEquity share capital    100.00    100.00\nOther equity    4900.00    4400.00\n5000.00    4500.00')
+  self.assertEqual(parse_balance(text,BASE)['value'],.5)
+  with self.assertRaises(ValueError):parse_balance(text.replace('5000.00    4500.00','5100.00    4500.00'),BASE)
+ def test_end_of_balance_does_not_read_following_note_rows(self):
+  text=TEXT+'\nNon-controlling interest    1.00    1.00\nNon-controlling interest    2.00    2.00\n'
+  self.assertEqual(parse_balance(text,BASE)['value'],.5)
+ def test_dash_remains_missing_not_zero(self):
+  with self.assertRaises(ValueError):parse_balance(TEXT.replace('30.00','-').replace('20.00','-'),BASE)

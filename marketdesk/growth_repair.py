@@ -40,7 +40,13 @@ def extract_saved(symbol,isin,record):
 
 def recover(symbol,isin,details):
     latest=details.get('latest') or {}
-    if details.get('selected_source')!='nse_audited_filing' or not all(latest.get(k) for k in ('raw_sha256','source_url','observed_at')):raise ValueError('Selected annual has no verified NSE income evidence')
+    if details.get('selected_source')!='nse_audited_filing':raise ValueError('Selected annual is not a verified NSE filing')
+    if not all(latest.get(k) for k in ('raw_sha256','source_url','observed_at')):
+        # Legacy complete rows omitted file metadata. Recover only after an
+        # independent identity/context check that preserves every selected value.
+        from .conflict_repair import verify_nse
+        proof=verify_nse(symbol,isin,details)
+        latest={**latest,**{k:proof[k] for k in ('raw_sha256','source_url','observed_at')}}
     current=extract_saved(symbol,isin,latest)
     prior_end=datetime.fromisoformat(current['period_end']).date().replace(year=datetime.fromisoformat(current['period_end']).year-1).isoformat()
     index=json.loads((ROOT/'data/fundamental-repair/sources'/symbol/'index.json').read_text())
