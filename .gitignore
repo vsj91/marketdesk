@@ -1,0 +1,12 @@
+.env
+.env.*
+!.env.example
+.venv*/
+__pycache__/
+*.pyc
+data/
+*.log
+.DS_Store
+
+# Runtime data may be a symlink to the macOS Application Support directory.
+/data
