@@ -31,6 +31,8 @@ class AnnualReportTests(unittest.TestCase):
    root=Path(tmp);p=root/'temporary.pdf';p.write_bytes(b'original balance page');old,digest=save_excerpt(root,p,'a'*64)
    p.write_bytes(b'balance and income pages');new,_=save_excerpt(root,p,'a'*64)
    self.assertNotEqual(old,new);self.assertEqual(hashlib.sha256(old.read_bytes()).hexdigest(),digest)
+   new.write_bytes(b'corrupted evidence')
+   with self.assertRaisesRegex(ValueError,'hash mismatch'):save_excerpt(root,p,'a'*64)
  def test_annual_income_requires_pbt_anchor_and_explicit_finance_cost(self):
   latest={**BASE,'profit_before_tax':10,'finance_costs':None}
   self.assertEqual(parse_income(INCOME,latest)['value'],.5)

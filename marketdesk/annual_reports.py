@@ -161,21 +161,26 @@ def pdf_worker(pdf_path,context_path,output_path):
                 income_needed=latest.get('finance_costs') is None and latest.get('profit_before_tax') is not None
                 evidence=parse_balance(text,latest,allow_existing=income_needed);evidence['pages']=[n+1 for n in selected]
                 if income_needed:
-                    incomes=[]
+                    incomes=[];income_issues=[]
                     for j in range(i,min(i+3,len(doc))):
                         income_page=doc[j];income_clips=[None]
                         if income_page.rect.width>income_page.rect.height*1.15:
                             w,h=income_page.rect.width,income_page.rect.height
                             income_clips.extend([pymupdf.Rect(0,0,w/2,h),pymupdf.Rect(w/2,0,w,h)])
                         for income_clip in income_clips:
+                            income_text=balance_text(income_page,income_clip)
+                            if not re.search(r'statement\s+of\s+(?:(?:standalone|consolidated)\s+)?profit',' '.join(income_text.lower().split())[:1000]):continue
                             try:
-                                income=parse_income(balance_text(income_page,income_clip),latest)
+                                income=parse_income(income_text,latest)
                                 income['pages']=[j+1];incomes.append((income,j))
-                            except ValueError:pass
+                            except ValueError as error:income_issues.append({'page':j+1,'reason':str(error)})
+                    evidence['income_diagnostics']=income_issues
                     if incomes and len({round(v['value'],6) for v,_ in incomes})==1:
                         income,j=incomes[0];evidence['values']['finance_costs']=income['value'];evidence['income_evidence']=income
                         if j not in selected:selected.append(j);evidence['pages'].append(j+1)
-                if not any(latest.get(k) is None for k in evidence['values']):raise ValueError('No missing annual input safely recovered')
+                if not any(latest.get(k) is None for k in evidence['values']):
+                    reasons='; '.join(dict.fromkeys(x['reason'] for x in evidence.get('income_diagnostics',[])))
+                    raise ValueError('No missing annual input safely recovered'+(': '+reasons if reasons else ''))
                 if contextual:
                     evidence['basis_evidence_page']=basis_context[1]+1
                     evidence['basis_evidence']='Report on the audit of the '+basis_context[0]+' financial statements'
@@ -198,6 +203,7 @@ def save_excerpt(folder,source,raw_hash):
     excerpt_hash=hashlib.sha256(Path(source).read_bytes()).hexdigest()
     target=folder/(raw_hash[:16]+'-'+excerpt_hash[:16]+'.pdf')
     if not target.exists():shutil.copy2(source,target)
+    if hashlib.sha256(target.read_bytes()).hexdigest()!=excerpt_hash:raise ValueError('Saved evidence hash mismatch')
     return target,excerpt_hash
 
 class AnnualReportSources:
