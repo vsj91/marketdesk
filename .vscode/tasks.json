@@ -1,0 +1,8 @@
+{
+ "version": "2.0.0",
+ "tasks": [
+  {"label":"Run MarketDesk","type":"shell","command":".venv/bin/python","args":["app.py","serve","--live"],"problemMatcher":[],"isBackground":true},
+  {"label":"Test MarketDesk","type":"shell","command":".venv/bin/python","args":["-m","unittest","discover","-s","tests","-v"],"problemMatcher":[],"group":"test"},
+  {"label":"Import local exports","type":"shell","command":".venv/bin/python","args":["app.py","import"],"problemMatcher":[]}
+ ]
+}

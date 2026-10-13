@@ -1,0 +1,4 @@
+{
+  "version": "0.2.0",
+  "configurations": [{"name": "MarketDesk local app", "type": "debugpy", "request": "launch", "program": "${workspaceFolder}/app.py", "args": ["serve", "--live"], "console": "integratedTerminal", "cwd": "${workspaceFolder}", "justMyCode": true}]
+}

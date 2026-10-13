@@ -1,0 +1,150 @@
+import copy,json,tempfile,unittest
+from datetime import datetime,timedelta,timezone
+from pathlib import Path
+from unittest.mock import Mock,patch
+from marketdesk.autotrading import AutoTrading,entry_signal,IST
+from marketdesk.paper import init_paper,trade,portfolios
+from marketdesk.storage import init,connect,set_state,get_state
+from support import seed_quality,fixture_book
+
+class AutoTradingTests(unittest.TestCase):
+ def setUp(self):
+  self.temp=tempfile.TemporaryDirectory();self.path=Path(self.temp.name)/'test.sqlite3';init(self.path);init_paper(self.path)
+  self.clock=datetime(2026,10,12,10,0,tzinfo=IST).astimezone(timezone.utc)
+  self.engine=AutoTrading(self.path)
+  self.signal={'as_of':'2026-10-09T00:00:00+05:30','close':100,'dma50':99,'dma200':90,'high20':101,'volume_ratio':1.5,'turnover20':20_000_000,'fundamentals':{'status':'COMPLETE','latest':{'period':'Mar 2026','statement_type':'consolidated','units_in':'crore','profit_before_tax':100,'finance_costs':10,'equity':1000,'total_borrowings':100,'total_lease_liabilities':10,'cash_and_cash_equivalents':50},'summary':{'revenue_period':'Mar 2026','net_profit_period':'Mar 2026','statement_type':'consolidated','units':'crore','frequency':'yearly','revenue_growth_yoy':10,'net_profit_growth_yoy':20}}}
+  self.signals={}
+  self.add_stock('TEST')
+  self.depth=patch('marketdesk.paper.fetch_book',side_effect=fixture_book);self.depth.start();self.addCleanup(self.depth.stop)
+  with connect(self.path) as db:set_state(db,'stream',{'status':'connected','market_status':{'NSE_EQ':'NORMAL_OPEN'}})
+ def tearDown(self):self.temp.cleanup()
+ def add_stock(self,symbol,price=102):
+  self.signals[symbol]=copy.deepcopy(self.signal)
+  with connect(self.path) as db:
+   db.execute('INSERT INTO instruments VALUES(?,?,?,?,?)',(symbol,'NSE_EQ|'+symbol,symbol,symbol,'Test'))
+   db.execute('INSERT INTO quotes VALUES(?,?,?,?,?,?)',(symbol,price,100,int(self.clock.timestamp()*1000),self.clock.isoformat(),'test'))
+  seed_quality(self.path,symbol,self.clock,self.signal['fundamentals'])
+ def set_price(self,symbol,price):
+  with connect(self.path) as db:db.execute('UPDATE quotes SET price=?,trade_time=?,received_at=? WHERE symbol=?',(price,int(self.clock.timestamp()*1000),self.clock.isoformat(),symbol))
+  seed_quality(self.path,symbol,self.clock,self.signal['fundamentals'])
+ def run_cycle(self):
+  for symbol in self.signals:seed_quality(self.path,symbol,self.clock,self.signals[symbol]['fundamentals'])
+  self.engine.cycle(self.clock,self.signals)
+ def trades(self,p='trader'):
+  with connect(self.path) as db:return [dict(r) for r in db.execute('SELECT * FROM trades WHERE portfolio=? ORDER BY rowid',(p,))]
+ def enable(self,p='trader'):self.engine.configure(p,True)
+ def test_both_portfolios_buy_separately_and_repeated_cycles_do_not_duplicate(self):
+  self.enable();self.enable('investor');self.run_cycle();self.run_cycle()
+  for p in ['trader','investor']:
+   rows=self.trades(p);self.assertEqual(len(rows),1);self.assertEqual(rows[0]['source'],'automatic');self.assertTrue(rows[0]['reason'])
+   self.assertLessEqual(rows[0]['quantity']*rows[0]['price']+rows[0]['fee'],100000)
+  with connect(self.path) as db:self.assertEqual(db.execute("SELECT COUNT(*) FROM auto_events WHERE kind='fill'").fetchone()[0],2)
+ def test_stop_exit_and_no_same_day_reentry_after_restart(self):
+  self.enable();self.run_cycle();self.set_price('TEST',98);self.run_cycle()
+  self.assertEqual([r['side'] for r in self.trades()],['BUY','SELL'])
+  self.assertIn('loss threshold',self.trades()[-1]['reason'])
+  self.engine=AutoTrading(self.path);self.set_price('TEST',103);self.run_cycle()
+  self.assertEqual(len(self.trades()),2)
+ def test_profit_target_and_investor_trend_exit(self):
+  self.enable();self.enable('investor');self.run_cycle();self.set_price('TEST',110);self.run_cycle()
+  self.assertEqual(self.trades()[-1]['side'],'SELL');self.assertIn('profit target',self.trades()[-1]['reason'])
+  self.signals['TEST']['dma200']=105;self.set_price('TEST',104);self.run_cycle()
+  self.assertEqual(self.trades('investor')[-1]['side'],'SELL');self.assertIn('200-day',self.trades('investor')[-1]['reason'])
+ def test_incomplete_conflicting_or_mismatched_fundamentals_block_investor(self):
+  self.enable('investor')
+  cases=[]
+  for edit in ['incomplete','conflict','period','units','basis','old','finance']:
+   s=copy.deepcopy(self.signal);f=s['fundamentals']
+   if edit=='incomplete':f['status']='PARTIAL'
+   if edit=='conflict':f['source_conflicts']=[{'field':'profit_before_tax'}]
+   if edit=='period':f['summary']['net_profit_period']='Mar 2025'
+   if edit=='units':f['summary']['units']='lakh'
+   if edit=='basis':f['summary']['statement_type']='standalone'
+   if edit=='old':f['latest']['period']='Mar 2020'
+   if edit=='finance':f['latest']['finance_costs']=None
+   self.assertIsNone(entry_signal('investor',s,102,self.clock),edit)
+  self.assertIsNotNone(entry_signal('investor',self.signal,102,self.clock))
+ def test_closed_disconnected_stale_or_future_quote_no_fills(self):
+  self.enable()
+  for status,market in [('connected','CLOSING_END'),('disconnected','NORMAL_OPEN')]:
+   with connect(self.path) as db:set_state(db,'stream',{'status':status,'market_status':{'NSE_EQ':market}})
+   self.run_cycle();self.assertEqual(self.trades(),[])
+  with connect(self.path) as db:set_state(db,'stream',{'status':'connected','market_status':{'NSE_EQ':'NORMAL_OPEN'}})
+  for offset in [-31,31]:
+   with connect(self.path) as db:db.execute('UPDATE quotes SET trade_time=?',(int((self.clock.timestamp()+offset)*1000),))
+   self.run_cycle();self.assertEqual(self.trades(),[])
+ def test_daily_entry_limit(self):
+  for n in range(5):self.add_stock('TEST'+str(n))
+  self.enable();self.enable('investor');self.run_cycle();self.run_cycle()
+  self.assertEqual(len(self.trades()),3);self.assertEqual(len(self.trades('investor')),2)
+ def test_pause_is_rechecked_inside_order_transaction(self):
+  self.enable();self.engine.configure('trader',False)
+  with self.assertRaisesRegex(ValueError,'paused'):
+   trade(self.path,{'portfolio':'trader','symbol':'TEST','side':'BUY','quantity':1,'request_id':'automatic-pause-test'},self.clock,auto_guard=self.engine.guard('trader',self.signal,self.clock))
+  self.assertEqual(self.trades(),[])
+ def test_manual_orders_require_pausing_enabled_portfolio(self):
+  self.enable()
+  with self.assertRaisesRegex(ValueError,'Pause automatic'):
+   trade(self.path,{'portfolio':'trader','symbol':'TEST','side':'BUY','quantity':1,'request_id':'manual-order-test'},self.clock)
+ def test_daily_loss_halt_persists_after_recovery_and_restart(self):
+  self.add_stock('OTHER');self.enable();self.run_cycle()
+  with connect(self.path) as db:db.execute("UPDATE portfolios SET cash=cash-25000 WHERE name='trader'")
+  self.add_stock('NEW');self.run_cycle()
+  with connect(self.path) as db:
+   self.assertEqual(db.execute("SELECT halted FROM auto_days WHERE portfolio='trader'").fetchone()[0],1)
+   db.execute("UPDATE portfolios SET cash=cash+25000 WHERE name='trader'")
+  self.engine=AutoTrading(self.path);self.run_cycle()
+  self.assertNotIn('NEW',[t['symbol'] for t in self.trades()])
+ def test_position_count_limit_and_cash_cap(self):
+  self.enable()
+  for n in range(5):
+   symbol='HELD'+str(n);self.add_stock(symbol)
+   with connect(self.path) as db:db.execute('INSERT INTO positions VALUES(?,?,?,?)',('trader',symbol,1,102))
+  self.run_cycle();self.assertEqual(self.trades(),[])
+ def test_old_history_low_liquidity_and_large_gap_skip(self):
+  for field,value in [('as_of','2026-09-01T00:00:00+05:30'),('turnover20',100),('close',10)]:
+   s=copy.deepcopy(self.signal);s[field]=value;self.assertIsNone(entry_signal('trader',s,102,self.clock))
+ def test_outside_entry_window_still_processes_exits(self):
+  self.enable();self.run_cycle();self.clock=self.clock.replace(hour=10,minute=0) # 15:30 IST
+  self.set_price('TEST',98);self.run_cycle();self.assertEqual(self.trades()[-1]['side'],'SELL')
+  self.add_stock('NEW');self.run_cycle();self.assertNotIn('NEW',[t['symbol'] for t in self.trades()])
+
+ def test_new_session_waits_for_previous_session_candles(self):
+  self.enable();self.run_cycle()
+  self.clock+=timedelta(days=1);self.set_price('TEST',102);self.add_stock('NEW');self.run_cycle()
+  self.assertNotIn('NEW',[t['symbol'] for t in self.trades()])
+  self.signals['NEW']['as_of']='2026-10-12T00:00:00+05:30';self.run_cycle()
+  self.assertIn('NEW',[t['symbol'] for t in self.trades()])
+ def test_daily_refresh_waits_for_other_job_and_runs_once(self):
+  self.enable();self.run_cycle();refresh=Mock();self.engine.refresh=refresh
+  self.clock+=timedelta(days=1)
+  with connect(self.path) as db:set_state(db,'refresh',{'status':'running'})
+  self.engine.refresh_daily_candles(self.clock);refresh.start.assert_not_called()
+  with connect(self.path) as db:set_state(db,'refresh',{'status':'complete'})
+  self.engine.refresh_daily_candles(self.clock);self.engine.refresh_daily_candles(self.clock)
+  refresh.start.assert_called_once_with([],'candles')
+ def test_stale_holdings_block_new_buys_but_fresh_stop_exit_runs(self):
+  self.enable();self.run_cycle();self.add_stock('STALE');self.add_stock('NEW')
+  with connect(self.path) as db:
+   db.execute('INSERT INTO positions VALUES(?,?,?,?)',('trader','STALE',1,102))
+   db.execute("UPDATE quotes SET trade_time=trade_time-60000 WHERE symbol='STALE'")
+  self.set_price('TEST',98);self.run_cycle()
+  self.assertEqual(self.trades()[-1]['side'],'SELL');self.assertNotIn('NEW',[t['symbol'] for t in self.trades()])
+
+ def test_delayed_scan_rechecks_real_execution_time(self):
+  self.enable()
+  with patch('marketdesk.autotrading.datetime') as clock, patch('marketdesk.paper.datetime') as paper_clock:
+   clock.now.return_value=self.clock+timedelta(seconds=31)
+   paper_clock.now.return_value=self.clock+timedelta(seconds=31)
+   self.assertEqual(self.engine.execute('trader','TEST','BUY',1,self.signal,self.clock,realtime=True),0)
+  self.assertEqual(self.trades(),[])
+
+ def test_unexpected_engine_error_pauses_enabled_portfolios(self):
+  self.enable();self.enable('investor');self.engine.cycle=Mock(side_effect=RuntimeError('test failure'))
+  self.engine.stop_event.wait=lambda seconds:self.engine.stop_event.set()
+  self.engine.run()
+  snapshot=self.engine.snapshot()
+  self.assertTrue(all(not c['enabled'] for c in snapshot['config'].values()))
+  self.assertEqual(sum(e['kind']=='error' for e in snapshot['events']),2)
+
+if __name__=='__main__':unittest.main()
