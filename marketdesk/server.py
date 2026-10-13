@@ -65,6 +65,12 @@ class Handler(BaseHTTPRequestHandler):
         app=self.server.app;url=urlsplit(self.path);q=parse_qs(url.query)
         try:
             if url.path=='/api/health':return self.send(app.health())
+            if url.path=='/api/source-conflicts':
+                file=ROOT/'data/source-conflicts/latest.json'
+                report=json.loads(file.read_text()) if file.exists() else {'status':'not_started','results':[]}
+                for row in report['results']:
+                    if row.get('evidence'):row['evidence']={k:v for k,v in row['evidence'].items() if k!='annual'}
+                return self.send(report)
             if url.path=='/api/fundamental-repair':
                 file=ROOT/'data/fundamental-repair/latest.json'
                 return self.send(json.loads(file.read_text()) if file.exists() else {'status':'not_started','results':[]})

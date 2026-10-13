@@ -116,6 +116,8 @@ def import_exports(folder,db_path, symbols=None):
                     details=retain_report(details,json.loads(previous[0]),symbol,isin)
                     from .growth_repair import retain_growth
                     details=retain_growth(details,json.loads(previous[0]),symbol,isin)
+                    from .conflict_repair import retain_resolutions
+                    details=retain_resolutions(details,json.loads(previous[0]),symbol,isin)
                 db.execute('INSERT INTO fundamentals VALUES(?,?,?) ON CONFLICT(symbol) DO UPDATE SET details=excluded.details,observed_at=excluded.observed_at',(symbol,json.dumps(details,allow_nan=False),stamp))
                 profile=payloads.get('profile',{}).get('data',{})
                 db.execute('UPDATE instruments SET sector=?,name=? WHERE symbol=?',(details.get('sector'),profile.get('name') or profile.get('company_name') or master.get(key,{}).get('name') or symbol,symbol))
