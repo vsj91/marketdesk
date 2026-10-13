@@ -142,3 +142,49 @@ class AnnualReportTests(unittest.TestCase):
  def test_annual_report_evidence_age_checked(self):
   clock=datetime.now(timezone.utc);f={'selected_source':'nse_audited_filing','latest':{'observed_at':clock.isoformat(),'sources':{'total_lease_liabilities':{'source':'company_annual_report','observed_at':(clock-timedelta(days=31)).isoformat()}}}}
   self.assertTrue(source_reasons(f,{},clock))
+
+class AdditionalLayoutTests(unittest.TestCase):
+ def test_numeric_and_non_march_dates_keep_year_order(self):
+  text=TEXT.replace('March 31, 2026','31.03.2026').replace('March 31, 2025','31.03.2025')
+  self.assertEqual(parse_balance(text,BASE)['value'],.5)
+  dec=TEXT.replace('March','December').replace('CONSOLIDATED','asCONSOLIDATEDat')
+  self.assertEqual(parse_balance(dec,{**BASE,'period':'Dec 2026'})['value'],.5)
+  for bad in (text.replace('31.03.2025','31.03.2024'),text.replace('31.03.2026','30.06.2026'),text.replace('31.03.2026      31.03.2025','31.03.2025      31.03.2026')):
+   with self.assertRaises(ValueError):parse_balance(bad,BASE)
+ def test_explicit_equity_components_require_nci_for_consolidated(self):
+  text=TEXT.replace('Total equity                      5000.00    4500.00','Equity attributable to owners of the Company    4000.00    3500.00\nNon-controlling interests    1000.00    1000.00')
+  self.assertEqual(parse_balance(text,BASE)['value'],.5)
+  with self.assertRaises(ValueError):parse_balance(text.replace('Non-controlling interests    1000.00    1000.00',''),BASE)
+ def test_continued_balance_spread_is_read_in_printed_order(self):
+  import pymupdf
+  left,right=TEXT.split('Current liabilities')
+  right='CONSOLIDATED BALANCE SHEET (Contd.)\nAs at March 31, 2026\nRs in lakhs\nParticulars     March 31, 2026      March 31, 2025\nCurrent liabilities'+right
+  with tempfile.TemporaryDirectory() as tmp:
+   root=Path(tmp);doc=pymupdf.open();p=doc.new_page(width=1190,height=840)
+   for x,txt in ((25,left),(640,right)):
+    for n,line in enumerate(txt.splitlines()):p.insert_text((x,40+n*17),line,fontname='cour',fontsize=7)
+   doc.save(root/'r.pdf');doc.close();(root/'c.json').write_text(json.dumps({'latest':BASE}));pdf_worker(root/'r.pdf',root/'c.json',root/'r.json');r=json.loads((root/'r.json').read_text())
+   self.assertEqual(r['status'],'verified',r);self.assertEqual(r['evidence']['value'],.5);self.assertEqual(r['evidence']['layout'],'joined_balance_spread')
+ def test_lease_note_uses_carrying_closing_value_not_blank_components(self):
+  from marketdesk.annual_reports import parse_lease_note
+  note='''Notes to Consolidated Financial Statements
+Set out below are the carrying amounts of lease liabilities and the movements during the year:
+Rs in lakhs
+Particulars              March 31, 2026      March 31, 2025
+Opening balance       -       -
+Additions           50.00      -
+Closing balance     50.00      -
+Current liabilities   -       -
+'''
+  self.assertEqual(parse_lease_note(note,BASE)['value'],.5)
+  for bad in (note.replace('50.00      -\nCurrent','-      -\nCurrent'),note.replace('carrying amounts','undiscounted carrying amounts'),note.replace('Consolidated','Standalone'),note.replace('2026','2024')):
+   with self.assertRaises(ValueError):parse_lease_note(bad,BASE)
+  with self.assertRaises(ValueError):parse_lease_note(note,{**BASE,'non_current_lease_liabilities':2})
+ def test_roman_row_and_note_labels_preserve_cash_anchor(self):
+  text=TEXT.replace('Cash and cash equivalents    12','iii) Cash and cash equivalents    9(iii)').replace('49      30','39(ii)      30')
+  self.assertEqual(parse_balance(text,BASE)['value'],.5)
+ def test_failed_followup_keeps_verified_report_for_import(self):
+  report={'status':'verified','excerpt_sha256':'a','evidence':parse_balance(TEXT,BASE),'source_url':'https://example.test/report.pdf','observed_at':'2026-10-13T00:00:00+00:00','raw_sha256':'b','evidence_path':'balance.pdf'}
+  d=apply_report({'latest':copy.deepcopy(BASE),'sector':'Tech'},report)
+  apply_report(d,{'status':'unresolved','reason':'New field unavailable'})
+  self.assertEqual(d['annual_report_check'],report);self.assertEqual(d['annual_report_attempt']['status'],'unresolved')

@@ -3,17 +3,19 @@
 PDF parsing runs in isolated subprocesses. Only relevant pages are retained: full
 reports are temporary, bounded downloads. This module never infers zero from a dash.
 """
-import copy,hashlib,json,math,re,shutil,subprocess,sys,tempfile,threading
+import calendar,copy,hashlib,json,math,re,shutil,subprocess,sys,tempfile,threading
 from datetime import datetime,timezone
 from pathlib import Path
 from urllib.parse import urlsplit
 from .storage import ROOT,now
 from .intraday_data import atomic_json
 
-REVISION=3
+REVISION=5
 INCOME_REVISION=2
 _pdf_slots=threading.BoundedSemaphore(4)
 NUM=r'(?:\(?-?\d[\d,]*(?:\.\d+)?\)?|[-–—]|Nil|NIL)'
+NOTE_REF=r'\d+[a-z]*(?:\([a-z0-9]+\)|\.\d+)*'
+LEASE_ROLLFORWARD=r'(?:carrying amounts of (?:the )?lease liabilities|reconciliation of (?:the )?lease liabilities|movement in (?:the )?lease liabilities)'
 
 def amount(token):
     token=token.strip().replace(',','')
@@ -27,15 +29,17 @@ def amount(token):
     except ValueError:return None
 
 def caption(value):
-    value=re.sub(r'^\s*(?:(?:\([ivxa-z0-9]+\)|[ivx]+\.|[a-z]\)|[0-9]+[.)]?)\s*)+','',value.lower())
+    value=re.sub(r'^\s*(?:(?:\([ivxa-z0-9]+\)|[ivx]+[.)]|[a-z]\)|[0-9]+[.)]?)\s*)+','',value.lower())
     value=re.sub(r'\s*-\s*','-',value.replace('–','-').replace('‑','-'))
     return ' '.join(value.split()).strip(': ')
 
 def statement_context(text,latest,kind='balance'):
     text='\n'.join(line.strip() for line in text.replace('\u00a0',' ').splitlines())
     text=re.sub(r'\blacs?\b','lakhs',text,flags=re.I)
+    # Some PDF text layers concatenate a lower-case preposition with the title.
+    text=re.sub(r'(?<![A-Z])(CONSOLIDATED|STANDALONE)(?![A-Z])',r' \1 ',text)
     low=text.lower();head=re.sub(r'[ \t]+',' ',low)[:1800]
-    heading=r'\bbalance\s+sheet\b' if kind=='balance' else r'\bstatement\s+of\s+(?:(?:standalone|consolidated)\s+)?profit\s+(?:and|or|&)\s+loss\b'
+    heading=r'\bbalance\s+sheet\b' if kind=='balance' else r'\bnotes\s+to\s+(?:the\s+)?(?:standalone\s+|consolidated\s+)?financial\s+statements\b' if kind=='lease_note' else r'\bstatement\s+of\s+(?:(?:standalone|consolidated)\s+)?profit\s+(?:and|or|&)\s+loss\b'
     if not re.search(heading,head):raise ValueError('No '+kind+' statement heading')
     if kind=='income' and re.search(r'quarter|three months|six months',head):raise ValueError('Quarterly income columns are not annual inputs')
     basis=latest.get('statement_type')
@@ -43,11 +47,16 @@ def statement_context(text,latest,kind='balance'):
     if re.search(r'\b'+('consolidated' if basis=='standalone' else 'standalone')+r'\b',head):raise ValueError('Mixed statement basis')
     if latest.get('units_in')!='crore':raise ValueError('Baseline unit not crore')
     date=datetime.strptime(latest['period'],'%b %Y');year=date.year
-    # Current then prior year in the column heading; don't use the report cover year.
-    if not re.search(r'(?:31(?:st)?\s*mar(?:ch)?|mar(?:ch)?\s*31(?:st)?)\s*,?\s*'+str(year),head):raise ValueError('Annual balance date not matched')
+    # Normalize explicit dates, including numeric headings, without deriving a
+    # period from a cover or treating quarterly dates as an annual balance date.
+    day=calendar.monthrange(year,date.month)[1];month=date.strftime('%b').lower();full=date.strftime('%B').lower()
+    date_head=re.sub(r'\b(\d{1,2})[./-](\d{1,2})[./-](20\d{2})\b',lambda m: f'{int(m[1])} {calendar.month_abbr[int(m[2])].lower()} {m[3]}' if 1<=int(m[2])<=12 else m[0],head)
+    date_head=re.sub(r'(?<=\w)-(?=\w)',' ',date_head)
+    month_pattern='(?:'+month+'|'+full+')';day_pattern=str(day)+r'(?:st|nd|rd|th)?'
+    date_pattern=r'(?:'+day_pattern+r'\s*'+month_pattern+'|'+month_pattern+r'\s*'+day_pattern+r')\s*,?\s*'
+    if not re.search(date_pattern+str(year),date_head):raise ValueError('Annual balance date not matched')
     years=re.findall(r'\b20\d{2}\b',head)
-    if str(year-1) not in years or not re.search(str(year)+r'\s+(?:as\s+at\s+)?(?:31(?:st)?\s*mar(?:ch)?|mar(?:ch)?\s*31(?:st)?)?\s*,?\s*'+str(year-1),head):raise ValueError('Annual column order not verified')
-    if date.month!=3:raise ValueError('Unsupported PDF fiscal-year end')
+    if str(year-1) not in years or not re.search(str(year)+r'\s+(?:as\s+at\s+)?(?:'+date_pattern+r')?\s*'+str(year-1),date_head):raise ValueError('Annual column order not verified')
     currency=r'(?:rs\.?|inr|₹|`|rupees?)'
     units=[(name,scale) for name,scale in [('crore',1),('lakh',.01),('million',.1),('thousand',.0001)] if re.search(r'(?:\bin\s+(?:'+currency+r'\s+)?|\(\s*'+currency+r'[^\n]{0,15})'+name+r's?\b',head)]
     if len(units)!=1:raise ValueError('PDF units not explicit or ambiguous')
@@ -60,7 +69,7 @@ def parse_income(text,latest):
     for line in text.splitlines():
         m=re.search(r'\s{2,}('+NUM+r')\s{2,}('+NUM+r')\s*$',line)
         if not m:continue
-        label=re.sub(r'\s{2,}\d+(?:[a-z]|\([a-z]\)|\.\d+)?\s*$','',line[:m.start()].strip(),flags=re.I)
+        label=re.sub(r'\s{2,}'+NOTE_REF+r'\s*$','',line[:m.start()].strip(),flags=re.I)
         label=caption(label);label=re.sub(r'^[ivx]+[.)]?\s+','',label);label=re.sub(r'\s*\([ivx0-9+\-\s]+\)$','',label).strip()
         key='finance_costs' if label in ('finance costs','finance cost','finance cost (interest)','finance costs (interest)') else 'profit_before_tax' if label in ('profit before tax','profit/(loss) before tax','profit / (loss) before tax','profit (loss) before tax','profit/(loss) before taxation','profit before taxation') else None
         if key:
@@ -70,6 +79,26 @@ def parse_income(text,latest):
     if pbt is None or reported is None or abs(pbt-reported)>max(.015,abs(pbt)*.00002):raise ValueError('Annual income PBT anchor does not match')
     if finance is None or finance<0:raise ValueError('Explicit annual finance costs unavailable')
     return {'value':finance,'matched_profit_before_tax':reported,'source_units':unit,'conversion_to_crore':scale,'lines':lines}
+
+def parse_lease_note(text,latest):
+    """Read an explicit carrying-value closing balance, never a maturity total."""
+    normalized='\n'.join(line.strip() for line in text.splitlines())
+    start=re.search(LEASE_ROLLFORWARD,normalized,re.I)
+    if not start:raise ValueError('Explicit lease carrying-value reconciliation unavailable')
+    scope=re.split(r'\n\s*(?:\d{1,3}[.)]|[A-Z]\))\s+',normalized[start.start():3000+start.start()])[0]
+    closing=re.search(r'^\s*(?:closing balance|balance at the end of (?:the )?year)\s{2,}('+NUM+r')\s{2,}('+NUM+r')\s*$',scope,re.I|re.M)
+    if not closing:raise ValueError('Explicit lease closing balance unavailable')
+    scope=scope[:closing.end()]
+    if re.search(r'undiscounted|maturity analysis|contractual maturities',normalized[max(0,start.start()-100):start.start()]+scope,re.I):raise ValueError('Lease maturity amounts are not carrying balances')
+    # Keep the actual note heading and its own table dates/units. Do not borrow
+    # the balance sheet's basis or unit for an unlabelled note.
+    head='\n'.join(normalized[:start.start()].splitlines()[:4])
+    _,_,(unit,scale)=statement_context(head+'\n'+scope,latest,'lease_note')
+    value=amount(closing[1]);value=value*scale if value is not None else None
+    if value is None or value<0:raise ValueError('Lease closing balance is not numeric')
+    known=[latest.get(k) for k in ('current_lease_liabilities','non_current_lease_liabilities')]
+    if sum(v for v in known if isinstance(v,(int,float)) and v>=0)>value+.015:raise ValueError('Lease closing balance contradicts known components')
+    return {'value':value,'source_units':unit,'conversion_to_crore':scale,'line':closing[0].strip(),'method':'explicit_carrying_value_closing_balance'}
 
 def parse_balance(text,latest,allow_existing=False):
     """Two-column annual balance only; period, basis, scale and 2 anchors required."""
@@ -88,10 +117,13 @@ def parse_balance(text,latest,allow_existing=False):
         if not m:continue
         label=line[:m.start()].strip()
         # Drop a separate note-number column, never a value column.
-        label=re.sub(r'\s{2,}[\d]+(?:[a-z]|\([a-z]\)|\.[\d]+)?\s*$','',label,flags=re.I)
+        label=re.sub(r'\s{2,}'+NOTE_REF+r'\s*$','',label,flags=re.I)
         label=caption(label);value=amount(m.group(1))
         if label=='cash and cash equivalents':record('cash',value,line)
         if label in ('total equity','total equity (a)','total equity (1)'):record('equity',value,line)
+        if label in ('equity attributable to owners of the company','equity attributable to owners of the parent'):record('owners_equity',value,line)
+        if label in ('equity share capital','share capital'):record('share_capital',value,line)
+        if label=='other equity':record('other_equity',value,line)
         if label in ('non controlling interest','non-controlling interest','non-controlling interests'):record('nci',value,line)
         if label in ('borrowings','borrowings, current','borrowings, non-current') and section:record(section+'_borrowings',value,line)
         if label in ('lease liabilities','lease liability','lease obligations'):
@@ -100,7 +132,14 @@ def parse_balance(text,latest,allow_existing=False):
     def same(a,b):return a is not None and b is not None and abs(a-b)<=max(.015,abs(b)*.00002)
     if same(found.get('cash'),latest.get('cash_and_cash_equivalents')):matched.append('cash_and_cash_equivalents')
     equity=found.get('equity')
-    if same(equity,latest.get('equity')) or (equity is not None and found.get('nci') is not None and same(equity+found['nci'],latest.get('equity'))):matched.append('equity')
+    derived_equity=equity is None
+    if derived_equity:
+        # Explicit components can substantiate the equity anchor when a printed
+        # subtotal has no caption. Consolidated totals must include explicit NCI.
+        owners=found.get('owners_equity')
+        if owners is None and all(found.get(k) is not None for k in ('share_capital','other_equity')):owners=found['share_capital']+found['other_equity']
+        if owners is not None and (basis=='standalone' or found.get('nci') is not None):equity=owners+(found.get('nci') or 0)
+    if same(equity,latest.get('equity')) or (not derived_equity and equity is not None and found.get('nci') is not None and same(equity+found['nci'],latest.get('equity'))):matched.append('equity')
     borrow=[found.get(k+'_borrowings') for k in ('current','non_current')]
     if all(v is not None for v in borrow) and same(sum(borrow),latest.get('total_borrowings')):matched.append('total_borrowings')
     if len(matched)<2:raise ValueError('Fewer than two matching balance-sheet anchors')
@@ -126,7 +165,7 @@ def balance_text(page,clip=None):
             if not re.search(r'in\s+(?:lakh|crore|million|thousand)s?',joined,re.I):continue
             for span in spans:
                 glyph=span.get('text','').strip()
-                if span.get('font')=='ITFRupee' and glyph in ('H','C'):
+                if span.get('font')=='ITFRupee' and glyph in ('H','C','I'):
                     text=re.sub(r'(?<!\w)'+glyph+r'\s+(?=in\s+(?:lakh|crore|million|thousand)s?)','₹ ',text,flags=re.I)
     return text
 
@@ -136,9 +175,20 @@ def pdf_worker(pdf_path,context_path,output_path):
     if len(doc)>1200:raise ValueError('Annual report exceeds page limit')
     if context.get('require_pdf_isin') and not any(context['isin'] in re.sub(r'\s+','',p.get_text()) for p in doc):
         Path(output_path).write_text(json.dumps({'status':'unresolved','reason':'Company PDF does not contain the expected ISIN'}));return
-    candidates=[];issues=[];diagnostics=[];basis_context=None
+    candidates=[];issues=[];diagnostics=[];basis_context=None;lease_notes=[]
+    plain_pages=[p.get_text() for p in doc]
+    if latest.get('total_lease_liabilities') is None:
+        for j,plain in enumerate(plain_pages):
+            if not re.search(LEASE_ROLLFORWARD,' '.join(plain.split()),re.I):continue
+            page=doc[j];clips=[None]
+            if page.rect.width>page.rect.height*1.15:
+                w,h=page.rect.width,page.rect.height;clips.extend([pymupdf.Rect(0,0,w/2,h),pymupdf.Rect(w/2,0,w,h)])
+            for clip in clips:
+                try:
+                    note=parse_lease_note(balance_text(page,clip),latest);note['pages']=[j+1];lease_notes.append((note,j))
+                except ValueError:pass
     for i,page in enumerate(doc):
-        plain=page.get_text();low=' '.join(plain.lower().split())
+        plain=plain_pages[i];low=' '.join(plain.lower().split())
         audit=re.findall(r'report on the audit of (?:the )?(standalone|consolidated) financial statements',low[:6000])
         if len(set(audit))==1:basis_context=(audit[0],i)
         # Cheap text pass; expensive layout text only for actual statement pages.
@@ -151,6 +201,18 @@ def pdf_worker(pdf_path,context_path,output_path):
         for clip in clips:
             selected=[i];text=balance_text(page,clip);compact=' '.join(text.lower().split())
             if not re.search(r'\bbalance\s+sheet\b',compact[:1000]):continue
+            # A landscape sheet can contain two consecutive printed balance
+            # pages, rather than a balance sheet beside an income statement.
+            joined_spread=False
+            if clip is not None and clip.x0==0:
+                right=balance_text(page,pymupdf.Rect(page.rect.width/2,0,page.rect.width,page.rect.height))
+                right_head=' '.join(right.lower().split())[:700]
+                if re.search(r'balance\s+sheet\s*\(?cont',right_head) and not re.search(r'total\s+(?:equity and liabilities|liabilities and equity)',compact):
+                    # Both halves must state the same annual financial context.
+                    try:
+                        statement_context(text,latest);statement_context(right,latest)
+                        text+='\n'+right;compact=' '.join(text.lower().split());joined_spread=True
+                    except ValueError:pass
             if i+1<len(doc) and not re.search(r'total equity and liabilities|total liabilities and equity',compact):
                 following=balance_text(doc[i+1],clip)
                 if not re.search(r'statement of (?:profit|cash|changes)', ' '.join(following.lower().split())[:700]):text+='\n'+following;selected.append(i+1)
@@ -159,7 +221,10 @@ def pdf_worker(pdf_path,context_path,output_path):
                 text=basis_context[0]+'\n'+text;contextual=True
             try:
                 income_needed=latest.get('finance_costs') is None and latest.get('profit_before_tax') is not None
-                evidence=parse_balance(text,latest,allow_existing=income_needed);evidence['pages']=[n+1 for n in selected]
+                evidence=parse_balance(text,latest,allow_existing=income_needed or bool(lease_notes));evidence['pages']=[n+1 for n in selected]
+                if 'total_lease_liabilities' not in evidence['values'] and lease_notes and len({round(v['value'],6) for v,_ in lease_notes})==1 and sum(v for v in evidence['components'].values() if v is not None)<=lease_notes[0][0]['value']+.015:
+                    note,j=lease_notes[0];evidence['values']['total_lease_liabilities']=note['value'];evidence['value']=note['value'];evidence['lease_note_evidence']=note
+                    if j not in selected:selected.append(j);evidence['pages'].append(j+1)
                 if income_needed:
                     incomes=[];income_issues=[]
                     for j in range(i,min(i+3,len(doc))):
@@ -185,7 +250,7 @@ def pdf_worker(pdf_path,context_path,output_path):
                     evidence['basis_evidence_page']=basis_context[1]+1
                     evidence['basis_evidence']='Report on the audit of the '+basis_context[0]+' financial statements'
                     selected.append(basis_context[1])
-                evidence['layout']='full_page' if clip is None else 'left_half' if clip.x0==0 else 'right_half'
+                evidence['layout']='joined_balance_spread' if joined_spread else 'full_page' if clip is None else 'left_half' if clip.x0==0 else 'right_half'
                 candidates.append((evidence,selected))
             except ValueError as error:
                 issues.append(str(error));diagnostics.append({'page':i+1,'reason':str(error),'layout':'full_page' if clip is None else 'half_page'})
@@ -296,11 +361,18 @@ class AnnualReportSources:
         atomic_json(cache,result);return result
 
 def apply_report(details,report):
-    details['annual_report_check']=report
-    if report.get('status')!='verified':return details
+    previous=details.get('annual_report_check') or {}
+    if report.get('status')!='verified':
+        details['annual_report_attempt']=report
+        if previous.get('status')!='verified':details['annual_report_check']=report
+        return details
     evidence=report.get('evidence',{});latest=details.get('latest') or {}
     if any(latest.get(k)!=evidence.get(k) for k in ('period','statement_type','units_in')):return details
     if len(set(evidence.get('matched_fields',[])))<2:return details
+    if previous.get('status')=='verified' and previous.get('excerpt_sha256')!=report.get('excerpt_sha256'):
+        history=details.setdefault('annual_report_history',[])
+        if not any(r.get('excerpt_sha256')==previous.get('excerpt_sha256') for r in history):history.append(copy.deepcopy(previous))
+    details['annual_report_check']=report
     latest=copy.deepcopy(latest);filled=[]
     values=evidence.get('values',{'total_lease_liabilities':evidence.get('value')})
     for key,value in values.items():
@@ -322,6 +394,7 @@ def apply_report(details,report):
         latest.setdefault('sources',{})[key]={'source':'company_annual_report','source_url':report['source_url'],
            'observed_at':report['observed_at'],'raw_sha256':report['raw_sha256'],'evidence_path':report['evidence_path'],**evidence,'value':value}
         if key=='finance_costs':latest['sources'][key].update(evidence['income_evidence'])
+        if key=='total_lease_liabilities' and evidence.get('lease_note_evidence'):latest['sources'][key].update(evidence['lease_note_evidence'])
     latest['missing_fields']=[k for k in latest.get('missing_fields',[]) if k not in filled];details['latest']=latest
     details['missing_fields']=[k for k in details.get('missing_fields',[]) if k not in filled]
     from .provider import FUNDAMENTAL_REQUIRED_FIELDS
@@ -334,7 +407,11 @@ def retain_report(details,previous,symbol,isin):
     A changed financial context or changed anchors requires a fresh source check.
     The saved excerpt must still match its recorded SHA-256.
     """
-    report=previous.get('annual_report_check') or {}
+    reports=previous.get('annual_report_history',[])+[previous.get('annual_report_check') or {}]
+    for report in reports:details=_retain_one_report(details,previous,report,symbol,isin)
+    return details
+
+def _retain_one_report(details,previous,report,symbol,isin):
     if report.get('status')!='verified' or (report.get('symbol'),report.get('isin'))!=(symbol,isin):return details
     latest=details.get('latest') or {};old=previous.get('latest') or {};evidence=report.get('evidence') or {}
     if any(latest.get(k)!=evidence.get(k) for k in ('period','statement_type','units_in')):return details

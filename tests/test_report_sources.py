@@ -20,3 +20,11 @@ class ReportSourceTests(unittest.TestCase):
   response=Mock();response.text='''<a href="https://acglgoa.com/Annual-Report-2026.pdf">Annual Report 2026</a><a href="https://evil.example/Annual-Report-2026.pdf">Annual Report 2026</a><a href="https://acglgoa.com/Annual-Report-2024.pdf">Annual Report 2024</a>''';response.content=response.text.encode()
   with tempfile.TemporaryDirectory() as tmp,patch('marketdesk.report_sources.public_request',return_value=response):
    got=company_reports(Mock(),'INE451C01013',2026,Path(tmp));self.assertEqual(len(got),1);self.assertTrue(got[0]['require_pdf_isin'])
+ def test_legacy_http_company_links_upgrade_only_same_host(self):
+  response=Mock();response.text='<a href="http://3pland.com/Annual%20Report%202025-2026.pdf">Download</a><a href="http://evil.test/Annual-Report-2026.pdf">Annual report</a>';response.content=response.text.encode()
+  with tempfile.TemporaryDirectory() as tmp,patch('marketdesk.report_sources.public_request',return_value=response):
+   got=company_reports(Mock(),'INE105C01023',2026,Path(tmp));self.assertEqual(len(got),1);self.assertTrue(got[0]['fileName'].startswith('https://3pland.com/'))
+ def test_upload_year_does_not_override_older_financial_year(self):
+  response=Mock();response.text='<a href="https://acglgoa.com/2026/Annual-Report-2024-25.pdf">Annual Report 2024-25</a>';response.content=response.text.encode()
+  with tempfile.TemporaryDirectory() as tmp,patch('marketdesk.report_sources.public_request',return_value=response):
+   self.assertEqual(company_reports(Mock(),'INE451C01013',2026,Path(tmp)),[])

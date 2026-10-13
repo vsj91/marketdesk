@@ -5,7 +5,7 @@ returned as evidence in the repair report; they are not silently filled with zer
 """
 import json,re,threading,time
 from datetime import datetime,timezone
-from urllib.parse import urlsplit,urljoin
+from urllib.parse import urlsplit,urljoin,unquote
 import requests
 from bs4 import BeautifulSoup
 from .storage import ROOT,now
@@ -18,6 +18,13 @@ COMPANY_PAGES={
  'INE451C01013':'https://acglgoa.com/investors/annual-reports/',
  'INE757C01021':'https://www.addiindustries.com/annual-report/',
  'INE767A01016':'https://www.aartidrugs.com/reports-fillings-annual-reports',
+ 'INE021A01026':'https://www.asianpaints.com/AnnualReports.html',
+ 'INE105C01023':'https://3pland.com/',
+ 'INE495A01022':'https://www.dalmiasugar.com/investors/',
+ 'INE626Z01029':'https://www.hardwyn.com/annual-report/',
+ 'INE505Y01010':'https://vineetlabs.co.in/annual-reports.html',
+ 'INE550H01011':'https://www.supremeinfra.com/Supreme-Infrastructure-India-Limited/Investors/Annual-Reports',
+ 'INE248A01017':'https://www.itiltd.in/investors.php',
 }
 
 def public_request(session,url,**kwargs):
@@ -95,10 +102,18 @@ def company_reports(session,isin,year,folder):
     soup=BeautifulSoup(cached['html'],'html.parser');choices=[];seen=set()
     for a in soup.find_all('a',href=True):
         href=urljoin(url,a['href']);u=urlsplit(href)
+        # Old same-host links on an HTTPS investor page may still spell http.
+        # Upgrade those links; never downgrade TLS or follow an unreviewed host.
+        if u.scheme=='http' and u.hostname==urlsplit(url).hostname:
+            href=u._replace(scheme='https').geturl();u=urlsplit(href)
         if u.scheme!='https' or u.hostname!=urlsplit(url).hostname or not u.path.lower().endswith('.pdf'):continue
-        label=a.get_text(' ',strip=True)+' '+u.path
+        label=a.get_text(' ',strip=True)
+        # Malformed legacy HTML can nest hundreds of links in one anchor.
+        if len(label)>300:label=' '.join(str(t).strip() for t in a.find_all(string=True,recursive=False))
+        label+=' '+unquote(u.path)
         if not re.search(r'annual[\s_-]*report',label,re.I):continue
-        if year and not re.search(str(year)+r'|'+str(year-1)+r'\s*[-_/]\s*'+str(year)[-2:],label):continue
+        periods=[int(b) if len(b)==4 else int(a)//100*100+int(b) for a,b in re.findall(r'\b(20\d{2})\s*[-_/]\s*(20\d{2}|\d{2})\b',label) if (int(b) if len(b)==4 else int(a)//100*100+int(b))==int(a)+1]
+        if year and ((periods and year not in periods) or (not periods and not re.search(r'\b'+str(year)+r'\b',label))):continue
         if href in seen:continue
         seen.add(href);choices.append({'fileName':href,'provider':'Company website','index_url':url,'require_pdf_isin':True})
     return choices[:2]

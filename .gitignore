@@ -10,3 +10,6 @@ data/
 
 # Runtime data may be a symlink to the macOS Application Support directory.
 /data
+
+# The primary checkout uses the existing runtime Python environment.
+/.venv
