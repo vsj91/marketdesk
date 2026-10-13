@@ -9,6 +9,7 @@ def financial_reasons(f,observed,clock):
     reasons=[];annual=f.get('latest') or {};summary=f.get('summary') or {}
     if f.get('status')!='COMPLETE' or any(number(annual.get(k)) is None for k in FIELDS):reasons.append('Annual financial inputs incomplete')
     if f.get('source_conflicts'):reasons.append('Financial sources disagree')
+    if f.get('annual_conflict_recheck_required'):reasons.append('Annual-report correction requires re-verification')
     try:
         period=datetime.strptime(annual['period'],'%b %Y').date()
         if not 0<=(clock.astimezone(IST).date()-period).days<=550:reasons.append('Annual period is stale or future dated')

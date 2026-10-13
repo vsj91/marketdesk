@@ -153,7 +153,7 @@ def parse_balance(text,latest,allow_existing=False):
     if found.get('cash') is not None and found['cash']>=0:values['cash_and_cash_equivalents']=found['cash']
     if not allow_existing and not any(latest.get(k) is None for k in values):raise ValueError('No missing balance input safely recovered; explicit lease components may be unavailable')
     return {'value':value,'values':values,'period':latest['period'],'statement_type':basis,'units_in':'crore','source_units':unit,
-            'conversion_to_crore':scale,'source_currency':'INR','matched_fields':matched,'components':{k:v for k,v in found.items() if k.endswith('_lease')},'lines':evidence}
+            'conversion_to_crore':scale,'source_currency':'INR','matched_fields':matched,'balance_equity':equity,'borrowing_components':{k:v for k,v in found.items() if k.endswith('_borrowings')},'components':{k:v for k,v in found.items() if k.endswith('_lease')},'lines':evidence}
 
 def balance_text(page,clip=None):
     """Resolve only documented rupee-font glyphs next to an explicit unit label."""

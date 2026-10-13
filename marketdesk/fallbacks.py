@@ -96,7 +96,7 @@ def nse_annual(html,symbol,isin,url,year_offset=0,*,income_only=False):
             if re.fullmatch(r'\(\d+(?:\.\d+)?\)',text):text='-'+text[1:-1]
             val=number(text)
             if val is None:return None
-            sources[key]={'source':'nse_audited_filing','source_url':url,'label':label,'source_units':unit,'conversion_to_crore':scales[unit],'period_end':end.isoformat(),'statement_type':basis}
+            sources[key]={'source':'nse_audited_filing','source_url':url,'label':label,'reported_value':text,'rounding_quantum':scales[unit]*10**(-len(text.split('.')[1]) if '.' in text else 0),'source_units':unit,'conversion_to_crore':scales[unit],'period_end':end.isoformat(),'statement_type':basis}
             return val*scales[unit]
         except ValueError:return None
     for key,label in [('profit_before_tax','Total profit before tax'),('finance_costs','Finance costs')]:out[key]=get(income,label,ic,key)
