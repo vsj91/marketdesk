@@ -39,7 +39,7 @@ def lease_label(text):
                      'lease laibility','lease liablilities','lease liabilty','lease obligation','lease obligations',
                      'lease laibilities','lease liabiities','lease liabililty','lease liablility','lease liabitliy','lease libailities','lease liabliities','lease liab'}
 
-def nse_annual(html,symbol,isin,url,year_offset=0):
+def nse_annual(html,symbol,isin,url,year_offset=0,*,income_only=False):
     if len(html.encode())>2_000_000:raise ValueError('NSE document exceeds parsing limit')
     parser=Tables();parser.feed(html);tables=parser.tables
     def values(rows,label):
@@ -60,26 +60,33 @@ def nse_annual(html,symbol,isin,url,year_offset=0):
         return found[0]
     meta=choose('NSE Symbol','ISIN')
     if scalar(meta,'NSE Symbol')!=symbol or scalar(meta,'ISIN')!=isin or scalar(meta,'Class of security')!='Equity':raise ValueError('NSE filing identity mismatch')
-    currency=scalar(meta,'Description of presentation currency');unit=scalar(meta,'Level of rounding used in financial results')
+    currency=scalar(meta,'Description of presentation currency')
+    if income_only and currency=='INR (in Actuals)' and not has(meta,'Level of rounding used in financial results'):
+        currency,unit='INR','Rupees'
+    else:unit=scalar(meta,'Level of rounding used in financial results')
     scales={'Lakhs':.01,'Crores':1.,'Rupees':1e-7}
     if currency!='INR' or unit not in scales:raise ValueError('NSE currency/scale not verified')
     basis=scalar(meta,'Nature of report standalone or consolidated').lower()
     if basis not in ('standalone','consolidated'):raise ValueError('Unknown NSE statement basis')
-    def day(value):return datetime.strptime(value,'%d-%m-%Y').date()
+    def day(value):
+        for form in ('%d-%m-%Y','%d-%b-%Y'):
+            try:return datetime.strptime(value,form).date()
+            except ValueError:pass
+        raise ValueError('NSE reporting date not verified')
     start=day(scalar(meta,'Date of start of financial year'));end=day(scalar(meta,'Date of end of financial year'))
     if not 364<=(end-start).days<=366 or end>datetime.now(timezone.utc).date():raise ValueError('NSE annual period not verified')
     if scalar(meta,'Whether results are audited or unaudited for the Year to date for current period ended/year ended')!='Audited':raise ValueError('NSE annual filing is not audited')
     if year_offset not in (0,-1):raise ValueError('Unsupported comparative year')
     if year_offset:
         start=start.replace(year=start.year+year_offset);end=end.replace(year=end.year+year_offset)
-    income=choose('Total profit before tax','Finance costs');balance=choose('Total equity','Cash and cash equivalents')
+    income=choose('Total profit before tax','Finance costs');balance=[] if income_only else choose('Total equity','Cash and cash equivalents')
     def column(rows):
         starts=values(rows,'Date of start of reporting period');ends=values(rows,'Date of end of reporting period');audits=values(rows,'Whether results are audited or unaudited');bases=values(rows,'Nature of report standalone or consolidated')
         if len({len(starts),len(ends),len(audits),len(bases)})!=1:raise ValueError('NSE column dimensions mismatch')
         indices=[i for i,s in enumerate(starts) if day(s)==start and day(ends[i])==end and audits[i]=='Audited' and bases[i].lower()==basis]
         if len(indices)!=1:raise ValueError('NSE annual column not unique')
         return indices[0],len(starts)
-    ic,bc=column(income),column(balance)
+    ic,bc=column(income),None if income_only else column(balance)
     out=dict.fromkeys(FUNDAMENTAL_REQUIRED_FIELDS);sources={}
     def get(rows,label,col,key):
         try:
@@ -93,6 +100,14 @@ def nse_annual(html,symbol,isin,url,year_offset=0):
             return val*scales[unit]
         except ValueError:return None
     for key,label in [('profit_before_tax','Total profit before tax'),('finance_costs','Finance costs')]:out[key]=get(income,label,ic,key)
+    if income_only:
+        # Comparative income columns are independently dated and audited. A
+        # missing comparative balance column must not discard valid growth data.
+        for key,labels in [('revenue',('Revenue from operations','Total Revenue from operations')),('net_profit',('Total profit (loss) for period',))]:
+            found=[label for label in labels if has(income,label)]
+            if len(found)==1:out[key]=get(income,found[0],ic,key)
+        out.update(period=end.strftime('%b %Y'),period_end=end.isoformat(),statement_type=basis,units_in='crore',reporting_frequency='annual',sources=sources,source='nse_audited_filing',income_only=True)
+        return out
     for key,label in [('equity','Total equity'),('current_borrowings','Borrowings, current'),('non_current_borrowings','Borrowings, non-current'),('cash_and_cash_equivalents','Cash and cash equivalents')]:out[key]=get(balance,label,bc,key)
     # NBFC statements do not split borrowings into current/non-current sections.
     # Preserve components but require all explicit debt components before summing.
