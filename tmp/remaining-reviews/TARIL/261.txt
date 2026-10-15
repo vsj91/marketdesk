@@ -1,0 +1,57 @@
+      (iii)   Financial Risk Management Objectives
+        While ensuring liquidity is sufﬁcient to meet Group's operational requirements, the Group's Board of Directors also
+         monitors and manages key ﬁnancial risks relating to the operations of the Group by analysing exposures by degree
+        and magnitude of risks. These risks include market risk (including currency risk and price risk), credit risk and liquidity
+            risk.
+        Market Risk
+        Market risk is the risk of uncertainty arising from possible market price movements and their impact on the future
+        performance of a business. The major components of market risk are commodity price risk, foreign currency risk and
+          interest rate risk.
+        The primary commodity price risk that the group is exposed to include the price variations in the price of Copper and
+         Cold Rolled Grain Oriented Steel (CRGO). The mentioned components form a major part of manufacturing of
+         Transformers. The prices of these commodities lead to increase/ decrease in the cost of Transformers.
+        Foreign Currency Risk Management
+        The Group undertakes transactions denominated in different foreign currencies and consequently exposed to
+        exchange rate ﬂuctuations. Exchange rate exposures are managed within approved policy parameters.
+
+   The carrying amounts of the Company's unhedged foreign currency transactions at the end of the reporting
+   period are as follows                                                                                                                 (` in Cr)
+     Particulars                                                             Reporting Currency Amount
+                                                                                 2025-26             2024-25
+    Accounts Receivable
+       USD(Equivalent INR)                                                                       7.67                 33.04
+       AUD(Equivalent INR)                                                                                 11.62                   9.56
+       EURO(Equivalent INR)                                                                  7.90                 32.89
+    Account Payable
+       USD(Equivalent INR)                                                                    7.09                   13.66
+        SEK(Equivalent INR)                                                                     12.40                             -
+       EURO(Equivalent INR)                                                                  2.07                             -
+
+    Sensitivity to risk
+  A 5% strengthening of the INR against key currencies to which the Company is exposed would have led to approximately an
+    additional Rs 0.26 Cr gain in the Statement of Proﬁt and Loss. A 5% weakening of the INR against these currencies would have
+   led to an equal but opposite effect of Rs 0.26 Cr.
+    Interest Rate Risk
+     It is the risk that the fair value or future cash ﬂows of a ﬁnancial instrument will ﬂuctuate because of changes in market
+    interest rates. The Group’s exposure to the risk of changes in market interest rates relates primarily to the Group’s debt
+    obligations with ﬂoating interest rates.
+   Price Risk
+   The Group has deployed its surplus funds into units of mutual fund. The Group is exposed to NAV (net asset value) price risks
+    arising from investments in these funds. The value of these investments is impacted by movements in liquidity and credit
+    quality of underlying securities.
+  NAV price sensitivity analysis
+   The Sensitivity analysis below have been determined based on the exposure to NAV price risks at the end of the reporting
+    period. If NAV prices had been 1% higher/lower:
+   Proﬁt for the year ended 31st March 2026 would increase/decrease by Rs. 1.51 Cr (Previous Year Rs. 2.38 Cr ).
+   Liquidity Risk
+   The Group manages liquidity risk by maintaining sufﬁcient cash and cash equivalents and availability of funding through an
+   adequate amount of committed credit facilities to meet the obligations when due. Group monitors rolling forecasts of
+    liquidity position and cash and cash equivalents on the basis of expected cash ﬂows. In addition, liquidity management also
+    involves projecting cash ﬂows considering level of liquid assets necessary to meet obligations by matching the maturity
+   proﬁles of ﬁnancial assets & liabilities and monitoring balance sheet liquidity ratios.
+   The following tables detail the Group’s remaining contractual maturity for its non-derivative ﬁnancial liabilities with agreed
+   repayment periods. The information included in the tables have been drawn up based on the undiscounted cash ﬂows of
+   ﬁnancial liabilities based on the earliest date on which the Group can be required to pay. The tables include both interest and
+    principal cash ﬂows. The contractual maturity is based on the earliest date on which the Group may be required to pay.
+
+260  Transformers and Rectifers (India) Limited | Annual Report 2025-26

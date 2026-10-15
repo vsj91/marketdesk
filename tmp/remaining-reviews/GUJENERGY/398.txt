@@ -1,0 +1,54 @@
+                                                                              2025-2026
+                                                                          14 th ANNUAL REPORT
+
+              Notes to Consolidated Financial Statements for the year ended 31 st March, 2026
+
+         Note 58 Composite Scheme of Amalgamation and Arrangement ( "The Scheme") (Continued.....)
+                                                                                                                    (` in Crores)
+                                                                                         Gujarat Energy Ltd. (Standalone)
+                                     Balance Sheet Head                                      Post Merger
+                                                                        As at 31.03.2025 As at 01.04.2024
+         EQUITY AND LIABILITIES
+           Equity
+            Equity share Capital                                                                 63.10             63.10
+            Equity shares Capital pending issuance                                               124.54            124.54
+          Other Equity                                                                23,052.00         19,223.48
+            Total Equity                                                         23,239.64          19,411.12
+             Liabilities
+          Non-Current Liabilities
+             Financial Liabilities
+              Lease Liabilities                                                              106.98            108.79
+              Other financial liabilities                                                          22.41            23.07
+            Provisions                                                                           141.70            156.69
+           Deferred tax liabilities (Net)                                                               -            713.82
+          Other non-current liabilities                                                        124.24             110.59
+            Total Non-Current Liabilities                                             395.33          1,112.96
+          Current Liabilities
+             Financial Liabilities
+              Lease Liabilities                                                              34.38            32.29
+               Trade payables                                                              1,494.99            2,651.15
+              Other financial liabilities                                                         2,576.84          2,442.56
+          Other current liabilities                                                            684.51           442.66
+            Provisions                                                                     35.24            33.46
+           Current Tax Liabilities (Net)                                                                  0.13              8.58
+            Total Current Liabilities                                                   4,826.09          5,610.70
+          Non-Current Liabilities held for sale                                                        -               11.41
+            Total Liabilities                                                           5,221.42         6,735.07
+            Total EQUITY AND LIABILITIES                                             28,461.06        26,146.19
+
+           Capital Reserve on Business Combination:                                                                 (` in Crores)
+                                                         Particulars                                    As at 01.04.2024
+           Cancellation of Investment - Gujarat State Petronet Ltd's investments into Gujarat Energy Limited      (3,605.09)
+          (Formerly known as Gujarat Gas Limited) - 37,28,73,995 Equity Shares of ` 2 each (A)
+              Investment Cost                                                                                      (3,679.67)
+               Equity Share Capital - Face Value                                                                     74.58
+           Cancellation of Investment - Gujarat Energy Limited's (Formerly known as Gujarat Gas Limited)           (123.60)
+          Investments in Gujarat State Petroleum Corporation Ltd - 2,00,00,000 Equity Shares of ` 1 each (B)
+              Investment Cost                                                                                     (30.38)
+               Equity Share Capital - Face Value                                                                     2.00
+               Unrealized Loss on Investments accounted in OCI                                                            (101.41) LIMITED                Reversal of Deferred Tax Impact                                                                            6.19
+           Cancellation of Equity Share Capital - Issued by Gujarat State Petroleum Corporation Limited to          1,073.65
+          other shareholders - 10,73,65,40,264 Equity Shares of ` 1 each (C) ENERGY           Cancellation of Equity Share Capital - Issued by Gujarat State Petronet Limited to                      351.90
+          other shareholders - 35,19,06,106 Equity Shares of ` 10 each (D)
+           Equity Share (62,27,14,719) to be issued (at their face value) to                                     (124.54) GUJARAT       shareholders upon amalgamation * (E)
+           Capital Reserve on Business Combination: (A+B+C+D+E)                                          (2,427.68)390

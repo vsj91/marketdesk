@@ -1,0 +1,56 @@
+                                                                     STANDALONE FINANCIAL STATEMENTS
+
+
+26.3 Fair value hierarchy
+
+Valuation technique and key inputs
+
+Level 1 - Quoted prices (unadjusted) in an active markets for identical assets or liabilities.
+
+Level 2 – Inputs other than quoted prices included within Level 1 that are observable for the asset or liability, either directly (i.e. as
+           prices) or indirectly (i.e. derived from prices).
+
+Level 3 - Inputs for the assets or liabilities that are not based on observable market data (unobservable inputs).
+
+
+Quantitative disclosures of fair value measurement hierarchy for financial instruments as at March 31, 2026:
+
+                                   Date of         As at                  Fair value measurement using
+             Particulars
+                                       valuation    March 31, 2026      Level 1         Level 2         Level 3
+ Financial Assets:
+ Measured at fair value through
+ other comprehensive income
+ (FVOCI)
+ Investment in unquoted equity       March 31, 2026           206                -               -           206
+ shares #1
+ Measured at fair value through
+ statement of profit and loss
+ (FVTPL)
+ Investment in mutual funds          March 31, 2026           848           848               -                -
+
+ Total financial asset measured at                             1,054           848               -           206
+ fair value
+ Measured at amortised cost
+ Investment in tax free and           March 31, 2026           1,515           1,515               -                -
+ perpetual bonds (quoted)
+ Total financial asset measured at                             1,515          1,515               -                -
+ amortised cost
+ Financial Liabilities:
+ Measured at fair value through
+ other comprehensive income
+ (FVOCI)
+ Derivative instruments designated    March 31, 2026           455                -          455                -
+ in a hedging relationship#2
+ Measured at fair value through
+ statement of profit and loss
+ (FVTPL)
+ Financial guarantees (Level 3)        March 31, 2026                 -                -               -                -
+
+There have been no transfers among Level 1, Level 2 and Level 3 during the year ended March 31, 2026.
+
+
+
+
+
+                                                                                                  Annual Report 2025-26  | 293

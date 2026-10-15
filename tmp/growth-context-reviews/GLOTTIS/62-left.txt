@@ -1,0 +1,49 @@
+118   Glottis Ltd  | Annual Report 2025-26
+
+Notes
+forming part of the Audited Standalone Financial Statements for the year ended March 31, 2026
+                                                                              (Amounts in ₹ Lakhs, unless otherwise stated)
+
+            the Company which are outstanding          temporary differences, and the carry forward
+            during the period, other than borrowings            of unused tax credits and unused tax losses
+         made  specifically  towards  purchase          can be utilised. Where there is deferred tax
+              of the  qualifying  asset. The amount           assets arising from carry forward of unused
+              of borrowing cost that the Company           tax  losses and unused  tax  credit,  they
+              capitalises during the period does not           are recognised to the extent of deferred
+           exceed the amount of borrowing cost           tax liability.
+             incurred during that period.  All other                                                     The carrying amount of deferred tax assets is            borrowings costs are expensed in the                                                          reviewed at each reporting date and reduced            period in which they occur.                                                                 to the extent that it is no longer probable that
+              Interest income earned on the temporary             sufficient taxable profit will be available to
+            investment   of   specific  borrowings           allow all or part of the deferred tax asset to be
+           pending their expenditure on qualifying              utilised. Unrecognised deferred tax assets are
+             assets is deducted from the borrowing           re-assessed at each reporting date and are
+             costs eligible for capitalisation. All other          recognised to the extent that it has become
+            borrowing costs are recognised in the          probable that future taxable profits will allow
+            statement of profit and loss in the period          the deferred tax asset to be recovered.
+              in which they are incurred.                                                           Deferred  tax  assets  and   liabilities  are
+                                                    measured at the tax rates that are expected      j)  Taxes                                                                 to apply in the year when the asset is realised
+        Current income tax                                   or the liability is settled, based on tax rates
+                                                           (and tax laws) that have been enacted or        Current income  tax  assets and  liabilities                                                                 substantively enacted at the reporting date.         are measured at the amount expected to
+       be recovered from or paid to the taxation          Deferred tax relating to items recognised
+          authorities. The tax rates and tax laws used           outside profit or loss is recognised outside
+         to compute the amount are those that are             profit or loss (either in other comprehensive
+        enacted, at the reporting date in the countries         income or in equity). Deferred tax items are
+       where the Company operates and generates          recognised in correlation to the underlying
+         taxable income.                                       transaction either in OCI or directly in equity.
+        Current  income  tax  relating  to  items          Deferred tax assets and deferred tax liabilities
+        recognised outside profit or loss is recognised           are offset if a legally enforceable right exists
+        outside  profit  or  loss  (either  in  other           to set off current tax assets against current
+       comprehensive income or in equity). Current           tax liabilities and the deferred taxes relate
+         tax items are recognised in correlation to           to the same taxable entity and the same
+        the underlying transaction either in OCI or           taxation authority.
+          directly in equity. Management periodically                                                    Based on the level of historical taxable income         evaluates positions taken in the tax returns                                                   and projections for future taxable income over        with respect to situations in which applicable                                                           the periods in which the deferred income tax         tax regulations are subject to interpretation                                                               assets are deductible, management believes       and establishes provisions where appropriate.                                                                that the Company will realize the benefits of
+                                                          those deductible differences. The amount of    k)  Deferred tax                                                           the deferred income tax assets considered
+        Deferred tax  is provided using the liability             realizable, however, could be reduced  in
+       method on temporary differences between          the near term if estimates of future taxable
+        the tax bases of assets and  liabilities and         income during the  carry forward period
+          their carrying amounts for financial reporting           are reduced.
+        purposes at the reporting date.
+        Deferred tax liabilities are recognised for all          l)  Retirement and other employee
+         taxable temporary differences.                      benefits
+        Deferred tax assets are recognised to the          Short-term employee benefits
+        extent that it is probable that taxable profit                                              A   liability   is  recognised  for  short-term
+           will be available against which the deductible                                                     employee benefit in the period the related

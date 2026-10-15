@@ -1,0 +1,49 @@
+ Corporate Overview        Statutory Reports          Financial Statements                    149
+
+Notes
+forming part of the Audited Standalone Financial Statements for the year ended March 31, 2026
+                                                                              (Amounts in ₹ Lakhs, unless otherwise stated)
+
+                                                                                            Year ended      Year ended
+                                                                             March 31, 2026  March 31, 2025
+        Permanent differences                                                       21.24         10.20
+         Depreciation Timing difference                                                       (14.36)           (9.64)
+       CSR expenditure                                                            21.92         13.84
+        Employee benefits                                                           11.44         18.06
+          Effect of expenses that are not deductible in determining taxable profit                  (11.67)         29.50
+       Income tax expense                                                       1,308.64      1,972.53
+      c)  Income tax recognised in other comprehensive income
+         Tax on Remeasurement of defined benefit obligation                                 1.96           1.17
+          Total income tax recognised in other comprehensive income                       1.96          1.17
+44 Leases
+    The company has applied Ind AS 116 with the date of initial application of April 1, 2023. The company has
+    applied Ind AS 116 using the modified retrospective approach, under which the cumulative effect of initial
+    application is recognized in retained earnings at April 1, 2023.
+    The aggregate depreciation expense on ROU assets is included under depreciation and amortization
+    expense in the statement of Profit and Loss.
+
+   As Lessee
+    The Company has entered into operating lease. The Lease may be renewed based on mutual agreement of
+    the parties.
+
+      (i)  The table below provides details regarding the contractual maturities of lease liabilities as
+        at March 31, 2026 and March 31, 2025 on an undiscounted basis:
+                                                                                     As at           As at           Particulars                                                                             March 31, 2026  March 31, 2025
+          Less than one year                                                        938.47        101.94
+       One to five years                                                            1,471.64        235.26
+        More than five years                                                       202.97        260.96
+          Total                                                                    2,613.08        598.16
+      (ii) Amounts recognised in the statement of profit and loss
+       The statement of profit and loss shows the following amounts relating to leases:
+
+                                                                                     As at           As at           Particulars                                                                             March 31, 2026  March 31, 2025
+          Depreciation charge for right-of-use assets (Refer Note 31)                         42.67         25.78
+          Total                                                                    42.67         25.78
+
+                                                                                     As at           As at           Particulars                                                                             March 31, 2026  March 31, 2025
+           Interest expense (included in finance costs) (Refer Note 30)                         39.16         21.59
+         Expense relating to short-term leases (included in other expenses) (Refer Note         62.44         42.14
+         32)
+      (iii) Amounts recognized in cash flow statement
+                                                                                     As at           As at           Particulars                                                                             March 31, 2026  March 31, 2025
+          Total cash outflows for leases                                             129.30         76.47

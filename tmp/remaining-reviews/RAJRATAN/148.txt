@@ -1,0 +1,56 @@
+Standalone statement of Cash Flows for the year ended on March 31, 2026
+(CIN No. L27106MP1988PLC004778)
+
+                                                                                                                     (INR in Lakhs)
+ Particulars                                                            Year ended      Year ended
+                                                         March 31, 2026  March 31, 2025
+A. Cash flow from operating activities
+    Profit before tax                                                      5,966           6,265
+   Adjustments to reconcile profit before tax to net cash flows:
+   Depreciation and amortisation expense                                  1,643           1,275
+   Net (gain) / loss on sale/write off /impairment of property, plant and               (41)              (16)
+   equipment and other intangible assets
+   Finance costs                                                        2,397           2,127
+    Interest income                                                                 (91)              (84)
+    Provision / write off / (reversal) for doubtful trade receivables /                     (32)            4
+   advances/ other receivable
+   Sundry balances written back, net                                                       (1)                  (9)
+   Net foreign exchange differences (unrealised)                                 (128)                  (8)
+   Operating profit before working capital changes                         9,714           9,554
+   Movements in working capital:
+    (Increase)/ decrease in inventories                                   970           (3,057)
+    (Increase)/ decrease in trade receivables                                      (5,986)           (3,437)
+    (Increase)/ decrease in other assets                                          (122)            (564)
+    (Increase)/ decrease in other bank balances                                             (5)                  (5)
+    Increase / (decrease) in other liabilities                                430            (688)
+    Increase / (decrease) in provisions                                    90           28
+    Increase / (decrease) in trade payables                                       (645)           1,857
+   Bank Balances not considered as cash & cash equivalents:
+    Fixed Deposits/Margin money placed                                        (1,420)           (1,241)
+    Fixed Deposits/Margin money matured                                   1,241           1,170
+    Interest on Fixed Deposit Received                                   54           72
+   Cash generated from / (used in) operations                              4,321           3,689
+   Income tax (paid) / refund received (including interest on refunds)              (958)           (1,195)
+   Net cash generated from / (used in) operating activities (A)                 3,363           2,494
+B. Cash flow from investing activities
+   Payments for purchase of property, plant and equipment (including           (7,854)           (4,577)
+    capital work-in-progress, intangible assets and intangible assets
+   under development)
+   Proceeds from disposal of property, plant and equipment and               137           73
+    intangible assets
+   Loans / Inter corporate deposits
+   Given to
+   Others                                                                    (100)            (400)
+   Received back / matured from
+   Others                                                      100          400
+    Interest received                                                 4            4
+   Purchase of Investment                                                    (144)              (21)
+   Proceeds from State Investment Subsidy                              327          327
+    (Increase)/Decrease in capital advances                                      (1,046)            (111)
+   Net cash (used in) / from investing activities (B)                             (8,576)           (4,305)
+
+
+
+
+
+184 | Rajratan Global Wires Limited

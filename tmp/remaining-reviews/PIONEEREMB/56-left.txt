@@ -1,0 +1,57 @@
+  Notes to Standalone Financial Statements
+    for the year ended March 31, 2026
+
+
+          Provisions, Contingent Liabilities and Contingent Assets.      2.21 Cash and Cash Equivalents
+        The costs are included in the related right-of-use asset.
+                                                                 Cash and cash equivalents comprise cash at bank and in
+       ROU assets are depreciated over the shorter period of        hand and short-term deposits with an original maturity of
+         the lease term and useful life of the underlying asset. If         three months or less.
+         the company is reasonably certain to exercise a purchase
+                                                                       For the purposes of the Cash Flow Statement, cash and          option, the right-of-use asset  is depreciated over the
+                                                                    cash equivalents is as defined above, net of outstanding         underlying asset’s useful life. The depreciation starts at the
+                                                               bank overdrafts. In the balance sheet, bank overdrafts are       commencement date of the lease.
+                                                          shown within borrowings in current liabilities.
+        The ROU assets are not presented as a separate line in the
+                                                                               2.22 Government Grants and Subsidies         Balance Sheet but presented below similar owned assets as
+         a separate line in the PPE note under “Notes forming part of                                                                      Grants from the government are recognised at their fair
+         the Financial Statement”.                                                                         value where there is reasonable assurance that the grant
+                                                                                                 will be received and the Company will comply with  all        The Company applies Ind AS 36- Impairment of Assets
+                                                                      attached conditions.         to determine whether a right-of-use asset is impaired
+        and accounts for any identified impairment loss as per its                                                              Government grants that compensate the Company for
+         accounting policy on ‘property, plant and equipment’.                                                                   expenses incurred are recognised in the Statement of
+                                                                                   Profit and Loss, as income or deduction from the relevant        As a practical expedient, Ind AS 116 permits a lessee not to
+                                                                        expense, on a systematic basis in the periods in which the         separate non-lease components when bifurcation of the
+                                                                  expense is recognised.        payments is not available between the two components,
+        and instead account for any lease and associated non-                                                     When the government grant relates to the non-monetary
+          lease components as a single arrangement. The Company                                                                         asset where there is reasonable assurance that the grant
+         has used this practical expedient.                                                                                                 will be received, the asset is disclosed by deducting the
+                                                          same from carrying amount of that asset and the grant is         Extension and termination options are included in many of
+                                                                  then recognised in profit or loss over the useful life of the         the leases. In determining the lease term the management
+                                                                          depreciable asset by way of a reduced depreciation charge.         considers  all facts and circumstances that create an
+                                                                   Other Government grants relating to the purchase of plant        economic incentive to exercise an extension option, or not
+                                                              and equipment are included in noncurrent liabilities as          exercise a termination option.
+                                                                        deferred income and are credited to the statement of Profit
+     2.20 Earning per share                                        and Loss on a straight – line basis over the expected lives of
+                                                                              related assets and presented within other income.
+        The basic EPS is computed by dividing the profit after tax
+          for the year attributable to the equity shareholders by the      2.23 Segment Reporting
+         weighted average number of equity shares outstanding
+                                                                      Operating segments are reported in a manner consistent         during the year
+                                                                       with the internal reporting provided to the chief operating
+         For the purpose of calculating diluted EPS, profit after tax          decision maker. The board of directors of the Company has
+          for the year attributable to the equity shareholders and the        been identified as being the chief operating decision maker
+         weighted average number of equity shares outstanding        by the Management of the Company. The Business activity of
+         during the year are adjusted for the effects of all dilutive         the company falls within one business segment viz “Textile”.
+          potential equity shares. Dilutive potential equity shares
+                                                                           2.24 Recent Amendments         are deemed converted as of the beginning of the period,
+         unless they have been issued at a later date. In computing                                                                             Ministry of Corporate Affairs (“MCA”) notifies new standards
+         the dilutive earnings per share, only potential equity shares                                                                         or amendments to the existing standards under Companies
+         that are dilutive and that either reduces the earnings per                                                                                 (Indian Accounting  Standards)  Rules  as  issued from
+         share or increases loss per share are included.                                                                     time to time. In August 2025, MCA notified the following
+                                                           amendments to the existing standard:
+
+
+
+
+106      34th Annual Report 2025-26

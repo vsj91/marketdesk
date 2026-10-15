@@ -1,0 +1,67 @@
+Notes
+to the standalone financial statements for the year ended March 31, 2026
+(All amounts are in Indian Rupees in Crores except share data and unless otherwise stated)
+
+
+       Trade payables Ageing Schedule
+
+        Particulars                                                       March 31, 2026
+                                                       Outstanding for following periods from due date of payment
+                                                  < 1 year    1-2 years   2-3 years   > 3 years     Total
+        Total outstanding dues of micro enterprises and small         116.81              -              -              -         116.81
+        enterprises
+        Total outstanding dues of creditors other than micro     642.83            6.11          1.57        5.75     656.26
+        enterprises and small enterprises
+       Disputed dues of micro enterprises and small enterprises               -              -              -              -              -
+       Disputed dues of creditors other than micro enterprises              -              -              -              -              -
+      and small enterprises
+                                                         759.64          6.11         1.57        5.75     773.07
+
+
+        Particulars                                                       March 31, 2025
+                                                       Outstanding for following periods from due date of payment
+                                                  < 1 year    1-2 years   2-3 years   > 3 years      Total
+        Total outstanding dues of micro enterprises and small        112.22              -              -              -        112.22
+        enterprises
+        Total outstanding dues of creditors other than micro      458.45          1.93          2.41       4.49      467.28
+        enterprises and small enterprises
+       Disputed dues of micro enterprises and small enterprises               -              -              -              -              -
+       Disputed dues of creditors other than micro                          -              -              -              -              -
+        enterprises and small enterprises
+                                                          570.67         1.93         2.41       4.49     579.50
+
+23   Contract liabilities
+
+                                                                           March 31, 2026  March 31, 2025
+       A. Non current (refer note below)
+       Contract liability - Invoicing in excess of revenue recorded                               374.90           129.88
+                                                                                      374.90          129.88
+
+
+        B. Current (refer note below)
+      Advance from customers                                                                     34.51            14.45
+       Contract liability - Invoicing in excess of revenue recorded                                60.55             13.82
+                                                                                      95.06          28.27
+
+       Note: - Contract liabilities includes mobilisation advances received from customers to supply and install meters under
+      AMISP model and unearned revenue recorded to recognise revenue in accordance with Ind AS 115.
+
+      Breakup of financial liabilities carried at amortised cost
+
+                                                                           March 31, 2026  March 31, 2025
+       Borrowing (refer note 16A and 16B)                                                        2,291.84         1,364.60
+       Other financial liabilities (refer note 18A and 18B)                                          103.53          99.09
+       Trade payables (refer note 22)                                                         773.07         579.50
+       Lease liability (refer note 17)                                                                   2.72               1.28
+                                                                                                             3,171.16       2,044.47
+
+24   Current tax liabilities (net)
+
+
+                                                                           March 31, 2026  March 31, 2025
+        Provision for income tax (net of advance tax)                                                 58.41           28.22
+                                                                                                58.41          28.22
+
+
+
+180    Annual Report 2025-26

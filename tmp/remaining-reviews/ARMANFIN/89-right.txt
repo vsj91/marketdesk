@@ -1,0 +1,56 @@
+  Corporate Overview      Statutory Reports       Financial Statements                           173
+
+
+
+     the expected life of the financial instrument or, when              ii)   FVOCI
+     appropriate, a shorter period, to the net carrying amount              iii)  FVTPL
+     of the financial asset.
+                                                           3.3  Financial assets and liabilities    The EIR (and therefore, the amortised cost of the asset)                                                                                                                                                                                                                                                      Statements                                                            A.   Financial assets
+       is calculated by taking into account any discount or
+                                                             Business model assessment    premium on acquisition, fees and costs that are an integral
+     part of the EIR. The Group recognises interest income       The Group determines its business model at the level that                                                                                                                                                                                                                                                                                                                                                                                                                              Financial
+     using a rate of return that represents the best estimate        best reflects how it manages groups of financial assets to
+     of a constant rate of return over the expected life of the        achieve its business objective. The Group’s business model
+      financial instrument.                                                            is not assessed on an instrument-by-instrument basis, but
+                                                                         at a higher level of aggregated portfolios and is based on        If expectations regarding the cash flows on the financial        observable factors such as:                                                                                                                                                       Consolidated
+     asset are revised for reasons other than credit risk, the
+     adjustment is booked as a positive or negative adjustment          a.  How the performance of the business model and                                                                                                                                                                                                                                      Arman
+     to the carrying amount of the asset in the balance sheet            the financial assets held within that business model
+     with an increase or reduction in interest income. The             are evaluated and reported to the Group’s key
+     adjustment is subsequently amortised through Interest          management personnel.
+    income in the statement of profit and loss.
+                                                                               b.   The risks that affect the performance of the business
+B.   Interest income                                          model (and the financial assets held within that
+                                                                       business model) and, in particular, the way those    The Group calculates interest income by applying EIR to
+                                                                                       risks are managed.     the gross carrying amount of financial assets other than
+      credit impaired assets. When a financial asset becomes                                                                                            c.   managers of the business are compensated  (for
+      credit impaired and  is, therefore, regarded as ‘stage  3’,                                                                   example, whether the compensation is based on
+     the Group calculates interest income on the net basis. If                                                                     the  fair value of the assets managed or on the
+     the financial asset cures and is no longer credit impaired,                                                                          contractual cash flows collected).
+     the Group reverts to calculating interest income on a
+     gross basis.                                                            d.   The expected frequency, value and timing of sales
+                                                                          are also important aspects of the Group’s assessment.
+3.2  Financial instrument - initial recognition
+A.  Date of recognition                                     The business model assessment is based on reasonably
+                                                             expected scenarios without taking ‘worst case’ or ‘stress    Debt securities issued are initially recognised when they
+                                                                          case’ scenarios into account.  If cash flows after  initial     are originated. All other financial assets and financial
+                                                                    recognition are realised in a way that is different from the       liabilities are initially recognised when the Group becomes
+                                                                  Group’s original expectations, the Group does not change     a party to the contractual provisions of the instrument.
+                                                                the classification of the remaining financial assets held in
+B.    Initial measurement of financial instruments                  that business model, but incorporates such information
+                                                   when assessing newly originated or newly purchased    The  classification  of  financial  instruments  at  initial
+                                                                            financial assets going forward.     recognition depends on their contractual terms and the
+     business model for managing the instruments (Refer                                                            SPPI test
+     note 3.3(A)). Financial instruments are initially measured
+                                                           As a second step of its classification process, the Group     at their fair value (as defined in Note 3.8), except in the
+                                                                    assesses the contractual terms of  financial assets to     case of financial assets and financial liabilities recorded at
+                                                                           identify whether they meet SPPI test.     FVTPL, transaction costs are added to, or subtracted from
+      this amount.                                                                                 ‘Principal’ for the purpose of this test is defined as the
+                                                                                         fair value of the financial asset at initial recognition andC.  Measurement  categories  of  financial  assets and
+                                                  may change over the life of financial asset (for example,      liabilities
+                                                                                                                 if there are repayments of principal or amortisation of the
+    The Group classifies all of its financial assets based on the                                                         premium/ discount).
+     business model for managing the assets and the asset’s
+     contractual terms, measured at either:                       The most significant elements of interest within a lending
+                                                            arrangement  are  typically the  consideration  for the
+         i)   Amortised cost                                                              time value of money and credit risk. To make the SPPI

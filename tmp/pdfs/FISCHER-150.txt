@@ -1,0 +1,59 @@
+Corporate Overview     Statutory Report     Standalone Financial Statements     Consolidated Financial Statements     Notice
+Notes Forming part of the Standalone
+FOR THE YEAR ENDED 31ST MARCH 2026
+                                                                                                      (All amounts in INR lakhs, unless otherwise stated)
+D.  Movements in the Fair Value of Plan Assets
+
+      Particulars                                                                                  31st March, 2026     31st March, 2025
+      Fair Value of Plan Assets at the Beginning of the Year                                                            -                              -
+       Interest Income                                                                       0.07                              -
+      Contributions by the Employer                                                                             1.01                              -
+      Return on Plan Assets, Excluding Interest Income                                                                       -                              -
+      Fair Value of Plan Assets at the End of the Year                                          1.07                              -
+E.  Amount as per Balance Sheet
+
+      Particulars                                                                                  31st March, 2026     31st March, 2025
+      (Present Value of Benefit Obligation at the end of the Year                                         (7.92)                              -
+       Fair Value of Plan Assets at the End of the Year                                                  1.07                              -
+     Net (Liability)  / Asset Recognised in the Balance Sheet                                -6.85                              -
+F.   Sensitivity Analysis
+
+      Particulars                                                                                  31st March, 2026     31st March, 2025
+     Defined Benefit Obligations on Current Assumptions                                        7.92                              -
+      Delta Effect of +1% Change in Rate of Discounting                                                   (0.74)                              -
+      Delta Effect of -1% Change in Rate of Discounting                                        0.82                              -
+      Delta Effect of +1% Change in Rate of Salary Increase                                     0.88                              -
+      Delta Effect of -1% Change in Rate of Salary Increase                                               (0.78)                              -
+      Delta Effect of +1% Change in Rate of Employee Turnover                                       (0.30)                              -
+      Delta Effect of -1% Change in Rate of Employee Turnover                                  0.32                              -
+
+    The sensitivity analysis have been determined based on reasonably possible changes of the respective assumptions
+     occurring at the end of the reporting period, while holding all other assumptions constant.
+
+     Furthermore, in presenting the above sensitivity analysis, the present value of the defined benefit obligation has been
+     calculated using the projected unit credit method at the end of the reporting period, which is the same method as applied
+      in calculating the defined benefit obligation as recognised in the Balance Sheet
+G.   Maturity Profile of Defined Benefit Obligation
+
+      Particulars                                                                                  31st March, 2026     31st March, 2025
+      Project Benefits Payable in Future Years From the Date of Joining
+           1st Following Year                                                                              0.01                              -
+      2nd Following Year                                                                                0.41                              -
+       3rd Following Year                                                                    0.40                              -
+        4th Following Year                                                                     0.53                              -
+        5th Following Year                                                                         0.76                              -
+    Sum of Years 6 to 10                                                                     3.67                              -
+    Sum of Years 11 and above                                                                 13.28                              -
+
+    Other employee benefits:
+
+    Other employee benefits comprise of leave encashment and sick leave which are provided for, based on the actuarial
+     valuation carried out as at the end of the year.
+
+    The Company provides for leave encashment benefits, which are classified as both short-term and long-term employee
+     benefits depending on when the benefits are expected to be settled.
+
+
+
+
+Fischer Medical Ventures Limited                                                                                 171

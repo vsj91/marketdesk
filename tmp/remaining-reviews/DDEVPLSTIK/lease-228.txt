@@ -1,0 +1,64 @@
+                                                                                                 for the year ended 31st March, 2026Notes to the financial statements
+
+
+49 VALUE OF IMPORTS ON CIF BASIS
+                                                                                                                                         (` In Lacs)
+
+     Particulars                                                            As at            As at
+                                                                                                             31st March, 2026       31st March, 2025
+    Raw Materials                                                                          48,345.61              41,654.14
+     Stors, Spare parts and Components                                                       129.93              235.56
+     Capital Goods                                                                            1,056.49               1,616.80
+
+     Total                                                                          49,532.03          43,506.50
+
+50 EARNING IN FOREIGN CURRENCY (ACCRUAL BASIS)
+                                                                                                                                         (` In Lacs)
+
+     Particulars                                                            As at            As at
+                                                                                                             31st March, 2026       31st March, 2025
+     Exports at FOB Value                                                                     71,789.06            55,090.13
+
+     Total                                                                                 71,789.06            55,090.13
+
+51  EXPENDITURE IN FOREIGN CURRENCY (ACCRUAL BASIS)
+                                                                                                                                         (` In Lacs)
+
+     Particulars                                                            As at            As at
+                                                                                                             31st March, 2026       31st March, 2025
+      Selling & Distribution expenses                                                            1,065.97               978.77
+      Travelling Expenses                                                                          38.13                0.23
+     Professional & Consultancy Charges                                                     32.58                48.18
+     Research & Development Expenses                                                     62.84                26.77
+     Others                                                                                         73.21               179.08
+
+     Total                                                                                    1,272.73             1,233.03
+
+52 LEASES
+
+   The Company’s lease asset classes primarily consist of leases for land, buildings, machinery and warehouses.
+
+      •   The company didn’t recognized Right to Use and Lease liabilities for lease for which the lease terms pertaining to the
+        uncancellable period ends within 12 months on the date of initial transition and low value assets.
+
+      •   The Company excluded initial direct cost from measurement of the Right to Use assets at the date of initial application.
+
+      •   The Company uses hindsight in determining the lease term where the contract contains options to extend or terminate
+        the lease.
+
+    Hence, the Company has recognised the lease payments associated with those leases as an expense on a straight line basis
+    over the lease term. Lease liabilities were measured at the present value of remaining lease payments, discounted at the
+    Company’s acturial discounting rate. Right to Use is measured at an amount equal to the lease liability adjusted by the amount
+    of any prepaid or accrued lease payments.”
+
+    Following are the changes in the carrying value of right of use assets for the year ended March 31, 2026:
+                                                                                                                                         (` In Lacs)
+
+     Particulars                                                                                                      Total
+
+     Balance as at 31st March 2024 (Gross)                                                                      130.74
+     Additions for the year                                                                                    504.78
+
+     Balance as at 31st March 2025 (Gross)                                                                  635.52
+
+242    Annual Report 2025-26

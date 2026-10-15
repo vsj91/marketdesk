@@ -265,6 +265,148 @@ class AutoTradingTests(unittest.TestCase):
   rules=self.engine.snapshot()['rules']['investor']
   self.assertEqual(rules['max_round_trip_fee_pct'],.5)
   self.assertIn('actual filled value',rules['risk']);self.assertEqual(rules['stop_pct'],10)
+ def enable_investor_portfolio_cap(self):
+  self.increase_investor_capacity()
+  with connect(self.path) as db:
+   cfg=get_state(db,'auto_config');cfg['investor']['portfolio_risk_cap_pct']=3;set_state(db,'auto_config',cfg)
+ def set_investor_buy_target(self):
+  self.enable_investor_portfolio_cap()
+  with connect(self.path) as db:
+   cfg=get_state(db,'auto_config');cfg['investor'].update(buy_target_inr=3500,max_round_trip_fee_pct=2.5);set_state(db,'auto_config',cfg)
+ def test_investor_target_sizes_future_buy_preserves_existing_holding_and_exit(self):
+  self.set_investor_buy_target();self.add_stock('HELD')
+  with connect(self.path) as db:
+   db.execute("INSERT INTO positions VALUES('investor','HELD',100,10200)")
+   db.execute("UPDATE portfolios SET cash=cash-10200 WHERE name='investor'")
+  self.run_cycle()
+  buys=self.trades('investor');self.assertEqual(len(buys),1)
+  cost=buys[0]['quantity']*buys[0]['price']+buys[0]['fee']
+  self.assertGreater(cost,3200);self.assertLessEqual(cost,3500)
+  with connect(self.path) as db:
+   held=db.execute("SELECT quantity,cost FROM positions WHERE portfolio='investor' AND symbol='HELD'").fetchone()
+   self.assertEqual(tuple(held),(100,10200))
+  self.engine=AutoTrading(self.path)
+  rules=self.engine.snapshot()['rules']['investor']
+  self.assertEqual(rules['buy_target_inr'],3500);self.assertEqual(rules['position_pct'],10)
+  self.assertEqual(rules['stop_pct'],10);self.assertEqual(rules['portfolio_risk_cap_pct'],3)
+  self.set_price('HELD',90);self.run_cycle()
+  sells=[r for r in self.trades('investor') if r['side']=='SELL']
+  self.assertEqual([(r['symbol'],r['quantity']) for r in sells],[('HELD',100)])
+ def test_investor_target_rechecked_at_fill_keeps_fee_check(self):
+  self.set_investor_buy_target()
+  with self.assertRaisesRegex(ValueError,'Position budget'):self.investor_order(qty=40)
+  with self.assertRaisesRegex(ValueError,'Buy too small'):self.investor_order(qty=1)
+  self.assertEqual(self.trades('investor'),[])
+  # A target changed while depth is fetched must be re-read before committing.
+  with connect(self.path) as db:
+   cfg=get_state(db,'auto_config');cfg['investor']['buy_target_inr']=5000;set_state(db,'auto_config',cfg)
+  def changed_target(path,symbol):
+   with connect(path) as db:
+    cfg=get_state(db,'auto_config');cfg['investor']['buy_target_inr']=3500;set_state(db,'auto_config',cfg)
+   return fixture_book(path,symbol)
+  with patch('marketdesk.paper.fetch_book',side_effect=changed_target):
+   with self.assertRaisesRegex(ValueError,'Position budget'):self.investor_order(qty=40)
+ def test_investor_target_does_not_override_portfolio_risk_or_trader_budget(self):
+  from marketdesk.autotrading import buy_budget,RULES
+  self.seed_investor_over_cap();self.set_investor_buy_target();self.run_cycle()
+  self.assertEqual(self.trades('investor'),[])
+  self.assertEqual(self.engine.snapshot()['status']['investor']['state'],'risk_wait')
+  account={'cash':100000,'initial_cash':100000}
+  self.assertEqual(buy_budget('trader',account,RULES['trader'],{'buy_target_inr':3500}),10000)
+  self.assertEqual(buy_budget('investor',{'cash':2000,'initial_cash':100000},RULES['investor'],{'buy_target_inr':3500}),2000)
+ def seed_investor_over_cap(self):
+  self.enable_investor_portfolio_cap();self.add_stock('HELD')
+  with connect(self.path) as db:
+   db.execute("INSERT INTO positions VALUES('investor','HELD',3000,306000)")
+   db.execute("UPDATE portfolios SET cash=694000 WHERE name='investor'")
+ def test_investor_cap_blocks_new_buys_preserves_holdings_and_stop_exit(self):
+  self.seed_investor_over_cap();self.run_cycle()
+  self.assertEqual(self.trades('investor'),[])
+  status=self.engine.snapshot()['status']['investor']
+  self.assertEqual(status['state'],'risk_wait');self.assertGreater(status['portfolio_risk']['risk_pct'],3)
+  with self.assertRaisesRegex(ValueError,'portfolio risk cap'):self.investor_order(qty=300)
+  self.set_price('HELD',90);self.run_cycle()
+  sells=[r for r in self.trades('investor') if r['side']=='SELL']
+  self.assertEqual([(r['symbol'],r['quantity']) for r in sells],[('HELD',3000)])
+  self.assertIn('10% loss threshold',sells[0]['reason'])
+ def test_investor_cap_keeps_trend_exit_above_stop(self):
+  self.seed_investor_over_cap();self.signals['HELD']['dma200']=103;self.run_cycle()
+  sells=[r for r in self.trades('investor') if r['side']=='SELL']
+  self.assertEqual([r['symbol'] for r in sells],['HELD']);self.assertIn('200-day average',sells[0]['reason'])
+ def test_investor_cap_sizes_down_and_preserves_fee_filter(self):
+  from marketdesk.autotrading import investor_portfolio_risk
+  self.enable_investor_portfolio_cap()
+  with connect(self.path) as db:
+   cfg=get_state(db,'auto_config');cfg['investor']['max_round_trip_fee_pct']=.5;set_state(db,'auto_config',cfg)
+  for i in range(5):self.add_stock('NEW'+str(i))
+  self.run_cycle();self.run_cycle()
+  buys=self.trades('investor');self.assertEqual(len(buys),3)
+  self.assertLess(buys[2]['quantity'],buys[0]['quantity'])
+  for buy in buys:self.assertLessEqual(json.loads(buy['execution'])['buy_cost_check']['estimated_round_trip_fee_pct'],.5)
+  with connect(self.path) as db:
+   risk=investor_portfolio_risk(db,self.clock)
+   self.assertLessEqual(risk['risk'],risk['limit']);self.assertGreater(risk['risk_pct'],2.95)
+ def test_investor_cap_rechecked_after_depth_fetch(self):
+  self.enable_investor_portfolio_cap();self.add_stock('HELD')
+  def changed(path,symbol):
+   book=fixture_book(path,symbol)
+   with connect(path) as db:
+    db.execute("INSERT INTO positions VALUES('investor','HELD',3000,306000)")
+    db.execute("UPDATE portfolios SET cash=694000 WHERE name='investor'")
+   return book
+  with patch('marketdesk.paper.fetch_book',side_effect=changed):
+   with self.assertRaisesRegex(ValueError,'portfolio risk cap'):self.investor_order(qty=300)
+  with connect(self.path) as db:
+   self.assertEqual(db.execute('SELECT COUNT(*) FROM trades').fetchone()[0],0)
+   self.assertEqual(db.execute('SELECT COUNT(*) FROM depth_used').fetchone()[0],0)
+ def test_investor_cap_uses_partial_fill_and_actual_fees(self):
+  from marketdesk.autotrading import investor_portfolio_risk,investor_stop_risk
+  self.enable_investor_portfolio_cap();self.add_stock('HELD')
+  with connect(self.path) as db:
+   db.execute("INSERT INTO positions VALUES('investor','HELD',2400,244800)")
+   db.execute("UPDATE portfolios SET cash=755200 WHERE name='investor'")
+  with self.assertRaisesRegex(ValueError,'portfolio risk cap'):self.investor_order(qty=900)
+  def partial(path,symbol):
+   book=fixture_book(path,symbol);book['depth']['sell'][0]['quantity']=3000;return book
+  with patch('marketdesk.paper.fetch_book',side_effect=partial):filled=self.investor_order(qty=900)
+  self.assertEqual(filled['quantity'],300)
+  with connect(self.path) as db:
+   risk=investor_portfolio_risk(db,self.clock)
+   self.assertLessEqual(risk['risk'],risk['limit'])
+   cost=db.execute("SELECT cost FROM positions WHERE portfolio='investor' AND symbol='TEST'").fetchone()[0]
+   self.assertAlmostEqual(risk['risk'],investor_stop_risk(244800)+investor_stop_risk(cost))
+ def test_investor_cap_persists_without_changing_trader_or_other_rules(self):
+  before=self.engine.snapshot();self.enable_investor_portfolio_cap()
+  self.engine=AutoTrading(self.path);self.engine.configure('investor',False);self.enable('investor')
+  after=self.engine.snapshot();self.assertEqual(after['config']['investor']['portfolio_risk_cap_pct'],3)
+  self.assertEqual(after['rules']['investor']['portfolio_risk_cap_pct'],3)
+  self.assertEqual(after['rules']['investor']['stop_pct'],10);self.assertEqual(after['rules']['investor']['daily_loss_pct'],2)
+  self.assertEqual(after['rules']['trader'],before['rules']['trader']);self.assertEqual(after['config']['trader'],before['config']['trader'])
+ def test_investor_cap_keeps_budget_daily_halt_and_freshness_checks(self):
+  self.enable_investor_portfolio_cap()
+  with self.assertRaisesRegex(ValueError,'Position budget'):self.investor_order(qty=1000)
+  with connect(self.path) as db:
+   db.execute("INSERT INTO auto_days VALUES('investor',?,1000000,1)",(self.clock.astimezone(IST).date().isoformat(),))
+  with self.assertRaisesRegex(ValueError,'Daily loss'):self.investor_order(qty=300)
+  with connect(self.path) as db:db.execute('UPDATE quotes SET trade_time=trade_time-60000')
+  with self.assertRaisesRegex(ValueError,'live trade price'):self.investor_order(qty=300)
+ def test_investor_cost_risk_includes_fees_once_and_respects_boundary(self):
+  from marketdesk.autotrading import investor_stop_risk,investor_buy_fits
+  from marketdesk.execution import charges
+  # 100000 is the entire remaining fee-inclusive cost basis.
+  self.assertAlmostEqual(investor_stop_risk(100000),10000+charges(90000,'SELL',True)['total']+500)
+  cost=10200+charges(10200,'BUY')['total'];added=investor_stop_risk(cost);after=1000000-charges(10200,'BUY')['total']
+  risk={'equity':1000000,'risk':after*.03-added-.01,'cap_pct':3}
+  self.assertTrue(investor_buy_fits(100,102,102,risk))
+  risk['risk']+=.02;self.assertFalse(investor_buy_fits(100,102,102,risk))
+ def test_investor_cap_uses_stale_valuation_policy_and_blocks_prior_session(self):
+  from marketdesk.autotrading import investor_portfolio_risk
+  self.enable_investor_stale_valuation()
+  with connect(self.path) as db:
+   cfg=get_state(db,'auto_config');cfg['investor']['portfolio_risk_cap_pct']=3;set_state(db,'auto_config',cfg)
+   self.assertIsNotNone(investor_portfolio_risk(db,self.clock))
+   db.execute("UPDATE quotes SET trade_time=trade_time-86400000 WHERE symbol='JNKINDIA'")
+   with self.assertRaisesRegex(ValueError,'no fresh price'):investor_portfolio_risk(db,self.clock)
  def test_both_portfolios_buy_separately_and_repeated_cycles_do_not_duplicate(self):
   self.enable();self.enable('investor');self.run_cycle();self.run_cycle()
   for p in ['trader','investor']:

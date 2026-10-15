@@ -1,0 +1,60 @@
+Schaeffler India Limited | Integrated Annual Report 2025
+
+Notes to the Consolidated Financial Statements
+for the year ended December 31, 2025
+
+    Sensitivity Analysis
+    The following table summarises the impact in percentage terms on the reported defined benefit obligation at the end of
+    the reporting period arising on account of an increase or decrease in the reported assumption by 100 basis points:
+
+                                                                                                                        (` in million)
+ Holding Company                                         As at December 31, 2025   As at December 31, 2024
+                                                                    Increase     Decrease      Increase     Decrease
+ Discount rate (100 bps movement on DBO)                          (6.72%)      7.65%      (6.41%)      7.29%
+ Salary escalation rate (100 bps movement on DBO)                  6.86%      (6.40%)      7.24%      (6.49%)
+
+                                                                                                                        (` in million)
+ Subsidiary Company                                       As at December 31, 2025   As at December 31, 2024
+                                                                    Increase     Decrease      Increase     Decrease
+ Discount rate (100 bps movement on DBO)                          (7.92%)      9.12%    (12.50%)     10.44%
+ Salary escalation rate (100 bps movement on DBO)                  8.99%      (7.96%)     11.62%    (10.18%)
+
+These sensitivities have been calculated to show the movement in defined benefit obligation in isolation and assuming there are no other
+changes in market conditions at the accounting date. There have been no changes from the previous periods in the methods and assumptions
+used in preparing the sensitivity analyses. Sensitivities due to mortality and withdrawals are not material and hence impact of change due to
+these not calculated.
+
+    The major categories of plan assets are as follows
+                                                                                                                        (` in million)
+                                                                      As at December 31, 2025
+                                                                   Quoted      Unquoted            Total
+ Insurer managed funds (Life Insurance Corporation)                                                      -        1,017.3        1,017.3
+ Others                                                                                                                      -             2.3             2.3
+
+    Maturity profile of defined benefit obligations:
+                                                                                                                        (` in million)
+ Year                                                                      As at December  As at December
+                                                                                           31, 2025        31, 2024
+ Year 1                                                                                247.8          216.3
+ Year 2                                                                                130.8          125.3
+ Year 3                                                                                135.6           96.0
+ Year 4                                                                                113.6          101.0
+ Year 5                                                                                112.2           80.2
+ Year 6                                                                                   92.9           83.8
+ Year 7                                                                                   88.0           65.6
+ Year 8                                                                                   94.9           65.8
+ Year 9                                                                                   91.8           70.1
+ Year 10 and above                                                                       1,251.8          940.0
+
+
+    Characteristics of defined benefit plans and risks associated with them:
+    Valuations of defined benefit plan are performed on certain basic set of pre-determined assumptions and other regulatory
+    framework which may vary over time. Thus, the Group is exposed to various risks in providing the above benefit plans
+    which are as follows:
+      (i)  Interest Rate Risk: The plan exposes the Group to the risk of fall in interest rates. A fall in interest rates will result in
+       an increase in the ultimate cost of providing the above benefit and will thus result in an increase in the value of the
+           liability (i.e. value of defined benefit obligation).
+
+
+
+337

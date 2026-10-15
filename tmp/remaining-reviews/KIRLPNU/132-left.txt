@@ -1,0 +1,53 @@
+                  vi.  Based on our examination, which included test                accessed using a common login by multiple users.
+                 checks, the Holding Company has used accounting                 Furthermore, we did not observe any instance of the
+                software for maintaining its books of account which                  audit trail feature being tampered with during the
+               has a feature of recording audit trail (edit log) facility.                course of our audit. Also, the Subsidiary Company
+              The audit trail feature was found to be operational               has preserved the audit trail as per the statutory
+                throughout the year for most relevant transactions.                 requirements for record retention.
+                   In the case of stock adjustments recorded in ERP
+                                                                                3.    In our opinion and to the best of our information and according
+                system, while history is available, user identification
+                                                                              to the explanations given to us, managerial remuneration for
+                    details were not recorded. Further, during the course
+                                                                    the year ended 31st March, 2026 has been paid/provided
+                  of our audit we did not come across any instance
+                                                              by the Holding Company to its directors in accordance with
+                  of audit trail feature being tampered with. Also, the
+                                                                    the provisions of Section 197 read with Schedule V, to the
+                 Holding Company has preserved the Audit Trail as
+                                                                         extent applicable.
+                 per the statutory requirements for record retention.
+                                                                                  In respect of the subsidiary company, the remuneration paid
+              Based on our examination, the Subsidiary Company
+                                                                               to certain directors is in excess of the limits prescribed under
+               has used accounting software that has the feature
+                                                                    Section 197 of the Act; however, the same is in compliance
+                  of recording an audit trail (edit log) and that the
+                                                                      with the provisions of Schedule V to the Act and has been duly
+             same has been enabled and operational throughout
+                                                                 approved by the shareholders by way of a special resolution.
+                 the year for all relevant transactions recorded in the
+               books of account. However, we note that in certain      The Ministry of Corporate Affairs has not prescribed other
+                  instances, user-level identification of changes could         details under Section 197(16) of the Act which are required to
+                not be distinctly established, as the system was       be commented upon by us.
+
+
+
+
+
+  For Kirtane & Pandit LLP
+  Chartered Accountants
+  Firm Registration No.105215W/W100057
+
+
+  Anand Jog
+  Partner
+  Membership No.: 108177
+  UDIN: 26108177XQAWPJ8220
+  Pune, 27th April, 2026
+
+
+
+
+
+258          Kirloskar Pneumatic Company Limited | A Kirloskar Group Company

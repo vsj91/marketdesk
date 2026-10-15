@@ -1,0 +1,52 @@
+(Currency : Indian Rupees in Lakhs unless otherwise stated)
+
+
+
+                                                                                                                                        191
+
+
+
+
+ Particulars                                               Balance as at March 31, 2025                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         Statements
+                                     Net     Recognised Recognised   Opening      Net      Deferred    Deferred
+                                     balances       in the        in OCI    Adjustment               tax asset       tax                                         at April 01,  statement                                                                     liabilities                Financial
+                                  2024      of profit                                                    3.
+                                             and loss
+ Property, plant and equipments              78.90     (1,953.86)              -              -     (1,874.96)              -     (1,874.96)
+ Investment property                        8,175.93     (8,175.93)              -              -              -              -              -
+ Investments                                     (57.35)        57.35              -              -              -              -              -
+ Trade receivables                          90.39       (90.39)              -              -              -              -              -
+ Other financial assets                         1,147.68      (1,147.68)              -              -              -              -              -
+ Unabsorbed depreciation loss or                     -     5,030.22              -              -     5,030.22     5,030.22              -
+ Business loss
+ Deferred tax assets on Ind AS                         -      954.25     (400.92)              -      553.33      553.33              -
+ adjustment
+ Ind AS 115                                  860.14       (68.46)              -              -       791.68       791.68              -
+ Ind AS 116                                              -           1.77              -              -           1.77           1.77              -
+ Other financial liabilities                      (134.94)       134.94              -              -              -              -              -
+ Employee benefit obligations                48.62       251.88          1.09              -       301.59       301.59              -
+ Tax assets (liabilities) before set-off      10,209.37    (5,005.91)     (399.83)             -    4,803.63     6,678.59    (1,874.96)
+ Set-off of deferred tax liabilities                                                                                1,874.96
+ Net deferred tax assets/ (liabilities)                                                                    4,803.63
+(e) Unrecognised deferred tax assets
+     Deferred tax have not been recognised in respect of the following items :
+
+
+ Particulars                                                      Expiry                   As at                As at
+                                                                           March 31, 2026         March 31, 2025
+ Unabsorbed depreciation                                    Never Expire                     185.13                   166.56
+ Tax effect of unrecognised tax depreciation carried forward                                     46.60                     41.92
+
+
+ Unrecognised tax losses carried forward
+                                                       AY 2029-30                       119.81                       119.81
+                                                        AY 2030-31                    770.16                    770.16
+                                                        AY 2031-32                   991.43                   991.43
+                                                       AY 2032-33                 2,182.00                 2,182.00
+                                                       AY 2033-34                3,802.52                3,802.52
+                                                       AY 2034-35                    1,315.70                            -
+                                                                                                       9,181.62                 7,865.92
+ Tax effect of unrecognised tax losses carried forward                                                  2,311.01                  1,979.69
+
+
+ Unrecognised tax losses carried forward                                                            2,357.61                   2,021.61

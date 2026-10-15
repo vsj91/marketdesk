@@ -1,0 +1,59 @@
+  Corporate Overview       Statutory Reports       Financial Statements                           367
+
+Statement of Profit & Loss
+for the year ended March 31, 2026                                                                                     (₹ in Lakhs)
+
+                                                         Note   For the year ended    For the year ended Particulars                                                               No.      31st March, 2026       31st March, 2025
+ (1)  Revenue from operations
+       Interest Income                                               19                 37,382.92               44,894.71
+      Gain on assignment of Financial Assets                            20                  2,978.05                4,039.36
+      Fees and Commission Income                                   21                  2,541.50                1,985.57
+     Net gain on Fair Value Changes                                  22                   384.90                 643.29
+     Net Gain on Sale of financial instrument                         23                                    -                3,675.00
+      Total Revenue from operations (1)                                                43,287.38             55,237.94
+  (2)  Other Income                                                24                      0.07                                  -
+ (3)  Total Income (1+2)                                                              43,287.44             55,237.94
+ (4)  Expenses
+      Finance Costs                                                25                 15,119.55               20,001.01
+     Impairment of Financial Assets                                   26                 12,325.63               23,523.57
+     Employee Benefits Expenses                                    27                  9,361.35                7,538.38
+      Depreciation and Amortization                                  28                   128.89                 142.04
+      Others expenses                                              29                  4,334.99                3,029.10
+      Total Expenses (4)                                                              41,270.41             54,234.10
+ (5)  Profit / (loss) before exceptional items and tax (3-4)                                  2,017.03              1,003.84
+       (1) Current Tax                                                30                    96.90                 566.00
+       (2) Short/(excess) Provision of Income Tax/Deferred Tax of earlier        30                                    -                 131.87
+      years
+       (3) Deferred Tax Liability / (Assets)                                30                   631.77                  (478.72)
+      Total Expenses (4)                                                               728.67               219.15
+ (7)  Profit/(loss) for the period (5-6)                                                    1,288.36               784.69
+ (8)  Other Comprehensive Income
+       (A)  (i)   Items that will not be classified to Profit or loss
+                      - Remeasurement of Defined Benefit Obligations-                                    34.48                   20.55
+               Income/(Expense)
+                 (ii)  Income tax relating to items that will not be                                                (8.68)                      (5.17)
+                 reclassified to profit or loss
+      Subtotal (A)                                                                       25.80                 15.38
+       (B)   (i)   Items that will be reclassified to profit or loss
+                      - Fair Value Gain/(loss) on financial Assets                                            (531.43)                 233.89
+              measured through OCI
+                  (ii)  Income tax relating to items that will be                                          133.75                   (58.87)
+                 reclassified to profit or loss
+      Subtotal (B)                                                                          (397.68)               175.02                                                                                                                                                                                                                                                                                                                                  Limited
+     Other Comprehensive Income (A + B)                                                  (371.88)               190.40
+(9)   Total Comprehensive Income for the period (7+8) (Comprising                         916.48                 975.09
+      Profit (Loss) and other Comprehensive Income for the period)                                                                                                                                                                                                                                                                                                                                  Finance
+(10)  Earnings per equity share (Face Value D 10 per Equity Share)
+      Basic (C )                                                     31                      2.44                    1.51      Diluted (C )                                                   31                      2.44                    1.51            Namra
+See accompanying notes to the financial statements               1 to 51
+As per our report of even date attached herewith
+For, Talati & Talati LLP,                                    For & on behalf of the Board of Directors of
+Chartered Accountants                                      Namra Finance Limited
+[Firm Regd. No. 110758W/W100377]
+                                          Jayendra Patel                    Chirag Vora
+[Kushal Talati]                               Whole-time Director                  Chief Financial Officer
+Partner                                        (DIN -00011814)
+[M.No.188150]
+                                          Aalok Patel                       Urvish Karathiya
+Place: Ahmedabad                           Chairman & Managing Director      Company Secretary
+Date: May 27, 2026                              (DIN - 02482747)                    (M.No. A69313)

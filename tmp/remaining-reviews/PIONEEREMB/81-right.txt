@@ -1,0 +1,57 @@
+Consolidated Statement of Profit & Loss
+for the Year Ended March 31, 2026
+
+
+                                                                                                                                            (` in lakhs)
+
+                                                                                 For the year ended    For the year ended
+ Particulars                                                      Note
+                                                                             March 31, 2026       March 31, 2025
+ Income
+
+ Revenue from Operations                                           30                 33,605.05              37,506.36
+ Other Income                                                                  31                     683.18              630.04
+ Total Income                                                                                     34,288.23              38,136.40
+ Expenses
+
+ Cost of Materials Consumed                                               32                 20,040.18               21,579.88
+ Purchases of Stock-in-Trade                                                                           659.14                   318.13
+ Changes in Inventories of Finished Goods, Stock-in-trade and Work-in-
+                                                                        33                    274.26                820.93
+ progress
+ Employee Benefits Expenses                                           34                   3,958.93              4,268.80
+ Finance Costs                                                           35                      929.15                959.59
+ Depreciation and Amortization Expenses                                   3                      1,481.79                  1,565.12
+ Other Expenses                                                      36                      7,310.31                 7,993.47
+ Total Expenses                                                                                    34,653.76               37,505.92
+ Profit before Exceptional and Extraordinary Items and Tax                                                (365.53)               630.48
+
+ Exceptional Items - Income/(Loss) (Net)                                     37                   441.80                     -
+ Profit before Share of Profit/(Loss) of Associates                                                        76.27               630.48
+
+ Share of Profit/(Loss) of Associates                                                                                   (2.58)                     (3.70)
+ Profit before Tax                                                                                     73.69                626.78
+ Tax Expenses                                                       38
+ Current Tax                                                                                                   11.05                     -
+ Income Tax for earlier years                                                                                          9.15                   0.65
+ Deferred Tax Charge / (Credit)                                                                                           (6.72)                 180.31
+ Profit for the year (A)                                                                              60.22               445.82
+ Other Comprehensive Income
+
+ Items that will not reclassified to Profit or Loss
+ Remeasurement of defined benefit plan                                                               55.34                   9.46
+ Income tax impact on above item                                                                                 (15.40)                      (2.63)
+ Other Comprehensive Income for the year (B)                                                        39.94                   6.83
+ Total Comprehensive Income for the year (A+B)                                                       100.16                452.65
+ Profit / (Loss) for the year attributable to:
+
+ Owners of the Company                                                                                     61.25               448.63
+ Non controlling interests                                                                                               (1.04)                       (2.81)
+ Other Comprehensive Income attributable to:
+
+ Owners of the Company                                                                             39.94                   6.83
+
+
+
+
+                                                                                        Pioneer Embroideries Limited     157

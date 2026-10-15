@@ -1,0 +1,65 @@
+                                                                                                                                          Corporate Overview         Statutory Reports
+
+
+STANDALONE STATEMENT OF CASH FLOWS             STANDALONE STATEMENT OF CASH FLOWS
+FOR THE YEAR ENDED MARCH 31, 2026                                                     FOR THE YEAR ENDED MARCH 31, 2026
+
+(Currency : Indian Rupees in lakhs)                                                                                          (Currency : Indian Rupees in lakhs)
+
+ Particulars                                                 For the year ended For the year ended                        Particulars                                                 For the year ended For the year ended
+                                                           March 31, 2026     March 31, 2025                                                                              March 31, 2026     March 31, 2025
+A  CASH FLOW FROM OPERATING ACTIVITIES                                                        C  CASH FLOW FROM FINANCING ACTIVITIES
+      Profit / (loss) before tax                                                 29,920.15           5,259.09                         Proceeds from issue of shares (including securities premium              21,240.68          25,282.42
+    Adjustments for :                                                                                             and net off share issue expenses)
+     Interest income on financial assets                                        (1,26,251.66)         (1,19,654.44)                         Proceeds from bank borrowings                                         1,07,704.78         2,83,399.66
+     Finance costs                                                              62,116.06          74,083.99                       Repayments towards bank borrowings                                       (1,81,777.51)       (2,47,604.83)
+     Depreciation and amortisation expense                                 2,886.54            3,061.80                         Proceeds from issuance of Non-Convertible Debentures                 1,15,000.00           1,15,558.54
+      (Profit) / Loss on sale of property plant and equipment                       (8.35)              (4.40)                       Repayments towards Non-Convertible Debentures                    (1,60,507.00)        (1,14,300.00)
+    Impairment on financial instruments                                          1,14,321.86            13,752.34                         Proceeds from Commercial Papers                                64,000.00         1,32,000.00
+     Provision for employee benefits                                           1,005.76              351.55                       Repayments towards Commercial Papers                            (97,500.00)        (86,300.00)
+    Employee share based payment expense                                           1,158.31           2,203.70                       Payment of lease liabilities                                                              (1,131.16)           (1,060.52)
+    Net gain on fair value changes                                         (1,20,638.97)           (3,244.16)                       Net cash generated from/(used in) financing activities (C)           (1,32,970.21)         1,06,975.27
+    Net gain on derecognition of financial instruments measured                           -           (5,529.92)                       Net Increase in cash and cash equivalents (A) + (B) + (C)               (5,999.31)        (29,580.93)
+     at amortised cost category                                                                                      Cash and Cash Equivalents at the beginning of the year                 9,192.46          38,773.39
+                                                                    (35,490.30)        (29,720.45)                       Cash and Cash Equivalents at the end of the year                          3,193.15           9,192.46
+     Interest income realised on financial assets                                1,23,961.34            1,15,375.32                           Reconciliation of cash and cash equivalents with the balance
+     Finance costs paid                                                    (53,855.25)         (69,788.94)                          sheet
+    Cash generated from operating activities before working              34,615.79          15,865.93                       Cash on hand                                                    406.44            533.99
+     capital changes                                                                                                          Balances with banks
+     Adjustments:                                                                                                                                                  - in current accounts                                                         2,786.71             1,656.32
+     (Increase)/Decrease in loans and advances                            (98,276.45)         (1,75,031.30)                          Deposits with original maturity of less than three months                                -             7,002.15
+     (Increase)/Decrease in other financial assets                             6,280.22          26,804.65                           Total                                                                       3,193.15           9,192.46
+     (Increase)/Decrease in other non-financial assets                        209.46              1,412.59                   See accompanying notes forming part of the financial statements 1 to 48
+     Increase/(Decrease) in trade payable                                       (0.88)              (122.27)
+     Increase/(Decrease) in other financial liabilities                         (25,795.70)                18,519.11
+                                                                                                                                                                    In terms of our report attached                For and on behalf of the Board of Directors of
+     Increase/(Decrease) in other non-financial liabilities                              17.33              20.24
+                                                                                                                                 For M S K A & Associates LLP                 IndoStar Capital Finance Limited
+    Cash generated from/(used in) operating activities                  (82,950.23)         (1,12,531.05)
+                                                                                                                                                (formerly known as M S K A & Associates)
+     Taxes (paid) / refund                                                   (15,958.86)             6,401.41
+                                                                                                                                   Chartered Accountants
+    Net cash generated from/(used in) operating activities (A)          (98,909.09)       (1,06,129.64)                         ICAI Firm Registration Number: 105047W/W101187
+B  CASH FLOWS FROM INVESTING ACTIVITIES
+    Purchase of property, plant and equipment                             (869.00)             (2,155.81)                       Tushar Kurani                              Naina Krishna Murthy             Randhir Singh
+     Sale of property, plant and equipment                                      74.35                6.79                         Partner                                     Non-Executive Independent        Managing Director &
+                                                                                                                          Membership No. 118580                       Chairperson                       Executive Vice Chairman
+    Purchase of intangible assets                                           (560.67)             (245.14)
+                                                                                                                                                                                           DIN: 01216114                       DIN: 05353131
+     Proceeds/(Investment) in bank deposits of maturity greater               5,222.06          (3,384.76)
+     than 3 months (net)
+                                                                                                                                                                          Jayesh Jain                      Shikha Jain
+     (Acquisition)/redemption of investments measured at FVTPL              30,961.51         (29,545.44)                                                                                                                                                                                                Chief Financial Officer           Company Secretary
+     (net)
+     (Acquisition)/redemption of investments measured at FVOCI             14,567.50           (14,471.43)                           Place: Sorrento, Italy                             Place: Mumbai
+     (net)                                                                                                                                                Date: May 27, 2026                             Date: May 27, 2026
+     (Acquisition)/redemption of investments measured at                    5,889.24           19,369.23
+     amortised cost (net)
+    Proceeds from sale of subsidiary                                       1,70,595.00                        -
+    Net cash generated from/(used in) investing activities (B)           2,25,879.99        (30,426.56)
+
+
+
+
+
+190                                                                                                                                                                              191

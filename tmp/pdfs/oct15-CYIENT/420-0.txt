@@ -1,0 +1,53 @@
+                                                                    CONSOLIDATED FINANCIAL STATEMENTS
+
+
+Quantitative disclosures of fair value measurement hierarchy for assets and liabilities as at March 31, 2026:
+
+                                                                                                Fair value measurement using
+                   Particulars                Date of valuation        Total
+                                                                                  Level 1     Level 2     Level 3
+
+ Financial Assets:
+
+ Measured at fair value through other
+ comprehensive income (FVOCI)
+ Investments in other equity instruments         March 31, 2026            503           -             -      503
+ (unquoted) #1
+ Measured at fair value through statement of
+ profit and loss (FVTPL)
+ Investment in preferred instruments of other     March 31, 2026            238           -             -      238
+ entities (unquoted) #1
+ Investment in Partnership fund (unquoted) #1      March 31, 2026            674           -             -      674
+
+ Investment in mutual funds (quoted)            March 31, 2026            1,159      1,159             -           -
+
+ Total financial asset measured at fair value                                2,574      1,159            -     1,415
+
+ Measured at amortised cost
+
+ Investment in tax free and perpetual bonds       March 31, 2026            1,515      1,515             -           -
+ (quoted)
+ Total financial asset measured at amortised                               1,515      1,515            -          -
+ cost
+ Financial Liabilities:
+
+ Measured at fair value through other
+ comprehensive income (FVOCI)
+ Derivative instruments designated in a hedging   March 31, 2026
+                                                                  471           -        471           -
+ relationship#2
+ Measured at fair value through statement of
+ profit and loss (FVTPL)
+ Liability towards acquisition of business#1        March 31, 2026            306           -             -      306
+
+ Total financial liabilities measured at Fair
+                                                                  777           -        471      306
+ value
+
+There have been no transfers between Level 1, Level 2 and Level 3 during the year ended March 31, 2026.
+
+
+
+
+
+                                                                                                  Annual Report 2025-26  | 419

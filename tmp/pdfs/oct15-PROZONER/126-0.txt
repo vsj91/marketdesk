@@ -1,0 +1,48 @@
+                         PROZONE REALTY LIMITED           3. Financial Statements
+                            ANNUAL REPORT 2025-26                                 (Currency : Indian Rupees in Lakhs unless otherwise stated)
+
+
+     Notes to the consolidated financial statements228
+       as at March 31, 2026 (contd...)
+
+
+
+            iii)  The future minimum lease payments for non-cancellable operating lease are as follows:
+
+             Particulars                                                             March 31, 2026         March 31, 2025
+            Within less than 1 year                                                                   82.94                   82.94
+           Between one and five years                                                            225.94                 308.88
+             Later than five years                                                                                        -                            -
+
+         iv)  Amount recognized in statement of profit and loss account
+
+             Particulars                                                             March 31, 2026         March 31, 2025
+              Interest expense on lease liability                                                         26.34                    19.60
+             Depreciation on ROU asset                                                               65.90                    18.30
+
+          Leases as lessor
+
+                     i)   The group has given its retail Mall situated at Aurangabad and Coimbatore on lease/ Leave and licence. The cancellable leases
+                are renewable by mutual consent on mutually agreeable terms. The lease income recognised in the statement of profit and loss
+                    is Rs 7,823.93 lakhs (31 March 2025: 7,436.87 lakhs)
+
+                     ii)  The minimum rentals receivable on leases of investment properties are as follows:
+
+             Particulars                                                             March 31, 2026         March 31, 2025
+            Within less than 1 year                                                                      1,709.64                  847.25
+           Between one and five years                                                            884.69                 289.29
+             Later than five years                                                                                        -                            -
+    Note 52 : IND AS 115 - Revenue from Contracts with Customers
+      a)  Disaggregation of revenue from contracts with customers
+          The Group believes that the information provided under Note 31 - Revenue from operations & Note 41 - Segment reporting, best
+            depicts how the nature, amount, timing and uncertainty of revenue and cash flows are affected by industry, market and other
+          economic factors.
+      b)  Reconciliation of contract assets and contract liabilities and its significant changes
+
+             Particulars                                                             March 31, 2026         March 31, 2025
+           Advance from contract customers (contract liability)
+            At the beginning of the year                                                               19,099.08                22,296.15
+             Additional advances received (net of refund)                                               5,322.27                   2,821.77
+           Performance obligation satisfied during the year                                               (6,492.19)                  (5,818.25)
+            Cumulative catch up adjustments to revenue affecting contract liability                        1,769.87                  (200.59)
+            At the end of the year                                                                   19,699.03                19,099.08

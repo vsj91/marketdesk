@@ -1,0 +1,57 @@
+168  Glottis Ltd  | Annual Report 2025-26                                                                                              Corporate Overview        Statutory Reports          Financial Statements                    169
+
+Audited Consolidated Cash Flow Statement
+for the year ended March 31, 2026
+
+
+                                                                            (Amounts in ₹ Lakhs, unless otherwise stated)                                                                                                     (Amounts in ₹ Lakhs, unless otherwise stated)
+                                                                                                             For the year                                                                                                                                       For the year
+Particulars                                                                                   ended March                             Particulars                                                                                   ended March
+                                                                                                                       31, 2026                                                                                                                                                   31, 2026
+ Cash Flow from Operating activities                                                                                    Cash and cash equivalents comprise
+ Profit/(loss) before tax, exceptional and extraordinary items                                               5,074.22                        Balances with banks
+ Adjustments for:                                                                                                                                             In current accounts                                                                             45.83
+ Depreciation and amortization expenses                                                            250.83                                 In Prepaid Cards                                                                                    1.22
+ Gain on Lease Termination                                                                                                                           -                                 In EEFC accounts                                                                           900.90
+ Interest expenses                                                                              306.04                             Deposits with original maturity of less than three months                                                                               -
+ Liabilities no longer required written back                                                              36.96                                 In Forex Cards                                                                                      2.80
+ Interest income                                                                                          (330.30)                      Cash on hand                                                                                          0.09
+ Allowance for Expected Credit Loss                                                                   69.86                           Total cash and bank balances at end of the year                                                   950.84
+ Unrealized foreign exchange (gain)/loss                                                                         (47.60)                   Summary of material accounting policies                               2
+                                                                                                                          The accompanying notes form an integral part of the audited Consolidated Financial Statements. (Gain) / Loss on sale of Assets                                                                                         (4.43)
+                                                                                                                               As per our report of even date
+ Operating Profit before working capital changes                                                   5,355.58                        For C N G S N & Associates LLP         For and on behalf of the Board of Directors of
+ Changes in working capital                                                                                                             Chartered Accountants                   Glottis Limited
+                                                                                                                                Firm Registration No.:04915S/S200036
+ Increase/(Decrease) in Trade Payables                                                                      (128.98)
+ Increase/(Decrease) in Other Liabilities                                                              115.89                  V Vivek Anand                  Ramkumar Senthilvel          Kuttappan Manikandan
+                                                                                                                                           Partner                          Managing Director            Managing Director Increase/(Decrease) in Financial Liabilities                                                              77.38                                                                                                                     Membership No.: 208092              DIN: 07754138                 DIN: 07754137
+ Increase/(Decrease) in Provisions                                                                           (357.43)
+                                                                                                                                                                          Rajasree                       Nibedita Panda Decrease/(Increase) in Trade Receivables                                                                    (6,580.28)                                                                                                                                                                                          Chief Financial Officer         Company Secretary and Compliance Officer
+ Decrease/(Increase) in loans and advances                                                             15.28                                                      M No. A68844
+                                                                                                                                                          Place: Chennai                           Place: Chennai Decrease/(Increase) in Financial assets                                                                     (588.08)                                                                                                                                                Date: May 25, 2026                     Date: May 25, 2026
+ Decrease/(Increase) in other Non-Financial assets                                                            (3,969.62)
+ Cash generated from /(used in) operations                                                             (6,060.26)
+ Income tax paid (Net of Refund)                                                                           (818.49)
+ Net cash flows from /(used in) operating activities (A)                                                  (6,878.75)
+ Cash flow from Investing activities
+ Purchase of Property, Plant and Equipment & Intangibles                                                    (1,008.90)
+ Proceeds from sale of Property, Plant and Equipment                                                        4.94
+ Cost spent on CWIP - Buildings & Others                                                                    (1,065.57)
+ Investment in Equity Shares of Subsidiary                                                                                                        -
+ (Investment in) / Closure of Fixed Deposits                                                                   (8,109.78)
+ Interest received                                                                               262.47
+ Net cash flow from /(used in) investing activities (B)                                                    (9,916.84)
+ Cash flow from Financing activities
+ Issue of Share Capital                                                                            14,840.07
+ Net Proceeds from Long Term Loans/borrowings                                                        65.00
+ Net Repayment to Long Term Loans/borrowings                                                            (161.44)
+ Net Proceeds/(Repayment) from Short Term Loans/borrowings                                            2,853.20
+ Net Proceeds/(Repayment) from Lease                                                                         (66.86)
+ Processing Charges on Loan                                                                                                                         -
+ Interest paid                                                                                             (247.80)
+ IPO Expenses                                                                                                        (4.13)
+ Net cash flow from /(used in) financing activities (C)                                              17,278.04
+ Net increase / (decrease) in cash and cash equivalents (A+B+C)                                       482.45
+Cash and cash equivalents at the beginning of the year                                                 468.39
+Cash and cash equivalents at the end of the year                                                     950.84

@@ -1,0 +1,89 @@
+                                                                                                                                          Corporate Overview         Statutory Reports
+
+
+NOTES TO STANDALONE FINANCIAL STATEMENTS         NOTES TO STANDALONE FINANCIAL STATEMENTS
+FOR THE YEAR ENDED MARCH 31, 2026                                                     FOR THE YEAR ENDED MARCH 31, 2026
+
+(Currency : Indian Rupees in lakhs)                                                                                          (Currency : Indian Rupees in lakhs)
+
+        For  the  purpose  of  calculating  diluted              of cash flows comprise cash at bank and                          Cash flow hedge                                     balance sheet and is also recognised in the
+        earnings per share, the net profit or loss for            cheques in hand and short-term deposits                    A cash  flow hedge  is a hedge  of the            statement of profit and loss in Finance Cost.
+        the year attributable to equity shareholders             with an original maturity of three months                            exposure to variability in cash flows that is           The Company classifies a fair value hedge
+       and the weighted average number of shares             or less, which are subject to an insignificant
+                                                                                                                                                 attributable to a particular risk associated              relationship when the hedged item (or group
+        outstanding during the year are adjusted                risk of changes in value. They are held for
+                                                                                                                                    with a recognised asset or liability and could              of items) is a distinctively identifiable asset
+         for the effects of all dilutive potential equity             the purposes of meeting short-term cash                                                                                                                                                    affect Profit and loss. For designated and             or liability hedged by one or a few hedging
+         shares, except where the results are anti-           commitments (rather than for investment or                                                                                                                                                qualifying cash flow hedges, the effective              instruments.  The   financial  instruments
+          dilutive. Potential equity shares are deemed             other purposes).
+                                                                                                                                        portion of the cumulative gain or loss on the           hedged for interest rate risk in a fair value
+         to be dilutive only  if their conversion to
+                                                                                                                         hedging instrument  is  initially recognised           hedge relationship are fixed rate debt issued                                                                 s)  Non-current assets held for sale:        equity shares would decrease the net profit
+                                                                                                                                                       directly  in OCI within equity (cash flow           and other borrowed funds.  If the hedging
+        per equity shares from continuing ordinary             Non-current    assets   and   disposable
+                                                                                                                 hedge  reserve). The  ineffective  portion             instrument expires or  is sold, terminated
+         operations. Dilutive potential equity shares            groups are  classified as held  for sale  if
+                                                                                                                                                                                                       (if any) of the gain or loss on the hedging             or exercised, or where the hedge no longer
+         are deemed converted as of the beginning               their carrying amount  is intended to be
+                                                                                                                                    instrument  is recognised immediately as           meets the  criteria for hedge accounting,
+         of the period, unless they have been issued             recovered principally through a sale (rather
+                                                                                                                                          finance cost in the Statement of Profit and             the  hedge  relationship   is  discontinued
+         at a later date. In computing the dilutive             than through continuing use) when the
+                                                                                                                                              Loss.                                                      prospectively.  If the relationship does not
+        earnings per share, only potential equity              asset (or disposal Company)  is available
+        shares  that  are  dilutive and  that  either               for immediate sale in its present condition                      When the hedged cash flow affects the           meet  hedge  effectiveness   criteria,  the
+        reduces the earnings per share or increases             subject only to terms that are usual and                            Statement of Profit and Loss, the effective          Company discontinues hedge accounting
+         loss per share are included.                          customary for sale of such asset (or disposal                              portion of the gain or loss on the hedging            from  the date on which  the  qualifying
+                                                                                                                                                                                                                                     criteria are no longer met. For hedged items                                                   Company) and the sale is highly probable                             instrument is recorded in the corresponding
+    p)  Contingent Liabilities                                                     and is expected to qualify for recognition                          income or expense line of the Statement of            recorded at amortised cost, the accumulated
+      A contingent liability is a possible obligation             as a completed sale within one year from                                   Profit and Loss. When a hedging instrument                 fair value hedge adjustment to the carrying
+         that arises from past events whose existence             the date of classification except in some                                 expires,  is sold, terminated, exercised, or           amount of the hedged item on termination
+           will be confirmed by the occurrence or             circumstances this period can be extended                        when a hedge no longer meets the criteria              of the hedge accounting  relationship  is
+        non-occurrence of one or more uncertain                      if it is beyond the control of management                                  for hedge accounting, any cumulative gain            amortised over the remaining term of the
+         future events beyond the control of the           and there are sufficient evidence that the                              or loss recognised in OCI is subsequently               original hedge using the recalculated EIR
+      Company or a present obligation that is not              entity remains committed to its plan to sell                                transferred  to  the  Statement  of  Profit           method by recalculating the EIR at the date
+                                                                                                                                                    when the amortisation begins. If the hedged        recognised because it is not probable that             the asset.                                                     and Loss on ultimate recognition of the
+       an outflow of resources will be required to                                                                                    underlying hedged  forecast  transaction.             item is derecognised, the unamortised fair
+                                                            Non-current  assets and  disposal groups
+          settle the obligation. A contingent liability                                                             When a forecast transaction  is no longer             value adjustment is recognised immediately
+                                                                         classified as held for sale are measured at
+         also arises in extremely rare cases where                                                                             expected to occur, the cumulative gain or                in the statement of profit and loss.
+                                                             lower of their carrying amount and fair value
+         there is a liability that cannot be recognised                                                                                              loss that was reported in OCI is immediately
+                                                                        less costs to sell.                                                                                                     2.4 Significant accounting judgements, estimates
+        because it cannot be measured reliably. The                                                                                         transferred to the Statement of Profit and
+                                                                                                                                                          and assumptions
+      Company does not recognise a contingent           t)   Derivative financial instruments:                                          Loss.
+                                                                                                                                                              The  preparation  of  financial  statements  in           liability but discloses  its existence in the
+                                                      The Company enters into derivative financial                                Fair value hedge                                 conformity  with  Ind AS  requires  that  the          financial statements.                                                              instruments to manage exposures to interest                                                                                                                                                      Fair value hedges hedge the exposure to       management of the Company makes estimates
+                                                                    rate  risk and foreign currency  risk. The    q)  Segment reporting                                                                                                changes in the fair value of a recognised        and  assumptions  that  affect  the  reported
+                                                 Company does not hold derivative financial
+        Operating segments are those components                                                                                       asset or liability, or an identified portion of        amounts of income and expenses of the period,
+                                                              instruments for speculative purpose. Such
+         of the business whose operating results are                                                                             such an asset, liability, that is attributable to         the reported balances of assets and liabilities and
+                                                                    derivative financial instruments are initially
+         regularly reviewed by the chief operating                                                                             a particular risk and could affect profit or         the disclosures relating to contingent liabilities
+                                                            recognised at fair value on the date which
+         decision making body in the Company to                                                                                                        loss.                                             as of the date of the financial statements. The
+                                                         a derivative contract  is entered into and
+       make decisions for performance assessment                                                                                                                                      estimates  and  underlying  assumptions  are
+                                                                are subsequently re-measured at fair value                            For designated and qualifying  fair value
+       and resource allocation.                                                                                                                                                 reviewed on an ongoing  basis. Revisions to
+                                                                    at each balance sheet date. Any gains or                             hedges, the cumulative change in the fair
+                                                                                                                                                                                accounting estimates  include  useful  lives  of
+       The reporting of segment information is the              losses arising from changes in the fair value                              value of a hedging derivative is recognised
+                                                                                                                                                                                                  property,  plant and equipment &  intangible
+       same as provided to the management for              of  derivatives  are taken  directly  to the                                    in the statement of profit and loss in Finance
+                                                                                                                                                                                                              assets, allowance  for expected  credit  losses,
+        the purpose of the performance assessment            statement of profit and loss, except for the                               Costs. Meanwhile, the cumulative change in
+                                                                                                                                                                                                                                                   fair value measurement, business projections
+       and resource allocation to the segments.                  effective portion of cash flow hedges, which                             the fair value of the hedged item attributable
+                                                                                                                                                                                                               for impairment assessment  of  goodwill  etc.
+                                                                                       is recognised in OCI and later reclassified                              to the risk hedged is recorded as part of the
+     r)  Cash and cash equivalents                                                                                                                                                                   Difference, if any, between the actual results and                                                                to the statement of profit and loss (if any)                               carrying value of the hedged item in the
+                                                                                                                                                                                        estimates is recognised in the period in which
+       Cash and cash equivalent in the balance          when the hedge item cash flows affects the
+                                                                                                                                                                                     the results are known.
+        sheet and for the purpose of statement            statement of profit and loss.
+
+210                                                                                                                                                                                   211

@@ -1,0 +1,65 @@
+                                                                              2025-2026
+                                                                          14 th ANNUAL REPORT
+
+         STANDALONE STATEMENT OF PROFIT AND LOSS FOR THE YEAR ENDED 31 ST MARCH, 2026
+                                                                                                                    (` in Crores)
+                                                                   Note For the year ended For the year ended                                         Particulars                                                                                        st                                       st
+                                                                            No.  31 March, 2026  31 March, 2025
+            A.  Continuing Operations
+                     I.   Revenue from operations                                     31         24,198.00          27,717.65
+                    II.  Other income                                         32           620.89           599.44
+                   III.  Total Income (I+II)                                                    24,818.89        28,317.09
+              IV.  Expenses
+                Production expenditure                                  33            72.48             75.90
+              Cost of materials consumed / Purchase of stock in trade            34          19,130.09         22,201.46
+              Changes in inventories of natural gas & crude oil                  35           (547.72)             160.12
+                Excise duty                                                                   810.29           698.02
+              Employee benefits expenses                               36           244.54           209.72
+                Finance costs                                            37            38.24             37.66
+                 Depreciation, depletion and amortization expense                 38            579.01           544.49
+               Other expenses                                       39          1,337.09           1,295.17
+                    Total Expenses (IV)                                               21,664.02       25,222.54
+            V.   Profit Before Exceptional Items and Tax (III-IV)                               3,154.87        3,094.55
+              VI.  Exceptional item (Income) / Expense                         40            66.22            862.31
+               VII. Profit Before Tax (V-VI)                                               3,088.65        2,232.24
+               VIII. Tax expense:                                              41
+                Current Tax                                                                           (4.58)              5.62
+               Deferred Tax                                                             794.68         (1,255.36)
+                    Total Tax Expense (VIII)                                              790.10        (1,249.74)
+             IX.  Profit After Tax for the year from Continuing Operations (VII-VIII)             2,298.55         3,481.98
+            B.  Discontinued Operations                                59
+             X.   Profit before tax from Discontinued Operations                                          -            727.23
+               XI.  Tax expense of Discontinued Operations                          41                 -                5.19
+              XII. Profit After Tax from Discontinued Operations ( X - XI )                                       -          722.04
+               XIII. Profit After Tax from Continuing and Discontinued Operations                2,298.55        4,204.02
+                (IX + XII)
+            XIV. Other Comprehensive Income                            42
+                        (i) Items that will not be reclassified to profit or (loss)                             (28.72)            10.87
+                    Changes in Fair Value of FVOCI Equity Instrument                                (36.17)                7.16
+                    Remeasurements of Post - Employment Benefit Obligation                       7.45               3.71
+                          (ii) Income tax related to items that will not be reclassified to                            12.44             (31.83)
+                       profit or loss - Income / (expense)
+                Total Other Comprehensive Income (XIV)                                      (16.28)          (20.96)
+          XV. Total Comprehensive Income from Continuing and                          2,282.27         4,183.06
+              Discontinued Operations (XIII +XIV)
+           Earning per Equity Share (EPS) from Continuing Operations           43
+               (Face Value of ` 2)
+                Basic                                                                     24.50               37.11
+                 Diluted                                                                   24.50               37.11
+           Earning per Equity Share (EPS) from Discontinued Operations
+               (Face Value of ` 2)
+                Basic                                                                             -              7.70
+                 Diluted                                                                            -              7.70
+           Earning per Equity Share (EPS) from Continuing &
+              Discontinued Operations (Face Value of ` 2)
+                Basic                                                                     24.50             44.81
+                 Diluted                                                                   24.50             44.81
+          See accompanying notes the standalone financial statements (1-61)LIMITED
+        As per our report attached                         For and on behalf of Board of Directors of Gujarat Energy Limited
+         For Ashok Chhajed & Associates
+         Chartered AccountantsENERGY       ICAI Firm Reg. No. – 100641W          Manoj Kumar Das, IAS   Avantika Singh, IAS       Balwant Singh, IAS (Retd.)
+                                              Chairman              Managing Director          Director
+           Arist Chhajed                        DIN - 06530792       DIN - 07549438         DIN - 00023872
+           Partner
+          M. No. : 149503                                              Rajesh Sivadasan         Sandeep DaveGUJARAT                                                                              Chief Financial Officer      Company Secretary
+          Place : Gandhinagar                                                                     Place : Gandhinagar157        Date : 30 May, 2026                                                           Date : 30 May, 2026

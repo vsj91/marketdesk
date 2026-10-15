@@ -1,0 +1,74 @@
+Schaeffler India Limited | Integrated Annual Report 2025
+
+Consolidated Balance Sheet
+as at December 31, 2025
+                                                                                                                        (` in million)
+                                                                                          Notes    As at December   As at December
+                                                                                                               31, 2025         31, 2024
+ A)  ASSETS
+ 1   Non-current assets
+      a)   Property, plant and equipment                                                           3.1           19,572.3         17,203.7
+     b)   Right of use assets                                                                      3.2             963.0           978.8
+      c)   Capital work-in-progress                                                                 3.3            3,344.6          4,491.1
+      d)   Goodwill                                                                 48 (b)            822.3           822.3
+      e)   Other intangible assets                                                                  3.4             592.0           690.4
+        f)    Financial assets
+               (i)   Security deposits                                                        4              191.7           187.5
+                (ii)  Other financial assets                                                     4                  0.3               5.3
+      g)   Deferred tax assets (net)                                                       5              325.3           211.5
+      h)   Non-current tax assets (net)                                                    6              606.1           670.0
+        i)   Other non-current assets                                                       7             1,058.9          1,031.5
+      Total non-current assets                                                                                27,476.5         26,292.1
+ 2   Current assets
+      a)   Inventories                                                                 8           17,717.5         14,696.2
+      b)   Financial assets
+               (i)   Trade receivables                                                        9           16,572.7         12,929.2
+                (ii)  Cash and cash equivalents                                                 10            9,638.0          4,639.4
+                (iii) Bank balances other than (ii) above                                          11            8,818.4          8,860.9
+              (iv)  Other financial assets                                                    12             504.2           561.0
+      c)   Other current assets                                                          13            1,399.5           850.4
+      Total current assets                                                                                    54,650.3         42,537.1
+    TOTAL ASSETS                                                                                        82,126.8         68,829.2
+ B)  EQUITY AND LIABILITIES
+ 1   Equity
+      a)   Equity share capital                                                          14             312.6           312.6
+      b)   Other equity                                                                15           60,167.0         53,031.7
+      Total equity                                                                                          60,479.6         53,344.3
+      Liabilities
+ 2   Non-current liabilities
+      a)   Financial liabilities
+               (i)   Lease liabilities                                                        16 (a)            406.2           434.3
+                (ii)  Other financial liabilities                                                  17             143.7           143.7
+      b)   Provisions                                                                 18               13.6             26.5
+      Total non-current liabilities                                                                              563.5           604.5
+ 3   Current liabilities
+      a)   Financial liabilities
+               (i)   Lease liabilities                                                        16 (b)            140.5           121.0
+                (ii)  Trade payables                                                         19
+                a)   Total outstanding dues of micro enterprises and small enterprises                                1,251.1           778.6
+                b)   Total outstanding dues of creditors other than micro enterprises and small enterprises                  15,574.7         10,502.2
+                (iii)  Other financial liabilities                                                  20            2,207.5          1,993.4
+     b)   Other current liabilities                                                       21             477.8           455.2
+      c)   Provisions                                                                 22            1,057.2           790.6
+     d)   Current tax liabilities (net)                                                                           374.9           239.4
+      Total current liabilities                                                                                 21,083.7         14,880.4
+      Total liabilities                                                                                        21,647.2         15,484.9
+    TOTAL EQUITY AND LIABILITIES                                                                          82,126.8         68,829.2
+      Material accounting policies                                                        2
+     Notes to the consolidated financial statements                                        3 - 53
+
+The notes referred to above form an integral part of the consolidated financial statements.
+
+As per our report of even date attached
+For Walker Chandiok & Co LLP                                         For and on behalf of the Board of Directors
+Chartered Accountants
+Firm's Registration No: 001076N/N500013
+
+Khushroo B. Panthaky            E.V.Sumithasri                 Harsha Kadam                   Hardevi Vazirani
+Partner                          Chairperson                   Managing Director                  Director - Finance & CFO
+Membership No: 042423          DIN: 07087197                   DIN: 07736005                   DIN: 10212814
+
+Place: Mumbai                    Place: Bengaluru                Ashish Tiwari
+Date: February 24, 2026           Date: February 24, 2026         VP - Legal & Company Secretary
+
+293

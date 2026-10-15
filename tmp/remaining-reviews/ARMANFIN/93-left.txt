@@ -1,0 +1,46 @@
+                                                               Annual Report 2025 - 26     180
+
+
+Notes Forming Part of the Consolidated Financial Statements
+for the year ended March 31, 2026.                                                         (All Amounts are ₹ in Lakhs, unless otherwise stated)
+
+                                                                     As at               As at1      Cash and Cash Equivalents                                                               March 31, 2026      March 31, 2025
+       Cash on hand                                                                   279.29                269.66
+        Balance with banks                                                                8,499.03               6,505.37
+        Total                                                                     8,778.32             6,775.03
+
+
+                                                                     As at               As at2      Other Bank Balance                                                               March 31, 2026      March 31, 2025
+         In fixed deposit accounts:
+        Deposits given as security against borrowings                                       7,622.99               8,832.79
+        Fixed Deposits given as security against overdraft facilities (Refer Note              19,688.34              22,452.53
+         2.2)
+       Other Deposits (i.e., free from any encumbrance)                                    4,748.52               3,344.94
+       Earmarked balances with banks (Refer Note 2.1)                                         2.37                   4.32
+         Less: Interest Accrued but not due on Bank Deposits (Refer Note 5)                     (953.00)               (1,067.61)
+        Total                                                                   31,109.22            33,566.96
+
+2.1    Earmarked balance with banks represents C2.37 Lakhs (As at March 31, 2025 C 4.32 Lakhs) in Unpaid Dividend and CSR
+       Deposit Accounts.
+
+2.2    Deposits includes deposits of C 19688.34 Lakhs (P.Y. C 22452.53 Lakhs) given to bank for Overdraft facility. Overdraft utilized
+       of C 17476.8 Lakhs
+
+                                                                     As at               As at3      Loans                                                               March 31, 2026      March 31, 2025
+       At Amortised Cost:
+         Inter Corporate Deposit
+       Secured by Tangible Asset                                                                                             -               2,271.26
+       Unsecured                                                                      300.00                500.00
+       At FVOCI:
+       Secured by Tangible Asset                                                        17,367.32              10,411.89
+       Unsecured Loans                                                                2,12,314.94            1,68,400.30
+         Less: Impairment Loss Allowances                                                     (7,743.28)             (11,742.52)
+                                                                                         2,22,238.98            1,69,840.93
+         Less: Interest Due but not Received on Loans and Advances (Note No.5)                (891.60)               (1,474.51)
+        Total                                                                    2,21,347.39          1,68,366.43
+         (1) Loans In India
+         Public Sector                                                                                                             -                                -
+        Others                                                                          2,21,347.39            1,68,366.43
+                                                                                2,21,347.39          1,68,366.43
+         (2) Loans Outside India                                                                                               -                                -
+        Total                                                                    2,21,347.39          1,68,366.43

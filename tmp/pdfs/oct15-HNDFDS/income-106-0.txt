@@ -1,0 +1,83 @@
+STANDALONE BALANCE SHEET
+AS AT MARCH 31, 2026
+(Amounts in Rs. cr, unless otherwise stated)
+
+
+                                                                        Notes                  As at                  As at
+                                                                                March 31, 2026        March 31, 2025
+                                                                                                                              (Restated -
+                                                                                                                                        refer note 36)
+ASSETS
+Non-current assets
+Property, plant and equipment                                             4 (a)                  740.76                 540.65
+Capital work-in-progress                                                 4 (b)                       18.71                  99.02
+Right of use assets                                                      4 (a)                     11.08                    10.97
+Goodwill                                                                 5 (a)                    21.28                    21.28
+Other intangible assets                                                     5 (b)                       1.79                        1.81
+Intangible assets under development                                          5 (c)                                 -                    0.40
+Financial assets
+     Investments                                                             10                     137.53                     127.13
+     Other financial assets                                                        7                      18.63                    19.30
+Other non-current assets                                                 8                     25.96                    37.99
+Total non-current assets                                                                              975.74                 858.55
+Current assets
+Inventories                                                            9                   695.48                  570.53
+Financial assets
+     Trade receivables                                                                    11                   186.63                   135.48
+     Cash and cash equivalents                                                    12                       13.18                    45.77
+     Bank balances other than cash and cash equivalents                             13                     15.84                     6.63
+     Loans                                                           6                   198.00                     113.91
+     Other financial assets                                                        7                     152.37                   146.47
+Other current assets                                                    8                      101.12                     41.14
+Total current assets                                                                                    1,362.62                1,059.93
+Total assets                                                                                          2,338.36                 1,918.48
+EQUITY AND LIABILITIES
+Equity
+Equity share capital                                                              14                    23.90                   23.50
+Other equity                                                                      15                  1,064.03                   858.11
+Total equity                                                                                             1,087.93                  881.61
+Liabilities
+Non-current liabilities
+Financial liabilities
+     Borrowings                                                                            16(a)                 364.09                 364.52
+     Lease liabilities                                                        35                        2.61                     2.35
+Provisions                                                                           17                         17.14                       11.81
+Deferred tax liabilities (net)                                                         31                    36.70                   33.66
+Other non current liabilities                                                20                     27.80                                -
+Total non-current liabilities                                                                       448.34                 412.34
+Current liabilities
+Financial liabilities
+     Borrowings                                                                          16(b)                  203.61                   141.58
+     Lease liabilities                                                        35                       1.03                       1.07
+     Trade payables                                                           18
+           i)     total outstanding dues of micro enterprises and small enterprises                                    0.03                    0.02
+           ii)     total outstanding dues of creditors other than micro enterprises and small                        498.88                   412.16
+            enterprises
+Other financial liabilities                                                         19                    60.70                   28.58
+Other current liabilities                                                   20                     24.65                   25.88
+Provisions                                                                           17                        1.56                    0.88
+Current tax liabilities (net)                                                          21                       11.63                    14.36
+Total current liabilities                                                                          802.09                 624.53
+Total liabilities                                                                                          1,250.43                1,036.87
+Total equity and liabilities                                                                             2,338.36                 1,918.48
+Summary of material accounting policies                                            2-3
+
+The accompanying notes 1 to 52 are an integral part of the standalone financial statements.
+As per our report of even date attached
+For M S K A & Associates LLP                                For and on behalf of the Board of Directors of
+(Formerly known as M S K A & Associates)                   Hindustan Foods Limited
+Chartered Accountants                                    CIN: L15139MH1984PLC316003
+Firm's Registration No.:105047W/W101187
+
+VIRENDRA KANAK                               SAMEER R. KOTHARI                    GANESH T. ARGEKAR
+Partner                                              Managing Director                                Executive Director
+Membership No: 110811                                   DIN: 01361343                                 DIN: 06865379
+
+                                          MAYANK SAMDANI                       BANKIM PUROHIT
+                                                            Chief Financial Officer                     Company Secretary
+                                                                                             Membership No:ACS21865
+Place: Mumbai                                                Place: Mumbai
+Date : May 21, 2026                                     Date : May 21, 2026
+
+
+                                      204    Hindustan Foods Limited

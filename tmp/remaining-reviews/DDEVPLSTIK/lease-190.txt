@@ -1,0 +1,59 @@
+                                                                                                 for the year ended 31st March, 2026Notes to the financial statements
+
+
+    At  the  date  of commencement  of  the  lease,  the         impaired and also whether there is an indication of
+   Company recognizes a right-of-use asset (“ROU”) and a          reversal of impairment loss recognised in the previous
+    corresponding lease liability for all lease arrangements in          periods.   If  any  indication  exists,  or when  annual
+    which it is a lessee, except for leases with a term of twelve         impairment testing for an asset is required, if any, the
+   months or less (short-term leases) and low value leases.        Company  determines  the  recoverable amount  and
+    For these short-term and low value leases, the Company         impairment loss is recognised when the carrying amount
+    recognizes the lease payments as an operating expense          of an asset exceeds its recoverable amount.
+    on a straight-line basis over the term of the lease.
+                                                             Recoverable amount is determined:-
+    Certain lease arrangements includes the options to                                                                                  a)   In the case of an individual asset, at the higher of the
+    extend or terminate the lease before the end of the lease                                                                                         fair value less cost to sell and the value in use ; and
+    term. ROU assets and lease liabilities includes these
+    options when it is reasonably certain that they will be           b)   In the case of cash generating unit (a group of asset
+    exercised.                                                           that generates identified, independent cash flow), at
+                                                                     the higher of the cash generating unit’s fair value less
+   The right-of-use assets are initially recognized at cost,                                                                     cost to sell and the value in use.
+    which comprises the initial amount of the lease liability
+    adjusted for any lease payments made at or prior to the           In assessing value in use, the estimated future cash
+                                                                    flows are discounted to their present value using a pre-   commencement date of the lease plus any initial direct
+                                                                     tax discounting rate that reflect the current market    costs less any lease incentives. They are subsequently
+                                                           assessment of the time value of the money and the risk    measured at cost less accumulated depreciation and
+                                                                       specific to the asset. In determining fair value less cost
+    impairment losses.                                                                     of disposal, recent market transaction  is taken into
+    Right-of-use   assets   are   depreciated  from   the         account.  If no such transaction can be identified, an
+   commencement date on a straight-line basis over the          appropriate valuation model is used. These calculations
+                                                                  are corroborated by valuation multiples, quoted share    shorter of the lease term and useful life of the underlying
+                                                                     prices for publicly traded companies or other available    asset. Right of use assets are evaluated for recoverability
+                                                                                    fair value indicators.    whenever events or changes in circumstances indicate
+    that their carrying amounts may not be recoverable.      3.8 Financial Instruments
+    For the purpose of impairment testing, the recoverable                                                    A financial instrument is any contract that gives rise to
+   amount (i.e. the higher of the fair value less cost to sell                                                            a financial asset of one entity and a financial liability or
+    and the value-in-use) is determined on an individual asset          equity instrument of another entity.
+    basis unless the asset does not generate cash flows that
+                                                            A)  Financial Assets
+    are largely independent of those from other assets. In
+    such cases, the recoverable amount is determined for the                  Initial Recognition and measurement of Financial
+    Cash Generating Unit (CGU) to which the asset belongs.              Assets
+                                                                                             All financial assets are recognised initially at fair   The lease  liability  is  initially measured at amortized
+                                                                        value plus or minus, in the case of financial assets    cost at the present value of the future lease payments.
+                                                                    not recorded at fair value through profit or loss,   The lease payments are discounted using the interest
+                                                                        transaction  costs  that  are  attributable  to  the
+    rate implicit in the lease or, if not readily determinable,                                                                           acquisition of the financial asset.
+    using the incremental borrowing rates in the country of
+    domicile of these leases. Lease liabilities are remeasured               Financial assets are classified, at initial recognition,
+                                                                                  in the same manner as described in subsequent    with a corresponding adjustment to the related right
+                                                              measurement.    of use asset if the Company changes its assessment
+      if whether it will exercise an extension or a termination             Purchases or sales of financial assets that require
+    option.                                                                 delivery of assets within a time frame established by
+                                                                          regulation or convention in the market place (regular
+    Lease  liability and ROU asset have been separately                                                           way trades) are recognised on the trade date, i.e. the
+    presented in the Balance Sheet and lease payments have                                                                    date the Company commits to purchase or sell the
+    been classified as financing cash flows.                              asset
+3.7 Impairment of non-financial assets                             Subsequent measurement
+    As at each balance sheet date, the Company assesses             For purposes of subsequent measurement, financial
+    whether there is an indication that an asset may be             assets are classified in four categories:
+204    Annual Report 2025-26

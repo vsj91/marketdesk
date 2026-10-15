@@ -1,0 +1,71 @@
+                       Corporate Overview         Statutory Reports
+
+
+NOTES TO STANDALONE FINANCIAL STATEMENTS
+FOR THE YEAR ENDED MARCH 31, 2026
+
+(Currency : Indian Rupees in lakhs)
+
+Investment in Subsidiaries comprises of:
+
+Name of Subsidiary                                              Carrying Amount      % Holding
+ IndoStar Asset Advisory Private Limited                                            1.00            100%
+
+ Total                                                                        1.00
+
+Investments as at March 31, 2025
+
+ Investment in                                           At Fair Value       Others         Total
+                               Amortised  Through other      Through
+                                        cost comprehensive      profit and      At cost
+                                              income            loss
+ Mutual funds                                        -                    -       49,511.64                 -      49,511.64
+ Security Receipts                      1,38,715.21                    -                  -                 -     1,38,715.21
+ Treasury Bills                                        -        9,653.55                  -                 -      9,653.55
+ Bonds                                                -        10,160.59                  -                 -      10,160.59
+ Government securities                             -        10,232.72                  -                 -     10,232.72
+ Subsidiaries                                          -                    -                  -          1.00          1.00
+ Total - Gross                        1,38,715.21     30,046.86      49,511.64         1.00   2,18,274.71
+ Investments in India                   1,38,715.21      30,046.86       49,511.64          1.00     2,18,274.71
+ Investments outside India                         -                    -                  -                 -                 -
+ Total - Gross                        1,38,715.21     30,046.86      49,511.64         1.00   2,18,274.71
+ Less: Impairment loss allowance   (36,455.26)                    -                  -                 -   (36,455.26)
+ Total - Net                       1,02,259.95     30,046.86      49,511.64         1.00    1,81,819.45
+
+1.   Detailed analysis on year end stage classification of investments and impairment allowance is disclosed in
+    Note 32 (D)
+
+Investment in Subsidiaries comprises of:
+
+Name of Subsidiary                                              Carrying Amount      % Holding
+ IndoStar Asset Advisory Private Limited                                            1.00            100%
+ Niwas Housing Finance Limited (Formerly known as Niwas Housing         45,000.00            100%
+ Finance Private Limited)*
+
+ Total                                                              45,001.00
+
+* disclose under non - current asset held for sale (refer note 14)
+
+
+NOTE 7 OTHER FINANCIAL ASSETS
+
+ Particulars                                                       As at            As at
+                                                           March 31, 2026     March 31, 2025
+ Security deposit                                                          865.78             810.99
+ Assignment receivables                                                               2,351.18            5,235.45
+ Deposits with Trustee for securitisation*                                            2,591.14            4,484.14
+ Other receivables                                                          656.72             2,214.46
+
+                                                                      6,464.82          12,745.04
+ Less: Impairment loss allowance                                           (603.56)            (296.58)
+
+                                                                            5,861.26          12,448.46
+
+* It represents fixed deposit held as collateral with trustee for pass through certificate transactions
+
+Footnote: Other receivable includes receivable from subsidiaries (refer note 33)
+
+
+
+
+                                                                       215

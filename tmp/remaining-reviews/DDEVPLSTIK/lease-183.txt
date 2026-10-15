@@ -1,0 +1,52 @@
+                                                                                         Financial Statements
+STATEMENT OF CASH FLOW
+For The Year Ended 31st March 2026
+
+                                                                                                                                           (` In lacs)
+
+ Particulars                                               Year ended 31st March, 2026  Year ended 31st March, 2025
+
+                                                                      (Audited)                   (Audited)
+
+ A.   CASH FLOW FROM OPERATING ACTIVITIES
+       Profit before tax from continuing operations                               27,363.36                   25,064.30
+      Adjustment for:
+            Depreciation & amortization expense                     1,779.55                      1,503.04
+             Loss/(Profit) on sale of Property,Plant and                 14.34                           67.91
+          Equipment
+           Unwinding of Interest on security deposit                    (13.77)                            (9.74)
+           Finance cost                                          2,883.97                      2,129.28
+             Interest income                                          (244.05)                       (330.20)
+           Net (Gain)/loss on disposal/ fair valuation of              (302.82)                         (152.30)
+           investments carried at fair value through profit &
+             loss
+           Other Comprehensive Income                               8.31                              (41.69)
+          Bad debts written off                                  24.08                       79.44
+                                                                                    4,149.61                     3,245.74
+
+      Operating profit before Working Capital changes                            31,512.97                    28,310.04
+      Adjustments for Working Capital changes
+            Decrease/(increase) in non current financial assets
+                 Other financial assets                             79.04                           3.16
+            Decrease/(increase) in other non current assets           (623.12)                        (365.68)
+            Decrease/(increase) in inventories                        (14,967.97)                       (3,698.81)
+            Decrease/(increase) in current financial assets
+                Trade receivables                                   (8,765.70)                        (6,901.97)
+                 Other financial assets                                   (169.16)                            (14.75)
+            Decrease/(increase) in other current assets                (1,627.77)                       1,924.51
+            Increase/(decrease) in non current provisions              (276.51)                       146.70
+            Increase/(decrease) in non- current financial
+                liabilities
+                Finance Lease Liability                            126.46                      399.67
+            Increase/(decrease) in current financial liabilities
+                Finance Lease Liability                           70.45                       92.34
+                Trade payables                                   8,103.20                        2,113.67
+                 Other financial liabilities                           608.81                        (408.29)
+            Increase/(decrease) in other current liabilities           407.62                        (203.93)
+            Increase/(decrease) in short term provisions               51.94                           (122.35)
+                                                                                       (16,982.71)                       (7,035.73)
+
+     Cash generated from operations                                        14,530.26                     21,274.31
+       (Tax paid) / refund received (net)                                           (6,079.04)                      (7,554.69)
+
+                                                                  Ddev Plastiks Industries Limited   197

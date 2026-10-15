@@ -1,0 +1,62 @@
+ANNUAL REPORT 2025-26
+
+
+
+          Financial assets that meet the following conditions are subsequently measured at fair value through
+         other comprehensive income (except for financial asset that are designated as at fair value through
+          profit or loss on initial recognition):
+
+             •  The asset is held within a business model whose objective is achieved both by collecting
+                 contractual cash flows and selling financial assets; and
+             •  The contractual terms of the instrument give rise on specified dates to cash flows that are
+                  solely payments of principal and interest on the principal amount outstanding.
+
+       On initial recognition of an equity investment that is not held for trading, the Group may irrevocably
+          elect to present subsequent changes in the investment’s fair value in OCI. This election is made on an
+         investment‑by‑investment basis. The Group does not have any financial assets measured at FVTOCI.
+
+         Financial assets at fair value through profit or loss (FVTPL)
+
+          Financial assets that do not meet the amortized cost criteria or FVTOCI criteria (see above) are
+        measured at FVTPL. In addition, debt instruments financial assets that meet the amortized cost criteria
+         or the FVTOCI criteria may irrevocably be but are designated as at FVTPL are measured at FVTPL if
+         doing so eliminates or significantly reduces an accounting mismatch that would otherwise arise.
+
+        Subsequent measurement of financial instruments
+
+           Financial    assets    at  These assets are subsequently measured at fair value. Net gains
+        FVTPL                and losses, including any interest or dividend income, are
+                                  recognized in profit or loss.
+
+
+
+           Financial    assets    at  These assets are subsequently measured at amortized cost
+          amortized cost           using the effective interest method. The amortized cost is
+                                reduced by  impairment  losses.  Interest  income,  foreign
+                                exchange gains and losses and impairment are recognized in
+                                        profit or loss. Any gain or loss on derecognition is recognized in
+                                        profit or loss.
+         Debt   instruments   at  These assets are subsequently measured at fair value. Interest
+         FVTOCI                income under the effective interest method, foreign exchange
+                                    gains and losses and impairment are recognized in profit or
+                                           loss. Other net gains and losses are recognized in OCI. On
+                                     derecognition,  gains and  losses accumulated  in OCI  are
+                                        reclassified to profit or loss.
+          Equity  instruments  at  These  assets  are  subsequently measured  at  fair  value.
+         FVTOCI                 Dividends are recognized as income in profit or loss unless the
+                                  dividend clearly represents a recovery of part of the cost of the
+                                   investment. Other net gains and losses are recognized in OCI
+                              and are not reclassified to profit or loss.
+
+        Impairment of financial assets
+
+        The Group assesses on a forward-looking basis the expected credit losses associated with their assets
+         carried at amortized cost. The impairment methodology applied depends on whether there has been
+         a significant increase in credit risk since initial recognition. If credit risk has not increased significantly,
+         twelve month expected credit loss (ECL) is used to provide for impairment loss, otherwise lifetime
+       ECL is used.
+
+
+
+
+                                                             Page 225

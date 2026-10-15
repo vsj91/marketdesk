@@ -1,0 +1,63 @@
+GANESH~
+HOUSING ..
+LIMITED..,
+Notes forming part of Standalone Accounts
+for the year ended 31st March 2026
+
+                                                                                                     [AMT. ` IN LAKH]
+                                       2025-2026                     2024-2025
+ PARTICULARS                                  AMORTISED                   AMORTISED
+                               FVTPL   FVTOCI               FVTPL   FVTOCI
+                                                COST                       COST
+ Financial Liabilities                   0.00      0.00                   0.00      0.00
+ -   Borrowings                       0.00      0.00     28058.85      0.00      0.00        652.01
+ -   Trade Payables                    0.00      0.00      4027.47      0.00      0.00      4064.56
+ -   Other financial liabilities            0.00      0.00         64.79      0.00      0.00             111.14
+
+*Since all the financial Assets and Financial liabilities are measured at amortised cost, disclosure of fair value hierarchy
+is not being made
+
+NOTE - 35 Fair Value of Financial Assets & Liabilities measured at amortized cost:]
+                                                                                                     [AMT. ` IN LAKH]
+                                             2025-2026                 2024-2025
+ Particulars                                      Carrying                      Carrying
+                                                                       Fair Value                        Fair Value
+                                        Amount                  Amount
+ Financial Assets:
+ Investment in Subsidiary                         52492.02      52492.02      52492.02      52492.02
+ Loans                                                16915.47         16915.47        12720.61        12720.61
+ Trade Receivable                                         11817.67          11817.67          15184.11          15184.11
+ Cash & cash equivalents                             528.62         528.62        2795.69        2795.69
+ Other bank balances                                5122.05        5122.05        3608.77        3608.77
+ -   Other financial Assets                           0.00          0.00              51.18              51.18
+ Financial Liabilities:
+ Borrowings                                    28058.85      28058.85          652.01          652.01
+ Trade Payables                                   4027.47        4027.47       4064.56       4064.56
+ Other financial liabilities                                64.79           64.79               111.14               111.14
+
+A.  The carrying amounts of trade receivables, trade payables, current loans, capital creditors and cash and cash
+     equivalents, other financial assets, other financial liabilities are considered to be the same as their fair values, due
+     to their short-term nature.
+B.  The fair values of non-current borrowings and non-current Loans are same as their amortised cost since the
+    borrowings are interest bearing at the prevalent market rate.
+
+NOTE - 36 Financial Risk Management:-
+The Company’s activities expose it to market risk, liquidity risk and credit risk. In order to minimize any adverse effects
+on the financial performance of the company, derivative financial instruments, such as foreign exchange forward
+contracts and foreign currency option contracts are entered to hedge certain foreign currency risk exposures and
+interest rate swaps to hedge variable interest rate exposures. Derivatives are used exclusively for hedging purposes
+and not as trading or speculative instruments.
+
+This note explains the sources of risk to which the entity is exposed to how the entity manages the risk and the impact
+of hedge accounting on the financial statements
+ Risk             Exposure                Measurement           Management
+                      Financial Assets measured at  -Ageing Analysis
+ Credit Risk                                                                             Diversification, Credit Limits
+                   amortised cost                -Credit Ratings
+                                                                                              Availability     of    committed
+ Liquidity Risk       Borrowing and other liabilities  Rolling Cash flow forecasts
+                                                                          borrowing facilities
+ Market Risk         Variable Rate Borrowings       Sensitivity Analysis          Conversion of loan from higher
+ - Interest Rates                                                                    interest rate to lower interest rate
+
+228                                                                             Annual Report 2025-26

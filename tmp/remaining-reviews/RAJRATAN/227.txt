@@ -1,0 +1,58 @@
+                                             Corporate Overview | Statutory Reports | Financial Statements
+
+Consolidated Statement of Profit and Loss for the year ended March 31, 2026
+(CIN No. L27106MP1988PLC004778)
+                                                                                                                     (INR in Lakhs)
+ Particulars                                          Note         Year ended      Year ended
+                                                         March 31, 2026  March 31, 2025
+   Revenue
+I  Revenue from contracts with customers               31            1,15,650         93,525
+II  Other Income                                  32             577          167
+III  Total Income (I+II)                                                  1,16,227         93,692
+IV Expenses
+   Cost of materials consumed                        33            70,390         60,714
+   Changes in inventories of finished goods, stock-in-        34                  (45)           (1,802)
+    trade and work-in-progress
+   Employee benefit expense                         35              5,458           4,275
+   Finance costs                                  36              2,843           2,817
+   Depreciation and amortisation expense               37              2,820           2,311
+   Other expenses                                 38            25,852         17,642
+    Total Expenses (IV)                                                  1,07,318         85,957
+V  Profit before exceptional item and tax (III-IV)                             8,909           7,735
+VI  Exceptional item                                                                                           -                        -
+VII Profit / (Loss) before tax (V-VI)                                         8,909           7,735
+VIII Tax Expenses
+   Current tax                                          24.3             1,395           1,367
+   Deferred tax                                         24.2             503          489
+    Total tax expenses (VIII)                                              1,898           1,856
+IX  Profit for the year (VII - VIII)                                           7,011           5,879
+X  Other Comprehensive Income                      21
+    A) Items that will not be reclassified to the statement
+        of profit or loss
+    Gain/ (Loss) on defined benefit plans                                  84                  (2)
+    Total (A)                                                      84                 (2)
+    B) Items that will be reclassified to the statement of                     3,066           1,776
+        profit or loss
+    Total (B)                                                           3,066           1,776
+X  Total other comprehensive income (A+B)                                3,150           1,774
+XI  Total Comprehensive Income for the year (IX+X)                        10,161           7,653
+
+XII Earnings per equity share (face value per
+   equity share - INR 2/-)
+     -   Basic                                     41              13.81           11.58
+     -   Diluted                                                          13.81           11.58
+The accompanying notes are an integral part of the consolidated financial statements
+As per our report of even dated
+For Fadnis & Gupte LLP                      For and on behalf of board Rajratan Global Wire Limited
+Chartered Accountants
+Firm Registration No. 006600C/C400324
+
+CA. Vikram Gupte                              Sunil Chordia                    Yashovardhan Chordia
+Partner                                 Chairman & Managing Director     CEO & Deputy
+Membership No. 074814                  DIN : 00144786                 Managing Director
+                                                                    DIN : 08488886
+
+Indore                              Shubham Jain                     Hitesh Jain
+April 21, 2026                         Company Secretary                  Chief Financial Officer
+
+                                                               Integrated Annual Report FY 2025-26 | 263

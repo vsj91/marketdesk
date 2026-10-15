@@ -1,0 +1,68 @@
+ Consolidated Statement of Changes in Equity
+  For the year ended 31st March, 2026
+  CIN: L29120PN1974PLC110307
+
+ A : Equity Share Capital :
+                                                                                                                        ₹ in Million
+
+                                                                                     Restated balance at                                              Balance at the     Changes in Equity                         Changes in Equity                                                                                        the beginning of the                        Balance at the end of    Financial Year                              beginning of the    Share Capital due to                        Share Capital during                                                                                           previous reporting                                   the period                                                         period       prior period errors                                the year (Net)                                                                                                        period
+   2025-26                                        129.79                      -                  N.A.                   0.13               129.92
+   2024-25                                       129.55                       -                  N.A.                 0.24               129.79
+
+ B : Other Equity :
+   (1) Current Reporting Period
+                                                                                                                        ₹ in Million
+
+                                                                              Reserves and Surplus                        Equity Instruments
+                                                                                                                             through Other
+    Particulars                                                        Securities         General       Retained    Share Based                                   Total                                                                                                                     Comprehensive
+                                                        Premium        Reserve        Earnings       Payment                                                                                                                           Income
+    Balance as on 1st April, 2025                                                  214.10          7,750.00           1,264.41             70.77                1,533.35        10,832.63
+     Profit for the year                                                                  -                  -           2,561.31                  -                        -           2,561.31
+    Other Comprehensive Income for the year - Fair Valuation Net of Tax                      -                  -                  -                  -                 (479.53)          (479.53)
+    Other Comprehensive Income for the year - Actuarial Gain/(Loss)                  -                  -            22.82                  -                        -            22.82
+    - Net of Tax
+    Dividend Paid                                                                                                       (421.94)                                                       (421.94)
+    Interim Dividend                                                                                                      (227.33)                                                        (227.33)
+    Transfer from Share Based Payment Reserve on account of Lapsed                                                 7.80               (7.80)                                          -
+    of ESOS
+    Transfer from Share Based Payment                                                17.13                  -                  -                (17.13)                       -                  -
+    For the Year from ESOS                                                 22.88                                    -            47.66                        -            70.54
+    Transfer from retained earnings                                                                      -                  -                                                             -
+    Balance as on 31st March, 2026                                          254.11         7,750.00          3,207.07           93.50               1,053.82        12,358.50
+
+   (2) Previous Reporting Period
+                                                                                                                        ₹ in Million
+
+                                                                               Reserves and Surplus                         Equity Instruments
+                                                                                                                                 through Other
+     Particulars                                                         Securities         General        Retained    Share Based      Comprehensive             Total
+                                                         Premium        Reserve        Earnings       Payment             Income
+    Balance as on 1st April, 2024                                           166.99         6,750.00          651.00           44.36               1,504.45          9,116.80
+     Profit for the year                                                                     -                  -            2,111.87                  -                         -            2,111.87
+    Other Comprehensive Income for the year - Fair Valuation                           -                  -                                      -                28.90           28.90
+    Other Comprehensive Income for the year - Actuarial Gain/(Loss)                   -                  -              (15.01)                  -                         -              (15.01)
+    - Net of Tax
+    Dividend Paid                                                                         -                  -           (259.24)                  -                         -           (259.24)
+    Interim Dividend                                                                                                     (227.07)                  -                                      (227.07)
+    Transfer from Share Based Payment Reserve on account of Lapsed                                             2.86              (2.86)                                            -
+    of ESOS
+    Transfer from Share Based Payment                                         18.78                  -                  -             (18.78)                        -                  -
+    For the Year from ESOS                                                 28.33                                           48.05                                  76.38
+    Transfer from retained earnings                                                      -         1,000.00         (1,000.00)                  -                                            -
+    Balance as on 31st March, 2025                                          214.10         7,750.00         1,264.41             70.77               1,533.35        10,832.63
+
+   As per our attached report of even date.                                       For and on behalf of The Board of Directors
+
+    For Kirtane & Pandit LLP                                     Aman R. Kirloskar                      Rahul C. Kirloskar
+    Chartered Accountants                                              Managing Director                      Executive Chairman
+    Firm Registration No. 105215W/W100057                                 DIN - 09823056                       DIN - 00007319
+
+
+   Anand Jog                                                                  Jitendra Shah                      Ramesh Birajdar
+    Partner                                                    Company Secretary                     Vice President & Chief Financial Officer
+   Membership No. 108177                                        ACS 17243                       ACA 104452
+    Pune, 27th April, 2026                                                                                              Pune, 27th April, 2026
+
+
+264          Kirloskar Pneumatic Company Limited | A Kirloskar Group Company

@@ -1,0 +1,63 @@
+Notes to the Standalone Financial Statements
+for the year ended December 31, 2025                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         Corporate
+
+1.  Corporate information                                   2.3 Material accounting judgments, estimates and                                                                                                                                                                                                                                                                                                                                                                                                                                    overview    Schaeffler India Limited (‘the Company’) is a public            assumptions
+    limited company domiciled and incorporated in India           The preparation of financial statements in conformity
+   and having its registered office at 15th Floor, ASTP               with Ind AS requires the Company’s management
+    (Amar Sadanand Tech Park), Baner, Pune - 411045.              to make estimates and assumptions that affect the                   Year
+    Maharashtra. The Company’s shares are listed on BSE           reported amounts of revenue, expenses, assets and
+    Limited (BSE) and National Stock Exchange of India                 liabilities. Actual results could differ from those                        2025
+    Limited (NSE) in India.                                         estimates.
+    The Company is engaged in the development,                  Estimates and judgments are reviewed on an ongoing
+    manufacturing and distribution of high-precision roller           basis. They are based on historical experience and other   and ball bearings, engine systems and transmission              factors, including expectations of future events that                                    Strategy
+    components, chassis applications, clutch systems and        may have a financial impact on the Company and that
+    related machine building manufacturing activities.              are believed to be reasonable under the circumstance.
+    The Company’s manufacturing units are located in the           Revisions to accounting estimates are recognised in the
+    State of Gujarat at Vadodara and Savli, in the State of           period in which the estimates are revised and future    Maharashtra at Talegaon (Pune) and in the State of Tamil        periods are affected.                                                                                                                                     Business
+   Nadu at Hosur.
+                                                            The                                                                  key assumptions                                                                                     concerning                                                                                                 the future                                                                                          and                                                                                                                  other                            review                                                               key sources                                                                                      of estimating                                                                                                uncertainty                                                                                                                at the                                                                                                                   reporting2.  Basis of preparation and material accounting policies
+2.1 Basis of preparation                                             date, that have a significant risk of causing a material
+                                                                adjustment to the carrying amounts of assets and liabilities
+      (i)  These financial statements of Schaeffler India
+                                                                      within the next financial year, are described below:                 ESG        Limited (‘the Company’) have been prepared in
+        accordance with Indian Accounting Standards as           Judgements:
+        per the Companies (Indian Accounting Standards)
+                                                                        a)  Current and deferred taxes        Rules, 2015 as amended and notified under Section
+       133 of the Companies Act, 2013 (the ‘Act’) and                   Significant management judgment is required to                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         Statutory        other relevant provisions of the Act.                          determine the amount of current and deferred taxes
+                                                                          that can be recognised, based upon the likely timing
+       The accounting policies adopted in the preparation           and the level of future taxable profits together with                                                                                                                                                                                                                                                                                                                                                                                reports
+         of these financial statements are consistent for all                future tax planning strategies.
+        the periods presented.
+                                                                     b)  Provisions, Contingent Liabilities and Contingent
+       The financial statements are presented in Indian               Assets
+        Rupees, which is the Company’s functional currency
+                                                                       Provisions are recognised when the Company has       and all values are rounded off to the nearest million                                                                                                                                                                                                                                                      Financial                                                             a present obligation (legal or constructive) as a        with one decimal place, except when otherwise
+                                                                              result of past events, it is probable that an outflow         indicated.
+                                                                           of resources will be required to settle the obligation
+      (ii) The financial statements have been prepared on              and in respect of which a reliable estimate can be                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     statements
+       a historical cost convention basis, except for the            made of the amount of obligation. Provisions are not
+         following:                                                 discounted to its present value and are determined
+       •  certain financial assets and liabilities (including            based on best estimates required to settle the
+            derivatives) that are measured at fair value;                   obligation at the reporting date. These are reviewed                Notice
+                                                                            at each reporting date and adjusted to reflect the
+       •  defined benefit plans - net defined benefit                    current best estimates.
+             (asset)/liabilities – Fair value of plan assets less
+           present value of defined benefit obligation.              A disclosure by way of a contingent liability is made
+                                                       when there is a possible obligation or a present
+2.2 Current and non-current classification                               obligation that may, but probably will not, require
+     All assets and liabilities have been classified as current            an outflow of resources. Contingent assets are not
+    or non-current as per the Company’s normal operating              recognised or disclosed in the financial statements.
+    cycle and other criteria set out in Schedule III of the                                                                             c)  Lease liabilities     Act. Based on the nature of the products and time
+    taken between acquisition of assets for processing                  At the commencement date of the lease, the
+   and their realisation in cash and cash equivalents, the            Company recognises lease liabilities measured at
+   Company has ascertained its normal operating cycle as              the present value of lease payments to be made
+    twelve months for the purpose of current or non-current              over the lease term. The lease payments include
+     classification of assets and liabilities.                                 fixed payments (including in substance fixed
+                                                               payments) less any lease incentives receivable,
+    Deferred tax assets and deferred tax liabilities are                    variable lease payments that depend on an index
+     classified as non-current assets and non-current                     or a rate, and amounts expected to be paid under
+     liabilities.                                                           residual value guarantees.
+
+
+
+                                                                                                         236

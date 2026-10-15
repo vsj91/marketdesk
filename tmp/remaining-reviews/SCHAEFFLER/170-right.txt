@@ -1,0 +1,53 @@
+Notes to the Consolidated Financial Statements
+for the year ended December 31, 2025                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         Corporate
+
+   Movement in fair value of plan assets:                                                                                                                                                                                                                                                                                                                                                                                                                                    overview                                                                                                                        (` in million)
+                                                                                                                Gratuity
+                                                                               As at December 31,   As at December 31,           Year                                                                                      2025             2024
+ Opening fair value of plan assets                                                                  911.1              831.2           2025
+ Return on plan assets recognised in other comprehensive income                                         14.5                11.3
+ Interest on plan assets                                                                              56.1                55.1
+ Contributions by employer                                                                        124.5              103.4                                                                                                                                                                                                                                                                                                                                                                                                                                    Strategy
+ Benefits paid                                                                                                (86.6)                 (89.9)
+ Closing fair value of plan assets                                                                     1,019.6              911.1
+
+    Expense recognised in the Statement of Profit and Loss:                                                                                                                        (` in million)                   Business
+                                                                                                                Gratuity                                                                                                                                                                                                                                                                                                                           review
+                                                                                                For the year ended    For the year ended
+                                                                              December 31, 2025   December 31, 2024
+ Current service cost                                                                                 83.3                69.9        ESG
+ Interest on net defined benefit liability                                                                     8.6                  5.7
+ Past service cost (refer Note 40 (B))                                                                210.0                                -
+ Total included in Employee benefits expense                                                        301.9                75.6
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         Statutory    Remeasurements recognised in other comprehensive income
+                                                                                                                        (` in million)                                                                                                                                                                                                                                                                                                                                                                                reports
+                                                                                                                Gratuity
+                                                                                                For the year ended    For the year ended
+                                                                              December 31, 2025   December 31, 2024
+ Actuarial loss on defined benefit obligation                                                                3.5                64.2                                                                                                                                                                                                                                                                                                                                                                                                                                                                   Financial Return on plan assets excluding interest income                                                              (14.5)                 (11.3)
+ Currency effects - OCI from DBO                                                                                                                          -                                -
+                                                                                                              (11.0)                52.9                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     statements
+    Principal actuarial assumptions at the balance sheet date
+                                                                                                                        (` in million)
+                                                                                          Gratuity                                                                                                      Notice
+                                            2025 (Holding    2025 (Subsidiary      2024 (Holding    2024 (Subsidiary
+                                                 Company)          Company)          Company)          Company)
+ Discount rate per annum as at                           6.7%             6.8%             6.8%             6.8%
+ December 31
+ Expected return per annum on plan assets as at              7.7%             0.0%             8.0%             0.0%
+ December 31
+ Future salary increment                                6.5%             7.0%             6.5%             7.0%
+ Retirement age                                    58 Years           60 Years           58 Years           60 Years
+ Mortality                                             Indian Assured       Indian Assured       Indian Assured       Indian Assured
+                                                         Lives Mortality        Lives Mortality        Lives Mortality        Lives Mortality
+                                                (2012-14) Ult table   (2012-14) Ultimate   (2012-14) Ult table   (2012-14) Ultimate
+ Attrition rate                                   6%-13%            10%          6%-13%            10%
+ The weighted-average duration of the defined                  7.16                8.48                6.83              16.77
+ benefit obligation (in years)
+
+Note: The estimates of future salary increases, considered in actuarial valuation takes into account inflation, seniority, promotion and other
+relevant factors.
+
+
+
+                                                                                                         336

@@ -1,0 +1,55 @@
+                                                                                                                                                                                      Corporate Overview         Statutory Reports         Financial Statements
+
+
+
+
+                  vi.  Based on our examination, which included test                accessed using a common login by multiple users.                 checks, the Holding Company has used accounting                 Furthermore, we did not observe any instance of the        Annexure ‘A’ To The Independent Auditor’s Report
+                software for maintaining its books of account which                  audit trail feature being tampered with during the                     (Referred to in paragraph 1 under ‘Report on Other Legal and Regulatory Requirements’ section of our report to the Members of Kirloskar
+               has a feature of recording audit trail (edit log) facility.                course of our audit. Also, the Subsidiary Company                  Pneumatic Company Limited of even date)
+              The audit trail feature was found to be operational               has preserved the audit trail as per the statutory
+                throughout the year for most relevant transactions.                 requirements for record retention.                                          In terms of the information and explanations sought by us and given by the Company and the books of accounts and records examined by
+                   In the case of stock adjustments recorded in ERP                                                                             us in the normal course of audit and to the best of our knowledge and belief, we state that:
+                                                                                3.    In our opinion and to the best of our information and according
+                system, while history is available, user identification
+                                                                              to the explanations given to us, managerial remuneration for                            (xxi) In our opinion and according to the information and explanations given to us, following companies incorporated in India and included
+                    details were not recorded. Further, during the course
+                                                                    the year ended 31st March, 2026 has been paid/provided                              in the consolidated financial statements of the Group, have unfavourable remarks in the Companies (Auditors Report) Order (CARO):
+                  of our audit we did not come across any instance
+                                                              by the Holding Company to its directors in accordance with
+                  of audit trail feature being tampered with. Also, the
+                                                                    the provisions of Section 197 read with Schedule V, to the                            Entity Name                                       CIN                                 Subsidiary/Joint Venture/     Clause number of the CARO report                 Holding Company has preserved the Audit Trail as                                                                                                                                                                                                   Associates            which is qualified or is adverse
+                                                                         extent applicable.
+                 per the statutory requirements for record retention.                                                                                                         Kirloskar Pneumatic Company Limited             L29120PN1974PLC110307          Holding Company                               (vii)
+                                                                                  In respect of the subsidiary company, the remuneration paid
+              Based on our examination, the Subsidiary Company                                                                                   Systems and Components (India) Private Limited    U74210MH1989PTC054107        Subsidiary Company                           (xvii)
+                                                                               to certain directors is in excess of the limits prescribed under
+               has used accounting software that has the feature
+                                                                    Section 197 of the Act; however, the same is in compliance
+                  of recording an audit trail (edit log) and that the
+                                                                      with the provisions of Schedule V to the Act and has been duly
+             same has been enabled and operational throughout
+                                                                 approved by the shareholders by way of a special resolution.                      For Kirtane & Pandit LLP                 the year for all relevant transactions recorded in the
+                                                                                                                                             Chartered Accountants               books of account. However, we note that in certain      The Ministry of Corporate Affairs has not prescribed other
+                                                                                                                                       Firm Registration No.105215W/W100057                  instances, user-level identification of changes could         details under Section 197(16) of the Act which are required to
+                not be distinctly established, as the system was       be commented upon by us.
+
+                                                                                                                      Anand Jog
+                                                                                                                                                  Partner
+                                                                                                                              Membership No.: 108177
+                                                                                                                                            UDIN: 26108177XQAWPJ8220
+                                                                                                                                             Pune, 27th April, 2026  For Kirtane & Pandit LLP
+  Chartered Accountants
+  Firm Registration No.105215W/W100057
+
+
+  Anand Jog
+  Partner
+  Membership No.: 108177
+  UDIN: 26108177XQAWPJ8220
+  Pune, 27th April, 2026
+
+
+
+
+
+258          Kirloskar Pneumatic Company Limited | A Kirloskar Group Company                                                                                                                                                                               Annual Report 2025-26      259

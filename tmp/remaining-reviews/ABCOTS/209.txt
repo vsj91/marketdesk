@@ -1,0 +1,65 @@
+                           A B COTSPIN INDIA LIMITED
+                                           (CIN: L17111PB1997PLC020118)
+                     Registered office: NH-54, Goniana Road , Near Lake-3, Bathinda , Punjab
+                           CONSOLIDATED STATEMENT OF CASH FLOWS
+                                   For the Year Ended 31st March 2026
+
+                                                                                     Year Ended         Year Ended
+Sr No  Particulars                                                                     31st March 2026     31st March 2025
+                                                                          Rupees (₹) in Lakh   Rupees (₹) in Lakh
+ A   CASH FLOW FROM OPERATING ACTIVITIES
+      Net Profit before tax                                                                    1,774.76            1,367.64
+      Add:
+       Depreciation & Amortisation Expenses                                                         1,394.33              879.12
+       Provision for Gratuity                                                                         10.46                20.33
+       Finance Cost                                                                                 1,071.12             1,039.50
+       Less:
+        Profit on Sale of Property Plant & Equipment's                                                        (5.30)                             -
+      Operating (loss)/profit before Working Capital Changes                                   4,245.37            3,306.59
+
+     Movements in working capital :-
+       (Increase)/ Decrease in Inventories                                                            1,367.84            (1,675.10)
+       (Increase)/ Decrease in Trade Receivables                                                      (2,440.66)             (966.19)
+       (Increase)/ Decrease in Other than Cash Bank Balances                                          (140.79)               (15.59)
+       (Increase)/ Decrease in Other Current Assets                                                  464.32            (3,581.33)
+       (Increase)/ Decrease in Other Financial Assets                                                        (0.61)                 (0.15)
+       (Increase)/ Decrease in Loans                                                                                                      -              865.73
+       Increase/ (Decrease) in Trade Payables                                                       160.64              101.94
+       Increase/ (Decrease) in Other Current Liabilities                                                      (3.16)                 3.03
+       Increase/ (Decrease) in Other Financial Liabilities                                                57.06                14.49
+      Operating (loss)/profit after Working Capital Changes                                     3,710.02           (1,946.58)
+       (Increase)/ Decrease in Non- Current/Security Deposits                                           15.64              416.12
+       (Increase)/ Decrease in Non- Current Term Deposits                                                  (0.10)                 (0.26)
+
+      Cash Generated from Operations                                                         3,725.56           (1,530.72)
+      Refund/(Payment) of Taxes (including TDS)                                                    (278.09)             (256.05)
+      Net Cash Flow from Operating Activities (A)                                               3,447.47           (1,786.77)
+
+ B   CASH FLOW FROM INVESTMENT ACTIVITIES
+      Add:
+       Sale of Property, Plant and Equipment                                                              7.00                             -
+       Sale of Non Current Investments                                                               10.28                57.72
+       Less:
+      Amount spent on Capital Work in Progress                                                                                      -            (3,296.88)
+      Purchase of Non Current Investments                                                                                             -                 (1.00)
+       Capital Advances against Purchase of Property Plant & Equipment's                              (2,050.67)            (1,457.76)
+      Purchase of Property Plant & Equipment's Net of Capital Advances                               (1,163.27)             (189.14)
+
+      Net Cash Flow from Investing Activities (B)                                               (3,196.66)           (4,887.06)
+
+  C   CASH FLOW FROM FINANCING ACTIVITIES
+      Add:
+       Allotment of Shares                                                                           2,910.75             3,217.75
+      Proceeds from Long Term Loans and Borrowings                                                 49.00                             -
+      Repayment of Long Term Loans and Borrowings                                                (954.85)             2,516.66
+      Repayment of Short Term Loans and Borrowings                                                (1,194.65)             1,988.35
+       Less:
+       Finance Cost Paid                                                                             (1,071.12)            (1,039.50)
+
+      Net Cash Flow from Financing Activities ( C)                                              (260.86)            6,683.26
+
+
+
+
+
+                                                               Page 205

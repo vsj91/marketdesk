@@ -1,0 +1,50 @@
+ Corporate Overview        Statutory Reports          Financial Statements                   115
+
+Notes
+forming part of the Audited Standalone Financial Statements for the year ended March 31, 2026
+                                                                              (Amounts in ₹ Lakhs, unless otherwise stated)
+
+        For  recognition  of  impairment  loss  on            credit risk characteristics with the objective
+        other financial assets and risk exposure, the            of facilitating an analysis that is designed to
+      Company determines that whether there has          enable significant increases in credit risk to be
+       been a significant increase in the credit risk            identified on a timely basis.
+         since initial recognition. If credit risk has not                                                           For   impairment   purposes,   significant        increased significantly, 12 months ECL is used                                                                       financial  assets  are  tested on  individual         to provide for impairment loss. However,  if                                                                 basis at each reporting date. Other financial         credit risk has increased significantly, lifetime                                                               assets are assessed collectively in groups       ECL is used. If, in a subsequent period, credit                                                                that share similar credit risk characteristics.         quality of the instrument improves such that                                                                 Accordingly, the impairment testing is done        there is no longer a significant increase in                                                                   retrospectively on the following basis:         credit risk since initial recognition, then the
+         entity reverts to recognising impairment loss          Name of the                                                                                 Impairment Testing Methodology
+        allowance based on 12-month ECL.                           financial asset
+                                                                   Trade         Expected Credit Loss model (ECL)
+         Lifetime ECL are the expected credit losses             Receivables     is applied. The ECL over lifetime
+         resulting from all possible default events over                               of the assets are estimated by
+        the expected life of a financial instrument.                          using a provision matrix which
+                                                                                                                         is based on historical loss rates       The 12 months ECL is a portion of the lifetime                                                                                              reflecting current conditions
+       ECL which results from default events that                       and forecasts of future economic
+         are possible within 12 months  after the                            conditions which are grouped
+        reporting date.                                                 on the basis of similar credit
+                                                                                              characteristics such as nature of
+       ECL is the difference between all contractual                               industry, customer segment,
+        cash flows that are due to the Company in                           past due status and other factors
+                                                                                       that are relevant to estimate the        accordance with the contract and  all the                                                                              expected cash loss from these
+        cash flows that the entity expects to receive                                assets.
+               (i.e.,  all cash  shortfalls), discounted at the            Other financial When the credit risk has not
+          original  EIR. When  estimating  the  cash             assets         increased significantly, 12
+         flows, the Company considers all contractual                     month ECL is used to provide
+        terms of the financial instrument (including                                 for impairment loss. When there                                                                                                                         is significant change in credit
+        prepayment,  extension,  call  and  similar                                  risk since initial recognition, the
+         options) over the expected life of the financial                        impairment is measured based on
+        instrument and Cash flows from the sale of                              probability of default over the life
+          collateral held or other credit enhancements                             time. If, in a subsequent period,                                                                                              credit quality of the instrument
+         that are integral to the contractual terms.                             improves such that there is no
+                                                                                   longer a significant increase in       ECL allowance (or reversal) recognized during                                                                                              credit risk since initial recognition,
+        the period is recognized as income/ expense                         then the entity reverts to
+          in the statement of profit and loss, net of                           recognising impairment loss
+          lien available on securities held against the                          allowance based on 12 month
+                                                                                  ECL.         receivables. This amount is reflected under
+        the head ‘other expenses’ in the profit and loss.
+       The balance sheet presentation for various           Financial liabilities
+          financial instruments is described below:                     Initial recognition and measurement
+               •    Financial assets measured as at amortised            Financial  liabilities are  classified,  at  initial
+              cost,  contractual  revenue  receivables            recognition, as financial liabilities at FVTPL
+          and lease receivables: ECL is presented         and as at amortised cost.
+            as an allowance, which reduces the net                                                        Amortised  cost   is  calculated  by  taking             carrying amount. Until the asset meets                                                                    into account any discount or premium on              write-off criteria, the Company does not                                                                  acquisition and fees or costs that are an           reduce impairment allowance from the                                                                    integral part of the EIR. The EIR amortisation            gross carrying amount.                                                                                       is included as finance costs in the statement
+        For assessing increase  in  credit  risk and            of profit and loss.
+       impairment  loss, the company combines
+          financial instruments on the basis of shared

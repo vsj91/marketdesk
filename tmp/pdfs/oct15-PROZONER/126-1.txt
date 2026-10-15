@@ -1,0 +1,47 @@
+(Currency : Indian Rupees in Lakhs unless otherwise stated)
+
+
+
+                                                                                                            229
+
+
+
+c)  Reconciliation of revenue as per contract price and as recognised in the Statement of profit and loss:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         Statements
+      Particulars                                                             March 31, 2026         March 31, 2025
+     Income from real estate projects                                                           6,492.19                  5,834.15                                                                                                                                                                                                                                                                                                                                                                                                                                                        Financial
+     Income from sale of services- leasing                                                         11,992.97                    11,131.22   3.
+      Total                                                                                      18,485.16                16,965.37
+
+
+     Other operating revenue- leasing                                                             1,037.02                    907.15
+      Total                                                                                        1,037.02                   907.15
+d)  Reconciliation of unearned revenue are as follows:
+
+      Particulars                                                             March 31, 2026         March 31, 2025
+     At the beginning of the year                                                             60.45                     139.01
+      Invoiced during the year                                                                          (32.99)                     (78.56)
+     Revenue recognised during the year                                                           12.22                            -
+     At the end of the year                                                                   39.68                  60.45
+e)  Performance obligation
+    The Group is engaged in the business of developing, owning and operating of shopping malls, commercial premises and residential
+     premises.
+
+      All the contracts entered with the customers consists of a single performance obligation thereby the consideration allocated to the
+    performance obligation is based on standalone selling prices.
+
+     In case of real estate projects, revenue is recognised upon transfer of control of units to customers for an amount reflecting the
+     consideration which the Company expects to receive in exchange for those units. The Company records revenue at a point in time
+    upon satisfaction of its performance obligations and control of the underlying assets getting transferred to the customers which is
+     linked to the completion of projects and execution of agreements with the customers.
+
+     In case mall operations, revenue is recognised based on the terms and conditions agreed under the lease agreements executed
+     with the tenants. In case of fixed license fees with increment clauses, the revenue is recognised over a period of time in equal
+     instalments, net off rebate, over the accounting periods covered by the lease term. In case of revenue share, the rental income is
+     variable and determined based on the turnover of that retail outlets.
+
+     Significant judgement is involved in identifying underlying performance obligations and determining when ‘control’ of the asset
+     underlying the performance obligation is transferred to the customer basis which revenue is recognised.
+f)  Transaction price allocated to remaining performance obligation
+    The aggregate amount of the transaction price allocated to the performance obligations that are unsatisfied (or partially unsatisfied)
+    as at March 31, 2026 is Rs. 7,599.35 lakhs (as at March 31, 2025 is Rs 5,535.57 lakhs) which will be recognised as revenue over a period
+     of 1-2 years .

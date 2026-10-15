@@ -1,0 +1,63 @@
+NOTES TO CONSOLIDATED FINANCIAL STATEMENTS
+FOR THE YEAR ENDED MARCH 31, 2026
+
+(Currency : Indian Rupees in lakhs)
+
+   Group as a lessee                                     Transactions and balances
+
+    Leases  that do  not  transfer  to  the Group        At    initial   recognition,   foreign   currency
+     substantially   all  of  the  risks  and  benefits         transactions are translated into the functional
+     incidental to ownership of the leased items are         currency using the exchange rates prevailing at
+    treated as operating  leases. Operating lease         the dates of the transactions.
+    payments are recognised as an expense in the                                                           Subsquently,  Monetary  assets and  liabilities
+    statement of profit and loss on a straight-line
+                                                    denominated  in  foreign  currency, which  are
+    basis over the lease term, unless the increase is
+                                                         outstanding  as  at  the  reporting  date,  are
+     in line with expected general inflation, in which                                                              translated at the reporting date at the closing
+    case lease payments are recognised based on                                                    exchange  rate  and  the  resultant  exchange
+    contractual terms. Contingent rental payable is                                                              differences are recognised in the statement of
+    recognised as an expense in the period in which                                                                    profit and loss. Non–monetary items that are
+    they it is incurred.                                                   measured at historical cost in a foreign currency
+                                                            are translated using the spot exchange rates as     Critical accounting estimate and judgement
+                                                               at the date of recognition.
+      1.   Determination of lease term
+                                         m)  Provisions
+        Ind AS 116 Leases requires lessee to determine
+        the lease term as the non-cancellable period      A provision is recognised when the Group has
+         of a lease adjusted with any option to        a present obligation as a result of past event;
+                                                                                             it is probable that outflow of resources will be        extend or terminate the lease, if the use of
+        such option is reasonably certain. The Group         required to settle the obligation, in respect of
+                                                     which a reliable estimate can be made. Provisions       makes assessment on the expected lease
+                                                            are not discounted to its present value and are        term on lease by lease basis and thereby
+                                                      determined based on best estimate required        assesses whether  it  is reasonably certain
+                                                            to settle the obligation at the balance sheet         that any options to extend or terminate the
+                                                               date. These are reviewed at each balance sheet        contract will be exercised. In evaluating the
+                                                        date and adjusted to reflect the current best         lease term, the Group considers factors such
+                                                              estimates.        as any significant leasehold improvements
+        undertaken  over  the  lease  term,  costs                                                      n)  Taxes
+         relating to the termination of lease and the
+                                                                              (i)  Current tax        importance of the underlying to the Group’s
+        operations taking into account the location             Current tax assets and  liabilities for the
+         of the underlying asset and the availability              current and prior years are measured at
+         of the suitable alternatives. The lease term             the amount expected to be recovered from,
+          in future periods is reassessed to ensure that             or paid  to, the taxation  authorities. The
+        the lease term reflects the current economic             tax rates and tax laws used to compute
+        circumstances.                                        the amount are those that are enacted, or
+                                                                  substantively enacted, by the reporting date
+     2.  Discount Rate                                                 in the countries where the Group operates
+       The discount rate is generally based on the           and generates taxable income.
+        incremental borrowing rate specific to the
+                                                              Current  income  tax  relating  to  items
+         lease being evaluated or for a portfolio of
+                                                            recognised outside profit or loss is recognised
+         leases with similar characteristics.                                                               outside  profit  or  loss  (either  in  other
+                                                         comprehensive income or in equity). Currentl)   Foreign currency translation
+                                                                tax items are recognised in correlation to
+    Functional and presentational currency                                                              the underlying transaction either in OCI or
+    The financial statements are presented in Indian               directly in equity. Management periodically
+    Rupees which is also functional currency of the             evaluates  positions  taken   in  the  tax
+    Group and the currency of the primary economic              returns with respect to situations in which
+    environment in which the Group operates.                    applicable tax regulations are subject to
+
+300

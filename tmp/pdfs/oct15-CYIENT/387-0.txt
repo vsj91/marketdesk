@@ -1,0 +1,63 @@
+CONSOLIDATED FINANCIAL STATEMENTS
+
+
+Maturity profile of defined benefit obligation:
+
+                                                                      As at           As at
+                                     Particulars
+                                                                     March 31, 2026    March 31, 2025
+ Within 1 year                                                                       8               7
+ 1-2 years                                                                          9               7
+ 2-3 years                                                                         11               8
+ 3-4 years                                                                         12               9
+ 4-5 years                                                                         12              10
+ 5-10 years                                                                        68              57
+
+The expected contribution to the plan for the year ended is ₹ 8 (March 31, 2025: ₹ 7)
+
+The weighted average duration of the defined benefit plan obligation at the end of the reporting period is 16.10 years (March 31,
+2025: 17.25 years).
+
+
+Remeasurement effects recognised in other comprehensive income (OCI):
+
+                                                          As at                   As at
+                           Particulars
+                                                         March 31, 2026            March 31, 2025
+ Gratuity                                                                                      (1)                      24
+ Pension                                                                             (19)                            (36)
+ Total OCI recognised in consolidated statement of profit and                   (20)                           (12)
+ loss
+
+
+Composition of plan assets
+
+Plan assets comprise of insurer managed funds.
+
+
+(c) Assumptions for compensated absences
+
+Effective November 21, 2025, the Government of India consolidated multiple existing labour laws into a unified framework
+comprising four Labour Codes, collectively referred to as the “New Labour Codes”. In accordance with Ind AS 19 - Employee
+Benefits, the impact of such legislative changes is treated as a plan amendment, requiring immediate recognition of the resultant
+past service cost in the consolidated statement of profit and loss. The Group has assessed the impact of the changes in
+compensated absence line with “New Labour Codes”. Based on this assessment, the Group has recognised a one-time increase
+in compensated absence provision amounting to ₹ 53 (refer note 29A).
+
+
+i) Compensated absences – India and domestic subsidiaries:
+
+                                                          As at                   As at
+                           Particulars
+                                                         March 31, 2026            March 31, 2025
+ Discount Rate (%)                                           6.74%-7.13%             6.58%-6.70%
+ Salary escalation rate (%)                                     7.00%- 10.00%            4.00%- 10.00%
+ Mortality Table                                             8.00%-21.00%            8.00%-26.70%
+ Attrition (%)                                          IALM (2012-14) Ultimate     IALM (2012-14) Ultimate
+ Retirement age                                                58-60 years                58-60 years
+
+
+
+
+
+386  | Annual Report 2025-26

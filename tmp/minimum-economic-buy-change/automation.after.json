@@ -1,0 +1,384 @@
+{
+  "config": {
+    "trader": {
+      "enabled": true,
+      "updated_at": "2026-10-13T07:51:40.551469+00:00",
+      "strategy": "claude-original-v2",
+      "strategy_selected_at": "2026-10-13T07:50:57.673320+00:00",
+      "nifty500_filter_enabled": false,
+      "nifty500_filter_updated_at": "2026-10-15T06:46:44.961282+00:00",
+      "full_session_buying": true,
+      "full_session_buying_updated_at": "2026-10-15T06:51:59.905148+00:00",
+      "allow_stale_held_valuation": true,
+      "stale_held_valuation_updated_at": "2026-10-15T07:12:31.800707+00:00",
+      "max_positions": 10,
+      "max_buys_per_day": 5,
+      "capacity_updated_at": "2026-10-15T07:16:41.265716+00:00",
+      "max_round_trip_fee_pct": 0.5,
+      "buy_cost_filter_updated_at": "2026-10-15T07:35:03.347796+00:00"
+    },
+    "investor": {
+      "enabled": true,
+      "updated_at": "2026-10-11T18:49:15.970442+00:00",
+      "full_session_buying": true,
+      "full_session_buying_updated_at": "2026-10-15T06:51:59.905650+00:00",
+      "max_positions": 10,
+      "max_buys_per_day": 5,
+      "capacity_updated_at": "2026-10-15T07:20:09.930876+00:00",
+      "allow_stale_held_valuation": true,
+      "stale_held_valuation_updated_at": "2026-10-15T07:24:35.943709+00:00",
+      "max_round_trip_fee_pct": 0.5,
+      "buy_cost_filter_updated_at": "2026-10-15T07:35:03.347796+00:00"
+    }
+  },
+  "status": {
+    "trader": {
+      "state": "monitoring",
+      "message": "Claude V2 (Nifty 500 filter off): 12 eligible signals; full-session buying; risk and heat limits checked. 7/10 holdings; 5/5 new buys today. Daily buy limit reached; exits continue.",
+      "fills_this_scan": 0,
+      "strategy": "claude-original-v2",
+      "nifty500_filter_enabled": false,
+      "candidates": 12,
+      "position_count": 7,
+      "buy_count": 5,
+      "max_positions": 10,
+      "max_buys_per_day": 5,
+      "checked_at": "2026-10-15T07:36:10.767709+00:00",
+      "full_session_buying": true,
+      "stale_holdings": [],
+      "allow_stale_held_valuation": true,
+      "valuation_only_holdings": []
+    },
+    "investor": {
+      "state": "monitoring",
+      "message": "Scan complete: 134 qualifying stocks; daily new-position limit reached (5/5). Exits continue; new buys resume next session.",
+      "candidates": 134,
+      "fills_this_scan": 0,
+      "buy_count": 5,
+      "position_count": 10,
+      "max_positions": 10,
+      "max_buys_per_day": 5,
+      "checked_at": "2026-10-15T07:36:10.767721+00:00",
+      "full_session_buying": true,
+      "stale_holdings": [
+        {
+          "symbol": "JNKINDIA",
+          "instrument_key": "NSE_EQ|INE0OAF01028",
+          "reason": "last trade 47s old"
+        }
+      ],
+      "allow_stale_held_valuation": true,
+      "valuation_only_holdings": [
+        {
+          "symbol": "JNKINDIA",
+          "price": 416.55,
+          "trade_time": 1792049723580,
+          "received_at": "2026-10-15T07:35:39.411000+00:00"
+        }
+      ]
+    }
+  },
+  "rules": {
+    "trader": {
+      "name": "Claude V2 \u00b7 Nifty 500 filter off \u00b7 full-session buying \u00b7 paper Trader",
+      "strategy": "claude-original-v2",
+      "max_positions": 10,
+      "position_pct": 10,
+      "max_buys_per_day": 5,
+      "daily_loss_pct": null,
+      "entry": "Completed close above prior 20-session high; prior 50-day average above prior 200-day; non-overlapping prior 10/30 volume \u2265 1.2; Nifty 500 trend filter disabled; completed-session data checks remain required. Rank by 63-session return. Next session only, fresh depth throughout 09:15\u201315:30 IST while the NSE normal session is open; unfilled signals expire after the session.",
+      "exit": "Initial stop 2 \u00d7 Wilder ATR(14) below fill; highest completed close minus 3 \u00d7 ATR trailing stop, ratchet only from the following session; completed close below prior 50-day average exits next session. No fixed profit target.",
+      "risk": "0.5% of current equity at risk including estimated round-trip fees and 0.25% per-side slippage reserve; 3% portfolio heat cap. Existing holdings retain at least their previous protective stop during migration. No daily 2% circuit in original Claude. Existing Trader holdings may use their last valid current-session quote for portfolio valuation when stale. New orders and exits still require fresh prices and depth. Missing, future-dated or prior-session quotes block new buys. Automatic buys require estimated buy-plus-sell fees \u2264 0.5% of actual filled value, including delivery DP charges. Tiny partial buys are rejected; quantities are never increased to meet this check. Sell and stop orders are exempt.",
+      "execution": "Local depth-limited simulation only. Fresh observed quotes throughout the normal session; never retrospective fills.",
+      "max_round_trip_fee_pct": 0.5,
+      "entry_window": "09:15\u201315:30 IST during the connected NSE normal session"
+    },
+    "investor": {
+      "name": "Fundamentals and trend \u00b7 paper strategy",
+      "max_positions": 10,
+      "position_pct": 10,
+      "max_buys_per_day": 5,
+      "stop_pct": 10,
+      "take_profit_pct": null,
+      "daily_loss_pct": 2,
+      "entry": "Complete annual inputs, no source conflicts, positive PBT/equity and revenue/profit YoY growth, interest coverage \u2265 3 (or reported zero finance costs), net debt/equity \u2264 0.5, and price above the 200-day average. Financial periods/basis/units must agree.",
+      "exit": "Sell the whole position at a 10% stop or below the 200-day average. Incomplete financial refreshes block new buys; they do not force a sale.",
+      "risk": "A 2% fall from the first marked portfolio equity of the session stops new buys for that session; exits remain active. Existing Investor holdings may use their last valid current-session quote for valuation when stale. Missing, invalid, future-dated or prior-session quotes block new buys. All orders and exits still require fresh prices and depth. Automatic buys require estimated buy-plus-sell fees \u2264 0.5% of actual filled value, including delivery DP charges. Tiny partial buys are rejected; quantities are never increased to meet this check. Sell and stop orders are exempt.",
+      "max_round_trip_fee_pct": 0.5,
+      "entry_window": "09:15\u201315:30 IST during the connected NSE normal session"
+    }
+  },
+  "events": [
+    {
+      "id": 626,
+      "created_at": "2026-10-15T07:35:03.348308+00:00",
+      "portfolio": "investor",
+      "kind": "config",
+      "symbol": null,
+      "reason": "User requested avoiding tiny uneconomic automatic buys. Estimated buy-plus-sell delivery fees, including DP charges, capped at 0.5% of actual depth-limited filled buy value. Tiny partial fills rejected without increasing quantity. Existing risk caps, selection checks, position/daily limits, sell orders and stops unchanged.",
+      "trade_id": null
+    },
+    {
+      "id": 625,
+      "created_at": "2026-10-15T07:35:03.348203+00:00",
+      "portfolio": "trader",
+      "kind": "config",
+      "symbol": null,
+      "reason": "User requested avoiding tiny uneconomic automatic buys. Estimated buy-plus-sell delivery fees, including DP charges, capped at 0.5% of actual depth-limited filled buy value. Tiny partial fills rejected without increasing quantity. Existing risk caps, selection checks, position/daily limits, sell orders and stops unchanged.",
+      "trade_id": null
+    },
+    {
+      "id": 624,
+      "created_at": "2026-10-15T07:24:35.943977+00:00",
+      "portfolio": "investor",
+      "kind": "config",
+      "symbol": null,
+      "reason": "User enabled current-session stale-held-price valuation for paper Investor, matching Trader. Existing holdings may use valid last-known session prices for daily equity checks. New buys and sells still require fresh prices and depth. Missing, invalid, future or prior-session marks block buys. The 2% daily loss halt, 10% position budget, 10 holdings, 5 daily buys, fundamentals, trend filters and stops remain unchanged. Trader unchanged.",
+      "trade_id": null
+    },
+    {
+      "id": 623,
+      "created_at": "2026-10-15T07:21:39.731669+00:00",
+      "portfolio": "investor",
+      "kind": "fill",
+      "symbol": "SAMBHV",
+      "reason": "BUY 13 / 604 shares (PARTIAL_CANCELLED): Complete matching annual inputs, positive growth, debt/interest filters and price above 200-day average",
+      "trade_id": "cb8ca0be-c5a1-4fd3-86c0-486a428e4b06"
+    },
+    {
+      "id": 622,
+      "created_at": "2026-10-15T07:21:38.670575+00:00",
+      "portfolio": "investor",
+      "kind": "fill",
+      "symbol": "CUPID",
+      "reason": "BUY 215 / 278 shares (PARTIAL_CANCELLED): Complete matching annual inputs, positive growth, debt/interest filters and price above 200-day average",
+      "trade_id": "bf51ee6e-69d4-4072-a1d8-2167dae911c3"
+    },
+    {
+      "id": 621,
+      "created_at": "2026-10-15T07:21:37.612709+00:00",
+      "portfolio": "investor",
+      "kind": "fill",
+      "symbol": "EMMVEE",
+      "reason": "BUY 314 / 343 shares (PARTIAL_CANCELLED): Complete matching annual inputs, positive growth, debt/interest filters and price above 200-day average",
+      "trade_id": "cd912dbf-9d9a-4823-ba11-267ff59f36e1"
+    },
+    {
+      "id": 620,
+      "created_at": "2026-10-15T07:20:09.931136+00:00",
+      "portfolio": "investor",
+      "kind": "config",
+      "symbol": null,
+      "reason": "User increased paper Investor capacity to 10 holdings and 5 automatic new buys per session. Fundamental and trend filters, fresh-held-price checks, 10% position budget, 2% daily loss halt, 10% stop and trend exits retained. Trader unchanged.",
+      "trade_id": null
+    },
+    {
+      "id": 619,
+      "created_at": "2026-10-15T07:17:19.737062+00:00",
+      "portfolio": "trader",
+      "kind": "fill",
+      "symbol": "MRPL",
+      "reason": "BUY 289 / 289 shares (FILLED): Claude V2 (Nifty 500 filter off) completed breakout; signal 2026-10-14; 2 ATR stop; 0.5% risk; paper only; full-session buying; stale holding valuation: KRISHANA at 211.09",
+      "trade_id": "5f6ae2ac-829b-4690-84ea-f02933bc5344"
+    },
+    {
+      "id": 618,
+      "created_at": "2026-10-15T07:17:17.530380+00:00",
+      "portfolio": "trader",
+      "kind": "blocked",
+      "symbol": "ONWARDTEC",
+      "reason": "No unused depth within the 10% participation and 0.5% price limits.",
+      "trade_id": null
+    },
+    {
+      "id": 617,
+      "created_at": "2026-10-15T07:17:16.759603+00:00",
+      "portfolio": "trader",
+      "kind": "blocked",
+      "symbol": "GALAXYSURF",
+      "reason": "No unused depth within the 10% participation and 0.5% price limits.",
+      "trade_id": null
+    },
+    {
+      "id": 616,
+      "created_at": "2026-10-15T07:17:15.100444+00:00",
+      "portfolio": "trader",
+      "kind": "blocked",
+      "symbol": "DYNAMATECH",
+      "reason": "No unused depth within the 10% participation and 0.5% price limits.",
+      "trade_id": null
+    },
+    {
+      "id": 615,
+      "created_at": "2026-10-15T07:17:15.093860+00:00",
+      "portfolio": "trader",
+      "kind": "fill",
+      "symbol": "BLUSPRING",
+      "reason": "BUY 36 / 215 shares (PARTIAL_CANCELLED): Claude V2 (Nifty 500 filter off) completed breakout; signal 2026-10-14; 2 ATR stop; 0.5% risk; paper only; full-session buying",
+      "trade_id": "b2735c64-fa77-4d26-96b8-7af3862f1077"
+    },
+    {
+      "id": 614,
+      "created_at": "2026-10-15T07:16:41.266028+00:00",
+      "portfolio": "trader",
+      "kind": "config",
+      "symbol": null,
+      "reason": "User increased paper Trader capacity to 10 holdings and 5 automatic new buys per session. Entry checks, 0.5% risk cap, 3% portfolio heat cap, 10% position budget and all protective stops retained. Investor unchanged.",
+      "trade_id": null
+    },
+    {
+      "id": 613,
+      "created_at": "2026-10-15T07:12:31.800958+00:00",
+      "portfolio": "trader",
+      "kind": "config",
+      "symbol": null,
+      "reason": "User enabled last valid current-session quotes for valuation of stale existing Trader holdings. Fresh prices/depth remain mandatory for new orders and exits. All other stock, risk, heat, position and daily-entry checks retained; Investor unchanged.",
+      "trade_id": null
+    },
+    {
+      "id": 612,
+      "created_at": "2026-10-15T06:55:13.300990+00:00",
+      "portfolio": "trader",
+      "kind": "fill",
+      "symbol": "KRISHANA",
+      "reason": "BUY 58 / 284 shares (PARTIAL_CANCELLED): Claude V2 (Nifty 500 filter off) completed breakout; signal 2026-10-14; 2 ATR stop; 0.5% risk; paper only; full-session buying",
+      "trade_id": "3128e5a3-ae10-40e7-9f31-07ca58ace9ca"
+    },
+    {
+      "id": 611,
+      "created_at": "2026-10-15T06:53:26.066834+00:00",
+      "portfolio": "trader",
+      "kind": "fill",
+      "symbol": "MAWANASUG",
+      "reason": "BUY 4 / 222 shares (PARTIAL_CANCELLED): Claude V2 (Nifty 500 filter off) completed breakout; signal 2026-10-14; 2 ATR stop; 0.5% risk; paper only; full-session buying",
+      "trade_id": "aab177cc-bec3-4e84-8a88-673b70dfd979"
+    },
+    {
+      "id": 610,
+      "created_at": "2026-10-15T06:53:25.378053+00:00",
+      "portfolio": "trader",
+      "kind": "fill",
+      "symbol": "WSTCSTPAPR",
+      "reason": "BUY 5 / 47 shares (PARTIAL_CANCELLED): Claude V2 (Nifty 500 filter off) completed breakout; signal 2026-10-14; 2 ATR stop; 0.5% risk; paper only; full-session buying",
+      "trade_id": "ade40753-fa7f-4f4b-b8f1-189486322d5b"
+    },
+    {
+      "id": 609,
+      "created_at": "2026-10-15T06:51:59.905655+00:00",
+      "portfolio": "investor",
+      "kind": "config",
+      "symbol": null,
+      "reason": "User enabled full-session paper buying, 09:15\u201315:30 IST while the connected NSE normal session is open. Other entry checks, daily limits, risk limits and stops retained.",
+      "trade_id": null
+    },
+    {
+      "id": 608,
+      "created_at": "2026-10-15T06:51:59.905565+00:00",
+      "portfolio": "trader",
+      "kind": "config",
+      "symbol": null,
+      "reason": "User enabled full-session paper buying, 09:15\u201315:30 IST while the connected NSE normal session is open. Other entry checks, daily limits, risk limits and stops retained.",
+      "trade_id": null
+    },
+    {
+      "id": 607,
+      "created_at": "2026-10-15T06:46:44.961574+00:00",
+      "portfolio": "trader",
+      "kind": "config",
+      "symbol": null,
+      "reason": "User requested Nifty 500 trend filter disabled for paper Trader. Other entry checks, opening window, position/risk limits and protective stops retained.",
+      "trade_id": null
+    },
+    {
+      "id": 606,
+      "created_at": "2026-10-15T06:30:39.881780+00:00",
+      "portfolio": "investor",
+      "kind": "fill",
+      "symbol": "EPACKPEB",
+      "reason": "SELL 4 / 4 shares (FILLED): 10% loss threshold",
+      "trade_id": "373e58e8-f5bf-4c82-84ef-76970d9bd993"
+    },
+    {
+      "id": 605,
+      "created_at": "2026-10-15T06:29:35.610424+00:00",
+      "portfolio": "investor",
+      "kind": "fill",
+      "symbol": "EPACKPEB",
+      "reason": "SELL 1 / 5 shares (PARTIAL_CANCELLED): 10% loss threshold",
+      "trade_id": "ba8ca964-5f2f-4321-b42c-626919054dfb"
+    },
+    {
+      "id": 604,
+      "created_at": "2026-10-15T03:57:40.890272+00:00",
+      "portfolio": "investor",
+      "kind": "fill",
+      "symbol": "LLOYDSENT",
+      "reason": "BUY 32 / 1375 shares (PARTIAL_CANCELLED): Complete matching annual inputs, positive growth, debt/interest filters and price above 200-day average",
+      "trade_id": "c2830f81-f69c-4f42-9744-621187af2a32"
+    },
+    {
+      "id": 603,
+      "created_at": "2026-10-15T03:57:39.836342+00:00",
+      "portfolio": "investor",
+      "kind": "fill",
+      "symbol": "NETWEB",
+      "reason": "BUY 11 / 20 shares (PARTIAL_CANCELLED): Complete matching annual inputs, positive growth, debt/interest filters and price above 200-day average",
+      "trade_id": "025a1022-60ba-470d-9839-963e97dc9033"
+    },
+    {
+      "id": 602,
+      "created_at": "2026-10-15T03:56:44.560410+00:00",
+      "portfolio": "investor",
+      "kind": "blocked",
+      "symbol": "LALPATHLAB",
+      "reason": "New paper buy blocked: Latest observed market session missing",
+      "trade_id": null
+    },
+    {
+      "id": 601,
+      "created_at": "2026-10-15T03:56:44.558400+00:00",
+      "portfolio": "investor",
+      "kind": "blocked",
+      "symbol": "MASTEK",
+      "reason": "New paper buy blocked: Latest observed market session missing",
+      "trade_id": null
+    },
+    {
+      "id": 600,
+      "created_at": "2026-10-15T03:56:44.515005+00:00",
+      "portfolio": "investor",
+      "kind": "blocked",
+      "symbol": "MPHASIS",
+      "reason": "New paper buy blocked: Latest observed market session missing",
+      "trade_id": null
+    },
+    {
+      "id": 599,
+      "created_at": "2026-10-15T03:56:44.511814+00:00",
+      "portfolio": "investor",
+      "kind": "blocked",
+      "symbol": "MARKSANS",
+      "reason": "New paper buy blocked: Latest observed market session missing",
+      "trade_id": null
+    },
+    {
+      "id": 598,
+      "created_at": "2026-10-15T03:56:44.508590+00:00",
+      "portfolio": "investor",
+      "kind": "blocked",
+      "symbol": "NESTLEIND",
+      "reason": "New paper buy blocked: Latest observed market session missing",
+      "trade_id": null
+    },
+    {
+      "id": 597,
+      "created_at": "2026-10-15T03:56:44.503933+00:00",
+      "portfolio": "investor",
+      "kind": "blocked",
+      "symbol": "JYOTICNC",
+      "reason": "New paper buy blocked: Latest observed market session missing",
+      "trade_id": null
+    }
+  ],
+  "interval_seconds": 15
+}

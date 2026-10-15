@@ -1,0 +1,60 @@
+Schaeffler India Limited | Integrated Annual Report 2025
+
+Notes to the Standalone Financial Statements
+for the year ended December 31, 2025
+
+42. Employee benefits:
+    A)  Post employment benefit plans
+        Defined contribution plans
+       The Company makes contributions, determined as a specified percentage of employee salaries, in respect of
+         qualifying employees towards Provident Fund and Superannuation Fund which are defined contribution plans. The
+       Company has no obligations other than to make the specified contributions. The contributions are charged to the
+        Statement of Profit and Loss as they accrue. The amount recognised as an expense towards contribution to Provident
+       Fund for the year aggregated to `255.2 million (2024: `237.0 million) and contribution to superannuation fund for the
+        year aggregated to `33.2 million (2024: `33.3 million).
+
+        Defined benefit plans
+       The Company has defined benefit plans that provide gratuity benefit. The gratuity plan entitles an employee, who
+       has rendered at least five years of continuous service, to receive one-half month’s salary for each year of completed
+         service at the time of retirement/exit. The Scheme is funded by the plan assets. The expected contribution to the plan
+        next year is `100.0 million (2024: `50.0 million).
+
+    The following table summarises the position of assets and obligations
+
+                                                                                                                        (` in million)
+                                                                                                   Gratuity
+                                                                        As at December    As at December
+                                                                                       31, 2025          31, 2024
+ Present value of funded obligations                                                      1,302.6           1,033.5
+ Fair value of plan assets                                                                1,019.6            911.1
+ Liability recognised in balance sheet                                                    283.0            122.4
+
+
+    Classification into current/non-current
+    The liability in respect of each of the plans comprises of the following non-current and current portions:
+                                                                                                                        (` in million)
+                                                                                                   Gratuity
+                                                                        As at December    As at December
+                                                                                       31, 2025          31, 2024
+ Non-current liability                                                                                                                        -                            -
+ Current liability                                                                      283.0            122.4
+ Total                                                                              283.0            122.4
+
+   Movement in present values of defined benefit obligations:
+                                                                                                                        (` in million)
+                                                                                                   Gratuity
+                                                                        As at December    As at December
+                                                                                       31, 2025          31, 2024
+ Opening defined benefit obligation                                                      1,033.5            931.6
+ Service cost                                                                            77.7              67.1
+ Past service cost (refer Note 42 (B))                                                     210.0                            -
+ Interest cost                                                                            64.2              60.5
+ Actuarial (gains)/losses recognised in Other Comprehensive Income due to:
+ Change in assumptions                                                                      9.2              64.2
+ Experience changes                                                                                   (5.5)                            -
+ Benefits paid                                                                                   (86.5)              (89.9)
+ Closing defined benefit obligation                                                       1,302.6           1,033.5
+
+
+
+275

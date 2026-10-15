@@ -1,0 +1,75 @@
+                       Corporate Overview         Statutory Reports
+
+
+NOTES TO CONSOLIDATED FINANCIAL STATEMENTS
+FOR THE YEAR ENDED MARCH 31, 2026
+
+(Currency : Indian Rupees in lakhs)
+
+   hedged item attributable to the risk hedged is         value measurement, business projections used
+    recorded as part of the carrying value of the          for the purpose of goodwill impairment  etc.
+   hedged item in the balance sheet and is also          Difference, if any, between the actual results and
+    recognised in the statement of profit and loss in         estimates is recognised in the period in which
+    Finance Cost.                                         the results are known.
+
+    The Company  classifies a  fair  value hedge     2.5 Securities premium account
+     relationship when the hedged item (or group
+                                                       a)  Securities premium includes:    of items)  is a  distinctively  identifiable asset
+    or  liability hedged by one or a few hedging              n   The difference between the face value of
+    instruments. The financial instruments hedged             the equity shares and the consideration
+     for  interest  rate  risk  in a  fair  value hedge             received in respect of shares issued;
+     relationship are fixed rate debt issued and other              n   The fair value of the stock options which
+    borrowed  funds.   If  the  hedging  instrument                                                                are treated as expense, if any, in respect of
+    expires or is sold, terminated or exercised, or                                                               shares allotted pursuant to Stock Options
+    where the hedge no longer meets the criteria                                                       Scheme.
+     for hedge accounting, the hedge relationship is
+                                                   b)  The issue expenses of securities which qualify    discontinued prospectively.  If the relationship
+    does not meet hedge  effectiveness  criteria,         as equity instruments are written off against
+                                                                  securities premium account/ retained earning in    the Company discontinues hedge accounting
+                                                      accordance with Ind AS.    from the date on which the qualifying criteria
+    are no longer met. For hedged items recorded
+                                                       2.6 Recent accounting pronouncements
+     at amortised cost, the accumulated fair value
+                                                               Ministry of Corporate Affairs (“MCA”) notifies
+    hedge adjustment to the carrying amount of
+                                             new standards or amendments to the existing
+    the hedged item on termination of the hedge
+                                                         standards under Companies (Indian Accounting
+    accounting relationship  is amortised over the
+                                                         Standards) Rules as issued from time to time.
+    remaining term of the original hedge using the
+    recalculated EIR method by recalculating the EIR        IND AS  1, Presentation of Financial Statements
+     at the date when the amortisation begins. If the         applicable w.e.f April 01, 2025 : The amendment
+   hedged item is derecognised, the unamortised          relates to classification of liabilities as current
+      fair value adjustment is recognised immediately         or noncurrent and non-current  liabilities with
+     in the statement of profit and loss.                      covenants.  In  the  context  of  classifying  a
+                                                                              liability as current, it removes the requirement
+2.4 Significant accounting judgements, estimates
+                                                             of existence of a right to defer settlement for
+   and assumptions
+                                                               at least 12 months after the reporting date and
+    The  preparation  of  financial  statements  in         instead requires that the said right should exist
+    conformity  with  Ind AS  requires  that  the       on the  reporting date and have  substance.
+   management of the Group makes estimates and        The amendment also introduces guidance on
+    assumptions that affect the reported amounts          classification of  liabilities with covenants. The
+    of income and expenses of the period, the       Company has no impact of these amendments
+    reported balances of assets and liabilities and           in its classification criteria of current and non-
+    the disclosures relating to contingent liabilities         current liabilities.
+    as of the date of the financial statements. The
+                                                  IND AS  1, Presentation of Financial Statements
+    estimates  and  underlying  assumptions  are
+                                                            applicable w.e.f April 01, 2026 : In case of breach
+    reviewed on an ongoing  basis. Revisions to
+                                                             of covenant, a  liability  will be  classified as
+    accounting estimates  include  useful  lives  of
+                                                            current even if the lender agreed, not to demand
+    property,  plant and equipment &  intangible
+                                                 payment as a consequence of the breach after
+     assets, allowance for expected credit losses, fair
+                                                         the reporting period but before approval of
+                                                                   financial statements.
+
+
+
+
+                                                            303

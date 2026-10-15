@@ -1,0 +1,73 @@
+                                                   Corporate Overview          Statutory Reports         Financial Statements 
+
+Notes
+to the consolidated financial statements for the year ended March 31, 2026
+(All amounts are in Indian Rupees in Crores except share data and unless otherwise stated)
+
+       Credit risk
+
+       Credit risk is the risk that counterparty will not meet its obligations under a financial instrument or customer contract,
+       leading to a financial loss. The Group is exposed to credit risk from its operating activities (primarily trade receivables
+      and loans to companies). The Group deals with parties which has good credit rating/worthiness given by external rating
+      agencies or based on groups internal assessment. The major customers are usually the Government parties.
+
+      Exposure to credit risk:
+
+      The Group exposure to credit risk is influenced mainly by the individual characteristics of each customer and the carrying
+      amount of financial assets represents the maximum credit exposure. The maximum exposure to credit risk is ₹ 2,004.54
+       crores (March 31, 2025: ₹ 1,592.68 crores), being the total of the carrying amount of balances with trade receivables
+       (including retention money) and loans to companies. In addition to above, the maximum exposure to credit risk in
+       contract assets is ₹ 1,056.22 crores (March 31, 2025: ₹ 190.91 crores), (net of expected credit loss provision of ₹ 7.16 crores
+      (March 31, 2025: ₹ 2.13 crores)
+
+      The measurement of impaired credit for carrying amount of the above financial assets is ascertained using the expected
+       credit loss model (ECL) approach. The Group is considerate of the fact the majority of the collection is receivable from
+      Government Companies where there can be delay in collection, however, there are no significant risk of bad debts.
+      The sale for the current year includes two customers (sale value of  ₹ 2,736.31 crores), & previous year include three
+      customers (Sale value of ₹ 1,579.96 crores) where individual sale made to parties were more than 10% individually of total
+       revenue.
+
+      Appropriate measurement for expected credit loss has been made and provided for in financial statements. The Group
+      has also a made detailed assessment of the recoverability and carrying value of the mentioned financial assets. Based
+      on current indicators of future economic conditions, the Group expects to recover the carrying amount of these assets.
+      The Group will continue to closely monitor any material changes arising of future economic conditions and impact on
+         its collectability.
+
+       Liquidity Risk
+
+       Liquidity risk refers to the risk that the Group cannot meet its financial obligations. The Group manages liquidity risk by
+       maintaining adequate reserves, banking facilities and reserve borrowing facilities, by continuously monitoring forecast
+      and actual cash flows, and by matching the maturity profiles of financial assets and liabilities.
+
+      The table below summarises the maturity profile of the Group financial liabilities based on contractual undiscounted
+      payments:
+
+
+                                                 Upto 1 year       1 to 5 years      > 5 years            Total
+      March 31, 2026
+       Borrowings                                               1,798.27         380.52          120.86        2,299.65
+       Trade payables                                       773.48                    -                    -         773.48
+       Other payables                                       96.95            6.68                    -          103.63
+       Lease liabilities                                              2.72                    -                    -             2.72
+                                                             2,671.42         387.20         120.86         3,179.48
+      March 31, 2025
+       Borrowings                                        926.90          314.89            122.81         1,364.60
+       Trade payables                                       579.65                    -                    -          579.65
+       Other payables                                       93.64            5.45                    -          99.09
+       Lease liabilities                                                  1.28                    -                    -               1.28
+                                                               1,601.47         320.34           122.81       2,044.62
+
+
+       Interest rate risk
+
+        Interest rate  risk  is the  risk that the  fair value or future cash flows of a  financial instrument  will fluctuate
+      because of changes in market interest rates. As the Group have debt obligations with floating interest rates,
+       the Group  is exposed to the risk of changes in market interest rate. The 100 basis points change in market
+        interest rate would increase / (decrease) the finance cost by ₹ 22.99 crores (March 31, 2025  : ₹ 13.65 crores).
+      The Group has no significant interest bearing assets, the income and operating cash flows are substantially independent
+       of market interest rate.
+
+
+
+
+                                                                                                279

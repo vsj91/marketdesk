@@ -1,0 +1,82 @@
+                                                                                                                                          Corporate Overview         Statutory Reports
+
+
+NOTES TO STANDALONE FINANCIAL STATEMENTS         NOTES TO STANDALONE FINANCIAL STATEMENTS
+FOR THE YEAR ENDED MARCH 31, 2026                                                     FOR THE YEAR ENDED MARCH 31, 2026
+
+(Currency : Indian Rupees in lakhs)                                                                                          (Currency : Indian Rupees in lakhs)
+
+                                                                                                                    Investment in Subsidiaries comprises of: Particulars                                                       As at            As at
+                                                           March 31, 2026     March 31, 2025                Name of Subsidiary                                              Carrying Amount      % Holding
+ (a) Secured by tangible assets                                                  7,75,225.31             7,37,161.77                       IndoStar Asset Advisory Private Limited                                            1.00            100%
+ (b) Unsecured                                                            9,784.84            9,234.92                       Total                                                                        1.00
+ Total - Gross                                                             7,85,010.15        7,46,396.69
+                                                                                                                      Investments as at March 31, 2025
+ Less: Impairment allowance                                                  (41,563.38)         (24,744.84)
+ Total - Net                                                           7,43,446.77          7,21,651.85                     Investment in                                           At Fair Value       Others         Total
+                                                                                                                                               Amortised  Through other      Through Loans in India
+                                                                                                                                                                   cost comprehensive      profit and      At cost (a) Public sector                                                                                      -                        -
+                                                                                                                                                        income            loss
+ (b) Others                                                                        7,85,010.15         7,46,396.69
+                                                                                                                       Mutual funds                                        -                    -       49,511.64                 -      49,511.64
+ Total - Gross                                                             7,85,010.15        7,46,396.69
+                                                                                                                                  Security Receipts                      1,38,715.21                    -                  -                 -     1,38,715.21
+ Less: Impairment allowance                                                  (41,563.38)         (24,744.84)
+                                                                                                                              Treasury Bills                                        -        9,653.55                  -                 -      9,653.55
+ Total - Net (a)                                                       7,43,446.77          7,21,651.85
+                                                                                                          Bonds                                                -        10,160.59                  -                 -      10,160.59
+ Loans outside India (b)                                                                             -                        -
+                                                                                                            Government securities                             -        10,232.72                  -                 -     10,232.72
+ Total - Net (a)+(b)                                                   7,43,446.77          7,21,651.85
+                                                                                                                                      Subsidiaries                                          -                    -                  -          1.00          1.00
+Footnotes:                                                                                                                    Total - Gross                        1,38,715.21     30,046.86      49,511.64         1.00   2,18,274.71
+i)   Security receipts are presented as part of “Note 6 - Investments”                                                           Investments in India                   1,38,715.21      30,046.86       49,511.64          1.00     2,18,274.71
+                                                                                                                          Investments outside India                         -                    -                  -                 -                 -
+ii)  Stage classification of loans, investments and its impairment allowance is disclosed in Note 32(D) and Note
+                                                                                                                               Total - Gross                        1,38,715.21     30,046.86      49,511.64         1.00   2,18,274.71    32(E)
+                                                                                                                                        Less: Impairment loss allowance   (36,455.26)                    -                  -                 -   (36,455.26)
+iii)  Secured indicates loans secured, wholly or partly, by way of hypothecation of vehicle and / or equitable
+                                                                                                                               Total - Net                       1,02,259.95     30,046.86      49,511.64         1.00    1,81,819.45
+    mortgage of property and or equipment.
+                                                                                                                                                                                                                           1.   Detailed analysis on year end stage classification of investments and impairment allowance is disclosed in
+NOTE 6 INVESTMENTS                                                                                              Note 32 (D)
+
+Investments as at March 31, 2026
+                                                                                                                    Investment in Subsidiaries comprises of:
+ Investment in                                    At Fair Value               Others
+                                                                                          Name of Subsidiary                                              Carrying Amount      % Holding
+                               Amortised  Through other      Through
+                                                                                                   Total                       IndoStar Asset Advisory Private Limited                                            1.00            100%
+                                        cost comprehensive      profit and      At cost
+                                                                                                                Niwas Housing Finance Limited (Formerly known as Niwas Housing         45,000.00            100%                                              income            loss
+                                                                                                                        Finance Private Limited)*
+ Mutual funds                                        -                    -      21,595.06                 -     21,595.06
+                                                                                                                               Total                                                              45,001.00
+ Security Receipts                   1,60,778.47                    -                  -                 -    1,60,778.47
+ Treasury Bills                                        -                    -                  -                 -                 -                               * disclose under non - current asset held for sale (refer note 14)
+ Bonds                                                -                    -                  -                 -                 -
+                                                                                         NOTE 7 OTHER FINANCIAL ASSETS
+ Government securities                             -         17,734.31                  -                 -       17,734.31
+ Subsidiaries                                          -                    -                  -          1.00          1.00                        Particulars                                                       As at            As at
+                                                                                                                                                                       March 31, 2026     March 31, 2025 Total - Gross                     1,60,778.47        17,734.31     21,595.06         1.00  2,00,108.84
+                                                                                                                                  Security deposit                                                          865.78             810.99
+ Investments in India                1,60,778.47         17,734.31      21,595.06          1.00   2,00,108.84
+                                                                                                                 Assignment receivables                                                               2,351.18            5,235.45
+ Investments outside India                         -                    -                  -                 -                 -
+                                                                                                                          Deposits with Trustee for securitisation*                                            2,591.14            4,484.14
+ Total - Gross                     1,60,778.47        17,734.31     21,595.06         1.00  2,00,108.84
+                                                                                                                    Other receivables                                                          656.72             2,214.46
+ Less: Impairment loss allowance    (1,01,915.17)                    -                  -                 -    (1,01,915.17)
+                                                                                                                                                                                           6,464.82          12,745.04 Total - Net                       58,863.30        17,734.31     21,595.06         1.00    98,193.67
+                                                                                                                                        Less: Impairment loss allowance                                           (603.56)            (296.58)
+1.   Detailed analysis on year end stage classification of investments and impairment allowance is disclosed in
+                                                                                                                                                                                                          5,861.26          12,448.46
+    Note 32 (D)
+                                                                                                                                                                             * It represents fixed deposit held as collateral with trustee for pass through certificate transactions
+
+                                                                                                                                           Footnote: Other receivable includes receivable from subsidiaries (refer note 33)
+
+
+
+
+214                                                                                                                                                            215

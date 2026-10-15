@@ -1,0 +1,55 @@
+Notes to the Standalone Financial Statements
+for the year ended December 31, 2025                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         Corporate
+
+    A)  Market risk                                                                                                                                                                                                                                                                                                                                                                                                                                    overview        Market risk is the risk of any loss in future earnings, in realisable fair values or in future cash flows that may result
+        from a change in the price of a financial instrument. The value of a financial instrument may change as a result
+         of changes in the foreign currency exchange rates, liquidity and other market changes. Future specific market
+       movements cannot be normally predicted with reasonable accuracy.                                                                                         Year
+            (i)  Foreign currency risk                                                                                                                                                             2025
+           The Company is exposed to foreign exchange risk arising from foreign currency transactions, primarily with
+            respect to the US Dollars, Euro, Swiss Franc, Japanese Yen, Pound and Yuan. Foreign exchange risk arises from
+             future commercial transactions and recognised assets and liabilities denominated in a currency that is not the
+           Company’s functional currency (Indian Rupees).                                                                                                                                                                                                                                                                                                                                                                                                                                    Strategy
+           The Company has import and export transactions in foreign currencies. Imports are higher than exports and hence
+            the Company has foreign currency exposure to the extent of imports being higher than exports. The risk of foreign
+            currency fluctuation is mitigated through hedging. Please refer Note 39 for details of foreign currency exposure.
+
+           The Company's exposure to foreign currency risk at the end of reporting period are as follows:                                                                                                                                                                                                                                                                                                                                                                                                                                    Business
+        Foreign Currency Sensitivity
+       The following table demonstrates sensitivity to a reasonable possible change in major foreign currencies like USD,                        review
+        EUR, CHF, JPY, GBP and CNY with all other variables held constant:
+
+                                                                                                                        (` in million)
+                                                                                                                                                              ESG
+                                                                                     Effect on Profit Before Tax/Equity
+
+                                                         As at December 31, 2025   As at December 31, 2024
+
+ USD                             +5%                                    (45.6)                         (3.9)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         Statutory                                     -5%                                 45.6                        3.9
+
+ EUR                             +5%                                    (11.1)                         (6.4)                                                                                                                                                                                                                                                                                                                                                                                reports
+                                     -5%                                 11.1                        6.4
+
+ CHF                             +5%                                        (0.0)                         (0.0)
+
+                                     -5%                                    0.0                        0.0                                                                                                                                                                                                                                                                                                                                                                                                                                                                   Financial
+ JPY                              +5%                                        (0.6)                         (0.1)
+
+                                     -5%                                    0.6                        0.1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     statements GBP                             +5%                                        (0.0)                        0.0
+
+                                     -5%                                    0.0                        0.0
+
+ CNY                             +5%                                    (27.7)                         (8.1)                                                                                                                                                                                                                                                                                                                           Notice
+                                     -5%                                 27.7                        8.1
+
+             (ii)  Interest rate risk
+
+              Interest rate risk exposure: The Company does not have interest bearing borrowings and interest rate risk is
+           towards opportunity cost on investment in tax free bonds. Surplus funds are being invested in bank deposits at
+             fixed interest rates and the tenure is managed to match with the Company's liquidity profile.
+
+
+
+
+
+                                                                                                         272

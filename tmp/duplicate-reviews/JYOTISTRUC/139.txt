@@ -1,0 +1,77 @@
+JYOTI STRUCTURES LIMITED
+
+Consolidated Balance Sheet as at March 31, 2026
+                                                                                                                           (Rs. in Crores)
+ Particulars                                                                Note            As at          As at
+                                                                                Mar 31, 2026     Mar 31, 2025
+ ASSETS
+ 1)  NON CURRENT ASSETS
+      a)   Property, Plant and Equipment                                          1                 69.45             42.39
+      b)   Other Intangible Assets                                                         1.1                 0.24              0.05
+      c)   Capital Work-in-Progress                                                       1.2                 1.32              0.28
+      d)   Intangible Assets under development                                                              1.75              1.43
+                                                                                                      72.76             44.15
+      e)   Financial Assets
+                  i)   Investments                                                   2 & 3                 0.90              0.93
+                   ii)   Other Financial Assets                                             4                  3.76              3.73
+                                                                                                          4.66              4.66
+    TOTAL NON CURRENT ASSETS                                                                  77.42             48.81
+ 2)  CURRENT ASSETS
+      a)   Inventories                                                          5               146.01             94.34
+      b)   Financial Assets
+                  i)   Trade Receivables                                                6              2,233.01          2,145.28
+                   ii)   Cash and Cash Equivalents                                        7                 97.34            463.85
+                    iii)  Bank Balances other than (ii) above                                  8               148.92             50.29
+              iv)  Other Current Financial Assets                                      9                 70.66             59.17
+                                                                                                      2,695.94          2,812.93
+       c)  Current Tax Asset (Net)                                               10                21.46             13.75
+       d)  Other Current Assets                                                     11               130.70            130.07
+    TOTAL CURRENT ASSETS                                                                      2,848.10          2,956.75
+ TOTAL                                                                                              2,925.52          3,005.56
+
+ EQUITY AND LIABILITIES
+ 1)  EQUITY
+      a)   Equity Share Capital                                                  12               238.73            237.69
+      b)   Other Equity                                                        13               235.87            324.42
+ 2)  Share Application money pending allotment                                 14                               -              0.24
+                                                                                                   474.60            562.35
+    Non controlling Interest                                                    12                  0.01              0.01
+    TOTAL EQUITY                                                                               474.61            562.36
+ 3)   LIABILITIES
+  A NON CURRENT LIABILITIES
+      a)   Financial Liabilities
+                  i)   Long Term Borrowings                                            15              1,925.41          1,874.96
+      b)   Other Non Current liabilities                                            16                52.64             83.92
+      c)   Long Term Provisions                                                 17                  9.26              2.35
+      d)   Deferred Tax Liabilities / (Assets) (Net)                                   18                 (11.03)               (9.71)
+    TOTAL NON CURRENT LIABILITIES                                                              1,976.28          1,951.52
+  B CURRENT LIABILITIES
+       a)  Financial Liabilities
+                  i)    Short Term Borrowings                                            19               158.34            121.30
+                   ii)   Trade Payables                                                  20               146.50            158.43
+                    iii)   Other Current Financial Liabilities                                   21                67.48             68.34
+                                                                                                   372.32            348.07
+      b)   Other Current Liabilities                                               22               102.08            142.97
+      c)   Short Term Provisions                                                 23                  0.23              0.64
+    TOTAL CURRENT LIABILITIES                                                                 474.63            491.68
+ TOTAL                                                                                              2,925.52          3,005.56
+ Material Accounting Policies                                                    33
+ Other Notes to Financial Statements                                             34
+The Notes referred to above form an integral part of the Financial Statements.
+As per our report of even date attached
+For SARC & ASSOCIATES                                                        For and on behalf of the Board of Directors
+Chartered Accountants
+Firm Registration No: 006085N
+                                                                Sonali Krishnaji Gaikwad                 Rajesh Kumar Singh
+                                                    Company Secretary                         Chief Executive Officer
+                                                          Membership No: F13908
+
+CA Rajendra S. Bagade                                     Abdul Hameed Khan                Monica Akhil Chaturvedi
+Partner                                                             Chief Financial Officer &                     Independent Director
+Membership Number : 104026                                Whole time Director                               DIN: 02193359
+UDIN: 26104026RMZPAE6916                                    DIN: 09508070
+
+Place: Mumbai
+Date : April 30, 2026
+
+136    Annual Report 2025-26

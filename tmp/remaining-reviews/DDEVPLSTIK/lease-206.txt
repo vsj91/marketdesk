@@ -1,0 +1,65 @@
+                                                                                                 for the year ended 31st March, 2026Notes to the financial statements
+
+
+     (d) Retained Earnings
+
+        Retained earnings are the profits that the Company has earned  till date, less any transfers to general reserve,
+        dividends or other distributions made to shareholders.
+
+                                                                         As at            As at
+                                                                                                             31st March, 2026       31st March, 2025
+         Balance at the beginning of the year                                               73,288.37            55,773.44
+         Less: Equity Dividend paid during the Year                                             (2,328.25)              (1,034.77)
+        Add: During the year                                                                  20,181.63            18,549.70
+         Balance at the end of the year                                                            91,141.75           73,288.37
+
+     (e)  Other Comprehensive Income
+
+             It comprises of remeasurements of the net defined benefit plans on acturial valuation of Gratuity.
+
+                                                                         As at            As at
+                                                                                                             31st March, 2026       31st March, 2025
+         Balance at the beginning of the year                                                       (68.00)                (36.80)
+        Add: During the year                                                                 6.22                  (31.20)
+         Balance at the end of the year                                                             (61.78)              (68.00)
+          Total Reserves (a+b+c+d+e)                                                   1,00,295.42          82,435.82
+
+17  FINANCE LEASE LIABILITY
+                                                                                                                                           (` In lacs)
+
+                                             Non Current                          Current
+
+                                         As at           As at           As at           As at
+                                                              31st March, 2026    31st March, 2025    31st March, 2026     31st March, 2025
+     Finance Lease Liability                          277.07              321.21               178.71             108.25
+
+                                                   277.07             321.21              178.71            108.25
+
+18  LONG TERM PROVISIONS
+                                                                                                                                           (` In lacs)
+
+                                                                         As at            As at
+                                                                                                             31st March, 2026       31st March, 2025
+       (a)   Employee benefits
+                    (i)    Gratuity (Refer Note No. 39(b))                                                  226.71              503.23
+
+           Total                                                                            226.71             503.23
+
+19  DEFERRED TAX LIABILITIES (NET)
+                                                                                                                                           (` In lacs)
+
+                                                                         As at            As at
+                                                                                                             31st March, 2026       31st March, 2025
+
+      (a)   Liabilities :
+              Depreciation and amortisation expenses                                      2,474.00             2,744.68
+             Items under financial assets and financial liabilities resulting in              465.50               36.29
+             temporary differences
+
+           Total (a)                                                                     2,939.50            2,780.97
+
+      (b)  Assets :
+             Items under financial assets and financial liabilities resulting in                 6.07                133.76
+             temporary differences
+
+220    Annual Report 2025-26

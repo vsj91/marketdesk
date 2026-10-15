@@ -1,0 +1,61 @@
+                                                   Corporate Overview    Statutory Reports  ESG  Financial Statements
+
+Disclosures
+      This section gives an overview of the signiﬁcance of ﬁnancial instruments for the Group and provides additional
+      information on balance sheet items that contain ﬁnancial instruments.
+     The details of signiﬁcant accounting policies, including the criteria for recognition, the basis of measurement and
+     the basis on which income and expenses are recognized in respect of each class of ﬁnancial asset, ﬁnancial liability
+     and equity instrument are disclosed in Note 3 (k), (l) and (m).
+
+(I)    Categories of Financial Instruments                                                                                     (` in Cr)
+ Particulars                                                                Year Ended          Year Ended
+                                                                                    31 st March 2026        31 st March 2025
+ Financial Assets
+ Measured at fair value through proﬁt or loss (FVTPL)
+        (i)  Investment in Mutual Fund                                                                151.77                266.37
+        (ii) Investment in ULIP                                                                          3.01                      1.79
+        (iii) Investment in Equity Shares                                                        4.63                             -
+ Measured at Amortized Cost
+        (i)  Trade and Other Receivables                                                            1,095.19               805.76
+        (ii) Cash and Cash Equivalents                                                               8.10                    5.27
+        (iii) Other Bank Balances                                                                 132.92                 166.35
+       (iv) Loans                                                                               23.35                   16.20
+       (iv) Investment in Debentures                                                      25.00
+      (v) Other Financial Assets                                                                  58.12                 32.07
+     Total                                                                              1,502.09                1,293.81
+ Financial Liabilities
+ Measured at Amortized Cost
+        (i)  Borrowings                                                                       456.61                282.77
+        (ii) Trade Payables                                                                289.63                  411.88
+        (iii) Other Financial Liabilities                                                         6.06                      18.17
+     Total                                                                         752.30                712.82
+
+(ii)    Fair Value Measurement:
+      This note provides information about how the Group determines fair values of various ﬁnancial assets.
+      Fair value of the Group's ﬁnancial assets that are measured at fair value on a recurring basis
+    Some of the Group's ﬁnancial assets are measured at fair value at the end of each reporting period. The following table
+      gives information about how the fair values of these ﬁnancial assets are determined.
+
+      Financial assets at fair value through proﬁt and loss (FVTPL)                                                       (` in Cr)
+ Particulars                                                          Level 1           Level 2          Level 3
+ As at 31st March 2026
+ Financial Assets
+ Measured at fair value through proﬁt or loss (FVTPL)
+        (i)  Investment in Mutual Fund                                                             -               151.77                       -
+        (ii) Investment in ULIP                                                                        -                 3.01                       -
+        (iii) Investment in Equity Shares                                         4.63                        -                       -
+ As at 31st March 2025
+ Financial Assets
+ Measured at fair value through proﬁt or loss (FVTPL)
+        (i)  Investment in Mutual Fund                                                             -            266.37                       -
+        (ii) Investment in ULIP                                                                        -                  1.79                       -
+        (iii) Investment in Equity Shares                                                            -                        -                       -
+
+Valuation technique and key input: NAV declared by respective Asset Management Companies.
+Fair Value of ﬁnancial assets and liabilities that are not measured at fair value (but fair value disclosures are required)
+Management considers that the carrying amounts of ﬁnancial assets and ﬁnancial liabilities recognized in the ﬁnancial
+statements approximate their fair values.
+
+
+
+                                                                                                              259

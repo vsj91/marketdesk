@@ -1,0 +1,54 @@
+ Corporate Overview        Statutory Reports          Financial Statements                   181
+
+Notes
+forming part of the Audited Consolidated Financial Statements for the year ended March 31, 2026
+                                                                              (Amounts in ₹ Lakhs, unless otherwise stated)
+
+        Name of the                                           Financial liabilities at FVTPL                        Impairment Testing Methodology            financial asset
+                                                                  Financial liabilities at FVTPL include financial
+         Trade         Expected Credit Loss model (ECL)                                                                                    liabilities  held  for  trading  and  financial          Receivables      is applied. The ECL over lifetime
+                            of the assets are estimated by                    liabilities designated upon initial recognition
+                        using a provision matrix which             as at fair value through profit or loss. Financial
+                                    is based on historical loss rates                 liabilities are classified as held for trading
+                            reflecting current conditions                                                                                                              if they  are  incurred  for the purpose  of                    and forecasts of future economic
+                         conditions which are grouped              repurchasing in the near term. This category
+                    on the basis of similar credit                 also includes derivative financial instruments
+                            characteristics such as nature of            entered  into by the Group  that are not
+                            industry, customer segment,                                                          designated as hedging instruments in hedge                         past due status and other
+                            factors that are relevant to                   relationships  as defined by Ind AS 109.
+                        estimate the expected cash loss            Separated embedded derivatives are also
+                      from these assets.                             classified as held for trading unless they are
+         Other financial When the credit risk has not               designated as effective hedging instruments.
+          assets         increased significantly, 12
+                   month ECL is used to provide                                                       Gains or losses on liabilities held for                              for impairment loss. When there
+                                    is significant change in credit              trading are recognised in the profit or
+                               risk since initial recognition, the               loss.
+                      impairment is measured based                                                           For liabilities designated as FVTPL, fair value                    on probability of default over
+                        the life time. If, in a subsequent              gains/ losses attributable to changes in own
+                           period, credit quality of the                   credit risk are recognized in OCI. These gains/
+                        instrument improves such that               loss are not subsequently transferred to profit                         there is no longer a significant                                                   and loss. However, the Group may transfer                          increase in credit risk since
+                                  initial recognition, then the                the cumulative gain or loss within equity. All
+                            entity reverts to recognising               other changes in fair value of such liability are
+                      impairment loss allowance based           recognised in the statement of profit or loss.                    on 12 month ECL.                                                     The Group has not designated any financial
+                                                                                    liability as at fair value through profit and loss.
+        Financial liabilities
+                                                    Loans and borrowings          Initial recognition and measurement
+                                                                  After initial recognition, interest-bearing loans         Financial  liabilities are  classified,  at  initial                                                   and borrowings are subsequently measured         recognition, as financial liabilities at FVTPL                                                                   at amortised cost using the EIR method.       and as at amortised cost.                                                           Gains and losses are recognised in profit or
+        Amortised  cost   is  calculated  by  taking            loss when the liabilities are derecognised as
+         into account any discount or premium on            well as through the EIR amortisation process.
+         acquisition and fees or costs that are an
+         integral part of the EIR. The EIR amortisation          Derecognition of financial liabilities
+            is included as finance costs in the statement        A financial liability is derecognised when the
+         of profit and loss.                                       obligation under the liability  is discharged
+                                                                or cancelled or expires. When an existing           All financial liabilities are recognised initially
+                                                                       financial liability is replaced by another from         at fair value and, in the case of loans and
+                                                           the same lender on substantially different        borrowings and  payables, net  of  directly
+                                                              terms, or the terms of an existing liability are         attributable transaction costs.
+                                                                    substantially modified, such an exchange or
+       The Group’s financial liabilities include trade           modification is treated as the derecognition
+       and other payables, loans and borrowings            of the original liability and the recognition of a
+         including   bank    overdrafts,    financial        new liability. The difference in the respective
+        guarantee contracts.                                   carrying  amounts   is  recognised  in  the
+                                                         statement of profit or loss.       The  measurement  of  financial   liabilities
+       depends   on    their    classification,   as
+        described below:

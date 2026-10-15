@@ -1,0 +1,59 @@
+202  Glottis Ltd  | Annual Report 2025-26
+
+Notes
+forming part of the Audited Consolidated Financial Statements for the year ended March 31, 2026
+                                                                              (Amounts in ₹ Lakhs, unless otherwise stated)
+
+               i.   Actuarial assumptions
+
+                                                                                              Employee
+                                                                                                                     gratuity
+                 Particulars                                                                                (unfunded)
+                                                                                           March 31, 2026
+              Discount rate (per annum)                                                        7.20%
+             Expected Rate of increase in compensation levels                                      5.00%
+             Expected Return on Planned Asset                                                 7.08%
+                Mortality Rate                                                                          Indian Assured
+                                                                                                               Lives Mortality
+                                                                                              (2012-14)
+              Retirement age                                                         60 years
+           The discount rate assumed is determined by reference to market yield at the Balance Sheet date on
+           government bonds. The estimate of future salary increases, considered in actuarial valuation, take
+            account of inflation, seniority, promotion and other relevant factors, such as supply and demand in
+            the employment market.
+
+               ii.  Changes in the present value of the defined benefit obligation in respect of Gratuity
+            (funded) are as follows:
+
+                 Particulars                                                                      March 31, 2026
+              Present value obligation as at the beginning of the period                                  133.45
+                Interest cost                                                                          16.72
+              Past Service Cost                                                                                                                     -
+              Current service cost                                                                    29.43
+               Benefits paid                                                                                          (7.89)
+               Acquisition cost                                                                                                                       -
+                Actuarial loss/(gain) on obligations                                                                (10.53)
+             Present value obligation as at the end of the Period                                    161.18
+
+               iii.  Expenses recognized in Statement of profit and loss
+
+                 Particulars                                                                      March 31, 2026
+              Current service cost                                                                    29.43
+                Interest cost                                                                          16.72
+                 Deficit in acquisition cost recovered                                                                                             -
+             Expected return on plan assets                                                                                                   -
+               Total expense recognized in Statement of profit and loss.                                  46.15
+            iv.  Expenses recognised in the other comprehensive income
+
+                 Particulars                                                                      March 31, 2026
+             Net actuarial loss/(gain) recognized during the period                                                  (7.80)
+               Total Expenses recognised in the other comprehensive income                                   (7.80)
+           v.   Fair value of Plan Assets
+
+                 Particulars                                                                      March 31, 2026
+             Balance at the beginning of the period                                                  125.77
+             Expected return on plan assets
+               Contribution                                                                          18.26
+                Actuarial gain/(loss)                                                                                    (2.73)
+               Benefits paid                                                                                          (7.89)
+             Balance at the end of the period                                                    133.41

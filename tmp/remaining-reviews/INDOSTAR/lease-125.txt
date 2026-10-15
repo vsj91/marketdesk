@@ -1,0 +1,69 @@
+                                                                                                                                          Corporate Overview         Statutory Reports
+
+
+NOTES TO STANDALONE FINANCIAL STATEMENTS         NOTES TO STANDALONE FINANCIAL STATEMENTS
+FOR THE YEAR ENDED MARCH 31, 2026                                                     FOR THE YEAR ENDED MARCH 31, 2026
+
+(Currency : Indian Rupees in lakhs)                                                                                          (Currency : Indian Rupees in lakhs)
+
+NOTE 35 CONTINGENT LIABILITIES AND COMMITMENTS                                                  NOTE 37 DUES TO MICRO, SMALL AND MEDIUM ENTERPRISES AS PER MSMED ACT, 2006
+
+ Particulars                                                       As at            As at                   The following disclosure is made as per the requirement under The Micro Small and Medium Enterprise
+                                                           March 31, 2026     March 31, 2025                   Development Act, 2006 (the ‘MSMED Act’) on the basis of confirmations sought from suppliers on registration
+ Contingent liabilities:                                                                                                       with the specified authorities under MSMED :
+ Corporate guarantee given by Company                                 4,800.00                        -
+                                                                                                                                       Particulars                                                       As at            As at
+ Litigation cases filed against the Company                                                       -             43.00                                                                              March 31, 2026     March 31, 2025
+ Capital commitments:                                                                                                                                      a.   Principal amount remaining unpaid                                               5.01                6.23
+ Estimated amount of contracts remaining to be executed on                                 -              86.95                           b.   Interest due thereon remaining unpaid                                                      -                        -
+ capital account                                                                                                                                                                   c.   Interest paid by the Company in terms of Section 16 of the                              -                        -
+ Loans sanctioned not yet disbursed                                        9,808.02           9,809.52                             Micro, Small and Medium Enterprises Development Act, 2006,
+                                                                                                                            along with the amount of the payment made to the supplier
+NOTE 36 DISCLOSURES AS REQUIRED BY IND AS 116 ‘LEASES’                                                           beyond the appointed day
+(A) Lease liability movement                                                                                                                 d.   Interest due and payable for the period of delay in making                              -                        -
+                                                                                                              payment (which have been paid but beyond the appointed
+     Particulars                                                    As at            As at                       day during the period) but without adding interest specified
+                                                           March 31, 2026     March 31, 2025                                                                                                                       under the Micro, Small and Medium Enterprises Act,2006)
+    Opening balance                                                        3,725.65            3,923.54                                                                                                                                                                 e.   Interest accrued and remaining unpaid                                                      -                        -
+    Add : Adjustments/additions during the year                            530.05              679.14                                                                                                                                                                                                                                           f.   Interest remaining due and payable even in the succeeding                             -                        -
+    Add : Interest on lease liability                                              355.51             374.52                              years, until such date when the interest dues as above are
+     Less : Deletions                                                            (47.69)              (191.02)                             actually paid to the small enterprises
+     Less : Lease rental payments                                                            (1,131.17)           (1,060.53)                                                                                                            The aforementioned is based on the responses received by the Company to its inquiries with suppliers with
+                                                                         3,432.35           3,725.65                     regard to applicability under the said Act. This has been relied upon by the auditors.
+
+(B) Future lease cashflow for all leased assets                                                           No interest has been paid/is payable by the Company during the year to the suppliers registered under this Act.
+
+     Particulars                                                    As at            As at                                                                                                            Ageing analysis of Trade Payable
+                                                           March 31, 2026     March 31, 2025
+    Not later than one year                                                    1,203.36              1,120.02                  As at March 31, 2026
+     Later than one year but not later than five years                           2,753.54                  3,317.11                                                                                                                                       Particulars                         Outstanding for following periods from due date of
+     Later than five years                                                       152.99            202.07                                                                   payment
+                                                                                                                                                                                                                                 Total
+                                                                         4,109.89          4,639.20                                                          Less than                          More than
+                                                                                                                                                                                                   1-2 Years    2-3 Years
+                                                                                                                                                                                                                  1 Year                             3 Years
+(C) Maturity analysis of lease liability
+                                                                                                                                                                                (i) MSME                                      5.01                 -                 -                 -           5.01
+     Particulars                                                    As at            As at                                  (ii) Others                                        2.16                 -                 -                 -            2.16
+                                                           March 31, 2026     March 31, 2025
+                                                                                                                                                                                                         (iii) Disputed dues - MSME                            -                 -                 -                 -                 -
+    Lease liability
+                                                                                                                                                           (iv) Disputed dues - Others                           -                 -                 -                 -                 -
+     Less than 12 months                                                 902.92             780.76
+    More than 12 months                                                   2,529.43           2944.89                  As at March 31, 2025
+                                                                         3,432.35           3,725.65                        Particulars                         Outstanding for following periods from due date of
+                                                                                                                                                        payment
+                                                                                                                                                                                                                                 Total
+                                                                                                                                                           Less than                          More than
+                                                                                                                                                                                                   1-2 Years    2-3 Years
+                                                                                                                                                                                                                  1 Year                             3 Years
+                                                                                                                                                                                (i) MSME                                  6.23                 -                 -                 -          6.23
+                                                                                                                                                                                               (ii) Others                                       1.82                 -                 -                 -            1.82
+                                                                                                                                                                                                         (iii) Disputed dues - MSME                            -                 -                 -                 -                 -
+                                                                                                                                                           (iv) Disputed dues - Others                           -                 -                 -                 -                 -
+
+
+
+
+
+242                                                                                                                                       243

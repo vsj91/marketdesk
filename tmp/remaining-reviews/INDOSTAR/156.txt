@@ -1,0 +1,75 @@
+                                                                                                                                          Corporate Overview         Statutory Reports
+
+
+NOTES TO CONSOLIDATED FINANCIAL STATEMENTS        NOTES TO CONSOLIDATED FINANCIAL STATEMENTS
+FOR THE YEAR ENDED MARCH 31, 2026                                                     FOR THE YEAR ENDED MARCH 31, 2026
+
+(Currency : Indian Rupees in lakhs)                                                                                          (Currency : Indian Rupees in lakhs)
+
+    Ind AS 21 - The Effects of Changes in Foreign         finance arrangements and explain the nature               NOTE 3 (A) CASH AND CASH EQUIVALENTS
+    Exchange Rates, applicable w.e.f. April 01, 2025.         of the arrangements, the carrying amount of                                                                                                                                       Particulars                                                       As at            As at
+    The Company has reviewed the amendment           liabilitiesand the range of payment due dates.                                                                                                                                                                       March 31, 2026     March 31, 2025
+    and based on its evaluation has determined that         Ind AS 107 has been amended to add supplier                                                                                                             Cash on hand                                                       406.44            533.99
+       it does not have any significant impact in its         finance arrangementsas a factor that may cause
+                                                                                                                         Balances with banks
+     financial statements.                                   concentration of  liquidity  risk. The Company
+                                                                                                                                                                   -    in current accounts                                                  2,809.30             1,668.73
+                                                       has reviewed the amendment andbased on its
+    Ind AS  7, Statement of Cash Flows and Ind                                                                          Deposits with original maturity of less than three months                   400.00             7,402.15                                                             evaluation has determined that it does not have
+   AS  107,  Financial  Instruments:  Disclosures,
+                                                    any impact in its financial statements.                                                                                                           3,615.74          9,604.87
+    applicable w.e.f. April 01, 2025 – the amendment
+     in Ind AS 7 requires to inform users of financial         Ind AS  12,  International Tax Reform –  Pillar               NOTE 3 (B) BANK BALANCES OTHER THAN CASH AND CASH EQUIVALENTS
+    statements  of  the  existence  of  supplier       Two Model Rules applicable immediately - The
+                                                                                                                                       Particulars                                                       As at            As at
+                                                amendments provide a temporary mandatory
+                                                                                                                                                                       March 31, 2026     March 31, 2025
+                                                                           relief from deferred tax accounting  for top-
+                                                                                                                          Deposits with original maturity of more than three months                           271.17             1,075.52
+                                                up tax and disclose that they have applied
+                                                                                                               Earmarked deposits with banks                                                         the relief. This relief is immediate and applies
+                                                                                                                                                                   -   Current accounts (unclaimed dvividend & others)                                 1.07                        -                                                               retrospectively (refer note 30).
+                                                                                                                                                                   -   Fixed accounts                                                              27,149.75           31,563.54
+
+                                                                                                                                                                                                   27,421.99         32,639.06
+
+                                                                                         NOTE 4 DERIVATIVE FINANCIAL INSTRUMENTS
+
+                                                                                                                                               As at March 31, 2026        As at March 31, 2025
+                                                                                                                                                                          Notional    Fair value -      Notional    Fair value -
+                                                                                                                                                    amounts        Assets      amounts        Assets
+
+                                                                                                                               Part I
+                                                                                                                    Currency derivatives
+                                                                                                                                                                   - Spot and forwards                            25,350.00         1,194.74                  -                  -
+                                                                                                                               Total (I)                                    25,350.00       1,194.74                  -                  -
+
+                                                                                                                               Part II
+                                                                                                                        Included in above (Part I) are derivatives
+                                                                                                                        held for hedging and risk management
+                                                                                                                  purposes as follows:
+                                                                                                            Cash flow hedging
+                                                                                                                      Currency derivatives                           25,350.00         1,194.74                  -                  -
+                                                                                                                               Total (II)                                    25,350.00       1,194.74                  -                  -
+
+
+                                                                                         NOTE 5 LOANS
+
+                                                                                                                                       Particulars                                                       As at            As at
+                                                                                                                                                                       March 31, 2026     March 31, 2025
+
+                                                                                                              At amortised cost
+
+                                                                                                                         Business Loans
+                                                                                                                       Corporate lending                                                         10,742.00            15,637.42
+                                                                                                                           Small and medium enterprises lending (SME)                                        18,215.17          23,208.08
+                                                                                                                Commercial vehicle lending                                                    7,38,397.10         7,02,362.88
+                                                                                                                          Micro LAP                                                                     17,655.88               5,188.31
+                                                                                                                               Total - Gross                                                             7,85,010.15        7,46,396.69
+                                                                                                                                        Less: Impairment allowance                                                  (41,563.38)         (24,744.84)
+                                                                                                                               Total - Net                                                           7,43,446.77          7,21,651.85
+
+
+
+
+304                                                                                                                                   305

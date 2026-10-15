@@ -1,0 +1,68 @@
+                                                                     STANDALONE FINANCIAL STATEMENTS
+
+
+The Company does not face a significant liquidity risk with regard to its lease liabilities, as the current assets are sufficient to meet
+the obligations related to lease liabilities as and when they fall due.
+
+The following are the amounts recognised in statement of profit and loss:
+
+                                                                      For the year ended      For the year ended
+                                Particulars
+                                                               March 31, 2026        March 31, 2025
+ Depreciation expense of right-of-use assets (Note 21)                                424                 454
+ Interest expense on lease liabilities (Note 20)                                         61                  97
+ Expense relating to short-term leases (lease term less than 12 months)
+                                                                             28                  28
+ and low value assets (included in other expenses) (Note 22)
+
+
+3C. Capital work-in-progress (CWIP):
+
+                                Particulars                          As at March 31, 2026   As at March 31, 2025
+
+ Capital work-in-progress                                                         27                  16
+
+
+(a) Capital work-in-progress (CWIP) Ageing:
+
+                    Particulars                       Less than 1 year          1 - 2 years              Total
+
+ Balance as at March 31, 2026
+ Projects in progress                                              11               16                27
+ Total                                                         11               16                27
+ Balance as at March 31, 2025
+ Projects in progress                                              16                    -                16
+ Total                                                         16                    -                16
+
+
+
+(b) Movement in carrying amount of capital work-in-progress:
+
+                                               Particulars                                      Amount
+
+ Balance as at April 1, 2024                                                                            7
+ Additions                                                                                        250
+ Transferred to Property, plant and equipment                                                                        (241)
+ Balance as at March 31, 2025                                                                         16
+ Additions                                                                                        379
+ Transferred to Property, plant and equipment                                                                        (368)
+ Balance as at March 31, 2026                                                                         27
+
+
+4. Other intangible assets
+
+                                Particulars                          As at March 31, 2026   As at March 31, 2025
+
+ Asset class wise net book values:
+
+ Computer software                                                              7                  13
+
+ Customer Contracts                                                           447                 521
+
+ Total                                                                       454                 534
+
+
+
+
+
+                                                                                                  Annual Report 2025-26  | 247

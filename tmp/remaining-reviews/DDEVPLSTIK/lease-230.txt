@@ -1,0 +1,58 @@
+                                                                                                 for the year ended 31st March, 2026Notes to the financial statements
+
+
+53 ADDITIONAL DISCLOSURE
+
+    a)  Accounting Ratios
+
+       No  Name of the  Numerator   Denominator       FY 2025-26  FY 2024-25 % Variance   Reason for
+              Ratio                                                                                  Variance if
+                                                                                    more than
+                                                                            25%
+            1     Current       Current       Current liabilities      2.70           3.01          -10.31%     NA
+               Ratio (in      assets
+               times)
+        2    Debt -         Total debt     Equity                0.06          0.06          1.12%      NA
+               Equity Ratio   including
+                    (in times)     lease
+                                     liabilities
+        3    Debt Service  Earnings      Total debt service      10.32         12.83        -19.55%     NA
+              coverage      available for
+                 ratio* (in      debt service
+               times)
+        4    Return on    Net profit    Average Shareholder  21.84%      24.82%       -12.01%     NA
+               Equity (In %)   - preferred    Equity
+                             dividends
+        5    Inventory     Sales        Average Inventory      9.30           11.63        -20.09%     NA
+              Turnover
+               Ratio (in
+               times)
+        6    Trade        Net sales     Average accounts      5.78          6.02        -4.04%     NA
+               receivables                  receivables
+               turnover
+                 ratio (in
+               times)
+         7    Trade        Net          Average trade          10.58          11.26        -6.05%      NA
+              payables     purchases    payables
+               turnover
+                 ratio (in
+               times)
+        8    "Net capital   Net sales     Average Working       4.72           5.14         -8.00%     NA
+               turnover                     Capital
+                 ratio
+                    (in times)"
+        9    Net profit    Net profit    Net sales           6.85%        7.13%        -3.92%      NA
+                 ratio (in %)
+         10   Return       Earning       Capital employed     27.54%      30.01%      -8.23%      NA
+             on capital     before
+             employed     interest and
+                    (in %)         taxes
+            11    Return on    Income      Average invested     0.00%      0.00%      0.00%      NA
+              investment   generated    fund in treasury
+                    (in %)        from         investment
+                             invested
+                           funds
+
+
+
+244    Annual Report 2025-26

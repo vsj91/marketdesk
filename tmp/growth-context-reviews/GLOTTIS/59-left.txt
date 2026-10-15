@@ -1,0 +1,57 @@
+112  Glottis Ltd  | Annual Report 2025-26
+
+Notes
+forming part of the Audited Standalone Financial Statements for the year ended March 31, 2026
+                                                                              (Amounts in ₹ Lakhs, unless otherwise stated)
+
+        Transition to Ind AS                                      Asset class               Useful Life
+      On transition to IndAS, the Company has             Buildings           30 years
+        elected to continue with the carrying value             Plant and Machinery,   15 years
+         of all its property, plant and equipment as at           equipment
+          April 1, 2023 (the date of transition) as per             Furniture & Fixtures    10 years
+        previous GAAP and use that carrying value as             Vehicles            8 years
+        the deemed cost of intangible assets.                   Lease Hold Property -   As per Terms of Lease
+                                                                      Building
+      Component Cost                                       Lease Hold Property -   As per Terms of Lease
+           All material/  significant components have              Office Equipments
+       been identified for the plant and have been            Lease Hold Property -   As per Terms of Lease
+                                                                       Furniture & Fixures        accounted separately. The useful life of such
+       component are analysed independently and            Lease Hold Property -   As per Terms of Lease
+                                                                      Plant & Machinery        wherever components are having different
+         useful life other than plant they are part of,           Computers & Software  3 years
+         useful life of components are considered for              Office Equipments     5 years
+         calculation of depreciation.                                     Electrical Equipment &  5 years
+                                                                                     fittings
+       The cost of replacing part of an item of
+         property, plant and equipment is recognised           Depreciation   for  PPE  on  additions   is
+          in the carrying amount of the item  if  it is           calculated on pro-rata basis from the date
+        probable that the future economic benefits            of such additions. For deletion/ disposals,
+       embodied within the part will flow to the          the depreciation  is calculated on pro-rata
+      Company and  its cost can be measured            basis up to the date on which such assets
+           reliably. The costs of repairs and maintenance          have been discarded/ sold. Additions to fixed
+         are recognised in the statement of profit and            assets, costing Rs.0.10 Lakhs each or less are
+         loss as incurred.                                                 fully depreciated.
+        Machinery spares/ insurance spares that can         The residual values, useful lives and methods
+       be issued only in connection with an item            of  depreciation  of  property,  plant  and
+         of fixed assets are capitalised. Replacement         equipment are reviewed at each financial
+         of such spares is charged to revenue. Other           year  end  and  adjusted   prospectively,
+        spares are charged as revenue expenditure as                   if appropriate.
+       and when consumed.
+                                                                        f)  Intangible assets
+        Derecognition
+                                                         Presentation        Gains or losses arising from derecognition of
+         property, plant and equipment are measured           Intangible assets are stated at cost, net of
+        as the difference between the net disposal          accumulated depreciation and accumulated
+        proceeds and the carrying amount of the          impairment losses, if any.
+         asset and are recognized in the statement of
+          profit and loss when the asset is derecognized.           Transition to Ind AS
+                                           On transition to IndAS, the Company has
+    e)  Depreciation on property, plant and               elected to continue with the carrying value
+      equipment                                              of all its intangible assets recognised as at
+                                                                       April 1, 2023 as per previous GAAP and use        Depreciation  is  the  systematic  allocation
+                                                                that carrying value as the deemed cost of         of the depreciable amount of an asset over
+                                                                 intangible assets.           its  useful   life.  The  depreciable amount
+          for assets is the cost of an asset, or other
+       amount substituted for cost, less 5% being its          Derecognition
+         residual value.                                      Gains or losses arising from derecognition
+                                                                     of intangible assets are measured as the        Depreciation  is provided on  straight  line                                                                 difference between the net disposal proceeds       method, over the useful lives of the assets as                                                   and the carrying amount of the asset and are         follows :-

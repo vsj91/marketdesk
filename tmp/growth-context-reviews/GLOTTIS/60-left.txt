@@ -1,0 +1,51 @@
+114   Glottis Ltd  | Annual Report 2025-26
+
+Notes
+forming part of the Audited Standalone Financial Statements for the year ended March 31, 2026
+                                                                              (Amounts in ₹ Lakhs, unless otherwise stated)
+
+         Financial  instruments  other  than  equity          Derecognition
+        instruments at FVTPL                        A     financial     asset       is     primarily
+                                                         derecognised when:       The  Company    classifies    all   financial
+        instruments other than equity instruments,                   •   The rights to receive cash flows from the
+       which  do  not  meet  the   criteria   for               asset have expired, or
+         categorization as at amortized cost or as
+        FVTOCI, as at FVTPL.                                                            •   The Company has transferred its rights
+                                                                     to receive cash flows from the asset
+         Financial  instruments  other  than  equity                or has assumed an obligation to pay
+        instruments  included  within  the FVTPL              the received cash flows in full without
+        category are measured at fair value with all                material delay to a third party under
+       changes recognized in the profit and loss.                 a  ‘pass-through’  arrangement;  and
+                                                                       either (a) the Company has transferred
+        Equity investments                                          substantially all the risks and rewards of
+           All equity investments in scope of Ind AS 109              the asset, or (b) the Company has neither
+         are measured at fair value. Equity instruments                transferred nor retained substantially all
+       which are held for trading are classified as              the risks and rewards of the asset, but
+         at FVTPL. Where  the Company makes an              has transferred control of the asset.
+         irrevocable election of equity instruments at
+        FVTOCI, it recognises all subsequent changes         Impairment of financial assets
+          in the  fair value  in other comprehensive            In accordance with Ind AS 109, the Company
+        income, without any recycling of the amounts           applies expected credit loss (ECL) model for
+       from OCI to profit and loss, even on sale of         measurement and recognition of impairment
+       such investments.                                         loss on the following financial assets and
+                                                                    credit risk exposure:        Equity  instruments  included  within  the
+       FVTPL category are measured at fair value             a)   Financial  assets  that  are  other than
+        with  all changes recognized in the  profit               equity instruments, and are measured
+       and loss.                                                      at  amortised  cost   e.g.,  loans,  debt
+                                                                              securities,  deposits,  trade  receivables         Financial  assets  are measured  at FVTPL
+                                                      and bank balance.        except  for  those  financial  assets whose
+         contractual terms give  rise to cash flows            b)  Financial  assets  that  are  other than
+       on  specified dates that represents  solely               equity instruments and are measured
+       payments of principal and interest thereon,                at FVTOCI
+         are measured as detailed below depending
+                                                                            c)  Trade receivables or any contractual right       on the business model:
+                                                                     to receive cash or another financial asset
+            Classification Name of the financial asset                        that result from transactions that are
+         Amortised    Trade receivables, loans, other                    within the scope of Ind AS 115
+          cost           deposits, interest receivable and
+                       other advances recoverable in cash          The Company follows ‘simplified approach’ for
+                                                               recognition of impairment loss allowance on:
+       Investment in Subsidiaries                                                •   Trade receivables or contract revenue
+        Investments in subsidiaries are carried at                 receivables; and
+        cost less accumulated impairment losses, if                                                                                                              •     All  lease  receivables  resulting  from         any, in the standalone financial statements                                                                    transactions within the scope  of Ind          in accordance with Ind AS  27, Separate                                                    AS 116         Financial Statements.
+                                                     The application of simplified approach does        Cost  includes  transaction  costs  directly                                                          not require the Company to track changes in         attributable to acquisition of the investment.                                                                    credit risk. Rather, it recognises impairment       The Company  assesses  investments  for                                                                     loss allowance based on lifetime Expected       impairment whenever events or changes                                                                 Credit Loss (ECL) at each reporting date, right          in circumstances indicate that the carrying                                                      from its initial recognition.       amount may not be recoverable.

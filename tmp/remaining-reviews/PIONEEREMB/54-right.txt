@@ -1,0 +1,61 @@
+Notes to Standalone Financial Statements
+for the year ended March 31, 2026
+
+
+     -      it is held within a business model whose objective is to         Derecognition of financial assets
+          hold assets in order to collect contractual cash flows.
+                                                   A financial asset (or, where applicable, a part of a financial
+     -    the contractual terms of the financial asset represent         asset or part of a group of similar financial assets) is
+          contractual cash flows that are solely payments of          primarily derecognised (i.e. removed from the company’s
+           principal and interest.                                     balance sheet) when:
+
+     After  initial measurement, such  financial  assets  are          -   The rights to receive cash flows from the asset have
+     subsequently measured at amortised cost using the                expired, or
+     Effective Interest Rate (‘EIR’) method. Amortised cost is
+                                                                       -   The company has transferred its rights to receive     calculated by taking into account any discount or premium
+                                                                    cash flows from the asset or has assumed an    on acquisition and fees or costs that are an integral part of
+                                                                              obligation to pay the received cash flows in  full     the EIR. The EIR amortisation is included as finance income
+                                                                      without material delay to a third party under a ‘pass-      in the Statement of Profit and Loss. The losses arising from
+                                                                         through’ arrangement; and either (a) the company has     impairment are recognised in the Statement of Profit and
+                                                                            transferred substantially all the risks and rewards of     Loss.
+                                                                     the asset, or (b) the company has neither transferred
+     Financial assets at fair value through Other Comprehensive             nor retained substantially all the risks and rewards of
+    Income (FVOCI)                                                    the asset, but has transferred control of the asset.
+
+     Financial assets with contractual cash flow characteristics       When the company has transferred its rights to receive
+     that are solely payments of principal and interest and         cash flows from an asset or has entered into a pass-
+     held in a business model whose objective is achieved by         through arrangement, it evaluates if and to what extent
+    both collecting contractual cash flows and selling financial              it has retained the risks and rewards of ownership. When
+     assets are classified to be measured at FVOCI.                                 it has neither transferred nor retained substantially all
+                                                                     of the risks and rewards of the asset, nor transferred
+     Financial assets at fair value through profit and loss (FVTPL)                                                                        control of the asset, the company continues to recognize
+                                                                 the transferred asset to the extent of the company’s    Any Financial assets, which does not meet the criteria for
+                                                                    continuing involvement. In that case, the company also     categorization as at amortized cost or as FVOCI, is classified
+                                                                    recognizes an associated liability. The transferred asset and     as at FVTPL.
+                                                                 the associated liability are measured on a basis that reflects
+      In addition, the company may elect to classify a Financial         the rights and obligations that the company has retained.
+     assets, which otherwise meets amortized cost or FVOCI
+                                                                   Continuing involvement that takes the form of a guarantee      criteria, as at FVTPL. However, such election is allowed
+                                                                  over the transferred asset is measured at the lower of the     only  if doing so reduces or eliminates a measurement
+                                                                              original carrying amount of the asset and the maximum     or recognition inconsistency (referred to as ‘accounting
+                                                        amount of consideration that the company could be     mismatch’).
+                                                                      required to repay.
+     Financial assets included within the FVTPL category are
+                                                   On derecognition of a  financial  asset, the difference    measured at fair value with all changes recognized in the
+                                                           between the carrying amount of the asset (or the carrying    Statement of Profit and Loss.
+                                                        amount allocated to the portion of the asset derecognised)
+     Equity Instruments                                       and the sum of (i) the consideration received (including any
+                                                    new asset obtained less any new liability assumed) and (ii)
+      All equity instruments in scope of Ind AS 109 are measured                                                            any cumulative gain or loss that had been recognised in OCI
+     at fair value. On initial recognition an equity investment                                                                                              is recognised in the Statement of Profit and Loss.
+     that is not held for trading, the Company may irrevocably
+     elect to present subsequent changes in fair value in OCI.         Impairment of financial assets
+     This election is made on an investment-by-investment
+                                                          The Company assesses on a forward looking basis the      basis.
+                                                                expected credit losses associated with its assets carried at
+      All other Financial Instruments are classified as measured         amortised cost and FVOCI. The impairment methodology
+     at FVTPL.                                                        applied depends on whether there has been a significant
+                                                                      increase in credit risk.
+
+
+                                                                                        Pioneer Embroideries Limited     103

@@ -1,0 +1,56 @@
+                                                               Annual Report 2025 - 26     364
+
+Annexure “B” to Independent Auditor’s Report
+Referred to in paragraph 15 (f) of our Report of even date to the Members of NAMRA FINANCE LIMITED for the year ended
+31st March, 2026.
+
+Report on the Internal Financial Controls under Clause (i)   applicable to an audit of Internal Financial Controls and, both
+of Sub-section 3 of Section 143 of the Companies Act, 2013   issued by the Institute of Chartered Accountants of India. Those
+(“the Act”)                                                 Standards and the Guidance Note require that we comply
+                                                           with ethical requirements and plan and perform the audit to
+Opinion                                                             obtain reasonable assurance about whether adequate internal
+We have audited the internal financial controls over financial   financial controls over financial reporting was established
+reporting of NAMRA FINANCE LIMITED (“the Company”) as of  and maintained and if such controls operated effectively in all
+March 31, 2026 in conjunction with our audit of the standalone   material respects.
+financial statements of the Company for the year ended on
+that date.                                             Our audit involves performing procedures to obtain audit
+                                                          evidence  about  the  adequacy  of  the  internal  financial
+In our opinion, the Company has, in all material respects, an   controls system over financial reporting and their operating
+adequate  internal  financial controls system over  financial   effectiveness. Our audit of internal financial controls over
+reporting and such internal financial controls over financial   financial reporting included obtaining an understanding of
+reporting were operating effectively as at March 31, 2026,   internal financial controls over financial reporting, assessing the
+based on the internal control over financial reporting criteria    risk that a material weakness exists, and testing and evaluating
+established  by  the Company  considering  the  essential   the design and operating effectiveness of internal control
+components of internal control stated in the Guidance Note on   based on the assessed risk. The procedures selected depend on
+Audit of Internal Financial Controls Over Financial Reporting   the auditor’s judgment, including the assessment of the risks of
+issued by the Institute of Chartered Accountants of India.         material misstatement of the financial statements, whether due
+                                                               to fraud or error.
+Management’s  Responsibility  for  Internal  Financial
+Controls                                    We believe that the audit evidence we have obtained  is
+The Company’s management is responsible for establishing   sufficient and appropriate to provide a basis for our audit
+and maintaining  internal  financial controls based on the   opinion on the Company’s internal financial controls system
+internal control over financial reporting criteria established by   over financial reporting.
+the Company considering the essential components of internal
+                                                Meaning of Internal Financial Controls over Financial
+control stated in the Guidance Note on Audit of Internal Financial
+                                                      Reporting
+Controls Over Financial Reporting issued by the Institute of
+Chartered Accountants of India. These responsibilities include  A company's internal financial control over financial reporting is
+the design, implementation and maintenance of adequate   a process designed to provide reasonable assurance regarding
+internal financial controls that were operating effectively for   the reliability of financial reporting and the preparation of
+ensuring the orderly and efficient conduct of  its business,   financial statements for external purposes in accordance with
+including adherence to company’s policies, the safeguarding of   generally accepted accounting principles. A company's internal
+its assets, the prevention and detection of frauds and errors, the   financial control over financial reporting includes those policies
+accuracy and completeness of the accounting records, and the  and procedures that (1) Pertain to the maintenance of records
+timely preparation of reliable financial information, as required    that, in reasonable detail ,accurately and  fairly reflect the
+under the Companies Act, 2013.                                 transactions and dispositions of the assets of the company; (2)
+                                                             Provide reasonable assurance that transactions are recorded
+Auditors’ Responsibility                                      as necessary to permit preparation of financial statements in
+Our responsibility is to express an opinion on the Company's   accordance with generally accepted accounting principles, and
+internal financial controls over financial reporting based on   that receipts and expenditures of the company are being made
+our audit. We conducted our audit in accordance with the   only in accordance with authorizations of management and
+Guidance Note on Audit of Internal Financial Controls Over   directors of the company; and (3) provide reasonable assurance
+Financial Reporting (the “Guidance Note”) and the Standards   regarding prevention or timely detection of unauthorized
+on Auditing, issued by ICAI and deemed to be prescribed   acquisition, use, or disposition of the company's assets that
+under section 143(10) of the Companies Act, 2013, to the   could have a material effect on the financial statements.
+extent applicable to an audit of internal financial controls, both

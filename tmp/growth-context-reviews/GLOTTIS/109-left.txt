@@ -1,0 +1,54 @@
+212  Glottis Ltd  | Annual Report 2025-26
+
+Notes
+forming part of the Audited Consolidated Financial Statements for the year ended March 31, 2026
+                                                                              (Amounts in ₹ Lakhs, unless otherwise stated)
+
+                                                                                                             Year ended
+                                                                                            March 31, 2026
+       Income tax expense
+      c)  Income tax recognised in other comprehensive income                                           1.96
+         Tax on Remeasurement of defined benefit obligation                                                1.96
+          Total income tax recognised in other comprehensive income
+43 Leases
+    The company has applied Ind AS 116 with the date of initial application of April 1, 2023. The company has
+    applied Ind AS 116 using the modified retrospective approach, under which the cumulative effect of initial
+    application is recognized in retained earnings at April 1, 2023.
+    The aggregate depreciation expense on ROU assets is included under depreciation and amortization
+    expense in the statement of Profit and Loss.
+
+   As Lessee
+    The Company has entered into operating lease. The Lease may be renewed based on mutual agreement of
+    the parties.
+
+      (i)  The table below provides details regarding the contractual maturities of lease liabilities as
+        at March 31, 2026 on an undiscounted basis:
+                                                                                                    As at           Particulars                                                                                            March 31, 2026
+          Less than one year                                                                     938.47
+       One to five years                                                                           1,471.64
+        More than five years                                                                    202.97
+          Total                                                                                  2,613.08
+      (ii) Amounts recognised in the statement of profit and loss
+       The statement of profit and loss shows the following amounts relating to leases:
+
+                                                                                                    As at           Particulars                                                                                            March 31, 2026
+          Depreciation charge for right-of-use assets (Refer Note 30)                                        42.67
+          Total                                                                                  42.67
+
+                                                                                                    As at           Particulars                                                                                            March 31, 2026
+           Interest expense (included in finance costs) (Refer Note 29)                                        39.16
+         Expense relating to short-term leases (included in other expenses) (Refer Note 31)                     62.44
+      (iii) Amounts recognized in cash flow statement
+                                                                                                    As at           Particulars                                                                                            March 31, 2026
+          Total cash outflows for leases                                                           129.30
+     (iv) Movement of changes in ROU
+                                                                                                             Year ended           Particulars                                                                                            March 31, 2026
+         Expense relating to leases of low-value assets accounted for applying para 6 of Ind AS 116 *             22.85
+          Right of use asset as on the opening date                                                    340.67
+          Additions during the year                                                                                                                 -
+          Derecognition of ROU Asset - Net                                                                                                      -
+          Depreciation charge for the year                                                              42.67
+          Right of use asset as at the end of the reporting date                                           297.99
+              * The Company has entered into short-term container lease arrangements, wherein lease rentals are paid in advance and
+          adjusted within the normal operating cycle of 12 months. Accordingly, the advance lease rentals are treated as prepaid
+         expenses and amortised over the lease period (refer Note 13 and Note 17).

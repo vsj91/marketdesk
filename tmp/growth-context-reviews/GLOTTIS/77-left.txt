@@ -1,0 +1,62 @@
+148  Glottis Ltd  | Annual Report 2025-26
+
+Notes
+forming part of the Audited Standalone Financial Statements for the year ended March 31, 2026
+                                                                              (Amounts in ₹ Lakhs, unless otherwise stated)
+
+     S                                                   Year Ended                         Reason (If variation is          Ratio             Formula                                                Variation     No.                                    31 Mar 2026    31 Mar 2025               more than 25%)
+      (o) Long Term Debt  Non-Current               0.01           0.02         -62% There is significant
+          to Working Capital Borrowings                                                         increase in Working
+            (in times)               / Working                                                              Capital as the unutilised
+                                  Capital(vii)                                                 IPO proceeds are
+                                                                                                 temporarilry invested
+                                                                                                          in Fixed Deposits until
+                                                                                                    further utlisation during
+                                                                               FY 2026
+      (p) Net Worth (In                         28,097.94       9,783.15        187% The variation is due to
+         Lakhs)                                                                                        significant increase in
+                                                                                              Equity consequent to
+                                                                                         the Company’s listing
+                                                                                         during FY 2026
+      (q)  Interest Service   Earning available          16.22         30.15         -46%  The variation is due
+        Coverage Ratio (in for debt Service /                                                     to significant increase
+         times)           Finance Costs                                                            in finance costs owing
+                                                                                                   to higher utilisation
+                                                                                                        of cash credit facilities
+                                                                                        towards working capital
+                                                                                            requirements.
+        (r)  Bad debts to     Bad Debts /                             -           0.00        -100% NA
+        Average Trade    Average Trade
+         Receivables Ratio  Receivables(iii)
+            (in times)
+     Footnote:
+         (i)   Current Assets = Trade Receivables + Cash & Cash Equivalents + Short Term Loans and Advances + Other Current Assets
+         (ii)   Current Liability = Short Term Borrowings + Trade Payables + Short term Provisions + Other Current Liabilities
+         (iii)  Average Trade Receivable = (Opening Trade Receivables + Closing Trade Receivables)/2
+       (iv)  Average Trade Payable = (Opening Trade Payables + Closing Trade Payables)/2
+       (v)  Average Shareholder’s Equity = (Opening Shareholder’s Equity + Closing Shareholder’s Equity)/2
+       (vi)  Capital Employed= Total Equity + Long Term Debts
+        (vii)  Working Capital = Current Assets - Current liabilities
+        (viii) Shareholder’s Equity or Total Equity = Share Capital + Reserves & Surplus
+       (ix)  Long Term Debts = Long Term Loans from Other Parties + Loans and Advances from Related Parties
+
+43 Income tax expense
+                                                                                            Year ended      Year ended
+                                                                             March 31, 2026  March 31, 2025
+      (a) Income tax expense
+        Current tax
+         Current tax on profits for the year                                              1,341.69       1,935.83
+        Adjustments for current tax of prior periods                                                                    -           6.69
+          Total current tax expense                                                  1,341.69      1,942.52
+        Deferred tax
+         Deferred tax adjustments                                                             (33.05)         30.01
+          Total deferred tax expense/(benefit)                                               (33.05)        30.01
+       Income tax expense                                                       1,308.64      1,972.53
+         Effective Tax Rate                                                    25.73%       25.98%
+     b)  The income tax expense for the year can be reconciled to the accounting
+          profit as follows:
+           Profit before tax from continuing operations                                     5,086.10       7,591.24
+         Applicable Tax Rate                                                   25.17%       25.17%
+        Income tax expense calculated at applicable rates                                1,280.07       1,910.57
+        Tax effect of expenses that are not deductible in determining taxable
+           profit:

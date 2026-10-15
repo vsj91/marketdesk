@@ -1,0 +1,45 @@
+Notes forming part of the Consolidated Financial Statements
+
+
+     e)   Impairment of non-financial assets
+        The Company assesses the chances of an asset getting impaired on each reporting date. If any
+          indication exists, the Company estimates the asset’s recoverable amount. An asset’s recoverable
+       amount is the higher of fair value less costs of disposal of an asset or Cash Generating Unit (CGU) and
+             its value in use. It is determined for an individual asset, unless the asset does not generate cash inflows
+          that are largely independent of those from other assets or a group of assets. Where the carrying
+       amount of an asset or CGU exceeds its recoverable amount, the asset is considered impaired and is
+          written down to its recoverable amount.
+
+          In assessing value in use, the estimated future cash flows are discounted to their present value using
+          pre-tax discount rate that reflects current market assessments of the time value of money and the
+           risks specific to the asset. In determining fair value less costs of disposal, recent market transactions
+          are taken into account, if no such transactions can be identified, an appropriate valuation model is
+         used.
+
+       f)   Impairment of financial assets
+        The impairment provisions for financial assets are based on assumptions about risk of default and
+         expected cash loss rates. The Company uses judgment in making these assumptions and selecting
+         the inputs to the impairment calculation, based on Company’s past history, existing market conditions
+         as well as forward looking estimates at the end of each reporting period.
+
+     g)   Contingencies
+          In the normal course of business, contingent liabilities may arise from litigation and other claims
+          against the Company. Potential liabilities that are possible but not probable of crystalising or are very
+            difficult to quantify reliably are treated as contingent liabilities. Such liabilities are disclosed in the
+         notes but are not recognised. The cases which have been determined as remote by the Company are
+         not disclosed.
+
+         Contingent assets are neither recognised nor disclosed in the financial statements unless when an
+          inflow of economic benefits is probable.
+
+ii)   Critical accounting judgements
+      a.   Judgements made for Chennai Plant
+        The Parent Company has transferred a class of its assets previously classified under Capital Work
+           in Progress (CWIP) to Property, Plant, and Equipment (PPE). The determination of which assets are
+         considered ready for use is made by management and is a critical accounting judgement.
+
+
+
+
+
+286 | Rajratan Global Wires Limited

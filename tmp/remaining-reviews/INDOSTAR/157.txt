@@ -1,0 +1,63 @@
+                                                                                                                                          Corporate Overview         Statutory Reports
+
+
+NOTES TO CONSOLIDATED FINANCIAL STATEMENTS        NOTES TO CONSOLIDATED FINANCIAL STATEMENTS
+FOR THE YEAR ENDED MARCH 31, 2026                                                     FOR THE YEAR ENDED MARCH 31, 2026
+
+(Currency : Indian Rupees in lakhs)                                                                                          (Currency : Indian Rupees in lakhs)
+
+                                                                                                                      Investments as at March 31, 2025 Particulars                                                       As at            As at
+                                                           March 31, 2026     March 31, 2025                     Investment in                                                At Fair Value                 Total
+ (a) Secured by tangible assets                                                 7,75,225.31             7,37,161.77
+                                                                                                                                                           Amortised  Through other      Through
+ (b) Unsecured                                                            9,784.84            9,234.92                                                                           cost comprehensive      profit and
+ Total - Gross                                                             7,85,010.15        7,46,396.69                                                                            income            loss
+ Less: Impairment allowance                                                  (41,563.38)         (24,744.84)
+                                                                                                                       Mutual funds                                                          -                    -       49,511.64      49,511.64
+ Total - Net                                                           7,43,446.77          7,21,651.85
+                                                                                                                                  Security Receipts                                       1,38,715.21                    -                  -     1,38,715.21
+ Loans in India
+ (a) Public sector                                                                                     -                        -                       Treasury Bills                                                          -        9,653.55                  -      9,653.55
+ (b) Others                                                                       7,85,010.15         7,46,396.69                   Bonds                                                                  -        10,160.59                  -      10,160.59
+ Total - Gross                                                             7,85,010.15        7,46,396.69                                                                                                            Government securities                                               -        10,232.72                  -     10,232.72
+ Less: Impairment allowance                                                  (41,563.38)         (24,744.84)
+                                                                                                                               Total - Gross                                       1,38,715.21     30,046.86      49,511.64    2,18,273.71
+ Total - Net (a)                                                       7,43,446.77          7,21,651.85
+ Loans outside India (b)                                                                             -                        -                      Investments in India                                    1,38,715.21      30,046.86       49,511.64     2,18,273.71
+ Total - Net (a)+(b)                                                   7,43,446.77          7,21,651.85                      Investments outside India                                           -                    -                  -                 -
+
+                                                                                                                               Total - Gross                                       1,38,715.21     30,046.86      49,511.64    2,18,273.71Footnotes:
+i)   Security receipts are presented as part of “Note 6 - Investments”                                                                  Less: Impairment loss allowance                 (36,455.26)                    -                  -   (36,455.26)
+ii)  Stage classification of loans, investments and its impairment allowance is disclosed in Note 32(D) and Note                      Total - Net                                    1,02,259.95     30,046.86      49,511.64    1,81,818.45
+    32(E)
+                                                                                                                                                                                                                           1.   Detailed analysis on year end stage classification of investments and impairment allowance is disclosed in
+iii)  Secured indicates loans secured, wholly or partly, by way of hypothecation of vehicle and / or equitable                      Note 32 (D)
+    mortgage of property and or equipment.
+                                                                                         NOTE 7 OTHER FINANCIAL ASSETS
+NOTE 6 INVESTMENTS                                                                                                                                       Particulars                                                       As at            As at
+Investments as at March 31, 2026                                                                                                                                            March 31, 2026     March 31, 2025
+                                                                                                                                  Security deposit                                                          865.78             810.99 Investment in                                                At Fair Value
+                                           Amortised  Through other      Through                                 Assignment receivables                                                               2,351.18            5,235.45
+                                                                                                   Total
+                                                     cost comprehensive      profit and                                   Deposits with Trustee for securitisation*                                            2,591.14            4,484.14
+                                                         income            loss                                  Other receivables                                                        658.43             1,868.59
+ Mutual funds                                                          -                    -      21,595.06     21,595.06                                                                                           6,466.53           12,399.17
+ Security Receipts                                 1,60,778.47                    -                  -    1,60,778.47                         Less: Impairment allowance                                                (603.56)            (296.58)
+ Treasury Bills                                                          -                    -                  -                 -                                                                                             5,862.97           12,102.59
+ Bonds                                                                  -                    -                  -                 -                                                                                                                                                                             * It represents fixed deposit held as collateral with trustee for pass through certificate transactions.
+ Government securities                                               -         17,734.31                  -       17,734.31
+ Total - Gross                                  1,60,778.47        17,734.31     21,595.06  2,00,107.84                NOTE 8 CURRENT TAX LIABILITIES (NET)
+ Investments in India                               1,60,778.47         17,734.31      21,595.06   2,00,107.84                                                                                                                                       Particulars                                                       As at            As at
+ Investments outside India                                           -                    -                  -                 -                                                                              March 31, 2026     March 31, 2025
+ Total - Gross                                  1,60,778.47        17,734.31     21,595.06  2,00,107.84                      Current tax assets (net)
+ Less: Impairment loss allowance                      (1,01,915.17)                    -                  -    (1,01,915.17)                   Advance Tax (net of provision)                                                 1,255.84               1,138.23
+ Total - Net                                   58,863.30        17,734.31     21,595.06    98,192.67                                                                                                  1,255.84             1,138.23
+                                                                                                                         Current tax liabilities (net)1.   Detailed analysis on year end stage classification of investments and impairment allowance is disclosed in
+    Note 32 (D)                                                                                                                    Provision for tax (net of advance tax)                                          1,058.83                        -
+                                                                                                                                                                                                        1,058.83                        -
+
+
+
+
+
+306                                                                                                                                    307

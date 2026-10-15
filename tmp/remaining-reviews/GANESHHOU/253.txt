@@ -1,0 +1,77 @@
+GANESH~
+HOUSING ..
+LIMITED..,
+Consolidated Balance Sheet[CIN:L45200GJ1991PLC015817]
+as at 31st March, 2026
+                                                                                                     [AMT. ` IN LAKH]
+                                                                  As at the end of        As at the end of
+ Particulars                                            Note         Current Reporting      Previous Reporting
+                                                                           Period 31-03-2026       Period 31-03-2025
+ ASSETS
+ Non-current assets
+ Property, Plant and Equipment                                                   1                  20860.08                  21153.26
+ Capital Work-in-Progress                                    2                    53950.18                  35981.61
+ Goodwill                                                                         22389.49               22389.49
+ Other Intangible assets                                      3                        0.83                          1.67
+ Financial Assets:
+      Trade Receivables                                    4                      0.00                    0.49
+     Other Financial Assets                                 5                      0.00                         51.18
+ Deferred Tax Assets (Net)                                   6                          109.51                      186.13
+ Total Non-current assets                                                           97310.10              79763.83
+ Current assets
+ Inventories                                                   7                     49747.15               44684.59
+ Financial Assets:
+      Trade Receivables                                     8                       29182.17                34367.52
+     Cash and Cash Equivalents                              9                      736.05                   12114.30
+     Bank balances other than above                             10                     5143.70                   3631.78
+     Loans                                                                           11                   95702.37                 56992.13
+ Other Current Assets                                               12                    4785.57                 2278.76
+ Total Current Assets                                                           185297.02             154069.09
+ TOTAL ASSETS                                                                   282607.11             233832.92
+ Equity and Liabilities
+ Equity
+ Equity Share capital                                                 13                      8338.71                  8338.71
+ Other Equity                                                       14                    224777.14               197320.69
+      Total Equity                                                                  233115.85            205659.40
+ Liabilities                                                                                                       -                             -
+ Non-current Liabilities
+ Financial Liabilities:
+      Borrowings                                                   15                   15582.04                2304.52
+      Trade payables                                                16
+       -     Total outstanding dues of micro enterprises and small
+                                                                                  0.00                  0.00
+           enterprises
+       -     Total outstanding dues of creditors other than micro
+                                                                                   220.59                   275.79
+           enterprises and small enterprises
+ Total Non-current liabilities                                                      15802.63               2580.32
+ Current Liabilities
+ Financial Liabilities:
+      Borrowings                                                       17                     14906.19                  437.40
+      Trade payables                                                18
+       -     Total outstanding dues of micro enterprises and small
+                                                                                      239.28                   205.19
+           enterprises
+       -     Total outstanding dues of creditors other than micro
+                                                                                     3633.73                3985.53
+           enterprises and small enterprises
+     Other financial liabilities                                        19                       64.79                     155.77
+ Other current liabilities                                  20                   13098.46                5692.55
+ Current Tax Liabilities (Net)                                          21                        1746.18                    15116.77
+      Total Current Liabilities                                                   33688.63              25593.20
+ TOTAL EQUITY AND LIABILITIES                                                    282607.11             233832.92
+ Material Accounting Policies and Notes Forming Part of Accounts    1 to 58
+As per our report of even date
+FOR J M PARIKH & ASSOCIATES
+Chartered Accountant                         On behalf of the Board of Directors
+FRN:- 118007W
+Jatin Parikh                                    Dipakkumar G. Patel                  Shekhar G. Patel
+Partner                                          Chairman & Whole-time Director         Managing Director & CEO
+Membership No. 033811                                     [DIN: 00004766]                             [DIN: 00005091]
+UDIN:- 26033811DGFUGB5991
+                                                 Rajendra Shah                       Jasmin Jani
+                                                       Chief Financial Officer                Company Secretary
+Place : Ahmedabad                                                                              Place : Ahmedabad
+Date : 29/05/2026                                                                       Date : 29/05/2026
+
+250                                                                             Annual Report 2025-26

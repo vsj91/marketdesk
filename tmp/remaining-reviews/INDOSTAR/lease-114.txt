@@ -1,0 +1,77 @@
+                                                                                                                                          Corporate Overview         Statutory Reports
+
+
+NOTES TO STANDALONE FINANCIAL STATEMENTS         NOTES TO STANDALONE FINANCIAL STATEMENTS
+FOR THE YEAR ENDED MARCH 31, 2026                                                     FOR THE YEAR ENDED MARCH 31, 2026
+
+(Currency : Indian Rupees in lakhs)                                                                                          (Currency : Indian Rupees in lakhs)
+
+(b) Commercial papers                                                                                                        (b) Working capital demand loans:
+    Terms of repayment (based on contractual maturity)                                                               Terms of repayment (based on contractual maturity)
+
+    Redeemable within                                             As at            As at                        Repayable within                                               As at            As at
+                                                           March 31, 2026     March 31, 2025                                                                              March 31, 2026     March 31, 2025
+                                                                                Rate of interest                                                                                  Rate of interest    Rate of interest                                                              Rate of interest                                                                                                              >= 9.00% <=
+                                                                           >= 9.00% <=                                                                        >= 8.75% <= 9.00%
+                                                      >= 8.75% <= 9.00%                                                                                                                            10.72%
+                                                                                      10.72%
+                                                                                                                                                             Amount         Amount
+                                                           Amount         Amount
+                                                                                                                                      0-12 Months                                                        23,449.54           27,849.73
+     0-12 Months                                                             18,925.85             51,788.91
+                                                                                                                                   Total                                                           23,449.54          27,849.73
+     Total                                                                18,925.85           51,788.91
+                                                                                                                                        (c) Other borrowings
+
+NOTE 17 BORROWINGS                                                                                          Terms of repayment (based on contractual maturity)
+
+At amortised cost                                                                                              Redeemable within                                             As at            As at
+                                                                                                                                                                       March 31, 2026     March 31, 2025
+ Particulars                                                       As at            As at
+                                                                                                                                                                               Rate of interest    Rate of interest
+                                                           March 31, 2026     March 31, 2025
+                                                                                                                                                                   >= 7.78% <=       >= 7.78% <=
+Term loans                                                                                                                                                                          10.75%            10.75%
+ Term loans from Banks (Refer note (a) below)*                             1,35,003.99           1,12,293.42                                                                            Amount         Amount
+ Term loans from Financial Institutions (Refer note (a) below)*                24,354.45          54,265.25                            0-12 Months                                                         26,936.67          58,836.64
+ Loans repayable on demand                                                                                                       12-24 Months                                                                     5,432.11          38,686.28
+ Working capital demand loans from banks **                              23,449.54           27,849.73                        24-36 Months                                                             1,306.67             10,015.19
+ Bank overdrafts                                                                     17,135.42                        -                        36-48 Months                                                        629.58            1,624.64
+ Other borrowings                                                            40,317.62              1,18,021.19                       48-60 Months                                                          627.63                1,601.21
+ Total                                                                 2,40,261.02         3,12,429.59                      Above 60 Months                                                     5,384.96             7,257.23
+ Borrowings in India                                                         2,40,261.02          3,12,429.59                           Total                                                              40,317.62           1,18,021.19
+ Borrowings outside India                                                                            -                        -                             Footnote: Quarterly returns/statements filed by the Company with Banks or Financial Institutions are in agreement
+                                                                                                                                                with the unaudited books of accounts as on the respective submission dates and certified by Independent Chartered
+ Total                                                                 2,40,261.02         3,12,429.59
+                                                                                                                                       Accountants / Management, as relevant and relied upon by the Auditors
+ Secured borrowings                                                        2,40,261.02          3,12,429.59
+
+ Unsecured borrowings                                                                               -                        -                                                                                         NOTE 18 OTHER FINANCIAL LIABILITIES
+ Total                                                                 2,40,261.02         3,12,429.59
+                                                                                                                                       Particulars                                                       As at            As at
+(a) Term loan from banks/FI :                                                                                                                                              March 31, 2026     March 31, 2025
+                                                                                                       Book overdraft                                                           493.35           13,830.49
+    Terms of repayment (based on contractual maturity):                                                                                                            Employee benefits payable                                                   2,555.67               2,123.51
+    Redeemable within                                             As at            As at                     Unamortised lease liabilities                                                 3,432.35            3,725.65
+                                                           March 31, 2026     March 31, 2025                     Others                                                                       15,572.30           20,616.68
+                                                              Rate of interest                                                                                                            22,053.67         40,296.33
+                                                                                Rate of interest
+                                                              >=7.97% <=
+                                                                        >=7.89% <= 11.00%
+                                                                  10.60%                              NOTE 19 PROVISIONS
+                                                           Amount         Amount                                                                                                                                       Particulars                                                       As at            As at
+     0-12 Months                                                           83,587.68           69,561.67                                                                              March 31, 2026     March 31, 2025
+     12-24 Months                                                        39,545.38           54,085.12                        Provision for employee benefits:
+    24-36 Months                                                       23,079.48          24,289.84                             - Gratuity                                                                            1,344.15            598.93
+    36-48 Months                                                              8,016.77            12,842.78                             - Compensated absences                                               484.08            302.38
+    48-60 Months                                                             3,419.43            5,779.26                                                                                                    1,828.23              901.31
+    Above 60 Months                                                         1,709.70                        -
+                                                                                         NOTE 20 NON-FINANCIAL LIABILITIES     Total                                                              1,59,358.44         1,66,558.67
+                                                                                                                                       Particulars                                                       As at            As at
+     * first pari-passu charge by way of hypothecation of standard asset portfolio of receivables (net of
+                                                                                                                                                                       March 31, 2026     March 31, 2025
+    provisions) of the Company and / or cash and cash equivalent and / or such other asset
+                                                                                                                                Statutory dues payable                                                   762.20             744.87
+     ** secured by First pari-passu charge by way of hypothecation on the standard asset portfolio                                                                                                  762.20            744.87
+
+220                                                                                                                                                             221

@@ -1,0 +1,67 @@
+BALANCE SHEET
+AS AT MARCH 31, 2026
+
+                                                                                Amount ` in Lakhs
+Particulars                                                          Notes              As at              As at
+                                                                          March 31, 2026       March 31, 2025
+ASSETS
+(1)   Financial Assets
+      (a)  Cash and Cash Equivalents                                       4                        217.74                  28.90
+      (b)  Bank Balance other than (a) above                             4A                      0.99                            -
+      (c)   Receivables
+                (i)   Trade Receivables                                         5                    4,487.28                  4,160.88
+      (d)   Investments                                                  6                 73,522.86               60,412.00
+      (e)   Other Financial Assets                                                7                    691.50                  347.69
+                                                                                               78,920.37             64,949.47
+(2)  Non-Financial Assets
+      (a)   Current Tax Assets (Net)                                        8                               -                    37.93
+      (b)   Property, Plant and Equipment                                          10                    497.86                  272.61
+      (c)   Capital Work-in-Progress                                                12                               -                            -
+      (d)   Intangible Assets Under Development                                   13                     35.75                  219.69
+      (e)   Right of Use Assets                                                     14                   1,449.50                  1,260.77
+       (f)   Other Intangible Assets                                                               11                    327.94                  92.20
+      (g)  Other Non-Financial Assets                                             15                     629.12                  570.21
+                                                                                                      2,940.17               2,453.41
+     Total Assets                                                                              81,860.54             67,402.88
+LIABILITIES AND EQUITY
+LIABILITIES
+(1)   Financial Liabilities
+      (a)  Lease Liabilities                                                         14                    1,758.86                 1,568.84
+      (b)  Other Financial Liabilities                                               16                    577.68                  516.29
+                                                                                              2,336.54                2,085.13
+(2)  Non-Financial Liabilities
+      (a)   Current Tax Liabilities(Net)                                                 17                       193.16                            -
+      (b)   Provisions                                                              18                  594.85                  164.06
+      (c)   Deferred Tax Liabilities (Net)                                      9                   426.00                 569.38
+      (d)  Other Non-Financial Liabilities                                           19                    3,727.63                 4,578.76
+                                                                                                    4,941.64               5,312.20
+EQUITY
+      (a)   Equity Share Capital                                           20                    19,941.74                  19,941.74
+      (b)  Other Equity                                                            21                 54,640.62                40,063.81
+                                                                                             74,582.36             60,005.55
+     Total Liabilities and Equity                                                                81,860.54             67,402.88
+Material accounting policies and explanatory notes                                   1-3
+Other Notes to the Financial Statements                                      4-48
+
+The accompanying notes form an integral part of the Financial Statements.
+As per our report of even date
+
+For Borkar & Muzumdar                           For and on Behalf of the Board of Directors of
+Chartered Accountants                           Canara Robeco Asset Management Company Limited
+Firm Registration No: 101569W
+
+
+Satish Kumar Gupta                                 Rajnish Narula                 Ravindran Menon
+Partner                            MD & CEO                        Director
+Membership No. 101134                             DIN:03607363                  DIN: 00016302
+
+
+                                            Ashwin Purohit              Hemangi Patil
+                                      CFO                      Company Secretary
+                                                                           M.No.ACS19644
+
+Place: Mumbai                                          Place: Mumbai
+Date: April 27, 2026                                    Date: April 27, 2026
+
+
+126        Annual Report 2025-26

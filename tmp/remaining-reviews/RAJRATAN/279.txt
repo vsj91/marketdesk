@@ -1,0 +1,66 @@
+                                             Corporate Overview | Statutory Reports | Financial Statements
+
+Notes forming part of the Consolidated Financial Statements
+
+46. Fair Value measurement hierarchy/ Categories of Financial Instrument: (Contd.)
+
+      Particulars                                               As at 31st March, 2025
+                                                                   Level 1       Level 2       Level 3
+     Financial assets and liabilities measured at fair value on a
+     recurring basis at the end of each reporting period
+     Financial Assets
+    Investment (Quoted)                                                                     -                   -                   -
+    Investment (Unquoted)                                                                 -                   -                   -
+     Derivatives not designated as hedges                                               -                   -                   -
+     Derivatives designated as hedges                                                    -                   -                   -
+     Total                                                                                         -                   -                   -
+
+     This section explains the judgements and estimates made in determining the fair values of the financial
+    Instruments that are
+
+      (a)  recognized and measured at fair value and
+
+      (b)  measured at amortized cost and for which fair values ae disclosed inthe financial statements.
+
+    To provide an indication about the reliability of the inputs used in determining fair value, the Company
+    has classified
+
+      its financial instruments into the three levels preseribed under the accountng standard which areas below:
+     Level 1: This hierarchy includes financial instruments measured using quoted prices. This includes
+      listed equity
+
+     instruments that have quoted price. The fair valve of all equity instruments which are traded in te stock
+    exchanges is
+
+     valued using th closing price as at the reporting year.
+     Level 2: The fair value of finascal instruments that are not traded in an active market is determined
+     using valuation
+
+    techniques which maximize the use of observable market data and rly s litle as possible on entty-
+     specifi estimates
+
+        If all significant inputs required to fair value an instrument are observable, the instrament i included in
+      level 2
+     Level 3: IFone or more ofthe significant inputs is not based on observable market data, the instrument
+       is included
+
+      level 3.
+
+(ii)  Valuation technique used to determine fair value
+     Specific valuation techniques used to valve financial instruments include:
+
+     a)   the fair values ofthe FVTOCT investnents are derived from quoted market prices in ative markets
+
+     b)   the fair values ofthe interest-bearing borrowings and loans are determined by using discounted cash
+          flow method sing discouat rate that reflects the issuer's borrowing rate as at the end of the reporting
+           year. The own nonperformance risk was assessed to be insianificant
+
+      c)   the fair vale of the remaining financial instruments is determined using discounted cash flow analysis
+         using rates currently available for debt on similar terms, credit isk and remaining maturities,
+
+46.2The fair value of Forward Foreign Exchange contracts is determined using forward exchange rates at the
+    Balance Sheet date.
+46.3All monetary foreign currency denominated assets and liabilities are translated using exchange rate at
+     reporting date.
+
+                                                               Integrated Annual Report FY 2025-26 | 315

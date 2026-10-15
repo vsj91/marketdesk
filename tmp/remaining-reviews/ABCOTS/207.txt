@@ -1,0 +1,71 @@
+                              A B COTSPIN INDIA LIMITED
+                                                (CIN: L17111PB1997PLC020118)
+                           Registered office: NH-54, Goniana Road , Near Lake-3, Bathinda , Punjab
+                                    CONSOLIDATED BALANCE SHEET
+                                            As on 31st March 2026
+                                                                              Rupees (₹) in Lakh        Rupees (₹) in Lakh
+ S.No. Particulars                                                  Note No.                    As on                    As on
+                                                                                         31st March 2026           31st March 2025
+      ASSETS
+    I   NON-CURRENT ASSETS
+        (a) Property, Plant and Equipment                                  2                         9,582.25                     6,578.66
+       (b) Capital work-in-progress                                   2A                                             -                     3,317.11
+        (c) Financial Assets
+             (i) Investments                                              4                             7.78                       20.36
+             (ii) Other Non-Current Financial Assets                            5                         192.15                     207.79
+       (d) Other Non Current Tax Assets                                6A                            9.86                         9.86
+        (e) Other Non Current assets                                      6                         3,510.36                     1,459.59
+     TOTAL NON CURRENT ASSETS                                                             13,302.40                 11,593.37
+
+   II  CURRENT ASSETS
+        (a) Inventories                                                 7                         6,790.56                     8,158.39
+       (b) Financial Assets
+             (i) Trade receivables                                          8                         7,223.04                     4,782.38
+             (ii) Cash and Cash Equivalents                                   9                             1.71                       11.76
+              (iii) Bank Balances Other than Cash and Cash Equivalents             10                         159.31                       18.52
+           (iv) Other Current Financial Assets                             5A                            0.91                         0.30
+        (c) Other Current Assets                                         11                         3,809.95                     4,274.27
+     TOTAL CURRENT ASSETS                                                                 17,985.47                 17,245.62
+     TOTAL ASSETS (I+II)                                                                     31,287.87                 28,838.99
+
+      EQUITY AND LIABILITIES
+   III  EQUITY
+        (a) Equity Share Capital                                         12                         2,215.96                     1,661.53
+       (b) Other Equity                                               13                       13,105.64                     9,414.11
+     TOTAL EQUITY                                                                          15,321.60                 11,075.65
+
+      LIABILITIES
+  IV  NON-CURRENT LIABILITIES
+        (a) Financial Liabilities
+             (i) Borrowings                                              14                         6,110.62                     7,016.47
+       (b) Provisions                                                 19                          11.50                       46.59
+        (c) Deferred Tax Liabilities (Net)                                   3                         275.99                     237.88
+     TOTAL NON- CURRENT LIABILITIES                                                          6,398.12                   7,300.94
+  V  CURRENT LIABILITIES
+        (a) Financial Liabilities
+             (i) Borrowings                                              15                         8,571.83                     9,766.48
+             (ii) Trade Payables                                           16
+           Dues to micro and small enterprises                                                         150.33                       15.67
+           Dues to others                                                                            437.29                     411.32
+              (iii) Other Financial Liabilities                                   17                         169.14                     192.83
+       (b) Other Current Liabilities                                      18                          10.43                       13.59
+        (c) Provisions                                                 19                             0.23                         0.53
+       (d) Current Tax Liability, Net                                   19A                        228.90                       62.00
+     TOTAL CURRENT LIABILITIES                                                               9,568.16                 10,462.41
+     TOTAL LIABILITIES                                                                      15,966.27                 17,763.35
+     TOTAL EQUITY AND LIABILITIES (III+IV+V)                                                 31,287.87                 28,838.99
+       Basis of Preparation, Measurement and Material Accounting Policy                                              1
+      The accompanying notes form an integral part of these Financial Statements.                                        2-52
+As per our report of even date attached.                                        For and on behalf of the Board of Directors of
+For P L Mittal & Co.                                                       A B COTSPIN INDIA LIMITED
+Chartered Accountants
+FRN:002697N
+                                                                          Deepak Garg             Manohar Lal
+Sat Dev Garg                                                                       (Managing Director)        (Whole Time Director)
+Partner                                                                            (DIN 00843929)             (DIN 02406686)
+Membership No.: 081553
+UDIN: 26081553IAICKG4924
+                                                                                 Rajinder Prashad Garg         Rahul Kapasiya
+Place : Bathinda                                                                                 (Chief Financial Officer)       (Company Secretary)
+Date : May 27, 2026                                                                    (PAN: ABXPG1267D)            (M. No. A70811)
+                                                                Page 203

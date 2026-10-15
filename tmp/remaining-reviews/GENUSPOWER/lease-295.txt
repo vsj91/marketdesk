@@ -1,0 +1,67 @@
+Notes
+to the consolidated financial statements for the year ended March 31, 2026
+(All amounts are in Indian Rupees in Crores except share data and unless otherwise stated)
+
+49   Leases (Company as a lessee)
+
+      The Holding Company has lease contracts for land and buildings. These leases have lease terms between 1 and 99
+       years. The Company’s obligations under its leases are secured by the lessor’s title to the leased assets. Generally, the
+     Company is restricted from assigning and subleasing the leased assets without the previous consent of the Lessor. The
+       lease contracts include extension terms which are based on the mutually agreeable terms of the parties. Whereas, the
+       termination option is generally vested with the lessor and is exercisable in case of specified defaults by the lessee, as
+       outlined in the agreements.
+
+       Carrying amounts of right-of-use assets recognised and the movements during the period has been shown in Note 3A.
+
+      The following are the amounts recognised in Statement of Profit and Loss:
+
+
+                                                                           March 31, 2026  March 31, 2025
+       Depreciation expense of right-of-use assets                                               4.54               3.21
+        Interest expense on lease liabilities                                                       0.24              0.19
+      Expense relating to short-term leases (included in other expenses)                          5.06           4.44
+        Total amount recognised in Statement of Profit and Loss                                 9.84            7.84
+
+50   Disclosure required under section 186 (4) of the Companies Act, 2013
+
+       Included below are Investments and loans made/given during the year, the particulars of which are disclosed below as
+       required by section 186 (4) of Companies Act, 2013:
+
+
+        Particulars                                            Nature     Rate of  March 31, 2026  March 31, 2025
+                                                                                   Interest
+      Gemstar Infra Pte Ltd                                Loan       7.61%             64.06            149.18
+        Yajur Commodities Limited*                           Loan      10.00%                      -           27.50
+        Artline Vinimay Private Limited**                       Loan      9.00%                       -           12.00
+     A G Organica Private Limited                          Loan      9.00%                       -           8.00
+        Sita Niwas Private Limited                             Loan      9.00%                       -            7.00
+      Genus Paper & Boards Limited***                       Loan      8.50%             27.50                    -
+     KRMG Contractors Private Limited                      Loan       11.00%             5.00            7.00
+     KRMG Agro Farms Private Limited                      Loan      9.00%             14.00                    -
+      Genus Innovation Limited                             Loan       11.00%                      -           16.00
+       Subsidiary of associate
+        Hi-Print Investments Private Limited                     Loan       6.75%                101.51                    -
+      Genus Chhattisgarh PKG-1 SPV Private Limited            Loan       6.75%             32.39                    -
+      Genus Assam Package-4 SPV Limited                   Loan       6.75%            56.80                    -
+      Durg Rajnandgaon Jagdalpur Smart Metering Private       Loan       6.75%             95.62                    -
+       Limited
+       Maharashtra Akola Amaravati Smart Metering Private       Loan       6.75%               2.28                    -
+       Limited
+       Maithon Gemstar Smart Metering Projects Private Limited   Loan       6.75%              8.96                    -
+      Genus Assam Package-5 SPV Limited                   Loan       6.75%             65.67                    -
+      Genus Assam Package-2 SPV Limited                   Loan       6.75%            40.44                    -
+        Hi-Print Assam Package-3 SPV Limited                  Loan       6.75%               33.81                    -
+       Garhwal Smart Metering Private Limited                 Loan       6.75%                 5.81           0.02
+       Purvanchal EAV-3 Smart Metering Private Limited          Loan       6.75%                 8.91                    -
+      Genus Metering Communication Private Limited           Loan      9.00%               0.01           0.09
+      Genus Dhundar Smart Metering SPV Private Limited        Loan      10.00%             0.02                    -
+      Genus Bikana Smart Metering SPV Private Limited         Loan      10.00%             0.02                    -
+      Genus Marudhara Smart Metering SPV Private Limited      Loan      10.00%             0.02                    -
+      Genus Banas Smart Metering SPV Private Limited          Loan      10.00%             0.02                    -
+      Genus Braj Smart Metering SPV Private Limited           Loan      10.00%             0.02                    -
+      Genus Rajputana Smart Metering SPV Private Limited      Loan      10.00%             0.02                    -
+      Genus Mewar Smart Metering SPV Private Limited         Loan      10.00%             0.02                    -
+
+
+
+288    Annual Report 2025-26

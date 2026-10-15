@@ -1,0 +1,78 @@
+CONSOLIDATED FINANCIAL STATEMENTS    BALANCE SHEET
+
+
+
+
+   Consolidated Balance Sheet (Contd.)
+                                                                                                                                                                                 (₹ In Crore)
+
+                                                                                                               As at 31 March
+
+    Particulars                                                                        Note No.          2026        2025
+
+
+
+   ASSETS
+
+   Non-current assets
+
+    Property, plant and equipment                                                          2              7,727.31       3,588.74
+
+    Capital work-in-progress                                                              2              120.32         29.20
+
+   Investment property                                                                  3               48.31          47.78
+
+    Intangible assets                                                                    4             4,185.38         40.07
+
+    Intangible assets under development                                                    4             1,400.73         31.60
+
+   Investments in associate                                                          5A               169.18      3,688.27
+
+    Financial assets
+
+       Investments                                                                5B           16,661.34      19,323.58
+
+      Loans                                                                          6            10,887.85       6,450.97
+
+       Other financial assets                                                             7             364.08        124.83
+
+   Deferred tax assets (net)                                                              20             309.01         88.69
+
+   Income tax assets (net)                                                                                            1,230.16       1,251.90
+
+   Other non-current assets                                                              8                67.51          87.05
+
+                                                                                                       43,171.18     34,752.68
+
+   Current assets
+
+    Inventories                                                                         9            6,294.49       2,077.36
+
+    Financial assets
+
+       Investments                                                                5B             7,811.66       5,902.02
+
+       Trade receivables                                                                10            3,473.44       2,125.22
+
+      Cash and cash equivalents                                                         11             2,989.97       2,331.53
+
+       Other bank balances                                                              12               81.92        516.07
+
+      Loans                                                                          6              7,936.17       3,465.19
+
+       Other financial assets                                                             7             2,710.95        2,167.73
+
+   Other current assets                                                                 8             2,678.53        860.81
+
+
+                                                                                                       33,977.13     19,445.93
+
+   Asset held for sale                                                                  43              74.68            –
+
+    Total                                                                                               77,222.99     54,198.61
+
+
+
+
+
+246     100 Years of Bajaj Group

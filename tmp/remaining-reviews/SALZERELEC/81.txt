@@ -1,0 +1,68 @@
+STANDALONE BALANCE SHEET
+AS AT MARCH 31, 2026                                                                                    (` in Lakhs)
+                                                Note             As at             As at Particulars                                                    No.     March 31, 2026    March 31, 2025
+ I.  ASSETS
+ 1. Non-current Assets
+ a.  Property, Plant and Equipment                     2           31,871.18          29,002.28
+ b.  Capital Work in Progress                         3              731.06            262.04
+ c.  Investment Property                            4                 0.77               0.77
+ d.  Goodwill                                     5               70.17              93.42
+ e.  Other Intangible Assets                         6              312.08            391.97
+ f.   Financial Assets
+        i.  Investments                               7            2158.51           1,779.11
+         ii.  Others                                   8              245.58            253.57
+ g.  Other Non-current Assets                       9             1,011.89            815.23
+     Total Non-Current Assets                        [1]               36,401.24         32,598.39
+ 8. Current Assets
+ a.  Inventories                                  10           46,202.79          36,399.86
+ b.  Financial Assets
+        i.  Investments                              11             951.57            855.69
+         ii.  Trade Receivables                           12           43,143.26          40,850.05
+         iii. Cash and Cash Equivalents                    13             205.25            164.94
+       iv.  Other Bank balances                        14             484.39            365.82
+      v.  Loans                                   15             146.13            141.91
+       vi. Other                                   16             232.05            231.92
+ Other Current Assets                             17            5901.71           4,899.56
+ Current Tax Assets (Net)                           18             161.25                           -
+ Total Current Assets                                 [2]               97,428.40         83,909.75
+ TOTAL ASSETS                             [1+2]              1,33,829.64        1,16,508.14
+ II. EQUITY AND LIABILITIES
+ 1. EQUITY
+ a.  Equity Share Capital                           19            1,768.27           1,768.27
+ b.  Other Equity                                 20           56,138.59          51,259.79
+     Total Equity                                      [1]               57,906.86         53,028.06
+ 2.  LIABILITIES
+ 1. Non-current Liabilities
+ a.  Financial Liabilities
+        i.  Borrowings                               21            2,808.38           2,231.51
+         ii.  Net Liability in Leased Assets                  22              16.99              28.24
+ b.  Provisions                                   23             239.92            206.24
+ c.  Deferred tax liabilities (net)                      24            2,926.55           2,699.49
+ Total Non-current Liabilities                          [2]                5,991.84          5,165.48
+ 2. Current Liabilities
+ a.  Financial Liabilities
+        i.  Borrowings                               25           50,335.97          43,503.55
+         ii.  Current Maturity of Leased Liability              26                8.87               5.68
+         iii.  Trade Payables                             27
+         a. Due to Micro & Small Enterprises                             4,477.12           1,895.62
+         b. Due to Others                                           12,922.84          10,611.53
+       iv.  Others                                  28              50.27              92.71
+ b.  Other Current Liabilities                         29             993.13           1,267.20
+ c.  Provisions                                   30            1,142.74            769.18
+ b.  Current Tax Liabilities (Net)                      31                            -            169.13
+ b.  Total Current Liabilities                          [3]               69.930.94         58,314.60
+ TOTAL EQUITY AND LIABILITIES [1+2+3]                         1,33,829.64        1,16,508.14
+
+Material Accounting Policies – Note:1, the accompanying Notes are integral part of the Financial Statements
+                                                                                                 In terms of our attached report
+N RANGACHARY       R. DORAISWAMY     D. RAJESHKUMAR                       For Swamy & Ravi
+Chairman              Managing Director      Joint Managing Director              Chartered Accountants
+(DIN: 00054437)        (DIN: 00003131)       (DIN :00003126)                    FRN No.004317S
+
+K RAMAN                           K M MURUGESAN                      S ALAMELU
+Chief Financial Officer                       Company Secretary                                 Partner
+                          M No. A25953                 M No. 223555
+Coimbatore - 47
+May 23, 2026
+
+ 78  Annual Report 2025-26

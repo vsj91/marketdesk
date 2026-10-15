@@ -1,0 +1,60 @@
+Notes to Standalone Financial Statements
+for the year ended March 31, 2026
+
+
+     Deferred tax assets and liabilities are measured at the tax              •    Fixed lease payments (including in-substance fixed
+     rates that are expected to apply in the period in which the             payments) payable during the lease term and under
+       liability is settled or the asset realised, based on tax rates              reasonably certain extension options, less any lease
+     (and tax laws) that have been enacted or substantively                incentives;
+     enacted by the balance sheet date.
+                                                                                                       •     Variable lease payments that depend on an index or
+2.19  Leases                                                                           rate, initially measured using the index or rate at the
+                                                          commencement date;
+    The Company as lessor
+                                                                                                       •    The amount expected to be payable by the lessee
+     Leases for which the Company is a lessor are classified as                                                                  under residual value guarantees;
+     finance or operating leases. Whenever the terms of the
+     lease transfer substantially all the risks and rewards of              •    The exercise price of purchase options, if the lessee is
+     ownership to the lessee, the contract is classified as finance              reasonably certain to exercise the options; and
+      lease. All other leases are classified as operating leases.
+                                                                                                       •    Payments of penalties for terminating the lease, if
+     Rental income from operating leases is recognised on              the lease term reflects the exercise of an option to
+    a straight-line basis over the term of the relevant lease.              terminate the lease.
+       Initial direct costs incurred in negotiating and arranging an
+                                                          The lease liability is presented as a separate line in the     operating lease are added to the carrying amount of the
+                                                                  Balance Sheet.     leased asset and recognised on a straight-line basis over
+     the lease term.                                                          The lease liability is subsequently measured by increasing
+                                                                 the carrying amount to reflect interest on the lease liability    The Company as lessee
+                                                                         (using the effective interest method) and by reducing the
+    The Company assesses whether a contract is or contains a          carrying amount to reflect the lease payments made.
+      lease, at inception of the contract. The Company recognises
+                                                          The Company remeasures the lease liability (and makes    a right-of-use asset and a corresponding lease liability
+                                                              a corresponding adjustment to the related right-of-use     with respect to all lease arrangements in which it is the
+                                                                           asset) whenever:      lessee, except for short-term leases (defined as leases with
+    a lease term of 12 months or less) and leases of low value                                                                                                       •    The lease term has changed or there is a change in the
+     assets. For these leases, the Company recognises the lease                                                                  assessment of exercise of a purchase option, in which
+    payments as an operating expense on a straight-line basis                                                                      case the lease liability is remeasured by discounting
+     over the lease term, unless another systematic basis is                                                                     the revised lease payments using a revised discount
+    more representative of the time pattern in which economic                                                                                        rate.
+     benefits from the leased assets are consumed. Contingent
+    and variable rentals are recognized as expense in the              •   A lease contract is modified and the lease modification
+     periods in which they are incurred.                                                   is not accounted for as a separate lease, in which case
+                                                                     the lease liability is remeasured by discounting the
+     Lease Liability                                                                            revised lease payments using a revised discount rate.
+
+    The lease payments that are not paid at the commencement                                                                    Right of Use (ROU) Assets
+     date are discounted using the interest rate implicit in the
+      lease. If that rate cannot be readily determined, which is        The ROU assets comprise the initial measurement of the
+     generally the case for leases in the Company, the lessee’s         corresponding lease liability, lease payments made at or
+     incremental borrowing rate is used, being the rate that the         before the commencement day and any initial direct costs.
+     individual lessee would have to pay to borrow the funds        They are subsequently measured at cost less accumulated
+     necessary to obtain an asset of similar value to the right-          depreciation and impairment losses.
+     of-use asset in a similar economic environment with similar
+                                                         Whenever the company incurs an obligation for costs to     terms, security and conditions.
+                                                                   dismantle and remove a leased asset, restore the site on
+     Lease payments included in the measurement of the lease         which it is located or restore the underlying asset to the
+       liability comprise:                                                condition required by the terms and conditions of the lease,
+                                                              a provision is recognised and measured under Ind AS 37-
+
+
+                                                                                        Pioneer Embroideries Limited    105

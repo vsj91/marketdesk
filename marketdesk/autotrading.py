@@ -4,6 +4,7 @@ import collections,json,math,threading,time,uuid
 from datetime import datetime,timedelta,timezone
 from .storage import connect,get_state,set_state,number,now
 from .paper import trade
+from .execution import charges,money
 from .quality import audit
 from .quote_health import fresh,stale_holdings,stale_message,refresh_held_quotes
 from .buy_universe import allowed_symbols,require_buy_universe,universe_status,MembershipRefresh
@@ -23,6 +24,14 @@ def capacity_rules(portfolio,config):
   value=config.get(key)
   if type(value) is int and value>0:rules[key]=value
  return rules
+
+def buy_budget(portfolio,account,rules,config):
+ budget=min(account['cash'],account['initial_cash']*rules['position_pct']/100)
+ if portfolio=='investor' and config.get('buy_target_inr') is not None:
+  target=number(config['buy_target_inr'])
+  if target is None or target<=0:raise ValueError('Invalid Investor buy target; new buys wait.')
+  budget=min(budget,target)
+ return budget
 
 def init_auto(path):
  with connect(path) as db:
@@ -116,6 +125,36 @@ def investor_valuation(db,clock):
   value+=p['quantity']*q['price']
  return value,marks
 
+def investor_stop_risk(cost):
+ """Fee-inclusive remaining cost; reserve 0.25% per side without double-counting buy fees."""
+ stop_value=cost*(1-RULES['investor']['stop_pct']/100)
+ return max(0,cost-stop_value+charges(stop_value,'SELL',True)['total'])+cost*.005
+
+def investor_portfolio_risk(db,clock):
+ raw=get_state(db,'auto_config',{}).get('investor',{}).get('portfolio_risk_cap_pct')
+ if raw is None:return None
+ cap=number(raw)
+ if cap is None or cap<=0:raise ValueError('Invalid Investor portfolio risk cap; new buys wait. Exits remain active.')
+ eq,_=investor_valuation(db,clock)
+ if eq is None:raise ValueError(stale_message(db,'investor',clock))
+ if eq<=0:raise ValueError('Investor equity is not positive; new buys wait. Exits remain active.')
+ risk=sum(investor_stop_risk(p['cost']) for p in db.execute("SELECT cost FROM positions WHERE portfolio='investor' AND quantity>0"))
+ return dict(equity=eq,risk=risk,risk_pct=risk/eq*100,cap_pct=cap,limit=eq*cap/100)
+
+def investor_buy_fits(q,price,mark,risk,fee=None):
+ if q<1:return False
+ value=money(q*price);fee=charges(value,'BUY')['total'] if fee is None else fee
+ after=risk['equity']-fee+q*(mark-price)
+ return after>0 and risk['risk']+investor_stop_risk(value+fee)<=after*risk['cap_pct']/100
+
+def investor_risk_quantity(maximum,price,mark,risk):
+ lo=0;hi=maximum
+ while lo<hi:
+  middle=(lo+hi+1)//2
+  if investor_buy_fits(middle,price,mark,risk):lo=middle
+  else:hi=middle-1
+ return lo
+
 def equity(db,portfolio,clock):
  if portfolio=='investor':return investor_valuation(db,clock)[0]
  account=db.execute('SELECT * FROM portfolios WHERE name=?',(portfolio,)).fetchone();value=account['cash']
@@ -162,7 +201,17 @@ class AutoTrading:
   if cfg.get('trader',{}).get('strategy')==STRATEGY:rules['trader']=active_rule(cfg['trader'])
   if cfg.get('investor',{}).get('allow_stale_held_valuation') is True:
    rules['investor']['risk']='A 2% fall from the first marked portfolio equity of the session stops new buys for that session; exits remain active. Existing Investor holdings may use their last valid current-session quote for valuation when stale. Missing, invalid, future-dated or prior-session quotes block new buys. All orders and exits still require fresh prices and depth.'
+  cap=cfg.get('investor',{}).get('portfolio_risk_cap_pct')
+  if cap is not None:
+   rules['investor']['portfolio_risk_cap_pct']=cap
+   base=rules['investor'].get('risk','A 2% daily equity loss stops new buys for that session; exits remain active.')
+   rules['investor']['risk']=base+f' New buys must keep combined risk at the existing 10% stops within {cap}% of post-fill equity, including buy/sell fees and a 0.25%-per-side slippage reserve. Existing holdings remain until their stop or trend exit triggers.'
   for p in rules:
+   if p=='investor' and cfg.get(p,{}).get('buy_target_inr') is not None:
+    target=number(cfg[p]['buy_target_inr'])
+    rules[p]['buy_target_inr']=target
+    if target and target>0:
+     rules[p]['entry']+=f' Future purchases target up to ₹{target:,.0f} per stock including buy fees; whole shares, available depth and risk allowance may reduce fills. Existing holdings are not resized.'
    if cfg.get(p,{}).get('buy_universe')=='nifty500':rules[p]['buy_universe']=universe_status(db,p)
    fee_limit=cfg.get(p,{}).get('max_round_trip_fee_pct')
    if fee_limit is not None:
@@ -215,8 +264,13 @@ class AutoTrading:
    signal_result=entry_signal(portfolio,execution_signal,price,execution_clock)
    if not signal_result:raise ValueError('Entry conditions changed; re-evaluate next cycle.')
    value=round(price*quote.get('fill_quantity',order['quantity']),2);total=value+quote.get('fill_fee',round(value*.001,2))
-   budget=min(account['cash'],account['initial_cash']*rules['position_pct']/100)
+   budget=buy_budget(portfolio,account,rules,cfg)
    if total>budget:raise ValueError('Position budget exceeded at the latest price.')
+   if portfolio=='investor':
+    risk=investor_portfolio_risk(db,execution_clock)
+    mark=db.execute('SELECT price FROM quotes WHERE symbol=?',(order['symbol'],)).fetchone()[0]
+    if risk and not investor_buy_fits(quote.get('fill_quantity',order['quantity']),price,mark,risk,quote.get('fill_fee')):
+     raise ValueError(f"Investor portfolio risk cap ({risk['cap_pct']:g}%) exceeded including fees and slippage; new buy blocked. Exits remain active.")
    marks=investor_valuation(db,execution_clock)[1] if portfolio=='investor' else []
    note='; stale holding valuation: '+', '.join(f"{m['symbol']} at {m['price']}" for m in marks) if marks else ''
    return signal_result[0]+note
@@ -283,6 +337,12 @@ class AutoTrading:
     fills+=self.execute(portfolio,p['symbol'],'SELL',p['quantity'],signal,clock,realtime)
   if not entry_window_open(clock,cfg):return {'state':'monitoring','message':'Monitoring exits. New entries run '+entry_window_label(cfg)+'.','fills_this_scan':fills}
   if not okay:return {'state':'risk_wait','message':risk_message,'fills_this_scan':fills}
+  if portfolio=='investor':
+   try:
+    with connect(self.path) as db:risk=investor_portfolio_risk(db,datetime.now(timezone.utc) if realtime else clock)
+   except ValueError as error:return {'state':'risk_wait','message':str(error),'fills_this_scan':fills}
+   if risk and risk['risk']>=risk['limit']:
+    return {'state':'risk_wait','message':f"Investor stop risk including fees and slippage is ₹{risk['risk']:.2f} ({risk['risk_pct']:.3f}%), above or at its {risk['cap_pct']:g}% cap of ₹{risk['limit']:.2f}. New buys wait; existing holdings retain their stops and trend exits.",'fills_this_scan':fills,'portfolio_risk':risk}
   try:
    with connect(self.path) as db:allowed=allowed_symbols(db,portfolio,clock)
   except ValueError as error:return {'state':'data_wait','message':str(error),'fills_this_scan':fills}
@@ -295,14 +355,20 @@ class AutoTrading:
   for _,symbol in sorted(candidates,key=lambda x:(-x[0],x[1])):
    with connect(self.path) as db:
     account=db.execute('SELECT * FROM portfolios WHERE name=?',(portfolio,)).fetchone()
-    rules=capacity_rules(portfolio,get_state(db,'auto_config',{}).get(portfolio,{}))
+    buy_config=get_state(db,'auto_config',{}).get(portfolio,{})
+    rules=capacity_rules(portfolio,buy_config)
     count=db.execute('SELECT COUNT(*) FROM positions WHERE portfolio=? AND quantity>0',(portfolio,)).fetchone()[0]
     buys=daily_buy_count(db,portfolio,clock)
     if count>=rules['max_positions'] or buys>=rules['max_buys_per_day']:break
     if db.execute('SELECT 1 FROM positions WHERE portfolio=? AND symbol=? AND quantity>0',(portfolio,symbol)).fetchone():continue
     if db.execute('SELECT 1 FROM trades WHERE portfolio=? AND symbol=? AND created_at>=?',(portfolio,symbol,day_start(clock))).fetchone():continue
-   budget=min(account['cash'],account['initial_cash']*rules['position_pct']/100)
+   budget=buy_budget(portfolio,account,rules,buy_config)
    qty=max(0,math.floor((budget-25)/(quotes[symbol]['price']*1.025)))
+   if portfolio=='investor' and qty>0:
+    try:
+     with connect(self.path) as db:risk=investor_portfolio_risk(db,datetime.now(timezone.utc) if realtime else clock)
+    except ValueError as error:return {'state':'risk_wait','message':str(error),'fills_this_scan':fills}
+    if risk:qty=investor_risk_quantity(qty,quotes[symbol]['price']*1.005,quotes[symbol]['price'],risk)
    if qty>0:fills+=self.execute(portfolio,symbol,'BUY',qty,signals[symbol],clock,realtime)
   with connect(self.path) as db:
    rules=capacity_rules(portfolio,get_state(db,'auto_config',{}).get(portfolio,{}))

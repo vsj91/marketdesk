@@ -1,0 +1,61 @@
+                                                                     STANDALONE FINANCIAL STATEMENTS
+
+
+The accrual for unutilised leave is determined for the entire available leave balance standing to the credit of the employees at
+year-end as per Company’s policy. The value of such leave balance eligible for carry forward, is determined by an independent
+actuarial valuation and charged to statement of profit and loss in the year determined.
+
+The average rate of increase in compensation levels is determined by the Company, considering factors such as, the Company’s
+past compensation revision trends and management’s estimate of future salary increases. The discount rate is based on the
+prevailing market yields of Government of India securities as at the Balance Sheet date for the estimated term of the obligation.
+
+c) Long Service Leave – Australia:
+The regulations of long service leave are applicable to the associates of the Company employed at its Australia Branch. The
+accrual of long service leave is in addition to the compensated absences to which the associates are entitled to. These long
+service leaves are dependent on the tenure of the employee with the same employer and are regulated by respective state laws.
+
+During the year ended March 31, 2026, employees of the overseas branches were transferred to the Company’s subsidiary
+entities.
+
+
+13. Trade payables
+
+13A. Trade payables carried at amortised cost
+
+                                                                     As at            As at
+                                    Particulars
+                                                                    March 31, 2026    March 31, 2025
+ Current
+  (i)  Total outstanding dues of micro enterprises and small enterprises (‘MSE’)                    59              41
+     (refer note 13B for details of dues to MSE)
+  (ii) Total outstanding dues of creditors other than micro enterprises and small                  2,312             1,101
+    enterprises#
+ Total                                                                                 2,371             1,142
+ #Includes dues to related parties (Note 24)                                             955             461
+
+
+Note:
+# Trade payables are non-interest bearing and are normally settled on 30 to 60 days terms.
+
+As at March 31, 2026
+
+                                      Outstanding for the following periods from the due date of payment
+    Ageing of trade payables                          Less than                       More than
+                                  Unbilled   Not Due            1 - 2 years   2 - 3 years                   Total
+                                                 1 year                          3 years
+
+ MSE                                      -        59           -           -              -           -         59
+
+ Others                            1,056       416       825           -           3        12        2,312
+
+ Disputed dues - MSE                      -            -           -           -              -           -             -
+
+ Disputed dues - Others                    -            -           -           -              -           -             -
+
+ Balance at the end of the year       1,056       475       825           -           3        12        2,371
+
+
+
+
+
+                                                                                                  Annual Report 2025-26  | 267

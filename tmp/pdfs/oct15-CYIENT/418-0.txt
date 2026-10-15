@@ -1,0 +1,55 @@
+                                                                    CONSOLIDATED FINANCIAL STATEMENTS
+
+
+35.2 Fair Value Measurement
+
+a)  The carrying value of financial assets by categories is as follows:
+
+                                                                        As at          As at
+                                       Particulars
+                                                                       March 31, 2026  March 31, 2025
+
+ Measured at amortised cost
+
+ Trade receivables                                                                      13,055         14,067
+
+ Cash and cash equivalents                                                               14,575          10,706
+
+ Bank balances other than cash and cash equivalents                                        488           2,436
+
+ Loan                                                                                     1,333                 -
+
+ Other financial assets                                                                443           693
+
+ Investment in tax free and perpetual bonds (quoted)#1                                          1,501           2,052
+
+ Total financial assets measured at amortised cost                                          31,395         29,954
+
+ Measured at fair value through other comprehensive income (FVOCI)
+
+ Investments in other equity instruments (unquoted)                                        503           560
+
+ Derivative instruments designated in a hedging relationship                                             -            52
+
+ Total financial assets measured at FVOCI                                                503           612
+
+ Measured at fair value through statement of profit and loss (FVTPL)
+
+ Investments in mutual funds (quoted)                                                        1,159           1,120
+
+ Investment in preferred instruments of other entities                                       238           345
+
+ Investment in Partnership fund                                                         674           375
+
+ Total financial assets measured at FVTPL                                                   2,071           1,840
+
+ Total financial assets                                                                   33,969         32,406
+
+
+#1. Fair value of investment in tax free and perpetual bond is ₹ 1,515 (March 31, 2025 : ₹ 2,047)
+
+
+
+
+
+                                                                                                  Annual Report 2025-26  | 417

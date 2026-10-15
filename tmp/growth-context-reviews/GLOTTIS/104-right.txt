@@ -1,0 +1,49 @@
+ Corporate Overview        Statutory Reports          Financial Statements                   203
+
+Notes
+forming part of the Audited Consolidated Financial Statements for the year ended March 31, 2026
+                                                                              (Amounts in ₹ Lakhs, unless otherwise stated)
+
+           vi.  Assets and liabilities recognised in the Balance Sheet
+
+                 Particulars                                                                      March 31, 2026
+              Present value of defined benefit obligation                                                    (161.18)
+              Present value of plan assets                                                           133.41
+           Amount recognised as assets/(liability)                                                       (27.77)
+
+                 Particulars                                                                      March 31, 2026
+              Short Term Provision                                                                   27.77
+            Long Term Provision                                                                                                                 -
+            vii. Sensitivity Analysis for the year ended March 31, 2026
+                                              Disclosures of Stress Testing as on Valuation Date
+                A. Liability recognised in Balance Sheet                                    161.19   DECREASE OR
+                                                % INCREASE IN                  INCREASE IN                                                 SCENARIOS                                                                                               LIABILITY         DBO                                                          DBO
+                 1. DISCOUNT RATE +100 basis points                         -8.10%        148.14          (13.05)
+                 2. DISCOUNT RATE -100 basis points                        9.37%        176.29         15.10
+                 3. SALARY GROWTH +100 basis points                       6.82%        172.18         10.99
+                 4. SALARY GROWTH -100 basis points                        -6.13%        151.31            (9.88)
+                 5. ATTRITION RATE +100 basis points                        0.35%        161.75           0.56
+                 6. ATTRITION RATE -100 basis points                         -0.37%        160.59            (0.60)
+                 7. MORTALITY RATE 10% UP                               0.07%        161.30           0.12
+
+    b)  Contribution to Employees Earned Leave Scheme - Leave Encashment
+         In accordance with Indian Accounting Standard 19, an actuarial valuation was carried out in respect of
+        the aforesaid defined benefit plans based on the following assumptions.
+
+               i.   Actuarial assumptions
+
+                                                                                              Employee
+                                                                                                 Earned Leave
+                 Particulars                                                                                (unfunded)
+                                                                                           March 31, 2026
+              Discount rate (per annum)                                                        7.20%
+             Expected Rate of increase in compensation levels                                      5.00%
+                Mortality Rate                                                                          Indian Assured
+                                                                                                               Lives Mortality
+                                                                                              (2012-14)
+              Retirement age                                                         60 years
+
+           The discount rate assumed is determined by reference to market yield at the Balance Sheet date on
+           government bonds. The estimate of future salary increases, considered in actuarial valuation, take
+            account of inflation, seniority, promotion and other relevant factors, such as supply and demand in
+            the employment market.

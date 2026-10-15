@@ -1,0 +1,61 @@
+                                                               Annual Report 2025 - 26     176
+
+
+    Stage 3: For loans considered credit-impaired, the Group            from active markets for identical assets or liabilities
+     recognises the lifetime expected credit losses for these              that the Group has access to at the measurement
+     loans. The method is similar to that for stage 2 assets, with              date. The Group considers markets as active only if
+     the PD set at 100%.                                                 there are sufficient trading activities with regards to
+                                                                     the volume and liquidity of the identical assets or
+C.   Loans and advances measured at FVOCI                                                                                               liabilities and when there are binding and exercisable
+    The ECLs for loans and advances measured at FVOCI do              price quotes available on the balance sheet date;
+     not reduce the carrying amount of these financial assets
+      in the balance sheet, which remains at fair value. Instead,      •     Level 2 financial instruments: Those where the
+    an amount equal to the allowance that would arise if the             inputs that are used for valuation and are significant,
+     assets were measured at amortised cost is recognised             are derived from directly or indirectly observable
+      in OCI as an accumulated impairment amount, with a            market data available over the entire period of the
+     corresponding charge to profit or loss. The accumulated             instrument’s life. Such inputs include quoted prices
+      loss recognised in OCI is recycled to the profit and loss               for similar assets or  liabilities in active markets,
+    upon derecognition of the assets.                               quoted prices for identical instruments in inactive
+                                                                   markets and observable inputs other than quoted
+D.  Forward looking information                                         prices such as interest rates and yield curves, implied
+     In its ECL models, the Group relies on a broad range of                 volatilities, and credit spreads; and
+     forward looking macro parameters and estimated the                                                     •    Level 3 financial instruments: Those that include one
+     impact on the default at a given point of time.
+                                                                         or more unobservable input that is signiﬁcant to the
+         i)    Gross fixed investment (% of GDP)                         measurement as whole.
+         ii)   Lending interest rates                                                            3.9   (I) Recognition of other income
+         iii)   Deposit interest rates                                                         Revenue (other than for those items to which Ind AS 109
+                                                                                                 - Financial Instruments are applicable) is measured at fair3.7  Write-offs
+                                                                  value of the consideration received or receivable. Ind AS
+     Financial assets are written off when the Group has                                                          115 - Revenue from contracts with customers outlines a
+    stopped pursuing the recovery. If the amount to be written                                                                        single comprehensive model of accounting for revenue
+      off is greater than the accumulated loss allowance, the                                                                          arising from contracts with customers and supersedes
+     difference is first treated as an addition to the allowance                                                                    current revenue recognition guidance found within Ind
+     that is then applied against the gross carrying amount.                                                                      ASs. The Group recognises revenue from contracts with
+    Any subsequent recoveries are credited to impairment on                                                              customers based on a five steps model as set out in
+      financial instruments in the statement of profit and loss.                                                                 Ind AS 115:
+3.8  Determination of fair value                                                           Step 1: Identify contract(s) with a customer: A contract
+      Fair value is the price that would be received to sell an           is defined as an agreement between two or more parties
+     asset or paid to transfer a liability in an orderly transaction        that creates enforceable rights and obligations and sets
+    between market participants at the measurement date,       out the criteria for every contract that must be met.
+     regardless of whether that price is directly observable
+     or estimated  using another  valuation  technique.  In       Step 2: Identify performance obligations in the contract:
+     estimating the fair value of an asset or a liability, the      A performance obligation is a promise in a contract with a
+    Group has taken into account the characteristics of the       customer to transfer a good or service to the customer.
+     asset or liability if market participants would take those
+                                                           Step 3: Determine the transaction price: The transaction
+      characteristics  into account when  pricing  the  asset
+                                                                       price is the amount of consideration to which the Group
+     or  liability at the measurement date. In addition, for
+                                                                expects  to be  entitled  in exchange  for  transferring
+      financial reporting purposes,  fair value measurements
+                                                            promised goods or services to a customer, excluding
+     are categorised into Level 1, 2, or 3 based on the degree
+                                                        amounts collected on behalf of third parties.
+     to which the inputs to the fair value measurements are
+     observable and the significance of the inputs to the fair       Step 4: Allocate the transaction price to the performance
+     value measurement in its entirety, which are described as        obligations in the contract: For a contract that has more
+      follows:                                                  than one performance obligation, the Group allocates
+                                                                the transaction price to each performance obligation in    •    Level 1 financial instruments: Those where the inputs
+                                                         an amount that depicts the amount of consideration to
+         used in the valuation are unadjusted quoted prices

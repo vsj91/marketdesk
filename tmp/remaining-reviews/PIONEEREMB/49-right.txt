@@ -1,0 +1,49 @@
+Standalone Balance Sheet
+as at March 31, 2026
+
+
+                                                                                                                                           (` in lakhs)
+
+       Particulars                                                    Note   As at March 31, 2026  As at March 31, 2025
+
+      Deferred Tax Liabilities (Net)                                                  21                 764.54               755.86
+      Other Non-Current Liabilities                                           22                   1,319.46               1,330.20
+       Total Non-Current Liabilities                                                                 5,844.94               6,922.47
+  3   Current Liabilities
+
+       Financial Liabilities
+             (i)   Borrowings                                                       23                 5,728.64                 5,137.28
+             (ii)  Lease Liabilities                                                24                   59.48                 56.53
+             (iii)  Trade Payables                                                    25
+
+        a) Outstanding dues of Micro Enterprises and Small Enterprises                                462.46              467.80
+
+        b) Outstanding dues other than Micro Enterprises and Small Enterprises                       2,681.78                1,939.01
+          (iv)  Other Financial Liabilities                                        26                  637.02              688.03
+       Provisions                                                             27                      52.15                  32.77
+      Other Current Liabilities                                             28                   221.43                106.10
+       Total Current Liabilities                                                                       9,842.96               8,427.52
+     TOTAL EQUITY AND LIABILITIES                                                                   31,832.37               31,361.91
+
+       Significant Accounting Policies and other Notes to the Standalone  1-54
+       Financial Statements.
+
+The accompanying Notes are an integral part of the Standalone Financial Statements.
+
+As per our Report of even date
+For M B A H & CO                                     For & on behalf of Board of Directors
+Chartered Accountants
+(Firm’s Registration No.: 121426W)
+                                         SAURABH MAHESHWARI           RAJ KUMAR SEKHANI
+Mahesh Bhageria                                 Managing Director                 Chairman
+Partner                                          DIN 00283903                     DIN 00102843
+Membership Number: 034499
+
+Place: Mumbai                                 DEEPAK SIPANI                   AMI THAKKAR
+Date: May 26, 2026                                       Chief Financial Officer             Company Secretary
+
+
+
+
+
+                                                                                        Pioneer Embroideries Limited    93

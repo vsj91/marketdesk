@@ -1,0 +1,67 @@
+Notes to the Consolidated Financial Statements
+for the year ended December 31, 2025                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         Corporate
+
+      (ii)  Salary Escalation Risk: The present value of the defined benefit plan is calculated with the assumption of salary increase         rate of plan participants in future. Deviation in the rate of increase of salary in future for plan participants from the rate                          overview
+         of increase in salary used to determine the present value of obligation will have a bearing on the plan's liability.
+
+      (iii) Demographic Risk: The Group has used certain mortality and attrition assumptions in valuation of the liability. The
+       Group is exposed to the risk of actual experience turning out to be worse compared to the assumption.                                  Year
+     (iv) Investment Risk: The Group has funded with well established Govt. of India undertakings & other IRDA approved                   2025
+        agencies and therefore, there is no material investment risk.
+
+    B)  Past service cost:
+      On November 21, 2025, the Government of India notified the four Labour Codes – the Code on Wages, 2019, the         Industrial Relations Code, 2020, the Code on Social Security, 2020, and the Occupational Safety, Health and Working                      Strategy
+        Conditions Code, 2020 – consolidating 29 existing labour laws. The Ministry of Labour & Employment published
+         draft Central Rules and FAQs to enable assessment of the financial impact due to changes in regulations. The Group
+       has assessed and disclosed the incremental impact of these changes on the basis of the best information available,
+        consistent with the guidance provided by the Institute of Chartered Accountants of India. The incremental impact        consisting of gratuity of `210.0 million primarily arising due to change in wage definition has been recognised                                             Business
+       as employee benefit expenses in the current reporting period. The Group continues to monitor the finalisation of
+        Central/State Rules and clarifications from the Government on other aspects of the Labour Code and would provide                      review
+        appropriate accounting effect on the basis of such developments as needed.
+
+41. Financial instruments
+                                                                                                                                                              ESG
+A)  Accounting classifications
+    The following tables show the carrying amount/fair values of financial assets and financial liabilities:
+                                                                                                                        (` in million)
+ Financial instruments category                                                         Carrying value/Fair value                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         Statutory
+                                                                        As at December    As at December
+                                                                                       31, 2025          31, 2024                    reports
+ Financial Assets
+
+ a)  Measurement at amortised cost:
+
+     Trade receivables                                                               16,572.7          12,929.2                                                                                                                                                                                                                                                                                                                                                                                                                                                                   Financial
+    Cash and cash equivalents                                                         9,638.0           4,639.4
+
+    Bank balances other than cash and cash equivalents                                   8,818.4           8,860.9                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     statements
+     Loans                                                                                                                                      -                            -
+
+     Security deposits                                                                 191.7            187.5
+     Other financial assets                                                             437.1            543.9                 Notice
+ Total                                                                              35,657.9          27,160.9
+
+ b)  Measurement at fair value through profit and loss:
+
+     Derivative forward exchange contracts                                                 67.4              22.4
+
+ Total Financial Assets                                                               35,725.3          27,183.3
+
+ Financial Liabilities
+
+ a)  Measurement at amortised cost:
+
+     Trade payables                                                                 16,825.8          11,280.8
+
+     Other financial liabilities                                                           2,351.2           2,137.1
+
+     Lease liabilities                                                                  546.7            555.3
+
+ Total Financial Liabilities                                                            19,723.7          13,973.2
+
+The carrying amounts of all financial instruments are not materially different from their fair values, since these are of short term nature.
+
+
+
+
+                                                                                                         338

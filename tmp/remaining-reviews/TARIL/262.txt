@@ -1,0 +1,49 @@
+                                                   Corporate Overview    Statutory Reports  ESG  Financial Statements
+
+The following are the contractual maturities of non-derivative ﬁnancial liabilities, based on contractual cash ﬂows:
+                                                                                                                                          (` in Cr)
+ Particulars                             Due in 1 Year   1 Year - 3 Years    More than             Total
+                                                                                3 Years
+ As at 31st March 2026
+ Borrowings                                              389.73           66.84           0.04             456.61
+ Lease Liability                                                    0.01             0.03                     -             0.04
+ Trade Payables                                          289.59            0.04           0.00            289.63
+ Other Financial Liabilities                                   6.06                      -                     -              6.06
+ Total                                                685.38            66.91          0.04           752.34
+ As at 31st March 2025
+ Borrowings                                                     201.81            26.92          54.04            282.77
+ Lease Liability                                               0.03                      -                     -              0.03
+ Trade Payables                                                 411.68             0.09              0.12              411.88
+ Other Financial Liabilities                                          18.17                      -                     -                 18.17
+ Total                                                    631.68           27.00           54.15           712.84
+
+Credit Risk
+The Group’s customer proﬁle include Government Companies and Industries. Accordingly, the Group’s customer credit risk is
+moderate. The Group has a detailed review mechanism of overdue customer receivables at various levels within organization
+to ensure proper attention and focus for realization.
+An impairment analysis is performed at each reporting date on an individual basis for major customers. In addition, a large
+number of minor receivables are grouped into homogenous groups and assessed for impairment collectively. The Company
+applies Simpliﬁed approach for providing the expected credit losses on Trade Receivables as per the accounting policy of the
+company.
+
+The following are the contractual maturities of ﬁnancial assets, based on contractual cash ﬂows                (` in Cr)
+ Particulars                             Due in 1 Year   1 Year - 3 Years    More than             Total
+                                                                                3 Years
+ As at 31st March 2026
+ Loans to Employees                                          0.65               0.81              1.89                3.35
+ Trade Receivables                                              1,095.19                      -                     -             1,095.19
+ Other Financial Assets                                          58.12                      -                     -               58.12
+ Investment in NCD                                                             -                      -          25.00             25.00
+ Total                                                         1,153.96              0.81          26.89             1,181.66
+ As at 31st March 2025
+ Loans to Employees                                         0.83             0.36                  1.71              2.90
+ Trade Receivables                                          760.01            36.54               9.21           805.76
+ Other Financial Assets                                           8.01                      -          24.06             32.07
+ Investment in NCD                                                             -                      -          25.00             25.00
+ Total                                               768.85           36.90          59.98           865.73
+
+
+
+
+
+                                                                                                                            261

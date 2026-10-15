@@ -1,0 +1,66 @@
+GANESH~
+HOUSING ..
+LIMITED..,
+Notes forming part of Standalone Accounts
+for the year ended 31st March 2026
+
+1.16  LEASES:
+     At the inception of a contract, the Company assesses whether a contract is or contains, a lease. A contract is or
+      contains a lease if the contract conveys the right to control the use of an identified asset for a period of time in
+     exchange for consideration.
+
+     As a Lessee:
+      Right of use Asset
+     The Company recognises a right-of-use asset and a lease liability at the lease commencement date. At the
+     commencement date, a lessee shall measure the right-of-use asset at cost which comprises the  initial
+     measurement of the lease liability, any lease payments made at or before the commencement date, less any
+      lease incentives received, any initial direct costs incurred by the lessee; and an estimate of costs to be incurred
+     by the lessee in dismantling and removing the underlying asset, restoring the site on which it is located or
+      restoring the underlying asset to the condition required by the terms and conditions of the lease.
+
+     Lease Liability:
+     At the commencement date, a lessee shall measure the lease liability at the present value of the lease payments
+      that are not paid at that date. The lease payments shall be discounted using the interest rate implicit in the lease
+         if that rate can be readily determined. If that rate cannot be readily determined, the lessee shall use the lessee’s
+      incremental borrowing rate.
+
+     Short-term leases and leases of low-value assets:
+     The Company has elected not to recognise right-of-use assets and lease liabilities for short-term leases that
+     have a lease term of less than 12 months or less and leases of low-value assets, including IT Equipment. The
+     Company recognises the lease payments associated with these leases as an expense on a straight-line basis
+      over the lease term.
+
+     The election for short-term leases shall be made by the class of underlying asset to which the right of use relates.
+    A class of underlying assets is a grouping of underlying assets of a similar nature and use in the Company’s
+      operations. The election for leases for which the underlying asset is of low value can be made on a lease-by-lease
+       basis.
+
+     At present there is no lease contract in the company.
+
+1.17.  PROVISIONS, CONTINGENT LIABILITIES AND CONTINGENT ASSETS:
+      Provisions are recognized when there is a present obligation as a result of past events, it is probable that there
+        will be an outflow of resources embodying economic benefits will be required to settle the obligation and a
+       reliable estimate can be made of the amount of the obligation. Provisions are measured at the best estimate
+      of the expenditure required to settle the present obligation at the Balance Sheet date. If the effect of the time
+      value of money is material, provisions are discounted to reflect its present value using a current pre-tax rate that
+      reflects the current market assessments of the time value of money and the risks specific to the obligation.
+
+      Contingent liabilities are disclosed when there is a possible obligation arising from a past event, the existence of
+     which will be confirmed only by the occurrence or non-occurrence of one or more uncertain future events not
+      wholly within the control of the company or a present obligation that arise from a past event where it is either
+     not probable that an outflow of resources will be required to settle the obligation or a reliable estimate of the
+     amount cannot be made.
+
+1.18. SHARE-BASED PAYMENT:
+     Under the equity-settled share-based payment, the fair value on the grant date of the awards given to employees
+       shall be recognised as ‘employee benefit expenses’ with a corresponding increase in equity over the vesting
+      period. The fair value of the options at the grant date shall be calculated by an independent valuer basis Black
+      Scholes model. When the options shall be exercised, the Company issues fresh equity shares.
+
+      For cash-settled share-based payments, the fair value of the amount payable to employees shall be recognised
+      as ‘employee benefit expenses’ with a corresponding increase in liabilities, over the period of non-market vesting
+      conditions getting fulfilled. The liability shall be remeasured at each reporting period up to and including the
+      settlement date, with changes in fair value recognised in employee benefits expenses.
+
+
+226                                                                             Annual Report 2025-26

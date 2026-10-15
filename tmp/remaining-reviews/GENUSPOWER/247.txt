@@ -1,0 +1,63 @@
+Notes
+to the consolidated financial statements for the year ended March 31, 2026
+(All amounts are in Indian Rupees in Crores except share data and unless otherwise stated)
+
+      order to collect contractual cash flows while         b)   The   asset’s  contractual  cash  flows
+       financial assets classified and measured at fair               represent SPPI.
+      value through OCI are held within a business
+     model with the objective of both holding to        Debt instruments included within the FVTOCI
+       collect contractual cash flows and selling.               category are measured initially as well as at each
+                                                               reporting date at fair value. Fair value movements
+     Subsequent measurement
+                                                              are recognized in the OCI. However, the Group
+      For  purposes  of  subsequent  measurement,         recognizes interest income, impairment losses &
+       financial assets are classified in four categories:           reversals and foreign exchange gain or loss in the
+                                                          statement of profit and loss. On derecognition
+       •    Debt instruments at amortised cost                of the asset, cumulative gain or loss previously
+                                                           recognised in OCI is reclassified from the equity       •    Debt instruments at  fair value through
+                                                              to statement of profit and loss. Interest earned            other comprehensive income (FVTOCI)
+                                                                   whilst holding FVTOCI debt instrument is reported
+       •    Debt instruments, derivatives and equity         as interest income using the EIR method.
+            instruments at fair value through profit or
+                                                   Debt instrument at FVTPL
+             loss (FVTPL)
+                                               FVTPL   is  a  residual  category   for  debt       •     Equity instruments measured at fair value
+                                                              instruments. Any debt instrument, which does           through  other  comprehensive  income
+                                                         not meet the criteria for categorization as at           (FVTOCI)
+                                                        amortized cost or as FVTOCI, is classified as at
+                                                     FVTPL. Debt instruments included within the     Debt instrument at amortised cost
+                                               FVTPL category are measured at fair value with
+    A ‘debt instrument’ is measured at the amortised             all changes recognized in the statement of profit
+      cost if both the following conditions are met:          and loss.
+      a)   The asset is held within a business model         Equity investments:
+          whose objective  is to hold assets  for
+                                                                         All equity investments are measured at fair value             collecting contractual cash flows, and
+                                                          except for equity investment in Associates which
+      b)    Contractual terms of the asset give rise        have been measured at cost. Equity instruments
+          on specified dates to cash flows that        which are held for trading are classified as at
+            are  solely payments  of  principal and        FVTPL. For all other equity instruments, the Group
+              interest (SPPI) on the principal amount       may make an irrevocable election to present in
+            outstanding.                               OCI subsequent changes in the fair value. The
+                                                    Group makes such election on an instrument-by-      After initial measurement, such financial assets
+                                                            instrument basis. The classification is made on      are subsequently measured at amortised cost
+                                                                                    initial recognition and is irrevocable.      using the effective interest rate (EIR) method.
+     Amortised cost  is calculated by taking  into              If an equity instrument is classified as FVTOCI,
+      account any discount or premium on acquisition        then all fair value changes on the instrument,
+     and fees or costs that are an integral part of the         excluding dividends, are recognized in the OCI.
+       EIR. The EIR amortisation is included in finance        There is no recycling of the amounts from OCI
+     income in the statement of profit and loss. The         to statement of profit and loss, even on sale of
+      losses arising from impairment are recognised in         investment. However, the Group may transfer
+      the statement of profit and loss. This category         the cumulative gain or loss within equity. Equity
+      generally applies to trade and other receivables.         instruments  classified  as  FVTPL  category
+     Debt instrument at FVTOCI                            are measured at  fair value with  all changes
+                                                         recognized in the statement of profit and loss.
+    A ‘debt instrument’ is classified as at the FVTOCI
+                                                      Impairment of Financial Assets:          if both of the following criteria are met:
+                                                                      In accordance with Ind AS  109, the Group
+      a)   The objective of the business model  is         recognises an allowance for expected credit
+           achieved both by collecting contractual         losses (ECLs) for all debt instruments not held at
+           cash flows and selling the financial assets,            fair value through profit or loss. ECLs are based
+          and                                     on the difference between the contractual cash
+
+
+240    Annual Report 2025-26

@@ -1,0 +1,65 @@
+(Currency : Indian Rupees in Lakhs unless otherwise stated)
+
+
+
+                                                                                                                     153
+
+
+
+
+the consolidated financial statements as a whole, and in forming our opinion thereon, and we do not provide a separate opinion on thesematters. We have determined the matters described below to be the key audit matters to be communicated in our report:                                                               Statements
+
+ Sr.    Key Audit Matters                             How the Key Audit Matters was addressed in our audit                                                                                                                                                                                                                                                                                                                                                                                                                                                        Financial
+ No.                                                                                               3.
+ 1.     Revenue Recognition                                  Our audit procedures with respect to this area included, among
+                                                                     others, following:
+        Refer Note 2.2 (c) to material accounting policy information
+       and Note 32 to the consolidated financial statements.            1.   Read the Group’s revenue recognition accounting policies
+                                                              and evaluated the appropriateness of the same with
+       Revenue for the Group consists primarily of revenue from real       respect to principles of Ind AS 115- Revenue from contracts
+        estate projects and revenue from mall operations. Revenue       with customers,
+       from real estate projects represents Rs.6,492.19 lakhs and
+                                                                           2.   Performed cut-off procedures for determination of revenue
+        revenue from mall operations represents Rs.13,029.99 lakhs
+                                                                                  in the correct reporting period;
+         of the total revenue from operations of the Group.
+                                                                             3.   Scrutinized  revenue  journals  raised  throughout  the
+       Revenue From Real Estate Projects:                             reporting period and comparing details of a sample of
+                                                                   these journals, which met certain risk-based criteria, with
+       Revenue is recognised upon transfer of control of units to       relevant underlying documentation; and
+       customers for an amount reflecting the consideration which
+                                                                          4.   Assessed the adequacy and appropriateness of disclosures        the Group expects to receive in exchange for those units. The
+                                                      made  in  the  consolidated  financial  statements  in       Group records revenue at a point in time upon satisfaction
+                                                                 compliance with applicable Indian Accounting Standards         of its performance obligations and control of the underlying
+                                                              and applicable financial reporting framework.        assets getting transferred to the customers which is linked
+         to the completion of projects and execution of agreements  5.   In addition, we have performed the following procedures:
+        with the customers.
+                                                         Revenue From Real Estate Projects:
+
+         Significant judgement is involved in identifying underlying
+                                                                                                   •    Evaluated the design and implementation and verified,
+       performance obligations and determining when  ‘control’
+                                                            on a test check basis, operating effectiveness of controls
+         of the asset underlying the performance obligation  is
+                                                                 around approvals of contracts, milestone billing, intimation
+         transferred  to  the customer  basis which  revenue  is
+                                                                         of possession letters, and controls over collection from
+        recognised. Also, the revenue from real estate projects forms
+                                                                  customers;
+       a significant component of the consolidated statement of
+         profit and loss.                                                                  •    Evaluated the design and implementation and verified, on
+                                                                a test check basis, the operating effectiveness of internal
+          In view of above, revenue recognition for real estate projects       controls  over  revenue  recognition  including  controls
+          is identified as a key audit matter.                            around transfer of control of the property.
+
+                                                                                                   •    Verified  the  sample  of  revenue  contract  for  sale
+                                                                         of  residential and commercial  units  to  identify  the
+                                                                performance obligations of the company under these
+                                                                      contracts and  assessed  whether  these  performance
+                                                                           obligations are satisfied over time or at a point in time
+                                                              based on the criteria specified under Ind AS 115; and
+
+                                                                                                   •     Verified, on a test check basis, revenue transaction with the
+                                                                        underlying customer contract, possession letter and other
+                                                            documents evidencing the transfer of control of the asset
+                                                                         to the customer basis which the revenue is recognized.

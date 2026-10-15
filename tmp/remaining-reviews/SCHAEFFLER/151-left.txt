@@ -1,0 +1,70 @@
+Schaeffler India Limited | Integrated Annual Report 2025
+
+Notes to the Consolidated Financial Statements
+for the year ended December 31, 2025
+
+1.  Corporate information                                                             (i)  Power over the investee (i.e., existing rights that
+    Schaeffler India Limited (‘the Company’ or                           give it the current ability to direct the relevant
+    “Holding Company” or “the Parent Company”)                          activities of the investee),
+    (CIN: L29130PN1962PLC204515) is domiciled and                      (ii) Exposure, or rights, to variable returns from its
+    incorporated in India.                                           involvement with the investee, and
+    The Company along with its subsidiary, KRSV Innovative              (iii) The ability to use its power over the investee to
+    Auto Solutions Private Limited (collectively referred                    affect its returns
+    to as “the Group”) is engaged in the development,
+    manufacturing and distribution of high-precision roller             The Group re-assesses whether or not it controls
+   and ball bearings, engine systems and transmission              an investee if facts and circumstances indicate
+    components, chassis applications, clutch systems and               that there are changes to one or more of the three
+    related machine building manufacturing activities,                 elements of control. Consolidation of a subsidiary
+    through its subsidiary also offers spare parts solution               begins when the Group obtains control over the
+    to Indian Automotive aftermarket workshops via B-to-B               subsidiary and ceases when the Group loses
+    e-commerce platform. The Company’s manufacturing                  control. Assets, liabilities, income and expenses of a
+    units are located in the State of Gujarat at Vadodara and             subsidiary acquired or disposed of during the years
+     Savli, in the State of Maharashtra at Talegaon (Pune)                 are included in the consolidated financial statements
+   and in the State of Tamil Nadu at Hosur.                           from the date the Group gains control until the date
+                                                                     the Group ceases to control the subsidiary.
+    The registered office of the Company is located at 15th
+     Floor, ASTP (Amar Sadanand Tech Park), Baner, Pune -              Consolidated financial statements are prepared
+    411045, Maharashtra. The Company’s shares are listed             using uniform accounting policies for like
+   on BSE Limited (BSE) and National Stock Exchange of                transactions and other events in similar
+    India Limited (NSE) in India.                                       circumstances. If a member of the group uses
+                                                                   accounting policies other than those adopted
+2.  Basis of preparation and material accounting policies                 in the consolidated financial statements for like
+2.1 Basis of preparation of Consolidated Financial                       transactions and events in similar circumstances,
+    Statements (‘CFS’)                                                appropriate adjustments are made to that group
+                                                            member’s statements in preparing the consolidated
+      (i)  The CFS have been prepared in accordance with                                                                             financial statements to ensure conformity with the
+        Indian Accounting Standards as per the Companies                                                                     group’s accounting policies.
+         (Indian Accounting Standards) Rules, 2015 as
+      amended and notified under Section 133 of the               The consolidated financial statements of all entities
+       Companies Act, 2013 (the ‘Act’) and other relevant            used for the purpose of consolidation are drawn
+        provisions of the Act.                                  up to same reporting date as that of the parent
+                                                           Company, i.e., year ended on December 31, 2025.
+       The accounting policies adopted in the preparation
+         of the CFS are consistent for all the periods                 Consolidation procedure:
+        presented.                                                                                                  (i)  Combine like items of assets, liabilities, equity,
+       The CFS are presented in Indian Rupees, which is               income, expenses and cash flows of the parent with
+        the Group’s functional currency and all values are              those of its subsidiaries. For this purpose, income
+       rounded off to the nearest million with one decimal           and expenses of the subsidiary are based on the
+         place, except when otherwise indicated.                    amounts of the assets and liabilities recognised
+                                                                              in the consolidated financial statements at the
+      (ii) The CFS have been prepared on a historical cost                                                                         acquisition date.
+        convention basis, except for the following:
+                                                                                                     (ii)  Offset (eliminate) the carrying amount of the
+       •  certain financial assets and liabilities (including                                                                        parent’s investment in each subsidiary and the
+            derivatives) that are measured at fair value;                                                                        parent’s portion of equity of each subsidiary.
+       •  defined benefit plans - net defined benefit                  Business combinations policy explains how to
+             (asset)/liabilities – Fair value of plan assets less            account for any related goodwill/reserve.
+           present value of defined benefit obligation.                                                                                                       (iii) Eliminate in full intragroup assets and liabilities,
+                                                                           equity, income, expenses and cash flows relating to2.2 Basis of consolidation
+                                                                        transactions between entities of the group, profits
+    Subsidiaries:                                                                          or losses resulting from intragroup transactions that
+    Control is achieved when the Group is exposed, or has               are recognised in assets (if any), such as inventory,
+     rights, to variable returns from its involvement with                  are eliminated in full. Intragroup losses may
+    the investee and has the ability to affect those returns                indicate an impairment that requires recognition
+    through its power over the investee. Specifically, the                  in the consolidated financial statements. Ind AS
+    Holding Company controls an investee if and only if the              12, Income Taxes applies to temporary differences
+    Group has:                                                           that arise from the elimination of profits and losses
+
+
+
+297

@@ -1,0 +1,76 @@
+                                                       Corporate             Statutory               Financial
+                                                    Overview             Reports            Statements
+
+Consolidated Statement of Profit and Loss
+for the year ended March 31, 2026
+                                                                                                                               All amounts in ₹ lakhs, unless otherwise stated
+
+ Particulars                                                                             Note No.     For the year ended
+                                                                                              March 31, 2026
+ A.  Income
+     Revenue from Operations                                                             24                   86,954.45
+      Other Income                                                                        25                       576.77
+      Total Income                                                                                                     87,531.22
+ B.  Expenses
+     Purchase of stock-in-trade                                                             26                   68,705.40
+     Changes in Inventories of stock in Trade                                                     27                       (226.97)
+       Direct Expenses                                                                     28                    4,894.38
+     Employee Benefits Expense                                                            29                     5,826.20
+      Other Expenses                                                                     30                      3,417.48
+      Total Expenses                                                                                                82,616.49
+ C.   Profit before finance cost, tax, depreciation and amortization and exceptional items (EBITDA)                              4,914.73
+      Finance Costs                                                                                      31                      522.98
+      Depreciation and Amortization Expense                                                   32                      1,405.29
+ D.   Profit before tax and exceptional items                                                                           2,986.46
+      Exceptional Items                                                                     33                     2,368.33
+ E.   Profit before tax                                                                                                         618.13
+ F.  Tax Expense
+      Current Year Tax Expenses                                                                                          320.85
+     Tax Expense relating to earlier years [debit/ (credit)]                                                                                            (3.15)
+      Deferred Tax [debit/ (credit)]                                                                                                     (58.43)
+      Total Expenses                                                                                               259.27
+ G.  Net Profit for the Year before share of associates                                                                 358.86
+      Share of profit/ (loss) of associates (net of tax)                                                                                   98.14
+ H.   Profit for the Year                                                                                                  457.00
+  I.   Other Comprehensive Income
+      Items that will not be reclassified to P&L:
+     Remeasurement of Defined Benefit Plans gain / (loss)                                                                                   (4.73)
+      Gains/(Losses) from Investments in Equity Instruments
+     Income Tax relating to above items                                                                                                                   1.19
+      Share of other comprehensive income in associates (net of tax)                                                                                -
+      Total Other Comprehensive Income for the year                                                                              (3.54)
+      Total Comprehensive Income for the year                                                                      453.46
+     Net profit/ (loss) attributable to
+       a) Owners of the Holding Company                                                                                    457.00
+      b) Non-controlling interest                                                                                                                      -
+     Other comprehensive income attributable to
+       a) Owners of the Holding Company                                                                                                    (3.54)
+      b) Non-controlling interest                                                                                                                      -
+      Total comprehensive income/ (loss) attributable to
+       a) Owners of the Holding Company                                                                                   453.46
+      b) Non-controlling interest                                                                                                                      -
+ J.   Earnings Per Share (Face Value ₹10)
+      Basic EPS (₹)                                                                       34                            1.00
+      Diluted EPS (₹)                                                                     34                            1.00
+ K.  Weighted average number of equity shares
+      Basic                                                                                                                    4,58,05,916
+      Diluted                                                                                                                   4,58,05,916
+      Material Accounting Policies                                                         2
+The accompanying notes forms an integral part of consolidated financial statements
+As per our report of even date attached
+
+For M/s. Kirtane & Pandit LLP                                    For and on behalf of the Board of Directors
+Chartered Accountants                                             Orient Technologies Limited
+Firm Registration No. : 105215W/ W100057
+
+Sandeep Patil                                                Ajay Sawant                     Umesh Shah
+Partner                                                      Chairman and Managing Director           Director
+Membership No. 125497                                      DIN No : 00111001                     DIN No : 00111751
+
+Place: Mumbai                                            Gourav Modi                       Renuka Patel
+Date: May 27, 2026                                                 Chief Financial Officer               Company Secretary
+                                                                                            Membership No : ACS76081
+                                                                 Place : Mumbai
+                                                                     Date: May 27, 2026
+
+ANNUAL REPORT FY25-26                                                                                 185

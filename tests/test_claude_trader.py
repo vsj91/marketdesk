@@ -79,6 +79,59 @@ class ClaudeTests(unittest.TestCase):
  def increase_capacity(self):
   with connect(self.path) as db:
    cfg=get_state(db,'auto_config');cfg['trader'].update(max_positions=10,max_buys_per_day=5);set_state(db,'auto_config',cfg)
+ def enable_live_breakout(self):
+  with connect(self.path) as db:
+   cfg=get_state(db,'auto_config');cfg['trader']['live_breakout']=True;set_state(db,'auto_config',cfg)
+  self.signal.update(close=100,live_high20=101.5)
+ def test_live_breakout_requires_live_price_above_latest_completed_high(self):
+  self.enable_live_breakout()
+  self.assertFalse(eligible(self.signal,102,self.clock,self.c.benchmark))
+  self.assertTrue(eligible(self.signal,102,self.clock,self.c.benchmark,live_breakout=True))
+  for price in (101,101.5,116):
+   self.assertFalse(eligible(self.signal,price,self.clock,self.c.benchmark,live_breakout=True))
+  for update in ({'live_high20':None},{'quality':False},{'dma50':89},{'volume_ratio':1.1},
+                 {'turnover20':9_000_000},{'atr':60},{'as_of':'2026-10-13'}):
+   with self.subTest(update=update):
+    self.assertFalse(eligible({**self.signal,**update},102,self.clock,self.c.benchmark,live_breakout=True))
+ def test_live_breakout_scan_buys_and_preserves_atr_stop_and_exit(self):
+  import time
+  before=self.auto.snapshot();self.enable_live_breakout()
+  self.c.histories={'TEST':[self.signal]};self.c.loaded=time.monotonic();self.c.loaded_day='2026-10-13'
+  with patch.object(self.c,'refresh_benchmark'):result=self.c.scan(self.clock)
+  self.assertEqual(result['fills_this_scan'],1);self.assertTrue(result['live_breakout'])
+  with connect(self.path) as db:
+   position=db.execute('SELECT * FROM claude_positions').fetchone()
+   self.assertAlmostEqual(position['stop'],position['entry']-4)
+   self.assertIn('live breakout',db.execute('SELECT reason FROM trades').fetchone()[0])
+  rules=AutoTrading(self.path).snapshot()['rules']
+  for key in ('risk','exit','max_positions','max_buys_per_day','position_pct'):
+   self.assertEqual(rules['trader'][key],before['rules']['trader'][key])
+  self.assertEqual(rules['investor'],before['rules']['investor'])
+  self.assertIn('latest 20 completed sessions',rules['trader']['entry'])
+  self.price(95)
+  with patch.object(self.c,'refresh_benchmark'):result=self.c.scan(self.clock)
+  self.assertEqual(result['fills_this_scan'],1)
+  with connect(self.path) as db:self.assertEqual([r[0] for r in db.execute('SELECT side FROM trades ORDER BY rowid')],['BUY','SELL'])
+ def test_live_breakout_rechecks_mark_and_fill_after_depth_fetch(self):
+  self.enable_live_breakout()
+  def faded(path,symbol):
+   book=fixture_book(path,symbol);self.price(101.4);return book
+  with patch('marketdesk.paper.fetch_book',side_effect=faded):
+   with self.assertRaisesRegex(ValueError,'Live breakout'):self.order()
+  self.price(102)
+  def lower_fill(path,symbol):
+   book=fixture_book(path,symbol);book['depth']['sell'][0]['price']=101.4;return book
+  with patch('marketdesk.paper.fetch_book',side_effect=lower_fill):
+   with self.assertRaisesRegex(ValueError,'Completed signal'):self.order()
+  with connect(self.path) as db:
+   for table in ('trades','positions','claude_positions','depth_used'):
+    self.assertEqual(db.execute('SELECT count(*) FROM '+table).fetchone()[0],0)
+ def test_live_breakout_keeps_risk_and_stale_quote_guards(self):
+  self.enable_live_breakout();self.signal['atr']=20
+  with self.assertRaisesRegex(ValueError,'risk, heat'):self.order(q=900)
+  self.signal['atr']=2
+  with connect(self.path) as db:db.execute('UPDATE quotes SET trade_time=trade_time-60000')
+  with self.assertRaisesRegex(ValueError,'live trade price'):self.order()
  def test_expanded_capacity_scan_buys_five_and_blocks_sixth(self):
   import time
   self.increase_capacity();self.c.histories={'TEST':[self.signal]}
@@ -268,7 +321,7 @@ class ClaudeTests(unittest.TestCase):
    stop=dict(db.execute("SELECT * FROM claude_positions WHERE symbol='MAWANASUG'").fetchone())
    account=db.execute("SELECT * FROM portfolios WHERE name='trader'").fetchone()
    eq,heat,budget=limits(db,account,self.clock)
-   self.assertEqual(eq,account['cash']+1020);self.assertEqual(heat,40);self.assertEqual(budget,100000)
+   self.assertEqual(eq,account['cash']+1020);self.assertAlmostEqual(heat,93.32);self.assertEqual(budget,100000)
   filled=self.order();self.assertEqual(filled['side'],'BUY');self.assertIn('stale holding valuation: MAWANASUG at 102',filled['reason'])
   with connect(self.path) as db:
    self.assertEqual(dict(db.execute("SELECT * FROM quotes WHERE symbol='MAWANASUG'").fetchone()),before)
@@ -377,6 +430,81 @@ class ClaudeTests(unittest.TestCase):
   with connect(self.path) as db:
    self.assertIsNotNone(db.execute('SELECT * FROM claude_positions').fetchone())
    self.assertEqual(db.execute("SELECT quantity FROM positions WHERE portfolio='trader'").fetchone()[0],40)
+ def test_portfolio_cap_includes_proposed_buy_fees_and_reserve(self):
+  # Price-only risk is 400, fitting the remaining 500; total costs push it over.
+  self.assertFalse(fits(100,102,2,1_000_000,29500,100000,102))
+  self.assertTrue(fits(80,102,2,1_000_000,29500,100000,102))
+  sized=quantity(102,2,1_000_000,29500,100000)
+  self.assertLess(sized,100);self.assertGreater(sized,0)
+  self.assertTrue(fits(sized,102,2,1_000_000,29500,100000,102))
+  self.assertFalse(fits(sized+1,102,2,1_000_000,29500,100000,102))
+ def test_held_risk_counts_buy_fee_once_and_tracks_partial_exit(self):
+  from marketdesk.claude_trader import holding_stop_risk
+  from marketdesk.execution import charges
+  buy=self.order(q=50)
+  with connect(self.path) as db:
+   p=db.execute("SELECT * FROM positions WHERE portfolio='trader' AND symbol='TEST'").fetchone()
+   state=db.execute("SELECT * FROM claude_positions WHERE symbol='TEST'").fetchone()
+   expected=50*4+buy['fee']+charges(50*state['stop'],'SELL',True)['total']+50*buy['price']*.005
+   self.assertAlmostEqual(holding_stop_risk(p,state),expected)
+  self.price(95)
+  def shallow(path,symbol):
+   book=fixture_book(path,symbol);book['depth']['buy'][0]['quantity']=100;return book
+  with patch('marketdesk.paper.fetch_book',side_effect=shallow):sold=self.order('SELL',q=50)
+  self.assertEqual(sold['quantity'],10)
+  with connect(self.path) as db:
+   p=db.execute("SELECT * FROM positions WHERE portfolio='trader' AND symbol='TEST'").fetchone()
+   state=db.execute("SELECT * FROM claude_positions WHERE symbol='TEST'").fetchone()
+   # Remaining 80% of buy fees stays in basis; a future exit still incurs its fixed fee.
+   expected=40*4+round(buy['fee']*.8,2)+charges(40*state['stop'],'SELL',True)['total']+40*buy['price']*.005
+   self.assertAlmostEqual(holding_stop_risk(p,state),expected,places=2)
+ def test_legacy_risk_does_not_double_count_buy_fees(self):
+  from marketdesk.claude_trader import holding_stop_risk
+  # Cost and migrated entry both already include all allocated buy fees.
+  self.assertAlmostEqual(holding_stop_risk({'quantity':10,'cost':1020},{'entry':102,'stop':98}),93.32)
+  # Profitable stops cannot supply negative risk to offset another position.
+  self.assertAlmostEqual(holding_stop_risk({'quantity':10,'cost':1020},{'entry':102,'stop':120}),5.1)
+ def seed_near_heat_cap(self):
+  self.add_stock('HELD')
+  with connect(self.path) as db:
+   db.execute("INSERT INTO positions VALUES('trader','HELD',2700,275400)")
+   db.execute("INSERT INTO claude_positions VALUES('HELD',102,91,102,'2026-10-12','2026-10-12',0,1,NULL)")
+   db.execute("UPDATE portfolios SET cash=724600 WHERE name='trader'")
+ def test_existing_costs_block_buys_above_heat_cap_but_keep_stop_exits(self):
+  self.seed_near_heat_cap()
+  with connect(self.path) as db:
+   eq,heat,budget=limits(db,db.execute("SELECT * FROM portfolios WHERE name='trader'").fetchone(),self.clock)
+   self.assertEqual(eq,1000000);self.assertGreater(heat,.03*eq)
+   self.assertLess(2700*(102-91),.03*eq)
+  with self.assertRaisesRegex(ValueError,'risk, heat'):self.order(q=1)
+  with connect(self.path) as db:db.execute("UPDATE quotes SET price=85 WHERE symbol='HELD'")
+  self.assertEqual(self.order('SELL',q=2700,symbol='HELD')['side'],'SELL')
+ def test_fee_inclusive_heat_is_rechecked_inside_actual_fill(self):
+  self.add_stock('HELD')
+  with connect(self.path) as db:
+   db.execute("INSERT INTO positions VALUES('trader','HELD',1,102)")
+   db.execute("INSERT INTO claude_positions VALUES('HELD',102,91,102,'2026-10-12','2026-10-12',0,1,NULL)")
+  def changed(path,symbol):
+   book=fixture_book(path,symbol)
+   with connect(path) as db:
+    db.execute("UPDATE positions SET quantity=2700,cost=275400 WHERE portfolio='trader' AND symbol='HELD'")
+    db.execute("UPDATE portfolios SET cash=724600 WHERE name='trader'")
+   return book
+  with patch('marketdesk.paper.fetch_book',side_effect=changed):
+   with self.assertRaisesRegex(ValueError,'risk, heat'):self.order(q=1)
+  with connect(self.path) as db:
+   self.assertEqual(db.execute('SELECT COUNT(*) FROM trades').fetchone()[0],0)
+   self.assertEqual(db.execute("SELECT stop FROM claude_positions WHERE symbol='HELD'").fetchone()[0],91)
+ def test_scan_with_fee_inclusive_heat_keeps_investor_config_and_stops(self):
+  import time
+  self.seed_near_heat_cap();before=self.auto.snapshot()['config']['investor']
+  self.c.histories={'TEST':[self.signal]};self.c.loaded=time.monotonic();self.c.loaded_day='2026-10-13'
+  # Preserve migration identity so the existing stop state is unchanged by the scan.
+  with patch.object(self.c,'refresh_benchmark'),patch.object(self.c,'update_positions'):
+   result=self.c.scan(self.clock)
+  self.assertEqual(result['fills_this_scan'],0)
+  self.assertEqual(self.auto.snapshot()['config']['investor'],before)
+  with connect(self.path) as db:self.assertEqual(db.execute("SELECT stop FROM claude_positions WHERE symbol='HELD'").fetchone()[0],91)
  def test_risk_fee_heat_and_fill_recheck(self):
   q=quantity(102,2,1_000_000,0,100000)
   self.assertTrue(fits(q,102,2,1_000_000,0,100000,102))
@@ -464,10 +592,12 @@ class IndicatorTests(unittest.TestCase):
   self.assertAlmostEqual(f['atr'],3)
   self.assertAlmostEqual(f['dma50'],sum(r['close'] for r in rows[-51:-1])/50)
   self.assertAlmostEqual(f['high20'],max(r['high'] for r in rows[-21:-1]))
+  self.assertAlmostEqual(f['live_high20'],max(r['high'] for r in rows[-20:]))
   self.assertAlmostEqual(f['volume_ratio'],(sum(r['volume'] for r in rows[-11:-1])/10)/(sum(r['volume'] for r in rows[-41:-11])/30))
   unchanged=copy.deepcopy(f);rows[-1]['volume']=10000000
   self.assertEqual(features(rows)[-1]['volume_ratio'],unchanged['volume_ratio'])
   rows[-1]['high']+=14
   self.assertAlmostEqual(features(rows)[-1]['atr'],4)
+  self.assertAlmostEqual(features(rows)[-1]['live_high20'],rows[-1]['high'])
 
 if __name__=='__main__':unittest.main()

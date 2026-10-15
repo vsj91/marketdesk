@@ -1,0 +1,69 @@
+                                                                                                                                                         Corporate Overview                      Statutory Reports                         Financial Statements
+
+
+
+
+NOTES FORMING PART OF THE CONSOLIDATED FINANCIAL STATEMENTS                                      NOTES FORMING PART OF THE CONSOLIDATED FINANCIAL STATEMENTS
+FOR THE YEAR ENDED MARCH 31, 2026 (CONTD.)                                                       FOR THE YEAR ENDED MARCH 31, 2026 (CONTD.)
+(Amounts in Rs. cr, unless otherwise stated)                                                                                  (Amounts in Rs. cr, unless otherwise stated)
+
+
+                                                                                                                                                                (B)  Defined benefit plans                                                                          Year ended               Year ended
+                                                            March 31, 2026          March 31, 2025                               Gratuity payable to employees
+                                                                                                       (Restated -
+                                                                                                            refer note 38(B))                                                 i)    Actuarial assumptions
+         Tax liability recognised in Statement of Profit and Loss                           (6.95)                        (0.64)
+                                                                                                                                                                                                               Year ended               Year ended
+         Tax liability recognised in OCI                                                                                                                                                                             March 31, 2026          March 31, 2025
+         On re-measurements  gain  of post-employment                       (0.66)                          (0.15)                                                                                                                               (Restated -
+             benefit obligations                                                                                                                                                                                                                                 refer note 38(B))
+          Total deferred tax charge recognised in the statement                         (7.61)                        (0.79)                               Discount rate (per annum)                                          7.05%- 7.85%              6.70%- 6.99%
+         of profit and loss                                                                                                                     Rate of increase in Salary                                            5.25%- 10%                5.25%- 10%
+                                                                                                                                       Expected average remaining working lives of employees              18.09 -27.55               18.80 -27.44
+35  EARNINGS PER SHARE
+                                                                                                                                                                           (years)
+    The following reflects the income and share data used in the basic and diluted EPS computations:                                                              Attrition rate                                                  1% - 15%                1% - 15%
+
+                                                                          Year ended               Year ended                                    Mortality in Service: Indian Assured Lives Mortality (2012-14) Ultimate table Authority of India
+                                                            March 31, 2026          March 31, 2025
+                                                                                                       (Restated -                                                   ii)  Changes in the present value of defined benefit obligation
+                                                                                                            refer note 38(B))
+                                                                                                                                                                                                    Employee’s gratuity fund
+     Profit attributable to equity holders                                           149.03                     115.26
+                                                                                                                                                                                                     As at                    As at
+    Weighted average number of equity shares (in cr) for basic EPS                     12.07                       11.70                                                                                                                                                                             March 31, 2026          March 31, 2025
+      [refer note 38(B)(a)]                                                                                                                                                                                                                                      (Restated - refer note
+    Weighted average number of equity shares (in cr) for diluted                    12.08                       11.70                                                                                                                                            38(B))
+    EPS [refer note 38(B)(a)]                                                                                                                                             Present value of obligation at the beginning of the year                     21.35                       12.77
+     Basic per share (Rs.)                                                            12.34                      9.85                                Acquired through business combination (refer note 38)                       0.43                         7.49
+     Diluted per share (Rs.)                                                          12.34                      9.85                                    Transfer in/(out) obligation                                                                        -                          (0.01)
+                                                                                                                                                Current service cost                                                         4.42                      4.69
+36  CONTINGENT LIABILITIES                                                                                                                         Past service cost                                                                5.15                                   -
+                                                                                                                                                                         Interest cost                                                                    1.44                           1.41
+                                                                          As at                    As at                               Benefits paid                                                                       (2.58)                         (4.39)
+                                                            March 31, 2026          March 31, 2025
+                                                                                                                                                                    Actuarial gain on obligations                                                      (2.68)                          (0.61)
+                                                                                                       (Restated -
+                                                                                                            refer note 38(B))                                Present value of obligation at the end of the year                          27.53                     21.35
+    Claim for expired goods                                                        0.07                      0.07                                                    iii)  Change in the fair value of plan assets:
+     Letter of credit issued                                                           0.87                      0.52
+                                                                                                                                                                                                    Employee’s gratuity fund
+    Bank guarantees                                                                        1.91                        2.73
+                                                                                                                                                                                                     As at                    As at
+   Demand relating to income tax                                                   2.78                        2.77
+                                                                                                                                                                             March 31, 2026          March 31, 2025
+     Financial guarantee issued on behalf of subsidiary                               457.01                    341.52                                                                                                                               (Restated -
+                                                                         462.63                    347.61                                                                                                                                      refer note 38(B))
+     Capital commitments                                                           57.85                      54.91                            Opening fair value of plan assets                                                       (1.18)                           (1.10)
+                                                                                                                                             Acquired through business combination                                                      -                                   -
+37  EMPLOYEE BENEFITS                                                                                                                Expenses of the fund                                                                              -                                   -
+    The Group has the following employee benefit plans:                                                                                                          Interest income                                                                 (0.08)                        (0.08)
+                                                                                                                                                     Contributions by employer                                                                       -                                   -
+(A)  Defined contribution plans                                                                                                                                          Benefits paid                                                                                         -                                   -
+     Contribution to Defined Contribution Plans, recognised as expense for the year Rs. 17.27 cr (Previous year Rs. 15.47 cr)                                     Actuarial (losses)/gains                                                  0.00*                    0.00*
+      (refer note 29)                                                                                                                            Closing fair value of plan assets                                                 (1.26)                         (1.18)
+
+                                                                                                                                                      * Amount below rounding off norms
+
+
+                                        332    Hindustan Foods Limited                                                                                                                                          Annual Report 2025-26    333

@@ -1,0 +1,18 @@
+{
+  "trader": {
+    "enabled": true,
+    "updated_at": "2026-10-13T07:51:40.551469+00:00",
+    "strategy": "claude-original-v2",
+    "strategy_selected_at": "2026-10-13T07:50:57.673320+00:00",
+    "nifty500_filter_enabled": false,
+    "nifty500_filter_updated_at": "2026-10-15T06:46:44.961282+00:00",
+    "full_session_buying": true,
+    "full_session_buying_updated_at": "2026-10-15T06:51:59.905148+00:00"
+  },
+  "investor": {
+    "enabled": true,
+    "updated_at": "2026-10-11T18:49:15.970442+00:00",
+    "full_session_buying": true,
+    "full_session_buying_updated_at": "2026-10-15T06:51:59.905650+00:00"
+  }
+}

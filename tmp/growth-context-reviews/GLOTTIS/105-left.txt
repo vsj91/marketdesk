@@ -1,0 +1,57 @@
+204  Glottis Ltd  | Annual Report 2025-26
+
+Notes
+forming part of the Audited Consolidated Financial Statements for the year ended March 31, 2026
+                                                                              (Amounts in ₹ Lakhs, unless otherwise stated)
+
+               ii.  Changes in the present value of the defined benefit obligation in respect of Earned Leave
+           (unfunded) are as follows:
+
+                 Particulars                                                                      March 31, 2026
+              Present value obligation as at the beginning of the year                                      12.00
+               Benefit payments from employer *                                                                                              -
+               Benefits Pay-outs from Plan                                                                                                       -
+              Current Service Cost                                                                       0.23
+              Cost of Termination Benefits/Acquisitions/Transfers                                                                         -
+                 Less: actual return on Plan assets                                                                                                -
+             Present value obligation as at the end of the year                                        12.23
+
+                 Particulars                                                                      March 31, 2026
+              Short Term Provision                                                                       1.85
+            Long Term Provision                                                                   10.38
+               iii.  Expenses recognized in Statement of profit and loss
+
+                 Particulars                                                                      March 31, 2026
+               Benefit payments from employer *                                                                                              -
+               Benefits Pay-outs from plan                                                                                                       -
+             Net Increase in Liability over valuation period                                                          (0.23)
+              Cost of Termination Benefits/Acquisitions/Transfers                                                                         -
+                 Less: actual return on Plan assets                                                                                                -
+               Total expense recognized in Statement of profit and loss *                                        (0.23)
+
+            iv.  Assets and liabilities recognised in the Balance Sheet
+
+                 Particulars                                                                      March 31, 2026
+              Present value of defined benefit obligation                                                        (12.23)
+              Present value of plan assets                                                                                                        -
+           Amount recognised as assets/(liability)                                                       (12.23)
+           v.   Sensitivity Analysis for the year ended March 31, 2026
+                                              Disclosures of Stress Testing as on Valuation Date
+                A. Net Asset/ (Liability) recognised in Balance Sheet                            12.22   DECREASE OR
+                                                % INCREASE IN                  INCREASE IN                                                 SCENARIOS                                                                                               LIABILITY         DBO                                                          DBO
+                 1. DISCOUNT RATE +100 basis points                         -8.33%         11.21            (1.02)
+                 2. DISCOUNT RATE -100 basis points                        9.76%         13.42           1.19
+                 3. SALARY GROWTH +100 basis points                       9.27%         13.36           1.13
+                 4. SALARY GROWTH -100 basis points                        -8.02%         11.24            (0.98)
+                 5. ATTRITION RATE +100 basis points                        1.43%         12.40           0.17
+                 6. ATTRITION RATE -100 basis points                         -1.61%         12.03            (0.20)
+                 7. MORTALITY RATE 10% UP                               0.05%         12.23           0.01
+37 Impact of New Labour Codes
+   On November 21, 2025, the Government of India notified provisions of the Code on Wages, 2019, the
+     Industrial Relations Code, 2020, the Code on Social Security, 2020 and the Occupational Safety, Health and
+    Working Conditions Code, 2020, (‘Labour Codes’) which consolidate twenty-nine existing labour laws into
+    a unified framework governing employee benefits during employment and post-employment. The Labour
+    Codes, amongst other things introduces changes, including a uniform definition of wages and enhanced
+    benefits relating to leave. The Company has assessed the financial implications of the Labour Codes and
+    based on such assessment, no material financial impact is expected on the audited consolidated financial
+    statements for the year ended March 31, 2026 as the Company was already substantially aligned with the

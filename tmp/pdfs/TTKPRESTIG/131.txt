@@ -1,0 +1,70 @@
+     TTK Prestige Limited
+
+STANDALONE BALANCE SHEET AS AT MARCH 31, 2026                                             (` in Crores)
+                                                                        As at             As at                               Particulars                          Note                                                               March 31, 2026    March 31, 2025
+ ASSETS
+ Non-Current Assets
+ Property, Plant and Equipment                                  3               451.78             454.53
+ Right-of-Use-Assets                                          35a               75.03              90.44
+ Capital work-in-Progress                                      41                25.76                1.41
+ Other Intangible Assets                                       4                  2.68                0.64
+ Financial Assets
+ -Investments                                               5                  5.11                5.17
+ -Investments in Subsidiaries                                    5               190.43             190.43
+ -Loans                                                     5a                 7.00                4.00
+ -Other Non-Current Financial Assets                              6                16.05              12.13
+ Non Current Tax Assets                                                                  2.39                6.54
+ Other Non-Current Assets                                      7                13.86                4.12
+
+ Current Assets
+ Inventories                                                 8               600.36             527.51
+ Financial Assets
+   - Investments                                              9               247.84             235.75
+   - Loans                                                    5a                 4.00                            -
+   - Trade Receivables                                          10              233.25             243.84
+   - Cash and Cash Equivalents                                   11                31.32              21.51
+   - Bank Balances other than above                               12              580.74             552.52
+   - Other Current Financial Assets                                13                17.70              15.76
+ Other Current Assets                                         14              117.71              70.68
+ Total Assets                                                                     2,623.01           2,436.98
+ EQUITY AND LIABILITIES
+ Equity
+ Equity Share Capital                                         15                13.70              13.69
+ Other Equity                                               16             1,979.58            1,874.78
+ LIABILITIES
+ Non-Current Liabilities
+ Financial Liabilities
+ -Lease Liabilities                                            46                66.11              81.40
+ Provisions                                                 17                18.14                0.91
+ Deferred Tax Liabilities (Net)                                    18                26.85              29.05
+
+ Current Liabilities
+ Financial Liabilities
+   - Lease Liabilities                                            46                20.23              18.18
+   - Trade Payables                                            19
+ Total Outstanding dues to Micro and Small Enterprises                                    41.87              22.23
+ Total Outstanding dues to other than Micro and Small Enterprises                        227.71             201.30
+   - Other Financial Liabilities                                    20              170.62             148.33
+ Other Current Liabilities                                       21                38.05              27.65
+ Provisions                                                 22                20.15              19.46
+ Current Tax Liabilities (Net)                                    23                               -                            -
+ Total Equity and Liabilities                                                       2,623.01           2,436.98
+
+ The accompanying notes form an integral part of the standalone financial statements
+
+ As per our audit report of even date attached              ForandonbehalfoftheBoard
+ For PKF Sridhar & Santhanam LLP
+ Chartered Accountants
+ Firm’s Registration Number : 003990S/S200018                      T.T. Raghunathan         Venkatesh Vijayaraghavan
+                                                       Chairman               Managing Director
+                                                             DIN: 00043455             DIN: 08129890
+
+ Rajeshwari S.                                                       V. Ranganathan          R.Saranyan
+ Partner                                                         Director                 Wholetime Director & CFO
+ Membership No. 024105                                     DIN: 00550121             DIN: 06480857
+
+ Place : Bengaluru                                                                             K.V. Manjula
+ Date  : May 22, 2026                                                     Company Secretary
+                                                                                 PAN: AMPPK4429G
+
+                                        128

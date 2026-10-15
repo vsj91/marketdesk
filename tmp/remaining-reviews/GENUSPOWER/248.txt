@@ -1,0 +1,67 @@
+                                                   Corporate Overview          Statutory Reports         Financial Statements 
+
+Notes
+to the consolidated financial statements for the year ended March 31, 2026
+(All amounts are in Indian Rupees in Crores except share data and unless otherwise stated)
+
+      flows due in accordance with the contract and         Continuing involvement that takes the form of a
+         all the cash flows that the Group expects to        guarantee over the transferred asset is measured
+       receive, discounted at an approximation of the          at the lower of the original carrying amount
+       original effective interest  rate. The expected         of the  asset and the maximum amount  of
+      cash flows will include cash flows from the sale         consideration that the Group could be required
+      of collateral held or other credit enhancements         to repay.
+      that are integral to the contractual terms.                                                              Financial liabilities
+      For  trade  receivables and  contract  assets,            Initial recognition and measurement
+      the Group  applies a  simplified approach  in
+                                                                 Financial   liabilities  are  classified,  at   initial      calculating ECLs. Therefore, the Group does
+                                                                recognition, as financial liabilities at fair value      not track changes in credit  risk, but instead
+                                                        through profit or loss, loans and borrowings,      recognises a loss allowance based on lifetime
+                                                              payables,  or  as  derivatives  designated  as     ECLs at each reporting date. The Group has
+                                                      hedging instruments in an effective hedge, as      established a provision matrix that is based on
+                                                               appropriate.
+        its historical credit loss experience, adjusted for
+      forward-looking factors specific to the debtors           All financial liabilities are recognised initially at
+     and the economic environment.                                fair value and, in the case of loans and borrowings
+                                                   and  payables,  net  of  directly  attributable
+      Derecognition
+                                                               transaction costs.
+    A financial asset (or, where applicable, a part                                                     Subsequent measurement
+      of a financial asset or part of a group of similar
+       financial assets) is primarily derecognised (i.e.        The measurement of financial liabilities depends
+     removed from the Group’s balance sheet) when:       on their classification, as described below:
+                                                     Loans and borrowings
+      a)    the rights to receive cash flows from the
+                                                               After initial recognition, interest-bearing loans            asset have expired, or
+                                                   and borrowings are subsequently measured at
+      b)   The Group has transferred its rights to        amortised cost using the EIR method. Gains and
+            receive cash flows from the asset, and             losses are recognised in statement of profit and
+                                                                   loss when the liabilities are derecognised as well                 (i)    the   Group   has    transferred
+                                                           as through the EIR amortisation process.                    substantially   all  the  risks  and
+                 rewards of the asset, or                  Amortised cost  is calculated by taking  into
+                                                        account any discount or premium on acquisition                  (ii)   the Group has neither transferred
+                                                   and fees or costs that are an integral part of the
+                 nor retained substantially  all the
+                                                                  EIR. The EIR amortisation is included as finance
+                     risks and rewards of the asset, but
+                                                             costs in the statement of profit and loss.
+                 has transferred control of the asset.
+                                                              Financial Guarantee Contracts
+    When the Group has transferred its rights to                                                                 Financial guarantee contracts issued by the
+      receive cash flows from an asset or has entered                                                   Group  are  those  contracts  that  require  a
+       into a passthrough arrangement,  it evaluates                                                   payment to be made to reimburse the holder
+          if and to what extent it has retained the risks                                                                   for a loss it incurs because the specified debtor
+     and rewards of ownership. When it has neither                                                                                 fails to make a payment when due in accordance
+      transferred nor retained substantially all of the         with the terms of a debt instrument. Financial
+       risks and rewards of the asset, nor transferred        guarantee contracts are recognised initially as
+      control of the asset, the Group continues to        a liability at fair value, adjusted for transaction
+      recognise the transferred asset to the extent of         costs  that  are  directly  attributable  to  the
+      the Group’s continuing involvement. In that case,         issuance of the guarantee. Subsequently, the
+      the Group also recognises an associated liability.            liability is measured at the higher of the amount
+     The transferred asset and the associated liability         of loss allowance determined as per impairment
+      are measured on a basis that reflects the rights         requirements of Ind AS 109 and the amount
+     and obligations that the Group has retained.            recognised less cumulative amortisation.
+
+
+
+
+                                                                                                           241

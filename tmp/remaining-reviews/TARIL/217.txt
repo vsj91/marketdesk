@@ -1,0 +1,77 @@
+        CONSOLIDATED BALANCE SHEET AS AT 31 ST MARCH 2026
+                                as at 31st March 2026  CIN: L33121GJ1994PLC022460                                (` in Cr)
+    Particulars                                                 Notes         As at          As at
+                                                                                      31 March 2026    31 March 2025
+        I.  Assets
+      (1) Non Current Assets
+          (a) Property, Plant & Equipment                                        6             230.44                231.95
+         (b) Capital work-in-progress                                                               6(f)                138.31                 61.76
+           (c) Right of Use of Asset                                              6                0.04                0.02
+         (d) Goodwill on Consolidation                                           7                3.00                3.00
+          (e) Intangible Assets                                                 6                  16.95                16.20
+            (f) Financial Assets
+                  (i) Investments                                                8                   33.12               30.53
+                   (ii) Trade Receivables                                             9              207.85              336.95
+                   (iii) Loans                                                                 10                 12.70                  15.37
+                (iv) Others                                                                                            11               45.46               24.03
+         (g) Deferred Tax Assets                                                 27                18.99                 12.26
+         (h) Other Non Current Assets                                                       12              84.99               54.83
+        Total Non Current Assets                                                                  791.85              786.91
+     (2) Current Assets
+          (a) Inventories                                                                       13                615.52            444.90
+         (b) Financial Assets
+                  (i) Investments                                                           14                 151.29               237.63
+                   (ii) Trade receivables                                                            15             887.34              468.81
+                   (iii) Cash and Cash Equivalents                                               16                  8.10                 5.27
+                (iv) Bank Balances other than (iii) above                                       17                132.92               166.35
+              (v) Loans                                                                   18                 10.65                0.83
+                (vi) Others                                                                    19                 12.66               8.04
+           (c) Current Tax Assets (net)                                           20                    1.59                 0.32
+         (d) Other Current Assets                                                            21               53.80               65.90
+        Total Current Assets                                                                        1,873.87            1,398.05
+        Total Assets                                                                              2,665.72            2,184.96
+        II.  Equity and Liabilities
+       Equity
+          (a) Equity Share Capital                                                 22               30.02               30.02
+         (b) Other Equity                                                        23              1,484.81                  1,221.91
+       Equity attributable to owners of Company                                                    1,514.83              1,251.93
+      Non Controlling Interests                                                                      28.16              20.43
+        Total Equity                                                                                1,542.99             1,272.36
+         Liabilities
+      (1) Non Current Liabilities
+          (a) Financial Liabilities
+                  (i) Borrowings                                                    24              66.88               80.95
+                   (ii) Lease Liabilities                                                   25                0.03                          -
+         (b) Provisions                                                        26                6.28                   6.18
+           (c) Deferred Tax Liabilities (Net)                                          27                                                      -
+         (d) Other Non current liabilities                                        28                 17.24               24.27
+        Total Non Current Liabilities                                                           90.43                111.40
+     (2) Current Liabilities
+          (a) Financial Liabilities
+                  (i) Borrowings                                                    29              389.73               201.82
+                   (ii) Lease Liabilities                                               30                  0.01               0.00
+                   (iii) Trade Payables                                                               31
+                  (a) Total outstanding dues to Micro and Small Enterprises                                   13.94               30.67
+                 (b) Total outstanding dues to other than Micro and Small Enterprises                    275.69                 381.21
+                (iv) Others                                                          32                6.06                   18.17
+         (b) Other Current Liabilities                                              33             304.22                110.70
+          (c) Short Term Provisions                                            34                0.83                2.40
+         (d) Current Tax Liabilities (Net)                                            35                41.82                56.23
+        Total Current Liabilities                                                                     1,032.30             801.20
+        Total Liabilities                                                                                      1,122.73              912.60
+        Total Equity and Liabilities                                                                2,665.72            2,184.96
+    Material Accounting Policies and Notes to Consolidated Financial Statements  1-70
+   As per our report of even date attached          For and on behalf of the Board
+   For Manubhai & Shah LLP                           Satyen J. Mamtora                      Jitendra U. Mamtora
+   Chartered Accountants                             Managing Director & CEO              Chairman and Whole Time Director
+   ICAI Firm Reg. No. 106041W/W100136                     (DIN : 00139984)                        (DIN : 00139911)
+
+   K. B. Solanki                                     Rakesh Kiri                        Mehul Shah
+   Partner                                      Company Secretary                       Chief Financial Ofﬁcer
+   Membership No. 110299
+
+   Place : Ahmedabad                                                                             Place : Ahmedabad
+   Date: 21st April, 2026                                                                                Date: 21st April, 2026
+
+
+216  Transformers and Rectifers (India) Limited | Annual Report 2025-26

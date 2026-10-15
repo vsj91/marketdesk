@@ -1,0 +1,65 @@
+                                                       Corporate             Statutory               Financial
+                                                    Overview             Reports            Statements
+
+Standalone Statement of Profit and Loss
+for the year ended March 31, 2026
+                                                                                                                               All amounts in ₹ lakhs, unless otherwise stated
+
+ Particulars                                                      Note No.     For the year ended        For the year ended
+                                                                         March 31, 2026         March 31, 2025
+ A.  Income
+     Revenue from Operations                                       24                     86,493.19                83,953.06
+      Other Income                                                  25                      573.37                   675.60
+      Total Income                                                                        87,066.56              84,628.66
+ B.  Expenses
+     Purchase of stock-in-trade                                       26                    68,641.49                65,888.90
+     Changes in inventories of stock-in-trade                              27                       (226.97)                      72.19
+       Direct Expenses                                               28                    4,894.38                 4,227.00
+     Employee Benefits Expense                                      29                     5,688.02                  4,862.27
+      Other Expenses                                               30                       3,316.56                   2,143.28
+      Total Expenses                                                                        82,313.48                77,193.64
+ C.   Profit before exceptional items, finance costs, depreciation and                              4,753.08                7,435.02
+      amortisation, and tax (EBITDA)
+      Finance Costs                                                           31                        512.07                      121.58
+      Depreciation and amortisation expense                              32                      1,365.40                      511.79
+ D.   Profit before tax and exceptional items                                                       2,875.61                 6,801.65
+      Exceptional Items                                              33                     2,368.33                             -
+ E.   Profit before tax                                                                      507.28                 6,801.65
+ F.  Tax Expense
+      Current Tax                                                                                     298.21                   1,794.76
+     Tax Expense relating to earlier years [debit/ (credit)]                                                             (1.47)                      13.58
+      Deferred Tax [debit/ (credit)]                                                                           (68.27)                    (50.34)
+      Total Tax Expenses                                                                    228.47                 1,758.00
+ G.   Profit for the year                                                                          278.81               5,043.65
+ H.  Other Comprehensive Income
+      Items that will not be reclassified to P&L:
+     Remeasurement of Defined Benefit Plans                                                                  (4.73)                    62.59
+     Income Tax relating to above items                                                                                   1.19                       (15.75)
+      Total Other Comprehensive Income for the year                                                    (3.54)                 46.84
+      Total Comprehensive Income for the year                                                   275.27               5,090.49
+  I.   Earnings Per Share (Face Value ₹10)
+      Basic EPS (₹)                                                 34                            0.61                           11.01
+      Diluted EPS (₹)                                                34                            0.61                           11.01
+ J.  Weighted average number of equity shares
+      Basic                                                                                         4,58,05,916                4,58,05,916
+      Diluted                                                                                        4,58,05,916                4,58,05,916
+      Material accounting policy information                            2
+The accompanying notes forms an integral part of standalone financial statements
+As per our report of even date attached
+
+For M/s. Kirtane & Pandit LLP                                    For and on behalf of the Board of Directors
+Chartered Accountants                                             Orient Technologies Limited
+Firm Registration No. : 105215W/ W100057
+
+Sandeep Patil                                                Ajay Sawant                     Umesh Shah
+Partner                                                      Chairman and Managing Director           Director
+Membership No. 125497                                      DIN No : 00111001                     DIN No : 00111751
+
+Place: Mumbai                                            Gourav Modi                       Renuka Patel
+Date: May 27, 2026                                                 Chief Financial Officer               Company Secretary
+                                                                                            Membership No : ACS76081
+                                                                 Place : Mumbai
+                                                                     Date: May 27, 2026
+
+
+ANNUAL REPORT FY25-26                                                                                 115

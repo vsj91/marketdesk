@@ -1,0 +1,54 @@
+ Corporate Overview        Statutory Reports          Financial Statements                    179
+
+Notes
+forming part of the Audited Consolidated Financial Statements for the year ended March 31, 2026
+                                                                              (Amounts in ₹ Lakhs, unless otherwise stated)
+
+         b)  Contractual terms  of  the  asset  give          Equity investments
+               rise on specified dates to cash flows              All equity investments in scope of Ind AS 109
+             that are  solely payments of principal           are measured at fair value. Equity instruments
+          and  interest  (SPPI) on  the  principal          which are held  for trading are  classified
+          amount outstanding.                             as at FVTPL. Where  the Group makes an
+                                                                  irrevocable election of equity instruments at       Such  financial  assets  are  subsequently
+                                                        FVTOCI, it recognises all subsequent changes       measured  at  amortised  cost  using  the
+                                                                      in the  fair value  in other comprehensive         effective interest rate (EIR) method. Amortised
+                                                         income, without any recycling of the amounts        cost is calculated by taking into account any
+                                                      from OCI to profit and loss, even on sale of        discount or premium on acquisition and fees
+                                                       such investments.         or costs that are an integral part of the EIR.
+       The EIR amortisation is included in finance           Equity  instruments  included  within  the
+       income in the profit or loss. The losses arising         FVTPL category are measured at fair value
+       from impairment are recognised in the profit          with  all changes recognized in the  profit
+         or loss.                                       and loss.
+         Financial  instruments  other  than  equity            Financial  assets  are measured  at FVTPL
+        instruments at FVTOCI                              except  for  those  financial  assets whose
+                                                               contractual terms give  rise to cash flows       The Group classifies a financial instrument
+                                                  on  specified dates that represents  solely        other than equity at FVTOCI,  if both of the
+                                                    payments of principal and interest thereon,         following criteria are met:
+                                                               are measured as detailed below depending
+          a)  The objective of the business model is         on the business model:
+            achieved both by collecting contractual
+           cash  flows and  selling  the  financial               Classification    Name of the financial asset
+              assets, and                                        Amortised cost  Trade receivables, loans, other
+                                                                                              deposits, interest receivable and
+         b)  The  asset’s  contractual  cash  flows                             other advances recoverable in
+            represent SPPI.                                                    cash
+         Financial  instruments  other  than  equity         Investment in Subsidiaries
+        instruments  included  within the FVTOCI                                                          Investments in subsidiaries are carried at
+        category are measured as at each reporting                                                              cost less accumulated impairment losses, if
+        date at fair value. Fair value movements are                                                                    any, in the consolidated financial statements
+        recognized  in  the  other  comprehensive                                                                      in accordance with Ind AS  27, Separate
+       income (OCI). However, the group recognizes                                                                  Financial Statements.
+         interest  income,  impairment  losses and
+         reversals and  foreign  exchange  gain  or          Cost  includes  transaction  costs  directly
+         loss in the profit and loss statement. On            attributable to acquisition of the investment.
+        derecognition  of  the  asset,  cumulative         The  Group   assesses   investments   for
+        gain or loss previously recognised in OCI is          impairment whenever events or changes
+          reclassified from the equity to profit and loss.            in circumstances indicate that the carrying
+         Interest earned whilst holding FVTOCI debt         amount may not be recoverable.
+        instrument  is reported as interest income
+        using the EIR method.                             Derecognition
+                                              A     financial     asset       is     primarily         Financial  instruments  other  than  equity                                                         derecognised when:        instruments at FVTPL
+                                                                                                                    •   The rights to receive cash flows from the       The Group classifies all financial instruments                                                                   asset have expired, or        other than equity instruments, which do
+        not meet the criteria for categorization as at                     •   The Group has  transferred  its  rights
+        amortized cost or as FVTOCI, as at FVTPL.                   to receive cash flows from the asset
+                                                                    or has assumed an obligation to pay         Financial  instruments  other  than  equity                                                               the received cash flows in full without        instruments  included  within  the FVTPL                                                                    material delay to a third party under a        category are measured at fair value with all                                                                     ‘pass-through’ arrangement and either       changes recognized in the profit and loss.

@@ -1,0 +1,63 @@
+                                                                                                 for the year ended 31st March, 2026Notes to the financial statements
+
+
+             recognition to measure it at fair value through                 the associated liability are measured on a basis
+            other comprehensive income with only dividend                   that reflects the rights and obligations that the
+           income recognised in the statement of profit              Company has retained.
+           and loss.                                                                         Continuing involvement that takes the form
+                   If the Company decides to classify an equity                   of a guarantee over the transferred asset is
+            instrument as at FVTOCI, then  all  fair value               measured at the lower of the original carrying
+           changes on the instrument, excluding dividends,               amount of the asset and the maximum amount
+            are recognized in the OCI. There is no recycling                   of consideration that the Company could be
+             of the amounts from other comprehensive                  required to repay.
+           income to statement of profit and loss, even                                                                         Write Off
+           on sale of investment. However, the Company
+          may transfer the cumulative gain or loss within               An entity shall directly reduce the gross carrying
+              equity.                                               amount of a Financial Asset when the entity
+                                                                    has no reasonable expectation of recovering
+            Equity instruments included within the FVTPL                                                                    a financial asset in its entity or for a portion
+            category are measured at fair value with  all                                                                                thereof.
+           changes recognized in the statement of profit
+           and loss.                                                   Investment in joint ventures and subsidiaries:
+            Derecognition                                          The Company has accounted for its investment
+                                                                                       in joint ventures and subsidiaries at cost.
+          A financial asset (or, where applicable, a part
+             of a financial asset or part of a group of similar                Impairment of financial assets
+              financial  assets)  is  primarily  derecognised                                                               The Company applies expected credit losses
+                  (i.e. removed from the Company’s  financial                                                                            (ECL) model for measurement and recognition
+            statement) when:                                                                              of impairment loss on the following financial
+          The rights to receive cash flows from the asset                  assets:
+           have expired, or                                                                                                         (a)  Financial assets measured at amortised
+                                                                             cost          The Company has transferred its rights to receive
+           cash flows from the asset or has assumed an                        (b)  Financial assets measured at  fair value
+             obligation to pay the received cash flows in full                     through  other  comprehensive  income
+            without material delay to a third party under a                      (FVTOCI)
+             ‘pass-through’ arrangement; and either:                                                                   Expected Credit Losses are measured through
+                       (i)  the Company has transferred substantially                   either 12 month ECL or lifetime ECL and it is
+                        all the risks and rewards of the asset, or                    assessed as following:
+                       (ii)  the Company has neither transferred nor                 For recognition of impairment loss on financial
+                 retained  substantially  all the  risks and                   assets, the Company determines that whether
+               rewards of the asset, but has transferred                  there has been a significant increase in the
+                 control of the asset.                                           credit risk since initial recognition. If credit risk
+                                                                    has not increased significantly, 12-month ECL is
+         When the Company has transferred its rights to
+                                                                  used to provide for impairment loss. However, if
+             receive cash flows from an asset or has entered
+                                                                                 credit risk has increased significantly, lifetime
+              into a pass-through arrangement, it evaluates
+                                                          ECL is used. If, in the subsequent period, credit
+                   if and to what extent it has retained the risks
+                                                                                   quality of the instrument improves, such that
+           and rewards of ownership. When it has neither
+                                                                           there  is no longer a significant increase in
+             transferred nor retained substantially all of the
+                                                                                 credit risk since initial recognition, then the
+              risks and rewards of the asset, nor transferred
+                                                                                   entity reverts to recognising impairment loss
+             control of the asset, the Company continues to
+                                                                         allowance based on 12-month ECL.
+            recognise the transferred asset to the extent
+             of the Company’s continuing involvement. In                  Lifetime ECL are the expected credit losses
+             that case, the Company also recognises an                   resulting from all possible default events over
+            associated liability. The transferred asset and                 the expected  life of a financial instrument.
+206    Annual Report 2025-26

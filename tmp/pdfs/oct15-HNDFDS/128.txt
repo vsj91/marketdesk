@@ -1,0 +1,83 @@
+                                                                                                                                                         Corporate Overview                      Statutory Reports                         Financial Statements
+
+
+
+
+NOTES FORMING PART OF THE STANDALONE FINANCIAL STATEMENTS                                       NOTES FORMING PART OF THE STANDALONE FINANCIAL STATEMENTS
+FOR THE YEAR ENDED MARCH 31, 2026 (CONTD.)                                                      FOR THE YEAR ENDED MARCH 31, 2026 (CONTD.)
+(Amounts in Rs. cr, unless otherwise stated)                                                                                      (Amounts in Rs. cr, unless otherwise stated)
+
+
+34  EMPLOYEE BENEFITS                                                                                                                                                                iv)  Expense recognised in the Statement of Profit and Loss
+
+    The Company has the following employee benefit plans:
+                                                                                                                                                                             March 31, 2026          March 31, 2025
+                                                                                                                                                                                                                                   (Restated - refer note 36)
+(A)  Defined contribution plans
+                                                                                                                                                Current service cost                                                               1.81                     2.00
+     Contribution to Defined Contribution Plans, recognised as expense for the year Rs. 4.30 cr (Previous year Rs. 3.22 cr)
+                                                                                                                                                        Past service cost#                                                            3.27                                   -
+      (refer note 26)
+                                                                                                                                                                         Interest cost                                                              0.63                       0.72
+
+(B)  Defined benefit plans                                                                                                                                Total expenses recognised in the Statement Profit and                        5.71                       2.72
+                                                                                                                                          Loss *
+     Gratuity payable to employees
+                                                                                                                                                 *Included in employee benefits expense (refer note 26)
+        i)    Actuarial assumptions
+                                                                                                                                        #Past service cost amounting Rs. 3.27 cr is classified in exceptional item (refer note 48)
+                                                                          Year ended               Year ended
+                                                            March 31, 2026          March 31, 2025                                  v)  Remeasurement gain recognised in other comprehensive income
+                                                                                         (Restated - refer note 36)
+                                                                                                                                                                             March 31, 2026          March 31, 2025
+         Discount rate (per annum)                                               7.25%                    6.75%
+                                                                                                                                                                                                                                   (Restated - refer note 36)
+         Rate of increase in Salary                                      7% -10%               7% -10%
+                                                                                                                                                                    Actuarial (gain)/loss on obligations due to change in                            (0.68)                      0.44
+        Expected average remaining working lives of employees                   22.90                    22.90                                  financial assumptions
+           (years)                                                                                                                                                   Actuarial gain on obligations due to change in                                  (0.29)                           (1.32)
+           Attrition rate                                             2% - 15%              2% - 15%                                experience adjustments
+          Mortality in Service: Indian Assured Lives Mortality (2012-14) Ultimate table Authority of India                                                       Total remeasurement gain recognised in other                                (0.97)                       (0.88)
+                                                                                                                                 comprehensive income
+        ii)  Changes in the present value of defined benefit obligation
+                                                                                                                                                                                                   vi)  Assets and liabilities recognised in the Balance Sheet:
+
+                                                                          As at                    As at
+                                                                                                                                                                                                     As at                    As at
+                                                            March 31, 2026          March 31, 2025
+                                                                                                                                                                             March 31, 2026          March 31, 2025
+                                                                                         (Restated - refer note 36)
+                                                                                                                                                                                                                                   (Restated - refer note 36)
+         Present value of obligation at the beginning of the year                    9.60                    10.49
+                                                                                                                                                   Present value of obligation                                                  13.40                      9.60
+          Transfer in/(out) obligation                                                                        -                        (0.20)
+                                                                                                                                                               Less: fair value of plan assets                                                                     -                                   -
+         Current service cost                                                               1.81                     2.00
+                                                                                                                               Net liability recognised in Balance Sheet*                                 13.40                     9.60
+          Past service cost                                                              3.27                                   -
+                                                                                                                                                 *Included in provision for employee benefits (refer note 17)
+           Interest cost                                                              0.63                       0.72
+                                                                                                                                            Non-current                                                              12.36                     9.00
+         Benefits paid                                                                     (0.94)                         (2.53)
+                                                                                                                                                Current                                                                      1.04                     0.60
+          Actuarial (gain)/loss on obligations                                                (0.97)                        (0.88)
+                                                                                                                                                                                                                  vii)  Expected contribution in the next year         Present value of obligation at the end of the year                          13.40                     9.60
+
+        iii)  Change in the fair value of plan assets:                                                                                                                                       March 31, 2026          March 31, 2025
+                                                                                                                                                                                                                                   (Restated - refer note 36)
+                                                                          As at                    As at                                    Gratuity                                                                     1.04                     0.60
+                                                            March 31, 2026          March 31, 2025
+                                                                                         (Restated - refer note 36)                                            viii) A quantitative sensitivity analysis for significant assumption is as shown below:
+
+        Opening fair value of plan assets                                               -                          -
+                                                                                                                                                                                                     As at                    As at
+           Interest income                                                                                     -                                   -                                                                               March 31, 2026          March 31, 2025
+         Contributions by employer                                                                       -                                   -                                                                                                                 (Restated - refer note 36)
+         Benefits paid                                                                                         -                                   -                              Impact on defined benefit obligation
+          Actuarial (losses)/gains                                                                            -                                   -                               Discount rate
+         Closing fair value of plan assets                                                -                          -                              0.5% increase                                                               12.78                        9.14
+                                                                                                                                        0.5% decrease                                                            14.09                       10.13
+
+
+
+                                       248    Hindustan Foods Limited                                                                                                                                          Annual Report 2025-26   249

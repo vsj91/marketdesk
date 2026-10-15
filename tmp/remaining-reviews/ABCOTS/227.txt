@@ -1,0 +1,54 @@
+ANNUAL REPORT 2025-26
+
+
+
+  • When the lease liability is remeasured in this way, a corresponding adjustment is made to the carrying
+    amount of the right-of-use asset or is recorded in profit or loss if the carrying amount of the right-of-use
+     asset has been reduced to zero.
+
+  •  The Group presents right-of-use assets that do not meet the definition of investment property in ‘property,
+     plant and equipment’ and lease liabilities separately in the balance sheet within ‘Financial Liabilities’.
+
+     As a lessor
+
+  •  At inception or on modification of a contract that contains a lease component, the Group allocates the
+      consideration in the contract to each lease component on the basis of their relative stand-alone prices.
+
+  •  When the Group acts as a lessor, it determines at lease inception whether each lease is a finance lease or
+     an operating lease.
+
+  •  To classify each lease, the Group makes an overall assessment of whether the lease transfers substantially
+       all of the risks and rewards incidental to ownership of the underlying asset. If this is the case, then the
+      lease is a finance lease; if not, then it is an operating lease. As part of this assessment, the Group considers
+      certain indicators such as whether the lease is for a major part of the economic life of the asset.
+
+  •  When the Group is an intermediate lessor, it accounts for its interests in the head lease and the sub lease
+      separately. It assesses the lease classification of a sub-lease with reference to the right-of-use asset arising
+     from the head lease, not with reference to the underlying asset. If a head lease is a short-term lease to
+     which the Group applies the exemption described above, then it classifies the sub-lease as an operating
+      lease.
+
+  •    If an arrangement contains lease and non-lease components, then the Group applies Ind AS 115 to allocate
+      the consideration in the contract.
+
+  •  The Group applies the derecognition and impairment requirements in Ind AS 109 to the net investment in
+      the lease (see Note 1.33). The Group further regularly reviews estimated unguaranteed residual values
+     used in calculating the gross investment in the lease.
+
+  •  The Group recognizes lease payments received under operating leases as income on a straight-line basis
+     over the lease term as part of ‘other income’
+
+     Short-term leases and leases of low-value assets
+
+  •   The Group has elected not to recognize right-of-use assets and lease liabilities for leases of low-value
+      assets and short-term leases having lease term of 12 months or less. The Group recognizes the lease
+     payments associated with these leases as an expense in profit or loss on a straight-line basis over the lease
+      term.
+
+  1.23   Offsetting of Assets and Liabilities
+
+
+
+
+
+                                                             Page 223

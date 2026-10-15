@@ -1,0 +1,62 @@
+92    Glottis Ltd  | Annual Report 2025-26
+
+Independent Auditors’ Report
+
+
+To                                                           in the context of our audit of the standalone financial
+The Members of                                    statements as a whole, and in forming our opinion
+GLOTTIS LIMITED                                      thereon, and we do not provide a separate opinion
+                                            on these matters. We have determined the matters
+Report on the Audit of Standalone         described below to be the key audit matters to be
+Financial Statements                      communicated in our report.
+Opinion                                                               Sl No.  Key Audit Matter
+We  have  audited  the accompanying  Standalone   1    Revenue Recognition
+                                                           The Company’s revenue from freight forwarding andFinancial Statements of GLOTTIS LIMITED (formerly                                                                                 logistics services involves significant judgement in
+Glottis Private Limited) (the “Company”), which comprise         determining whether the Company acts as a principal
+the Balance Sheet as at March 31, 2026, the Statement           or an agent under Ind AS 115 – Revenue from
+of Profit and Loss (including Other Comprehensive          Contracts with Customers, which impacts whether
+                                                               revenue is recognised on a gross or net basis.Income), the statement of Changes in Equity, the                                                                         Further, considering the nature of the Company’s
+Statement of Cash Flows for the year ended on that           operations, assessment of revenue cut-off, unbilled
+date and notes to the Standalone Financial Statements,         revenue and accrual of related freight and logistics
+including a summary of material accounting policies           costs involves management judgement, particularly
+                                                                                 for shipments in transit and vendor invoices receivedand other explanatory information (hereinafter referred                                                             subsequent to the reporting date.
+to as “the Standalone Financial Statements”).                     Considering the significance of revenue and related
+                                                                       costs to the Standalone Financial Statements and
+In our opinion and to the best of our information          the judgement involved in the recognition and
+and according to the explanations given to us, the        measurement thereof, this matter was considered to
+aforesaid Standalone Financial Statements, give the        be one of most significance in our audit.
+                                                                    Auditor’s Responseinformation required by the Companies Act, 2013, as                                                                           Principal Audit Procedures Performed included the
+amended (the “Act”) in the manner so required and           following:
+give a true and fair view in conformity with the Indian                   • We ev
+Accounting Standards prescribed under section 133          aluated the design and tested the operating
+                                                                         effectiveness of key internal financial controls over theof the Act (“Ind AS”), and other accounting principles                                                               revenue cycle, including order acceptance, shipping,
+generally accepted in India, of the state of affairs of the           invoicing and recording of income.
+Company as at March 31, 2026; and its Profits, total                   • We tested the general IT controls and relevant
+comprehensive income, Changes in equity and its cash           automated application controls within the ERP
+                                                               system governing the revenue process.flows for the year ended on that date.                                                                                                                              •  Evaluated the appropriateness of the Company’s
+                                                                  accounting policies relating to revenue recognition
+Basis for Opinion                                        and related accruals with reference to the principles
+We conducted our audit of the Standalone Financial            prescribed under Ind AS 115.
+                                                                                                                              • We examined, on a sample basis, customer contractsStatements  in accordance with the Standards on                                                         and arrangements with shipping lines and overseas
+Auditing (SAs) specified under section 143(10) the           agents to evaluate management’s assessment of
+Act. Our responsibilities under those Standards are              principal versus agent considerations.
+further described in the ‘Auditor’s Responsibilities for                   • Performed substantive testing of revenue
+                                                                          transactions by examining supportingthe Audit of the Standalone Financial Statements’                                                              documentation including invoices, shipment
+section of our report. We are independent of the           documents, airway bills, bills of lading and related
+Company in accordance with the ‘Code of  Ethics’           customer documentation;
+issued by the Institute of Chartered Accountants of                   • We reviewed credit notes issued and sales returns
+                                                                  processed subsequent to the year-end to ensureIndia (‘ICAI’) together with the ethical requirements                                                                      there was no overstatement of revenue for the
+that are  relevant  to our audit  of the Standalone             reporting period.
+Financial Statements under the provisions of the Act                   • Performed cut-off procedures for revenue
+and the Rules there under, and we have fulfilled our             transactions recorded before and after the reporting
+                                                                  date to assess whether revenue had been recognisedother ethical responsibilities in accordance with these                                                                               in the appropriate accounting period;
+requirements and the Code of Ethics. We believe that                   • Compared post year-end customer invoices and
+the audit evidence we have obtained is sufficient and           vendor invoices with balances recognised as at the
+appropriate to provide a basis for our audit opinion on             reporting date to assess completeness and accuracy
+                                                                              of accrued income and related cost accruals.the Standalone Financial Statements.                                                                                                                              • We also performed analytical review procedures
+                                                         on revenue trends and freight margins and accrual
+Key Audit Matters                                              balances to identify unusual movements or
+Key audit matters are those matters  that,  in our             inconsistencies requiring further audit consideration;
+                                                                    assessed the adequacy of related disclosures in theprofessional judgment, were of most significance in                                                                  Standalone Financial Statements.
+our audit of the standalone financial statements of
+the current period. These matters were addressed

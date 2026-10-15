@@ -1,0 +1,60 @@
+Notes to the Consolidated Financial Statements
+for the year ended December 31, 2025                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         Corporate
+
+         resulting from intragroup transactions.                     other factors, including expectations of future events                                                                      that may have a financial impact on the Group and that                         overview        Consolidated Statement of profit and loss and each                                                                  are believed to be reasonable under the circumstance.       component of other comprehensive income (‘OCI’)                                                                 Revisions to accounting estimates are recognised in the        are attributed to the equity holders of the parent of
+                                                                 period in which the estimates are revised and future                 Year        the Group and to the non-controlling interests, even                                                                periods are affected.             if           this results                       in the                            non-controlling                                             interests having
+       a deficit                balance.                   When                               necessary, adjustments                                                            The key assumptions concerning the future and other                   2025
+        are made to the statements of subsidiaries to bring         key sources of estimating uncertainty at the reporting
+         their accounting policies into line with the Group’s           date, that have a significant risk of causing a material
+        accounting policies. All intra-group assets and              adjustment to the carrying amounts of assets and liabilities
+          liabilities, equity, income, expenses and cash flows          within the next financial year, are described below:                                                                                                                                                                                                                                                                                                                                                                                                                                    Strategy
+         relating to transactions between members of the
+       Group are eliminated in full on consolidation.              Judgements:
+                                                                        a)  Business combinations      A change in the ownership interest of a subsidiary,
+        without a loss of control, is accounted for as an                Business combinations are accounted for using        equity transaction. If the Group loses control over a             Ind AS 103. Ind AS 103 requires the identifiable                                  Business
+         subsidiary, it:                                                   intangible assets and contingent consideration to
+                                                           be fair valued in order to ascertain the net fair value                                                                                                                                                                                                                                                                                                                           review      (i)  Derecognises the assets (including goodwill) and                                                                           of identifiable assets, liabilities and contingent
+          liabilities of the subsidiary;                                                                                       liabilities of the acquiree. Significant estimates
+      (ii) Derecognises the carrying amount of any non-                   are required to be made in determining the value                                                                                                                                                              ESG         controlling interests;                                             of contingent consideration and intangible assets
+                                                          and their estimated useful life. These valuations are
+      (iii) Derecognises the cumulative translation differences           conducted by independent valuation experts.
+        recorded in equity;
+                                                                     b)  Current and deferred taxes
+     (iv) Recognises the fair value of the consideration                                                                            Significant management judgment is required to                                    Statutory         received;                                                                 determine the amount of current and deferred taxes
+     (v)  Recognises the fair value of any investment                      that can be recognised, based upon the likely timing                                                                                                                                                                                                                                                                                                                                                                                reports
+         retained;                                            and the level of future taxable profits together with
+                                                                           future tax planning strategies.
+     (vi) Recognises any surplus or deficit in profit and loss;
+                                                                             c)  Provisions, Contingent Liabilities and Contingent
+      (vii) Reclassifies the parent’s share of components                                                                  Assets
+        previously recognised in OCI to profit and loss or                                                                                                                                                                                                                                                                                                                                                                                                                                                                   Financial
+        retained earnings, as appropriate, as would be                  Provisions are recognised when the Group has a
+        required if the Group had directly disposed of the               present obligation (legal or constructive) as a result
+         related assets or liabilities.                                       of past events, it is probable that an outflow of
+                                                                    resources will be required to settle the obligation                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     statements
+2.3 Current and non-current classification                         and in respect of which a reliable estimate can be
+                                                     made of the amount of obligation. Provisions are not     All assets and liabilities have been classified as current or
+                                                                  discounted to its present value and are determined    non-current as per the Group’s normal operating cycle and
+                                                            based on best estimates required to settle the    other criteria set out in Schedule III of the Act. Based on the                                                                                                                                                                          Notice
+                                                                         obligation at the reporting date. These are reviewed    nature of the products and time taken between acquisition
+                                                                            at each reporting date and adjusted to reflect the     of assets for processing and their realisation in cash and
+                                                                         current best estimates.    cash equivalents, the Group has ascertained its normal
+    operating cycle as twelve months for the purpose of current          A disclosure by way of a contingent liability is made
+    or non-current classification of assets and liabilities.               when there is a possible obligation or a present
+                                                                         obligation that may, but probably will not, require    Deferred tax assets and deferred tax liabilities are
+                                                           an outflow of resources. Contingent assets are not     classified as non-current assets and non-current liabilities.
+                                                                   recognised or disclosed in the financial statements.
+2.4 Material accounting judgments, estimates and                                                                     d)  Lease liabilities
+    assumptions
+                                                                        At the commencement date of the lease, the Group
+    The preparation of financial statements in conformity                                                                      recognises lease liabilities measured at the present
+    with Ind AS requires the Group’s management to make                                                                      value of lease payments to be made over the lease
+    estimates and assumptions that affect the reported                                                                        term. The lease payments include fixed payments
+   amounts of revenue, expenses, assets and liabilities.                                                                           (including in substance fixed payments) less any
+    Actual results could differ from those estimates.                                                                      lease incentives receivable, variable lease payments
+    Estimates and judgments are reviewed on an ongoing                 that depend on an index or a rate, and amounts
+    basis. They are based on historical experience and                 expected to be paid under residual value guarantees.
+
+
+
+                                                                                                         298

@@ -1,0 +1,57 @@
+Corporate Overview     Statutory Report     Standalone Financial Statements     Consolidated Financial Statements     Notice
+Notes Forming part of the Consolidated
+FOR THE YEAR ENDED 31ST MARCH 2026
+                                                                                                      (All amounts in INR lakhs, unless otherwise stated)
+Note 2a. Disclosure Pursuant To Indian Accounting Standard (Ind As) 116, Leases
+
+The Company has adopted Ind AS 116 “Leases” effective 1st April 2019, as notified by the Ministry  of  Corporate  Affairs  (MCA)
+vide Companies (Indian Accounting Standards), Amendment Rules, 2019, using the modified retrospective method .Under this
+simplified Approach, the Company recognized equal amount of right of use asset and lease liability on the transition date,
+adjusted by the amount of prepayments pertaining to such leases, carried in the Balance Sheet on such transition date.
+Disclosure related to leases
+(A) Carrying value of right of use assets at the end of the year
+ Particulars                Land               Office Premises       Plant and Machinery             Total
+                  As at 31st   As at 31st   As at 31st   As at 31st   As at 31st   As at 31st   As at 31st   As at 31st
+                      March,     March,     March,     March,     March,     March,     March,     March,
+                    2026     2025     2026     2025     2026     2025     2026     2025
+ Balance at the           157.56      162.96      154.40                  -      105.94       151.35        417.91      314.30
+ beginning of the
+ year
+ Additions                                                                       -          179.11      1,128.29                  -      1,128.29          179.11
+ Deletions                                                                       -                  -                  -                  -                  -                  -
+ Depreciation                (5.38)        (5.40)       (49.37)       (24.70)       (75.49)      (45.40)      (130.24)        (75.51)
+ charge for the year
+ Balance at the end       152.17      157.56     105.03     154.40     1,158.75     105.94    1,415.96      417.91
+ of the year
+(B) Carrying value of Lease Liability at the end of the year
+ Particulars                Land               Office Premises       Plant and Machinery             Total
+                  As at 31st   As at 31st   As at 31st   As at 31st   As at 31st   As at 31st   As at 31st   As at 31st
+                      March,     March,     March,     March,     March,     March,     March,     March,
+                    2026     2025     2026     2025     2026     2025     2026     2025
+ Balance at the            3.08        3.53      159.09                  -    2,259.57        164.17     2,421.74       167.70
+ beginning of the
+ year
+ Additions                                                    -                  -          179.11       1,538.11      2,162.15       1,538.11     2,341.26
+ Deletions                                                    -                  -                  -                  -                  -                  -                  -
+ Other Non Cash           0.84        0.42         14.76       6.60        215.13       27.69      230.73         34.71
+ Movement
+ Payment made              (0.42)         (0.87)       (81.20)      (26.62)        (711.94)       (94.45)     (793.56)       (121.94)
+ during the year
+ Balance at the end       3.50       3.08      92.64     159.09   3,300.87   2,259.57   3,397.02    2,421.74
+ of the year
+(C) Amount recognised in statement of Profit & Loss
+ Particulars                Land               Office Premises       Plant and Machinery             Total
+                       For the     For the     For the     For the     For the     For the     For the     For the
+                          year        year        year        year        year        year        year        year
+                  ended 31st  ended 31st  ended 31st  ended 31st  ended 31st  ended 31st  ended 31st  ended 31st
+                      March,     March,     March,     March,     March,     March,     March,     March,
+                    2026     2025     2026     2025     2026     2025     2026     2025
+ Other Non Cash           0.84        0.42         14.76                  -        215.13       27.69      230.73          28.11
+ Movement
+ Amotisation of             5.38        5.40       49.37      20.84       75.49      45.40      130.24        71.65
+ Right to Use Assets
+ Total                   6.23       5.82       64.13      20.84    290.62      73.09     360.97      99.76
+
+
+
+Fischer Medical Ventures Limited                                                              205

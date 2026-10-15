@@ -1,0 +1,67 @@
+NOTES TO STANDALONE FINANCIAL STATEMENTS
+FOR THE YEAR ENDED MARCH 31, 2026
+
+(Currency : Indian Rupees in lakhs)
+
+                 is established,  it is probable that the               The residual expected life of the pool of
+           economic  benefits  associated  with                  asset is assessed annually.
+            the dividend will flow to the Company
+                                                               (g) Securitisation transactions :
+           and the amount of the dividend can be
+                                                                               In accordance with Ind AS 109, in case of           measured reliably.
+                                                                           securitisation transactions, the Company
+         (c) Fees and commission income                             retains substantially  all the  risks and
+           Fees  and  commission  income  are                rewards of ownership of a transferred
+            recognised  as  income  when  the                    financial asset, the Company continues
+           performance  obligation  as  per  the                  to recognise the financial asset and also
+             contract  with  customer   is   fulfilled                 recognises a  collateralised borrowing
+           and when  the  right  to  receive  the                    for the proceeds received.
+           payment against the services has been
+                                                                  (h) Net gain/(loss) on Fair value changes
+              established.
+                                                     Any differences between the fair values
+        (d) Origination fees                                        of financial assets classified as fair value
+             Origination fees, which the Company                through the profit or loss, held by the
+            has  received/recovered  at  time  of             Company on the balance sheet date is
+             granting of a loan, is considered as a                 recognised as an unrealised gain or loss
+          component  for  computation  of  the                 as a gain or expense respectively.
+              effective rate of interest (EIR) for the
+                                                                                 Similarly, any realised gain or loss on
+           purpose of computing interest income.
+                                                                         sale of financial instruments measured
+         (e) Management Fees:                                       at  FVTPL  and  debt  instruments
+          Management  fees  and  other  fees               measured at FVOCI is recognised in net
+             are recognised as income when the                 gain / loss on fair value changes.
+           performance  obligation  as  per  the                 (i)  Sourcing and servicing fee
+             contract  with  customer   is   fulfilled
+                                                         The  revenue  from  the  contract  as
+           and when  the  right  to  receive  the
+                                                             a  service  provider  (sourcing  and
+           payment against the services has been
+                                                                         collection agent) on behalf of customer,
+              established.
+                                                                                             is  recognised  upfront  for  services
+          (f)  Assignment income                                 rendered as sourcing agent and on
+               In accordance with Ind AS 109, in case of                   straight line basis over the loan tenure
+            assignment transactions with complete                   for services in the nature of collection
+              transfer  of  risks and  rewards,  gain               and performance agent. The financial
+              arising on such assignment transactions                guarantee provided under the service
+                 is recorded upfront in the Statement of                  contract is recognised at fair value on
+               Profit and Loss and the corresponding                 sourcing and  is amortised over the
+             asset is derecognised from the Balance                 period  of  contract  with subsequent
+            Sheet  immediately  upon  execution               measurement   at   higher   of   the
+             of  such  transactions.  Further  the                unamortised value as per Ind AS 115 or
+              transfer of financial assets qualifies for                expected credit losses as per Ind AS
+            derecognition in its entirety, the whole                   109.
+             of the interest spread at  its present
+                                                          h)  Finance Costs
+             value (discounted over the expected
+                                                      The Company recognises interest expense                  life of the asset) is recognised on the
+                                                    on the borrowings as per EIR methodology            date of derecognition itself as excess
+                                                        which  is  calculated by  considering any              interest spread and  correspondingly
+                                                                        ancillary costs incurred and any premium            recognised as profit on derecognition
+                                                            payable on its maturity.             of financial asset.
+
+
+
+206

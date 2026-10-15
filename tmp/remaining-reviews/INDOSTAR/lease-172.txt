@@ -1,0 +1,77 @@
+                                                                                                                                          Corporate Overview         Statutory Reports
+
+
+NOTES TO CONSOLIDATED FINANCIAL STATEMENTS        NOTES TO CONSOLIDATED FINANCIAL STATEMENTS
+FOR THE YEAR ENDED MARCH 31, 2026                                                     FOR THE YEAR ENDED MARCH 31, 2026
+
+(Currency : Indian Rupees in lakhs)                                                                                          (Currency : Indian Rupees in lakhs)
+
+    undertakes various activities such as pre-sanction loan applicant verification, pre-sanction and post                    d)  Transactions other than those with key management personnel : Nil
+    disbursement documents verification, vendor verification, etc to prevent and manage frauds.
+                                                                                                                             e)  The related party balances outstanding at year end : Nil
+
+I.   Foreign Currency Risk:
+                                                                                         NOTE 35 SET OUT BELOW IS THE DISAGGREGATION OF THE REVENUE FROM CONTRACTS WITH
+     In the normal course of its business, the Company does not deal in foreign exchanges. Foreign currency risk                CUSTOMERS
+     for the Company arise majorly on account of foreign currency borrowings, if any. The Company manages
+                                                                                                                                       Particulars                                                 For the year ended For the year ended
+    the foreign currency risk by entering into cross currency swaps and forward contracts as per the ALM
+                                                                                                                                                                       March 31, 2026     March 31, 2025
+    policy covering currency risk management framework. As on March 31, 2026, the Company holds currency
+                                                                                                         Type of Services or service
+    forward contracts to mitigate the risk of exchange rate fluctuations.
+                                                                                                                                                                   -    Fees Income                                                                   7,228.15             6,102.02
+NOTE 33 DISCLOSURE PURSUANT TO IND AS 108 “OPERATING SEGMENT                                                       Total revenue from contracts with customers                                 7,228.15           6,102.02
+                                                                                                                     Geographical markets
+Business segments
+                                                                                                                                              India                                                                            7,228.15             6,102.02
+The Company is engaged primarily in the business of financing in India and accordingly, there are no separate
+                                                                                                                            Outside India                                                                                     -                        -
+operating segments as per Ind AS 108 dealing with Operating Segments.
+                                                                                                                               Total revenue from contracts with customers                                 7,228.15           6,102.02
+NOTE 34 RELATED PARTY DISCLOSURES, AS REQUIRED BY INDIAN ACCOUNTING STANDARD 24 (IND AS                    Timing of revenue recognition
+24) ARE GIVEN BELOW:                                                                                                             Services transferred at a point in time                                         7,228.15             6,102.02
+                                                                                                                                     Services transferred over time                                                                -                        -
+a)  Relationships
+                                                                                                                               Total revenue from contracts with customers                                 7,228.15           6,102.02
+       I.   Ultimate Controlling Party
+         Brookfield Asset Management Inc.                                                             NOTE 36 CONTINGENT LIABILITIES AND COMMITMENTS
+
+                                                                                                                                       Particulars                                                       As at            As at
+       II.  Holding Company
+                                                                                                                                                                       March 31, 2026     March 31, 2025
+      BCP V Multiple Holdings Pte. Ltd.                                                                                                                     Contingent liabilities
+                                                                                                                       Corporate guarantee given by Company                                 4,800.00                        -       III. Names of other related parties with whom the Group had transactions during the year:
+                                                                                                                                             Litigation cases filed against the Company                                                       -             43.00
+       Key Managerial Personnel (KMP)
+                                                                                                                                 Capital commitments:
+        Randhir Singh - Executive Vice Chairman & Managing Director (w.e.f May 11, 2025), and                                                                                                                        Estimated amount of contracts remaining to be executed on                                 -              86.95
+                            - Executive Vice Chairman & Whole Time Director (w.e.f July 22, 2024 upto May 10, 2025)                         capital account
+                                                                                                                 Loans sanctioned not yet disbursed                                        9,808.02           9,809.52        Karthikeyan Srinivasan - Chief Executive Officer & Whole Time Director (till May 11, 2025)
+
+       Bobby Parikh - Non-Executive Director (w.e.f. March 05, 2025) and Non-Executive Independent Director
+                                                                                         NOTE 37 DISCLOSURES AS REQUIRED BY IND AS 116 ‘LEASES’
+        (upto March 04, 2025)
+                                                                                                                      (A) Lease liability movement
+        Sujatha Mohan - Non Executive Independent Director (w.e.f April 21, 2025)
+       Hemant Kaul - Non-Executive Independent Director                                                                               Particulars                                                    As at            As at
+                                                                                                                                                                       March 31, 2026     March 31, 2025
+        Naina Krishna Murthy - Non-Executive Independent Director
+                                                                                                                 Opening balance                                                        3,725.65           4,686.80
+b)  Transactions with Holding Company                                                                                                  Less: Liabilities associated with group(s) classified as held for                          -            (763.26)
+                                                                                                                                              sale
+     Particulars                                              For the year ended For the year ended
+                                                                                                                                                                                                  3,725.65           3,923.54                                                           March 31, 2026     March 31, 2025
+                                                                                                  Add : Additions during the year                                       530.05              679.14    Money Received against Share Warrants (refer note 22.2)                    5,133.35          20,533.40
+                                                                                                  Add : Interest on lease liability                                              355.51             374.52
+c)  Transactions with Key Management Personnel (KMP):                                                                                                                              Less : Deletions                                                            (47.69)              (191.02)
+     Particulars                                              For the year ended For the year ended                          Less : Lease rental payments                                                            (1,131.17)           (1,060.53)
+                                                           March 31, 2026     March 31, 2025                                                                                                                                                                                                  3,432.35           3,725.65
+     Short-term employee benefits                                               373.41             563.36
+     Sitting fees to Non-Executive Independent Directors                        24.85             48.06
+    Reimbursement of expenses                                             0.54               0.82
+
+    The above compensation excludes contributions to post-employment defined benefit plan and share based
+    payment expense.
+
+336                                                                                                                                            337

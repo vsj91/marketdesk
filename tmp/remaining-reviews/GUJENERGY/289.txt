@@ -1,0 +1,77 @@
+                                                                              2025-2026
+                                                                          14 th ANNUAL REPORT
+
+        CONSOLIDATED STATEMENT OF PROFIT AND LOSS FOR THE YEAR ENDED 31 ST MARCH, 2026
+                                                                                                                     (` in Crores)
+                                                                                Note For the year ended For the year ended
+                                         Particulars                                       No.  31 st March, 2026  31 st March, 2025
+             A.   Continuing Operations
+                       I.   Revenue from operations                                           34        24,424.73          28,312.89
+                       II.   Other income                                                   35          547.48           556.65
+                      III.   Total Income (I+II)                                                              24,972.21       28,869.54
+               IV.  Expenses
+                  Production expenditure                                            36            72.48             75.90
+                Cost of materials consumed / Purchase of stock in trade                        37         19,186.20          22,145.35
+                Changes in inventories of natural gas, crude oil and IT Traded goods               38          (576.09)             160.12
+                   Excise duty                                                                               810.29           698.02
+                Employee benefits expenses                                         39          297.65           259.25
+                  Finance costs                                                   40           251.06            290.15
+                   Depreciation, depletion and amortization expense                              41          898.95            864.11
+                 Other expenses                                                 42          1,582.18          1,499.85
+                  Total Expenses (IV)                                                           22,522.72       25,992.75
+              V.   Profit Before Exceptional Items and Tax (III-IV)                                       2,449.49         2,876.79
+               VI.   Exceptional item (Income) / Expense                                   43           149.81            862.31
+                 VII.  Profit Before Tax and Share of Profit / (Loss) from Joint Ventures /                       2,299.68          2,014.48
+                 Associates(V-VI)
+                 VIII. Share of net profit/(loss) of joint ventures and associates accounted for                             141.26               (2.01)
+                  using the equity method (Net of tax)
+               IX.  Profit Before Tax (VII+VIII)                                                       2,440.94          2,012.47
+             X.   Tax expense:                                                   44
+                  Current Tax                                                                                              (1.51)              8.68
+                 Deferred Tax                                                                          764.87          (1,252.89)
+                  Total Tax Expense (X)                                                          763.36        (1,244.21)
+               XI.  Profit After Tax for the year from Continuing Operations (IX-X)                          1,677.58         3,256.68
+              B.   Discontinued Operations                                          59
+                XII.  Profit before tax from Discontinued Operations                                                      -            727.23
+                 XIII. Tax expense of Discontinued Operations                                 44                -                5.19
+             XIV. Profit After Tax from Discontinued Operations (XII-XIII)                                                    -          722.04
+            XV.  Profit After Tax from Continuing and Discontinued Operations (XI+XIV)                    1,677.58         3,978.72
+             XVI. Other Comprehensive Income                                      45
+                           (i)  Items that will not be reclassified to profit or (loss)                                        (27.96)             9.35
+                       Changes in Fair Value of FVOCI Equity Instrument                                            (36.17)              6.42
+                      Remeasurements of Post - Employment Benefit Obligation                                    8.21              2.93
+                              (ii) Income tax related to items that will not be reclassified to                                        14.27            (30.48)
+                          profit or loss - Income / (expense)
+                               (iii) Share of OCI in Associate and JV (net of tax) - Income / (expense)                               0.03              (0.39)
+                  Total Other Comprehensive Income (XVI)                                                  (13.66)           (21.52)
+               XVII. Total Comprehensive Income from Continuing and Discontinued Operations (XV+XVI)            1,663.92         3,957.20
+                   Profit attributable to:
+                  Owners of the Company                                                                    2,018.91            4,114.62
+                      Non-Controlling Interest                                                                  (341.33)            (135.90)
+               Other comprehensive income attributable to:
+                  Owners of the Company                                                                       (13.88)             (21.35)
+                      Non-Controlling Interest                                                                  0.22                (0.17)
+                  Total comprehensive income attributable to:
+                  Owners of the Company                                                              2,005.03           4,093.27
+                      Non-Controlling Interest                                                                       (341.11)            (136.07)
+                 Earning per Equity Share (EPS) from Continuing Operations (Face Value of ` 2)   46
+                      Basic                                                                                 21.55             36.21
+                       Diluted                                                                               21.55             36.21
+                 Earning per Equity Share (EPS) from Discontinued Operations (Face Value of ` 2)
+                      Basic                                                                                     -               7.71
+                       Diluted                                                                                    -               7.71
+                 Earning per Equity Share (EPS) from Continuing & Discontinued Operations
+                 (Face Value of ` 2)
+                      Basic                                                                                 21.55            43.92
+                       Diluted                                                                               21.55            43.92
+           See accompanying notes the consolidatd financial statements (1-65) LIMITED
+        As per our report attached                        For and on behalf of Board of Directors of Gujarat Energy Limited
+          For Ashok Chhajed & Associates
+         Chartered Accountants
+           ICAI Firm Reg. No. – 100641W          Manoj Kumar Das, IAS   Avantika Singh, IAS       Balwant Singh, IAS (Retd.) ENERGY
+                                               Chairman              Managing Director          Director
+           Arist Chhajed                        DIN - 06530792       DIN - 07549438         DIN - 00023872
+           Partner
+          M. No. : 149503                                              Rajesh Sivadasan         Sandeep Dave GUJARAT                                                                          Chief Financial Officer      Company Secretary
+          Place : Gandhinagar                                                                     Place : Gandhinagar
+281     Date : 30 May, 2026                                                           Date : 30 May, 2026

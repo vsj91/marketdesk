@@ -1,0 +1,74 @@
+                                                                                                                                          Corporate Overview         Statutory Reports
+
+
+NOTES TO CONSOLIDATED FINANCIAL STATEMENTS        NOTES TO CONSOLIDATED FINANCIAL STATEMENTS
+FOR THE YEAR ENDED MARCH 31, 2026                                                     FOR THE YEAR ENDED MARCH 31, 2026
+
+(Currency : Indian Rupees in lakhs)                                                                                          (Currency : Indian Rupees in lakhs)
+
+(B) Future lease cashflow for all leased assets                                                                  As at March 31, 2025
+
+     Particulars                                                    As at            As at                        Particulars                                 Outstanding for following periods
+                                                           March 31, 2026     March 31, 2025                                                               from due date of payment
+    Not later than one year                                                    1,203.36              1,120.02                                                                                                                         Total                                                                                                                                                           Less than                          More than
+                                                                                                                                                                                                   1-2 Years    2-3 Years
+     Later than one year but not later than five years                           2,753.54                  3,317.11                                                                                 1 Year                             3 Years
+     Later than five years                                                       152.99            202.07                                (i) MSME                                  6.23                 -                 -                 -          6.23
+                                                                         4,109.89          4,639.20                                  (ii) Others                                       1.82                 -                 -                 -            1.82
+                                                                                                                                                                                                         (iii) Disputed dues - MSME                            -                 -                 -                 -                 -
+(C) Maturity analysis of lease liability
+                                                                                                                                                           (iv) Disputed dues - Others                           -                 -                 -                 -                 -
+     Particulars                                                    As at            As at
+                                                           March 31, 2026     March 31, 2025                NOTE 39 GRATUITY AND OTHER POST-EMPLOYMENT BENEFIT PLANS:
+    Lease liability
+                                                                                                            The Group has an funded defined benefit gratuity plan. Every employee who has completed five years or more
+     Less than 12 months                                                 902.92             780.76
+                                                                                                                                   of service is eligible for a gratuity on separation at 15 days basic salary (last drawn salary) for each completed    More than 12 months                                                   2,529.43           2,944.89
+                                                                                                                            year of service.                                                                         3,432.35           3,725.65
+
+                                                                                                            Based on Ind AS 19 ‘Employee Benefits’ notified under Section 133 of the Companies Act 2013, read together with
+NOTE 38 DUES TO MICRO, SMALL AND MEDIUM ENTERPRISES AS PER MSMED ACT, 2006                                                                                                                     paragraph 7 of the Companies (Accounts) Rules, 2014 and the Companies (Accounting Standards) Amendment
+The following disclosure is made as per the requirement under The Micro Small and Medium Enterprise                       Rules, 2016, the following disclosures have been made as required by the standard:
+Development Act, 2006 (the ‘MSMED Act’) on the basis of confirmations sought from suppliers on registration
+with the specified authorities under MSMED :                                                                                  A.  Amount recognised in the balance sheet
+
+                                                                                                                                            Particulars                                                    As at            As at Particulars                                                       As at            As at
+                                                                                                                                                                       March 31, 2026     March 31, 2025                                                           March 31, 2026     March 31, 2025
+ a.   Principal amount remaining unpaid                                               5.01                6.23                          Present value of the obligation as at the end of the year                    1,349.49            603.94
+ b.   Interest due thereon remaining unpaid                                                      -                        -                              Fair value of plan assets as at the end of the year                            5.34                  5.01
+ c.   Interest paid by the Company in terms of Section 16 of the                        -                        -                       Net asset / (liability) to be recognised in the balance sheet               1,344.15            598.93
+     Micro, Small and Medium Enterprises Development Act, 2006,
+     along with the amount of the payment made to the supplier                                                                B.  Change in projected benefit obligation
+    beyond the appointed day
+                                                                                                                                            Particulars                                                    As at            As at
+ d.   Interest due and payable for the period of delay in making                        -                        -
+                                                                                                                                                                       March 31, 2026     March 31, 2025
+    payment (which have been paid but beyond the appointed day
+                                                                                                                                  Projected benefit of obligation at the beginning of the year               603.94             462.75     during the period) but without adding interest specified under
+     the Micro, Small and Medium Enterprises Act,2006)                                                                                   Less: Obligation associated with group(s) classified as held for                         -              (72.85)
+ e.   Interest accrued and remaining unpaid                                                      -                        -                             sale
+ f.   Interest remaining due and payable even in the succeeding                        -                        -                                                                                      603.94           389.90
+     years, until such date when the interest dues as above are                                                                 Current service cost                                                  244.35                138.81
+     actually paid to the small enterprises                                                                                                                                 Past service cost                                                 480.40                        -
+The aforementioned is based on the responses received by the Group to its inquiries with suppliers with regard                              Interest cost                                                           35.96              24.47
+to applicability under the said Act. This has been relied upon by the auditors.                                                            Benefits paid                                                              (65.37)             (60.72)
+No interest has been paid/is payable by the Group during the year to the suppliers registered under this Act.                              Actuarial (gain) / loss on obligation                                           50.21                  111.48
+                                                                                                                             Projected benefit obligation at the end of the year                     1,349.49           603.94
+Ageing analysis of Trade Payable
+                                                                                                                                 C.  Change in plan assets
+As at March 31, 2026
+                                                                                                                                            Particulars                                                    As at            As at
+ Particulars                                 Outstanding for following periods                                                                                                   March 31, 2026     March 31, 2025
+                                            from due date of payment
+                                                                                                   Total                              Fair value of plan assets at the beginning of the year                             5.01               4.68
+                                     Less than                          More than
+                                                          1-2 Years    2-3 Years                                                   Return on plan assets                                                      2.48               0.76
+                                                     1 Year                             3 Years
+                                                                                                                                           Actuarial gain/(loss)                                                                  (2.15)              (0.43) (i) MSME                                      5.01                 -                 -                 -           5.01
+ (ii) Others                                        2.16                 -                 -                 -            2.16                            Benefits paid                                                                                     -                        -
+ (iii) Disputed dues - MSME                            -                 -                 -                 -                 -                             Fair value of plan assets at the end of the year                            5.34                5.01
+ (iv) Disputed dues - Others                           -                 -                 -                 -                 -
+
+
+
+338                                                                                                                                         339

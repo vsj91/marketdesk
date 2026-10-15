@@ -1,0 +1,59 @@
+Notes to Consolidated Financial Statements
+for the year ended March 31, 2026
+
+
+           Financial Liabilities measured at amortised cost               of previous years. It is measured using tax rates enacted or
+                                                                       substantively enacted at the reporting date. Current tax
+          After initial recognition, interest-bearing loans and                                                                     assets and liabilities are offset only if, the Group:
+         borrowings are subsequently measured at amortised
+          cost using the EIR method. Gains and losses are            a) Has a legally enforceable right to set off the recognised
+          recognised in profit or loss when the liabilities are         amounts; and
+         derecognised as well as through the EIR amortisation
+                                                                                  b) Intends either to settle on a net basis, or to realise the          process.
+                                                                    asset and settle the liability simultaneously.
+         Amortised cost is calculated by taking into account
+                                                                   Deferred tax         any discount or premium on acquisition and fees
+          or costs that are an integral part of the EIR. The                                                                   Deferred tax is recognised on differences between the
+          EIR amortisation is included as finance costs in the                                                                       carrying amounts of assets and liabilities in the balance
+         Statement of Profit and Loss.                                                                 sheet and the corresponding tax bases used  in the
+                                                              computation of taxable  profit. Deferred tax  liabilities           Financial liabilities at fair value through profit or loss
+                                                                     are  generally  recognised  for   all  taxable  temporary
+           Financial liabilities at fair value through profit and          differences. Deferred tax assets are generally recognised
+           loss include financial liabilities designated upon initial          for all deductible temporary differences to the extent it
+          recognition as at fair value through profit and loss.                 is probable that taxable profits will be available against
+                                                              which those deductible temporary differences can be
+          Gains or losses on  liabilities held for trading are                                                                                      utilised. Such assets and liabilities are not recognised if
+          recognised in the Statement of Profit and Loss.                                                                 the temporary difference arises from initial recognition
+                                                                     of goodwill or from the initial recognition (other than in a           Financial liabilities designated upon initial recognition
+                                                                   business combination) of other assets and liabilities in a          at fair value through profit and loss are designated
+                                                                      transaction that affects neither the taxable profit nor the         as such  at the  initial date of  recognition, and
+                                                                 accounting profit.          only if the criteria in Ind AS 109 are satisfied. For
+             liabilities designated as FVTPL,  fair value  gains/                                                          The carrying amount of deferred tax assets is reviewed at
+          losses attributable to changes in own credit risk                                                              each balance sheet date and reduced to the extent that it
+          are recognized in OCI. These gains/ loss are not                                                                                              is no longer probable that sufficient taxable profits will be
+         subsequently  transferred  to  the  Statement  of                                                                            available to allow all or part of the asset to be recovered.
+           Profit and Loss. However, the Group may transfer
+         the cumulative gain or loss within equity. All other         Deferred tax assets and liabilities are measured at the tax
+         changes in fair value of such liability are recognised in          rates that are expected to apply in the period in which the
+         the Statement of Profit and Loss.                                      liability is settled or the asset realised, based on tax rates
+                                                                    (and tax laws) that have been enacted or substantively
+          Derecognition of financial liabilities                                                               enacted by the balance sheet date.
+
+        The Group derecognises a financial liability when its                                                                             2.19  Leases
+          contractual obligations are discharged or cancelled,
+          or expired.                                          The Group as lessor
+
+2.18 Income Tax                                                  Leases for which the Group is a lessor are classified as
+                                                                     finance or operating leases. Whenever the terms of the
+    Income tax expense comprises current and deferred tax.                                                                       lease transfer substantially all the risks and rewards of
+       It is recognised in the Statement of Profit and Loss except                                                               ownership to the lessee, the contract is classified as finance
+     to the extent that it relates to items recognised directly in                                                                               lease. All other leases are classified as operating leases.
+     Equity or in Other Comprehensive Income.
+                                                                    Rental income from operating leases is recognised on
+     Current tax                                                              a straight-line basis over the term of the relevant lease.
+                                                                                              Initial direct costs incurred in negotiating and arranging an     Current  tax comprises the expected  tax payable  or
+                                                                   operating lease are added to the carrying amount of the     receivable on the taxable income or loss for the year and
+                                                                    leased asset and recognised on a straight-line basis over    any adjustment to the tax payable or receivable in respect
+
+
+                                                                                        Pioneer Embroideries Limited     169

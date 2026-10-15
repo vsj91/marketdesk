@@ -1,0 +1,62 @@
+                                             Corporate Overview | Statutory Reports | Financial Statements
+
+Notes forming part of the Standalone Financial Statements
+
+
+         Amortised cost is calculated by taking into account any discount or premium on acquisition and fees
+          or costs that are an integral part of the EIR. The EIR amortisation is included as finance costs in the
+         statement of profit and loss.
+
+         For trade and other payables maturing within one year from the Balance Sheet date, the carrying
+        amounts approximate fair value due to the short maturity of these.
+      ii.b.3 Effective interest method
+        The effective interest method is a method of calculating the amortised cost of a debt instrument and
+          of allocating interest income over the relevant year. The effective interest rate is the rate that exactly
+         discounts estimated future cash receipts through the expected life of the debt instrument, or, where
+          appropriate, a shorter year, to the net carrying amount on initial recognition.
+      ii.b.4 Derecognition
+
+       A financial liability is derecognised when the obligation under the liability is discharged or cancelled
+          or expires. When an existing financial liability is replaced by another from the same lender on
+          substantially different terms, or the terms of an existing liability are substantially modified, such an
+        exchange or modification is treated as the derecognition of the original liability and the recognition of
+         a new liability. The difference between the carrying amount of the financial liability derecognised and
+         the consideration paid and payable is recognised in profit or loss.
+        ii.c.  Financial Guarantee Contracts
+          Financial guarantee contracts are those contracts that require a payment to be made to reimburse
+         the holder for a loss it incurs because the specified debtor fails to make a payment when due in
+         accordance with the terms of a debt instrument. Financial guarantee contracts are recognised initially
+         as a liability at fair value, adjusted for transaction costs that are directly attributable to the issuance of
+         the guarantee.
+
+         Subsequently, the liability is measured at the higher of the amount of loss allowance determined as
+         per impairment requirements of Ind AS 109 and the amount recognised less, when appropriate, the
+         cumulative amount of income recognised in accordance with the principles of Ind AS 115.
+       ii.d. Offsetting of financial instruments
+          Financial assets and financial liabilities are offset and the net amount is reported in the Standalone
+         balance sheet if there is a currently enforceable legal right to offset the recognised amounts and there
+             is an intention to settle on a net basis, to realise the assets and settle the liabilities simultaneously.
+         iii.   Derivative financial instruments and Hedge Accounting
+        The Company uses various derivative financial instruments such as interest rate swaps, currency swaps
+        and forwards & options to mitigate the risk of changes in interest rates and exchange rates. Such
+          derivative financial instruments are initially recognised at fair value on the date on which a derivative
+          contract is entered into and are also subsequently measured at fair value. Derivatives are carried as
+          financial assets when the fair value is positive and as financial liabilities when the fair value is negative.
+
+        Any gains or losses arising from changes in the fair value of derivatives are taken directly to Statement
+          of Profit and Loss, except for the effective portion of cash flow hedges which is recognised in Other
+        Comprehensive Income and later to Statement of Profit and Loss when the hedged item affects profit
+          or loss or treated as basis adjustment if a hedged forecast transaction subsequently results in the
+          recognition of a non-financial assets or non-financial liability.
+       iv.  Hedges that meet the criteria for hedge accounting are accounted for as follows
+      iv.a. Cash Flow Hedge
+        The Company designates derivative contracts or non-derivative financial assets / liabilities as hedging
+         instruments to mitigate the risk of movement in interest rates and foreign exchange rates for foreign
+        exchange exposure on highly probable future cash flows attributable to a recognised asset or liability
+          or forecast cash transactions. When a derivative is designated as a cash flow hedging instrument, the
+           effective portion of changes in the fair value of the derivative is recognized in the cash flow hedging
+          reserve being part of other comprehensive income. Any ineffective portion of changes in the fair
+         value of the derivative is recognised immediately in the Statement of Profit and Loss. If the hedging
+
+
+                                                               Integrated Annual Report FY 2025-26 | 201

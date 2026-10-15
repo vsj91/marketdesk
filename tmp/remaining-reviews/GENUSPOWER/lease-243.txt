@@ -1,0 +1,61 @@
+Notes
+to the consolidated financial statements for the year ended March 31, 2026
+(All amounts are in Indian Rupees in Crores except share data and unless otherwise stated)
+
+     Subsequent expenditure related to an item of   h.    Intangible Assets
+      property, plant and equipment is added to its
+     book value only if it increases the future benefits         Costs relating to computer software, which is
+     from the existing asset beyond its previously         acquired, are capitalised and amortised on a
+      assessed standard of performance or extends          straight-line basis over their estimated useful
+        its estimated useful life.                                       lives of three years.
+
+    When parts of an item of property, plant and                                                          Gains or losses arising from de-recognition of an
+     equipment have  different  useful  lives,  they                                                                intangible asset are measured as the difference
+      are accounted  for as separate items (major                                                    between the net disposal proceeds and the
+     components) of property, plant and equipment.                                                              carrying amount of the asset and are recognised
+      Gains and losses upon disposal of an item of           in the statement of profit and loss when the
+      property, plant and equipment are determined         asset is derecognised.
+     by comparing the proceeds from disposal with                                                                                                 i.    Borrowing Costs
+      the carrying amount of property, plant and
+     equipment and are recognized net within “other        Borrowing costs  directly  attributable to the
+      (income)/expense,  net”  in the statement  of          acquisition, construction or production of an
+       profit and loss.                                         asset that necessarily takes a substantial period
+                                                              of time to get ready for its intended use or sale
+      Depreciation is calculated on a straight-line basis                                                             are capitalised as part of the cost of the asset.
+      using the rates arrived at based on the useful                                                                        All other borrowing costs are expensed in the
+       lives estimated by the management, which is                                                           period in which they occur. Borrowing costs
+      equal to the life prescribed under the Schedule                                                                consist of interest and other costs that an entity
+           II to the Companies Act, 2013.                                                                incurs  in connection with the borrowing of
+     The lives of the assets are as follows:                     funds. Borrowing cost also includes exchange
+                                                                differences  to  the  extent  regarded  as  an
+      Assets                               Life of the         adjustment to the borrowing costs.
+                                   assets (in years)
+                                                                                                 j.    Leases       Buildings                      30 – 60
+       Plant and Equipment               6 – 15        The  Group  assesses  at  contract  inception
+       Furniture & Fixtures                       10         whether a contract is, or contains, a lease. That
+       Vehicles                                 10               is, if the contract conveys the right to control the
+       Office Equipment                      5         use of an identified asset for a period of time in
+      Computers                             3-6         exchange for consideration.
+      Windmill                             22        Group as a lessee
+     The management believes that these estimated
+                                                    The Group applies a single recognition and      useful   lives  are   realistic  and  reflect   fair
+                                                   measurement approach for  all leases, except      approximation of the period over which the
+                                                                   for short-term leases and leases of low-value      assets are likely to be used.
+                                                                   assets. The Group recognises lease liabilities to
+    An item  of  property,  plant and equipment                                               make lease payments and right-of-use assets
+     and any  significant  part  initially recognised                                                             representing the right to use the underlying
+        is derecognised upon  disposal or when no                                                                   assets.
+      future economic benefits are expected from
+        its use or disposal. Any gain or loss arising on         Right-of-use assets
+      derecognition of the asset (calculated as the        The Group recognises right-of-use assets at
+      difference between the net disposal proceeds         the commencement date of the lease (i.e., the
+     and the carrying amount of the asset) is included         date the underlying asset is available for use).
+       in the statement of profit and loss when the         Right-of-use assets are measured at cost, less
+      asset is derecognised.                              any accumulated depreciation and impairment
+                                                                     losses, and adjusted for any remeasurement     The residual values, useful lives and methods of
+                                                              of  lease  liabilities. The  cost  of  right-of-use      depreciation of property, plant and equipment
+                                                              assets includes the amount of lease liabilities      are reviewed at each financial period/year end
+                                                             recognised, initial direct costs incurred, and lease     and adjusted prospectively, if appropriate.
+
+
+236    Annual Report 2025-26

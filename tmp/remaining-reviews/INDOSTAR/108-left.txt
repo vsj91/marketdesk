@@ -1,0 +1,63 @@
+NOTES TO STANDALONE FINANCIAL STATEMENTS
+FOR THE YEAR ENDED MARCH 31, 2026
+
+(Currency : Indian Rupees in lakhs)
+
+        the grant date. The fair value of the options                undertaken over the lease term, costs
+            is treated as discount and accounted as                   relating to the termination of lease and
+       employee  compensation  cost  over  the                 the importance of the underlying to
+         vesting period on a straight line basis. The                 the Company’s operations taking into
+       amount recognised as expense in each year                account the location of the underlying
+            is arrived at based on the number of grants                  asset and the availability of the suitable
+        expected to vest. If a grant lapses after the                    alternatives. The lease term in future
+         vesting  period,  the  cumulative  discount                 periods  is reassessed to ensure that
+        recognised as expense in respect of such                 the  lease term  reflects  the  current
+        grant is transferred to the general reserve               economic circumstances.
+         within equity.
+                                                                         2.  Discount Rate
+    k)  Ind AS 116 Leases                                                         The discount rate  is generally based
+       The   determination   of   whether   an              on  the  incremental  borrowing  rate
+        arrangement is a lease, or contains a lease, is                   specific to the lease being evaluated
+       based on the substance of the arrangement                 or for a portfolio of leases with similar
+       and requires an assessment of whether the                    characteristics.
+         fulfilment of the arrangement is dependent
+       on the use of a specific asset or assets or             l)   Foreign currency translation
+        whether the arrangement conveys a right to             Functional and presentational currency
+        use the asset.                                                      The  financial  statements  are  presented
+      Company as a lessee                                         in Indian Rupees which  is also functional
+                                                             currency of the Company and the currency
+        Leases that do not transfer to the Company
+                                                                 of the primary economic environment in
+         substantially  all of the risks and benefits
+                                                        which the Company operates.
+         incidental  to  ownership  of  the  leased
+        items  are  treated  as  operating  leases.             Transactions and balances
+        Operating lease payments are recognised                                                         At   initial  recognition,  foreign  currency
+        as an expense in the statement of profit                                                                  transactions   are   translated   into   the
+       and loss on a straight-line basis over the                                                                   functional currency using the exchange rates
+         lease term, unless the increase  is in line                                                                     prevailing at the dates of the transactions.
+        with expected general  inflation, in which
+                                                               Subsquently, Monetary assets and liabilities        case lease payments are recognised based
+       on  contractual  terms.  Contingent  rental            denominated  in  foreign  currency, which
+        payable is recognised as an expense in the             are outstanding as at the reporting date,
+        period in which they it is incurred.                       are translated at the reporting date at the
+                                                                  closing exchange  rate and the  resultant
+          Critical accounting estimate and judgement
+                                                        exchange differences are recognised in the
+            1.   Determination of lease term                      statement of profit and loss. Non–monetary
+             Ind AS 116 Leases requires lessee to             items that are measured at historical cost
+            determine the lease term as the non-                in a foreign currency are translated using
+             cancellable period of a lease adjusted             the spot exchange rates as at the date of
+            with any option to extend or terminate              recognition.
+            the lease,  if the use of such option
+                                            m)  Provisions                 is reasonably  certain. The Company
+          makes assessment on the expected         A provision is recognised when the Company
+             lease term on  lease by  lease  basis            has a present obligation as a result of past
+           and  thereby  assesses whether  it  is              event; it is probable that outflow of resources
+            reasonably certain that any options to                 will be required to settle the obligation, in
+            extend or terminate the contract will be             respect of which a reliable estimate can be
+             exercised. In evaluating the lease term,           made. Provisions are not discounted to its
+            the Company considers factors such as             present value and are determined based
+           any significant leasehold improvements           on best estimate required to  settle the
+
+208

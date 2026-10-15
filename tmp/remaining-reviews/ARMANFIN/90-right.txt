@@ -1,0 +1,61 @@
+  Corporate Overview      Statutory Reports       Financial Statements                           175
+
+
+           in  its books as Minimum Retention Requirement          Loan commitments: When estimating LTECLs for
+          (“MRR”). Therefore,  it continues to recognise the           undrawn loan commitments, the Group estimates
+          portion retained by it as MRR.                                 the expected portion of the loan commitment that
+                                                                                        will be drawn down over its expected life. The ECL
+ii)   Financial liability                                                                                                      is then based on the present value of the expected                     Statements
+    A financial liability is derecognised when the obligation               shortfalls in cash flows if the loan is drawn down.
+    under the liability  is discharged, cancelled or expires.    Where an existing financial liability is replaced by another   B.   Calculation of ECLs                                                                                                                                     Financial
+    from the same lender on substantially different terms,       The mechanics of ECL calculations are outlined below and
+     or the terms of an existing  liability are substantially        the key elements are, as follows:
+     modified, such an exchange or modification is treated as a
+                                              PD Probability of Default (“PD”) is an estimate of the     derecognition of the original liability and the recognition                                                                        likelihood of default over a given time horizon. A default                          Consolidated     of a new liability. The difference between the carrying value
+                                                  may only happen at a certain time over the assessed     of the original financial liability and the consideration paid                                                                      period, if the facility has not been previously derecognised           Arman       is recognised in the statement of profit and loss.
+                                                        and is still in the portfolio.
+3.6  Impairment of financial assets
+                                               EAD Exposure at Default (“EAD”) is an estimate of the
+A.  Overview of ECL principles
+                                                              exposure at a future default date, taking into account
+     In accordance with Ind AS 109, the Group uses ECL model,       expected changes in the exposure after the reporting
+      for evaluating impairment of financial assets other than         date, including repayments of  principal and  interest
+     those measured at FVTPL. Expected credit losses are      LGD Loss Given Default (“LGD”) is an estimate of the loss
+    measured through a loss allowance at an amount equal to:         arising in the case where a default occurs at a given time.
+                                                                                                     It is based on the difference between the contractual
+         i)    The 12-months expected credit losses (expected
+                                                               cash flows due and those that the lender would expect to
+           credit losses that result from those default events
+                                                                           receive, including from the realisation of any collateral. It
+        on the financial instrument that are possible within
+                                                                                              is usually expressed as a percentage of the EAD.
+         12 months after the reporting date); or Full lifetime
+         expected credit losses (expected credit losses that       The Group has calculated PD, EAD and LGD to determine
+           result from all possible default events over the life of       impairment loss on the portfolio of loans and discounted
+          the financial instrument) Both LTECLs and 12 months         at an approximation to the EIR. At every reporting date,
+         ECLs are calculated on collective basis.                    the above calculated PDs, EAD and LGDs are reviewed and
+                                                           changes in the forward-looking estimates are analysed.
+         Based on the above, the Group categorises its loans
+           into Stage 1, Stage 2 and Stage 3, as described below:       The mechanics of the ECL method are summarised below:
+         Stage 1: When loans are first recognised, the Group       Stage 1: The 12 months ECL is calculated as the portion
+          recognises an allowance based on 12 months ECL.        of LTECLs that represent the ECLs that result from default
+         Stage 1 loans includes those loans where there is        events on a financial instrument that are possible within
+        no significant credit risk observed and also includes        the 12 months  after the reporting date. The Group
+             facilities where the credit risk has been improved         calculates the 12 months ECL allowance based on the
+        and the loan has been reclassified from stage 2 or        expectation of a default occurring in the 12 months
+          stage 3.                                                  following the reporting date. These expected 12-months
+                                                                      default probabilities are applied to a forecast EAD and
+         Stage 2: When a loan has shown a significant
+                                                                     multiplied by the expected LGD and discounted by an
+          increase in credit risk since origination, the Group
+                                                               approximation to the original EIR.
+          records an allowance for the life time ECL. Stage 2
+          loans also includes facilities where the credit risk has       Stage 2: When a loan has shown a significant increase
+         improved and the loan has been reclassified from         in credit risk since origination, the Group records an
+          stage 3.                                               allowance for the LTECLs. The mechanics are similar to
+                                                                those explained above, but PDs and LGDs are estimated
+         Stage 3: Loans considered credit impaired are the
+                                                                over the lifetime of the instrument.
+          loans which are past due for more than 90 days. The
+        Group records an allowance for life time ECL.             The expected cash  shortfalls  are discounted by an
+                                                               approximation to the original EIR.

@@ -1,0 +1,69 @@
+                                                   Corporate Overview          Statutory Reports         Financial Statements 
+
+Notes
+to the consolidated financial statements for the year ended March 31, 2026
+(All amounts are in Indian Rupees in Crores except share data and unless otherwise stated)
+
+
+        Particulars                                                       March 31, 2025
+                                                        Outstanding for following periods from due date of payment
+                                                    < 1 year    1-2 years   2-3 years   > 3 years       Total
+        Total outstanding dues of micro enterprises and small        112.22              -              -              -        112.22
+        enterprises
+        Total outstanding dues of creditors other than micro      458.60          1.93          2.41       4.49     467.43
+        enterprises and small enterprises
+       Disputed dues of micro enterprises and small                         -              -              -              -              -
+        enterprises
+       Disputed dues of creditors other than micro                          -              -              -              -              -
+        enterprises and small enterprises
+                                                          570.82         1.93         2.41       4.49     579.65
+
+23   Contract Liabilities (refer note below)
+
+
+                                                                           March 31, 2026  March 31, 2025
+       Non-Current
+       Contract liability - Invoicing in excess of revenue recorded                               374.90           129.88
+                                                                                      374.90          129.88
+       Current
+      Advance from customers                                                                     34.51            14.45
+       Contract liability - Invoicing in excess of revenue recorded                                60.55             13.82
+                                                                                      95.06          28.27
+
+       Note: - Contract liabilities includes mobilisation advances received from customers to supply and install meters under
+      AMISP model and unearned revenue recorded to recognise revenue in accordance with Ind AS 115. The significant
+        increase in contract liabilities in FY 2025-26 was mainly due to deferred revenue (invoicing in excess of revenue
+        recorded).
+      Breakup of financial liabilities carried at amortised cost
+                                                                           March 31, 2026  March 31, 2025
+       Borrowing (refer note 16A and 16B)                                                     2,299.65         1,364.60
+       Other financial liabilities (refer note 18A and 18B)                                          103.63          99.09
+       Trade payables (refer note 22)                                                        773.48          579.65
+       Lease liability (refer note 17)                                                                   2.72               1.28
+                                                                                               3,179.48       2,044.62
+
+24   Current tax liabilities (net)
+
+
+                                                                           March 31, 2026  March 31, 2025
+        Provision for income tax (net of advance tax)                                            58.99           28.22
+                                                                                        58.99          28.22
+
+25   Revenue from operations
+
+
+                                                                           March 31, 2026  March 31, 2025
+      Revenue from sale of goods                                                                 4,172.02           1,924.15
+      Revenue from rendering of services                                                   458.27          315.60
+      Revenue from service concession arrangement (refer note 58)                                  70.15          160.43
+       Other operating revenue
+       Finance Income from service concession arrangement (refer note 58)                      29.20          28.50
+       Scrap sales                                                                                   7.70            3.20
+      Government incentives                                                                         13.58              10.14
+                                                                                        4,750.92       2,442.02
+
+
+
+
+
+                                                                                               265

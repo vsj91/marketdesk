@@ -1,0 +1,85 @@
+R Systems International Limited
+CIN : L74899DL1993PLC053579                                                                                   Annual Report 2025
+
+Consolidated Balance Sheet as at December 31, 2025
+                                                                                                                             (Rs. in million)
+
+                                                                                 As at               As at
+ Particulars                                                               Notes
+                                                                           December 31, 2025    December 31, 2024
+ Assets
+ A. Non-current assets
+      (a) Property, plant and equipment                                                 3 (a)                        673.67                  436.83
+     (b) Capital work in progress                                                      3 (b)                           1.34                                 -
+      (c) Investment property                                                         3 (c)                         12.99                    14.47
+     (d) Right-of-use assets                                                          3 (d)                        736.56                  495.85
+     (e) Goodwill                                                                   3 (e)                       6,956.74                 2,836.24
+       (f) Other intangible assets                                                       3 (f)                       2,867.35                 1,923.55
+     (g) Intangible assets under development                                            3 (g)                                         -                    40.53
+     (h) Financial assets
+            (i) Investments                                                               4                            0.03                     0.03
+             (ii) Other financial assets                                                       5                           88.94                    58.21
+       (i) Deferred tax assets (net)                                                       28                         608.47                  392.01
+       (j) Non-current tax assets (net)                                                    28                          81.41                    45.59
+      (k) Other non-current assets                                                       6                           40.74                    37.91
+ Total non-current assets (A)                                                                          12,068.24              6,281.22
+ B. Current assets
+      (a) Financial assets
+            (i) Trade receivables                                                           7                        4,106.61                 2,573.09
+             (ii) Cash and cash equivalents                                                   8a                        3,084.49                 1,900.89
+              (iii) Bank balances other than cash and cash equivalents                             8b                          56.64                    36.57
+           (iv) Other financial assets                                                      9                         870.25                  797.66
+     (b) Other current assets                                                          10                         835.62                  502.36
+ Total current assets (B)                                                                                               8,953.61                 5,810.57
+ C. Assets held for sale (C)                                                         36                                   -                 64.00
+ Total assets (A+B+C)                                                                                                 21,021.85                 12,155.79
+ Equity and liabilities
+ A. Equity
+      (a) Equity share capital                                                           11                         118.40                  118.31
+     (b) Other equity                                                                12                        7,797.83                 6,122.19
+    Total equity attributable to equity shareholders of the Company                                                         7,916.23                6,240.50
+    Non controlling interests                                                              35,38                      4,330.88                 2,407.00
+ Total equity (A)                                                                                                             12,247.11                8,647.50
+ Liabilities
+ B. Non-current liabilities
+      (a) Financial liabilities
+            (i) Borrowings                                                               13                        2,691.75                    13.01
+             (ii) Lease liabilities                                                           14                         788.60                  561.28
+              (iii) Other financial liabilities                                                    15                          15.28                    12.18
+     (b) Provisions                                                                  16                         576.39                  327.63
+      (c) Deferred tax liabilities (net)                                                    28                            0.17                                 -
+ Total non-current liabilities (B)                                                                                         4,072.19                    914.10
+ C. Current liabilities
+      (a) Financial liabilities
+            (i) Borrowings                                                               17                         454.39                    64.32
+             (ii) Lease liabilities                                                           14                         163.09                    90.21
+              (iii) Trade payables                                                           18
+                - total outstanding dues of micro enterprises and small enterprises                                                12.94                     3.30
+                - total outstanding dues of creditors other than micro enterprises and small                                      1,128.28                  402.93
+              enterprises
+           (iv) Other financial liabilities                                                    19                        1,366.22                  908.42
+     (b) Other current liabilities                                                        20                         848.58                  556.99
+      (c) Provisions                                                                  21                         556.99                  383.21
+     (d) Current tax liabilities (net)                                                     28                         172.06                  184.81
+ Total current liabilities (C)                                                                                        4,702.55                 2,594.19
+ Total liabilities (B+C)                                                                                                8,774.74                3,508.29
+ Total equity and liabilities (A+B+C)                                                                                     21,021.85                 12,155.79
+Notes forming integral part of the consolidated ﬁnancial statements           1-43
+In terms of our report attached
+For Deloitte Haskins & Sells LLP    For and on behalf of the Board of Directors of
+Chartered Accountants            R Systems International Limited
+(Firm’s Registration No. 117366W/W-100018)
+
+Alka Chadha                         Nitesh Bansal                    Ruchica Gupta
+Partner                                    Managing Director & Chief Executive Oﬃcer  Chairperson & Non-Executive Independent Director
+(Membership No. 93474)                                                DIN: 10170738                              DIN: 06912329
+Place : Mumbai                                 Place : Philadelphia, USA                    Place : New Delhi
+Date  : February 10, 2026                      Date  : February 10, 2026                  Date  : February 10, 2026
+
+                             Nand Sardana                   Bhasker Dubey
+                                                 Chief Financial Oﬃcer                  Company Secretary & Compliance Oﬃcer
+                                               Place : Greater Noida                       Place : Greater Noida
+                                           Date  : February 10, 2026                  Date  : February 10, 2026
+
+
+    223

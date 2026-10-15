@@ -1,0 +1,79 @@
+                                                                                                                                          Corporate Overview         Statutory Reports
+
+
+NOTES TO STANDALONE FINANCIAL STATEMENTS         NOTES TO STANDALONE FINANCIAL STATEMENTS
+FOR THE YEAR ENDED MARCH 31, 2026                                                     FOR THE YEAR ENDED MARCH 31, 2026
+
+(Currency : Indian Rupees in lakhs)                                                                                          (Currency : Indian Rupees in lakhs)
+
+2.5 Securities premium account                       IND AS  1, Presentation of Financial Statements               NOTE 3 (A) CASH AND CASH EQUIVALENTS
+    a)  Securities premium includes:                        applicable w.e.f April 01, 2026 : In case of breach                        Particulars                                                       As at            As at
+                                                             of covenant, a  liability  will be  classified as                                                                                                                                                                       March 31, 2026     March 31, 2025
+           -   The difference between the face value of                                                            current even if the lender agreed, not to demand                                                                                                             Cash on hand                                                       406.44            533.99            the equity shares and the consideration                                                 payment as a consequence of the breach after
+             received in respect of shares issued;                                                                            Balances with banks                                                         the reporting period but before approval of
+                                                                                                                                                                   - in current accounts                                                             2,786.71             1,656.32
+           -   The  fair value of the stock options          financial statements.
+                                                                                                                          Deposits with original maturity of less than three months                                     -             7,002.15
+           which are treated as expense, if any, in                                                           Ind AS 21 - The Effects of Changes in Foreign                                                                                                                                                                                                                       3,193.15           9,192.46
+            respect of shares allotted pursuant to                                                   Exchange Rates, applicable w.e.f. April 01, 2025.
+            Stock Options Scheme.
+                                                  The Company has reviewed the amendment               NOTE 3 (B) BANK BALANCES OTHER THAN CASH AND CASH EQUIVALENTS
+    b)  The  issue expenses  of  securities which        and based on its evaluation has determined that
+                                                                                                                                       Particulars                                                       As at            As at
+         qualify as equity instruments are written              it does not have any significant impact in its
+                                                                                                                                                                       March 31, 2026     March 31, 2025
+          off  against  securities premium account/          financial statements.
+                                                                                                                          Deposits with original maturity of more than three months                        187.66            997.00
+         retained earning in accordance with Ind AS.                                                           Ind AS  7, Statement of Cash Flows and Ind                                                                                                               Earmarked deposits with banks
+                                            AS  107,  Financial  Instruments:  Disclosures,2.6 Recent accounting pronouncements                                                                                                                      - Current accounts (unclaimed dvividend & others)                               1.07                        -
+                                                            applicable w.e.f. April 01, 2025 – the amendment
+     Ministry of Corporate Affairs (“MCA”) notifies                                                                                                        - Fixed accounts                                                            27,149.75           31,563.54
+                                                                      in Ind AS 7 requires to inform users of financial
+   new standards or amendments to the existing                                                                                                                                              27,338.48         32,560.54
+                                                        statements  of  the  existence  of  supplier
+    standards under Companies (Indian Accounting
+                                                            finance arrangements and explain the nature
+    Standards) Rules as issued from time to time.                                                        NOTE 4 DERIVATIVE FINANCIAL INSTRUMENTS
+                                                             of the arrangements, the carrying amount of
+    IND AS  1, Presentation of Financial Statements           liabilitiesand the range of payment due dates.                                                          As at March 31, 2026        As at March 31, 2025
+    applicable w.e.f April 01, 2025 : The amendment         Ind AS 107 has been amended to add supplier                                                                      Notional    Fair value -      Notional    Fair value -
+     relates to classification of liabilities as current         finance arrangementsas a factor that may cause                                                             amounts        Assets      amounts        Assets
+    or noncurrent and non-current  liabilities with         concentration of  liquidity  risk. The Company                      Part I
+    covenants.  In  the  context  of  classifying  a        has reviewed the amendment andbased on its                    Currency derivatives
+      liability as current, it removes the requirement         evaluation has determined that it does not have                             - Spot and forwards                            25,350.00         1,194.74                  -                  -
+    of existence of a right to defer settlement for        any impact in its financial statements.                                Total (I)                                    25,350.00       1,194.74                  -                  -
+     at least 12 months after the reporting date and
+                                                           Ind AS  12,  International Tax Reform –  Pillar                      Part II
+    instead requires that the said right should exist
+                                             Two Model Rules applicable immediately - The                     Included in above (Part I) are derivatives
+   on the  reporting date and have  substance.
+                                                amendments provide a temporary mandatory                     held for hedging and risk management
+    The amendment also introduces guidance on                                                                     purposes as follows:                                                                           relief from deferred tax accounting  for top-
+     classification of  liabilities with covenants. The
+                                                up tax and disclose that they have applied                   Cash flow hedging
+   Company has no impact of these amendments
+                                                         the relief. This relief is immediate and applies                     Currency derivatives                           25,350.00         1,194.74                  -                  -
+     in its classification criteria of current and non-
+                                                               retrospectively (refer note 30).                                       Total (II)                                    25,350.00       1,194.74                  -                  -
+    current liabilities.
+
+                                                                                         NOTE 5 LOANS
+
+                                                                                                                                       Particulars                                                       As at            As at
+                                                                                                                                                                       March 31, 2026     March 31, 2025
+
+                                                                                                              At amortised cost
+
+                                                                                                                         Business Loans
+                                                                                                                       Corporate lending                                                         10,742.00            15,637.42
+                                                                                                                           Small and medium enterprises lending (SME)                                        18,215.17          23,208.08
+                                                                                                                Commercial vehicle lending                                                    7,38,397.10         7,02,362.88
+                                                                                                                          Micro LAP                                                                     17,655.88               5,188.31
+                                                                                                                               Total - Gross                                                             7,85,010.15        7,46,396.69
+                                                                                                                                        Less: Impairment allowance                                                  (41,563.38)         (24,744.84)
+                                                                                                                               Total - Net                                                           7,43,446.77          7,21,651.85
+
+
+
+
+212                                                                                                                                                             213

@@ -1,0 +1,57 @@
+ Corporate Overview        Statutory Reports          Financial Statements                   213
+
+Notes
+forming part of the Audited Consolidated Financial Statements for the year ended March 31, 2026
+                                                                              (Amounts in ₹ Lakhs, unless otherwise stated)
+
+         The gross Container Lease Charges amounted to ₹349.30 lakhs as at March 31, 2026, out of which ₹22.85 lakhs was
+         amortised during Q4 FY 2025-26. Consequently, the unamortised Container Lease Charges outstanding as at March 31,
+        2026 amount to ₹326.45 lakhs. Since the arrangements qualify for the short-term lease exemption under paragraph 6 of
+          Ind AS 116, no implicit interest has been considered.
+         Critical judgements in determining the lease term
+         In determining the lease term, management considers all facts and circumstances that create an
+       economic incentive to exercise an extension option, or not to exercise a termination option. Extension
+        options (or periods after termination options) are only included in the lease term if the lease is reasonably
+         certain to be extended (or not terminated).
+           (a)   If there are significant penalties to terminate (or not extend), the Company is typically reasonably
+             certain to extend and not terminate.
+          (b)   If any lease hold improvements are expected to have a significant remaining value the Company is
+               typically reasonably certain to extend (or not terminate).
+           (c)  Otherwise, the Company considers other factors including historical lease durations and the costs
+          and business disruption required to replace the leased asset.
+        Extension and termination options are included in a number of property leases. These are used to
+       maximise operational flexibility in terms of managing the assets used in the Company’s operations.The
+         majority of extension and termination options held are exercisable only by the Company and not with
+        the respective lessor.
+
+       Extension and termination options
+        Extension and termination options are included in a number of property leases. These are used to
+       maximise operational flexibility in terms of managing the assets used in the Company’s operations.The
+         majority of extension and termination options held are exercisable only by the Company and not with
+        the respective lessor.
+
+44 Capital management
+    The Company’s capital management strategy is to effectively determine, raise and deploy capital so as to
+    create value for its shareholders. The same is done through a mix of either equity and/or convertible and/or
+    combination of short term/long term debt as may be appropriate.
+    The company determines the amount of capital required on the basis of operations, capital expenditure and
+     strategic investment plans.
+
+     Net debt to equity ratio:                                                                    March 31, 2026
+    Debt                                                                                         4,970.86
+      Less: Cash and bank balances                                                                 950.84
+     Net debt *                                                                                  4,020.02
+      Total equity                                                                                28,093.86
+     Net debt to equity ratio (%)                                                                 14.31%
+       * In cash and bank balances as at March 31, 2026, IPO-related bank balances and fixed deposits in which IPO proceeds have
+    been temporarily invested pending utilisation are not included, as the same are earmarked for utilisation towards the objects of
+     the IPO.
+
+45 Operating Segments
+    There is no separate reportable segment as per Ind AS 108 on ‘Operating Segments’ in respect of the
+    Company. The Company operates only in freight Forwarding activities and accordingly has only a single
+    operating segment. During the year ended March 31, 2026, the Company commenced vessel chartering
+    operations as a separate business vertical. However, the revenue and results from such vertical are not
+    material for separate disclosure (i.e. less than 10%) and accordingly no separate reportable segment has
+   been identified.The Company is domiciled in India and its operations are carried out majorly within India
+   and hence there is no external revenue or assets is being disclosed.

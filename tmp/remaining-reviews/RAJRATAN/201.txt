@@ -1,0 +1,55 @@
+                                             Corporate Overview | Statutory Reports | Financial Statements
+
+Notes forming part of the Standalone Financial Statements
+
+45. Capital Management (Contd.)
+45.2 The gearing ratio at end of the reporting period was as follows:                         (INR in Lakhs)
+      Particulars                                                      As at           As at
+                                                         March 31, 2026  March 31, 2025
+     Non-Current Borrowings                                           12,846         11,180
+     Current maturities of Long Term debts                                  3,924           3,842
+     Current borrowings                                               10,830           3,445
+     Gross Debt                                                      27,600         18,467
+     Cash and Cash Equivalents                                      525           21
+     Net Debt (A)                                                     27,075         18,447
+      Total Equity (As per Balance Sheet) (B)                                42,355         38,809
+     Net Gearing (A/B)                                                      0.64            0.48
+
+46. Fair Value measurement hierarchy/ Categories of Financial Instrument:
+46.1                                                                                                               (INR in Lakhs)
+      Particulars                                                      As at           As at
+                                                         March 31, 2026  March 31, 2025
+      Financial Assets
+     At Amortized cost
+     Investments                                                       5,090           5,090
+     Loans                                                                                                       -                        -
+     Trade Receivables                                                18,799         12,653
+     Cash and cash equivalents                                       525           21
+    Bank balances other than Cash and cash equivalents above                1,448           1,264
+     Other Financial Assets (Non-current and Current)                       627          680
+     At Fair value through profit and loss
+     Investments                                                                                              -                        -
+     At Fair value through other comprehensive income
+     Investments                                                 144                        -
+      Financial Liabilities
+     At Amortized cost
+     Borrowings (Non Current)                                          12,846         11,180
+     Borrowing (Current)                                              14,754           7,287
+     Trade Payables                                                     8,114           8,760
+     Other Financial Liabilities (Non-current and Current)                      1,066          506
+
+
+        (i)   Fair value hierarchy                                                                                 (INR in Lakhs)
+           Particulars                                           As at 31st March, 2026
+                                                                   Level 1       Level 2       Level 3
+          Financial assets and liabilities measured at fair value
+        on a recurring basis at the end of each reporting
+         period
+          Financial Assets
+         Investment (Quoted)                                                              -                   -                   -
+         Investment (Unquoted)                                                           -        144
+          Derivatives not designated as hedges                                         -                   -                   -
+          Derivatives designated as hedges                                              -                   -                   -
+          Total                                                                                  -        144                   -
+
+                                                               Integrated Annual Report FY 2025-26 | 237

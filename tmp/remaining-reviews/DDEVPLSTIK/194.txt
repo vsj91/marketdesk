@@ -1,0 +1,69 @@
+                                                                                                 for the year ended 31st March, 2026Notes to the financial statements
+
+
+           terms of an existing liability are substantially          Indian Rupee  (`) which  is also Company's functional
+            modified, such an exchange or modification          currency.
+               is treated as the derecognition of the original
+                                                                 Foreign currency transactions are recorded on initial
+                 liability and the recognition of a new liability. The
+                                                                    recognition  in  the  functional  currency,  using  the
+             difference in the respective carrying amounts is
+                                                           exchange rates prevailing on the date of transaction.
+            recognised in the statement of profit and loss.
+                                                                 At each balance sheet date, foreign currency monetary
+             Offsetting of financial instruments                     items are reported using the closing exchange rate.
+                                                          Exchange rate differences that arise on settlement of             Financial assets and  financial  liabilities are
+                                                           monetary items or on translating of monetary items at             offset and the net amount is reported in the
+                                                           each balance sheet reporting date at the closing rate are            balance sheet if there is a currently enforceable
+                                                                recognised as income or expense in the period in which              legal right to offset the recognised amounts and
+                                                                  they arise except exchange difference on monetary items            there is an intention to settle on a net basis,
+                                                                      that qualify as a hedging instrument in a cash flow hedge             to realize the assets and settle the liabilities
+                                                                  are recognised initially in OCI to the extent the hedge is             simultaneously.
+                                                                           effective.
+             Derivative  financial  instruments and hedge
+                                                           Non-monetary items which are carried at historical cost            accounting
+                                                           denominated in a foreign currency are reported using the
+          The Company enters into derivative contracts         exchange rates prevailing at the date of the transaction.
+           such as  forward  currency  contract,  option        Non-monetary items measured at fair value in a foreign
+            contract and cross currency and interest rate         currency are reported using the exchange rates prevailing
+           swaps to hedge foreign currency  risks and          at the date when fair value is determined.
+             interest rate  risks. Such derivative financial
+                                                 When a gain or loss on non-monetary items is recognised            instruments are initially recognised at fair value
+                                                                             in OCI any exchange component of that gain / loss shall be           on the date on which a derivative contract is
+                                                                recognised in OCI, conversely when a gain or loss on a non-            entered into and are subsequently re-measured
+                                                           monetary item is recognised in Profit / loss any exchange             at fair value. Derivatives are carried as financial
+                                                        component of that gain/loss shall be recognised in Profit            assets when the  fair value  is  positive and
+                                                                                / Loss.            as financial  liabilities when the fair value is
+             negative.                                                   3.11 Fair Value Measurement:
+           Any gains or losses arising from changes in the        The Company measures financial instruments, such as,
+                fair value of derivatives are taken directly to          derivatives at fair value at each balance sheet date.
+              profit or loss, except for the effective portion of
+                                                                         Fair value is the price that would be received to sell an
+           cash flow hedges, which is recognised in other
+                                                                  asset or paid to transfer a liability in an orderly transaction
+           comprehensive income and later reclassified
+                                                          between market participants at the measurement date.
+             to statement of profit and loss when the hedge
+                                                        The fair value measurement is based on the presumption
+            item affects profit or loss.
+                                                                      that the transaction to sell the asset or transfer the
+3.9 Cash and cash equivalents                                                  liability takes place either:
+    Cash and cash equivalent in the balance sheet comprises             (a)   In the principal market for the asset or liability, or
+    cash in hand, cash at banks and short-term deposits with
+                                                                                          (b)  In the absence of a principal market, in the most
+    an original maturity of three months or less, which are
+                                                                 advantageous market for the asset or liability
+    subject to an insignificant risk of changes in value.
+                                                        The principal or the most advantageous market must be
+    For the purpose of the statement of cash flows, cash
+                                                                   accessible by the Company.
+    and cash equivalents consist of cash in hand, cash
+    at banks and short-term deposits, as defined above,        The fair value of an asset or a liability is measured using
+    net of outstanding bank overdrafts, if any, as they are         the assumptions that market participants would use
+    considered an integral part of the cash management.          when pricing the asset or liability, assuming that market
+                                                                      participants act in their economic best interest.
+3.10' Foreign currency Transactions
+                                                    A fair value measurement of a non-financial asset takes
+   The Company's financial statements are presented in
+                                                                         into account a market participant’s ability to generate
+208    Annual Report 2025-26

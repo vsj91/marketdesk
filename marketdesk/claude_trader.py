@@ -1,8 +1,9 @@
 from .working_universe import symbol_filter
 """Original Claude V2, opt-in for the local paper Trader. No broker order APIs.
 
-Daily signals use completed candles only; observed opening depth replaces the
-research daily-open proxy. Missed openings expire, never backdated or chased.
+Indicators use completed candles only. The optional live-breakout entry uses
+fresh prices above the latest 20 completed highs; default entries use a completed
+close breakout. Observed depth provides fills, never retrospective prices.
 """
 import collections
 import math
@@ -24,7 +25,7 @@ RULE = dict(name='Original Claude V2 · paper Trader', strategy=STRATEGY,
     max_positions=5, position_pct=10, max_buys_per_day=3, daily_loss_pct=None,
     entry='Completed close above prior 20-session high; prior 50-day average above prior 200-day; non-overlapping prior 10/30 volume ≥ 1.2; Nifty 500 close above 200-day average. Rank by 63-session return. Next session only, first available fresh depth 09:15–09:20 IST; missed openings expire.',
     exit='Initial stop 2 × Wilder ATR(14) below fill; highest completed close minus 3 × ATR trailing stop, ratchet only from the following session; completed close below prior 50-day average exits next session. No fixed profit target.',
-    risk='0.5% of current equity at risk including estimated round-trip fees and 0.25% per-side slippage reserve; 3% portfolio heat cap. Existing holdings retain at least their previous protective stop during migration. No daily 2% circuit in original Claude.',
+    risk='0.5% of current equity at risk including estimated round-trip fees and 0.25% per-side slippage reserve; 3% portfolio risk cap including buy/sell fees and the same slippage reserve for existing holdings and proposed buys. Existing holdings retain at least their previous protective stop during migration. No daily 2% circuit in original Claude.',
     execution='Local depth-limited simulation only. Actual opening quotes, never a retrospective opening-price fill.')
 
 
@@ -68,6 +69,7 @@ def features(rows):
                 dma50=sum(r['close'] for r in rows[n-50:n])/50,
                 dma200=sum(r['close'] for r in prev)/200,
                 high20=max(r['high'] for r in rows[n-20:n]),
+                live_high20=max(r['high'] for r in rows[n-19:n+1]),
                 volume_ratio=(sum(r['volume'] for r in rows[n-10:n])/10)/volume if volume else 0,
                 turnover20=sum(r['close']*r['volume'] for r in rows[n-20:n])/20,
                 rank=c/rows[n-63]['close']-1,
@@ -103,17 +105,27 @@ def active_rule(config):
         rule['execution']='Local depth-limited simulation only. Fresh observed quotes throughout the normal session; never retrospective fills.'
     if config.get('allow_stale_held_valuation') is True:
         rule['risk']+=' Existing Trader holdings may use their last valid current-session quote for portfolio valuation when stale. New orders and exits still require fresh prices and depth. Missing, future-dated or prior-session quotes block new buys.'
+    if config.get('live_breakout') is True:
+        rule['live_breakout']=True
+        rule['name']=rule['name'].replace(' · paper Trader',' · live breakout · paper Trader')
+        rule['entry']=rule['entry'].replace('Completed close above prior 20-session high;',
+            'Fresh live price above the highest high of the latest 20 completed sessions, including yesterday; live price and actual fill must both remain above that level;')
+        rule['entry']=rule['entry'].replace('Next session only,','During the next session,')
+        rule['entry']+=' Trend, volume, ATR and ranking still use completed-session inputs. Existing holdings keep their stops and exit rules.'
     return rule
 
 
-def eligible(signal, price, clock, benchmark, *, use_market_filter=True):
+def eligible(signal, price, clock, benchmark, *, use_market_filter=True, live_breakout=False):
     if not signal or not benchmark or (use_market_filter and not benchmark['allowed']):
         return False
     age=(clock.astimezone(IST).date()-datetime.fromisoformat(signal['as_of']).date()).days
+    level=signal.get('live_high20') if live_breakout else signal['high20']
+    breakout=(level is not None and math.isfinite(level) and level>0 and
+              (price if live_breakout else signal['close'])>level)
     return (1 <= age <= 7 and signal['as_of'] == benchmark['as_of'] and
         signal['quality'] and signal['close'] >= 20 and price >= 20 and
         signal['turnover20'] >= 10_000_000 and abs(price/signal['close']-1) <= .15 and
-        signal['close'] > signal['high20'] and signal['dma50'] > signal['dma200'] and
+        breakout and signal['dma50'] > signal['dma200'] and
         signal['volume_ratio'] >= 1.2 and 0 < 2*signal['atr'] < price)
 
 
@@ -140,6 +152,18 @@ def portfolio_valuation(db, account, clock):
     return value,stale_marks
 
 
+def holding_stop_risk(position,state):
+    """Remaining cost already includes allocated buy fees, including legacy buys.
+
+    Never count those fees twice or offset another holding's risk with profit.
+    Use the same 0.25%-per-side reserve on the recorded entry value.
+    """
+    stop_value=position['quantity']*state['stop']
+    exit_fee=charges(stop_value,'SELL',True)['total']
+    net_loss=max(0,position['cost']-stop_value+exit_fee)
+    return net_loss+position['quantity']*state['entry']*.005
+
+
 def limits(db, account, clock):
     eq,_=portfolio_valuation(db,account,clock)
     if eq is None:raise ValueError(stale_message(db,'trader',clock))
@@ -148,7 +172,7 @@ def limits(db, account, clock):
     for p in db.execute("SELECT * FROM positions WHERE portfolio='trader' AND quantity>0"):
         s=db.execute('SELECT * FROM claude_positions WHERE symbol=?',(p['symbol'],)).fetchone()
         if not s: raise ValueError('Existing Trader holding awaits valid ATR history; new buys wait.')
-        heat += max(0,s['entry']-s['stop'])*p['quantity']
+        heat += holding_stop_risk(p,s)
     return eq,heat,min(account['cash'],account['initial_cash']*.1)
 
 
@@ -157,7 +181,7 @@ def fits(q, price, atr, eq, heat, budget, mark, fee=None):
     buy=charges(round(q*price,2),'BUY')['total'] if fee is None else fee
     risk=q*2*atr+buy+charges(q*(price-2*atr),'SELL',True)['total']+q*price*.005
     after=eq-buy+q*(mark-price)
-    return q*price+buy <= budget and risk <= .005*eq and heat+q*2*atr <= .03*after
+    return q*price+buy <= budget and risk <= .005*eq and heat+risk <= .03*after
 
 
 def quantity(price, atr, eq, heat, budget):
@@ -281,7 +305,12 @@ class ClaudeTrader:
                 return reason
             if not entry_window_open(execution,cfg,opening=True):raise ValueError('Claude entries only use '+entry_window_label(cfg,opening=True)+'.')
             require_buy_universe(db,'trader',order['symbol'],execution)
-            if local_day(execution)!=local_day(clock) or not eligible(signal,price,execution,self.benchmark,use_market_filter=market_filter_enabled(cfg)):raise ValueError('Completed signal, market filter or fill gap check failed.')
+            live=cfg.get('live_breakout') is True
+            if local_day(execution)!=local_day(clock) or not eligible(signal,price,execution,self.benchmark,use_market_filter=market_filter_enabled(cfg),live_breakout=live):raise ValueError('Completed signal, market filter or fill gap check failed.')
+            if live:
+                latest=db.execute('SELECT * FROM quotes WHERE symbol=?',(order['symbol'],)).fetchone()
+                if not fresh(latest,execution) or not eligible(signal,latest['price'],execution,self.benchmark,use_market_filter=market_filter_enabled(cfg),live_breakout=True):
+                    raise ValueError('Live breakout no longer confirmed by a fresh trade price; buy waits.')
             start=day_start(execution)
             if held or db.execute("SELECT 1 FROM trades WHERE portfolio='trader' AND symbol=? AND created_at>=?",(order['symbol'],start)).fetchone():raise ValueError('No averaging or same-session re-entry.')
             max_positions,max_buys=position_limits(cfg)
@@ -294,7 +323,8 @@ class ClaudeTrader:
             label='Original Claude V2' if market_filter_enabled(cfg) else 'Claude V2 (Nifty 500 filter off)'
             _,stale_marks=portfolio_valuation(db,account,execution)
             valuation_note='; stale holding valuation: '+', '.join(f"{m['symbol']} at {m['price']}" for m in stale_marks) if stale_marks else ''
-            return label+' completed breakout; signal '+signal['as_of']+'; 2 ATR stop; 0.5% risk; paper only'+('; full-session buying' if cfg.get('full_session_buying') is True else '')+valuation_note
+            trigger=(f" live breakout above {signal['live_high20']:.4f}; completed inputs " if live else ' completed breakout; signal ')
+            return label+trigger+signal['as_of']+'; 2 ATR stop; 0.5% risk; paper only'+('; full-session buying' if cfg.get('full_session_buying') is True else '')+valuation_note
         return check
 
     def execute(self,symbol,side,qty,signal,clock,realtime):
@@ -322,10 +352,11 @@ class ClaudeTrader:
             quotes={r['symbol']:dict(r) for r in db.execute('SELECT * FROM quotes')}
             exits=[p for p in held if fresh(quotes.get(p['symbol']),clock) and self.exit_reason(db,p['symbol'],quotes[p['symbol']]['price'])]
         fills=sum(self.execute(p['symbol'],'SELL',p['quantity'],None,clock,realtime) for p in exits)
-        def status(message,state='monitoring',**extra):return dict(state=state,message=message,fills_this_scan=fills,strategy=STRATEGY,nifty500_filter_enabled=use_market_filter,**extra)
+        def status(message,state='monitoring',**extra):return dict(state=state,message=message,fills_this_scan=fills,strategy=STRATEGY,nifty500_filter_enabled=use_market_filter,live_breakout=cfg.get('live_breakout') is True,**extra)
         if not self.benchmark:return status('Waiting for verified completed Nifty 500 history; new buys blocked. Exits remain active.','data_wait')
         if use_market_filter and not self.benchmark['allowed']:return status('Nifty 500 is below its 200-day average; no new entries. Exits remain active.','market_wait')
         label='Original Claude' if use_market_filter else 'Claude V2 (Nifty 500 filter off)'
+        if cfg.get('live_breakout') is True:label+=' live breakout'
         if not entry_window_open(clock,cfg,opening=True):return status(label+' active. Monitoring exits; new signals use '+entry_window_label(cfg,opening=True)+'.')
         candidates=[]
         try:
@@ -334,7 +365,7 @@ class ClaudeTrader:
         for symbol,rows in self.histories.items():
             if allowed is not None and symbol not in allowed:continue
             q=quotes.get(symbol);s=rows[-1]
-            if fresh(q,clock) and eligible(s,q['price'],clock,self.benchmark,use_market_filter=use_market_filter):candidates.append((s['rank'],symbol,s))
+            if fresh(q,clock) and eligible(s,q['price'],clock,self.benchmark,use_market_filter=use_market_filter,live_breakout=cfg.get('live_breakout') is True):candidates.append((s['rank'],symbol,s))
         for _,symbol,s in sorted(candidates,key=lambda x:(-x[0],x[1])):
             with connect(self.path) as db:
                 db.execute('BEGIN IMMEDIATE')

@@ -1,0 +1,56 @@
+INDEPENDENT AUDITOR’S REPORT
+
+
+
+To the Members of Canara Robeco Asset Management    BASIS FOR OPINION
+Company Limited                                                      3.  We conducted our audit of Financial Statements in
+Report on the Audit of the Financial Statements for the         accordance with the Standards on Auditing (SAs)
+year ended March 31, 2026                                          specified  under  section  143(10)  of  the  Act. Our
+                                                                           responsibilities under those SAs are further described
+OPINION                                                                  in the “Auditor’s Responsibilities for the Audit of the
+                                                                      Financial statements” section of our report. We are1.  We have audited the Financial Statements of Canara
+                                                             independent of the Company in accordance with the    Robeco  Asset  Management Company  Limited
+                                                     Code of Ethics issued by the Institute of Chartered     (the “Company”), which comprise the Balance Sheet
+                                                             Accountants of India (“ICAI”) together with the ethical    as at March  31, 2026, the Statement of Profit and
+                                                               requirements that are relevant to our audit of the    Loss (including other Comprehensive Income), the
+                                                                      Financial statements under the provisions of the Act    Statement of Changes in Equity and the Statement of
+                                                        and the Rules thereunder, and we have fulfilled our    Cash Flows for the year then ended and notes to the
+                                                                   other ethical responsibilities in accordance with these     Financial statements, including a summary of material
+                                                               requirements and the ICAI’s Code of Ethics. We believe     accounting policies and other explanatory information
+                                                                        that the audit evidence we have obtained is sufficient       ( “the Financial Statements”).
+                                                        and appropriate to provide a basis for our audit opinion
+2.   In our opinion and to the best of our information and                                                       on the Financial Statements.
+     according to the explanations given to us, the aforesaid
+     Financial Statements give the information required    KEY AUDIT MATTER
+    by the Companies Act, 2013 (“Act”) in the manner so                                                                             4.   Key  audit matters are those matters  that,  in our
+     required and give a true and fair view in conformity with                                                                     professional judgement, were  of most significance
+     the accounting principles generally accepted in India,                                                                             in our audit of the financial statement of the current
+     of the state of affairs of the Company as at March 31,                                                                        period. These matters were addressed in the context of
+     2026, and its profit and other comprehensive income,                                                               our audit of the financial statements as a whole, and in
+    changes in equity and its cash flows for the year ended                                                                forming our opinion thereon, and we do not provide a
+    on that date.                                                                 separate opinion on these matters.
+
+    Key audit matter: Revenue from Asset Management Services
+     Refer to the Material Accounting Policy Note 3.6 and 22 to financial statements- Revenue from Operations
+
+    Key audit matter                           How the matter was addressed in our audit
+    Revenue from Asset Management Services  is the most  In view of the significance of the matter, we applied the
+     significant account balance in the Statement of Profit and following audit procedures in this area, among others to
+     Loss. It comprises of management fees and advisory fees obtain sufficient appropriate audit evidence:
+    amounting to Rs. 42,494.50 Lakhs.                                                                                               (i)   Obtained and read the accounting policy for revenue
+   We have  identified Revenue from Asset Management       recognition.
+     Services as a key audit matter since:                                                                                                    (ii)  Obtained an understanding of the significant revenue
+       (i)   There are inherent risks in computation of management      items and identified where there is a higher risk of
+          fees due  to the manual input  of key contractual       error due to manual processes, complex contractual
+         terms and computation of applicable assets under      terms, and areas of judgement.
+        management ('AUM'), which could result in errors.                                                                                                        (iii)  Tested the design and operating effectiveness of
+        (ii)  Multiple schemes of Canara Robeco Mutual Fund      key controls in place across the Company relevant
+          require effective monitoring over key financial terms       to recognition of revenue from asset management
+        and conditions being captured and applied accurately.       services.
+        Any discrepancy in such computations could result                                                                                  (iv) On a sample basis, obtained and tested arithmetical
+           in misstatement of management fee and advisory fee                                                               accuracy of revenue calculation and the
+         recognised in the financial statements.                                                                         reconciliation with the accounting records.
+
+
+
+116        Annual Report 2025-26

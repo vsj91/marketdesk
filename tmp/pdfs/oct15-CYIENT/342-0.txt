@@ -1,0 +1,62 @@
+                                                                    CONSOLIDATED FINANCIAL STATEMENTS
+
+
+           •   Changes   in  the   carrying  amount   of       AS 102, leasing transactions that are within the scope of
+             investments in equity instruments at FVTOCI          Ind AS 116 ‘Leases’, and measurements that have some
+                relating to changes in foreign currency rates           similarities to fair value but are not fair value, such as net
+              are  recognised  in  other  comprehensive           realisable value in Ind AS 2 ‘Inventories’ or value in use in
+             income.                                              Ind AS 36 ‘Impairment of Assets’.
+
+
+           •    For financial liabilities that are denominated           In addition, for financial reporting purposes, fair value
+                 in a foreign currency and are measured at        measurements are categorised into Level 1, 2, or 3
+             amortised cost at the end of each reporting        based on the degree to which the inputs to the fair value
+               period, the foreign exchange gains and losses        measurements are observable and the significance of
+              are determined based on the amortised cost         the inputs to the fair value measurement in its entirety,
+               of the instruments and are recognised in the         which are described as follows:
+              consolidated statement of profit and loss.
+
+                                                                           •     Level 1 inputs are quoted prices (unadjusted) in
+           •   The fair value of financial liabilities denominated               active markets for identical assets or liabilities that
+                 in a foreign currency is determined in that             the entity can access at the measurement date.
+               foreign currency and translated at the spot                                                                           •     Level 2 inputs are inputs, other than quoted prices
+               rate at the end of the reporting period. For                                                                       included within Level 1, that are observable for the
+                 financial liabilities that are measured as at                                                                     asset or liability, either directly or indirectly; and
+             FVTPL, the  foreign exchange component
+                                                                           •     Level 3 inputs are unobservable inputs for the asset             forms part of the fair value gains or losses and
+                                                                      or liability.                   is recognised in the consolidated statement of
+                 profit and loss.
+
+                                                           2.26 Impairment of assets
+2.25 Determination of fair values                                                      i)   Financial assets
+      In determining the fair value of its financial instruments,           The Group  recognises  loss  allowances  using
+     the Group uses a variety of methods and assumptions             the expected credit loss (‘ECL’) model for the
+      that are based on market conditions and risks existing                financial assets which are not fair valued through
+      at each reporting date. The methods used to determine              consolidated statement of profit and loss. Loss
+       fair value include discounted cash flow analysis, available             allowance for trade receivables with no significant
+     quoted market prices and dealer quotes. All methods of              financing component is measured at an amount
+     assessing fair value result in general approximation of             equal to lifetime ECL. For all other financial assets,
+      value, and such value may never actually be realised.                expected credit losses are measured at an amount
+                                                                      equal to the 12 months ECL, unless there has
+                                                            been a significant increase in credit risk from initial
+       Fair value is the price that would be received to sell an                                                                         recognition in which case those are measured at
+     asset or paid to transfer a liability in an orderly transaction                                                                                lifetime ECL. The amount of expected credit losses
+     between market participants at the measurement date,                                                                                 (or reversal) that is required to adjust the loss
+      regardless of whether that price is directly observable                                                                     allowance at the reporting date to the amount that
+     or estimated using another valuation technique. In                                                                                              is required to be recognised as an impairment gain
+     estimating the fair value of an asset or a liability, the                                                                      or loss in the consolidated statement of profit and
+     Group takes into account the characteristics of asset or                                                                                   loss.
+        liability of market participants when pricing the asset or
+        liability at the measurement date.
+                                                                      For  trade  receivables, the Group  applies the
+                                                                              simplified approach permitted by Ind AS 109
+       Fair  value   for  measurement  and/or  disclosure                                                                                  ‘Financial Instruments’, which requires expected
+     purposes in these consolidated financial statements                                                                                lifetime  losses  to be  recognised from  initial
+       is determined on such a basis, except for share-based                                                                         recognition  of the  receivables. As a  practical
+     payment transactions that are within the scope of Ind                                                                       expedient, the Group uses a provision matrix to
+
+
+
+
+
+                                                                                                  Annual Report 2025-26  | 341

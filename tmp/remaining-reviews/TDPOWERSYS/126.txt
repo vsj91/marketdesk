@@ -1,0 +1,67 @@
+STANDALONE BALANCE SHEET
+AS AT MARCH 31, 2026
+                                           Amounts in Indian Rupees in lakhs, except as otherwise stated
+Particulars                                           Note        As at               As at
+                                                      No.     March 31, 2026       March 31, 2025
+I.  ASSETS
+   Non - current assets
+     Property, plant and equipment                         2     26,004.35                17,573.37
+     Capital work in progress                                3       1,732.46                1,658.94
+     Right-of-use assets                                 4       1,934.92                1,720.07
+    Other intangible assets                                  5       1,005.39                  941.35
+    Financial assets:
+        Investments                                    6       1,055.75                 1,355.75
+        Other ﬁnancial assets                               7        225.23                  156.72
+        Other non-current assets                        8       1,470.91   33,429.01    2,603.70   26,009.90
+    Current assets
+     Inventories                                         9      49,681.21                33,145.52
+    Financial assets
+        Trade receivables                                 10     70,865.41              48,427.58
+        Cash and cash equivalents                            11       1,617.82                2,447.00
+       Bank balances other than cash and cash equivalents   12      11,950.11                12,313.24
+        Other ﬁnancial assets                               13      4,444.47                3,329.99
+        Other current assets                               14      5,194.29  1,43,753.31    5,569.84  1,05,233.17
+   TOTAL ASSETS                                                           1,77,182.32             1,31,243.07
+II.  EQUITY AND LIABILITIES
+    Equity:
+    Equity share capital                                     15      3,124.30                 3,123.67
+    Other equity                                          16      99,757.77 1,02,882.07  80,464.89   83,588.56
+     Liabilities:
+   Non - current liabilities
+     Financial Liabilities - Lease Liabilities                  20          0.75                   0.82
+     Provisions                                              17       980.10                 886.17
+    Deferred tax liabilities (Net)                            18       180.08    1,160.93      330.72      1,217.71
+    Current Liabilities
+    Financial Liabilities:
+    Borrowings                                           19      1,809.62                 1,220.75
+    Lease Liabilities                                    20          0.37                    0.22
+    Trade payables                                         21
+     -    total outstanding dues of micro enterprises and                4,871.60                2,380.30
+         small enterprises
+     -    total outstanding dues of creditors other than micro           33,774.55              20,602.06
+         enterprises and small enterprises
+    Other ﬁnancial liabilities                              22     11,970.89                8,881.50
+    Other current liabilities                                23     17,478.50                11,733.25
+     Provisions                                         24       884.67                 644.97
+    Current tax liabilities-Net                              25      2,349.12   73,139.32      973.75   46,436.80
+   TOTAL EQUITY AND LIABILITIES                                        1,77,182.32             1,31,243.07
+Material Accounting Policies                                   1
+The accompanying notes form an integral part of the standalone ﬁnancial statements
+
+                                            This is the balance sheet referred to in our report of even date attached
+For and on behalf of Board of Directors of                                        For VARMA & VARMA
+TD Power Systems Limited                                                      Chartered Accountants
+CIN No. L31103KA1999PLC025071                                           Firm Registration No. 004532S
+
+MOHIB N KHERICHA  NIKHIL KUMAR      DEEPAK KUMAR SINHA      ABRAHAM BABY CHERIAN
+Chairman             Managing Director       Chief Executive Ofﬁcer            Partner
+DIN: 00010365          DIN:00062243            Place: Bangalore               Membership No.218851
+Place: Ahmedabad        Place: Frankfurt                                               Place: Bangalore
+                                                                            Date : May 14, 2026
+M N VARALAKSHMI   BHARAT RAJWANI
+Chief Financial Ofﬁcer   Company Secretary
+Place: Bangalore        Membership No. A50096
+                           Place: Bangalore
+Date : May 14, 2026
+
+ 138                                                                                   Annual Report 2025-26

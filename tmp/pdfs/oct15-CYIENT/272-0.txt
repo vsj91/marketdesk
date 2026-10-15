@@ -1,0 +1,63 @@
+                                                                     STANDALONE FINANCIAL STATEMENTS
+
+
+b. Movement in deferred tax assets and liabilities
+
+                                                               Recognised in    Recognised in other
+                                                 Opening                                         Closing
+                     2025-26                                 the statement of    comprehensive
+                                                       Balance                                         balance
+                                                                             profit and loss        income
+ Deferred tax assets/(liabilities) in relation to :
+ Cash flow hedges                                         1                  -               114      115
+ Property, plant and equipment and Other Intangible assets       (123)                (22)                      -      (145)
+ Provision for employee benefits and other current liabilities      438             149                        (3)      584
+ Right of use assets                                             (233)             114                      -      (119)
+ Lease liabilities                                         234              (121)                      -      113
+ Fair value changes                                                  (28)                  -                    (11)       (39)
+ Provision for doubtful debts                                28               5                      -       33
+ Provision for expenses                                     5             185                      -      190
+ Net deferred tax assets/(liabilities)                        322             310               100      732
+
+                                                               Recognised in    Recognised in other
+                                                 Opening                                         Closing
+                     2024-25                                 the statement of    comprehensive
+                                                      Balance                                         balance
+                                                                             profit and loss        income
+ Deferred tax assets/(liabilities)
+ in relation to :
+ Cash flow hedges                                                         (4)                  -                  5       1
+ Property, plant and equipment and Other Intangible assets       (111)                (11)                      -     (123)
+ Provision for employee benefits                            385              50                  3     438
+ Right of use assets                                             (342)             109                      -     (233)
+ Lease liabilities                                        338              (104)                      -     234
+ Fair value changes                                                  -                    (9)                    (19)       (28)
+ Provision for doubtful debts                                62                (34)                      -      28
+ Provision for expenses                                              -               5                      -       5
+ Net deferred tax assets/(liabilities)                        328               6                    (11)     322
+
+
+16 C. Income tax assets and liabilities
+
+The following is the analysis of income tax assets/(liabilities) presented in the balance sheet:
+
+                                                                     As at            As at
+                                    Particulars
+                                                                    March 31, 2026    March 31, 2025
+ Income tax assets (net)                                                             217             375
+ Income tax liabilities (net)                                                            23              22
+
+
+17. Revenue from contracts with customers
+
+                                                                           For the year ended   For the year ended
+                                   Particulars
+                                                                   March 31, 2026     March 31, 2025
+ Revenue from services                                                               23,632             24,131
+ Revenue from products                                                             1                5
+ Total                                                                             23,633             24,136
+
+The Company presents revenues net of indirect taxes in the statement of profit and loss.
+
+
+                                                                                                  Annual Report 2025-26  | 271

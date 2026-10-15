@@ -1,0 +1,60 @@
+GANESH~
+HOUSING ..
+LIMITED..,
+Consolidated Cash Flow Statement
+[CIN:L45200GJ1991PLC015817]
+
+for the year ended 31st March 2026
+                                                                                                     [AMT. ` IN LAKH]
+
+                                                      YEAR ENDED       YEAR ENDED PARTICULARS                               NOTE                                                                31/03/2026         31/03/2025
+A  Cash Flow From Operating Activities:
+      Profit / (Loss) Before Tax                                                    43917.61              80173.55
+     Adjustments For:
+     Depreciation and Amortisation Expenses                                   652.93                  743.17
+     Finance Cost                                                           398.99                383.37
+      Interest Income                                                                    (2713.51)              (3373.03)
+     Loss on sale of Property, Plant & Equipment                                       0.15                 0.54
+      Profit on sale of Property, Plant & Equipment                               0.00                  (0.09)
+     Adjustments of Short/Excess IT provision w/off.                                  (837.18)                   (0.62)
+                                                                           (2498.62)             (2246.66)
+     Operating Profit Before Working Capital Changes                       41418.98            77926.89
+     (Increase) / Decrease in :
+      Inventories                                                              (5062.55)                 (480.13)
+     Trade & Other Receivables                                                5185.84             (22239.67)
+     Other Current Assets                                                     (2455.64)                 42.46
+     Trade Payables                                                                     (372.91)             2240.92
+     Other Current Liabilities                                                      (7801.84)              (11208.02)
+                                                                             (10507.09)             (31644.44)
+     Income Taxes Paid                                                            (9631.82)              (5298.23)
+    Net Cash Generated From Operations                               21280.07           40984.22
+B  Cash Flow From Investing Activities :
+     Purchase of property, plant and equipment                                  (360.26)                 (528.14)
+      Capital Work In Progress                                                    (17968.57)               (21145.07)
+     Proceeds  from  disposal  of  property,  plant  and
+                                                                                         1.20                   8.59
+     equipment
+    Movement In Loans & Advances                                           (38710.24)             (20592.77)
+      Interest Received                                                              2713.51              3373.03
+    Net Cash Used In Investing Activities                                (54324.36)           (38884.36)
+C  Cash Flow From Financing Activities :
+     Proceeds from Borrowings / Repayment of Borrowings                      27746.31                  137.98
+     Finance Cost Paid                                                            (398.99)                (383.37)
+     Dividend Paid                                                                 (4169.35)                 (9172.81)
+    Net Cash Used In Financing Activities                                  23177.96             (9418.20)
+    Net Increase/(Decrease) In Cash and Cash                                                                          (9866.33)              (7318.34)     Equivalents
+    Opening Balance of Cash and Cash Equivalents                        15746.08           23064.42
+     Closing Balance of Cash and Cash Equivalents*                        5879.75            15746.08
+    Components of Cash and Cash Equivalents
+    Cash on hand                                                                           11.95                     11.49
+     Balances with Banks                                                                724.11               12102.82
+     Other Balances other than above*                                         5143.70                3631.78
+     Total                                                             5879.75            15746.08
+ *Include towards Unclaimed Dividend of ` 65.09 Lakh
+  (Pre. Yr. ` 51.71 Lakh)
+ Material Accounting Policies                           29
+
+Note: “The above Cash Flow Statement has been prepared under the “indirect method” as set out in ‘Indian Accounting
+     Standard (Ind AS) 7 - Statement of Cash Flows’.”
+
+252                                                                             Annual Report 2025-26

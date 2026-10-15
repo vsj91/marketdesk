@@ -1,0 +1,74 @@
+                       Corporate Overview         Statutory Reports
+
+
+NOTES TO CONSOLIDATED FINANCIAL STATEMENTS
+FOR THE YEAR ENDED MARCH 31, 2026
+
+(Currency : Indian Rupees in lakhs)
+
+Investments as at March 31, 2025
+
+ Investment in                                                At Fair Value                 Total
+                                           Amortised  Through other      Through
+                                                     cost comprehensive      profit and
+                                                         income            loss
+
+ Mutual funds                                                          -                    -       49,511.64      49,511.64
+
+ Security Receipts                                       1,38,715.21                    -                  -     1,38,715.21
+
+ Treasury Bills                                                          -        9,653.55                  -      9,653.55
+
+ Bonds                                                                  -        10,160.59                  -      10,160.59
+
+ Government securities                                               -        10,232.72                  -     10,232.72
+
+ Total - Gross                                       1,38,715.21     30,046.86      49,511.64    2,18,273.71
+
+ Investments in India                                    1,38,715.21      30,046.86       49,511.64     2,18,273.71
+
+ Investments outside India                                           -                    -                  -                 -
+
+ Total - Gross                                       1,38,715.21     30,046.86      49,511.64    2,18,273.71
+
+ Less: Impairment loss allowance                 (36,455.26)                    -                  -   (36,455.26)
+
+ Total - Net                                    1,02,259.95     30,046.86      49,511.64    1,81,818.45
+
+1.   Detailed analysis on year end stage classification of investments and impairment allowance is disclosed in
+    Note 32 (D)
+
+
+NOTE 7 OTHER FINANCIAL ASSETS
+
+ Particulars                                                       As at            As at
+                                                           March 31, 2026     March 31, 2025
+ Security deposit                                                          865.78             810.99
+ Assignment receivables                                                               2,351.18            5,235.45
+ Deposits with Trustee for securitisation*                                            2,591.14            4,484.14
+ Other receivables                                                        658.43             1,868.59
+
+                                                                      6,466.53           12,399.17
+ Less: Impairment allowance                                                (603.56)            (296.58)
+
+                                                                        5,862.97           12,102.59
+
+* It represents fixed deposit held as collateral with trustee for pass through certificate transactions.
+
+NOTE 8 CURRENT TAX LIABILITIES (NET)
+
+ Particulars                                                       As at            As at
+                                                           March 31, 2026     March 31, 2025
+ Current tax assets (net)
+ Advance Tax (net of provision)                                                 1,255.84               1,138.23
+
+                                                                            1,255.84             1,138.23
+ Current tax liabilities (net)
+ Provision for tax (net of advance tax)                                          1,058.83                        -
+                                                                           1,058.83                        -
+
+
+
+
+
+                                                            307

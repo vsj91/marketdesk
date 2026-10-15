@@ -1,0 +1,60 @@
+  Notes to Standalone Financial Statements
+    for the year ended March 31, 2026
+
+
+                   ii)   the Company retains neither continuing managerial        dependent on uncertain future events, or a present
+             involvement to the degree usually associated with          obligation where no outflow is probable. Major contingent
+             ownership nor effective control over the goods sold;              liabilities are disclosed in the financial statements unless
+                                                                     the possibility of an outflow of economic resources is
+                   iii)   the amount of revenue can be measured reliably;                                                                       remote.
+
+             iv)    it is probable that the economic benefits associated                                                                     Contingent assets are not recognized in the financial
+              with the transaction will flow to the Company; and                                                                    statements but disclosed, where an inflow of economic
+                                                                            benefit is probable.            v)    the costs incurred or to be incurred in respect of the
+               transaction can be measured reliably.                                                                                   2.16 Measurement of Fair Value
+
+        Revenue (other than sale of goods) is recognised to the                                                                                     a)    Financial instruments
+         extent that  it  is probable that the economic benefits
+            will flow to the company and the revenue can be reliably        The estimated  fair value of the Company’s  financial
+         measured. Claim on insurance companies, interest and         instruments  is based on market prices and valuation
+          others, where quantum of accrual cannot be ascertained          techniques. Valuations are made with the objective to
+         with reasonable certainty, are accounted for on acceptance          include relevant factors that market participants would
+           basis.                                                          consider in setting a price, and to apply accepted economic
+                                                              and financial methodologies for the pricing of financial
+        Revenue represents net value of goods and services                                                                          instruments. References for less active markets are carefully
+         provided  to  customers  after  deducting  for  certain                                                                     reviewed to  establish relevant and comparable  data.
+          incentives including, but not limited to discounts, volume
+          rebates, incentive programs etc. Sales exclude Goods and     b)   Marketable and non-marketable equity securities
+          Services Tax.
+                                                                                     Fair value for quoted securities is based on quoted market
+          Interest other than  interest on overdue debts from          prices as of the reporting date. Fair value for unquoted
+         customers, is recognised on time proportion basis.                   securities  is calculated based on commonly accepted
+                                                                           valuation techniques  utilizing significant unobservable
+         Dividends are recognised at the time the right to receive                                                                               data, primarily cash flow based models. If fair value cannot
+        payment is established.                                                               be measured reliably unlisted shares are recognized at cost.
+
+     2.14  Inventories                                                                                       2.17  Financial Instruments
+
+          Inventories are valued at lower of cost and net realisable                                                                                         a.    Financial Assets
+         value except waste/scrap which is valued at net realisable
+          value. Cost of finished goods and stock in process  is             Initial recognition and measurement
+         determined by taking cost of purchases, material consumed,
+                                                                                               All financial assets are recognised initially at fair value, in the         labour and related overheads. Cost of raw materials and
+                                                                      case of financial assets not recorded at fair value through          stores & spare parts is computed on weighted average
+                                                                                   profit or loss, transaction costs that are attributable to the           basis. Net realisable value is the estimated selling price in
+                                                                               acquisition of the financial asset.         the ordinary course of business, less estimated costs of
+         completion and to make the sale.                                                                                  Classifications
+
+      2.15  Provisions, Contingent Liabilities and Contingent Assets                                                              The Company classifies its financial assets as subsequently
+                                                               measured at either amortised cost or fair value depending        Based on the best estimate provisions are recognized
+                                                           on the company’s business model for managing the financial       when there is a present obligation (legal or constructive) as
+                                                                         assets and the contractual cash flow characteristics of the        a result of a past event and it is probable (“more likely than
+                                                                                   financial assets.          not”) that it is required to settle the obligation, and a reliable
+         estimate can be made of the amount of the obligation at                                                                               Financial assets at amortised cost
+         reporting date.
+                                                      A financial asset is measured at amortised cost only if both
+       A contingent liability is a possible obligation that arises                                                                         of the following conditions are met:
+        from a past event, with the resolution of the contingency
+
+
+102      34th Annual Report 2025-26

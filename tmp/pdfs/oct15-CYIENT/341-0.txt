@@ -1,0 +1,63 @@
+CONSOLIDATED FINANCIAL STATEMENTS
+
+
+           when the forecast transaction is ultimately                Cash flows related to liabilities arising from
+              recognised in the consolidated statement of                    supplier finance arrangements are included
+                 profit and loss. When a forecast transaction                      in operating  activities  in the consolidated
+                   is no longer expected to occur, the gain or                 statement of cash flows, when the Group
+                loss accumulated  in equity  is recognised                        finally  settles  the  liability,  reflecting  the
+              immediately in the consolidated statement of                 substance of the payment.
+                 profit and loss.
+
+                                                                                                                iii)  De-recognition of financial assets and liabilities
+          d.    Supplier Finance Arrangements                                                                          Financial assets
+            The Group has established supplier finance                                                          The Group de-recognises a financial asset when
+             arrangements (Refer Note 17). The Group                                                                   the contractual rights to the cash flows from the
+               evaluates whether financial liabilities covered                                                                     asset expire, or when  it transfers the financial
+             such arrangements continue to be classified                                                                     asset and substantially all the risks and rewards
+               within trade payables, or they need to be                                                                        of ownership of the asset to another party. If the
+                 classified as a borrowing or as part of other                                                            Group retains substantially all the risks and rewards
+                 financial liabilities/ as a separate line item on                                                                        of ownership of a transferred financial asset, the
+              the face of the balance sheet. Such evaluation                                                            Group continues to recognise the financial asset
+               requires exercise of judgment basis specific                                                             and also recognises a collateralised borrowing for
+             terms of the arrangement.                                                                   the proceeds received.
+
+
+            The  Group   classifies   financial   liabilities                                                 On de-recognition of a financial asset in its entirety,
+              covered under supplier finance arrangement                                                                   the difference between the asset’s carrying amount
+               within trade payables in the balance sheet                                                             and the sum of the consideration received and
+               only if (i) the obligation represents a liability                                                                          receivable and the cumulative gain or loss that had
+              to pay for goods and services, (ii) is invoiced                                                            been recognised in other comprehensive income
+             and formally agreed with the supplier,  (iii) is                                                             and accumulated in equity is recognised in the
+               part of the working capital used in its normal                                                                      consolidated statement of profit and loss if such
+              operating cycle, (iv) the Group is not legally                                                                        gain or loss would have otherwise been recognised
+               released from its original obligation to the                                                                                     in the consolidated statement of profit and loss on
+                 supplier, and has not assumed a new obligation                                                                         disposal of that financial asset.
+             toward the bank, and another party (v) there
+                   is no substantial modification to the terms of
+              the liability.                                                Financial liabilities
+
+                                                          The  Group  de-recognises  financial   liabilities
+                       If one or more of the above criteria are not            when, and only when, the Group’s obligations
+             met, the Group derecognizes  its  original              are discharged, cancelled or have expired. The
+                    liability toward the supplier and recognize a              difference  between  the  carrying  amount  of
+           new liability toward the bank which is classified             the  financial   liability  de-recognised  and  the
+              as bank borrowing or other financial liability,              consideration paid and payable is recognised in the
+             depending on factors such as whether the              consolidated statement of profit and loss.
+            Group  (i) has obligation toward bank,  (ii) is
+               getting extended  credit period such that
+                                                                                    iv)  Foreign exchange gains and losses
+                obligation is no longer part of its working
+                capital cycle,  (iii) is paying interest directly                •    For foreign currency denominated financial
+              or indirectly, (iv) has provided guarantee or                  assets measured  at amortised  cost and
+                security, and/ or (v) is recognized as borrower                FVTPL,  the  exchange   differences   are
+                  in the bank books.                                           recognised  in the consolidated statement
+                                                                             of profit and loss except for those which
+                                                                            are designated as hedging instruments in a
+                                                                      hedging relationship.
+
+
+
+
+
+340  | Annual Report 2025-26

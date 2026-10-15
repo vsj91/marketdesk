@@ -1,0 +1,50 @@
+ Standalone Balance Sheet                               Standalone Balance Sheet
+  as at March 31, 2026                                                                          as at March 31, 2026
+
+
+                                                                                                                                                (` in lakhs)                                                                                                                                                                            (` in lakhs)
+
+           Particulars                                                    Note   As at March 31, 2026  As at March 31, 2025                                    Particulars                                                    Note   As at March 31, 2026  As at March 31, 2025
+            I   ASSETS                                                                                                                                         Deferred Tax Liabilities (Net)                                                  21                 764.54               755.86
+       1   Non-Current Assets                                                                                                                       Other Non-Current Liabilities                                           22                   1,319.46               1,330.20
+           Property, Plant & Equipments                                     3A                  15,181.48              17,396.73                                   Total Non-Current Liabilities                                                                 5,844.94               6,922.47
+           Capital Work- in- Progress                                         3B                   326.12                  16.77                            3   Current Liabilities
+          Right of Use Assets                                                3C                   725.16               789.99                                    Financial Liabilities
+         Other Intangible Assets                                         3D                     15.23                  19.43                                                                   (i)   Borrowings                                                       23                 5,728.64                 5,137.28
+           Financial Assets                                                                                                                                                                                                                                                                                  (ii)  Lease Liabilities                                                24                   59.48                 56.53
+                     (i)   Investments                                                4                 1,985.64               1,985.64                                                                   (iii)  Trade Payables                                                    25
+                     (ii)  Other Financial Assets                                              5                305.90              260.06                                         a) Outstanding dues of Micro Enterprises and Small Enterprises                                462.46              467.80
+         Other Non-Current Assets                                         6                   28.02               195.09                                       b) Outstanding dues other than Micro Enterprises and Small Enterprises                       2,681.78                1,939.01
+           Total Non-Current Assets                                                                         18,567.55             20,663.71                                                   (iv)  Other Financial Liabilities                                        26                  637.02              688.03
+      2   Current Assets                                                                                                                                          Provisions                                                             27                      52.15                  32.77
+          Inventories                                                             7                   5,923.41               5,479.45                              Other Current Liabilities                                             28                   221.43                106.10
+           Financial Assets                                                                                                                                               Total Current Liabilities                                                                       9,842.96               8,427.52
+                     (i)   Investments                                               8                   98.25                98.25                           TOTAL EQUITY AND LIABILITIES                                                                   31,832.37               31,361.91
+                     (ii)  Trade Receivables                                            9                  2,294.75              2,803.92                                    Significant Accounting Policies and other Notes to the Standalone  1-54
+                                                                                                                                                                             Financial Statements.                     (iii)  Cash and Cash Equivalents                                        10                      111.37               183.40
+                (iv) Bank Balances other than Cash and Cash Equivalents                      11                    2.06                  4.39                      The accompanying Notes are an integral part of the Standalone Financial Statements.
+              (v)  Loans                                                                   12                 426.35               389.63
+                                                                                                                                  As per our Report of even date
+                (vi)  Other Financial Assets                                                  13                 2,455.60               642.34                                                                                                                                                  For M B A H & CO                                     For & on behalf of Board of Directors
+          Current Tax Assets (Net)                                                  14                   96.37              136.00                         Chartered Accountants
+                                                                                                                                                                                 (Firm’s Registration No.: 121426W)         Other Current Assets                                                        15                 1,856.66              960.82
+                                                                                                                                                             SAURABH MAHESHWARI           RAJ KUMAR SEKHANI
+           Total Current Assets                                                                           13,264.82            10,698.20                                                                                                                            Mahesh Bhageria                                 Managing Director                 Chairman
+        TOTAL ASSETS                                                                                    31,832.37               31,361.91                          Partner                                          DIN 00283903                     DIN 00102843
+                                                                                                                                   Membership Number: 034499           II   EQUITY AND LIABILITIES
+       1   Equity                                                                                                                                                                         Place: Mumbai                                 DEEPAK SIPANI                   AMI THAKKAR
+          Equity Share Capital                                                     16                 3,081.54              3,081.54                           Date: May 26, 2026                                       Chief Financial Officer             Company Secretary
+         Other Equity                                                                 17                13,062.93             12,930.38
+           Total Equity                                                                                       16,144.47              16,011.92
+      2   Non-Current Liabilities
+
+           Financial Liabilities
+                     (i)   Borrowings                                                        18                2,548.49               3,588.16
+                     (ii)  Lease Liabilities                                                     19                 629.02               655.46
+          Provisions                                                     20                  583.43               592.79
+
+
+
+
+
+92      34th Annual Report 2025-26                                                                                                                                                                                                            Pioneer Embroideries Limited    93

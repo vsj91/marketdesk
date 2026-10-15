@@ -1,0 +1,59 @@
+                                                                                         Financial Statements
+
+
+                                                                                                 for the year ended 31st March, 2026Notes to the financial statements
+
+
+          The 12-month ECL is a portion of the lifetime              they are incurred for the purpose of repurchasing in
+          ECL which results from default events that are             the near term. This category also includes derivative
+             possible within 12 months after the reporting               financial instruments entered into by the Company
+             date.                                                        that are not designated as hedging instruments
+                                                                                  in hedge relationships as defined by Ind AS 109.          The Company follows ‘simplified approach’ for
+                                                                  Separated embedded derivatives are also classified             recognition of impairment loss allowance on
+                                                                  as held for trading unless they are designated as            trade receivables.
+                                                                             effective hedging instruments.
+          The application of simplified approach does
+                                                                    Gains or losses on liabilities held for trading are            not require the Company to track changes in
+                                                                   recognised in the statement of profit and loss.             credit risk. Rather,  it recognises impairment
+             loss allowance based on lifetime ECLs at each               Financial    liabilities   designated  upon    initial
+             reporting date, right from its initial recognition.               recognition at fair value through profit or loss are
+                                                                    designated as such at the initial date of recognition,          The Company follows a provision matrix to
+                                                              and only if the criteria in Ind AS 109 are satisfied.           determine impairment loss allowance on the
+              portfolio of trade receivables. The provision                   (b)  Loans and borrowings
+            matrix  is based on  its  historical observed                                                                               After initial recognition, interest-bearing loans
+             default rates over the expected life of the trade                                                                 and borrowings are subsequently measured at
+             receivables and is adjusted for forward looking                                                                      amortised cost using the effective interest rate
+            estimates. At every reporting date, the historical                                                                                        (EIR) method. Gains and losses are recognised in
+           observed default rates are updated and changes                                                                     statement of profit and loss when the liabilities
+              in the forward looking estimates are analysed.                                                                          are derecognised as well as through the EIR
+            For  assessing  increase  in  credit  risk and                  amortisation process.
+           impairment  loss,  the  Company  combines                                                                     Amortised cost  is calculated by taking into
+              financial instruments on the basis of shared                                                                     account any discount or premium on acquisition
+             credit risk characteristics with the objective                                                                 and fees or costs that are an integral part of the
+             of facilitating an analysis that is designed to                                                                              EIR. The EIR amortisation is included as finance
+            enable significant increases in credit risk to be                                                                         costs in the statement of profit and loss.
+              identified on a timely basis.
+                                                                                                  (c)  Financial Guarantee Contracts
+    B)  Financial liabilities
+                                                                               Financial guarantee contracts issued by the
+           All financial liabilities are recognised initially at fair                                                            Company are those contracts that require a
+        value and, in the case of loans and borrowings and                                                                payment to be made to reimburse the holder
+        payables, net of directly attributable transaction                                                                                      for a loss it incurs because the specified debtor
+         costs.                                                                                                fails to make a payment when due in accordance
+       The Company’s financial liabilities include loans and                  with the terms of a debt instrument. Financial
+        borrowings, trade and other payables and derivative                 guarantee contracts are recognised initially as
+         financial instruments.                                          a liability at fair value, adjusted for transaction
+                                                                         costs  that  are  directly  attributable  to  the
+       Subsequent measurement
+                                                                        issuance of the guarantee. Subsequently, the
+       The measurement of financial liabilities depends on                        liability is measured at the higher of the amount
+         their classification, as described below:                               of loss allowance determined as per impairment
+                                                                       requirements of Ind AS 109 and the amount            (a)  Financial liabilities at fair value through profit or
+                                                                       recognised less cumulative amortisation.             loss
+                                                                         Derecognition         Financial liabilities at fair value through profit or
+         loss include  financial  liabilities held  for trading              A financial liability is derecognised when the
+       and  financial  liabilities  designated upon  initial                   obligation under the liability is discharged or
+        recognition as at fair value through profit or loss.                     cancelled or expires. When an existing financial
+                                                                                                    liability is replaced by another from the same         Financial liabilities are classified as held for trading if
+                                                                            lender on substantially different terms, or the
+                                                                  Ddev Plastiks Industries Limited  207

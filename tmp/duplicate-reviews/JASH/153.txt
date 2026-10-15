@@ -1,0 +1,66 @@
+                                                                                                                                                                                                                   Corporate Overview  | Statutory Reports   Financial Statements
+                                         Jash Engineering Limited                                                                                           Jash Engineering Limited
+                               Consolidated Balance Sheet as at 31 March 2026                                                                        Consolidated Balance Sheet as at 31 March 2026
+                                       (All amount in INR lakhs unless stated otherwise)                                                                                          (All amount in INR lakhs unless stated otherwise)
+
+                                                 Notes            As at            As at                                                                                               Notes           As at            As at
+                                                                   31 March 2026      31 March 2025                                                                                                                      31 March 2026     31 March 2025
+     ASSETS                                                                                                                                            Current liabilities
+     Non-current assets                                                                                                                                             Financial liabilities
+                                                                                                                                                           Borrowings                                                                 29            5,759.37            7,462.42
+      Property, plant and equipment                   5 (a)           12,363.38            9,838.97                                                                                                                                                        Lease Liabilities                                                         30             378.72              312.68
+      Right-of-use asset                             5 (b)           2,586.90             2,216.95                          Trade payables                                                                                31
+      Capital work-in-progress                         6            2,169.08           2,046.82                                (a) Total outstanding dues of micro enterprises and small enterprises                                       1,386.01            1,004.29
+                                                                                                                                                                                  (b) Total outstanding dues of creditors other than micro enterprises and small
+      Investment property                               7              137.96              142.50                               enterprises                                                                                        9,007.39              7,281.05
+      Intangible assets                             8 (a)              1,879.81             1,629.98                         Other ﬁnancial liabilities                                                        32           2,456.57              1,337.42
+      Intangible assets under development             8 (b)             104.59              68.27                       Other current liabilities                                                          33             9,938.15             9,610.92
+                                                                                                                                                                           Provisions                                                                 34                1,071.31               1,128.23
+      Goodwill                                     9             4,188.47             3,195.86                         Current tax liabilities (net)                                                        35            206.33              212.05
+      Financial assets                                                                                                                                           Total current liabilities                                                                          30,203.85         28,349.06
+                                                                                                                                                                        Total liabilities                                                                                 35,569.30            31,152.43
+        Investments                                       10                 1.44                12.03                                                                                                                                                                        Total equity and liabilities                                                                       88,059.68           74,784.81
+       Loans                                                                    11              14.00                         -
+                                                                                                                               Summary of material accounting policy information                                    3
+       Other ﬁnancial assets                                  12            479.03                         -                      The accompanying notes form an integral part of these consolidated ﬁnancial statements    1 - 69
+      Non-current tax assets (net)                             13            824.79                148.41                                                                                                                                                                           This is the Consolidated Balance Sheet referred to in our report of even date.
+      Deferred tax assets                                    14            866.53              915.92
+     Other non-current assets                                 15            684.23             497.80
+      Total non-current assets                                        26,300.21            20,713.51
+                                                                                                                    For Deloitte Haskins & Sells LLP                  For and on behalf of Board of Directors of      Current assets
+                                                                                                                         Chartered Accountants                          Jash Engineering Limited
+      Inventories                                             16          19,485.08           18,882.90
+                                                                                                                                   Firm's Registration No. 117366W/W-100018
+      Financial assets
+        Investments                                            17                1,321.15             1,053.73
+       Trade receivables                                     18         30,080.35           22,534.78                                                                                                                                            Pallavi Sharma                                       Pratik Patel                Suresh Patel
+       Cash and cash equivalents                            19              4,198.81             1,270.67                   Partner                                      Managing Director          Executive director
+       Other bank balances                         20            5,160.89           9,060.87                Membership No. 113861                         DIN - 00780920           DIN:00012072
+       Other ﬁnancial assets                                  21            206.27             69.46
+     Other current assets                              22            1,306.92               1,198.89
+      Total current assets                                               61,759.47          54,071.30
+                                                                                                                                           Place: Mumbai                               Dharmendra Jain           Tushar Kharpade      Total assets                                                  88,059.68           74,784.81
+                                                                                                                                         Date: 26 May 2026                                  Chief Financial ofﬁcer      Company Secretary
+                                                                                                                                                                                Membership No. - A30144
+     EQUITY AND LIABILITIES                                                                                                                                                                                        Place: Indore
+      Equity                                                                                                                                                                                  Date: 26 May 2026
+      Equity share capital                              23              1,258.10               1,255.10
+     Other equity                                   24         50,648.44          42,046.30
+      Non-Controlling Interest                                          583.84            330.98
+      Total equity                                                  52,490.38          43,632.38
+
+      LIABILITIES
+     Non-current liabilities
+      Financial liabilities
+       Borrowings                                   25            2,578.25             679.29
+       Lease Liabilities                              26            1,552.46              1,450.21
+      Provisions                                       27            409.25              451.62
+      Deferred tax liabilities                                  14             160.78                37.73
+     Other non-current liabilities                       28             664.71              184.52
+      Total non-current liabilities                                      5,365.45           2,803.37
+
+
+
+
+
+304    Annual Report 2025-26                                                                                                                                            Annual Report 2025-26     305

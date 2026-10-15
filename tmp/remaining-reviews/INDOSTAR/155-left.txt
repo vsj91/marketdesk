@@ -1,0 +1,75 @@
+NOTES TO CONSOLIDATED FINANCIAL STATEMENTS
+FOR THE YEAR ENDED MARCH 31, 2026
+
+(Currency : Indian Rupees in lakhs)
+
+q)  Segment reporting                              on the date which a derivative contract is entered
+    Operating  segments  are  those components          into and are subsequently re-measured at fair
+    of the business whose operating  results are         value at each balance sheet date. Any gains or
+     regularly  reviewed  by  the  chief  operating         losses arising from changes in the fair value of
+    decision making body in the Group to make          derivatives are taken directly to the statement of
+    decisions  for  performance  assessment  and          profit and loss, except for the effective portion
+    resource allocation.                                      of cash flow hedges, which is recognised in OCI
+                                                  and later reclassified to the statement of profit
+    The reporting of segment information  is the
+                                                  and loss (if any) when the hedge item cash flows
+   same as provided to the management for the
+                                                                affects the statement of profit and loss.
+    purpose of the performance assessment and
+    resource allocation to the segments.                 Cash flow hedge
+
+                                       A cash flow hedge is a hedge of the exposure tor)  Cash and cash equivalents
+                                                                      variability in cash flows that is attributable to a
+    Cash and cash equivalent in the balance sheet
+                                                                 particular risk associated with a recognised asset
+    and for the purpose of statement of cash flows
+                                                           or liability and could affect Profit and loss. For
+    comprise cash at bank and cheques in hand and
+                                                        designated and qualifying cash flow hedges, the
+    short-term deposits with an original maturity
+                                                                 effective portion of the cumulative gain or loss
+    of three months or less, which are subject to an
+                                                 on the hedging instrument is initially recognised
+     insignificant risk of changes in value. They are
+                                                                  directly in OCI within equity (cash flow hedge
+    held for the purposes of meeting short-term
+                                                                 reserve). The  ineffective  portion  (if any)  of
+    cash commitments (rather than for investment
+                                                         the gain or loss on the hedging instrument is
+    or other purposes).
+                                                        recognised immediately as finance cost in the
+s)  Non-current assets held for sale:                     Statement of Profit and Loss.
+
+    Non-current assets and disposable groups are      When the hedged cash flow affects the Statement
+     classified as held for sale if their carrying amount         of Profit and Loss, the effective portion of the gain
+      is intended to be recovered principally through a         or loss on the hedging instrument is recorded in
+     sale (rather than through continuing use) when         the corresponding income or expense line of the
+    the asset (or disposal Company) is available for        Statement of Profit and Loss. When a hedging
+    immediate sale in its present condition subject         instrument expires, is sold, terminated, exercised,
+    only to terms that are usual and customary for         or when a hedge no longer meets the criteria for
+     sale of such asset (or disposal Company) and the        hedge accounting, any cumulative gain or loss
+     sale is highly probable and is expected to qualify         recognised in OCI  is subsequently transferred
+     for recognition as a completed sale within one         to the Statement of Profit and Loss on ultimate
+    year from the date of classification except in         recognition of the underlying hedged forecast
+   some circumstances this period can be extended          transaction. When a forecast transaction is no
+       if it is beyond the control of management and         longer expected to occur, the cumulative gain
+    there are  sufficient evidence that the  entity         or loss that was reported in OCI is immediately
+    remains committed to its plan to sell the asset.           transferred to the Statement of Profit and Loss.
+
+    Non-current   assets  and   disposal  groups          Fair value hedge
+     classified as held for sale are measured at lower
+                                                                  Fair value hedges hedge the exposure to changes
+    of their carrying amount and fair value less costs
+                                                                      in the fair value of a recognised asset or liability,
+    to sell.
+                                                           or an identified portion of such an asset, liability,
+t)   Derivative financial instruments:                         that is attributable to a particular risk and could
+                                                                 affect profit or loss.
+    The Company enters into derivative financial
+    instruments to manage exposures to interest        For designated and qualifying fair value hedges,
+     rate risk and foreign currency risk. The Company         the cumulative change in the  fair value of a
+    does not hold derivative financial instruments for        hedging derivative is recognised in the statement
+    speculative purpose. Such derivative financial         of profit and loss in Finance Costs. Meanwhile,
+    instruments are initially recognised at fair value         the cumulative change in the fair value of the
+
+302

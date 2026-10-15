@@ -1,0 +1,62 @@
+Notes to Consolidated Financial Statements
+for the year ended March 31, 2026
+
+
+     Dividends are recognised at the time the right to receive              unobservable data, primarily cash flow based models.
+    payment is established.                                                                        If fair value cannot be measured reliably unlisted
+                                                                       shares are recognized at cost.
+2.14  Inventories
+                                                                                 2.17  Financial Instruments
+     Inventories are valued at lower of cost and net realisable
+     value except waste/scrap which is valued at net realisable            a.    Financial Assets
+      value. Cost of finished goods and stock in process  is
+                                                                                                  Initial recognition and measurement     determined by taking cost of purchases, material consumed,
+     labour and related overheads. Cost of raw materials and                                                                                                All financial assets are recognised initially at fair value,
+     stores & spare parts is computed on weighted average                                                                                     in the case of financial assets not recorded at fair
+      basis. Net realisable value is the estimated selling price in                                                                          value through profit or loss, transaction costs that are
+     the ordinary course of business, less estimated costs of                                                                               attributable to the acquisition of the financial asset.
+     completion and to make the sale.
+                                                                                   Classifications
+2.15  Provisions, Contingent Liabilities and Contingent Assets
+                                                              The  Group   classifies   its   financial  assets  as
+    Based on the best estimate provisions are recognized                                                                      subsequently measured at either amortised cost or
+    when there is a present obligation (legal or constructive) as                                                                                              fair value depending on the Group’s business model
+    a result of a past event and it is probable (“more likely than                                                                                for managing the financial assets and the contractual
+      not”) that it is required to settle the obligation, and a reliable                                                                    cash flow characteristics of the financial assets.
+     estimate can be made of the amount of the obligation at
+     reporting date.                                                           Financial assets at amortised cost
+
+    A contingent liability is a possible obligation that arises           A financial asset is measured at amortised cost only if
+    from a past event, with the resolution of the contingency             both of the following conditions are met:
+    dependent on uncertain future events, or a present
+                                                                            -      it  is held within a business model whose     obligation where no outflow is probable. Major contingent
+                                                                                   objective is to hold assets in order to collect       liabilities are disclosed in the financial statements unless the
+                                                                                 contractual cash flows.      possibility of an outflow of economic resources is remote.
+
+                                                                            -    the contractual terms of the financial asset     Contingent assets are not recognized in the financial
+                                                                             represent contractual cash flows that are solely     statements but disclosed, where an inflow of economic
+                                                                   payments of principal and interest.     benefit is probable.
+
+                                                                            After initial measurement, such financial assets are2.16 Measurement of Fair Value
+                                                                      subsequently measured at amortised cost using the
+      a)    Financial instruments                                               Effective Interest Rate (‘EIR’) method. Amortised cost
+                                                                                                     is calculated by taking into account any discount or
+        The estimated  fair value of the Group’s financial                                                             premium on acquisition and fees or costs that are
+         instruments is based on market prices and valuation                                                               an integral part of the EIR. The EIR amortisation is
+          techniques. Valuations are made with the objective                                                                          included as finance income in the Statement of Profit
+          to include relevant factors that market participants                                                              and Loss. The losses arising from impairment are
+         would consider in setting a  price, and to apply                                                                       recognised in the Statement of Profit and Loss.
+         accepted economic and financial methodologies for
+         the pricing of financial instruments. References for                Financial  assets  at   fair  value  through  Other
+           less active markets are carefully reviewed to establish             Comprehensive Income (FVOCI)
+          relevant and comparable data.
+                                                                                Financial  assets  with  contractual  cash  flow
+      b)   Marketable and non-marketable equity securities                    characteristics that are solely payments of principal
+                                                              and interest and held in a business model whose
+            Fair value for quoted securities is based on quoted                                                                              objective is achieved by both collecting contractual
+         market prices as of the reporting date. Fair value for                                                                    cash flows and selling financial assets are classified to
+         unquoted securities is calculated based on commonly                                                               be measured at FVOCI.
+         accepted valuation techniques utilizing significant
+
+
+                                                                                        Pioneer Embroideries Limited     167

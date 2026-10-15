@@ -1,0 +1,73 @@
+                                                   Corporate Overview          Statutory Reports         Financial Statements 
+
+Notes
+to the consolidated financial statements for the year ended March 31, 2026
+(All amounts are in Indian Rupees in Crores except share data and unless otherwise stated)
+
+     payments made at or before the commencement              overheads based on the normal operating
+      date less any lease incentives received. Right-                capacity, but excluding borrowing costs.
+      of-use assets are depreciated on a straight-line              Cost of finished goods includes excise
+      basis over the shorter of the lease term and the                duty.
+      estimated useful lives of the assets.                                                                  •    Net realisable value is the estimated selling
+     Lease Liabilities                                               price in the ordinary course of business,
+                                                                            less estimated costs of completion and
+     At the commencement date of the lease, the
+                                                                 the estimated costs necessary to make
+     Group recognises lease liabilities measured at
+                                                                 the sale.
+      the present value of lease payments to be made
+      over the lease term. The lease payments include     l.    Impairment of Non- Financial Assets
+      fixed payments. In calculating the present value
+      of lease payments, the Group uses its incremental        Impairment of Non – Financial Assets exists
+      borrowing rate at the lease commencement       when the carrying value of an asset or cash
+      date because the interest rate implicit in the         generating unit exceeds its recoverable amount,
+      lease  is not  readily determinable.  After the        which is the higher of its fair value less costs
+     commencement  date,  the amount  of  lease         of disposal and its value in use. The fair value
+        liabilities  is increased to reflect the accretion          less costs of disposal calculation is based on
+      of interest and reduced for the lease payments          available data from binding sales transactions,
+     made. In addition, the carrying amount of lease        conducted at arm’s-length, for similar assets
+        liabilities is remeasured if there is a modification,         or observable market prices less incremental
+     a change in the lease term, a change in the lease         costs for disposing of the asset. The value in use
+     payments or a change in the assessment of an          calculation is based on a DCF model.
+      option to purchase the underlying asset.
+                                              m.    Provisions
+      Short-term  leases and  leases  of  low-value
+      assets                                                  Provisions are recognised when the Group has
+                                                       a  present  obligation  (legal  or  constructive)
+     The  Group  applies  the  short-term  lease                                                           as a result of a past event, and it is probable
+      recognition exemption to its short-term leases                                                               that  an  outflow  of  resources  embodying
+      of those leases that have a lease term of 12                                                    economic benefits  will be required to settle
+     months or less from the commencement date                                                           the obligation and a reliable estimate can be
+     and do not contain a purchase option.                                             made of the amount of the obligation. When
+                                                           the Group expects some or all of a provision to
+k.    Inventories
+                                                  be reimbursed, for example, under an insurance
+      Inventories are valued at the lower of cost and          contract, the reimbursement is recognised as a
+      net  realisable  value. Cost  is determined on         separate asset, but only when the reimbursement
+     weighted average basis                                            is virtually certain. The expense relating to a
+                                                               provision is presented in the statement of profit
+      Costs incurred in bringing each product to its
+                                                   and loss net of any reimbursement.
+      present location and condition are accounted
+       for as follows:                                                                  If the effect of the time value of money is material,
+                                                               provisions are discounted using a current pre-
+       •    Raw materials and Components: Materials
+                                                             tax rate that  reflects, when appropriate, the
+          and  other  items  held  for use  in  the
+                                                                       risks specific to the liability. When discounting
+            production of inventories are not written
+                                                                                   is used, the increase in the provision due to the
+         down below cost if the finished products
+                                                       passage of time is recognised as a finance cost.
+              in which they  will be incorporated are
+           expected to be sold at or above cost.         Provisions are reviewed at each Balance Sheet
+           Cost includes cost of purchase and other          date.
+            costs incurred in bringing the inventories                                                      Warranty Provision
+            to their present location and condition.
+                                                               Provisions   for  warranty-related  costs  are
+       •     Finished goods and work  in progress:                                                          recognised when the product is sold or service
+            cost includes cost of direct materials and                                                         provided to the customer.  Initial recognition
+            labour and a proportion of manufacturing                                                                                   is based on  historical experience. The  initial
+
+
+                                                                                                   237

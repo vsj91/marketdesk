@@ -1,0 +1,62 @@
+                                                             CONSOLIDATED FINANCIAL STATEMENTS
+
+
+          of profit and loss. For trade and other                 c.  Hedge accounting
+         payables maturing within one year from                                                       The Group designates derivative contracts in
+         the balance sheet date, the carrying                                                             a cash flow hedging relationship by applying
+        amounts approximate fair value due to                                                               the hedge accounting principles designated in
+         the short maturity of these instruments.                                                             a hedging relationship, used to hedge its risks
+                                                                 associated with foreign currency fluctuations
+                                                                           relating to certain highly probable forecastb.    Derivative financial instruments
+                                                                      transactions.
+    The Group enters into a variety of derivative
+      financial instruments to manage its exposure
+     to interest rate and foreign exchange rate                 At the inception of the hedge relationship, the
+       risks,  including  foreign exchange forward                Group documents the relationship between
+      contracts.                                                 the hedging instrument and the hedged item,
+                                                                 along with its risk management objectives and
+                                                                                     its strategy for undertaking various hedge
+      Derivatives are  initially recognised at  fair                                                                      transactions. Furthermore, at the inception of
+      value at the date the derivative contracts                                                               the hedge and on an ongoing basis, the Group
+      are  entered  into  and  are  subsequently                                                        documents whether the hedging instrument
+     remeasured to their fair value at the end of                                                                                        is highly effective in offsetting changes in
+     each reporting period. The resulting gain                                                                                        fair values or cash flows of the hedged item
+     or loss  is recognised  in the consolidated                                                                        attributable to the hedged risk.
+     statement of profit and loss immediately
+     unless  the  derivative  is  designated and
+      effective as a hedging instrument, in which                These derivative contracts are stated at the
+     event the timing of the recognition in the                         fair value at each reporting date.
+     consolidated statement of profit and loss
+     depends on  the  nature  of  the hedging
+      relationship and the nature of the hedged                The effective portion of changes in the fair
+      item.                                                         value of derivatives that are designated and
+                                                                           qualify as cash flow hedges  is recognised
+                                                                                in   other  comprehensive  income  and
+      Effective interest method                                 accumulated under cash flow hedge reserve.
+                                                       The gain or loss relating to the ineffective    The effective interest method is a method
+                                                                   portion  is recognised immediately  in the      of  calculating  the  amortised  cost  of  a
+                                                                  consolidated statement of profit and loss.     debt instrument and of allocating interest
+     income/expense over the relevant period.
+    The effective interest rate is the rate that                                                      Amounts  previously  recognised  in  other
+      exactly  discounts  estimated  future  cash                                                            comprehensive  income  and  accumulated
+      receipts (including  all fees and points paid                                                                                in equity relating to effective portion (as
+     or received that form an integral part of the                                                                 described  above)  are  reclassified  to  the
+      effective  interest  rate,  transaction  costs                                                                  consolidated statement of profit and loss in
+     and other premiums or discounts) through                                                               the periods when the hedged item affects
+     the expected life of the debt instrument, or,                                                                             profit or loss.
+     where appropriate, a shorter period, to the
+     net carrying amount on initial recognition.
+                                                     Hedge  accounting  is  discontinued when
+                                                               the hedging instrument expires or is sold,
+     Income   is  recognised  on  an  effective                                                                  terminated, or exercised, or when it no longer
+      interest basis for debt instruments other                                                                             qualifies for hedge accounting. Any gain or
+     than those financial assets classified as at                                                                       loss  recognised  in  other  comprehensive
+     FVTPL. Interest income is recognised in the                                                          income and accumulated in equity at that
+     consolidated statement of profit and loss and                                                              time remains  in equity and  is recognised
+       is included in ‘Other income’.
+
+
+
+
+
+                                                                                         Annual Report 2025-26  | 339

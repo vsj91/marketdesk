@@ -1,0 +1,42 @@
+ Corporate Overview        Statutory Reports          Financial Statements                    117
+
+Notes
+forming part of the Audited Standalone Financial Statements for the year ended March 31, 2026
+                                                                              (Amounts in ₹ Lakhs, unless otherwise stated)
+
+          S.No  Original classification  Revised classification  Accounting treatment
+       2    FVTPL              Amortised Cost        Fair value at reclassification date becomes its new gross
+                                                             carrying amount. EIR is calculated based on the new gross
+                                                             carrying amount.
+       3    Amortised cost      FVTOCI                Fair value is measured at reclassification date. Difference
+                                                 between previous amortised cost and fair value is recognised
+                                                                  in OCI. No change in EIR due to reclassification.
+       4    FVTOCI             Amortised cost        Fair value at reclassification date becomes its new amortised
+                                                             cost carrying amount. However, cumulative gain or loss in
+                                                  OCI is adjusted against fair value. Consequently, the asset is
+                                                 measured as if it had always been measured at amortised
+                                                                     cost.
+       5    FVTPL             FVTOCI                Fair value at reclassification date becomes its new carrying
+                                                   amount. No other adjustment is required.
+       6    FVTOCI            FVTPL               Assets continue to be measured at fair value. Cumulative gain
+                                                             or loss previously recognized in OCI is reclassified to P&L at the
+                                                                    reclassification date.
+
+         Financial assets and financial  liabilities are            translation differences on items whose fair
+         offset and the net amount  is reported in           value gain or loss is recognised in OCI or profit
+        the balance sheet,  if there  is a currently           or loss are also recognised in OCI or profit or
+        enforceable   legal   right  to   offset  the              loss, respectively).
+        recognised amounts and there is an intention                                                     The Company enters into forward exchange         to settle on a net basis, to realise the assets                                                              contract to hedge  its risk associated with       and settle the liabilities simultaneously.                                                                 foreign currency fluctuations. The forward
+        Foreign currency transactions and translations           contracts  are  marked  to  market  and
+                                                           recognised in the profit or loss. In case of
+        Transactions and balances                       monetary items which are covered by forward
+                                                      exchange contract, the difference between         Transactions   in  currencies  other  than
+                                                           the yearend rate and rate on the date of the        the  entity’s  functional  currency  (foreign
+                                                              contract is recognized as exchange difference.         currencies) are recognised at the rates of
+                                                   Any profit or loss arising on cancellation of a       exchange  prevailing  at the dates  of the
+                                                           forward exchange contract is recognized as         transactions. However, for practical reasons,
+                                                    income or expense for that year.        the Company uses an average rate,  if the
+        average approximates the actual rate at the
+        date of the transaction.                                                 i)  Borrowing Costs
+                                                            Borrowing  cost    include     interest       Monetary assets and liabilities denominated                                                     computed using effective  interest rate          in foreign currencies are translated at the                                                         method, amortisation of ancillary costs         functional currency spot rates of exchange                                                                  incurred  and  exchange  differences         at the reporting date. Exchange differences                                                                         arising from foreign currency borrowings         arising  on  settlement  or  translation  of                                                                     to the extent they are regarded as an       monetary items  are recognised  in  profit                                                            adjustment to the interest cost.         or loss.
+                                                            Borrowing  costs  that  are   directly       Non-monetary items that are measured in                                                                       attributable    to    the    acquisition,        terms of historical cost in a foreign currency                                                                     construction, production of a qualifying         are translated using the exchange rates at                                                                   asset are capitalised as part of the cost of        the dates of the  initial transactions. Non-                                                                    that asset which takes substantial period       monetary  items measured  at  fair  value                                                                         of time to get ready for its intended use.          in a foreign currency are translated using                                                        The Company determines the amount of        the exchange rates at the date when the                                                            borrowing cost eligible for capitalisation           fair value  is determined. The gain or loss                                                          by applying capitalisation rate to the         arising  on  translation  of  non-monetary                                                                expenditure incurred on such cost. The        items measured at fair value  is treated in                                                                          capitalisation rate is determined based on          line with the recognition of the gain or loss                                                               the weighted average rate of borrowing       on the change in fair value of the item (i.e.,                                                                   cost applicable to the borrowings  of

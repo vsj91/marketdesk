@@ -1,0 +1,88 @@
+                                                                                                                                                                                                                            Corporate Overview           Statutory Reports           Financial Statements
+Notes to the Consolidated Financial Statements              Notes to the Consolidated Financial Statements
+for the year ended 31st March, 2026                                                                                                            for the year ended 31st March, 2026
+
+
+
+
+   A liability is treated as current when:                     notes required to be disclosed under the notified                                     financial statements. The said Goodwill is not         assets and liabilities, and the accompanying
+                                                       Accounting Standards.                                                        amortized, however, it is tested for impairment        disclosures, and the disclosure of contingent
+      •   It is expected to be settled in normal
+                                                                                                                                       at each Reporting date and the impairment             liabilities. Uncertainty about these judgements,
+       operating cycle;                                                    e)  Consolidation                                                                                 loss, if any, is provided for.                         assumptions and estimates could result in
+      •   It is held primarily for the purpose of trading;                                                                                                                        outcomes that require a material adjustment
+                                                     The Consolidated financial statements comprise                                        iv)  Non-controlling interests (‘NCI’) in the net
+                                                                                                                                                                                              to the carrying amount of the asset or liability
+      •   It is due to be settled within twelve months after       the financial statements of the Company and its                                   assets of consolidated subsidiaries are
+                                                                                                                                                                                        affected in future periods. Continuous evaluation
+       the reporting period; or                                  subsidiaries as at 31 March 2026.                                                      identified and presented in the consolidated
+                                                                                                                                                                                                                                                                                               is done on the estimation and judgments based on
+                                                                                                                             Balance Sheet separately within equity.
+      •  There is no unconditional right to defer the          Where the Group has control over an investee, it                                                                                                   historical experience and other factors, including
+       settlement of the liability for at least twelve                  is classified as a subsidiary. The Group controls                                    Non-controlling interests represent that             expectations of future events that are believed to
+      months after the reporting period.                 an investee if all three of the following elements                                 part of the total comprehensive income and        be reasonable. Revisions to accounting estimates
+                                                         are present:                                                                 net assets of subsidiaries attributable to             are recognized prospectively.
+      All other liabilities are classified as non-current.
+                                                                                                                                     the interests which is not owned, directly or
+                                                                                                                                  i.   power over the investee,                                                                                                                         In particular, information about material areas of
+    Based on the nature of products and the time                                                                                                             indirectly, by the Holding Company.
+                                                                                                                                                                                        estimates and judgments in applying accounting
+    between acquisition of assets for processing and                    ii.   exposure to variable returns from the
+                                                                                                                        NCI are measured at their proportionate share        policies that have the most Material effect on the
+     their realization in cash and cash equivalents, the              investee, and
+                                                                                                                                                of the acquiree’s net identifiable assets at the       amounts recognized in the consolidated financial
+    Group has ascertained its operating cycle as 12
+                                                                                                                               iii.  the ability of the investor to use its power to                               date of acquisition. Changes in the Group’s          statements are described below:
+    months for the purpose of current or non-current
+                                                                  affect those variable returns.                                                equity interest in a subsidiary that do not
+     classification of assets and liabilities.                                                                                                                                                                 result in a loss of control are accounted for as     i)  Impairment of Goodwill                                                           Control is reassessed whenever facts and
+    Deferred tax assets and liabilities are classified as                                                                                         equity transactions.
+                                                        circumstances indicate that there may be a                                                                                        For testing of impairment of goodwill, if events
+    non-current assets and liabilities.
+                                                  change in any of these elements of control.                                  The profit/loss and other comprehensive             or changes in circumstances indicate a potential
+                                                                                                                       income attributable to non- controlling             impairment, as part of the review process, thec)  Presentation currency and rounding-off                                                    Procedure                                                                             interests of subsidiaries are shown separately         carrying amount of the Cash Generating Units
+      All amounts disclosed in these consolidated                                                                                                                   in the consolidated statement of profit and           (‘CGUs’) (including allocated goodwill) is compared
+                                                                                                 i)   The consolidated financial statements have
+     financial statements and notes are presented in                                                                                                        loss and consolidated statement of changes in       with its recoverable amount by the Group.
+                                                      been prepared using uniform accounting
+     J (in crore), the functional currency of the Group.                                                                                               equity.[AM1.1]
+                                                                        policies for like transactions and other events                                                                          The recoverable amount is the higher of fair value
+    Items included in the consolidated financial
+                                                                              in similar circumstances. The accounting                                                                                                        less costs to sell and value in use, both of which    statements of the Group are recorded using the                                                                         1.2 Basis of measurement                                                                        policies adopted in the preparation of                                                                                      are calculated by the Group using a discounted
+    currency of the primary economic environment
+                                                              consolidated financial statements are                                These consolidated financial statements have           cash flow analysis. Calculating the future net cash
+     in which the Group operates (the ‘functional
+                                                                  consistent with those of the previous year.                          been prepared on an accrual basis and a historical        flows expected to be generated to determine if
+     currency’).
+                                                                                                                                     cost convention, except for the following assets          impairment exists and to calculate the impairment
+                                                        The financial statements of all entities used for
+      All values are rounded off to two decimals as per                                                                     and liabilities which have been measured at               involves Material assumptions, estimation and
+                                                             the purpose of consolidation are drawn up to
+    the requirement of Division II of Schedule III to the                                                                                                        fair value:                                           judgment. The estimation and judgments involve,
+                                                             the same reporting date as that of the Holding
+     Act, unless otherwise indicated.                                                                                                                                                  but are not limited to, industry trends including
+                                                     Company, i.e., the year ended on 31st March.                                     •  Financial instruments measured at fair value
+                                                                                                                                                                                                                        pricing, estimating long-term revenues growth
+                                                                                                                                through profit or loss;d)  Basis of presentation                                                        ii)  The consolidated financial statements of                                                                                                   rates, exit multiples and operating results. The
+                                                             the Company and its subsidiaries have been                                      • Net defined benefit(asset)/ liability - Fair value        estimated cash flows are developed using internal
+    The Consolidated Balance sheet and the
+                                                      combined on a line by-line basis by adding                                  of plan assets less present value of defined              forecasts. The cash flows are discounted using a
+    Statement of profit and loss are prepared and
+                                                             together the book values of like items of                                     benefit obligation; and                               discount rate in order to compute present values.
+    presented in the format prescribed in Division
+                                                                      assets, liabilities, income and expenses, after                                                                     An impairment loss recognized for goodwill is not
+        II of Schedule III to the Act. The Consolidated                                                                                                                 •  Share based payment transactions[AM2.1]
+                                                                  eliminating intra-group balances, intra-group                                                                                 reversed in subsequent periods as per Ind-AS 36 –
+    Statement of Cash Flows has been prepared
+                                                                 transactions and the unrealized profits/losses,                                                                              ‘Impairment of assets’.    and presented as per the requirements of Ind-                                                                          1.3 Summary of key accounting estimates,                                                                   unless cost/revenue cannot be recovered.    AS 7, Statement of Cash Flows. The disclosure                                                                  assumptions and judgments                                                                                                                                                                                                                                                                       ii)  Provision for warranty    requirements with respect to items in the                               iii)  The excess cost to the Group of its investment
+                                                                                                                       The preparation of consolidated financial
+    Balance sheet and Statement of profit and                        in subsidiaries, on the acquisition dates over                                                                            Warranty provision is determined based on the
+                                                                                                                             statements requires the management to make
+      loss, as prescribed in the Schedule III to the Act,             and above the Group’s share of equity in                                                                                                      historical percentage of warranty expense to sales
+                                                                                                                               judgments, use estimates and assumptions that
+    are presented by way of notes forming part of                the subsidiaries, is recognized as ‘Goodwill                                                                                                for the same types of goods depending upon the
+                                                                                                                                          affect the reported amounts of revenues, expenses,
+    the financial statements along with the other              on Consolidation’ in the consolidated                                                                                    warranty period offered. The percentage to the
+
+
+546                                                       Crompton Greaves Consumer Electricals Limited                        Integrated Annual Report 2025-26                                                                 547

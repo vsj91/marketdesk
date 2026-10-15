@@ -1,0 +1,58 @@
+                               278
+
+Notes to the Consolidated Financial Statements
+For the year ended 31 March 2026
+
+2.2.10 Financial Instruments                       3. Financial assets at fair value through profit or
+A financial instrument is any contract that gives    loss (FVTPL)
+rise to a financial asset of one entity and a financial   A financial asset which is not classified in any of
+liability or equity instrument  of another  entity.   the above categories are subsequently fair valued
+Financial instruments are recognised in the Group’s   through profit or loss.
+balance sheet when the Group becomes a party to
+the contractual provisions of the instrument.                 (iii) Impairment of financial assets
+                                             The Group generally operates on a cash and carry
+Financial assets and liabilities are initially recognized   model except in the case of franchisee partners
+at  fair value. Transaction costs that are directly   where there are adequate controls in place, and
+attributable to financial assets and liabilities [other   hence the expected credit loss allowance for trade
+than financial assets and liabilities measured at fair    receivables  is insignificant. The concentration of
+value through profit and loss (FVTPL)] are added to    credit risk is also limited due to the fact that the
+or deducted from the fair value of the financial assets   customer base is large and unrelated.
+or liabilities, as appropriate on initial recognition.
+Transaction costs directly attributable to acquisition                                                                     (iv) Derecognition of financial assetsof financial assets or liabilities measured at FVTPL
+                                       A financial asset is derecognised only when theare recognized immediately in the Statement of
+                                                  Group:Profit and Loss.
+                                                                         -   has transferred the rights to receive cash flows
+a) Financial Assets                                from the financial asset; or
+(i) Initial recognition and measurement
+                                                                         -    retains the contractual rights to receive theAll financial assets are recognised initially at fair value                                                    cash flows of the financial asset, but assumes aplus, in the case of financial assets not recorded                                                         contractual obligation to pay the cash flows toat  fair value through profit or  loss, transaction                                               one or more recipients.costs that are attributable to the acquisition of
+the financial asset. Trade receivables are initially                                         Where the entity has transferred an asset, themeasured at transaction price.                                        Company  evaluates whether  it has  transferred
+                                                         substantially  all risks and rewards of ownership
+(ii) Classification and Subsequent measurement    of the financial asset. In such cases, the financial
+For purposes of subsequent measurement, financial    asset  is derecognised. Where the entity has not
+assets are classified in three categories:                transferred substantially  all risks and rewards of
+                                               ownership of the financial asset, the financial asset1. Financial assets carried at amortised cost                                                                         is not derecognised.
+A  financial asset  is subsequently measured  at
+amortized cost if it is held within a business model                                         Where the entity has neither transferred a financial
+whose objective is to hold the asset in order to collect                                                      asset nor retains substantially all risks and rewards of
+contractual cash flows and the contractual terms of                                               ownership of the financial asset, the financial asset
+the financial asset give rise on specified dates to                                                                         is derecognised  if the Company has not retained
+cash flows that are solely payments of principal and                                                       control of the financial asset.
+interest on the principal amount outstanding.
+                                                   b) Financial liabilities
+2. Financial assets at fair value through other
+comprehensive income (FVOCI)                                 (i) Initial recognition and measurement
+A financial asset is subsequently measured at fair    Financial liabilities are initially measured at fair value,
+value through other comprehensive income if it is   net of directly attributable transaction costs. For
+held within a business model whose objective is    trade and other payables maturing within one year
+achieved by both collecting contractual cash flows   from the balance sheet date, the carrying amounts
+and selling financial assets and the contractual   approximate fair value due to the short maturity of
+terms of the financial asset give rise on specified   these instruments.
+dates to cash flows that are solely payments of
+principal and interest on the principal amount
+outstanding.
+
+
+
+
+
+                                  BLUESTONE JEWELLERY & LIFESTYLE LIMITED

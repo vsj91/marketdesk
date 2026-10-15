@@ -1,0 +1,64 @@
+                                                                              2025-2026
+                                                                          14 th ANNUAL REPORT
+
+          CONSOLIDATED STATEMENT OF CASH FLOWS FOR THE YEAR ENDED 31 ST MARCH, 2026
+                                                                                                              (` in Crores)
+                                                                                For the year ended  For the year ended                                         Particulars                                                                                    st                                         st
+                                                                  31 March, 2026   31 March, 2025
+            A. CASH FLOW FROM OPERATING ACTIVITIES
+              Net Profit Before Tax from continuing operation                                 2,440.95              2,012.47
+              Net Profit Before Tax from discontinued operation                                      -              727.23
+                                                                             2,440.95           2,739.70
+             Adjustment for:
+                     Depreciation, depletion and amortization expense                           898.95            1,062.09
+                   Loss (Gain) on foreign currency transaction                                     32.16                12.25
+                  Share of net profit/(loss) of joint ventures and associates accounted               (141.26)                 2.01
+                      for using the equity method (Net of tax)
+                    (Gain) / Loss on termination / modification of lease                                 (1.64)                 (0.03)
+                       (Profit) / Loss on sale / write-off of Property, Plant &                             7.43                5.00
+                  Equipment including provisions and sale of scrap (net)
+                     Provision for loss on diminution in value of Inventory                            26.37                   6.11
+                     Provision for Doubtful cash call - Receivables from Joint Arrangement                  2.12             524.88
+                  Allowance for Doubtful Trade Receivables/Advances/Deposits &                    11.02              34.49
+                   Doubtful Debts written off- Net
+                  Impairment of Assets                                                          18.41             328.24
+                     Exploration Cost Written off/(Written back)                                        -                  9.19
+                   Dividend Income                                                                (2.29)                  (2.21)
+                   Finance Costs                                                        257.46             292.94
+                       Provision/liability no longer required written back                                    (15.17)                (47.18)
+                      Interest Income                                                                 (451.11)             (491.33)
+                  Other Non Cash Items                                                          (15.33)                  (4.41)
+              Operating Profit before Working Capital Changes                         3,068.07            4,471.74
+              Adjustments for changes in Working Capital
+                   (Increase)/Decrease in Trade Receivables                                        615.71             (445.01)
+                   (Increase)/Decrease in Other - Non-Current Assets                            94.07                (15.38)
+                   (Increase)/Decrease in Other financial assets - Non-current                       (54.97)                  2.61
+                   (Increase)/Decrease in Loans and Advances - Current                            0.23                0.24
+                   (Increase)/Decrease in Other Current Assets                                     38.11               (26.01)
+                   (Increase)/Decrease in Other financial assets - Current                         (1,103.27)                 (3.25)
+                   (Increase)/Decrease in Inventories                                            (541.07)                121.14
+                   (Increase)/Decrease in Loan and advances - Non-current                           (0.20)                 (2.99)
+             Changes in Assets                                                     (951.39)           (368.65)
+                   Increase/(Decrease) in Trade Payables                                             414.11             (630.39)
+                   Increase/(Decrease) in Other financial liabilities - Current                      407.03              80.34
+                   Increase/(Decrease) in Other current liabilities                                        8.11             247.52
+                   Increase/(Decrease) in Other Non-Current Liabilities                            58.37                5.69
+                   Increase/(Decrease) in Current provisions                                    28.87                  8.21
+                   Increase/(Decrease) in Other financial liabilities - Non-current                     20.13                5.03
+                   Increase/(Decrease) in Non-Current provisions                                   11.05                 2.01
+             Changes in Liabilities                                                947.67           (281.59)
+             Cash Generated from Operations                                     3,064.35           3,821.50
+                 Income tax paid (Net of refund)                                            (343.46)              (451.77)
+             Net Cash from/(used in) Operating Activities                             2,720.89           3,369.73
+             B. CASH FLOW FROM INVESTING ACTIVITIES
+                 Payments for Property, plant and equipment's/Intangible assets including         (953.43)             (953.20)
+                      capital work in progress/intangible assets under development,
+                   investment properties and capital advances LIMITED
+                Payment for Purchase of Investments                                             -                 (9.42)
+                    Sale of Property Plant & equipment                                            0.86                 10.81
+                  Recovery of Loans /(Loans given)                                             0.28                 (0.01) ENERGY               Rent Income                                                              0.25                0.26
+                  Other Bank balances in Earmark funds (net)                                  26.95             (329.44)
+                  Investment in Fixed Deposits with banks and financial institutions (net)          (1,689.10)            (3,035.01)
+                     Interest received                                                    434.96             394.39 GUJARAT               Dividend Income from Subsidiary, Associates and Joint Venture                   79.90               79.90
+                   Dividend Income from other Investment                                        2.29                  2.21
+282             Net Cash from/(used in) Investing Activities                              (2,097.04)          (3,839.51)

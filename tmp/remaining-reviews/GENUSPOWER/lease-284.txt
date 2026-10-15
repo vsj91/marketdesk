@@ -1,0 +1,69 @@
+                                                   Corporate Overview          Statutory Reports         Financial Statements 
+
+Notes
+to the consolidated financial statements for the year ended March 31, 2026
+(All amounts are in Indian Rupees in Crores except share data and unless otherwise stated)
+
+42   Financial instruments
+
+      The carrying value of financial instruments by categories is as follows:
+
+
+                                                                           March 31, 2026  March 31, 2025
+        Financial assets
+        Financial assets at fair value through profit or loss or other comprehensive
+      income
+          Non-current
+          Investments                                                                                  26.17             13.33
+          Current
+          Investments                                                                          55.77           172.33
+        Financial assets at amortised cost
+          Non-current
+          Investments                                                                      2.00              1.50
+          Loans                                                                            273.39          156.48
+          Others                                                                                    16.59           22.27
+          Current
+          Loans                                                                           228.63             10.01
+          Trade receivables                                                                       1,502.52          1,363.72
+         Cash and cash equivalents                                                        259.83            221.91
+          Other bank balances                                                                 461.98           538.10
+          Others                                                                                           37.61            18.89
+        Total                                                                            2,864.48        2,518.54
+           Financial liabilities
+          Non-current
+          Borrowings                                                                          501.38          437.70
+          Other                                                                               6.68            5.45
+          Current
+          Borrowings                                                                               1,798.27         926.90
+             Trade payables                                                               773.48          579.65
+             Lease liability                                                                          2.72               1.28
+          Other                                                                           96.95          93.64
+        Total                                                                                   3,179.48       2,044.62
+
+
+43   Fair value hierarchy
+
+      The following table provides the fair value measurement hierarchy of the Company’s assets and liabilities.
+
+       Quantitative disclosures fair value measurement hierarchy of assets as at March 31, 2026
+
+
+                                                                        Valuation
+                                                                           March 31, 2026  March 31, 2025
+                                                                    technique
+       Assets measured at fair value
+       Investment in equity shares (Quoted)-measured at FVTPL             Level 1                 49.19          99.93
+       Investment in equity shares (Quoted)-measured at FVTOCI            Level 1               0.44           0.96
+       Investment in mutual funds & corporate bonds (Quoted)-             Level 1                 6.58          72.40
+      measured at FVTPL
+       Investment in securities (Unquoted)-measured at FVTPL              Level 3               25.23           0.05
+       Investment in securities (Unquoted)-measured at FVTOCI*            Level 3               0.50          42.00
+
+         * Including the financial assets amounting to ₹ Nil (March 31, 2025: ₹ 29.68 crores) classified as Assets held for
+        distribution pusuant to scheme of demerger.
+
+
+
+
+
+                                                                                                  277

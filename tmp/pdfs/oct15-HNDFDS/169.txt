@@ -1,0 +1,73 @@
+                                                                                                                                                         Corporate Overview                      Statutory Reports                         Financial Statements
+
+
+
+
+NOTES FORMING PART OF THE CONSOLIDATED FINANCIAL STATEMENTS                                      NOTES FORMING PART OF THE CONSOLIDATED FINANCIAL STATEMENTS
+FOR THE YEAR ENDED MARCH 31, 2026 (CONTD.)                                                       FOR THE YEAR ENDED MARCH 31, 2026 (CONTD.)
+(Amounts in Rs. cr, unless otherwise stated)                                                                                  (Amounts in Rs. cr, unless otherwise stated)
+
+
+34 INCOME TAX AND DEFERRED TAX                                                                                                D)  Deferred tax liability to be recognised in Balance Sheet relates to the following:
+
+     A)  Tax expense charged to the statement of profit or loss                                                                                                                                              As at                    As at
+                                                                                                                                                                             March 31, 2026          March 31, 2025
+                                                                          Year ended               Year ended                                                                                                                               (Restated -
+                                                            March 31, 2026          March 31, 2025                                                                                                                                      refer note 38(B))
+                                                                                                       (Restated -
+                                                                                                                                          Deferred tax assets
+                                                                                                            refer note 38(B))
+                                                                                                    On provision for employee benefits                                            11.65                      5.38         Current tax                                                          43.00                    39.00
+                                                                                                    On provision for doubtful debts                                                0.21                       0.10         Deferred tax charge                                                                 7.61                       0.79
+                                                                                                    On provision for doubtful other receivable                                    0.16                                   -
+         Tax expense reported in the statement of profit or loss                    50.61                    39.79
+                                                                                                    On provision for doubtful advances                                            0.21                       0.18
+     B)  Tax expense charged to OCI
+                                                                                                    On lease liabilities                                                             1.28                     0.60
+                                                                          Year ended               Year ended                      On unussed tax losses                                                       5.55                       8.76
+                                                            March 31, 2026          March 31, 2025                      On others                                                                0.23                      0.48
+                                                                                                       (Restated -
+                                                                                                                                                                                                                     19.29                     15.50
+                                                                                                            refer note 38(B))
+                                                                                                                                          Deferred tax liabilities
+        Net gain on remeasurements of defined benefit plans                          (0.66)                          (0.15)
+                                                                                                    On property, plant and equipment                                        63.07                      55.01
+         Tax charged to OCI                                                           (0.66)                        (0.15)
+                                                                                                    On unamortised processing cost                                           0.70                       0.75
+    C)  Reconciliation of tax charge                                                                                                    On lease liabilities (net)                                                        1.03                       1.04
+                                                                          Year ended               Year ended                                                                                               64.80                   56.80
+                                                            March 31, 2026          March 31, 2025                                Deferred tax liabilities net                                                         (45.51)                       (41.30)
+                                                                                                       (Restated -                                                                                                                                               Deferred tax assets on acquisition manufacturing facilities                                  -                       3.49
+                                                                                                            refer note 38(B))                                                                                                                                                         of SSIPL Retail Limited [refer note 38(C)(a)]
+         Profit before tax                                                        199.64                    155.05                                                                                                                                               Deferred tax assets on merger of Avalon Cosmetics                                  -                      0.26
+        Enacted income tax rate in India applicable to the Holding                   25.17%                    25.17%                                     Private Limited - Nashik unit (refer note 38(B))
+       Company                                                                                                                             Deferred tax assets on acquisition of  Sinnar, Nashik                    0.08                                   -
+        Income tax expense at tax rates applicable                                50.24                     39.02                                   factory (refer note 38(A))
+         Tax effects of items that are not deductible in determining                                                                                Deferred tax liability, net                                                    (45.43)                       (37.55)
+          taxable income:                                                                                                                                                            E)   Deferred tax expense to be recognised in Statement of Profit and Loss
+       CSR expenditure and donations                                           0.60                       0.47
+                                                                                                                                                                                                               Year ended               Year ended         Different tax rates in the components#                                          (0.92)                      0.39
+                                                                                                                                                                             March 31, 2026          March 31, 2025
+       Due to change in Income tax rate of merged Nashik unit                                  -                        (0.29)                                                                                                                                                                                                                                                (Restated -
+          of Avalon Cosmetics Private Limited                                                                                                                                                                                                                    refer note 38(B))
+           Interest on income tax paid                                                0.63                     0.00                                Deferred tax liabilities, net                                                      (45.43)                        (37.55)
+         Others                                                                  0.05                     0.20                            Deffered tax on prior period tax adjustments                                                 -                          (0.01)
+       Income tax expense                                                    50.61                    39.79                                Deferred tax assets on merger of Avalon Cosmetics                                  -                        (0.26)
+                                                                                                                                                                     Private Limited - Nashik unit (refer note 38(B))      # Different tax rates in HFL Consumer Products Private Limited, HFL Multi Products Private Limited and Aero Care
+         Personal Products LLP.                                                                                                                  Deferred tax assets on acquisition of  Sinnar, Nashik                    0.08
+                                                                                                                                                              factory (refer note 38(A))
+
+                                                                                                                                               Deferred tax assets on acquisition manufacturing facilities                                  -                         (3.49)
+                                                                                                                                                         of SSIPL Retail Limited [refer note 38(C)(a)]
+
+                                                                                                                                           Others                                                                 0.20                        (0.05)
+
+                                                                                                                                                               Less: Opening deferred tax liabilities                                         37.55                     40.57
+
+                                                                                                                                          Deferred tax charge for the year                                                   (7.61)                        (0.79)
+
+
+
+
+
+                                      330    Hindustan Foods Limited                                                                                                                                          Annual Report 2025-26    331

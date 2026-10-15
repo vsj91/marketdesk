@@ -1,0 +1,58 @@
+158  Glottis Ltd  | Annual Report 2025-26
+
+Independent Auditors’ Report
+
+
+To                                                obtained  is  sufficient and appropriate to provide
+The Members of                                  a basis for our audit opinion on the consolidated
+GLOTTIS LIMITED                                          financial statements.
+Report on the Audit of Consolidated    Key Audit Matters
+Financial Statements                      Key audit matters are those matters  that, in our                                                        professional judgment, were of most significance in
+Opinion                                          our audit of the Consolidated Financial Statements of
+We have audited the consolidated financial statements  the current period. These matters were addressed in
+of  Glottis Limited (hereinafter referred to as “the  the context of our audit of the Consolidated Financial
+Holding Company”),  its  wholly owned  subsidiary  Statements as a whole, and in forming our opinion
+Glottis Inc (the Holding Company and its subsidiaries   thereon, and we do not provide a separate opinion
+together referred to as “the Group”)  its associate  on these matters. We have determined the matters
+comprising  of the consolidated Balance sheet as  described below to be the key audit matters to be
+at March 31, 2026, the consolidated Statement of  communicated in our report.
+Profit and  Loss,  including  other  comprehensive
+                                                                            Sl No.  Key Audit Matterincome, the consolidated Cash Flow Statement and
+the consolidated Statement of Changes in Equity for  1     Revenue Recognition
+                                                          The Group’s revenue from freight forwarding andthe year then ended, and notes to the consolidated                                                                                logistics services involves significant judgement in
+financial statements, including a summary of material         determining whether the Group acts as a principal
+accounting policies and other explanatory information          or an agent under Ind AS 115 – Revenue from
+(hereinafter referred to as “the consolidated financial          Contracts with Customers, which impacts whether
+                                                              revenue is recognised on a gross or net basis.statements”).
+                                                                        Further, considering the nature of the Group’sIn our opinion and to the best of our information                                                                       operations, assessment of revenue cut-off, unbilled
+and according to the explanations given to us and         revenue and accrual of related freight and logistics
+based on the  consideration  of  reports  of  other           costs involves management judgement, particularly
+auditors on separate financial statements and on            for shipments in transit and vendor invoices received
+                                                            subsequent to the reporting date.the other financial information of the subsidiary, the
+aforesaid consolidated financial statements give the          Considering the significance of revenue and related
+information required by the Companies Act, 2013,           costs to the Standalone Financial Statements and
+as amended (“the Act”) in the manner so required          the judgement involved in the recognition and
+                                                       measurement thereof, this matter was considered toand give a true and fair view in conformity with the                                                        be one of most significance in our audit.
+accounting principles generally accepted  in  India,          Auditor’s Response
+of the consolidated state of affairs of the Group as at           Principal Audit Procedures Performed included the
+March 31, 2026, their consolidated profit including           following:
+                                                                                                                              •   Evaluated the appropriateness of the Group’sother comprehensive income, their consolidated cash                                                                  accounting policies relating to revenue
+flows and the consolidated statement of changes in              recognition and related accruals with reference
+equity for the year ended on that date.                                to the principles prescribed under Ind AS 115.
+                                                                                                                              •  We examined, on a sample basis, customer
+Basis for Opinion                                                   contracts and arrangements with shipping lines                                                          and overseas agents to evaluate management’s
+We conducted our audit of the consolidated financial             assessment of principal versus agent
+statements  in accordance with the Standards on               considerations.
+Auditing (SAs) specified under section 143(10) the Act.                   •   Performed substantive testing of revenue
+                                                                          transactions by examining supportingOur responsibilities under those Standards are further                                                               documentation including invoices, shipment
+described in the ‘Auditor’s Responsibilities for the Audit             documents, airway bills, bills of lading and
+of the Consolidated Financial Statements’ section of               related customer documentation;
+our report. We are independent of the Company in                   •   Performed cut-off procedures for revenue
+                                                                          transactions recorded before and after theaccordance with the ‘Code of Ethics’ issued by the                                                                        reporting date to assess whether revenue had
+Institute of Chartered Accountants of India  (‘ICAI’)            been recognised in the appropriate accounting
+together with the  ethical requirements  that  are               period;
+relevant to our audit of the financial statements under                   •  We also performed analytical review procedures
+                                                          on revenue trends and freight margins andthe provisions of the Act and the Rules there under,                                                                     assessed the adequacy of related disclosures in
+and we have fulfilled our other ethical responsibilities             the Consolidated Financial Statements.
+in accordance with these requirements and the Code
+of Ethics. We believe that the audit evidence we have

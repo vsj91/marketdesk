@@ -1,0 +1,57 @@
+NOTES FORMING PART OF THE STANDALONE FINANCIAL STATEMENTS FOR THE YEAR ENDED MARCH 31, 2026
+(All amounts in ₹ lakhs, unless otherwise stated)
+
+           or                                                          of three to five years based on Management’s
+                                                                     evaluation of expected sales volumes and          the amortized cost of the financial liability                                                                     duration of the product life cycle.
+            In calculating interest income and expense,                                                               (xv) Employee Benefits          the effective interest rate is applied to the
+          gross carrying amount of the asset (when            Post-employment benefit plans
+          the asset  is not credit-impaired) or to the                                                       The  Company   participates   in   various
+          amortized cost of the liability. However, for                                                          employee benefit plans. Pensions and other
+            financial assets  that have become  credit-                                                            post-employment benefits are classified as
+          impaired  after   initial  recognition,  interest                                                                           either defined contribution plans or defined
+         income is calculated by applying the effective                                                                        benefit plans. Under a defined contribution
+            interest rate to the amortized cost of the                                                                         plan, the Company’s sole obligation  is  to
+            financial asset. If the asset is no longer credit-                                                          pay a fixed amount with no obligation to pay
+           impaired,  then  the  calculation  of  interest                                                                          further contributions if the fund does not hold
+         income reverts to the gross basis.                                                                             sufficient assets to pay all employee benefits.
+          Insurance claims are accounted for based on            The related actuarial and investment risks
+          claims admitted / expected to be admitted and              are borne by the employee. The expenditure
+           to the extent that the amount recoverable can                for defined contribution plans is recognised
+         be measured reliably and  it is reasonable to             as an expense during the period when the
+          expect ultimate collection.                            employee provides service. Under a defined
+                                                                        benefit plan, it is the Company’s obligation to         •    Interest on Refund from Income Tax                                                                  provide agreed benefits to the employees.              Department are accounted for on receipt                                                       The related actuarial and investment risks are                 basis.                                                             borne by the Company. The present value of
+       (xiii) Finance Cost                                            the defined benefit obligations is calculated by
+                                                          an independent actuary using the projected          Finance  costs comprise  interest  cost on
+                                                                             unit credit method. Remeasurements of the          borrowings, lease liabilities and net defined
+                                                                  defined benefit plans, comprising actuarial           benefit liability, gains or losses arising on re-
+                                                                  gains  or  losses, and  the  return on  plan         measurement of financial assets measured at
+                                                                   assets (excluding interest) are immediately         FVTPL, net loss on translation or settlement
+                                                               recognised in other comprehensive income,           of foreign currency borrowings and changes
+                                                                    net of taxes and not reclassified to  profit            in fair value and gains/(losses) on settlement
+                                                                     or loss in subsequent period. Net interest           of related derivative instruments. Borrowing
+                                                               recognised in profit or loss is calculated by          costs  that are not  directly  attributable  to
+                                                                   applying the discount rate used to measure         a  qualifying  asset  are recognised  in  the
+                                                                    the defined  benefit  obligation  to  the  net          statement of profit and loss using the effective
+                                                                  defined benefit liability or asset. The actual            interest method.
+                                                                        return on the plan assets above or below
+      (xiv) Expenditure Recognition                                 the discount rate is recognised as part of re-
+                                                          measurements of the defined benefit plans         Expenses are accounted on an accrual basis
+                                                                through other comprehensive income, net of         and on crystallization of such expenses. And
+                                                                        taxes.           provisions for all known losses and liabilities
+          are made. Provisions are made for future           The Company has the following employee
+          unforeseeable  factors,  which may  affect              benefit plans:
+          the ultimate  profit on fixed price software
+                                                               Provident fund         development   contracts.   Expenses   on
+          software development on time-and-material                 Eligible employees receive benefits under
+          basis are accounted for in the year in which              the provident fund plan in which both the
+                   it is expended. Expenses incurred for future             employer  and  employees make  periodic
+          software projects are carried forward and will               contributions to the approved provident fund
+         be adjusted against revenue, based on the                 trust managed by the Company. A portion
+          completion method. In case of new products,               of the employer’s contribution  is made to
+         which are clearly defined, and the costs are              the government administered pension fund.
+            attributable to the products, such costs are            The contributions to the trust managed by
+          deferred and amortized equally over a period              the Company is accounted for as a defined
+                                                                        benefit plan as the Company  is  liable for
+
+
+128                                                                      ANNUAL REPORT FY25-26

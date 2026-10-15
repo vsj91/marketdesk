@@ -1,0 +1,72 @@
+                       Corporate Overview         Statutory Reports
+
+
+NOTES TO STANDALONE FINANCIAL STATEMENTS
+FOR THE YEAR ENDED MARCH 31, 2026
+
+(Currency : Indian Rupees in lakhs)
+
+       Cash flow hedge                                     balance sheet and is also recognised in the
+      A cash  flow hedge  is a hedge  of the            statement of profit and loss in Finance Cost.
+        exposure to variability in cash flows that is           The Company classifies a fair value hedge
+         attributable to a particular risk associated              relationship when the hedged item (or group
+        with a recognised asset or liability and could              of items) is a distinctively identifiable asset
+         affect Profit and loss. For designated and             or liability hedged by one or a few hedging
+         qualifying cash flow hedges, the effective              instruments.  The   financial  instruments
+        portion of the cumulative gain or loss on the           hedged for interest rate risk in a fair value
+        hedging instrument  is  initially recognised           hedge relationship are fixed rate debt issued
+         directly  in OCI within equity (cash flow           and other borrowed funds.  If the hedging
+       hedge  reserve). The  ineffective  portion             instrument expires or  is sold, terminated
+            (if any) of the gain or loss on the hedging             or exercised, or where the hedge no longer
+        instrument  is recognised immediately as           meets the  criteria for hedge accounting,
+         finance cost in the Statement of Profit and             the  hedge  relationship   is  discontinued
+         Loss.                                                      prospectively.  If the relationship does not
+      When the hedged cash flow affects the           meet  hedge  effectiveness   criteria,  the
+        Statement of Profit and Loss, the effective          Company discontinues hedge accounting
+        portion of the gain or loss on the hedging            from  the date on which  the  qualifying
+        instrument is recorded in the corresponding                criteria are no longer met. For hedged items
+       income or expense line of the Statement of            recorded at amortised cost, the accumulated
+          Profit and Loss. When a hedging instrument                 fair value hedge adjustment to the carrying
+         expires,  is sold, terminated, exercised, or           amount of the hedged item on termination
+       when a hedge no longer meets the criteria              of the hedge accounting  relationship  is
+         for hedge accounting, any cumulative gain            amortised over the remaining term of the
+        or loss recognised in OCI is subsequently               original hedge using the recalculated EIR
+         transferred  to  the  Statement  of  Profit           method by recalculating the EIR at the date
+       and Loss on ultimate recognition of the          when the amortisation begins. If the hedged
+        underlying hedged  forecast  transaction.             item is derecognised, the unamortised fair
+      When a forecast transaction  is no longer             value adjustment is recognised immediately
+        expected to occur, the cumulative gain or                in the statement of profit and loss.
+         loss that was reported in OCI is immediately
+                                                      2.4 Significant accounting judgements, estimates
+         transferred to the Statement of Profit and
+                                                 and assumptions
+         Loss.
+                                                  The  preparation  of  financial  statements  in
+         Fair value hedge                                 conformity  with  Ind AS  requires  that  the
+         Fair value hedges hedge the exposure to       management of the Company makes estimates
+       changes in the fair value of a recognised        and  assumptions  that  affect  the  reported
+         asset or liability, or an identified portion of        amounts of income and expenses of the period,
+        such an asset, liability, that is attributable to         the reported balances of assets and liabilities and
+        a particular risk and could affect profit or         the disclosures relating to contingent liabilities
+          loss.                                             as of the date of the financial statements. The
+                                                          estimates  and  underlying  assumptions  are
+        For designated and qualifying  fair value
+                                                       reviewed on an ongoing  basis. Revisions to
+        hedges, the cumulative change in the fair
+                                                        accounting estimates  include  useful  lives  of
+        value of a hedging derivative is recognised
+                                                              property,  plant and equipment &  intangible
+          in the statement of profit and loss in Finance
+                                                                 assets, allowance  for expected  credit  losses,
+         Costs. Meanwhile, the cumulative change in
+                                                                             fair value measurement, business projections
+        the fair value of the hedged item attributable
+                                                                  for impairment assessment  of  goodwill  etc.
+         to the risk hedged is recorded as part of the
+                                                                Difference, if any, between the actual results and
+         carrying value of the hedged item in the
+                                                          estimates is recognised in the period in which
+                                                         the results are known.
+
+
+                                                                                 211

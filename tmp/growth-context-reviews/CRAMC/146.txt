@@ -1,0 +1,65 @@
+                                                  Corporate Overview    Statutory Reports    Financial Statements
+
+STATEMENT OF PROFIT AND LOSS
+FOR THE YEAR ENDED MARCH 31, 2026
+
+                                                                                Amount ` in Lakhs
+Particulars                                                  Notes  For the year ended  For the year ended
+                                                                  March 31, 2026     March 31, 2025
+REVENUE FROM OPERATIONS
+       (i)   Asset Management Services                               22             42,494.50             36,454.51
+I    Total Revenue From Operations                                               42,494.50           36,454.51
+    Other Income
+       (i)  Net Gain On Fair Value Changes                            23               2,872.84              3,914.99
+        (ii)  Other Income                                            24                   98.31                30.03
+II   Total Other Income                                                                      2,971.15            3,945.02
+III   Total Income (I + II)                                                          45,465.65          40,399.53
+    Expenses
+       (i)   Finance Cost                                            25                 195.65                   171.31
+        (ii)  Employee Benefits Expenses                               26                10,713.30             8,852.00
+        (iii)  Depreciation, Amortization And Impairment                    27                742.08              502.54
+      (iv)  Others Expenses                                        28                6,351.93               5,109.39
+IV   Total Expenses                                                                18,002.96           14,635.24
+V   Profit/(Loss) before exceptional items and tax (III - IV)                              27,462.69            25,764.29
+VI  Exceptional Items                                                                                          -                         -
+VII  Profit/(loss) before tax (V-VI)                                                   27,462.69           25,764.29
+VIII Tax Expense:
+       (i)   Current Tax                                             29                 7,207.00               6,371.00
+        (ii)  Deferred Tax Charge/(Credit)                             30                 (140.76)              322.85
+        (iii)  Tax Adjustment of earlier years                                                        15.98                         -
+     Total Tax Expense                                                                 7,082.22            6,693.85
+IX   Profit/(Loss) after tax (VII-VIII)                                                 20,380.47           19,070.44
+X   Other comprehensive income
+       (i)   Items that will not be reclassified to profit or loss
+            -   Remeasurement gain/(loss) of the Defined Benefit Plans                          (10.43)               (35.80)
+        (ii)  Income Tax relating to items that will not be reclassified to
+           Profit or Loss
+            -    Tax on Remeasurements of the Defined Benefit Plans                             2.62                    9.01
+    Other Comprehensive Income/(loss) (i + ii)                                                   (7.81)              (26.79)
+XI   Total Comprehensive Income for the year (IX + X)                               20,372.66           19,043.65
+XII  Earnings Per Equity Share                                          31
+     Basic (`)                                                                                    10.22                 9.56
+     Diluted (`)                                                                                  10.22                 9.56
+Material accounting policies and explanatory notes                         1-3
+Other Notes to the Financial Statements                              4-48
+
+The accompanying notes form an integral part of the Financial Statements.
+As per our report of even date
+
+For Borkar & Muzumdar                           For and on Behalf of the Board of Directors of
+Chartered Accountants                           Canara Robeco Asset Management Company Limited
+Firm Registration No: 101569W
+
+Satish Kumar Gupta                                 Rajnish Narula                 Ravindran Menon
+Partner                            MD & CEO                        Director
+Membership No. 101134                             DIN:03607363                  DIN: 00016302
+
+                                            Ashwin Purohit              Hemangi Patil
+                                      CFO                      Company Secretary
+                                                                           M.No.ACS19644
+
+Place: Mumbai                                          Place: Mumbai
+Date: April 27, 2026                                    Date: April 27, 2026
+
+
+                                                Canara Robeco Asset Management Company Limited        127

@@ -1,0 +1,79 @@
+NOTES TO CONSOLIDATED FINANCIAL STATEMENTS
+FOR THE YEAR ENDED MARCH 31, 2026
+
+(Currency : Indian Rupees in lakhs)
+
+     (c) Fees and commission income                             collateralised borrowing for the proceeds
+                                                                   received.        Fees and commission income are recognised
+        as income when the performance obligation                                                             (h) Net gain/(loss) on fair value changes
+        as per the contract with customer is fulfilled
+                                                  Any differences between the  fair values
+       and when the right to receive the payment
+                                                                 of financial assets classified as  fair value
+         against the services has been established.
+                                                           through the profit or loss, held by the Group
+    (d) Origination fees                                on the balance sheet date  is recognised
+                                                             as an unrealised gain or loss as a gain or
+         Origination  fees,  which  the Group  has
+                                                        expense respectively.        received/recovered at time of granting of
+        a loan, is considered as a component for                Similarly, any realised gain or loss on sale of
+        computation of the effective rate of interest               financial instruments measured at FVTPL
+         (EIR) for the purpose of computing interest           and debt instruments measured at FVOCI is
+        income.                                             recognised in net gain / loss on fair value
+                                                            changes.
+    (e) Management Fees:
+       Management  fees  and  other  fees  are            (i)  Sourcing and servicing fee
+        recognised as income when the performance           The revenue from the contract as a service
+         obligation as per the contract with customer             provider (sourcing and collection agent) on
+            is fulfilled and when the right to receive             behalf of customer,  is recognised upfront
+        the payment against the services has been               for services rendered as sourcing agent and
+         established.                                    on straight line basis over the loan tenure
+                                                                      for services in the nature of collection and
+     (f)  Assignment income
+                                                         performance agent. The financial guarantee
+          In accordance with Ind AS 109, in case of                                                            provided  under  the  service  contract  is
+        assignment  transactions  with  complete
+                                                            recognised at  fair value on sourcing and
+         transfer of risks and rewards without any
+                                                                                       is amortised over the period of contract
+         retention of residual interest, gain arising on
+                                                              with subsequent measurement at higher of
+        such assignment transactions  is recorded
+                                                              the unamortised value as per Ind AS 115 or
+        upfront in the Statement of Profit and Loss
+                                                         expected credit losses as per Ind AS 109.
+       and the corresponding asset is derecognised
+        from the Balance Sheet immediately upon                                                      h)  Finance Costs
+        execution  of  such  transactions.  Further
+                                                  The Group recognises interest expense on the
+        the  transfer  of  financial  assets  qualifies
+                                                       borrowings as per EIR methodology which  is
+         for derecognition in its entirety, the whole
+                                                             calculated by considering any ancillary costs         of the interest spread at its present value
+                                                            incurred and  any premium  payable on  its        (discounted over the  life of the asset)  is
+                                                                maturity.        recognised on the date of derecognition
+           itself  as  excess   interest  spread  and
+                                                                             i)   Retirement and other employee benefits
+        correspondingly recognised as  profit on
+        derecognition of financial asset.                           (i)  Defined Contribution Plan
+
+       The residual expected  life of the pool of             Provident Fund
+         asset is assessed annually.                                    All the employees of the Group are entitled
+                                                                to  receive  benefits under the Provident
+    (g) Securitisation transactions :
+                                                           Fund, a defined contribution plan in which
+          In accordance with Ind AS 109,  in case
+                                                         both the employee and the Group contribute
+         of  securitisation  transactions, the Group
+                                                         monthly at a stipulated  rate. The Group
+         retains substantially all the risks and rewards
+                                                           has no liability for future Provident Fund
+         of  ownership  of  a  transferred  financial
+                                                                  benefits other than its annual contribution
+         asset, the Group continues to recognise
+                                                     and recognises such contributions as an
+        the financial asset and also recognises a
+                                                             expense, when an employee renders the
+                                                                   related service.
+
+298

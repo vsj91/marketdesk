@@ -1,0 +1,67 @@
+Notes
+forming part of the Consolidated Financial Statements for the year ended March 31, 2026 (Contd.)
+
+
+34 Financial Instruments (Contd.)
+
+    As at March 31, 2025
+                                                                                                                                                                                      (I crores)
+
+      Particulars                                                          Level 1            Level 2            Level 3               Total
+
+     Assets at fair value
+     Investments measured at
+            Fair value through profit and loss                            2,235.77                     -                     -         2,235.77
+       Liabilities at fair value
+      Derivative liabilities measured at
+            Fair value through profit and loss                                            -             3.16                     -             3.16
+
+
+     a.   Valuation process and technique used to determine fair value
+
+                 (i)   The fair value of quoted equity shares is based on the current bid price of respective investment as at the balance
+             sheet date.
+
+                  (ii)  The fair value of investments in mutual fund units is based on the net asset value (NAV) as stated by the issuers
+               of these mutual fund units in the published statements as at the Balance Sheet date. NAV represents the price
+               at which the issuer will issue further units of mutual fund and the price at which issuers will redeem such units
+             from the investors.
+
+                  (iii)  The derivative financial instruments are valued using forward exchange rates as at the balance sheet date.
+
+B.2 Fair value of instruments measured at amortised cost*
+
+     Fair value of instruments measured at amortised cost for which fair value is disclosed alongwith fair value hierarchy is
+    as follows:
+
+    As at March 31, 2026
+                                                                                                                                                                                      (I crores)
+
+                                                                                                Fair value
+      Particulars                                                                                     Carrying value           Fair value
+                                                                                      hierarchy
+     Other financial assets                                                           Level 3               116.18           116.18
+      Investments in Mutual Funds (Target Maturity Funds, Quoted)                     Level 1              2,823.56         2,855.81
+      Investments in Bonds (Unquoted)                                               Level 2              1,151.56         1,097.46
+      Security deposits received                                                      Level 3                39.54            39.53
+     Lease liabilities                                                                 Level 3               125.68           121.88
+
+    As at March 31, 2025
+                                                                                                                                                                                      (I crores)
+
+                                                                                                Fair value
+      Particulars                                                                                     Carrying value           Fair value
+                                                                                      hierarchy
+     Other financial assets                                                           Level 3                17.13            17.13
+      Investments in Mutual Funds (Target Maturity Funds, Quoted)                     Level 1              2,648.23         2,672.09
+      Investments in Bonds (Unquoted)                                               Level 2               721.21           689.75
+      Security deposits received                                                      Level 3                34.65            34.35
+     Lease liabilities                                                                 Level 3               102.93           100.52
+
+       *excluding financial assets and liabilities reclassified as assets held for sale during financial year ended March 31, 2025
+
+    The management assessed that fair values of other current financial assets, loans (including related to financial services),
+    cash and cash equivalents, other bank balances, trade receivables, other receivables, short term borrowings, trade
+
+
+                                                                                                      Integrated Annual Report 2025-26  469

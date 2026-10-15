@@ -1,0 +1,35 @@
+{
+  "verified": true,
+  "other_settings_and_holdings_unchanged": true,
+  "trader_unchanged": true,
+  "status": {
+    "state": "risk_wait",
+    "message": "Investor stop risk including fees and slippage is \u20b933727.68 (3.388%), above or at its 3% cap of \u20b929868.79. New buys wait; existing holdings retain their stops and trend exits.",
+    "fills_this_scan": 0,
+    "portfolio_risk": {
+      "equity": 995626.2,
+      "risk": 33727.67849999999,
+      "risk_pct": 3.3875844669415076,
+      "cap_pct": 3.0,
+      "limit": 29868.785999999996
+    },
+    "checked_at": "2026-10-15T07:56:39.811889+00:00",
+    "full_session_buying": true,
+    "stale_holdings": [
+      {
+        "symbol": "JNKINDIA",
+        "instrument_key": "NSE_EQ|INE0OAF01028",
+        "reason": "last trade 115s old"
+      }
+    ],
+    "allow_stale_held_valuation": true,
+    "valuation_only_holdings": [
+      {
+        "symbol": "JNKINDIA",
+        "price": 416.9,
+        "trade_time": 1792050883905,
+        "received_at": "2026-10-15T07:54:46.326514+00:00"
+      }
+    ]
+  }
+}

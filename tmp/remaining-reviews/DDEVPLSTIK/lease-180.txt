@@ -1,0 +1,57 @@
+BALANCE SHEET As At 31st March, 2026
+
+
+                                                                                                                                           (` In lacs)
+
+                                                            Note No.            As at            As at
+                                                                                                             31st March, 2026       31st March, 2025
+
+ A   ASSETS
+
+         1    Non-current Assets
+            Property, Plant and Equipment                           4                 27,918.59            27,062.65
+             Capital Work-in progress                                  5                  4,971.94               92.69
+           Other Intangible Assets                                   6                       1.82                 3.59
+            Right of Use - Lease                                         7                 2,479.23              443.39
+             Financial Assets
+                      (i)    Investments                                       8                       611.15                       -
+                      (ii)   Other Financial Assets                              9                  210.06              1,276.33
+           Other Non-Current Assets                                    10                    1,128.21              505.08
+
+                                                                                           37,321.00           29,383.73
+
+     2    Current Assets
+             Inventories                                                                 11                 39,195.81            24,227.85
+             Financial Assets
+                      (i)    Investments                                       8                     1,531.01              6,139.23
+                      (ii)   Trade Receivables                                       12               55,382.74               46,641.11
+                      (iii)  Cash & Bank Balances                                     13                4,337.54            4,298.94
+                  (iv)   Other Financial Assets                              9                 580.48               374.16
+           Other Current Assets                                          14                6,023.04             4,395.27
+
+                                                                                           1,07,050.62           86,076.56
+
+            Total                                                                          1,44,371.62           1,15,460.29
+
+ B   EQUITY & LIABILITIES
+
+         1     Equity
+            Equity Share Capital                                            15                  1,034.77              1,034.77
+           Other Equity                                                    16              1,00,295.42           82,435.82
+
+                                                                                                  1,01,330.19           83,470.59
+
+     2   Non Current Liabilities
+             Financial Liabilities
+                      (i)    Finance Lease Liability                                     17                  277.07                 321.21
+            Provisions                                                     18                   226.71              503.23
+            Deferred Tax Liabilities (net)                                    19                2,828.38             2,526.52
+
+                                                                                            3,332.16            3,350.96
+
+     3    Current Liabilities
+             Financial Liabilities
+                      (i)    Borrowings                                     20                5,226.94            4,200.00
+                      (ii)   Finance Lease Liability                                     17                     178.71               108.25
+
+194     Annual Report 2025-26

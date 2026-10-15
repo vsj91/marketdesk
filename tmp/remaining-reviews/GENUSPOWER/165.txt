@@ -1,0 +1,60 @@
+Notes
+to the standalone financial statements for the year ended March 31, 2026
+(All amounts are in Indian Rupees in Crores except share data and unless otherwise stated)
+
+      Financial liabilities                                    lender on substantially different terms, or the
+                                                        terms of an existing  liability are substantially        Initial recognition and measurement
+                                                             modified, such an exchange or modification
+      Financial   liabilities  are  classified,  at   initial            is treated as the derecognition of the original
+      recognition, as financial liabilities at fair value            liability and the recognition of a new liability. The
+      through profit or loss, loans and borrowings,         difference in the respective carrying amounts is
+      payables,  or  as  derivatives  designated  as         recognised in the Statement of Profit and Loss
+     hedging instruments in an effective hedge, as
+                                                                Reclassification of financial assets
+      appropriate.
+                                                    The   Company   determines    classification       All financial liabilities are recognised initially at
+                                                              of  financial  assets and  liabilities on  initial        fair value and, in the case of loans and borrowings
+                                                                recognition.   After    initial   recognition,  no     and  payables,  net  of  directly  attributable
+                                                                     reclassification is made for financial assets which      transaction costs.
+                                                             are equity instruments and financial liabilities.
+     Subsequent measurement                                               If the Company reclassifies financial assets,  it
+                                                               applies the reclassification prospectively from     The measurement of financial liabilities depends
+                                                           the reclassification date which is the first day of     on their classification, as described below:
+                                                           the immediately next reporting period following
+     Loans and borrowings                                the change in business model. The Company
+      After initial recognition, interest-bearing loans        does not  restate any  previously recognised
+     and borrowings are subsequently measured at          gains, losses (including impairment gains or
+      amortised cost using the EIR method. Gains and          losses) or interest.
+      losses are recognised in statement of profit and         Offsetting of financial instruments
+       loss when the liabilities are derecognised as well
+                                                                 Financial assets and financial liabilities are offset      as through the EIR amortisation process.
+                                                   and the net amount is reported in the balance
+     Amortised cost  is calculated by taking  into                                                           sheet if there is a currently enforceable legal right
+      account any discount or premium on acquisition                                                             to offset the recognised amounts and there is an
+     and fees or costs that are an integral part of the                                                                 intention to settle on a net basis, to realise the
+       EIR. The EIR amortisation is included as finance                                                              assets and settle the liabilities simultaneously.
+      costs in the statement of profit and loss.
+                                                               q.    Derivative Financial Instruments      Financial Guarantee Contracts
+                                                                             Initial     recognition    and    subsequent      Financial guarantee contracts issued by the
+                                                  measurement     company are those contracts that require a
+     payment to be made to reimburse the holder        The  Company   uses   derivative   financial
+       for a loss it incurs because the specified debtor         instruments,   such   as   foreign   currency
+        fails to make a payment when due in accordance        denominated borrowings and foreign exchange
+      with the terms of a debt instrument. Financial         forward  contracts  to manage some  of  its
+      guarantee contracts are recognised initially as         transaction exposures. Such derivative financial
+     a liability at fair value, adjusted for transaction         instruments are initially recognised at fair value
+      costs  that  are  directly  attributable  to  the       on the date on which a derivative contract is
+      issuance of the guarantee. Subsequently, the         entered into and are subsequently re-measured
+        liability is measured at the higher of the amount          at fair value. Derivatives are carried as financial
+      of loss allowance determined as per impairment         assets when the fair value  is positive and as
+      requirements of Ind AS 109 and the amount          financial liabilities when the fair value is negative.
+      recognised less cumulative amortisation.
+                                                Any gains or losses arising from changes in the
+      Derecognition                                                     fair value of derivatives are taken directly to profit
+                                                            or loss. The foreign exchange forward are not    A financial liability  is derecognised when the
+                                                         designated as cash flow hedges and are entered      obligation under the liability is discharged or
+                                                                  into for periods consistent with foreign currency      cancelled or expires. When an existing financial
+                                                        exposure of the underlying transactions.        liability is replaced by another from the same
+
+
+158    Annual Report 2025-26

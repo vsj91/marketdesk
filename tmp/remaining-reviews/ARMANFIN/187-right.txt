@@ -1,0 +1,51 @@
+  Corporate Overview       Statutory Reports       Financial Statements                           369
+
+Cash Flow Statement (Contd.)
+for the year ended March 31, 2026                                                                                         (₹ in Lakhs)
+
+                                                               For the year ended         For the year ended Particulars                                                                               31st March, 2026              31st March, 2025
+ C:   Cash Flow From Financing Activities :
+      Proceeds from issue of share capital                                                      -                     7,000.00
+      Proceeds from debt securities and borrowings                   76,000.00                   39,250.00
+     Repayments of debt securities and borrowings                  (60,125.96)                   (80,294.16)
+      Net increase / (decrease) in working capital borrowings           11,476.70                   (17,940.85)
+     Repayment of Principal Component of Lease Liability (Net)          (27.22)                        (37.64)
+     Net Cash from Financing Activities:                                     27,323.52                 (52,022.65)
+
+     Net Increase in Cash & Cash Equivalents (A+B+C)                           (5,000.03)                  1,387.32
+     Cash & cash equivalents at the beginning                                 6,294.09                  4,906.78
+     Cash & cash equivalents at the end                                              1,294.05                     6,294.09
+Notes :
+1   Cash and bank balance at the end of the year comprises:
+
+      Particulars                                                     March 31, 2026    March 31, 2025
+     Cash on hand                                                                          23.89               28.87
+      Balance with Bank                                                                      1,270.16            6,265.22
+     Cash & cash equivalents as per Balance Sheet                                     1,294.05           6,294.09
+
+2   The above cash flow statement has been prepared under the "Indirect Method" as set out in the Indian Accounting Standard
+       - 7 Cash Flow Statements specified under Section 133 of the Companies Act, 2013, read with Rule 7 of the Companies
+     (Accounts) Rules, 2015.
+3   Change in liabilities arising from financing activities:
+
+                                                              Non Cash      Particulars                      March 31, 2025     Cash Flows                     March 31, 2026                                                                      Changes
+     Debt Securities                               19,497.52           20,730.44              (85.93)           40,142.02
+     Borrowing other than debt Securities           65,468.40            6,620.30             160.18           72,248.88
+      Total                                    84,965.91         27,350.74             74.25       1,12,390.90                                                                                                                                                                                                                                                                                                                                  Limited
+
+                                                              Non Cash      Particulars                              31st March, 2024     Cash Flows                            31st March, 2025                                                                      Changes                                                                               Finance
+     Debt            Securities                                                    13,491.91                                                                          6,002.17                                                                                                 3.44
+                                                                                                              19,497.52             Namra     Borrowing                other than debt Securities          1,29,900.54                                                                           (64,987.18)                                                                                          555.04                                                                                                              65,468.40
+      Total                                    1,43,392.44        (58,985.01)           558.48         84,965.91
+
+    As per our report of even date attached herewith
+      For, Talati & Talati LLP,                                  For & on behalf of the Board of Directors of
+     Chartered Accountants                                    Namra Finance Limited
+     [Firm Regd. No. 110758W/W100377]
+                                               Jayendra Patel                    Chirag Vora
+     [Kushal Talati]                               Whole-time Director                  Chief Financial Officer
+     Partner                                        (DIN -00011814)
+     [M.No.188150]
+                                              Aalok Patel                       Urvish Karathiya
+      Place: Ahmedabad                           Chairman & Managing Director      Company Secretary
+     Date: May 27, 2026                              (DIN - 02482747)                    (M.No. A69313)

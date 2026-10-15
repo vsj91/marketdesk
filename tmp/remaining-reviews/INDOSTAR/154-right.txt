@@ -1,0 +1,68 @@
+                       Corporate Overview         Statutory Reports
+
+
+NOTES TO CONSOLIDATED FINANCIAL STATEMENTS
+FOR THE YEAR ENDED MARCH 31, 2026
+
+(Currency : Indian Rupees in lakhs)
+
+         interpretation and  establishes  provisions             (iii) Indirect tax
+       where appropriate.                                 Expenses and assets are recognised net of
+                                                              the Goods and Services Tax paid, except
+      (ii) Deferred tax
+                                                 when the tax incurred on a purchase of
+        Deferred  tax  is provided on temporary                                                                 assets or services is not recoverable from
+         differences at the reporting date between                                                              the taxation authority, in which case the
+        the  tax  bases  of  assets and  liabilities                                                                tax paid is recognised as part of the cost
+       and  their carrying amounts  for  financial              of acquisition of the asset or as part of the
+         reporting purposes.                                     respective expense item, as applicable.
+
+        Deferred  tax  assets  are  recognised  for                                                    o)  Earnings Per Share
+            all deductible temporary differences, the
+                                                  The Group reports basic and diluted earnings per
+         carry forward of unused tax credits and any
+                                                          share in accordance with Ind AS 33 on Earnings
+       unused tax losses. Deferred tax assets are
+                                                        per share. Basic EPS is calculated by dividing
+        recognised to the extent that it is probable
+                                                         the net profit or loss for the year attributable
+         that taxable profit will be available against
+                                                            to equity shareholders by the weighted average
+        which the deductible temporary differences,                                                number of equity shares outstanding during the
+       and the carry forward of unused tax credits                                                                   year.
+       and unused  tax  losses can be  utilised,
+                                                       For the purpose of calculating diluted earnings         except:
+                                                        per share, the net profit or loss for the year
+       The carrying amount of deferred tax assets                                                                attributable  to  equity  shareholders and  the
+            is reviewed  at each reporting date and                                                     weighted average number of shares outstanding
+        reduced to the extent that  it is no longer                                                         during the year are adjusted for the effects of
+        probable that sufficient taxable profit will be                                                                                    all dilutive potential equity shares, except where
+         available to allow all or part of the deferred                                                         the  results are  anti-dilutive.  Potential equity
+        tax  asset  to be  utilised.  Unrecognised                                                          shares are deemed to be dilutive only  if their
+        deferred tax assets are re-assessed at each                                                         conversion to equity shares would decrease
+         reporting date and are recognised to the                                                         the net profit per equity shares from continuing
+        extent that  it has become probable that                                                            ordinary operations.  Dilutive  potential equity
+         future taxable profits will allow the deferred                                                          shares are deemed converted as of the beginning
+        tax asset to be recovered.                                                             of the period, unless they have been issued at
+        Deferred  tax  assets  and   liabilities  are        a later date. In computing the dilutive earnings
+       measured at the tax rates that are expected         per share, only potential equity shares that are
+         to apply in the year when the asset is realised          dilutive and that either reduces the earnings per
+        or the liability is settled, based on tax rates         share or increases loss per share are included.
+        (and tax laws) that have been enacted or
+                                                   p)  Contingent Liabilities
+         substantively enacted at the reporting date.
+                                       A contingent liability is a possible obligation that
+        Deferred tax relating to items recognised                                                                 arises from past events whose existence will be
+        outside profit or loss is recognised outside                                                       confirmed by the occurrence or non-occurrence
+          profit or loss (either in other comprehensive                                                             of one or more uncertain future events beyond
+       income or in equity). Deferred tax items are                                                         the control of the Group or a present obligation
+        recognised in correlation to the underlying                                                              that is not recognised because it is not probable
+         transaction either in OCI or directly in equity.                                                              that an outflow of resources will be required to
+        Deferred  tax  assets  and  deferred  tax          settle the obligation. A contingent liability also
+           liabilities are offset if a legally enforceable          arises in extremely rare cases where there is a
+         right exists to set off current tax assets            liability that cannot be recognised because  it
+         against  current  tax   liabilities  and  the        cannot be measured reliably. The Group does
+        deferred taxes relate to the same taxable         not recognise a contingent liability but discloses
+         entity and the same taxation authority.                   its existence in the financial statements.
+
+                                                                   301

@@ -1,0 +1,59 @@
+                                                               Annual Report 2025 - 26     178
+
+
+3.13 Impairment of non-financial assets - property, plant        to be paid when there is a present legal or constructive
+    and equipments and intangible assets                        obligation to pay this amount as a result of past service
+    The carrying values of assets / cash generating units at        provided by the employee and the obligation can be
+     the each balance sheet date are reviewed for impairment.        estimated reliably. The cost of short-term compensated
+        If any indication of impairment exists, the recoverable       absences is accounted as under:
+    amount of such assets is estimated and  if the carrying
+                                                                                     (a)   in case of accumulated compensated absences, when
+    amount of these assets exceeds their recoverable amount,
+                                                               employees render the services that increase their
+    impairment loss is recognised in the statement of profit
+                                                                       entitlement of future compensated absences; and
+    and loss as an expense, for such excess amount. The
+     recoverable amount is the greater of the net selling price         (b)   in case of non-accumulating compensated absences,
+    and value in use. Value in use is arrived at by discounting          when the absences occur.
+     the future cash flows to their present value based on an
+     appropriate discount  factor. When there  is indication   3.15 Provisions,  contingent  liabilities and  contingent
+     that an impairment  loss recognised  for an asset  in        assets
+      earlier accounting periods no longer exists or may have   A.   Provisions
+     decreased, such reversal of impairment loss is recognised                                                                      Provisions are recognised when the Group has a present
+      in the statement of profit and loss.                                                                     obligation (legal or constructive) as a result of past events,
+                                                        and it is probable that an outflow of resources embodying3.14 Retirement and other employee benefits Defined
+                                                          economic benefits will be required to settle the obligation,     contribution plans
+                                                        and a reliable estimate can be made of the amount of the
+    The Group’s contribution to provident fund and employee                                                                        obligation. When the effect of the time value of money
+     state  insurance scheme  are  considered  as  defined                                                                                              is material, the Group determines the level of provision
+     contribution plans and are charged as an expense based                                                         by discounting the expected cash flows at a pre-tax rate
+    on the amount of contribution required to be made and                                                                          reflecting the current rates specific to the liability. The
+    when services are rendered by the employees.                                                            expense relating to any provision  is presented in the
+                                                               statement of profit and loss net of any reimbursement.    Defined benefit plans
+    The Group pays gratuity to the employees whoever has   B.   Contingent liability
+    completed five years of service with the Group at the                                                A possible obligation that arises from past events and
+     time of resignation / retirement. The gratuity is paid @15                                                                the existence of which will be confirmed only by the
+     days salary for every completed year of service as per the                                                                occurrence or non-occurrence of one or more uncertain
+    Payment of Gratuity Act, 1972.                                                                      future events not wholly within the control of the Group
+                                                                                 or; present obligation that arises from past events where    The gratuity liability amount is contributed by the Group
+                                                                                                         it is not probable that an outflow of resources embodying     to the Life insurance corporation of India who administers
+                                                          economic benefits will be required to settle the obligation;     the fund of the Group.
+                                                                    or the amount of the obligation cannot be measured with
+    The  liability  in  respect  of  gratuity and other  post-         sufficient reliability are disclosed as contingent liability
+    employment benefits is calculated using the Projected Unit       and not provided for.
+     Credit Method and spread over the period during which
+                                                                C.   Contingent asset     the benefit is expected to be derived from employees’
+      services. As per Ind AS 19, the service cost and the net      A contingent asset is a possible asset that arises from past
+      interest cost are charged to the statement of profit and        events and whose existence will be confirmed only by the
+      loss. Remeasurement of the net defined benefit liability,        occurrence or non-occurrence of one or more uncertain
+    which comprise actuarial gains and losses, the return on        future events not wholly within the control of the Group.
+     plan assets (excluding interest) and the effect of the asset       Contingent assets are neither recognised nor disclosed
+      ceiling (if any, excluding interest), are recognised in OCI.         except when realisation of income  is virtually certain,
+                                                                       related asset is disclosed.
+    Short-term employee benefits
+                                                            3.16 Taxes      All employee benefits payable wholly within twelve
+    months of rendering the service are classified as short-   A.   Current tax
+    term employee benefits. Benefits such as salaries, wages        Current tax assets and  liabilities for the current and
+      etc. and the expected cost of ex-gratia are recognised         prior years are measured at the amount expected to
+      in the period in which the employee renders the related       be recovered from, or paid to, the taxation authorities.
+      service. A liability is recognised for the amount expected        Current tax is the amount of tax payable on the taxable

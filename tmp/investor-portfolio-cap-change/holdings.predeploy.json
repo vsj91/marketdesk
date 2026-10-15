@@ -1,0 +1,62 @@
+[
+  {
+    "portfolio": "investor",
+    "symbol": "ATLANTAELE",
+    "quantity": 1,
+    "cost": 1849.76
+  },
+  {
+    "portfolio": "investor",
+    "symbol": "CUPID",
+    "quantity": 215,
+    "cost": 75496.65
+  },
+  {
+    "portfolio": "investor",
+    "symbol": "EMMVEE",
+    "quantity": 314,
+    "cost": 89343.81
+  },
+  {
+    "portfolio": "investor",
+    "symbol": "HONASA",
+    "quantity": 108,
+    "cost": 50303.52
+  },
+  {
+    "portfolio": "investor",
+    "symbol": "JNKINDIA",
+    "quantity": 50,
+    "cost": 21448.81
+  },
+  {
+    "portfolio": "investor",
+    "symbol": "LLOYDSENT",
+    "quantity": 32,
+    "cost": 2295.74
+  },
+  {
+    "portfolio": "investor",
+    "symbol": "NAVINFLUOR",
+    "quantity": 2,
+    "cost": 16843.05
+  },
+  {
+    "portfolio": "investor",
+    "symbol": "NETWEB",
+    "quantity": 11,
+    "cost": 52903.5
+  },
+  {
+    "portfolio": "investor",
+    "symbol": "SAMBHV",
+    "quantity": 13,
+    "cost": 2124.12
+  },
+  {
+    "portfolio": "investor",
+    "symbol": "SENORES",
+    "quantity": 1,
+    "cost": 1320.74
+  }
+]

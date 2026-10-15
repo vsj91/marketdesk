@@ -1,0 +1,82 @@
+ Aakash Exploration Services Limited
+ CIN : L23209GJ2007PLC049792
+ Balance Sheet as at 31st March, 2026
+                                                                                                                                        (Figures in Lakh)
+                                                                   As at                    As at                    As at
+ Particulars                                           Notes
+                                                                                    31st March 2026               31st March 2025               31st March 2024
+ Assets
+ Non-current assets
+ Property, plant and equipment                                  4                           7,102.45                       6,135.15                       5,902.84
+ Intangible assets                                             5                               0.33                           0.54                           0.00
+ Non-current Investments                                      6                               0.06                           0.06                           0.06
+ Financial assets
+         - Loans and Advances                                   7                           502.00                        358.37                        223.04
+ Deferred Tax Assets                                          8
+ Income Tax Assets (Net)                                      9                             18.62                        118.26                           (53.26)
+ Total non-current assets                                                                     7,623.46                       6,612.38                      6,072.69
+
+ Current assets
+ Current Investments                                         10                                            -                        290.33                        701.00
+ Financial assets
+         - Trade receivables                                      11                          2,478.13                       2,164.41                       2,453.58
+         - Cash and cash equivalents                               12                            11.44                         41.50                         83.11
+         - Loans and Advances                                   13                           433.30                        493.39                         28.59
+ Other current assets                                          14                            65.10                         41.15                         36.82
+ Total current assets                                                                          2,987.98                      3,030.78                      3,303.09
+
+ Total Assets                                                                                    10,611.43                       9,643.16                      9,375.78
+
+ Equity and liabilities
+
+ Equity
+ Equity share capital                                          15                          1,012.50                       1,012.50                       1,012.50
+ Other equity                                                16                          5,375.10                       5,023.65                       4,839.97
+ Total equity                                                                               6,387.605                       6,036.15                      5,852.47
+ Liabilities
+ Non-current liabilities
+ Financial liabilities
+         - Borrowings                                          17                           342.57                           7.71                        607.39
+         - Other Financial Liabilities                               18                            26.35                         26.21                         25.92
+ Deferred Tax Liabilities                                       19                           223.39                        207.19                        159.16
+ Provisions                                                  20                            74.29                         29.09                         10.78
+ Total non-current liabilities                                                                   666.61                       270.20                       803.25
+
+ Current liabilities
+ Financial liabilities
+         - Borrowings                                          21                          1,876.06                       1,740.00                       1,203.63
+         - Trade Payables                                       22
+         Total due of MSME                                                                  161.27                        212.50                        140.77
+         Total due of other than MSME                                                        594.57                        493.21                        171.11
+         - Other financial liabilities                               23                           433.15                        598.75                        760.72
+ Other current liabilities                                       24                           237.90                         80.84                        238.77
+ Provisions                                                  20                           254.27                        211.51                        205.06
+ Current-tax liabilities                                         25                                            -                                       -                                       -
+ Total current liabilities                                                                      3,557.22                       3,336.81                      2,720.06
+
+ Total Liabilities                                                                             4,223.83                       3,607.01                       3,523.31
+
+ Total Equity and Liabilities                                                                    10,611.43                       9,643.16                      9,375.78
+
+ Summary of significant accounting policies
+
+The accompanying notes form an integral part of these financials statements
+
+As per our report of even date
+
+For, Parikh Shah & Associates                                                              For and on behalf of the Board of Directors of
+Firm Registration No.: 123999W                                                            Aakash Exploration Services Limited
+Chartered Accountants
+
+
+
+                                                                                                      Vipul Haria           Hemang Haria
+Munir Shah                                                                                      Managing Director      Whole Time Director & CFO
+Partner                                                                     DIN : 01690638          DIN : 01690627
+Mem. No. 101106
+
+Place : Ahmedabad
+Date  : 12/05/2026                                                                                                    Nisha Agrawal
+UDIN :26101106HPFWFN8141                                                                                    Company Secretary
+
+                                                                    61

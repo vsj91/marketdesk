@@ -1,0 +1,65 @@
+                                                   Corporate Overview          Statutory Reports         Financial Statements 
+
+Notes
+to the standalone financial statements for the year ended March 31, 2026
+(All amounts are in Indian Rupees in Crores except share data and unless otherwise stated)
+
+      impairment  losses &  reversals  and  foreign         that are integral to the contractual terms.
+     exchange gain or  loss  in the statement  of                                                        For trade receivables and contract assets, the
+       profit and loss. On derecognition of the asset,                                               Company  applies  a  simplified  approach  in
+      cumulative gain or loss previously recognised in                                                                 calculating ECLs. Therefore, the Company does
+     OCI is reclassified from the equity to statement                                                         not track changes in credit  risk, but instead
+      of profit and loss. Interest earned whilst holding                                                            recognises a loss allowance based on lifetime
+     FVTOCI debt instrument is reported as interest                                                  ECLs at each reporting date. The Company has
+     income using the EIR method.                                                              established a provision matrix that is based on
+     Debt instrument at FVTPL                                       its historical credit loss experience, adjusted for
+                                                            forward-looking factors specific to the debtors
+     FVTPL   is  a  residual  category   for  debt                                                   and the economic environment.
+      instruments. Any debt instrument, which does
+      not meet the criteria for categorization as at        Derecognition
+      amortized cost or as FVTOCI, is classified as at                                        A financial asset (or, where applicable, a part
+     FVTPL. Debt instruments included within the                                                              of a financial asset or part of a group of similar
+     FVTPL category are measured at fair value with                                                                     financial assets) is primarily derecognised (i.e.
+         all changes recognized in the statement of profit                                                   removed from the Company’s balance sheet)
+     and loss.                                                      when:
+      Equity investments:
+                                                              a)    the rights to receive cash flows from the
+       All equity investments are measured at fair value                                                                    asset have expired, or
+      except for equity investment in Associates which
+     have been measured at cost. Equity instruments         b)   The Company has transferred its rights to
+     which are held for trading are classified as at                receive cash flows from the asset, and
+     FVTPL. For  all other equity instruments, the                                                                                            (i)    the  Company  has   transferred
+     Company may make an irrevocable election                                                                               substantially   all  the  risks  and
+      to present in OCI subsequent changes in the                                                                    rewards of the asset, or
+        fair value. The Company makes such election
+     on  an  instrument-by-instrument  basis.  The                       (ii)   the Company has neither transferred
+       classification is made on initial recognition and                    nor retained substantially  all the
+        is irrevocable.                                                               risks and rewards of the asset, but
+                                                                   has transferred control of the asset.
+          If an equity instrument is classified as FVTOCI,
+      then all fair value changes on the instrument,                                           When the Company has transferred its rights to
+      excluding dividends, are recognized in the OCI.                                                               receive cash flows from an asset or has entered
+      There is no recycling of the amounts from OCI                                                                  into a passthrough arrangement,  it evaluates
+      to statement of profit and loss, even on sale of                                                                                                    if and to what extent it has retained the risks
+      investment. However, the Company may transfer                                                   and rewards of ownership. When it has neither
+      the cumulative gain or loss within equity. Equity                                                                transferred nor retained substantially all of the
+      instruments  classified  as  FVTPL  category                                                                       risks and rewards of the asset, nor transferred
+      are measured at  fair value with  all changes                                                               control of the asset, the Company continues to
+      recognized in the statement of profit and loss.                                                           recognise the transferred asset to the extent
+     Impairment of Financial Assets:                         of the Company’s continuing involvement. In
+                                                               that case, the Company also recognises an
+       In accordance with Ind AS 109, the Company                                                            associated  liability. The transferred asset and
+      recognises an allowance for expected credit                                                           the associated liability are measured on a basis
+      losses (ECLs) for all debt instruments not held at                                                               that reflects the rights and obligations that the
+        fair value through profit or loss. ECLs are based                                               Company has retained.
+     on the difference between the contractual cash
+      flows due in accordance with the contract and         Continuing involvement that takes the form
+         all the cash flows that the Company expects to         of a guarantee over the transferred asset  is
+       receive, discounted at an approximation of the        measured at the lower of the original carrying
+       original effective interest  rate. The expected       amount of the asset and the maximum amount
+      cash flows will include cash flows from the sale         of consideration that the Company could be
+      of collateral held or other credit enhancements         required to repay.
+
+
+
+                                                                                                               157

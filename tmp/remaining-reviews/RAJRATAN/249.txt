@@ -1,0 +1,65 @@
+                                             Corporate Overview | Statutory Reports | Financial Statements
+
+Notes forming part of the Consolidated Financial Statements
+
+
+     For annual reporting periods beginning on or after 1 April 2026, any breach of a covenant—whether
+     material or immaterial—occurring on or before the reporting date will, in accordance with Ind AS 1, require
+    the related liability to be classified as current, unless the lender has granted a waiver of the breach on
+     or before the reporting date and has agreed not to demand repayment for at least 12 months after the
+     reporting date as a consequence of the breach. Such a waiver shall be treated as an adjusting event.
+
+    The amendments are effective for annual reporting periods beginning on or after 1 April 2026 retrospectively
+     in accordance with Ind AS 8.
+
+3.  Critical Accounting Judgments and key sources of estimation uncertainty
+    The preparation of the financial statements in conformity with the Ind AS requires management to make
+    judgments, estimates and assumptions that affect the application of accounting policies and the reported
+    amounts of assets, liabilities and the accompanying disclosures as at date of the financial statements and
+    the reported amounts of the revenues and expenses for the years presented. The estimates and associated
+    assumptions are based on historical experience and other factors that are considered to be relevant.
+     Actual results may differ from these estimates under different assumptions and conditions. The estimates
+    and underlying assumptions are reviewed on an ongoing basis. Revisions to accounting estimates are
+     recognised in the period in which the estimate is revised if the revision affects only that period or in the
+     period of the revision and future periods if the revision affects both current and future periods.
+
+i)   Key sources of estimation uncertainty
+     a)  Revenue Recognition
+        The Company’s contracts with customers include promises to transfer goods to the customers.
+        Judgement is required to determine the transaction price for the contract.
+
+        The transaction price could be either a fixed amount of customer consideration or variable
+          consideration with elements such as schemes, incentives and cash discounts, among others. The
+         estimated amount of variable consideration is adjusted in the transaction price only to the extent that
+               it is highly probable that a significant reversal in the amount of cumulative revenue recognised will
+         not occur and is reassessed at the end of each year.
+
+         Estimates of rebates and discounts are sensitive to changes in circumstances and the Company’s past
+         experience regarding returns and rebate entitlements may not be representative of customers’ actual
+          returns and rebate entitlements in the future.
+
+     b)   Depreciation / amortisation and useful lives of property plant and equipment / intangible assets
+          Property, plant and equipment / intangible assets are depreciated / amortised over their estimated
+          useful lives, after taking into account estimated residual value. Management reviews the estimated
+          useful lives and residual values of the assets annually in order to determine the amount of depreciation
+               / amortisation to be recorded at each year end.
+
+        The useful lives and residual values are based on the Company’s historical experience with similar
+          assets and take into account anticipated technological changes. The depreciation / amortisation for
+          future periods is revised if there are significant changes from previous estimates.
+
+      c)   Recoverability of trade receivable
+        Judgements are required in assessing the recoverability of overdue trade receivables and determining
+        whether a provision against those receivables is required. Factors considered include the credit rating
+          of the counterparty, the amount and timing of anticipated future payments and any possible actions
+          that can be taken to mitigate the risk of non-payment.
+
+     d)   Provisions
+          Provisions and liabilities are recognized in the period when it becomes probable that there will be
+         a future outflow of funds resulting from past operations or events and the amount of cash outflow
+        can be reliably estimated. The timing of recognition and quantification of the liability requires the
+          application of judgment to existing facts and circumstances, which can be subject to change. The
+          carrying amounts of provisions and liabilities are reviewed regularly and revised to take account of
+        changing facts and circumstances.
+
+                                                               Integrated Annual Report FY 2025-26 | 285

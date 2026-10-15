@@ -1,0 +1,76 @@
+Schaeffler India Limited | Integrated Annual Report 2025
+
+Notes to the Standalone Financial Statements
+for the year ended December 31, 2025
+
+     (B) Liquidity risk
+       The Company's principal sources of liquidity are cash and cash equivalents and cash flows generated from
+        operations. The Company regularly monitors actual cash flows and forecasts to ensure that the Company maintains
+         sufficient liquidity to meet the operation needs.
+
+       The following table shows the maturity analysis of the Company's financial liabilities based on contractually agreed
+        undiscounted cash flows (except lease liabilities refer note 48 (7)) at the balance sheet date:
+
+                                                                                                                        (` in million)
+                                                            Carrying       Less than      More than            Total
+                                                   amount     12 months     12 months
+
+ As at December 31, 2025
+
+ Financial liabilities
+
+ Lease liabilities                                           390.1          108.4          281.7          390.1
+
+ Trade payables                                         16,621.6       16,621.6                        -       16,621.6
+
+ Security deposits from customers/suppliers                     21.7                        -           21.7           21.7
+
+ Employee liabilities                                       956.8          836.8          120.0          956.8
+
+ Creditors for capital goods                                 1,189.0        1,189.0                        -        1,189.0
+
+ Accrued expense                                         124.5          124.5                        -          124.5
+
+ Unclaimed dividends                                        15.4           15.4                        -           15.4
+
+ Other payables                                             11.2           11.2                        -           11.2
+
+ As at December 31, 2024
+
+ Financial liabilities
+
+ Lease liabilities                                           424.2           98.5          325.7          424.2
+
+ Trade payables                                         11,187.3       11,187.3                        -       11,187.3
+
+ Security deposits from customers/suppliers                     21.5                        -           21.5           21.5
+
+ Employee liabilities                                       681.2          562.6          118.6          681.2
+
+ Creditors for capital goods                                 1,267.0        1,267.0                        -        1,267.0
+
+ Accrued expense                                         117.9          117.9                        -          117.9
+
+ Unclaimed dividends                                        14.3           14.3                        -           14.3
+
+ Other payables                                                 8.6             8.6                        -             8.6
+
+     (C)  Credit Risk
+         Credit risk is the unexpected loss in financial instruments if the counter parties fails to discharge it's contractual
+         obligations in entirety and timely. The Company is exposed to credit risks arising from it's operating and financing
+          activities such as trade receivables, loans and advances and other financial instruments. The carrying amounts of
+         financial assets represent the maximum credit exposure.
+
+        Trade receivables
+         Credit risk on trade receivables is limited due to the Company's diversified customer base which includes public
+         sector enterprises and reputed private corporates. For trade receivables, the Company computes expected credit loss
+        allowance based on provision matrix which is prepared considering customer's industry segment and historically
+        observed overdue rate over expected life of trade receivables ranging from 0.02% to 1.10%, except for few customer
+       where specific provisions is being created. The expected credit loss allowance is considered as a percentage of net
+        receivable position.
+
+
+
+
+
+273

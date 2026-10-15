@@ -1,0 +1,63 @@
+                         CORPORATE OVERVIEW         STATUTORY REPORTS        FINANCIAL STATEMENTS
+
+Notes forming part of Standalone Accounts
+for the year ended 31st March 2026
+
+1.19. CASH AND CASH EQUIVALENTS:
+     Cash and cash equivalents in the balance sheet comprise cash at banks and in hand and short-term deposits
+      with an original maturity of twelve months or less, which are subject to an insignificant risk of changes in value.
+
+      For the purpose of the statement of cash flows, cash and cash equivalents consist of unrestricted cash and short-
+     term deposits, net of outstanding bank overdrafts as they are considered an integral part of the Company’s cash
+     management. Cash flows are reported using the indirect method, whereby profit before tax is adjusted for the
+      effects of transactions of a non-cash nature, any deferrals or accruals of past or future operating cash receipts
+      or payment and items of income or expenses associated with investing or financing cash flows. The cash flows
+     from operating, investing and financing activities of the company are segregated.
+
+NOTE - 31 Earnings per Share:
+Earnings per Share (‘EPS’) is determined based on the net profit attributable to the shareholders of the Company. Basic
+EPS amounts are calculated by dividing the profit for the year attributable to Equity Shareholders by the weighted
+average number of Equity Shares outstanding during the year.
+
+Diluted EPS amounts are calculated by dividing the profit for the year attributable to Equity Shareholders by the
+weighted average of Equity Shares outstanding during the year plus potential Equity Shares. However, there are no
+dilutive potential equity shares.
+
+The following reflects the earning and weighted average number of equity share used in the Basic and Diluted EPS
+computation:
+
+  Sr. No.  Particulars                                                 2025-2026     2024-2025
+   A     Profit/(Loss) for the year (` In Lakh)                                         3571.44        38044.98
+         Weighted average number of shares used as the denominator in the
+   B                                                               83387090      83387090
+           calculation of Basic EPS
+   C     Basic and Diluted EPS (In `)                                                    4.28            45.62
+
+NOTE - 32
+Corresponding figures of the previous year have been regrouped/reclassified to confirm with current year’s
+classification wherever necessary.
+
+NOTE - 33 Payment to auditors:
+                                                                                                      [AMT. ` IN LAKH]
+
+  Sr. No.  Particulars                                                 2025-2026     2024-2025
+      1    As Auditor                                                                        39.19            37.32
+        TOTAL                                                                      39.19           37.32
+
+NOTE - 34 Financial Instrument by Category:
+
+                                                                                                     [AMT. ` IN LAKH]
+                                       2025-2026                     2024-2025
+ PARTICULARS                                  AMORTISED                   AMORTISED
+                               FVTPL   FVTOCI               FVTPL   FVTOCI
+                                                COST                       COST
+ Financial Assets
+ -   Investment                       0.00      0.00     52492.02      0.00      0.00     52492.02
+ -   Loans                           0.00      0.00       16915.47      0.00      0.00      12720.61
+ -   Trade Receivable                  0.00      0.00        11817.67      0.00      0.00        15184.11
+ -   Cash & cash equivalents            0.00      0.00       528.62      0.00      0.00      2795.69
+ -   Other bank balances               0.00      0.00       5122.05      0.00      0.00      3608.77
+ -   Other financial Assets              0.00      0.00         0.00      0.00      0.00            51.18
+
+
+         Powering Progress Shaping Communities                                     227•

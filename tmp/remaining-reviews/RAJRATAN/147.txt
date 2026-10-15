@@ -1,0 +1,58 @@
+                                             Corporate Overview | Statutory Reports | Financial Statements
+
+Standalone Statement of Profit and Loss for the year ended March 31, 2026
+(CIN No. L27106MP1988PLC004778)
+                                                                                                                     (INR in Lakhs)
+ Particulars                                          Note         Year ended      Year ended
+                                                         March 31, 2026  March 31, 2025
+I   Revenue from contracts with customers               30            72,150         59,152
+II  Other Income                                  31             585          192
+III  Total Income (I+II)                                                 72,735         59,344
+IV Expenses
+   Cost of materials consumed                        32            43,268         37,466
+   Purchase of Stock-in-trade                         33              41            8
+   Changes in inventories of finished goods, work-in-        33             209           (2,106)
+   progress and traded goods
+   Employee benefit expense                         34              3,689           2,843
+   Finance costs                                  35              2,397           2,127
+   Depreciation and amortisation expense               36              1,643           1,275
+   Other expenses                                 37            15,521         11,466
+    Total Expenses (IV)                                                66,768         53,079
+V  Profit before exceptional item and tax (III-IV)                             5,967           6,265
+VI  Exceptional item                                                                                           -                        -
+VII Profit / (Loss) before tax (V-VI)                                         5,967           6,265
+VIII Tax Expenses / (credit)
+   Current tax                                          23.3             986           1,146
+   Deferred tax                                         23.2             503          489
+    Total tax expenses / (credit) (VIII)                                       1,489           1,635
+IX  Profit for the year (VII - VIII)                                           4,478           4,630
+X  Other Comprehensive Income
+    A) Items that will not be reclassified to the statement
+        of profit or loss
+      Re-measurement gains/ (losses) on defined benefit    20              84                  (2)
+       plans
+    Total (A)                                                      84                 (2)
+    B) Items that will be reclassified to the statement of                                        -                        -
+        profit or loss
+    Total (B)                                                                                                     -                        -
+(X) Total other comprehensive income (A+B)                              84                  (2)
+XI  Total Comprehensive Income for the year (IX+X)                          4,562           4,628
+   Earnings per equity share (face value per               40
+    equity share - Rs. 2/-)
+     -   Basic                                                               8.82            9.12
+     -   Diluted                                                              8.82            9.12
+The accompanying notes are an integral part of the standalone financial statements
+As per our report of even dated
+For Fadnis & Gupte LLP                      For and on behalf of board Rajratan Global Wire Limited
+Chartered Accountants
+Firm Registration No. 006600C/C400324
+
+CA. Vikram Gupte                              Sunil Chordia                    Yashovardhan Chordia
+Partner                                 Chairman & Managing Director     CEO & Deputy
+Membership No. 074814                  DIN : 00144786                 Managing Director
+                                                                    DIN : 08488886
+
+Indore                              Shubham Jain                     Hitesh Jain
+April 21, 2026                         Company Secretary                  Chief Financial Officer
+
+                                                               Integrated Annual Report FY 2025-26 | 183

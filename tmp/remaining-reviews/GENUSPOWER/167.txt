@@ -1,0 +1,66 @@
+Notes
+to the standalone financial statements for the year ended March 31, 2026
+(All amounts are in Indian Rupees in Crores except share data and unless otherwise stated)
+
+       affect the reported amounts of assets, liabilities,        Defined benefit plans
+     income and expenses. Although these estimates
+                                                    The cost of the defined benefit plan and other
+      are based on the management’s best knowledge
+                                                     postemployment  benefits  and  the  present
+      of current events and actions, uncertainty about
+                                                             value of such obligation are determined using      these assumptions and estimates could result in
+                                                                   actuarial  valuations. An  actuarial  valuation      the outcomes requiring a material adjustment
+                                                                involves  making  various  assumptions  that      to the carrying amounts of assets or liabilities in
+                                             may  differ from actual developments  in the      future periods.
+                                                                     future. These include the determination of the
+     Revenue from contracts with customers                discount rate, future salary increases, mortality
+     The Company applied the following judgements          rates and future pension increases. Due to the
+      that significantly affect the determination of the         complexities involved in the valuation and its
+     amount and timing of revenue from contracts         long-term nature, a defined benefit obligation
+      with customers:                                                      is sensitive to changes in these assumptions.
+                                                                        All assumptions are reviewed at each reporting
+      Identifying performance obligations in AMISP
+                                                                date.      Contract
+                                                   Measurement of credit impairment     The Company determined that both the (a)
+      the supply, installation, integration, testing, and        The measurement of impaired credit for trade
+      commissioning of the AMI system, and (b) the         receivables is ascertained using the expected
+      operation, maintenance, and support services          credit loss model (ECL) approach. Appropriate
+       post-installation are capable of being distinct.                                                   measurement for expected credit loss has been
+     The fact that the customer can benefit from                                             made and provided for in financial statements.
+     both products on their own and the promises                                                    The Company  has  also  a made  detailed
+      to  transfer  the equipment and  to  provide                                                       assessment of the recoverability and carrying
+       installation are distinct within the context of the
+                                                             value of trade receivables.
+      contract.
+                                                    Based on current indicators of future economic      Consequently, the Company allocated a portion
+                                                                conditions, the Company expects to recover the      of the transaction price to both performance
+                                                              carrying amount of these assets. The Company      obligations based on relative stand-alone selling
+                                                                             will continue to closely monitor any material       prices.
+                                                      changes arising of future economic conditions
+      Consideration    of    significant    financing                                                   and impact on its collectability.
+     component in a contract
+                                                        2.3   Recent Accounting Developments
+     Under the AMISP Contract, the payment for the
+      supply and installation of meters is to be received   A.   New and amended  standards adopted by
+      over a period of 93 months. The Company       Company
+     concluded that there is a significant financing
+     component to  this contract, considering the        The Ministry of corporate Affairs (“MCA”) notified
+      length of time between the customer’s payment       amendments on 7 May 2025 and 13 August
+     and the transfer of the performance obligation        2025 under the Companies (Indian Accounting
+       for the supply and  installation of meters to         Standards) Amendment Rules, 2025 and the
+      the customer, as well as the prevailing market        Companies  (Indian  Accounting  Standards)
+       interest rates.                                   Second Amendment Rules, 2025, respectively,
+       In determining the interest to be applied to        which is effective from annual reporting periods
+      the amount  of  consideration, the Company         beginning on or after 1 April 2025.
+     concluded that the interest rate implicit in the                                                                (a)  Amendment to Ind AS 7 and Ind AS 107 -
+      contract  (i.e., the interest rate that discounts                                                                  Supplier Finance Arrangement:
+      the cash selling price of the equipment to the
+     amount received in instalments) is appropriate             The amendments to Ind AS 7 ‘Statement
+     because this rate is commensurate with the rate                of Cash Flows’ and Ind AS 107 ‘Financial
+      that would be reflected in a separate financing               Instruments:   Disclosures’   clarify  the
+      transaction between the entity and its customer                characteristics   of   supplier   finance
+      at the inception of the contract.                            arrangements  and  require  additional
+
+
+
+160    Annual Report 2025-26

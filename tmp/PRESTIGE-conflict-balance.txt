@@ -1,0 +1,90 @@
+  Consolidated Balance Sheet
+     As at 31 March 2026
+
+                                                                                                                         ` In Million
+       Particulars                                                        Note No.                As at               As at
+                                                                            31 March 2026      31 March 2025
+      A. ASSETS
+       (1) Non-current assets
+             (a)  Property, plant and equipment                                  8                   28,660              26,354
+             (b)  Capital work-in-progress                                      9                   22,072              14,243
+              (c)  Investment property                                         10                   90,331              78,432
+             (d) Goodwill                                                 12                   534               534
+             (e) Other intangible assets                                       11                   128               127
+                 (f)  Investments in joint venture and associate                         13                    4,500               3,620
+             (g)  Financial assets
+                          (i)  Investments                                            13                    7,332               305
+                           (ii)  Loans                                                14                   700               1,116
+                           (iii) Other ﬁnancial assets                                     15                    8,647               5,257
+             (h) Deferred tax assets (net)                                      30                   14,245               9,411
+                   (i)  Income tax assets (net)                                                                   3,232               3,899
+                  (j)  Other non-current assets                                      16                    3,912               2,354
+      Sub-total                                                                            184,293            145,652
+       (2) Current assets
+             (a)  Inventories                                                17                 402,519             318,831
+             (b)  Financial assets
+                          (i)  Investments                                            18                    9,916               8,570
+                           (ii)  Trade receivables                                        19                   20,422              13,582
+                           (iii) Cash and cash equivalents                                 20                   15,560              20,094
+                     (iv) Bank balances other than cash and cash equivalents              21                    8,244               3,836
+                   (v)  Loans                                                22                   28,408              20,771
+                     (vi) Other ﬁnancial assets                                     23                   20,951              26,324
+              (c)  Other current assets                                         24                   43,367              30,292
+      Sub-total                                                                            549,387            442,300
+      Total                                                                               733,680            587,952
+      B. EQUITY AND LIABILITIES
+       (1) Equity
+             (a)  Equity share capital                                          25                    4,307               4,307
+             (b) Other Equity                                               26                 158,422             149,923
+      Equity Attributable to Owners of the parent                                                 162,729            154,230
+              (c) Non controlling interests                                      27                    4,669               4,815
+      Sub-total                                                                            167,398            159,045
+       (2) Non-current liabilities
+             (a)  Financial Liabilities
+                           (i)  Borrowings                                             28                   56,311              43,130
+                           (ii)  Lease liabilities                                          48                   22,988              22,652
+                           (iii) Other ﬁnancial liabilities                                   29                    1,825               1,542
+             (b) Deferred tax liabilities (net)                                    30                    5,633               5,583
+              (c)  Other non-current liabilities                                    31                   405               760
+             (d)  Provisions                                                32                   713               536
+      Sub-total                                                                              87,875             74,203
+       (3) Current liabilities
+              (a)  Financial Liabilities
+                           (i)  Borrowings                                             33                   93,550              62,872
+                           (ii)  Lease liabilities                                          48                    3,745               3,145
+                           (iii) Trade payables                                          34
+                           -   Dues to micro and small enterprises                                                  1,564               1,155
+                           -   Dues to creditors other than micro and small enterprises                               23,486              17,555
+                     (iv) Other ﬁnancial liabilities                                   35                   16,756              14,325
+             (b) Other current liabilities                                       36                 329,438             250,732
+              (c)  Provisions                                                37                    8,208               4,660
+             (d) Income tax liabilities (net)                                                                 1,660               260
+      Sub-total                                                                            478,407            354,704
+      Total                                                                               733,680            587,952
+
+     See accompanying notes to the Consolidated Financial Statements
+
+     As per our report of even date attached
+
+      For S.R. Batliboi & Associates LLP                            For and on behalf of the board of directors of
+
+      Chartered Accountants                                         Prestige Estates Projects Limited
+
+      ICAI Firm registration number: 101049W / E300004            CIN : L07010KA1997PLC022322
+
+      per Sudhir Kumar Jain                                              Irfan Razack                        Rezwan Razack
+
+      Partner                                                  Chairman & Managing Director               Joint Managing Director
+
+     Membership No.: 213157                                      DIN: 00209022                           DIN: 00209060
+
+                                                            Amit Mor                            Manoj Krishna JV
+
+                                                                      Chief Financial Oﬃcer                 Company Secretary
+
+      Place: Bengaluru                                                  Place: Bengaluru
+
+      Date: 21 May 2026                                             Date: 21 May 2026
+
+
+341   Integrated Annual Report 2025-26

@@ -1,0 +1,24 @@
+  Corporate Overview      Statutory Reports       Financial Statements                           161
+
+
+
+          feature of recording audit trail (edit log) facility at      Company as per the statutory requirements for record
+          the application level as well as at the database level         retention.
+        and the same has operated throughout the year for
+                                                                        4.   With respect to the matter to be included in the Auditor’s              all relevant transactions recorded in the respective                                                                    report under section 197 (16) of the Act:                                                                                 Statements          software.
+
+                                                                          In our opinion and according to the information and     Further, during the course of our audit, we and the other
+                                                                   explanations given to us and based on the auditor’s     auditor of subsidiary, whose reports have been furnished                                                                                                                                                                                                                             Financial
+                                                                    report of a subsidiary company incorporated in India, the     to us by the Management of the Holding Company, have
+                                                              remuneration paid during the current year by the Holding     not come across any instance of the audit trail feature
+                                                    Company and its subsidiary company to their respective     being tampered with  in  respect  of the accounting
+                                                                         directors is in accordance with the provisions of Section     software for the period for which the audit trail feature                                                          197 of the Act.                                                                                                                                                                                                         Consolidated    was operating. Additionally, the audit trail has also been
+     preserved by the Holding Company and the subsidiary                                                                                                                           Arman
+                                                                                                    For Laxminiwas & Co.
+                                                                                               Chartered Accountants
+                                                                                                     FRN: 011168S
+
+                                                                               Guharoy Ashish Kumar
+Place: Hyderabad                                                                                                   Partner
+Date: 27 May, 2026                                                                   Membership No. 018659
+                                                                                     UDIN: 26018659HFVADG5712

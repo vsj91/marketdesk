@@ -1,0 +1,51 @@
+(Currency : Indian Rupees in Lakhs unless otherwise stated)
+
+
+
+                                                                                                                                     115
+
+
+
+Trade receivables ageing                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         Statements
+  Particulars                                     Outstanding for the following periods from due date of payments
+ As at March 31, 2026                 Less than   6 months - 1      1-2 years     2 - 3 years   More than 3        Total                                                                                                                                                                                                                                                                                                                                                                                                                                                        Financial
+                                  6 months       year                                      years                   3.
+  (i)   Undisputed Trade receivables -       212.83            241.15        239.84         158.65                -           852.47
+     considered good
+  (ii)  Undisputed Trade receivables -              -                  -                -                -                -                   -
+     which have significant increase
+       in credit risk
+  (iii)  Undisputed Trade receivables -              -                  -                -                -                -                   -
+      credit impaired
+  (iv)  Unbilled dues                                   -                  -                -                -                -                   -
+ Total                                     212.83           241.15       239.84         158.65                -          852.47
+
+ Particulars                                      Outstanding for the following periods from due date of payments
+ As at March 31, 2025                 Less than 6  6 months - 1 year     1-2 years     2 - 3 years   More than 3       Total
+                                  months                                                     years
+  (i) Undisputed Trade receivables -             181.34            58.50        292.35         105.96           51.67        689.82
+ considered good
+  (ii) Undisputed Trade receivables -                   -                    -                -                -                -                -
+ which have significant increase in
+ credit risk
+  (iii) Undisputed Trade receivables -                   -                    -                -                -                -                -
+ credit impaired
+  (iv) Unbilled dues                                      -                    -                -                -                -                -
+ Total                                         181.34            58.50        292.35        105.96          51.67        689.82
+
+Note 11 : Cash and cash equivalents
+
+ Particulars                                                                 March 31, 2026         March 31, 2025
+ Balances with banks
+  - in current accounts                                                                               91.08                   89.66
+ Cash on hand                                                                                    4.47                     3.55
+ Cheques on hand                                                                                                 -                    6.00
+ Total cash and cash equivalents                                                              95.55                     99.21
+
+Note 12 : Other financial assets
+(Unsecured, considered good, unless otherwise stated)
+
+ Particulars                                                                 March 31, 2026         March 31, 2025
+ Advances recoverable in cash or in kind, considered good                                          8.30                    37.35
+ Bank deposits (due to mature within 12 months of the reporting date)*                                31.62                    47.58
+ Total other financial assets                                                                  39.92                  84.93

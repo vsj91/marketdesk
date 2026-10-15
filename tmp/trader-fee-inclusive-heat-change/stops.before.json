@@ -1,0 +1,79 @@
+[
+  {
+    "symbol": "SKYGOLD",
+    "entry": 950.3560784313726,
+    "stop": 921.8453960784313,
+    "highest": 978.25,
+    "entry_day": "2026-10-13",
+    "updated_day": "2026-10-14",
+    "ma_exit": 0,
+    "legacy": 1,
+    "entry_request": "auto-trader-bdd46306-d46e-40ad-83c6-3cc0e51a8a47"
+  },
+  {
+    "symbol": "UTTAMSUGAR",
+    "entry": 357.5294936708861,
+    "stop": 346.8036088607595,
+    "highest": 380.05,
+    "entry_day": "2026-10-13",
+    "updated_day": "2026-10-14",
+    "ma_exit": 0,
+    "legacy": 1,
+    "entry_request": "auto-trader-8a9ff877-aaa3-4818-ad43-a88a8729681b"
+  },
+  {
+    "symbol": "WSTCSTPAPR",
+    "entry": 847.1600000000001,
+    "stop": 748.125539590173,
+    "highest": 847.1600000000001,
+    "entry_day": "2026-10-15",
+    "updated_day": "2026-10-14",
+    "ma_exit": 0,
+    "legacy": 0,
+    "entry_request": "claude-29ae681c-4787-4cb5-86af-32002017b43d"
+  },
+  {
+    "symbol": "MAWANASUG",
+    "entry": 175.53,
+    "stop": 154.53978804924148,
+    "highest": 175.53,
+    "entry_day": "2026-10-15",
+    "updated_day": "2026-10-14",
+    "ma_exit": 0,
+    "legacy": 0,
+    "entry_request": "claude-fd91c2cb-f9d2-44d7-a1e4-f63a6a275723"
+  },
+  {
+    "symbol": "KRISHANA",
+    "entry": 211.81862068965518,
+    "stop": 195.9264084366069,
+    "highest": 211.81862068965518,
+    "entry_day": "2026-10-15",
+    "updated_day": "2026-10-14",
+    "ma_exit": 0,
+    "legacy": 0,
+    "entry_request": "claude-c79f4616-2518-4b81-a54a-0a3446b8a6d9"
+  },
+  {
+    "symbol": "BLUSPRING",
+    "entry": 173.2938888888889,
+    "stop": 151.54093851248794,
+    "highest": 173.2938888888889,
+    "entry_day": "2026-10-15",
+    "updated_day": "2026-10-14",
+    "ma_exit": 0,
+    "legacy": 0,
+    "entry_request": "claude-e03b9e18-61eb-4fdb-8b9c-434f892fe84e"
+  },
+  {
+    "symbol": "MRPL",
+    "entry": 176.91868512110727,
+    "stop": 161.09034747838078,
+    "highest": 176.91868512110727,
+    "entry_day": "2026-10-15",
+    "updated_day": "2026-10-14",
+    "ma_exit": 0,
+    "legacy": 0,
+    "entry_request": "claude-f9875f2b-246f-492b-9c1d-fad6c5e10061"
+  }
+]

@@ -1,0 +1,50 @@
+        AARVI ENCON LIMITED
+
+
+
+          e)   Impairment of Assets
+              Assets  subject  to  amortization/depreciation are  tested  for impairment provided  that an event
+               or change  in circumstances indicates that  their carrying amount might not be recoverable. An
+              impairment loss  is recognized in the amount by which the asset’s carrying amount exceeds  its
+              recoverable amount. The recoverable amount is the higher between an asset’s fair value less sale
+               costs and value in use. For the purposes of assessing impairment, assets are grouped together at
+               the lowest  level  for which there are separately  identifiable cash flows (cash-generating  units).
+               Non-financial assets other than goodwill for which impairment losses have been recognized are tested
+                at each balance sheet date in the event that the loss has reversed.
+              f)   Cash and cash equivalents
+            Cash and cash equivalents include cash in hand, demand deposits in banks and other short-term highly
+                 liquid investments with original maturities of three months or less. Bank overdrafts are shown within
+             bank borrowings in current liabilities on the balance sheet.
+          g)   Provisions
+            The Company recognizes a provision when: it has a present legal or constructive obligation as a result
+                of past events; it is likely that an outflow of resources will be required to settle the obligation; and the
+            amount has been reliably estimated. Provisions are not recognized for future operating losses.
+          h)   Fair Value Measurement
+            The Company measures financial instruments, such as, derivatives at fair value at each balance sheet
+               date. Fair value is the price that would be received to sell an asset or paid to transfer a liability in an
+                orderly transaction between market participants at the measurement date. The fair value measurement
+                   is based on the presumption that the transaction to sell the asset or transfer the liability takes place
+                 either:
+            w In the principal market for the asset or liability, or
+            w In the absence of a principal market, in the most advantageous market for the asset or liability
+            The principal or the most advantageous market must be accessible by the Company.
+            The fair value of an asset or a liability is measured using the assumptions that market participants would
+             use when pricing the asset or liability, assuming that market participants act in their economic best
+                 interest.
+               i)   Financial Instruments
+                       (i)   Financial Assets & Financial Liabilities
+                           Initial recognition and measurement
+                        All financial assets and liabilities are recognised initially at fair value.
+                      In the case of financial assets not recorded at fair value through profit or loss, transaction costs that
+                   are attributable to the acquisition of the financial asset is treated as cost of acquisition. Purchases or
+                   sales of financial assets that require delivery of assets within a time frame established by regulation
+                    or convention in the market place (regular way trades) are recognised on the trade date, i.e., the
+                   date that the Company commits to purchase or sell the asset.
+                 Subsequent Measurement
+                  For purposes of subsequent measurement, financial assets are classified in following categories:
+                w Debt instruments at amortised cost
+                w Debt instruments at fair value through other comprehensive income (FVTOCI)
+                w Debt instruments, derivatives and equity instruments at fair value through profit or loss (FVTPL)
+                w Equity instruments measured at fair value through other comprehensive income (FVTOCI)
+
+140 | Annual Report 2025-26

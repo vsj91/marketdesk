@@ -1,0 +1,68 @@
+Standalone Balance Sheet
+As at 31 March, 2026
+
+                                                                                                               (` in crores unless otherwise stated)
+                                                                            As at            As at
+ Particulars                                                     Note
+                                                                               31 March, 2026    31 March, 2025
+ ASSETS
+ Non-Current Assets
+      Property, plant and equipment                                 2 (a)                  1,611.59              1,381.47
+      Capital work-in-progress                                     2 (b)                126.38            298.48
+      Intangible assets                                           2 (c)                    0.21               0.44
+      Financial assets
+                -    Investments                                          3               746.99             513.25
+                -    Other financial assets                                   4                  6.69               62.21
+     Other non-current assets                                      5                 22.27              38.37
+ Total non- current assets                                                                     2,514.13          2,294.22
+ Current Assets
+      Inventories                                                6               282.32              216.78
+      Financial assets
+                - Investments                                             3                 190.45              10.00
+                - Trade receivables                                            7                 532.21             593.74
+                - Cash and cash equivalents                                8                  2.56               0.07
+                - Bank balances other than cash and cash equivalents            9                  2.29                3.44
+                - Loans                                                           10                      0.12                  0.10
+                - Others financial assets                                     4                   47.39             45.94
+      Current tax assets (net)                                                                       18.04                       11.13
+     Other current assets                                         5                   31.86              87.55
+ Total current assets                                                                             1,107.24           968.75
+ Total assets                                                                              3,621.37          3,262.97
+ EQUITY & LIABILITIES
+ Equity
+      Equity share capital                                    SOCE                  10.37                10.37
+     Other equity                                         SOCE            3,206.24           2,796.36
+ Total equity                                                                                3,216.61          2,806.73
+ LIABILITIES
+ Non-current liabilities
+      Financial liabilities
+                - Other financial liabilities                                                                11                   8.33                7.04
+     Deferred tax liabilities (net)                                                  14                    185.71             154.04
+ Total non current liabilities                                                             194.04             161.08
+ Current liabilities
+      Financial liabilities
+                - Borrowings                                                          13                                  -             62.62
+                - Trade payables
+             (A)   total oustanding dues of micro & small enterprises               15                   6.37               2.40
+              (B)   total outstanding dues other than micro & small enterprises      15                   108.16                140.13
+                - Other financial liabilities                                                                11                 23.64               19.66
+     Other current liabilities                                                   12                  62.91                      61.11
+      Provisions                                                               16                  9.64               9.24
+ Total current liabilities                                                                    210.72            295.16
+ Total liabilities                                                                      404.76           456.24
+ Total equity & liabilities                                                                   3,621.37          3,262.97
+ Material accounting policies                                                                           1
+Accompanying notes are an integral part of these standalone financial statements
+As per our report of even date attached                    For and on behalf of Board of Directors
+
+For M M NISSIM & CO LLP                                 Vinati Saraf Mutreja              Vinod Saraf
+Chartered Accountants                               Managing Director & CEO           Chairman
+Firm Reg.No. 1107122W/W100672                           DIN: 00079184                      DIN: 00076708
+
+Dimple Maru                                       Gulshan Kumar Sakhuja            Milind Wagh
+Partner                                                    Chief Financial Officer            Company Secretary
+Mem.No. 141312
+
+Mumbai, 12 May, 2026
+
+ 136

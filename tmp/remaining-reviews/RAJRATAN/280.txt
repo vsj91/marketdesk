@@ -1,0 +1,58 @@
+Notes forming part of the Consolidated Financial Statements
+
+47. Financial Risk Management:
+    The Company’s activities expose it to a variety of financial risks, including market risk, credit risk and
+      liquidity risk.
+
+    The Company’s risk management assessment and policies and processes are established to identify and
+     analyse the risks faced by the Company, to set appropriate risk limits and controls, and to monitor such risks
+    and compliance with the same.
+
+     Risk assessment and management policies and processes are reviewed regularly to reflect changes in
+    market conditions and the Company’s activities.
+
+47.1Credit Risk
+     Credit risk is the risk that a customer or counterparty to a financial instrument fails to meet its contractual
+     obligations causing financial loss to the company.
+     Credit risk arises mainly from the outstanding receivables from customers.
+     Credit risk is managed through credit approvals, establishing credit limits and continuously monitoring
+    the creditworthiness of counterparty to which the Company grants credit terms in the normal course of
+     business.
+    The Company has used expected credit loss (ECL) model for assessing the impairment loss.
+     For the purpose, the Company uses a provision matrix to compute the expected credit loss amount.
+    The provision matrix takes into account external and internal risk factors and historical data of credit losses
+    from various customers.
+                                                                                                                     (INR in Lakhs)
+      Particulars                                                       As at           As at
+                                                         March 31, 2026  March 31, 2025
+     Financial assets for which loss allowances is measured using the
+    expected credit loss
+    Trade receivables
+     less than 180 days                                                25,230         17,657
+    180 - 365 days                                                 1          239
+    beyond 365 days                                              412          432
+     Total                                                           25,643         18,327
+    Movement in the expected credit loss allowance on trade
+     receivables
+    Balance at the beginning of the year                                 77           71
+     Addition                                                     30            6
+    Balance at the end of the year                                     107           77
+    Trade receivable at the end of the year                               25,536         18,250
+
+47.2Liquidity Risk
+     Liquidity risk arises from the Company’s inability to meet its financial obligation as it becomes due.
+    The Company manages its liquidity risk by ensuring, as far as possible, that it will always have sufficient
+      liquidity to meet its liabilities when due, under both normal and stressed conditions, without incurring
+    unacceptable losses or risk to the Company’s reputation.
+    The table below provides details regarding the contractual maturities of significant financial liabilities :
+    As at March 31, 2026                                                                                      (INR in Lakhs)
+      Particulars                       Less than      1 - 3 years      More than           As at
+                                 1 year                      3 years  March 31, 2026
+    Non derivative
+    Borrowings (Non-current)                            -           9,052           3,882         12,933
+    Borrowings (Current)                19,457                        -                        -         19,457
+    Trade payables                     13,720            3          191         13,914
+    Other financial liabilities               1,123                        -                        -           1,123
+     Total                            34,299           9,055           4,073         47,427
+
+316 | Rajratan Global Wires Limited

@@ -1,0 +1,61 @@
+                                                   Corporate Overview          Statutory Reports         Financial Statements 
+
+Consolidated Statement of Profit and Loss
+for the year ended March 31, 2026
+(All amounts are in Indian Rupees in Crores except share data and unless otherwise stated)
+
+                                                                               As at         As at
+                                                                      Notes
+                                                                           March 31, 2026  March 31, 2025
+ Continuing Operations:
+ Income
+ Revenue from operations                                                 25          4,750.92        2,442.02
+ Other income                                                         26            70.30           82.57
+ Total income                                                                                 4,821.22        2,524.59
+ Expenses
+ Cost of raw materials and components consumed                              27            3,223.13           1,676.81
+ Change in inventories of finished goods and work-in-progress                   28           (326.24)        (284.98)
+ Employee benefit expenses                                              29          440.94          274.79
+ Other expenses                                                    30           499.76         305.70
+ Depreciation and amortisation expenses                                              31               55.41            34.61
+ Finance costs                                                          32            160.59            116.23
+ Total expenses                                                                         4,053.59          2,123.16
+ Profit before tax                                                                           767.63         401.43
+ Tax expenses
+    Current tax                                                                                            192.19            85.91
+    Deferred tax charge / (credit)                                                                            (1.22)           32.88
+    Tax expense/ (credit) relating to earlier years                                                                       11.71            (12.10)
+ Total tax expenses                                                      33           202.68          106.69
+ Net profit for the year before share of profit/(loss) of associate entities                         564.95          294.74
+ Share of net profit/(loss) from associate entities                              55              27.35                 11.31
+ Net profit for the year from continuing operations                                            592.30         306.05
+ Discontinued operations:                                               39
+ Profit from discontinued operations before tax                                                                         -            6.89
+ Tax expenses (including deferred tax) on the above                                                                   -               1.74
+ Net profit for the year before share of profit/(loss) of associate entities                                        -              5.15
+ Share of net profit/(loss) from associate entities                                                                       -              0.18
+ Net profit for the year from discontinued operations                                                                -            5.33
+ Net profit for the year                                                                 592.30           311.38
+ Items of other comprehensive income/(loss) (net of tax)                    34
+ Items that will not be reclassified to statement of profit or loss
+From continuing operations
+   Re-measurement gain/ (loss) on defined benefit plans                                            2.32           (0.98)
+    Net gain/ (loss) on FVTOCI on securities                                                      (8.40)               1.85
+   Income tax effect (net)                                                                     0.62           0.06
+From discontinued operations
+    Net gain/ (loss) on FVTOCI on securities                                                                           -            (2.77)
+   Income tax effect (net)                                                                                                 -              1.88
+ Total other comprehensive income for the year                                                  (5.46)          0.04
+ Total comprehensive income from continuing and discontinued operations
+ Total comprehensive income from continuing and discontinued operations                    586.84           311.42
+ Earnings per share (Face value of Re.1/- each)                               47
+ For continuing operations
+ -   Basic (in ₹)                                                                                        21.42              11.08
+ -   Diluted (in ₹)                                                                                       21.29                11.01
+ For discontinued operations
+ -   Basic (in ₹)                                                                                                               -              0.19
+ -   Diluted (in ₹)                                                                                                             -              0.19
+
+
+
+                                                                                                             221

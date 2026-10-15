@@ -1,0 +1,50 @@
+Consolidated Balance Sheet
+as at March 31, 2026
+
+
+                                                                                                                                            (` in lakhs)
+       Particulars                                                 Note    As at March 31, 2026   As at March 31, 2025
+     I   ASSETS
+   1   Non-Current Assets
+
+       Property, Plant & Equipments                                  3A                    15,181.48                17,396.73
+       Capital Work- in- Progress                                      3B                      326.12                   16.77
+      Right of Use Assets                                              3C                      725.16                789.99
+      Other Intangible Assets                                       3D                       15.28                  19.48
+       Financial Assets
+             (i)   Investments                                             4                   1,046.99                1,049.57
+             (ii)  Other Financial Assets                                           5                      312.99                 266.14
+      Other Non-Current Assets                                      6                     28.02                195.09
+       Total Non-Current Assets                                                                     17,636.04               19,733.77
+  2   Current Assets
+
+       Inventories                                                          7                     6,216.76               5,782.86
+       Financial Assets
+             (i)   Investments                                             8                      98.25                 98.25
+             (ii)  Trade Receivables                                         9                    2,545.29                 3,064.11
+             (iii)  Cash and Cash Equivalents                                     10                       112.27                184.84
+          (iv) Bank Balances other than Cash and Cash Equivalents                   11                      2.06                   4.39
+         (v)  Loans                                                                12                    426.35                389.63
+          (vi)  Other Financial Assets                                               13                     2,136.03                  318.10
+      Current Tax Assets (Net)                                               14                     96.63                 136.26
+      Other Current Assets                                                     15                   2,548.84               1,649.80
+      Assets held for sale                                                   16                  803.86               803.86
+       Total Current Assets                                                                        14,986.34                12,432.10
+
+     TOTAL ASSETS                                                                                32,622.38               32,165.87
+
+    II   EQUITY AND LIABILITIES
+   1   Equity
+
+      Equity Share Capital                                                       17                    3,081.54                3,081.54
+      Other Equity                                                         18                   12,535.20              12,406.94
+                                                                                                         15,616.74             15,488.48
+
+     Non Controlling Interest                                                                        39.24                40.28
+       Total Equity                                                                                    15,655.98               15,528.76
+
+
+
+
+
+                                                                                        Pioneer Embroideries Limited     155

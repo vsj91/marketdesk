@@ -1,0 +1,64 @@
+Standalone Balance Sheet
+as at December 31, 2025                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         Corporate
+                                                                                                                        (` in million)
+                                                                                          Notes    As at December   As at December                                                                                                               31, 2025         31, 2024                      overview
+ A)  ASSETS
+ 1   Non-current assets
+      a)   Property, plant and equipment                                                              3.1           19,545.0         17,184.4           Year      b)   Right of use assets                                                                         3.2              818.3            855.3
+      c)    Capital work-in-progress                                                                   3.3             3,344.6          4,491.1                                                                                                                                                                                                                  2025      d)   Intangible assets                                                                          3.4                 1.9               6.0
+      e)   Financial assets
+                (i)   Investments in wholly-owned subsidiary                                         4             1,225.0          1,424.0
+                (ii)  Loans                                                                  5 (a)             720.0            700.0
+                 (iii)  Security deposits                                                          6               171.7            166.8                                                                                                                                                                                                                                                                                                                                                                                                                                    Strategy              (iv)  Other financial assets                                                       6                  0.3               5.3
+        f)    Deferred tax assets (net)                                                         7               481.2            405.0
+      g)   Non-current tax assets (net)                                                      8               606.1            670.0
+      h)   Other non-current assets                                                         9             1,059.3            974.8
+      Total non-current assets                                                                                   27,973.4         26,882.7 2   Current assets                                                                                                                                                                                                                                                                                                                                                                                Business
+      a)   Inventories                                                                  10           17,492.0         14,541.3
+      b)   Financial assets                                                                                                                                                                                                                                                                                                                           review
+                (i)   Loans                                                                  5 (b)             700.0                           -
+                (ii)  Trade receivables                                                          11           16,231.3         12,738.2
+                 (iii)  Cash and cash equivalents                                                   12             9,590.0          4,634.0
+              (iv)  Bank balances other than (iii) above                                           13             8,818.4          8,860.9        ESG
+             (v)   Other financial assets                                                      14              503.1            560.7
+      c)   Other current assets                                                            15             1,266.7            763.4
+      Total current assets                                                                                      54,601.5         42,098.5
+     TOTAL ASSETS                                                                                           82,574.9         68,981.2
+ B)  EQUITY AND LIABILITIES                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         Statutory
+ 1   Equity
+      a)   Equity share capital                                                            16              312.6            312.6      b)   Other equity                                                                  17           61,114.3         53,520.4                    reports
+      Total equity                                                                                             61,426.9         53,833.0
+      Liabilities
+ 2   Non-current liabilities
+      a)   Financial liabilities
+                (i)   Lease liabilities                                                          18 (a)             281.7            325.7                                                                                                                                                                                                                                                                                                                                                                                                                                                                   Financial                (ii)  Other financial liabilities                                                    19              141.7            140.1
+      b)   Provisions                                                                   20               13.6             26.5
+      Total non-current liabilities                                                                                 437.0            492.3
+ 3   Current liabilities                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     statements      a)   Financial liabilities
+                (i)   Lease liabilities                                                          18 (b)             108.4             98.5
+                 (ii)   Trade payables                                                            21
+                 a)   Total outstanding dues of micro enterprises and small enterprises                                   1,202.9            776.2                b)    Total outstanding dues of creditors other than micro enterprises and small enterprises                     15,418.7         10,411.1                 Notice
+                 (iii)  Other financial liabilities                                                    22             2,176.9          1,970.4
+      b)   Other current liabilities                                                         23              452.2            384.1
+      c)   Provisions                                                                   24              977.0            776.2
+      d)   Current tax liabilities (net)                                                                              374.9            239.4
+      Total current liabilities                                                                                    20,711.0         14,655.9
+      Total liabilities                                                                                           21,148.0         15,148.2
+     TOTAL EQUITY AND LIABILITIES                                                                             82,574.9         68,981.2
+      Material accounting policies                                                          2
+     Notes to the standalone financial statements                                            3 - 54
+
+The notes referred to above form an integral part of the consolidated financial statements.
+
+As per our report of even date attached
+For Walker Chandiok & Co LLP                                         For and on behalf of the Board of Directors
+Chartered Accountants
+Firm's Registration No: 001076N/N500013
+
+Khushroo B. Panthaky            E.V.Sumithasri                 Harsha Kadam                   Hardevi Vazirani
+Partner                          Chairperson                   Managing Director                  Director - Finance & CFO
+Membership No: 042423          DIN: 07087197                   DIN: 07736005                   DIN: 10212814
+
+Place: Mumbai                    Place: Bengaluru                Ashish Tiwari
+Date: February 24, 2026           Date: February 24, 2026         VP - Legal & Company Secretary
+                                                                                                         232

@@ -1,0 +1,59 @@
+  Notes to Consolidated Financial Statements
+    for the year ended March 31, 2026
+
+
+        Non-monetary items that are measured at historical cost in        The Group presents the first two components of defined
+        a foreign currency are translated using the exchange rates          benefit costs in the Statement of Profit and Loss in the line
+          at the date of initial transactions. Non-monetary items         item employee benefits expense.
+        measure at fair value in a foreign currency are translated
+                                                              The retirement benefit obligation recognised in the balance         using the exchange rates at the date when the fair value is
+                                                                     sheet represents the actual deficit or surplus in the Group’s         determined.
+                                                                        defined benefit plans. Any surplus resulting from this
+      2.12  Employee Benefits                                                  calculation is limited to the present value of any economic
+                                                                           benefits available in the form of refunds from the plans or
+         Short term employee benefits                                                                         reductions in future contributions to the plans.
+
+         Short-term employee benefits are expensed in the year                                                                   Other long-term employee benefits
+           in which the related services are provided. A liability is
+         recognised for the amount expected to be paid if the Group        The Group has long term employment benefit plans i.e.
+        has a present legal or constructive obligation to pay this         accumulated leave. Accumulated leave  is encashed to
+        amount as a result of past service provided by the employee           eligible employees at the time of retirement. The liability
+        and the obligation can be estimated reliably.                         for accumulated leave, which is a defined benefit scheme,
+                                                                                                    is provided based on actuarial valuation as at the Balance
+         Defined contribution plans                                                                   Sheet date, based on Projected Unit Credit Method, carried
+                                                                   out by an independent actuary.        Employee benefits in the form of Provident Fund are
+         defined as contribution plan and charged as expenses                                                                                      2.13  Revenue Recognition
+         during the period in which the employees perform the
+           services.                                               The Group recognises revenue from sale of goods when;
+
+         Defined benefit plans                                                                                          i)    the Group has transferred to the buyer the significant
+                                                                                          risks and rewards of ownership of the goods;
+         For defined benefit retirement, the cost of providing
+          benefits  is determined using the projected unit credit                   ii)   the Group retains neither continuing managerial
+        method, with actuarial valuations being carried out at              involvement to the degree usually associated with
+         the end of each annual reporting period. The present             ownership nor effective control over the goods sold;
+         value of the defined benefit obligation is determined by
+                                                                                                                                                       iii)   the amount of revenue can be measured reliably;         discounting the estimated future cash outflows using yield
+         of government bonds.                                                                                                         iv)    it is probable that the economic benefits associated
+                                                                           with the transaction will flow to the Group; and        The effect of the remeasurement changes (comprising
+          actuarial gains and losses) to the asset ceiling (if applicable)                                                                                           v)   the costs incurred or to be incurred in respect of the
+        and the return on plan assets (excluding  interest),  is                                                                               transaction can be measured reliably.
+          reflected in the balance sheet with a charge or credit
+         recognised in other comprehensive income in the period        Revenue (other than sale of goods) is recognised to the
+           in which they occur. Remeasurement recognised in other         extent that it is probable that the economic benefits will
+        comprehensive income is reflected immediately in other         flow to the Group and the revenue can be reliably measured.
+         equity and will not be reclassified to the Statement of Profit         Claim on insurance companies, interest and others, where
+        and Loss. Past service cost is recognised in the Statement        quantum of accrual cannot be ascertained with reasonable
+         of Profit and Loss in the period of a plan amendment. Net           certainty, are accounted for on acceptance basis.
+          interest is calculated by applying the discount rate at the
+                                                               Revenue represents net value of goods and services         beginning of the period to the net defined benefit liability
+                                                                      provided  to  customers  after  deducting  for  certain         or asset. Defined benefit costs are categorised as follows:
+                                                                            incentives including, but not limited to discounts, volume
+              •     service cost (including current service cost, past          rebates, incentive programs etc. Sales exclude Goods and
+               service cost, as well as gains and losses on curtailments          Services Tax.
+            and settlements);
+                                                                               Interest other than  interest on overdue debts from
+              •    net interest expense or income; and                                                                       customers, is recognised on time proportion basis.
+              •    remeasurement
+
+166      34th Annual Report 2025-26

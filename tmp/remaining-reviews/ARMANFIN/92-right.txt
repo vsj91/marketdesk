@@ -1,0 +1,50 @@
+  Corporate Overview      Statutory Reports       Financial Statements                           179
+
+
+
+    income for the period as determined in accordance with        Diluted EPS is computed by dividing the profit after tax (i.e.
+     the applicable tax rates and the provisions of the Income         profit attributable to ordinary equity holders) as adjusted
+     Tax Act, 1961.                                                         for after-tax amount of dividends and interest recognised
+                                                                           in the period in respect of the dilutive potential ordinary
+B.   Deferred tax                                                                   shares and is adjusted for any other changes in income                     Statements
+     Deferred tax  is recognised on temporary differences        or expense that would result from the conversion of
+    between the carrying amounts of assets and liabilities        the dilutive potential ordinary shares, by the weighted      in  the  consolidated  financial  statements  and  the       average number of equity shares considered for deriving                   Financial
+     corresponding tax bases used in the computation of        basic earnings per share as increased by the weighted
+     taxable profit.                                              average number of additional ordinary shares that would
+                                                           have been outstanding assuming the conversion of all
+     Deferred tax liabilities and assets are measured at the tax                                                                            dilutive potential ordinary shares Potential equity shares     rates that are expected to apply in the period in which the                                                                                                                                                                                                                                                                                                       Consolidated                                                                    are deemed to be dilutive only  if their conversion to
+       liability is settled or the asset realised, based on tax rates                                                                   equity shares would decrease the net profit per share from
+     (and tax laws) that have been enacted or substantively                                                                 continuing ordinary operations. Potential dilutive equity           Arman
+     enacted by the end of the reporting period. The carrying                                                                   shares are deemed to be converted as at the beginning
+    amount of deferred tax liabilities and assets are reviewed                                                                      of the period, unless they have been issued at a later
+     at the end of each reporting period.                                                                        date. Dilutive potential equity shares are determined
+                                                               independently for each period presented. The number     Deferred tax relating to items recognised outside profit
+                                                                      of equity shares and potentially dilutive equity shares are     or loss is recognised outside profit or loss (either in other
+                                                                 adjusted for share splits / reverse share splits, right issue    comprehensive income or in equity).
+                                                        and bonus shares, as appropriate.
+     Deferred tax items are recognised in correlation to the
+                                                            3.18 Dividends on ordinary shares     underlying transaction either in OCI or equity.
+                                                          The Group recognises a liability to make cash or non-cash
+     Deferred tax assets and liabilities are offset if such items         distributions to equity holders of the Group when the
+      relate to taxes on income levied by the same governing         distribution is authorised and the distribution is no longer
+     tax laws and the Group has a legally enforceable right for         at the discretion of the Group . As per the Act, final dividend
+     such set off.                                                                        is authorised when it is approved by the shareholders and
+                                                                     interim dividend is authorised when the it is approved
+C.  Goods and services tax paid on acquisition of assets or                                                         by the Board of Directors of the Group. A corresponding
+    on incurring expenses                                                      amount  is  recognised  directly  in  equity.  Non-cash
+     Expenses and assets are recognised net of the goods         distributions are measured at the fair value of the assets to
+    and services tax paid, except when the tax incurred on a       be distributed with fair value re-measurement recognised
+     purchase of assets or availing of services is not recoverable         directly in equity. Upon distribution of non-cash assets,
+    from the taxation authority, in which case, the tax paid is       any difference between the carrying amount of the
+     recognised as part of the cost of acquisition of the asset or          liability and the carrying amount of the assets distributed
+     as part of the expense item, as applicable.                                is recognised in the statement of profit and loss.
+
+    The net amount of tax recoverable from, or payable to,
+     the taxation authority is included as part of receivables or
+     payables in the balance sheet.
+
+3.17 Earnings per share
+     Basic earnings per share (“EPS”) is computed by dividing
+     the profit after tax  (i.e. profit attributable to ordinary
+     equity holders) by the weighted average number of
+     equity shares outstanding during the year.

@@ -1,0 +1,52 @@
+Notes to the Standalone Financial Statements
+As at 31 March, 2026 (Contd.)
+
+        amount expected to be paid when the liabilities are                applicable tax rates for the relevant period, and
+           settled.                                                  any adjustment to taxes in respect of previous
+                                                                             years. Penalties,interest expense if any, related to        Post-employment benefits
+                                                              income tax are included in other expenses. Interest        The  Company  provides  the  following  post-
+                                                                    Income, if any, related to Income tax is included in        employment benefits:
+                                                                   Other Income.
+                    i)    Defined benefit plans such as gratuity
+                                                            Deferred Tax
+                    ii)   Defined Contribution plans such as provident              Deferred   tax   is  recognised  on  temporary
+              fund                                                        differences between  the  carrying amounts  of
+                                                                        assets and liabilities in the balance sheet and the        Defined benefits plans
+                                                                    corresponding tax bases used in the computation of        The cost of providing defined benefit plans such
+                                                                         taxable profit. Deferred tax liabilities are recognised         as gratuity is determined on the basis of present
+                                                                                      for all taxable temporary differences. Deferred tax         value  of  defined  benefits  obligation which  is
+                                                                        assets are recognised for all deductible temporary        computed using the projected unit credit method
+                                                                               differences, unabsorbed losses and unabsorbed          with independent actuarial valuation made at the
+                                                                         depreciation to the extent that  it is probable that        end of each annual reporting period.
+                                                                               future taxable  profits  will be  available against
+        Re-measurements comprising of actuarial gains                                                                  which those deductible temporary  differences,
+        and losses arising from experience adjustments                                                               unabsorbed losses and unabsorbed depreciation
+        and change in actuarial assumptions, the effect of                                                                can be utilised.
+        change in assets ceiling (if applicable) and the return
+        on plan asset (excluding net interest as defined        8    Financial Instruments
+         above) are recognised in other comprehensive                a)   Financial Assets
+        income (OCI) except those included  in cost of                 Investments in subsidiaries
+          assets as permitted in the period in which they                   Investments in equity shares of subsidiaries
+          occur. Re-measurements are not reclassified to                    are carried at cost.
+          the Statement of Profit and Loss in subsequent                                                                         Financial assets other than investment
+          periods.                                                                                in subsidiaries
+        Defined Contribution Plans                                           Financial assets  of the Company comprise
+        Payments  to  defined  contribution  retirement                     trade receivable, cash and cash equivalents,
+          benefit  plans,  viz., Provident Fund  for  eligible                 Bank balances, Investments in equity shares
+        employees are recognised as an expense when                       of  companies  other  than  in  subsidiaries,
+        employees have rendered the service  entitling                    Investment  in  units of mutual funds, loans/
+        them to the contribution.                                          debt instrument  / advances to employee  /
+                                                                                    related parties / others, security deposit, claims
+    7   Tax Expense                                                       recoverable etc.
+         Tax expense comprises of current and deferred                                                                                               Initial recognition and measurement
+            tax. Tax is recognised in the profit or loss section of                                                                                                  All financial assets are recognised initially at
+         Statement of Profit and Loss, except to the extent                                                                                                           fair value plus, in the case of financial assets
+           that it relates to items recognised directly in equity                                                                            not recorded at fair value through profit or
+          or in other comprehensive income. In this case,                                                                                            loss, transaction costs that are attributable
+          the tax is also recognised in other comprehensive                                                                                   to  the  acquisition  of  the  financial  asset.
+        income or directly in equity, as the case may be.                                                                     However,  Trade  receivables  that do  not
+        Current tax                                                        contain a significant financing component are
+          Current tax is the expected tax payable/ receivable                 measured at transaction price. Transaction
+        on the taxable income/ loss for the year using                    costs of financial assets carried at fair value
+
+ 146

@@ -1,0 +1,69 @@
+NOTES TO STANDALONE FINANCIAL STATEMENTS
+FOR THE YEAR ENDED MARCH 31, 2026
+
+(Currency : Indian Rupees in lakhs)
+
+        For  the  purpose  of  calculating  diluted              of cash flows comprise cash at bank and
+        earnings per share, the net profit or loss for            cheques in hand and short-term deposits
+        the year attributable to equity shareholders             with an original maturity of three months
+       and the weighted average number of shares             or less, which are subject to an insignificant
+        outstanding during the year are adjusted                risk of changes in value. They are held for
+         for the effects of all dilutive potential equity             the purposes of meeting short-term cash
+         shares, except where the results are anti-           commitments (rather than for investment or
+          dilutive. Potential equity shares are deemed             other purposes).
+         to be dilutive only  if their conversion to
+                                                                 s)  Non-current assets held for sale:        equity shares would decrease the net profit
+        per equity shares from continuing ordinary             Non-current    assets   and   disposable
+         operations. Dilutive potential equity shares            groups are  classified as held  for sale  if
+         are deemed converted as of the beginning               their carrying amount  is intended to be
+         of the period, unless they have been issued             recovered principally through a sale (rather
+         at a later date. In computing the dilutive             than through continuing use) when the
+        earnings per share, only potential equity              asset (or disposal Company)  is available
+        shares  that  are  dilutive and  that  either               for immediate sale in its present condition
+        reduces the earnings per share or increases             subject only to terms that are usual and
+         loss per share are included.                          customary for sale of such asset (or disposal
+                                                   Company) and the sale is highly probable
+    p)  Contingent Liabilities                                                     and is expected to qualify for recognition
+      A contingent liability is a possible obligation             as a completed sale within one year from
+         that arises from past events whose existence             the date of classification except in some
+           will be confirmed by the occurrence or             circumstances this period can be extended
+        non-occurrence of one or more uncertain                      if it is beyond the control of management
+         future events beyond the control of the           and there are sufficient evidence that the
+      Company or a present obligation that is not              entity remains committed to its plan to sell
+        recognised because it is not probable that             the asset.
+       an outflow of resources will be required to
+                                                            Non-current  assets and  disposal groups
+          settle the obligation. A contingent liability
+                                                                         classified as held for sale are measured at
+         also arises in extremely rare cases where
+                                                             lower of their carrying amount and fair value
+         there is a liability that cannot be recognised
+                                                                        less costs to sell.
+        because it cannot be measured reliably. The
+      Company does not recognise a contingent           t)   Derivative financial instruments:
+           liability but discloses  its existence in the                                                      The Company enters into derivative financial
+          financial statements.                                                              instruments to manage exposures to interest
+                                                                    rate  risk and foreign currency  risk. The    q)  Segment reporting
+                                                 Company does not hold derivative financial
+        Operating segments are those components
+                                                              instruments for speculative purpose. Such
+         of the business whose operating results are
+                                                                    derivative financial instruments are initially
+         regularly reviewed by the chief operating
+                                                            recognised at fair value on the date which
+         decision making body in the Company to
+                                                         a derivative contract  is entered into and
+       make decisions for performance assessment
+                                                                are subsequently re-measured at fair value
+       and resource allocation.
+                                                                    at each balance sheet date. Any gains or
+       The reporting of segment information is the              losses arising from changes in the fair value
+       same as provided to the management for              of  derivatives  are taken  directly  to the
+        the purpose of the performance assessment            statement of profit and loss, except for the
+       and resource allocation to the segments.                  effective portion of cash flow hedges, which
+                                                                                       is recognised in OCI and later reclassified
+     r)  Cash and cash equivalents                                                                to the statement of profit and loss (if any)
+       Cash and cash equivalent in the balance          when the hedge item cash flows affects the
+        sheet and for the purpose of statement            statement of profit and loss.
+
+210

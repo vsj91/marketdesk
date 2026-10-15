@@ -1,0 +1,71 @@
+                       Corporate Overview         Statutory Reports
+
+
+NOTES TO STANDALONE FINANCIAL STATEMENTS
+FOR THE YEAR ENDED MARCH 31, 2026
+
+(Currency : Indian Rupees in lakhs)
+
+      i)   Retirement and other employee benefits                          actuarial  gains  and  losses,  the
+           (i)  Defined Contribution Plan                                     effect of the asset ceiling, excluding
+                                                             amounts included in net interest on
+            Provident Fund
+                                                                      the net defined benefit liability and
+               All the employees of the Company are                                                                      the return on plan assets (excluding
+              entitled to receive benefits under the                                                             amounts included in net interest on
+            Provident Fund, a defined contribution                                                                      the net defined benefit  liability),
+            plan in which both the employee and                                                                        are recognised immediately in the
+            the  Company   contribute  monthly                     balance sheet with a corresponding
+              at a  stipulated  rate. The Company                      debit or credit to retained earnings
+            has no  liability  for  future Provident                    through   Other   comprehensive
+          Fund benefits other than  its annual                   income  (‘OCI’)  in the period  in
+             contribution  and  recognises  such                   which they occur. Remeasurements
+             contributions as an expense, when an                      are not reclassified to profit or loss
+           employee renders the related service.                            in subsequent periods.
+
+           Employees State Insurance scheme                     (b) Compensated absences
+
+           The Company contributes to Employees                  Compensated absences which are
+             State Insurance scheme and recognises                    expected to occur within twelve
+           such contribution as an expense in the                  months after the end of the period
+            Statement of Profit and Loss  in the                          in which the employee renders the
+            period when services are rendered by                       related services are provided for
+            the employees.                                       based on estimates. Compensated
+                                                                 absences which are not expected
+            (ii) Defined Benefit schemes
+                                                                        to  occur  within  twelve months
+             (a) Gratuity                                                                                after the end  of the period  in
+              The  Company   provides    for                   which the employee renders the
+                the  gratuity,  a  defined  benefit                       related services are provided for
+                 retirement   plan   covering    all                   based on actuarial valuation. The
+                employees. The plan provides for                        actuarial valuation is done as per
+              lump sum payments to employees                     projected unit credit method as
+              upon death while in employment                       at the  reporting  date.  Actuarial
+                 or on separation from employment                      gains/losses are immediately taken
+                   after serving for the stipulated year.                      to Statement of  profit and  loss
+              The Company accounts for liability                    account and are not deferred.
+                 of future gratuity benefits based
+                                                                                            (iii) Short term employee benefits:
+              on an external actuarial valuation
+                                                         Employee benefits falling due wholly
+              on projected unit credit method
+                                                                      within twelve months of rendering the
+                  carried out for assessing liability as
+                                                                       service  are  classified as  short term
+                  at the reporting date.
+                                                          employee benefits and are expensed
+               Net interest recognised  in  profit                     in the period in which the employee
+                 or loss  is calculated by applying                 renders the related service. Liabilities
+                the discount rate used to measure                 recognised  in respect  of short-term
+                the defined benefit obligation to               employee benefits are measured at the
+                the  net  defined  benefit  liability                undiscounted amount of the benefits
+                 or asset. The actual return on the                expected to be paid in exchange for the
+                 plan assets above or below the                  related service.
+                 discount  rate   is  recognised  as
+                                                                                   j)   Share based employee payments
+                 part  of re-measurement  of  net
+                defined  liability or asset through             Equity settled share based payments
+                 other   comprehensive   income.           The stock options granted to employees are
+               Remeasurements,  comprising  of           measured at the fair value of the options at
+
+                                                            207

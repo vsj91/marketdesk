@@ -1,0 +1,54 @@
+ Corporate Overview        Statutory Reports          Financial Statements                   119
+
+Notes
+forming part of the Audited Standalone Financial Statements for the year ended March 31, 2026
+                                                                              (Amounts in ₹ Lakhs, unless otherwise stated)
+
+         service  is rendered  at the undiscounted            unit credit method on the additional amount
+       amount of the benefits expected to be paid          expected to be paid / availed as a result of the
+          in exchange for that service.                       unused entitlement that has accumulated
+                                                                   at the balance sheet date. Expense on non-
+       Defined contribution plans                        accumulating   compensated   absences
+                                                                                       is recognized in the period in which the        Retirement benefit in the form of provident
+                                                        absences occur.        fund is a defined contribution scheme. The
+      Company has no  obligation,  other than
+        the contribution payable to the provident         Other long term employee benefits
+         fund. The Company recognizes contribution              Liabilities recognised  in respect  of other
+        payable to the provident fund scheme as          long-term employee benefits are measured
+       an expense, when an employee renders the            at the present value of the estimated future
+         related service. If the contribution payable to          cash outflows expected to be made by the
+        the scheme for service received before the        Company in respect of services provided by
+        balance sheet date exceeds the contribution          the employees up to the reporting date.
+         already paid, the deficit payable to the scheme
+            is recognized as a liability after deducting the     m) Leases
+         contribution already paid. If the contribution                                                     The Company has adopted Ind AS 116
+         already paid exceeds the contribution due for                                                                "Leases" as notified by MCA as on March
+         services received before the balance sheet                                                               30, 2019. The MCA  via  this  notification
+         date, then excess is recognized as an asset to                                                                 requires all entities to apply Ind AS 116 from
+        the extent that the pre-payment will lead to,                                                         Accounting period April 01, 2023. The entity
+          for example, a reduction in future payment or                                                        has  elected  the  "modified  retrospective"
+        a cash refund.                                                       approach for adopting Ind AS 116 and hence,
+                                                           the comparative information relating to prior
+       Defined benefit plans                                years is not restated.
+       The Company operates a defined benefit                                                     The Company has elected not to apply the         gratuity  plan  in   India,  which  requires                                                          requirements of Ind AS 116 Leases to short         contributions to be made to a separately                                                      term leases of all assets that have a lease term        administered fund. The cost of providing                                                                     of 12 months or less and leases for which the         benefits under the defined  benefit plan                                                            underlying asset is of low value. The lease            is  determined  using  the  projected  unit                                                    payments associated with these leases are         credit method.                                                           recognised as an expense on a straight-line
+       Remeasurements, comprising  of  actuarial            basis over the lease term.
+        gains and losses, the effect of the asset ceiling,
+        excluding amounts included in net interest            a)   Initial measurement
+       on the net defined benefit liability and the                                                             Lease   liability   is   initially  recognised
+         return on plan assets (excluding amounts                                                      and measured at an amount equal to
+        included in net interest on the net defined                                                               the present value of minimum lease
+         benefit liability), are recognised immediately                                                       payments during the lease term that
+          in the balance sheet with a corresponding                                                                   are  not  yet  paid.  Right-of-use  asset
+        debit or credit to retained earnings through                                                                                             is recognized and measured  at  cost,
+       OCI  in the period  in which they  occur.                                                                    consisting  of  initial measurement  of
+       Remeasurements are not reclassified to profit                                                                    lease liability plus any lease payments
+         or loss in subsequent periods.                                                made to the lessor at or before the
+                                                 commencement  date  less any  lease
+       Compensated absences                                   incentives received,  initial estimate of
+       The Company has a policy on compensated                restoration costs and any  initial direct
+        absences which are both accumulating and               costs incurred by the lessee.
+        non-accumulating in nature. The expected
+        cost of accumulating compensated absences           b)  Subsequent measurement
+            is  determined  by   actuarial   valuation                                                        The  lease   liability   is  measured  in
+       performed by an independent actuary at                                                           subsequent periods using the effective
+       each balance sheet date using projected                                                                          interest   rate  method.   Right-of-use

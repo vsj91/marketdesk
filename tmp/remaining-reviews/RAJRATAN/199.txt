@@ -1,0 +1,58 @@
+                                             Corporate Overview | Statutory Reports | Financial Statements
+
+Notes forming part of the Standalone Financial Statements
+
+43. Ratios (Contd.)
+
+Net profit ratio           Net Profit after tax
+                       Net Sales
+                       Net sales = total sales - sales returns.
+Return on Capital          Earnings before interest and taxes (EBIT)
+employed                  Capital Employed **
+                            Capital Employed = Tangible Net Worth + Total Debt + Deferred Tax Liability
+Return on investment      {MV(T1) – MV(T0) – Sum [C(t)]}
+                         {MV(T0) + Sum [W(t) * C(t)]}
+                      T1 = End of time period
+                      T0 = Beginning of time period
+                                   t = Specific date falling between T1 and T0
+                        MV(T1) = Market Value at T1
+                        MV(T0) = Market Value at T0
+                                C(t) = Cash inflow, cash outflow on specific date
+                          W(t) = Weight of the net cash flow (i.e. either net inflow or net outflow) on day ‘t’,
+                           calculated as [T1 – t] / T1
+* Share Holders Equity : Share Holders Equity - Land Revaluation Reserve
+** Capital Employed : Share Holders Equity - Land Revaluation Reserve + Borrowings - Capital work-in-progress - Creditors for Capital Goods
+
+44. Contingent Liabilities And Commitments
+44.1Claims against the Company/disputed liabilities not acknowledged as debts
+      a.  Madhya Pradesh Paschim Khestra Vidhyut Vitran Company Limited (MPPKVVCL) during the
+          financial year 2018-19 raised a supplementary bill on the Company for INR 22,617,697/- for non-
+         adjustment of solar units in Time Of Day (TOD) manner. The Company has not accepted the demand
+        and is contesting the same. The case is sub-judice before Division Bench of MP High Court, Indore.
+         During 2020-21 a sum of INR 6,596,829/- and during 2019-20 a sum of INR 16,020,868/- was
+         deposited with MPPKVVCL. Out of the aforesaid total demand raised, the Company has agreements
+         with the suppliers of the solar power to reimburse INR 19,028,356/-. Accordingly. the sum of INR
+         19,028,356/- is classified as current asset. The balance amount of INR 3,589,341/- was charged to
+        Statement of Profit & Loss in the financial year 2020-21. "
+   b  Payment to Statutory Auditors:
+           Particulars                                                   As at           As at
+                                                         March 31, 2026  March 31, 2025
+          In respect of Taxation matters                              61 Lakhs       64 Lakhs
+
+         Contingent Liabilities
+        The claims against the Company not acknowledged as debts includes disputed liability in respect of
+        Income Tax matters amounted to INR 6 Lakhs (Previous Year INR 10 Lakhs). The claims against the
+       Company majorly represents demand arising on complition of assessment proceedings on account
+          of disallowances of deductions claimed on CSR contribution u/s 80G and addition of Provision of
+         doubtful debts twice by CPC.
+
+        The disputed tax liability of INR 47 Lakhs (Previous Year INR 47 Lakhs) and INR 8 Lakhs (Previous
+         Year INR 8 Lakh) under Central Excise and Customs and Service Tax Act, respectively is on account of
+         availment of Input Tax credit on certain activities not realted to Manufacturing.
+
+        The disputed liability of INR NIL (Previous Year INR 2 Lakhs) under the Civil court Dindoshi, Mumbai is
+          of a civil suit filed on the company due to cancellation of a Transport contract.
+
+
+
+                                                               Integrated Annual Report FY 2025-26 | 235

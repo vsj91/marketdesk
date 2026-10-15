@@ -1,0 +1,56 @@
+NOTES FORMING PART OF THE CONSOLIDATED FINANCIAL STATEMENTS FOR THE YEAR ENDED MARCH 31, 2026
+(All amounts in Indian Rupees in lakhs, unless otherwise stated)
+
+         Finance and other income                                    (xiii) Finance Cost
+          Finance and other income comprise interest             Finance  costs comprise  interest  cost on
+         income on deposits, dividend income, gains/              borrowings, lease liabilities and net defined
+           (losses) on disposal of investments and net               benefit liability, gains or losses arising on re-
+          gain on translation or settlement of foreign            measurement of financial assets measured at
+          currency  borrowings.  Interest  income   is            FVTPL, net loss on translation or settlement
+          recognised  using  the  effective   interest               of foreign currency borrowings and changes
+         method. Dividend income is recognised when                 in fair value and gains/(losses) on settlement
+          the right to receive payment is established.                 of related derivative instruments. Borrowing
+                                                                   costs  that are not  directly  attributable  to         Other Income                                                            a  qualifying  asset  are recognised  in  the
+         •     Profit  on  sale  of  investments   is              statement of profit and loss using the effective
+              determined as the difference between                interest method.
+               the sales price and the carrying value                                                                     (xiv) Expenditure Recognition                of  the  investment upon  disposal  of
+               investments.                                   Expenses  are  recognised on an  accrual
+                                                                    basis as the related obligations crystallise,         •    Dividend income is recognised in the                                                         and provisions are recognised for all known              Statement of Profit and Loss when the                                                                   losses and liabilities. Provisions are also made               Group’s  right  to  receive payment  is                                                                            for foreseeable factors that may affect the                established.                                                                        ultimate profitability of fixed-price software
+         •    Interest income or expense is recognized             development contracts. Expenditure relating
+               using the effective interest method.                    to software development arrangements on a
+                                                                    time-and-material basis is recognised in the        The ‘effective interest rate’ is the rate that
+                                                                   period in which it is incurred. Costs incurred for           exactly  discounts  estimated  future  cash
+                                                                        future software projects are carried forward         payments or receipts through the expected
+                                                                   only when the applicable asset-recognition              life of the financial instrument to:
+                                                                                   criteria  are  met  and  are  subsequently
+          the gross carrying amount of the financial             recognised against revenue based on the
+           asset;                                                  stage of completion. For clearly defined new
+                                                                    products,  directly  attributable development           or
+                                                                   costs that satisfy the recognition criteria are
+          the amortized cost of the financial liability                  deferred and amortised over a period of three
+                                                                          to five years, based on Group management’s            In calculating interest income and expense,
+                                                            assessment of expected sales volumes and          the effective interest rate is applied to the
+                                                                    the duration of the product life cycle.          gross carrying amount of the asset (when
+          the asset  is not credit-impaired) or to the         (xv) Employee Benefits
+          amortized cost of the liability. However, for
+                                                         Post-employment benefit plans            financial assets  that have become  credit-
+          impaired  after   initial  recognition,  interest            The Group participates in various employee
+         income is calculated by applying the effective               benefit  plans.  Pensions and  other  post-
+            interest rate to the amortized cost of the            employment benefits are classified as either
+            financial asset. If the asset is no longer credit-              defined contribution plans or defined benefit
+           impaired,  then  the  calculation  of  interest               plans. Under a defined contribution plan, the
+         income reverts to the gross basis.                        Group’s obligation is limited to paying fixed
+                                                                         contributions, with no further obligation if the         •    Insurance  claims  are  accounted  for
+                                                              fund does not hold sufficient assets to pay all             based on claims admitted / expected to
+                                                          employee benefits. The related actuarial and             be admitted and to the extent that the
+                                                                 investment risks are borne by employees.             amount recoverable can be measured
+                                                                     Contributions    to   defined    contribution                  reliably and  it is reasonable to expect
+                                                                  plans are recognised as an expense when                 ultimate collection.
+                                                          employees render the related service. Under
+         •    Interest on Refund from Income Tax             a defined benefit plan, the Group is obligated
+              Department are accounted for on receipt                to provide the agreed benefits and bears the
+                 basis.                                                  related actuarial and investment risks. The
+
+
+
+198                                                                      ANNUAL REPORT FY25-26

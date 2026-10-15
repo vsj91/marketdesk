@@ -1,0 +1,58 @@
+                                                                                                 for the year ended 31st March, 2026Notes to the financial statements
+
+
+    immediately in retained earnings and is not reclassified          rates that are expected to apply in the year when the asset
+    to profit or loss.                                                            is realised or the liability is settled, based on tax rates (
+                                                          and tax laws) that have been enacted or substantively
+3.14 Borrowing Cost
+                                                             enacted at the reporting date.
+    Borrowing costs that are directly attributable to the
+                                                                 Deferred tax relating to items recognised outside profit     acquisition, construction or production of an asset that
+                                                                    or loss is recognised outside the statement of profit and    necessarily takes a substantial period of time to get ready
+                                                                             loss. Deferred tax items are recognised in correlation to     for its intended use or sale are capitalised as part of the
+                                                                 the underlying transaction either in other comprehensive    cost of the respective asset. All other borrowing costs are
+                                                          income or directly in equity.    expensed in the period in which it is incurred.
+                                                                 Deferred tax assets and liabilities are offset only if:    Borrowing costs include interest expense calculated
+    using the effective interest rate method as described                  (i)   entity has a legally enforceable right to set off current
+     in Ind AS 109- Financial Instruments, finance charges in              tax assets against current tax liabilities; and
+    respect of finance leases are recognised in accordance                                                                                                                            (ii)  deferred tax assets and the deferred tax liabilities
+    with Ind AS 116- Leases and exchange differences arising                                                                              relate to the income taxes levied by the same taxation
+    from foreign currency borrowings to the extent that they                                                                               authority.
+    are regarded as an adjustment to interest costs.
+                                                                 Current and deferred tax is recognised in the statement
+3.15 Income Taxes                                                                     of profit and loss, except to the extent that it relates to
+    Income tax expense represents the sum of the tax         items recognised in the Other Comprehensive Income
+    currently payable and deferred tax. It is recognised in          or directly in equity. In this case, tax is also recognised
+    statement of profit and loss except to the extent that it           in other comprehensive income or directly in equity,
+    relates to a business combination, or items recognised           respectively.
+     directly in equity or in other comprehensive income.
+                                                                    3.16 Provisions,  Contingent  Liabilities  and  Contingent
+    Current Tax                                              Assets
+
+    Current income tax represents the tax currently payable          Provisions are recognised when the Company has a
+    on the taxable income for the year and any adjustment to         present obligation (legal or constructive) as a result of
+    the tax in respect of the previous years. It is measured         a past event, it is probable that an outflow of resources
+    using tax rates enacted or substantively enacted at the        embodying economic benefits will be required to settle
+    reporting date.                                               the obligation and a reliable estimate can be made
+                                                                     of the amount of the obligation. When the Company    Deferred Tax
+                                                               expects some or all of a provision to be reimbursed,
+    Deferred  tax  is  provided  using  the  balance  sheet         the reimbursement is recognised as a separate asset,
+    approach on temporary differences at the reporting date         but only when the reimbursement is virtually certain.
+    between the tax bases of assets and liabilities and their        The expense relating to a provision is presented in the
+    carrying amounts for financial reporting purposes at the         statement of profit and loss net of any reimbursement.
+    reporting date. Deferred income tax asset are recognized
+                                                                                                     If the effect of the time value of money is material,    to the extent that it is probable that taxable profit will
+                                                                     provisions are discounted using a current pre-tax rate    be available against which the deductible temporary
+                                                                      that reflects, when appropriate, the risks specific to the    differences, and the carry forward of unused tax credits
+                                                                                            liability. When discounting is used, the increase in the    and unused tax losses can be utilized.
+                                                                      provision due to the passage of time is recognised as a
+   The carrying amount of deferred tax assets is reviewed          finance cost.
+    at each reporting date and reduced to the extent that it
+                                                              Contingent Liabilities and Assets     is no longer probable that sufficient taxable profit will
+    be available to allow all or part of the deferred tax asset         Contingent  Liabilities  are  not  recognised  but  are
+    to be utilised. Unrecognised deferred tax assets are          disclosed in the notes. A disclosure for a contingent
+    reassessed at each reporting date and are recognised to             liability is made where there is a possible obligation
+    the extent that it has become probable that future taxable           arising out of past event, the existence of which will be
+     profits will allow the deferred tax asset to be recovered.          confirmed only by the occurrence or non-occurrence of
+                                                         one or more uncertain future events not wholly within the    Deferred tax assets and liabilities are measured at the tax
+210     Annual Report 2025-26

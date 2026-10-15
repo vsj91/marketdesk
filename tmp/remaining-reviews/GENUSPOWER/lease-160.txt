@@ -1,0 +1,71 @@
+                                                   Corporate Overview          Statutory Reports         Financial Statements 
+
+Notes
+to the standalone financial statements for the year ended March 31, 2026
+(All amounts are in Indian Rupees in Crores except share data and unless otherwise stated)
+
+    An item  of  property,  plant and equipment         to make lease payments and right-of-use assets
+     and any  significant  part  initially recognised         representing the right to use the underlying
+        is derecognised upon  disposal or when no          assets.
+      future economic benefits are expected from                                                            Right-of-use assets
+        its use or disposal. Any gain or loss arising on
+      derecognition of the asset (calculated as the        The Company recognises right-of-use assets at
+      difference between the net disposal proceeds         the commencement date of the lease (i.e., the
+     and the carrying amount of the asset) is included         date the underlying asset is available for use).
+       in the statement of profit and loss when the         Right-of-use assets are measured at cost, less
+      asset is derecognised.                              any accumulated depreciation and impairment
+                                                                     losses, and adjusted for any remeasurement
+     The residual values, useful lives and methods of                                                              of  lease  liabilities. The  cost  of  right-of-use
+      depreciation of property, plant and equipment                                                              assets includes the amount of lease liabilities
+      are reviewed at each financial period/year end                                                             recognised, initial direct costs incurred, and lease
+     and adjusted prospectively, if appropriate.                                                    payments made at or before the commencement
+                                                         date less any lease incentives received. Right-
+h.    Intangible Assets
+                                                             of-use assets are depreciated on a straight-line
+      Costs relating to computer software, which is         basis over the shorter of the lease term and the
+      acquired, are capitalised and amortised on a         estimated useful lives of the assets.
+       straight-line basis over their estimated useful
+                                                      Lease Liabilities
+       lives of three years.
+                                                      At the commencement date of the lease, the
+      Gains or losses arising from de-recognition of an
+                                               Company recognises lease liabilities measured
+      intangible asset are measured as the difference
+                                                                 at the present value of lease payments to be
+     between the net disposal proceeds and the
+                                             made over the lease term. The lease payments
+      carrying amount of the asset and are recognised
+                                                              include  fixed  payments.  In  calculating  the
+       in the statement of profit and loss when the
+                                                           present value of lease payments, the Company
+      asset is derecognised.
+                                                         uses its incremental borrowing rate at the lease
+i.    Borrowing Costs                              commencement date because the interest rate
+                                                                      implicit in the lease is not readily determinable.     Borrowing costs  directly  attributable to the
+                                                               After the commencement date, the amount of       acquisition, construction or production of an
+                                                               lease liabilities is increased to reflect the accretion      asset that necessarily takes a substantial period
+                                                              of interest and reduced for the lease payments      of time to get ready for its intended use or sale
+                                                    made. In addition, the carrying amount of lease      are capitalised as part of the cost of the asset.
+                                                                                 liabilities is remeasured if there is a modification,       All other borrowing costs are expensed in the
+                                                       a change in the lease term, a change in the lease      period in which they occur. Borrowing costs
+                                                    payments or a change in the assessment of an      consist of interest and other costs that an entity
+                                                           option to purchase the underlying asset.      incurs  in connection with the borrowing of
+      funds. Borrowing cost also includes exchange         Short-term  leases and  leases  of  low-value
+      differences  to  the  extent  regarded  as  an         assets
+      adjustment to the borrowing costs.
+                                                    The Company  applies  the  short-term  lease
+j.     Leases                                                 recognition exemption to its short-term leases
+                                                              of those leases that have a lease term of 12     The Company assesses at contract inception
+                                                   months or less from the commencement date     whether a contract is, or contains, a lease. That
+                                                   and do not contain a purchase option.         is, if the contract conveys the right to control the
+      use of an identified asset for a period of time in    k.     Inventories
+     exchange for consideration.
+                                                                Inventories are valued at the lower of cost and
+     Company as a lessee                                 net  realisable  value. Cost  is determined on
+                                                       weighted average basis.     The Company applies a single recognition and
+     measurement approach for  all leases, except         Costs incurred in bringing each product to its
+       for short-term leases and leases of low-value         present location and condition are accounted
+       assets. The Company recognises lease liabilities          for as follows:
+
+
+                                                                                                             153

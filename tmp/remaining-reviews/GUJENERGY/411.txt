@@ -1,0 +1,57 @@
+                                                                              2025-2026
+                                                                          14 th ANNUAL REPORT
+
+              Notes to Consolidated Financial Statements for the year ended 31 st March, 2026
+
+         Note 63 Statement of Salient Features of the Financial Statements of Subsidiaries, Joint Ventures and Associates (Continued.....)
+          Associates and joint ventures
+          Set out below are the associates and joint ventures of the Group as at 31 st March 2026 and 31 st March 2025. The entities listed below
+          have share capital consisting solely of equity shares, which are held directly by the Group. The country of incorporation or registration
+               is also their principal place of business, and the proportion of ownership interest is the same as the proportion of voting rights held. All
+            entities are unlisted entities.                                                                                 (` in Crores)
+                                                     % of effective
+                                         Place of               Accounting                           Carrying Amount             Name of Entity                   Relationship                ownership interest
+                                        business              method
+                                                                 31-Mar-26 31-Mar-25 31-Mar-26 31-Mar-25
+           Sabarmati Gas Limited                India     Joint Venture  Equity Method   49.94%    49.94%    892.87    831.48
+         GSPL India Gasnet Limited            India     Joint Venture  Equity Method    NA (I)    52.00%          -  1,020.98
+         GSPL India Transco Limited           India     Joint Venture  Equity Method    NA (I)    52.00%          -     311.44
+           Alcock Ashdown (Gujarat) Limited    India    Associate     Equity Method   22.50%    22.50%          -          -
+             (Fully provided for impairment.
+                                                                     Total equity accounted investments    892.87  2,163.90
+                (i) These investments are transferred to GSPL Transmission Limited as part of Demerger pursuant to the Scheme of Arrangement
+               (Refer Note 59).
+                1.  Sabarmati Gas Limited is a Public Company domiciled in India and incorporated under the provisions of the Companies Act,
+                1956. The Company is a Joint Venture Company (JVC) promoted by Gujarat State Petroleum Corporation Ltd. (GSPC),
+                   Gujarat State Petronet Ltd. (GSPL) and Bharat Petroleum Corporation Ltd. (BPCL), with its main objects, inter alia, to procure,
+                  transmit and sell Natural Gas, CNG, PNG and other gaseous fuels in the districts of Gandhinagar, Mehsana and Sabarkantha.
+                2.  GSPL India Gasnet Limited was incorporated on 13 th October 2011 under the Companies Act 1956 as a joint venture of
+                   Gujarat State Petronet Limited (GSPL). On 30th April,2012, a joint venture agreement was executed between Gujarat State
+                  Petronet Limited (GSPL), Indian Oil Corporation Limited (IOCL), Bharat Petroleum Corporation Limited (BPCL) and Hindustan
+                 Petroleum Corporation Limited (HPCL). The shareholding pattern is GSPL(52%), IOCL(26%), BPCL(11%) and HPCL (11%).
+                The Company is developing a natural gas pipeline for transmission of natural gas from Mehsana in Gujarat to Bhatinda in
+                 Punjab and Srinagar in Jammu & Kashmir. It is primarily engaged in transmission of natural gas through pipeline from supply
+                   points to demand centers.
+                3.  GSPL India Transco Limited was incorporated on 13th October 2011 under the Companies Act, 1956 as a joint venture of
+                   Gujarat State Petronet Limited (GSPL). On 30th April 2012, a Joint Venture Agreement was executed between Gujarat State
+                  Petronet Ltd. ( GSPL ), Indian Oil Corporation Ltd. (IOCL), Bharat Petroleum Corporation Ltd (BPCL) and Hindustan Petroleum
+                  Corporation Ltd.(HPCL). The share holding pattern is GSPL(52%), IOCL(26%), BPCL(11%) and HPCL(11%). The Company is
+                  developing a natural gas pipeline for transmission of natural gas from Mallavarm in Andhra Pradesh to Bhilwara in Rajasthan.
+        Commitments and contingent liabilities in respect of associates and joint ventures                          (` in Crores)
+                                                    Particulars                                 31-Mar-26  31-Mar-25
+         Commitments - joint ventures                                                         38.35      297.54
+         Commitments - associates                                                                   -            -
+           Contingent liabilities - joint ventures                                                         15.95       276.12
+           Contingent liabilities - associates                                                               -            -
+           Total commitments and contingent liabilities                                       54.30     573.66
+
+             In case of GSPL India Transco Limited (GITL or a Joint Venture Company):
+                (i) The Petroleum and Natural Gas Regulatory Board (PNGRB) has authorized the Company to develop MBBVPL Project. Accordingly,
+              pursuant to Gas Transmission Agreement executed with RFCL, the Company has laid down the initial section of 365 KMs pipeline LIMITED              with reduced 18’’ diameter (as a part of MBBVPL Project) from RGTIL intersection point to RFCL Plant, Ramagundam, Telangana.
+            The said pipeline is successfully commissioned on 14th October 2019 and gas transmission is started on 1 st November 2019.
+                Further, while the transmission services to RFCL through commissioned pipelines are provided at the PNGRB approved tariff for ENERGY        MBBVPL Project, the Company has also requested PNGRB to revise this rate to fetch more sustainable returns recovering its
+             capex/opex cost and in the interests of Promoters and Banks. The Board vide its order dated 19.03.2020 stated that GITL has
+             reduced the pipeline diameter by laying 18”x365 km pipeline in place of 42” diameter unilaterally, leading to a reduced capacity
+              with respect to authorized capacity without seeking permission or approval from PNGRB, in violation of the bid terms and GUJARAT
+               conditions of Authorization granted to GITL for MBBVPL. The Board will be initiating the proceedings against GITL under section
+403       28 and/or Chapter IX of PNGRB Act, 2006. The Company has disclosed the same under the section of contingent liability.

@@ -1,0 +1,45 @@
+                                                               Annual Report 2025 - 26     168
+
+Consolidated Cash Flow Statement
+for the year ended March 31, 2026                                                                                         (₹ in Lakhs)
+
+                                                               For the year ended         For the year ended Particulars                                                                               31st March, 2026              31st March, 2025
+ A:   Cash from Operating Activities:
+      Net profit before taxation                                                       7,735.84                     6,909.22
+      Adjustment For:
+      Depreciation and amortisation                                   130.26                     142.80
+      Depreciation on Right of Use Assets                                38.56                       36.27
+       Interest Income                                                 (57,720.28)                   (61,887.31)
+      Net gain on equity instruments measured through FVTPL                         -                        (61.59)
+      Finance cost Expense                                          20,541.87                   23,936.10
+      Provision for impairment on financial assets                       (3,906.63)                     2,715.30
+      Net Loss on Derecognition of Intangible Assets                                       -                                        -
+        (Profit) / loss on sale of property, plant and equipment                  (0.07)                           (0.09)
+      Gain On Assignment of Assets (Net of Expense)                    (2,978.05)                     (4,039.36)
+      Loss / (Profit) on sale of Current Investment                         (691.88)                      (780.35)
+     Remeasurement of define benefit plan                             43.15                       26.41
+     Employee Stock Option Plan Expense                             457.68    (44,085.39)        726.50
+     Operating profit before working Capital changes:                        (36,349.55)                 (32,276.13)
+     Adjustment For Increase / (Decrease) in Operating Assets:
+      Loans and Advances                                             (49,560.75)                   32,423.66
+       Financial Assets                                                 3,804.86                     4,688.56
+     Non Financial Assets                                               (233.31)                           (2.36)
+     Bank balance other than Cash and Cash equivalents               2,457.74                     7,046.56
+     Adjustment  For  Increase/(Decrease)   in  Operating
+       Liabilities:
+      Trade Payables                                                   66.96                        (74.35)
+      Other Non Financial liability                                       77.22                      (175.78)
+      Other Financial Liabilities                                          (3,663.76)                     3,900.19
+      Subordinated Debts                                                                           -                      (500.00)
+      Provision                                                      251.50    (46,799.53)         62.85     47,369.34
+     Cash Generated From Operations                                        (83,149.08)                 15,093.21
+       Interest Income Received                                      58,451.79                   61,183.23
+      Finance Cost Paid                                               (20,571.94)                   (24,031.55)
+     Income tax paid                                                   (2,370.98)     35,508.86      (2,963.39)     34,188.30
+     Net Cash From Operating Activities:                                     (47,640.22)                 49,281.51
+ B:   Cash Flow From Investing Activities:
+      Purchase of Property, Plant & Equipment                           (311.00)                     (2,537.16)
+      Sale of Property, Plant & Equipment                                   0.10                         0.14
+ `    Purchase of investments                                        (1,76,876.98)                   (97,469.54)
+      Sale of investments                                            1,72,219.87                   95,126.14
+     Net Cash from Investment Activities:                                              (4,968.02)                     (4,880.42)

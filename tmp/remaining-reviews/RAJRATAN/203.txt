@@ -1,0 +1,60 @@
+                                             Corporate Overview | Statutory Reports | Financial Statements
+
+Notes forming part of the Standalone Financial Statements
+
+47. Financial Risk Management:
+    The Company’s activities expose it to a variety of financial risks, including market risk, credit risk and
+      liquidity risk.
+
+    The Company’s risk management assessment and policies and processes are established to identify and
+     analyse the risks faced by the Company, to set appropriate risk limits and controls, and to monitor such risks
+    and compliance with the same.
+
+     Risk assessment and management policies and processes are reviewed regularly to reflect changes in
+    market conditions and the Company’s activities.
+
+47.1Credit Risk
+     Credit risk is the risk that a customer or counterparty to a financial instrument fails to meet its contractual
+     obligations causing financial loss to the company.
+
+     Credit risk arises mainly from the outstanding receivables from customers.
+
+     Credit risk is managed through credit approvals, establishing credit limits and continuously monitoring
+    the creditworthiness of counterparty to which the Company grants credit terms in the normal course of
+     business.
+
+    The Company has used expected credit loss (ECL) model for assessing the impairment loss.
+
+     For the purpose, the Company uses a provision matrix to compute the expected credit loss amount.
+
+    The provision matrix takes into account external and internal risk factors and historical data of credit losses
+    from various customers.
+                                                                                                                     (INR in Lakhs)
+      Particulars                                                       As at           As at
+                                                         March 31, 2026  March 31, 2025
+     Financial assets for which loss allowances is measured using the
+    expected credit loss
+    Trade receivables
+     less than 180 days                                                18,751         12,363
+    180 - 365 days                                                 0          239
+    beyond 365 days                                               83          117
+     Total                                                           18,834         12,719
+    Movement in the expected credit loss allowance on trade
+     receivables
+    Balance at the beginning of the year                                 66           62
+     Addition                                                                       (32)            4
+    Balance at the end of the year                                     34           66
+    Trade receivable at the end of the year                               18,800         12,653
+
+47.2Liquidity Risk
+     Liquidity risk arises from the Company’s inability to meet its financial obligation as it becomes due.
+
+    The Company manages its liquidity risk by ensuring, as far as possible, that it will always have sufficient
+      liquidity to meet its liabilities when due, under both normal and stressed conditions, without incurring
+    unacceptable losses or risk to the Company’s reputation.
+
+
+
+
+
+                                                               Integrated Annual Report FY 2025-26 | 239

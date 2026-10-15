@@ -1,0 +1,59 @@
+180  Glottis Ltd  | Annual Report 2025-26
+
+Notes
+forming part of the Audited Consolidated Financial Statements for the year ended March 31, 2026
+                                                                              (Amounts in ₹ Lakhs, unless otherwise stated)
+
+                 (a) the Group has transferred substantially           Lifetime ECL are the expected credit losses
+                  all the risks and rewards of the asset, or            resulting from all possible default events over
+               (b) the Group has neither transferred nor          the expected life of a financial instrument.
+             retained substantially  all the risks and         The 12 months ECL is a portion of the lifetime
+            rewards of the asset, but has transferred         ECL which results from default events that
+             control of the asset.                               are possible within 12 months  after the
+                                                              reporting date.
+       Impairment of financial assets                                                  ECL is the difference between all contractual
+         In accordance with Ind AS 109, the Group          cash flows that are due to the Group in
+         applies expected credit loss (ECL) model for          accordance with the contract and all the cash
+       measurement and recognition of impairment           flows that the entity expects to receive (i.e.,
+         loss on the following financial assets and                all cash shortfalls), discounted at the original
+         credit risk exposure:                                       EIR. When estimating the cash flows, the
+                                                     Group considers all contractual terms of the          a)   Financial  assets  that  are  other than
+                                                                       financial instrument (including prepayment,             equity instruments, and are measured
+                                                                extension, call and similar options) over the              at  amortised  cost   e.g.,  loans,  debt
+                                                        expected life of the financial instrument and               securities,  deposits,  trade  receivables
+                                                     Cash flows from the sale of collateral held or          and bank balance.
+                                                             other credit enhancements that are integral
+         b)  Financial  assets  that  are  other than           to the contractual terms.
+             equity instruments and are measured
+                                                  ECL allowance (or reversal) recognized during              at FVTOCI
+                                                           the period is recognized as income/ expense
+          c)  Trade receivables or any contractual right            in the statement of profit and loss, net of
+             to receive cash or another financial asset             lien available on securities held against the
+             that result from transactions that are            receivables. This amount is reflected under
+             within the scope of Ind AS 115                   the head ‘other expenses’ in the profit and loss.
+                                                     The balance sheet presentation for various       The Group follows ‘simplified approach’ for
+                                                                       financial instruments is described below:        recognition of impairment loss allowance on:
+                                                                                                                    •    Financial   assets  measured   as   at                •    Trade receivables or contract revenue
+                                                             amortised  cost,  contractual  revenue              receivables; and
+                                                                     receivables and lease receivables: ECL is
+                •     All  lease  receivables  resulting  from              presented as an allowance, which reduces
+             transactions within the scope  of Ind              the net carrying amount. Until the asset
+          AS 116                                       meets write-off criteria, the Group does
+                                                              not reduce impairment allowance from       The application of simplified approach does
+                                                               the gross carrying amount.        not require the Group to track changes in
+         credit risk. Rather, it recognises impairment          For assessing increase  in  credit  risk and
+         loss allowance based on lifetime Expected          impairment   loss,  the  Group  combines
+         Credit Loss (ECL) at each reporting date, right             financial instruments on the basis of shared
+       from its initial recognition.                                credit risk characteristics with the objective
+                                                                     of facilitating an analysis that is designed to    For recognition  of impairment  loss on other
+                                                          enable significant increases in credit risk to befinancial  assets  and  risk  exposure,  the  Group
+                                                                     identified on a timely basis.determines that whether there has been a significant
+increase in the credit risk since initial recognition. If          For   impairment   purposes,   significant
+credit risk has not increased significantly, 12 months             financial  assets  are  tested on  individual
+ECL is used to provide for impairment loss. However,            basis at each reporting date. Other financial
+if credit risk has increased significantly, lifetime ECL           assets are assessed collectively in groups
+is used.   If, in a subsequent period, credit quality           that share similar credit risk characteristics.
+of the instrument improves such that there  is no           Accordingly, the impairment testing is done
+longer a significant increase in credit risk since initial            retrospectively on the following basis:
+recognition, then the entity reverts to recognising
+impairment loss allowance based on 12-month ECL.

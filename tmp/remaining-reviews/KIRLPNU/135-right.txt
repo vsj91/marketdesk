@@ -1,0 +1,76 @@
+                                         Corporate Overview         Statutory Reports         Financial Statements
+
+Consolidated Statement of Cash Flows
+For the year ended 31st March, 2026
+CIN: L29120PN1974PLC110307
+                                                                                                                               ₹ in Million
+
+ Particulars                                                                                                                2025-26             2024-25
+ A)   Cash Flow From Operating Activities
+       Profit Before Tax                                                                                                                      3,378.78              2,808.34
+      Adjustments for :
+       Depreciation and amortisation expense                                                                                                             317.73                291.38
+       Exceptional items                                                                                                                                      -                 38.49
+       Interest income                                                                                                                                            (15.92)                  (37.00)
+      Unwinding of Interest on Security Deposits                                                                                                                             (1.01)                   (0.95)
+      Share Based Payment                                                                                                                     47.66                48.05
+      Dividend income                                                                                                                                (36.40)                  (24.45)
+       Foreign Exchange Gain, Net                                                                                                                                             (1.57)                    (4.23)
+      Net Gain on Financial Instruments Mandatorily Measured at Fair Value Through Profit or Loss                                                       (191.36)                 (146.52)
+       Loss/(gain) on Sale of Investments                                                                                                             (20.00)                   (9.40)
+       Loss/(gain) on disposal of property, plant and equipment                                                                                               (10.40)                   2.34
+       Provisions no longer required written back                                                                                                                       (0.21)                     (0.15)
+      Finance costs                                                                                                                                     10.75                   3.53
+     Bad Debts                                                                                                                 68.68                  61.42
+      Others                                                                                                                                         6.61                      11.15
+      Operating profit before working capital adjustments                                                                                 3,553.34              3,042.00
+      Working capital adjustments
+       (Increase)/decrease in trade receivables                                                                                                      (493.54)               (1,097.86)
+       (Increase)/decrease in inventories                                                                                                                 (26.54)                     11.74
+       (Increase)/decrease in other financial assets                                                                                                4.04                 460.11
+       (Increase)/decrease in other Current/Non Current assets                                                                                         321.31                  (153.32)
+       Increase/(decrease) in trade payables                                                                                                        427.76                  87.54
+       Increase/(decrease) in financial liabilities                                                                                                      167.92                  29.72
+       Increase/(decrease) in other Current/Non Current liabilities                                                                                     (994.10)               434.32
+       Increase/(decrease) in provisions                                                                                                     185.64                     17.78
+     Cash generated from operations                                                                                                      3,145.83              2,832.03
+      Income taxes paid                                                                                                                                           (817.61)                (679.82)
+      Net cash inflow from operating activities                                                                                             2,328.22                2,152.21
+ B)   Cash flow from investing activities
+      Payments for property, plant and equipment, intangible assets                                                                               (663.35)                (779.39)
+      Proceeds from sale of property, plant and equipment, intangible assets                                                                          13.53                     2.19
+      Sale/Redemption of Investments                                                                                                  390.87                   115.47
+      Purchase of Investments                                                                                                               (899.55)               (944.95)
+       Interest income                                                                                                                               15.92                  28.19
+      Dividend income                                                                                                                  36.40                  24.45
+      Net cash outflow from investing activities                                                                                                     (1,106.18)              (1,554.04)
+ C)   Cash flow from financing activities
+      Proceeds from issuance of share capital (includes securities premium)                                                                          23.01                28.58
+      Proceeds/(Repayment) from borrowings                                                                                                     (69.00)                   0.73
+      Finance costs                                                                                                                                                          (8.17)                  2.88
+      Lease Payments                                                                                                                                                     (5.12)                     (3.70)
+     Payment of fractional entitlement of shares                                                                                                              (2.28)                        -
+      Dividends paid                                                                                                                            (648.35)               (485.96)
+      Net cash outflow from financing activities                                                                                                   (709.91)                (457.47)
+
+      Net increase/(decrease) in cash and cash equivalents                                                                                           512.13                 140.70
+      Cash and cash equivalents at beginning of the financial year                                                                         634.59               496.09
+       Effect of exchange rate changes on cash and cash equivalents                                                                                                         (7.12)                    (2.20)
+
+     Cash and cash equivalents at end of the financial year (Refer Note No. 10)                                                                 1,139.60               634.59
+ The above cash flow statement has been prepared under the indirect method as set out in Ind AS 7 - Statement of Cash Flows
+
+
+ As per our attached report of even date.                                       For and on behalf of The Board of Directors
+
+ For Kirtane & Pandit LLP                                     Aman R. Kirloskar                        Rahul C. Kirloskar
+ Chartered Accountants                                              Managing Director                        Executive Chairman
+ Firm Registration No. 105215W/W100057                                 DIN - 09823056                        DIN - 00007319
+
+
+ Anand Jog                                                                  Jitendra Shah                       Ramesh Birajdar
+ Partner                                                    Company Secretary                      Vice President & Chief Financial Officer
+ Membership No. 108177                                        ACS 17243                        ACA 104452
+ Pune, 27th April, 2026                                                                                               Pune, 27th April, 2026
+
+                                                                                                Annual Report 2025-26     265

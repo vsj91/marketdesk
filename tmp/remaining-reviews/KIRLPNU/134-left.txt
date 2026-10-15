@@ -1,0 +1,83 @@
+ Consolidated Balance Sheet
+  As at 31st March, 2026
+  CIN: L29120PN1974PLC110307
+                                                                                                                                             ₹ in Million
+
+                                                                                                                             As at                As at    Particulars                                                                                                  Note No.                                                                                                                                                                31st March, 2026         31st March, 2025
+   ASSETS
+     (1)  NON-CURRENT ASSETS
+            (a)   Property, Plant and Equipment (Includes ROU Asset)                                                                                 1                     3,567.89                   3,115.48
+            (b)   Capital work-in-progress                                                                                     1A                       50.91                    196.71
+            (c)   Other Intangible Assets                                                                                      2                         32.15                  38.02
+            (d)   Intangible Assets Under Development                                                                   2A                          16.13                     16.18
+            (e)   Financial Assets
+                         (i)   Investments                                                                                     3                     1,200.03                  1,759.58
+                          (ii)   Trade Receivables                                                                                   4                           21.51                   23.00
+                          (iii)  Loans                                                                                                                                                    -                           -
+                     (iv)  Other Financial Assets                                                                            5                        74.02                  90.09
+              (f)   Other Non-Current Assets                                                                                             7                           6.31                    2.60
+   TOTAL NON-CURRENT ASSETS                                                                                                                     4,968.95                 5,241.66
+     (2)  CURRENT ASSETS
+            (a)   Inventories                                                                                    9                      2,180.49                  2,153.94
+            (b)   Financial Assets
+                         (i)   Investments                                                                                     3                     3,426.22                 2,685.52
+                          (ii)   Trade Receivables                                                                                   4                     5,230.48                 4,804.13
+                          (iii)  Cash and Cash Equivalents                                                                                    10                      1,139.60                 634.59
+                     (iv)  Bank Balance other than (iii) above                                                                             10                      34.30                  35.66
+                   (v)   Other Financial Assets                                                                            5                        267.74                   307.07
+            (c)   Other Current Assets                                                                                                 7                     324.86                  550.67
+            (d)   Assets Classified as Held for Sale                                                                    8                          1.56                  59.00
+   TOTAL CURRENT ASSETS                                                                                                                            12,605.25                11,230.58
+
+   TOTAL ASSETS                                                                                                                                             17,574.20                16,472.24
+
+   EQUITY AND LIABILITIES
+      (1)  EQUITY
+            (a)   Equity Share Capital                                                                                                    12                      129.92                   129.79
+            (b)   Other Equity                                                                                                         13                   12,358.50                10,832.63
+               Equity attributable to owners of the parent                                                                                                 12,488.42                10,962.42
+
+            (c)   Non-controlling Interest                                                                                                                 108.43                   126.77
+
+     (2)  LIABILITIES
+       NON-CURRENT LIABILITIES
+            (a)   Financial Liabilities
+                         (i)   Borrowings                                                                                                         14                              -                    0.98
+                          (ii)   Lease Liabilities                                                                                                                                  1.66                       5.14
+                          (iii)  Other Financial Liabilities                                                                                    16                        0.45                     0.45
+            (b)   Provisions                                                                                                                     17                       113.08                   101.49
+            (c)   Deferred Tax Liabilities (Net)                                                                        6                        106.71                    181.57
+            (d)   Other Non-Current Liabilities                                                                                                                                   -                           -
+        TOTAL NON-CURRENT LIABILITIES                                                                                                               221.90                 289.63
+       CURRENT LIABILITIES
+            (a)   Financial Liabilities
+                         (i)   Borrowings                                                                                                         14                       28.27                  96.29
+                    (Current Maturities of Long-Term Debt)
+                          (ii)   Lease Liabilities                                                                                                                             3.48                     3.62
+                          (iii)  Trade Payables                                                                                                  15
+                            Total Outstanding due to Micro and small enterprises                                                                              266.32                   319.01
+                            Total Outstanding dues of Creditors other than Micro and small enterprises                                                               2,320.82                 1,840.35
+                     (iv)  Other Financial Liabilities                                                                                    16                       1,014.48                 846.92
+            (b)   Other Current Liabilities                                                                                          18                    845.58                 1,839.85
+            (c)   Provisions                                                                                                                     17                    256.88                   106.87
+            (d)   Current Tax Liabilities (Net)                                                                                                            11                        19.62                    40.51
+        TOTAL CURRENT LIABILITIES                                                                                                                    4,755.45                5,093.42
+
+        TOTAL LIABILITIES                                                                                                                                   4,977.35                5,383.05
+
+        TOTAL EQUITY AND LIABILITIES                                                                                                                       17,574.20                16,472.24
+         Notes forming part of the Financial Statements                                                                                          1 - 62
+
+   As per our attached report of even date.                                    For and on behalf of The Board of Directors
+
+    For Kirtane & Pandit LLP                                   Aman R. Kirloskar                    Rahul C. Kirloskar
+    Chartered Accountants                                           Managing Director                    Executive Chairman
+   Firm Registration No. 105215W/W100057                               DIN - 09823056                     DIN - 00007319
+
+
+   Anand Jog                                                               Jitendra Shah                    Ramesh Birajdar
+    Partner                                                  Company Secretary                  Vice President & Chief Financial Officer
+   Membership No. 108177                                      ACS 17243                     ACA 104452
+    Pune, 27th April, 2026                                                                                        Pune, 27th April, 2026
+
+262          Kirloskar Pneumatic Company Limited | A Kirloskar Group Company

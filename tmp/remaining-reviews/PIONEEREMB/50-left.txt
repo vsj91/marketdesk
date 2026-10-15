@@ -1,0 +1,57 @@
+ Standalone Statement of Profit & Loss
+   for the Year Ended March 31, 2026
+
+
+                                                                                                               (` in lakhs)
+                                                                                                          For the year ended        For the year ended
+      Particulars                                                                     Note
+                                                                                                   March 31, 2026           March 31, 2025
+    Income
+    Revenue from Operations                                               29                33,594.97              37,506.36
+    Other Income                                                      30                   682.41                629.65
+     Total Income                                                                                          34,277.38               38,136.01
+    Expenses
+    Cost of Materials Consumed                                                      31                20,040.18               21,579.88
+    Purchases of Stock-in-Trade                                                                           659.14                 319.02
+    Changes in Inventories of Finished Goods, Stock-in-trade and Work-in-                                                                              32                 264.20              820.04    progress
+    Employee Benefits Expenses                                               33                  3,958.93              4,268.80
+    Finance Costs                                                         34                    929.15                959.59
+     Depreciation and Amortization Expenses                                     3                    1,481.79                  1,565.12
+    Other Expenses                                                           35                  7,306.77               7,986.86
+     Total Expenses                                                                                    34,640.16               37,499.31
+     Profit before Exceptional and Extraordinary Items and Tax                                                (362.78)               636.70
+     Exceptional Items - Income/(Loss) (Net)                                    36                 441.80                     -
+     Profit before Tax                                                                                    79.02               636.70
+    Tax Expenses                                                              37
+     Current Tax                                                                                                    11.05                     -
+    Income Tax for earlier years                                                                                           9.15                     -
+    Deferred Tax Charge / (Credit)                                                                                           (6.72)                 180.31
+     Profit for the year (A)                                                                                65.54               456.39
+    Other Comprehensive Income
+    Items that will not reclassified to Profit or Loss
+    Remeasurement of defined benefit plan                                                                55.34                   9.46
+    Income tax impact on above item                                                                                 (15.40)                      (2.63)
+    Other Comprehensive Income for the year (B)                                                        39.94                   6.83
+     Total Comprehensive Income for the year (A+B)                                                     105.48                463.22
+    Earning per Equity Share of `10 each:                                         52
+        (1) Basic (`)                                                                                                     0.21                    1.50
+       (2) Diluted (`)                                                                                                   0.21                    1.50
+     Significant Accounting Policies and other Notes to the Standalone Financial    1-54
+    Statements.
+
+   The accompanying Notes are an integral part of the Standalone Financial Statements.
+
+   As per our Report of even date
+    For M B A H & CO                                     For & on behalf of Board of Directors
+    Chartered Accountants
+     (Firm’s Registration No.: 121426W)
+                                            SAURABH MAHESHWARI           RAJ KUMAR SEKHANI
+   Mahesh Bhageria                                 Managing Director                 Chairman
+    Partner                                          DIN 00283903                     DIN 00102843
+   Membership Number: 034499
+
+    Place: Mumbai                                 DEEPAK SIPANI                   AMI THAKKAR
+    Date: May 26, 2026                                       Chief Financial Officer             Company Secretary
+
+
+94      34th Annual Report 2025-26

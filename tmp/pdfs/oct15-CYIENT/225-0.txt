@@ -1,0 +1,69 @@
+STANDALONE FINANCIAL STATEMENTS
+
+Standalone Statement of Profit and Loss for the year ended
+March 31, 2026
+(All amounts in ₹ Millions, except share and per share data and where otherwise stated)
+
+                                                                           For the year ended  For the year ended
+                             Particulars                          Notes
+                                                                   March 31, 2026     March 31, 2025
+
+ INCOME
+
+ Revenue from contracts with customers                           17                23,633             24,136
+
+ Other income                                               18                  1,389              805
+
+ Total income                                                                      25,022             24,941
+
+ EXPENSES
+
+ Employee benefits expense                                    19                13,032             13,781
+
+ Finance costs                                               20                 104              170
+
+ Depreciation and amortisation expense                           21                 806              891
+
+ Other expenses                                              22                  4,881              4,656
+
+ Total expenses                                                                    18,823             19,498
+
+ Profit before tax and exceptional item                                                  6,199              5,443
+
+ Exceptional item                                             28                   (3,309)              7,831
+
+ Profit before tax                                                                     2,890             13,274
+
+ Tax expense
+
+ Current tax                                                                           1,654              2,034                                                       16A
+ Deferred tax credit                                                                            (310)                      (6)
+
+ Total tax expense                                                                    1,344              2,028
+
+ Profit for the year                                                                    1,546             11,246
+
+ Other comprehensive income (OCI)
+
+ (a) Other comprehensive income not to be reclassified to profit or
+     loss in subsequent periods:
+
+        (i) Re-measurement gain/(loss) on defined benefit plans           12                   7                   (12)
+
+       Income tax effect on above                             16A                          (3)                3
+
+        (ii) Net gain/(loss) on equity instruments through other com-
+                                                         11B                  46               77
+        prehensive income
+
+       Income tax effect on above                                                                  (11)                   (19)
+
+    Net other comprehensive income not to be reclassified to
+                                                                                39               49
+     profit or loss in subsequent periods
+
+
+
+
+
+224  | Annual Report 2025-26

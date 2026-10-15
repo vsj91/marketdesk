@@ -1,0 +1,63 @@
+CONSOLIDATED FINANCIAL STATEMENTS
+
+
+2.18 Other income                                       Long term employee benefit obligations:
+
+      Interest income from a financial asset is recognised        Compensated absences
+    when  it is probable that the economic benefits will                                                       The  employees  of  the  Group  are  entitled  to
+      flow to the Group and the amount of income can be                                                         compensated   absences.  The  employees   can
+     measured reliably.                                                                   carry-forward a portion of the unutilised accrued
+                                                         compensated absence and utilise it in future periods
+                                                                  or  receive  cash  compensation  at  retirement  or      Interest income is recognised on a time proportion basis
+                                                                  termination of employment. The Group records an      considering the amount outstanding and rate applicable
+                                                                       obligation for compensated absences in the period in       in the transaction.
+                                                             which the employee renders the services that increase
+      Foreign currency gains and losses are reported on net                                                                            this entitlement. The Group measures the expected
+      basis. This includes the changes in the fair value of                                                                 cost of compensated absence based on actuarial
+      foreign exchange derivative instruments, which are                                                                      valuation made by an independent actuary as at the
+     accounted at fair value through consolidated statement                                                                 balance sheet date on projected unit credit method.
+      of profit and loss.
+
+                                                         Post-employment obligations
+2.19 Government grants/incentives
+                                                      The Group operates the following post-employment
+     Government grants are recognised when there is a                                                          schemes:
+     reasonable assurance that, the conditions attached to
+                                                                                                          i)   Defined benefit plans         it shall be complied with; and the grant will be received.
+                                                                         Gratuity, pension and deferred compensation
+
+                                                          The Group accounts for its liability towards gratuity,     Export entitlements from government authorities are
+                                                                  pension  and  deferred  compensation  (‘post-     recognised in the consolidated statement of profit and
+                                                           employment benefits plan’) based on actuarial      loss when the right to receive credit as per the terms
+                                                                          valuation made by an independent actuary as at      of the scheme is established in respect of the exports
+                                                                   the balance sheet date using projected unit credit    made by the Group, and where there is no significant
+                                                              method. The liability recognised in the balance      uncertainty regarding the ultimate collection of the
+                                                                  sheet in respect of the post- employment benefits      relevant export proceeds. Grants are recognised net of
+                                                                        plan is the present value of the defined benefit      attributable expenses.
+                                                                            obligation at the end of the reporting period less
+                                                                   the fair value of the plan assets.
+2.20 Employee benefits
+
+     Short-term employee benefits:                                                          The present value of the defined benefit obligation
+     Short-term employee benefits are expensed as the                  is determined by discounting the estimated future
+      related service  is provided. A  liability  is recognised             cash outflows by reference to market yields at the
+      for the amount expected to be paid if the Group has            end of the reporting period on government bonds
+     a present legal or constructive obligation to pay this              that have terms approximating to the terms of
+     amount as a result of past service provided by the             the related obligation. The net interest cost is
+     employee and the obligation can be estimated reliably.                calculated by applying the discount rate to the net
+                                                                     balance of the defined obligation and the fair value
+                                                                        of plan assets. This cost is included in the employee
+     The Group’s contributions to defined contribution              benefit expense in the consolidated statement
+      plans are charged to the consolidated statement of              of  profit and  loss. Remeasurement gains and
+      profit and loss as and when the services are received              losses arising from experience adjustments and
+     from  the  employees.  Employee  benefits  include            changes in actuarial assumptions are recognised
+      provident fund, superannuation fund, employee’s state                 in the period  in which they occur, directly  in
+      insurance scheme, gratuity fund, pension and deferred             other comprehensive income.  Changes in the
+     compensation, compensated  absences  and  other             present value of the defined benefit obligation
+     short-term benefits.
+
+
+
+
+
+336  | Annual Report 2025-26

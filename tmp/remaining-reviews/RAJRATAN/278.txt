@@ -1,0 +1,53 @@
+Notes forming part of the Consolidated Financial Statements
+
+45. Capital Management (Contd.)
+          This framework  is adjusted based on underlying macro-economic factors affecting business
+         environment, financial market conditions and interest rates environment.
+
+        The Company monitors capital on the basis of the carrying amount of debt less cash and cash
+          equivalents, bank balances (excluding earmarked balances with banks).
+45.2 The gearing ratio at end of the reporting period was as follows:                         (INR in Lakhs)
+      Particulars                                                      As at           As at
+                                                         March 31, 2026  March 31, 2025
+     Non-Current Liabilities (Borrowings)                                  12,933         11,514
+     Current maturities of Long Term debts                                  4,217           4,766
+     Current borrowings                                               15,240           7,469
+     Gross Debt                                                      32,390         23,748
+     Cash and Cash Equivalents                                           2,251           1,111
+     Net Debt (A)                                                     30,139         22,638
+      Total Equity (As per Balance Sheet) (B)                                65,044         55,898
+     Net Gearing (A/B)                                                     0.46            0.40
+
+46. Fair Value measurement hierarchy/ Categories of Financial Instrument:
+46.1                                                                                                               (INR in Lakhs)
+      Particulars                                                      As at           As at
+                                                         March 31, 2026  March 31, 2025
+     Financial Assets
+     At Amortized cost
+     Investments                                                                                              -                        -
+     Loans                                                                                                       -                        -
+     Trade Receivables                                                25,535         18,250
+     Cash and cash equivalents                                           2,251           1,111
+    Bank balances other than Cash and cash equivalents above                1,458           1,312
+     Other Financial Assets (Non-current and Current)                       628          681
+     At Fair value through other comprehensive income Investments
+     Financial Liabilities
+     At Amortized cost
+     Borrowings (Non-current)                                          12,933         11,514
+     Trade Payables                                                   13,914         13,063
+     Other Financial Liabilities (Non-current and Current)                      1,123          509
+
+(ii)  Fair value hierarchy
+      Particulars                                               As at 31st March, 2026
+                                                                   Level 1       Level 2       Level 3
+     Financial assets and liabilities measured at fair value on a
+     recurring basis at the end of each reporting period
+     Financial Assets
+    Investment (Quoted)                                                                     -                   -                   -
+    Investment (Unquoted)                                                                 -        144                   -
+     Derivatives not designated as hedges                                               -                   -                   -
+     Derivatives designated as hedges                                                    -                   -                   -
+     Total                                                                                         -        144                   -
+
+
+314 | Rajratan Global Wires Limited

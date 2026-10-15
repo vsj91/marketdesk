@@ -1,0 +1,58 @@
+                                   197
+
+Notes to the Standalone Financial Statements                                                         01/
+For the year ended 31 March 2026
+                                                                                                                                                                                                                     craft2.2.9 Share based payments                       a) Financial Assets                                         andChapters
+Employees of the Company receive remuneration in      (i) Initial recognition and measurement            of
+the form of employee option plan of the Company     All financial assets are recognised initially at fair value                                                                                                                                  our(equity settled instruments) for rendering services    plus, in the case of financial assets not recorded         growth
+over a defined vesting period. Equity instruments    at  fair value through profit or  loss, transaction
+granted to the employees of the Company are    costs that are attributable to the acquisition of
+measured by reference to the  fair value of the   the financial asset. Trade receivables are initially
+instrument at the date of grant. The expense is   measured at transaction price.
+recognised in the statement of profit and loss with                                                                       02/
+a corresponding increase in equity (stock options                                                                                     (ii) Classification and Subsequent measurementoutstanding  account).  The  equity  instruments
+                                                   For purposes of subsequent measurement, financialgenerally vest in a graded manner over the vesting
+                                                      assets are classified in three categories:period. The fair value determined at the grant dateis expensed over the vesting period of the respective                                                                                                                                                                                                                     Statutory
+tranches of such grants (accelerated amortisation).    1. Financial assets carried at amortised cost
+At the end of each period, the Company revises its   A  financial asset  is subsequently measured  atestimates of the number of options that are expected   amortized cost if it is held within a business model              Report
+to vest based on the non-market vesting and service   whose objective is to hold the asset in order to collect
+conditions. It recognises the impact of the revision    contractual cash flows and the contractual terms of
+to original estimates,  if any, in the statement of   the financial asset give rise on specified dates to
+profit and loss, with a corresponding adjustment   cash flows that are solely payments of principal and
+                                                                                                                 03/to equity. The stock option compensation expense    interest on the principal amount outstanding.
+is determined based on the Company's estimate of
+equity instruments that will eventually vest.            2. Financial assets at fair value through other
+                                             comprehensive income (FVOCI)The cost of the share based payments is determined   A financial asset is subsequently measured at fair                  Financial
+by the fair value at the date when the grant is made    value through other comprehensive income if it is
+using the Black-Scholes Model. The expected term   held within a business model whose objective is
+of an option is estimated based on the vesting term   achieved by both collecting contractual cash flows
+and contractual life of the option. Expected volatility   and selling financial assets and the contractualduring the expected term of the option is based on   terms of the financial asset give rise on specified                    Statements
+the historical volatility of similar companies. Risk   dates to cash flows that are solely payments of
+free interest rates are based on the government    principal and interest on the principal amount
+securities yield in effect at the time of the grant.       outstanding.
+2.2.10 Financial Instruments                       3. Financial assets at fair value through profit or
+A  financial  instrument   is  any  contract  that    loss (FVTPL)
+gives rise to a financial asset of one entity and a   A financial asset which is not classified in any of
+financial liability or equity instrument of another   the above categories are subsequently fair valued
+entity.  Financial instruments  are recognised  in   through profit or loss.
+the Company’s balance sheet when the Company
+becomes a party to the contractual provisions of the      (iii) Investment in Subsidiaries and Associates
+instrument.                                                Investment in subsidiaries and associate is measured
+                                                        at cost less provision for impairment.
+Financial assets and liabilities are initially recognized
+at  fair value. Transaction costs that are directly
+                                                                     (iv) Impairment of financial assetsattributable to financial assets and liabilities [other
+than financial assets and liabilities measured at fair   The Company generally operates on a cash and carry
+value through profit and loss (FVTPL)] are added to   model except in the case of franchisee partners
+or deducted from the fair value of the financial assets   where there are adequate controls in place, and
+or liabilities, as appropriate on initial recognition.   hence the expected credit loss allowance for trade
+Transaction costs directly attributable to acquisition    receivables  is insignificant. The concentration of
+of financial assets or liabilities measured at FVTPL    credit risk is also limited due to the fact that the
+are recognized immediately in the Statement of   customer base is large and unrelated.
+Profit and Loss.
+
+
+
+
+
+                                        ANNUAL REPORT 2025-26

@@ -1,0 +1,53 @@
+Notes to the Consolidated Financial Statements
+for the year ended December 31, 2025                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         Corporate
+
+    C)  Credit Risk                                                                                                                                                                                                                                                                                                                                                                                                                                    overview         Credit risk is the unexpected loss in financial instruments if the counter parties fail to discharge its contractual
+         obligations in entirety and timely. The Group is exposed to credit risks arising from its operating and financing
+          activities such as trade receivables, loans and advances and other financial instruments. The carrying amounts of
+         financial assets represent the maximum credit exposure.                                                                                                           Year
+        Trade receivables                                                                                                                                                                        2025
+         Credit risk on trade receivables is limited due to the Group's diversified customer base which includes public sector
+         enterprises and reputed private corporates. For trade receivables, the Group computes expected credit loss allowance
+       based on provision matrix which is prepared considering customer's industry segment and historically observed overdue
+         rate over expected life of trade receivables ranging from 0.02% to 1.10%, except for a few customers where specific                                                                                                                                                                                                                                                                                                                                                                                                                                    Strategy         provisions are being created. The expected credit loss allowance is considered as a percentage of net receivable position.
+
+                                                                                                                        (` in million)
+                                                 As at December 31, 2025        As at December 31, 2024
+                                                        Less than      More than       Less than      More than                                                                                                                                                                                                                                                                                                                                                                                                                                    Business
+                                                6 months      6 months      6 months      6 months
+ Gross carrying amount                                   16,571.9          189.3       12,765.9          186.5                 review
+ Allowance for expected credit loss                               (19.0)         (169.5)           (16.6)             (6.6)
+ Carrying amount of trade receivables (net)                  16,552.9           19.8       12,749.3          179.9
+                                                                                                                                                              ESG
+Reconciliation of expected credit loss allowance is as follows:
+                                                                                                                        (` in million)
+ As at January 1, 2025                                                                                     23.2 Movement in expected credit loss allowance                                                               165.3                         Statutory
+ As at December 31, 2025                                                                               188.5                                                                                                                                                                                                                                                                                                                                                                                reports
+         Financial assets other than trade receivables
+         Credit risk on cash and cash equivalents, bank balances other than cash and cash equivalents is limited as the Group
+         generally invests in deposits with banks which have high credit rating assigned by external agencies. Credit risk on
+        loans given to subsidiaries are assessed for credit risk based on the underlying valuation of the entity and their ability                                                                                                                                                                                                                                                                                                                                                                                                                                                                   Financial         to repay within the contractual repayment terms. Based on the Group’s historical experience, the credit risk on other
+         financial assets is low.
+39. Capital management                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     statements
+    For the purpose of Group's capital management, capital includes equity share capital and all other reserves attributable
+    to equity shareholders. The Group has a long-term strategy of pursuing profitable growth. Capital is managed proactively
+    to secure the existence of the Group as a going concern in the long-term and create financial flexibility for profitable
+    growth in order to add value to the Group. A further aim of the capital management is to ensure long-term availability of                                                                                                                                                                                                                                                                                                                           Notice     liquidity, maintain strong credit ratings and ensure optimal capital structure in order to support the business through
+    continuing growth and maximising shareholders' value. The Group funds its operations through internal accruals and
+    the Management along with the Board of Directors regularly monitor the returns on capital as well as dividend levels to
+    shareholders.
+    The amounts managed as capital by the Group for the reporting period under review are summarised as follows:
+                                                                                                                        (` in million)
+                                                                        As at December    As at December
+                                                                                       31, 2025          31, 2024
+ Total equity                                                                        60,479.6          53,344.3
+ Cash and cash equivalents                                                                 (9,638.0)          (4,639.4)
+ Capital                                                                            50,841.6          48,704.9
+ Total equity                                                                        60,479.6          53,344.3
+ Lease Liabilities                                                                     546.7            555.3
+ Overall financing                                                                   61,026.3          53,899.6
+ Capital to overall financing ratio                                                          0.83              0.90
+
+
+
+                                                                                                         334

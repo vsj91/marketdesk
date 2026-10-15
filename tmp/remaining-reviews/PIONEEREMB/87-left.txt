@@ -1,0 +1,59 @@
+  Notes to Consolidated Financial Statements
+    for the year ended March 31, 2026
+
+
+               Financial assets at fair value through profit and loss              of ownership. When it has neither transferred nor
+              (FVTPL)                                                          retained substantially all of the risks and rewards of
+                                                                         the asset, nor transferred control of the asset, the
+            Any Financial assets, which does not meet the criteria                                                                    Group continues to recognize the transferred asset
+               for categorization as at amortized cost or as FVOCI, is                                                                             to the extent of the Group’s continuing involvement.
+                 classified as at FVTPL.                                                                                         In that case, the Group also recognizes an associated
+                                                                                                                liability. The transferred asset and the associated                In addition, the Group may elect to classify a Financial
+                                                                                                         liability are measured on a basis that reflects the                assets, which otherwise meets amortized cost or
+                                                                                     rights and obligations that the Group has retained.             FVOCI criteria, as at FVTPL. However, such election
+                   is allowed only if doing so reduces or eliminates a                                                                            Continuing involvement that takes the form of a
+            measurement or recognition inconsistency (referred                                                                         guarantee over the transferred asset is measured at
+              to as ‘accounting mismatch’).                                                                         the lower of the original carrying amount of the asset
+                                                                  and the maximum amount of consideration that the                Financial assets included within the FVTPL category
+                                                                    Group could be required to repay.              are measured at fair value with all changes recognized
+                 in the Statement of Profit and Loss.                                                          On derecognition of a financial asset, the difference
+                                                                   between the carrying amount of the asset (or the              Equity Instruments
+                                                                                 carrying amount allocated to the portion of the asset
+                   All equity instruments in scope of Ind AS 109 are              derecognised) and the sum of  (i) the consideration
+            measured at  fair value. On  initial recognition an               received (including any new asset obtained less any
+              equity investment that is not held for trading, the           new liability assumed) and (ii) any cumulative gain or
+            Group may irrevocably elect to present subsequent                loss that had been recognised in OCI is recognised in
+             changes in fair value in OCI. This election is made on an              the Statement of Profit and Loss.
+             investment-by-investment basis.
+                                                                       Impairment of financial assets
+                   All other Financial Instruments are  classified as
+                                                                  The Group assesses on a forward looking basis the            measured at FVTPL.
+                                                                         expected credit losses associated with  its assets
+              Derecognition of financial assets                                    carried at amortised cost and FVOCI. The impairment
+                                                                    methodology applied depends on whether there has
+           A financial asset (or, where applicable, a part of a                                                                   been a significant increase in credit risk.
+                financial asset or part of a group of similar financial
+               assets) is primarily derecognised (i.e. removed from             With regard to trade receivable, the Group applies
+             the Group’s balance sheet) when:                               the simplified approach as permitted by Ind AS 109,
+                                                                                     Financial  Instruments,  which  requires  expected
+               -   The rights to receive cash flows from the asset                                                                                         lifetime losses to be recognised from the  initial
+                 have expired, or                                                                                recognition of the trade receivables.
+
+               -   The Group has transferred its rights to receive                                                                                          b.    Financial liabilities
+                  cash flows from the asset or has assumed an
+                    obligation to pay the received cash flows in full                   Initial recognition and measurement
+                  without material delay to a third party under a
+                                                                                     Financial liabilities are classified, at initial recognition,                    ‘pass-through’ arrangement; and either (a) the
+                                                                           as financial liabilities at fair value through profit or                 Group has transferred substantially all the risks
+                                                                                                loss, amortised cost, as appropriate.                and rewards of the asset, or (b) the Group has
+                    neither transferred nor retained substantially                                                                                                      All financial liabilities are recognised initially at fair
+                            all the risks and rewards of the asset, but has                                                                              value and, in the case of amortised cost, net of directly
+                    transferred control of the asset.                                                                                    attributable transaction costs.
+
+          When the Group has transferred its rights to receive                                                                     Subsequent measurement
+             cash flows from an asset or has entered into a
+             pass-through arrangement,  it evaluates  if and to            The measurement of financial liabilities depends on
+            what extent it has retained the risks and rewards                their classification, as described below:
+
+
+168      34th Annual Report 2025-26

@@ -1,0 +1,60 @@
+  Notes to Standalone Financial Statements
+    for the year ended March 31, 2026
+
+
+        With regard to trade receivable, the Company applies the         such liability are recognised in the Statement of Profit and
+           simplified approach as permitted by Ind AS 109, Financial          Loss.
+          Instruments, which requires expected lifetime losses to
+                                                                       Derecognition of financial liabilities        be recognised from the initial recognition of the trade
+          receivables.                                                              The Company derecognises a financial liability when its
+                                                                           contractual obligations are discharged or cancelled, or      b.    Financial liabilities
+                                                                                expired.
+             Initial recognition and measurement
+                                                                                   2.18 Income Tax
+          Financial  liabilities are  classified, at  initial recognition,
+                                                                Income tax expense comprises current and deferred tax.         as financial liabilities at fair value through profit or loss,
+                                                                                                             It is recognised in the Statement of Profit and Loss except         amortised cost, as appropriate.
+                                                                        to the extent that it relates to items recognised directly in
+            All financial liabilities are recognised initially at fair value and,         Equity or in Other Comprehensive Income.
+           in the case of amortised cost, net of directly attributable
+                                                                        Current tax          transaction costs.
+
+                                                                        Current  tax comprises the expected  tax payable  or        Subsequent measurement
+                                                                             receivable on the taxable income or loss for the year and
+        The measurement of financial liabilities depends on their        any adjustment to the tax payable or receivable in respect
+           classification, as described below:                                 of previous years. It is measured using tax rates enacted or
+                                                                           substantively enacted at the reporting date. Current tax
+          Financial Liabilities measured at amortised cost                                                                         assets and liabilities are offset only if, the Company:
+
+          After  initial  recognition,  interest-bearing  loans  and                                                                                            a) Has a legally enforceable right to set off the recognised
+         borrowings are subsequently measured at amortised cost                                                                  amounts; and
+         using the EIR method. Gains and losses are recognised in
+           profit or loss when the liabilities are derecognised as well as           b) Intends either to settle on a net basis, or to realise the
+         through the EIR amortisation process.                             asset and settle the liability simultaneously.
+
+         Amortised cost is calculated by taking into account any         Deferred tax
+         discount or premium on acquisition and fees or costs
+                                                                       Deferred tax is recognised on differences between the         that are an integral part of the EIR. The EIR amortisation
+                                                                            carrying amounts of assets and liabilities in the balance             is included as finance costs in the Statement of Profit and
+                                                                     sheet and the corresponding tax bases used  in the          Loss.
+                                                                  computation of taxable  profit. Deferred tax  liabilities
+          Financial liabilities at fair value through profit or loss                are  generally  recognised  for   all  taxable  temporary
+                                                                                differences. Deferred tax assets are generally recognised
+          Financial  liabilities  at  fair  value through  profit and                                                                                for all deductible temporary differences to the extent it
+          loss include financial  liabilities designated upon  initial                                                                                                    is probable that taxable profits will be available against
+          recognition as at fair value through profit and loss.                                                                  which those deductible temporary differences can be
+                                                                                            utilised. Such assets and liabilities are not recognised if         Gains or losses on liabilities held for trading are recognised
+                                                                     the temporary difference arises from initial recognition           in the Statement of Profit and Loss.
+                                                                         of goodwill or from the initial recognition (other than in a
+          Financial liabilities designated upon initial recognition at         business combination) of other assets and liabilities in a
+            fair value through profit and loss are designated as such          transaction that affects neither the taxable profit nor the
+          at the initial date of recognition, and only if the criteria in         accounting profit.
+          Ind AS 109 are satisfied. For liabilities designated as FVTPL,
+                                                              The carrying amount of deferred tax assets is reviewed at            fair value gains/ losses attributable to changes in own
+                                                                  each balance sheet date and reduced to the extent that it           credit risk are recognized in OCI. These gains/ loss are not
+                                                                                                    is no longer probable that sufficient taxable profits will be         subsequently transferred to the Statement of Profit and
+                                                                                 available to allow all or part of the asset to be recovered.          Loss. However, the Company may transfer the cumulative
+         gain or loss within equity. All other changes in fair value of
+
+
+104      34th Annual Report 2025-26

@@ -1,0 +1,60 @@
+                                                   Corporate Overview          Statutory Reports         Financial Statements 
+
+Standalone Balance Sheet
+as at March 31, 2026
+
+(All amounts are in Indian Rupees in Crores except share data and unless otherwise stated)
+
+
+                                                                            As at            As at
+ Particulars                                                     Notes
+                                                                        March 31, 2026    March 31, 2025
+ ASSETS
+ Non-current assets
+ Property, plant and equipment                                3A               446.68            265.34
+ Capital work-in-progress                                      3B                 64.28               40.71
+ Right of use assets                                         3A                        17.91               16.46
+ Intangible assets                                          3A                   3.35                   3.18
+ Financial assets
+   Investments                                            4 & 5A                 115.54             38.80
+   Loans                                               6A                  274.21             156.60
+   Others                                                7A                       16.13              22.25
+ Contract assets                                                                                     11                  189.62              146.22
+ Other non current assets                                    8A                    32.81              34.55
+ Total non-current assets                                                                       1,160.53               724.11
+ Current assets
+ Inventories                                                   9                 1,350.63            849.62
+ Financial assets
+   Investments                                              5B                    13.55                  81.10
+   Investment in shareholders’ trust                               5B                 59.95              59.95
+   Loans                                                 6B                228.63                 10.01
+   Trade receivables                                                     10                1,484.48             1,363.72
+  Cash and cash equivalents                                        12A                259.57              221.76
+   Other bank balances                                               12B               459.48              538.10
+   Others                                                   7B                      37.17                  18.91
+ Contract assets                                                                                     11               866.60             44.69
+ Other current assets                                         8B                400.81            229.02
+ Total current assets                                                                       5,160.87           3,416.88
+ Assets classified as held for distribution                             39                  -                         181.70
+ TOTAL ASSETS                                                                         6,321.40          4,322.69
+ EQUITY AND LIABILITIES
+ Equity
+ Equity share capital                                                       14                 30.42             30.39
+ Other equity                                                                 15                    2,172.13              1,816.75
+ Total equity                                                                          2,202.55             1,847.14
+ Non-current liabilities
+ Financial liabilities
+   Borrowings                                                   16A                 501.38             437.70
+   Other financial liabilities                                          18A                  6.68               5.45
+ Contract liabilities                                           23A               374.90              129.88
+ Provisions                                                      19A                    234.11             104.99
+ Employee benefit obligations                                        21A                   12.62                  11.48
+ Deferred tax liabilities (net)                                                  13                 38.60              32.97
+ Other non current liabilities                                  20A                     4.18                  1.70
+ Total non-current liabilities                                                                      1,172.47             724.17
+
+
+
+
+
+                                                                                                           139

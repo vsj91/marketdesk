@@ -1,0 +1,61 @@
+Notes forming part of the Standalone Financial Statements
+
+
+          relationship no longer meets the criteria for hedge accounting, then hedge accounting is discontinued
+          prospectively. If the hedging instrument expires or is sold, terminated or exercised, the cumulative
+         gain or loss on the hedging instrument recognized in cash flow hedging reserve till the period the
+        hedge was effective remains in cash flow hedging reserve until the underlying transaction occurs.
+        The cumulative gain or loss previously recognised in the cash flow hedging reserve is transferred to
+         the Statement of Profit and Loss upon the occurrence of the underlying transaction. If the forecasted
+          transaction is no longer expected to occur, then the amount accumulated in cash flow hedging
+          reserve is reclassified in the Statement of Profit and Loss.
+      iv.b.  Fair Value Hedge
+        The Company designates derivative contracts or non-derivative financial assets / liabilities as hedging
+         instruments to mitigate the risk of change in fair value of hedged item due to movement in interest
+          rates and foreign exchange rates.
+
+        Changes in the fair value of hedging instruments and hedged items that are designated and qualify
+         as fair value hedges are recorded in the Statement of Profit and Loss. If the hedging relationship no
+         longer meets the criteria for hedge accounting, the adjustment to the carrying amount of a hedged
+         item for which the effective interest method is used is amortised to Statement of Profit and Loss over
+         the period of maturity.
+
+1.18.Current and Non-current classification
+    The Company presents assets and  liabilities in the Balance Sheet based on current  / non-current
+      classification.
+        i)   An asset is treated as current when it is:
+               Expected to be realised or intended to be sold or consumed in normal operating cycle;
+              Held primarily for the purpose of trading;
+               Expected to be realised within twelve months after the reporting period, or
+              Cash or cash equivalent unless restricted from being exchanged or used to settle a liability for at
+                least twelve months after the reporting period.
+
+      All other assets are classified as non-current.
+
+         ii)  A liability is current when:
+                 It is expected to be settled in normal operating cycle;
+                 It is held primarily for the purpose of trading;
+                 It is due to be settled within twelve months after the reporting period, or
+               There is no unconditional right to defer the settlement of the liability for at least twelve months
+                after the reporting period.
+    The Company classifies all other liabilities as non-current.
+
+     Deferred tax assets and liabilities are classified as non-current assets and liabilities.
+
+    The operating cycle is the time between the acquisition of assets for processing and their realisation in cash
+    and cash equivalents. The Company has identified twelve months as its operating cycle.
+
+1.19. Earnings Per Share
+        i)    Basic earnings per share are calculated by dividing the net profit or loss for the period attributable to
+          equity shareholders by weighted average number of equity shares outstanding during the period. The
+        weighted average number of equity shares outstanding during the period are adjusted for events of
+        bonus issue; bonus element in a right issue to existing shareholders.
+
+         ii)   For the purpose of calculating diluted earnings per share, the net profit or loss for the year attributable
+          to equity shareholders and the weighted average number of shares outstanding during the year are
+         adjusted for the effects of all dilutive potential equity shares.
+
+
+
+
+202 | Rajratan Global Wires Limited

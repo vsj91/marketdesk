@@ -1,0 +1,60 @@
+CONSOLIDATED FINANCIAL STATEMENTS
+
+
+Quantitative disclosures of fair value measurement hierarchy for assets and liabilities as at March 31, 2025:
+
+                                                                                                  Fair value measurement using                                                Date of
+                      Particulars                                            Total
+                                                       valuation                     Level 1    Level 2     Level 3
+
+ Financial Assets:
+
+ Measured at fair value through other
+ comprehensive income (FVOCI)
+ Investments in other equity instruments
+              #1                                  March 31, 2025           560         -             -      560 (unquoted)
+ Derivative instruments designated in a hedging
+                                              March 31, 2025            52         -         52          -
+ relationship#2
+ Measured at fair value through statement of profit
+ and loss (FVTPL)
+ Investment in preferred instruments of other entities
+              #1                                  March 31, 2025           345         -             -      345 (unquoted)
+
+ Equity instruments of other entities (unquoted)#1     March 31, 2025                 -         -             -          -
+
+ Investment in Partnership fund (unquoted) #1         March 31, 2025           375         -             -      375
+
+ Investment in mutual funds (quoted)                March 31, 2025           1,120    1,120             -          -
+
+ Total financial asset measured at fair value                                   2,452    1,120         52     1,280
+
+ Measured at amortised cost
+
+ Investment in tax free and perpetual bonds (quoted)   March 31, 2025           2,047    2,047             -          -
+
+ Investment in commercial paper (quoted)            March 31, 2025                 -         -             -          -
+
+ Total financial asset measured at amortised cost                             2,047    2,047            -          -
+
+ Financial Liabilities:
+
+ Measured at fair value through other
+ comprehensive income (FVOCI)
+ Derivative instruments designated in a hedging
+                                              March 31, 2025            55         -         55          -
+ relationship#2
+ Measured at fair value through statement of profit
+ and loss (FVTPL)
+
+ Liability towards acquisition of business#1            March 31, 2025           374         -             -      374
+
+ Total financial liabilities measured at Fair value                              429         -         55      374
+
+There have been no transfers between Level 1, Level 2 and Level 3 during the year ended March 31, 2025.
+
+
+
+
+
+420  | Annual Report 2025-26

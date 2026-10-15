@@ -1,0 +1,72 @@
+                       Corporate Overview         Statutory Reports
+
+
+NOTES TO STANDALONE FINANCIAL STATEMENTS
+FOR THE YEAR ENDED MARCH 31, 2026
+
+(Currency : Indian Rupees in lakhs)
+
+         obligation at the balance sheet date. These                           it is no longer probable that sufficient
+         are reviewed at each balance sheet date                  taxable profit will be available to allow
+       and adjusted to reflect the current best                         all or part of the deferred tax asset to
+         estimates.                                         be utilised. Unrecognised deferred tax
+                                                                     assets are re-assessed at each reporting
+    n)  Taxes                                                                date and are recognised to the extent
+           (i)  Current tax                                              that it has become probable that future
+            Current tax assets and liabilities for the                  taxable profits will allow the deferred
+             current and prior years are measured at                  tax asset to be recovered.
+            the amount expected to be recovered                 Deferred tax assets and liabilities are
+             from, or paid to, the taxation authorities.               measured  at the tax  rates  that are
+           The tax rates and tax laws used to                expected to apply in the year when the
+          compute the amount are those that                  asset is realised or the liability is settled,
+             are enacted, or substantively enacted,               based on tax rates (and tax laws) that
+           by the reporting date in the countries                have been enacted or  substantively
+           where  the Company  operates  and                enacted at the reporting date.
+            generates taxable income.
+                                                                 Deferred   tax   relating   to   items
+            Current income tax relating to items                 recognised  outside   profit  or  loss
+            recognised  outside   profit  or  loss                        is recognised outside  profit or  loss
+                 is recognised outside  profit or  loss                    (either in other comprehensive income
+              (either in other comprehensive income                 or  in  equity).  Deferred  tax  items
+             or  in equity). Current tax items are                  are recognised  in correlation to the
+            recognised   in   correlation   to  the                 underlying transaction either in OCI or
+             underlying  transaction  either  in OCI                    directly in equity.
+             or  directly  in  equity.  Management
+                                                                 Deferred  tax  assets  and  deferred
+              periodically evaluates positions taken in
+                                                                    tax  liabilities  are  offset   if a  legally
+            the tax returns with respect to situations
+                                                                  enforceable  right  exists  to  set  off
+               in which applicable tax regulations are
+                                                                     current tax assets against current tax
+             subject to interpretation and establishes
+                                                                                          liabilities and the deferred taxes relate
+             provisions where appropriate.                                                                    to the same taxable entity and the same
+            (ii) Deferred tax                                            taxation authority.
+
+            Deferred tax is provided on temporary                   (iii) Indirect tax
+             differences  at  the  reporting  date                                                            Expenses and assets are recognised
+           between the tax bases of assets and                 net of the Goods and Services Tax
+                 liabilities and their carrying amounts for                                                                         paid, except when the tax incurred on
+              financial reporting purposes.                                                             a purchase of assets or services is not
+            Deferred tax assets are recognised for                 recoverable from the taxation authority,
+                                                                                in which case the tax paid is recognised                  all deductible temporary  differences,
+                                                                  as part of the cost of acquisition of            the carry forward of unused tax credits
+                                                                  the asset or as part of the respective           and any unused tax losses. Deferred
+                                                            expense item, as applicable.             tax assets are recognised to the extent
+             that  it is probable that taxable profit                                                        o)  Earnings Per Share
+                will be  available  against which  the
+                                                      The Company reports basic and diluted
+            deductible temporary differences, and
+                                                               earnings per share in accordance with Ind
+            the carry forward of unused tax credits
+                                               AS 33 on Earnings per share. Basic EPS
+           and unused tax losses can be utilised,
+                                                                                       is calculated by dividing the net profit or
+             except:
+                                                                      loss  for the year  attributable  to equity
+           The carrying amount of deferred tax             shareholders  by  the  weighted  average
+             assets  is reviewed at each reporting           number of equity shares outstanding during
+            date and reduced to the extent that             the year.
+
+                                                          209

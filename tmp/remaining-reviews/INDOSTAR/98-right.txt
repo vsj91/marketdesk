@@ -1,0 +1,75 @@
+                       Corporate Overview         Statutory Reports
+
+
+STANDALONE STATEMENT OF PROFIT AND LOSS
+FOR THE YEAR ENDED MARCH 31, 2026
+
+(Currency : Indian Rupees in lakhs)
+
+ Particulars                                           Note    For the year ended  For the year ended
+                                                                March 31, 2026     March 31, 2026
+REVENUE FROM OPERATIONS                            23
+ Interest income                                                                       1,26,251.66            1,19,654.44
+ Fees and commission income                                                   9,993.54              11,963.66
+ Net gain on fair value changes                                                  3,043.97              3,244.16
+ Net gain on derecognition of financial instruments measured                                       -             5,529.92
+ at amortised cost category
+ Total revenue from operations                                                  1,39,289.17          1,40,392.18
+ Other income                                         24                    69.16              849.37
+ Total income                                                                  1,39,358.33           1,41,241.55
+EXPENSES
+ Finance costs                                           25                 62,116.06           74,083.99
+ Impairment on financial instruments                        26                 1,14,321.86             13,752.34
+ Employee benefit expenses                                27               33,475.07              29,771.41
+ Depreciation and amortisation expenses                     28               2,886.54             3,061.80
+ Other expenses                                        29                14,233.65              15,312.92
+ Total expenses                                                               2,27,033.18          1,35,982.46
+ Profit/(loss) before exceptional items and tax                                (87,674.85)            5,259.09
+ Exceptional Items                                              14             1,17,595.00                          -
+ Profit/(loss) before tax                                                      29,920.15            5,259.09
+ Tax expense:                                       30
+ 1.   Current tax                                                             16,900.00                          -
+ 2.   Tax of earlier years                                                                                    -                          -
+ 3.   Deferred tax expenses                                                                                -                          -
+ Total tax expenses                                                      16,900.00                          -
+ Profit/(loss) after tax                                                          13,020.15            5,259.09
+ Other comprehensive income
+ Items that will not be reclassified to profit and loss
+ -   Remeasurements of the defined benefit plans                                   (52.36)                    (111.91)
+ -   Income tax relating to items that will not be reclassified                                 13.18                  28.17
+     to profit or loss
+                                                                                            (39.18)               (83.74)
+ Items that will be reclassified to profit and loss
+ -   Debt instruments through other comprehensive income                         (312.65)              20.00
+ -   Income tax relating to items that will be reclassified to                          78.69                (5.05)
+      profit or loss
+                                                                                (233.96)                 14.95
+ Other comprehensive income for the year, net of tax                              (273.14)              (68.79)
+ Total comprehensive income for the year                                        12,747.01            5,190.30
+ Earnings per equity share                                         31
+ Basic earnings per share (`)                                                        9.02                 3.86
+ Diluted earnings per share (`)                                                              9.01                  3.74
+ (Equity Share of face value of ` 10 each)
+ See accompanying notes forming part of the financial statements 1 to 48
+
+
+In terms of our report attached                For and on behalf of the Board of Directors of
+For M S K A & Associates LLP                 IndoStar Capital Finance Limited
+(formerly known as M S K A & Associates)
+Chartered Accountants
+ICAI Firm Registration Number: 105047W/W101187
+
+
+Tushar Kurani                              Naina Krishna Murthy             Randhir Singh
+Partner                                     Non-Executive Independent        Managing Director &
+Membership No. 118580                       Chairperson                       Executive Vice Chairman
+                                              DIN: 01216114                       DIN: 05353131
+
+                                          Jayesh Jain                      Shikha Jain
+                                               Chief Financial Officer           Company Secretary
+
+Place: Sorrento, Italy                             Place: Mumbai
+Date: May 27, 2026                             Date: May 27, 2026
+
+
+                                                                     189

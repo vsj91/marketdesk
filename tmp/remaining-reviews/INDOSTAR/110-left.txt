@@ -1,0 +1,57 @@
+NOTES TO STANDALONE FINANCIAL STATEMENTS
+FOR THE YEAR ENDED MARCH 31, 2026
+
+(Currency : Indian Rupees in lakhs)
+
+2.5 Securities premium account                       IND AS  1, Presentation of Financial Statements
+    a)  Securities premium includes:                        applicable w.e.f April 01, 2026 : In case of breach
+                                                             of covenant, a  liability  will be  classified as
+           -   The difference between the face value of                                                            current even if the lender agreed, not to demand
+            the equity shares and the consideration                                                 payment as a consequence of the breach after
+             received in respect of shares issued;                                                         the reporting period but before approval of
+           -   The  fair value of the stock options          financial statements.
+           which are treated as expense, if any, in                                                           Ind AS 21 - The Effects of Changes in Foreign
+            respect of shares allotted pursuant to                                                   Exchange Rates, applicable w.e.f. April 01, 2025.
+            Stock Options Scheme.                                                  The Company has reviewed the amendment
+    b)  The  issue expenses  of  securities which        and based on its evaluation has determined that
+         qualify as equity instruments are written              it does not have any significant impact in its
+          off  against  securities premium account/          financial statements.
+         retained earning in accordance with Ind AS.                                                           Ind AS  7, Statement of Cash Flows and Ind
+                                            AS  107,  Financial  Instruments:  Disclosures,2.6 Recent accounting pronouncements
+                                                            applicable w.e.f. April 01, 2025 – the amendment
+     Ministry of Corporate Affairs (“MCA”) notifies
+                                                                      in Ind AS 7 requires to inform users of financial
+   new standards or amendments to the existing
+                                                        statements  of  the  existence  of  supplier
+    standards under Companies (Indian Accounting
+                                                            finance arrangements and explain the nature
+    Standards) Rules as issued from time to time.
+                                                             of the arrangements, the carrying amount of
+    IND AS  1, Presentation of Financial Statements           liabilitiesand the range of payment due dates.
+    applicable w.e.f April 01, 2025 : The amendment         Ind AS 107 has been amended to add supplier
+     relates to classification of liabilities as current         finance arrangementsas a factor that may cause
+    or noncurrent and non-current  liabilities with         concentration of  liquidity  risk. The Company
+    covenants.  In  the  context  of  classifying  a        has reviewed the amendment andbased on its
+      liability as current, it removes the requirement         evaluation has determined that it does not have
+    of existence of a right to defer settlement for        any impact in its financial statements.
+     at least 12 months after the reporting date and
+                                                           Ind AS  12,  International Tax Reform –  Pillar
+    instead requires that the said right should exist
+                                             Two Model Rules applicable immediately - The
+   on the  reporting date and have  substance.
+                                                amendments provide a temporary mandatory
+    The amendment also introduces guidance on
+                                                                           relief from deferred tax accounting  for top-
+     classification of  liabilities with covenants. The
+                                                up tax and disclose that they have applied
+   Company has no impact of these amendments
+                                                         the relief. This relief is immediate and applies
+     in its classification criteria of current and non-
+                                                               retrospectively (refer note 30).
+    current liabilities.
+
+
+
+
+
+212

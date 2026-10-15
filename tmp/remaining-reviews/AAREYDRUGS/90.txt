@@ -1,0 +1,66 @@
+ investments  in equity  instruments,  this  will depend on whether the Company has made an
+ irrevocable election at the time of initial recognition to account for the equity investment at fair
+ value through other comprehensive income.
+
+
+ Equity investments
+ The Company subsequently measures all equity investments at fair value. Where the Company’s
+ management has elected to present fair value gains and losses for an equity investments, that is
+ not held for trading, in other comprehensive income, there  is no subsequent reclassification of
+ fair value gains and losses to profit or loss. Dividends from such investments are recognised in
+ profit or loss as other income when the Company’s right to receive payments  is established.
+ Changes in the fair value of financial assets at fair value through profit or loss are recognised in
+ the statement of profit and loss. Impairment losses (and reversal of impairment losses) on equity
+ investments measured at FVOCI are not reported separately from other changes in fair value.
+
+
+ Derecognition
+ A financial asset is derecognised only when:
+      o   the rights to receive cash flows from the asset have expired, or
+      e   the Company has transferred  its  rights to receive cash flows from the asset or has
+        assumed an obligation to pay the received cash flows to one or more recipient
+
+ Where the entity has transferred an asset, the Company evaluates whether  it has transferred
+ substantially all risks and rewards of ownership of the financial asset. In such cases, the financial
+ asset  is derecognised. Where the entity has not transferred substantially all risks and rewards of
+ ownership ofthe financial asset, the financial asset is not derecognised.
+
+
+ Where the entity has neither transferred a financial asset nor retains substantially all risks and
+ rewards of ownership of the financial asset, the financial asset  is derecognised  if the Company
+ has not retained control ofthe financial asset. Where the Company retains control of the financial
+ asset, the asset  is continued  to be recognised to the extent of continuing involvement  in the
+ financial asset.
+
+
+ Offsetting Financial instruments
+ Financial assets and liabilities are offset and the net amount reported in the balance sheet when
+ there  is a legally enforceable right to offset the recognized amounts and there  is an intention to
+ settle on a net basis, or realize the asset and settle the liability simultaneously.
+
+
+ Financial Liabilities
+
+
+ Classification as debt or equity
+ Debt and equity instruments issued by the Company are classified as either financial liabilities or
+ as equity in accordance with the substance of the contractual arrangements and the definition ofa
+ financial liability and an equity instrument. An equity instrument is any contract that evidences a
+ residual interest in the assets of an entity after deducting all of its  liabilities.
+
+
+Initial recognition and measurement
+ All  financial  liabilities are recognised  initially  at  fair value and,  in the  case of loans and
+ borrowings and payables, net of directly attributable transaction costs.
+ The Company’s  financial  liabilities include trade and other payables,  loans and borrowings
+ including bank overdrafts, financial guarantee contracts and derivative financial instruments.
+
+
+ Subsequent measurement
+ The measurement of financial liabilities depends on their classifi
+
+
+
+
+
+                         86

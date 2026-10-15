@@ -1,0 +1,32 @@
+Notes to Standalone Financial Statements
+for the year ended March 31, 2026
+
+
+     Ind AS 1 (Classification of liabilities as current or non-current         provide guidance when an entity breaches any covenant of
+    and non-current liabilities with covenants);                      a long-term loan arrangement on or before the end of the
+                                                                      reporting period with the effect that the liability becomes
+     Ind AS 7 and Ind AS 107 (Disclosures for supplier finance                                                                  payable on demand, it classifies the liability as current,
+     arrangements); and                                                            even if the lender agreed, after the reporting period and
+                                                                   before the approval of the financial statements for issue,     Ind AS 12 (Global implementation of OCED Pillar Two model
+                                                               not to demand payment as a consequence of the breach.      rules).
+                                                     An entity classifies the liability as current because, at the
+    These amendments primarily relate to the classification of        end of the reporting period, it does not have the right to
+       liabilities with covenants, additional disclosures for supplier         defer its settlement for at least 12 months after that date.
+     finance arrangements, and a temporary exception for Pillar         However, an entity classifies the liability as non-current
+    Two deferred taxes. The adoption of these amendments               if the lender agreed by the end of the reporting period to
+     did not have a material impact on the measurement of         provide a period of grace ending at least 12 months after
+     the Company’s assets or liabilities, though it resulted in         the reporting period, within which the entity can rectify
+    enhanced disclosures and reclassifications in the financial         the breach and during which the lender cannot demand
+     statements.                                                immediate repayment. This amendment is to be applied
+                                                                         retrospectively for annual reporting periods beginning on
+    New and amended Standards issued but not effective                                                                    or after April 1, 2026, in accordance with Ind AS 8, Accounting
+                                                                                    Policies, accounting Estimates and Errors.    The Ministry of Corporate Affairs (MCA) amended the
+    Companies  (Indian Accounting Standards)  Rules,  2015,                                                          The Company has considered these amendments and
+     introduced changes to Ind AS 1 – Presentation of Financial                                                                  expects that there will be no impact on the financial
+     Statements, effective from April 1, 2026. These amendments                                                                    statements.
+
+
+
+
+
+                                                                                        Pioneer Embroideries Limited     107

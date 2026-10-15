@@ -1,0 +1,72 @@
+        AARVI ENCON LIMITED
+
+
+         Standalone Balance Sheet as at March 31, 2026
+                                                                                         (All amounts are Rupees in lakhs unless otherwise stated)
+ Particulars                                                                  Note             As at            As at
+                                                                               Ref      March 31, 2026     March 31, 2025
+ ASSETS
+  (1)  Non-current assets
+       (a)   Property, Plant and Equipment                                           1                1,638.32            1,715.03
+       (b)   Other Intangible Assets                                                 2                  20.90               27.87
+       (c)   Intangible Asset Under Development                                             2.1                 15.39                             -
+       (d)   Financial Assets                                                       3
+                  (i) Investments                                                                  3.1                111.69               99.92
+                   (ii) Loans and Advances                                                         3.3                717.04              607.40
+                    (iii) Others                                                                      3.5               2,250.33            2,008.40
+       (e)   Other non current assets                                                4                1,863.44              926.31
+                                                                                                           6,617.11            5,384.93
+  (2)  Current Assets
+       (a)   Financial Assets                                                       3
+                  (i) Investments                                                                  3.1                448.55              509.39
+                   (ii) Trade Receivable                                                             3.2               8,103.62            9,635.24
+                    (iii) Cash and cash equivalents                                                   3.4                130.81              322.88
+               (iv) Other Bank Balances                                                        3.4                315.23              276.96
+              (v) Loans and Advances                                                         3.3                 80.26               36.59
+               (vi) Others                                                                      3.5               4,568.64            2,508.67
+       (b)   Other current assets                                                   4                298.30              262.99
+                                                                                                      13,945.41           13,552.71
+           Total Assets                                                                                20,562.52           18,937.64
+ EQUITY & LIABILITIES
+ Equity
+       (a)   Equity Share capital                                                    5                1,481.07            1,481.07
+       (b)   Other Equity                                                          6              10,089.08            9,227.74
+                                                                                                        11,570.15           10,708.81
+ Liabilities
+ Non-current liabilities
+       (a)   Financial Liabilities
+                   (i) Borrowings                                                                   7.1                235.02              332.96
+                    (ii) Lease Liability                                                               7.2
+           Others                                                                         7.4                661.74              388.91
+       (b)   Provisions                                                          10                                 -                             -
+       (c)   Deferred Tax Liabilities (Net)                                            8                  21.36               28.78
+       (d)   Other Non-current liabilities                                             9                  12.00               12.00
+                                                                                                      930.12             762.65
+ Current liabilities
+       (a)   Financial Liabilities
+                   (i) Borrowings                                                                   7.2               2,434.68            2,345.16
+                    (ii) Lease Liability                                                                                                                            -                             -
+                     (iii) Trade payables                                                             7.3
+                 - Total outstanding dues of micro enterprises and small enterprises                                 229.64              130.80
+                - Total outstanding dues of creditors other than micro enterprises and small enterprises                       445.68              731.36
+                (iv) Others                                                                      7.4               3,357.36            2,879.10
+       (b)   Other current liabilities                                                 9                1,318.85            1,306.22
+       (b)   Provisions                                                          10                276.04               73.55
+       (c)    Liabilities for current tax (net)                                            11                                 -                             -
+                                                                                                         8,062.25            7,466.19
+           Total Equity and Liabilities                                                                  20,562.52           18,937.64
+The accompanying notes form an integral part of the consolidated financial statements
+As per our report of even date                         For and on behalf of the Board of Directors
+                                                         Sd/-                                        Sd/-
+For Jay Shah & Associates                          Virendra D. Sanghavi                  Jaydev V. Sanghavi
+Firm Registration No. 135424W                      Managing Director                        Executive Director & CFO
+Chartered Accountants                             DIN:00759176                         DIN:00759042
+Sd/-                                                     Sd/-
+Jay Shah                                          Leela S. Bisht
+Proprietor                                   Company Secretary & Compliance Officer
+M.No. 134334                                    Membership No. ACS 59748
+UDIN:
+Place : Mumbai                                      Place : Mumbai
+Date : 22nd May, 2026                             Date : 22nd May, 2026
+
+134 | Annual Report 2025-26

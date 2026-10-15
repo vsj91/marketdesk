@@ -1,0 +1,62 @@
+                                                                                         Financial Statements
+
+
+                                                                                                 for the year ended 31st March, 2026Notes to the financial statements
+
+
+
+                                                                                                    Fair Value heirarchy
+
+                                                  Carrying Value   Fair Value        Level 1      Level 2     Level 3
+              Investments                       600.00         600.00                -             -        600.00
+              Trade Receivables                    55,382.74        55,382.74             -             -       55,382.74
+              Other Financial assets excluding      790.54          790.54                 -             -        790.54
+                derivative financial instruments
+             Cash & Bank balances                 4,337.54         4,337.54               -             -        4,337.54
+
+               Total                                   61,110.82         61,110.82              -             -         61,110.82
+
+             Grand Total                         62,652.98       62,652.98        1,542.16         -         61,110.82
+
+          (2)   Financial Liability
+
+               Financial Liabilities at amortised
+              cost
+              Borrowings from Banks               5,226.94        5,226.94              -             -        5,226.94
+                Financial Lease liability               455.78          455.78                 -             -         455.78
+              Trade Payables                        28,340.41        28,340.41              -             -        28,340.41
+              Other Financial liabilities excluding    2,542.05        2,542.05              -             -        2,542.05
+                derivative financial instruments
+
+               Total                                36,565.18        36,565.18             -             -       36,565.18
+
+               Financial Liabilities at fair value
+             through profit or loss
+                Derivative financial instruments       1,475.68         1,475.68              -        1,475.68         -
+
+             Grand Total                        38,040.86      38,040.86            -        1,475.68    36,565.18
+
+     (b) Disclosure for the year ended 31st March, 2025
+
+                                                                                                    Fair Value heirarchy
+                                                Carrying Value      Fair Value       Level 1      Level 2     Level 3
+            (1)   Financial Assets
+               Financial Assets at Fair value
+             through Profit and Loss
+              Investments                           6,139.23          6,139.23       6,139.23         -             -
+               Financial Assets at amortised
+              cost
+              Trade Receivables                        46,641.11           46,641.11            -             -         46,641.11
+              Other Financial assets excluding        1,650.49          1,650.49            -             -        1,650.49
+                derivative financial instruments
+             Cash & Bank balances                 4,298.94         4,298.94            -             -        4,298.94
+               Total                              52,590.54       52,590.54           -             -       52,590.54
+             Grand Total                          58,729.77        58,729.77      6,139.23         -       52,590.54
+          (2)   Financial Liability
+               Financial Liabilities at amortised
+              cost
+              Borrowings from Banks and            4,200.00        4,200.00                              4,200.00
+                Financial Institutions
+                Financial Lease liability                429.46          429.46                               429.46
+
+                                                                  Ddev Plastiks Industries Limited  235

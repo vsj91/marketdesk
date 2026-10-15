@@ -1,0 +1,59 @@
+Notes to Consolidated Financial Statements
+for the year ended March 31, 2026
+
+
+     accounts for any identified impairment loss as per its        Government grants that compensate the Company for
+     accounting policy on ‘property, plant and equipment’.              expenses incurred are recognised in the Statement of
+                                                                              Profit and Loss, as income or deduction from the relevant
+    As a practical expedient, Ind AS 116 permits a lessee not to                                                                   expense, on a systematic basis in the periods in which the
+     separate non-lease components when bifurcation of the                                                              expense is recognised.
+    payments is not available between the two components,
+    and instead account for any lease and associated non-       When the government grant relates to the non-monetary
+     lease components as a single arrangement. The Group has         asset where there is reasonable assurance that the grant
+    used this practical expedient.                                                 will be received, the asset is disclosed by deducting the
+                                                       same from carrying amount of that asset and the grant is
+     Extension and termination options are included in many of                                                              then recognised in profit or loss over the useful life of the
+     the leases. In determining the lease term the management                                                                      depreciable asset by way of a reduced depreciation charge.
+     considers  all facts and circumstances that create an                                                               Other Government grants relating to the purchase of plant
+    economic incentive to exercise an extension option, or not                                                          and equipment are included in noncurrent liabilities as
+     exercise a termination option.                                                                    deferred income and are credited to the statement of Profit
+                                                          and Loss on a straight – line basis over the expected lives of  2.20 Earning per share
+                                                                         related assets and presented within other income.
+    The basic EPS is computed by dividing the profit after tax
+                                                                           2.23 Segment Reporting     for the year attributable to the equity shareholders by the
+     weighted average number of equity shares outstanding                                                                  Operating segments are reported in a manner consistent
+     during the year                                                                  with the internal reporting provided to the chief operating
+                                                                       decision maker. The board of directors of the Company has     For the purpose of calculating diluted EPS, profit after tax
+                                                           been identified as being the chief operating decision maker     for the year attributable to the equity shareholders and the
+                                                            by the Management of the Group. The Business activity of     weighted average number of equity shares outstanding
+                                                                 the Group falls within one business segment viz “Textile”.     during the year are adjusted for the effects of all dilutive
+     potential equity shares. Dilutive potential equity shares                                                                        2.24 Recent Amendments
+     are deemed converted as of the beginning of the period,
+     unless they have been issued at a later date. In computing          Ministry of Corporate Affairs (“MCA”) notifies new standards
+     the dilutive earnings per share, only potential equity shares         or amendments to the existing standards under Companies
+     that are dilutive and that either reduces the earnings per          (Indian Accounting  Standards)  Rules  as  issued from
+     share or increases loss per share are included.                     time to time. In August 2025, MCA notified the following
+                                                       amendments to the existing standard:
+  2.21 Cash and Cash Equivalents
+                                                                     Ind AS 1 (Classification of liabilities as current or non-current
+    Cash and cash equivalents comprise cash at bank and in                                                          and non-current liabilities with covenants);
+    hand and short-term deposits with an original maturity of
+     three months or less.                                             Ind AS 7 and Ind AS 107 (Disclosures for supplier finance
+                                                                   arrangements); and
+     For the purposes of the Cash Flow Statement, cash and
+     cash equivalents is as defined above, net of outstanding          Ind AS 12 (Global implementation of OCED Pillar Two model rules).
+    bank overdrafts. In the balance sheet, bank overdrafts are
+                                                             These amendments primarily relate to the classification of    shown within borrowings in current liabilities.
+                                                                                             liabilities with covenants, additional disclosures for supplier
+  2.22 Government Grants                                             finance arrangements, and a temporary exception for Pillar
+                                                     Two deferred taxes. The adoption of these amendments
+     Grants from the government are recognised at their fair                                                                       did not have a material impact on the measurement of
+     value where there is reasonable assurance that the grant                                                                 the Company’s assets or liabilities, though it resulted in
+       will be received and the Company will comply with  all                                                           enhanced disclosures and reclassifications in the financial
+     attached conditions.                                                                    statements.
+
+
+
+
+
+                                                                                        Pioneer Embroideries Limited     171

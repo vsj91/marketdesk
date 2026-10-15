@@ -1,0 +1,60 @@
+  Notes to Consolidated Financial Statements
+    for the year ended March 31, 2026
+
+
+         the lease term.                                          The lease liability is presented as a separate line in the
+                                                                      Balance Sheet.
+        The Group as lessee
+                                                              The lease liability is subsequently measured by increasing
+        The Group assesses whether a contract is or contains a                                                                     the carrying amount to reflect interest on the lease liability
+           lease, at inception of the contract. The Group recognises                                                                              (using the effective interest method) and by reducing the
+        a right-of-use asset and a corresponding lease liability                                                                            carrying amount to reflect the lease payments made.
+         with respect to all lease arrangements in which it is the
+           lessee, except for short-term leases (defined as leases with        The Group remeasures the lease liability (and makes a
+        a lease term of 12 months or less) and leases of low value         corresponding adjustment to the related right-of-use
+          assets. For these leases, the Group recognises the lease          asset) whenever:
+        payments as an operating expense on a straight-line basis
+                                                                                                             •    The lease term has changed or there is a change in the         over the lease term, unless another systematic basis is
+                                                                      assessment of exercise of a purchase option, in which        more representative of the time pattern in which economic
+                                                                          case the lease liability is remeasured by discounting          benefits from the leased assets are consumed. Contingent
+                                                                         the revised lease payments using a revised discount        and variable rentals are recognized as expense in the
+                                                                                             rate.         periods in which they are incurred.
+
+                                                                                                             •   A lease contract is modified and the lease modification         Lease Liability
+                                                                                                          is not accounted for as a separate lease, in which case
+        The lease payments that are not paid at the commencement              the lease liability is remeasured by discounting the
+         date are discounted using the interest rate implicit in the               revised lease payments using a revised discount rate.
+           lease.  If that rate cannot be readily determined, which
+                                                                        Right of Use (ROU) Assets             is generally the case for leases in the Group, the lessee’s
+         incremental borrowing rate is used, being the rate that the                                                              The ROU assets comprise the initial measurement of the
+          individual lessee would have to pay to borrow the funds                                                                     corresponding lease liability, lease payments made at or
+         necessary to obtain an asset of similar value to the right-                                                                       before the commencement day and any initial direct costs.
+         of-use asset in a similar economic environment with similar                                                               They are subsequently measured at cost less accumulated
+         terms, security and conditions.                                                                           depreciation and impairment losses.
+
+         Lease payments included in the measurement of the lease                                                             Whenever the Group incurs an obligation for costs to
+             liability comprise:                                                                       dismantle and remove a leased asset, restore the site on
+                                                                  which it is located or restore the underlying asset to the              •    Fixed lease payments (including in-substance fixed
+                                                                          condition required by the terms and conditions of the lease,             payments) payable during the lease term and under
+                                                                  a provision is recognised and measured under Ind AS 37-              reasonably certain extension options, less any lease
+                                                                                Provisions, Contingent Liabilities and Contingent Assets.                incentives;
+                                                              The costs are included in the related right-of-use asset.
+              •     Variable lease payments that depend on an index or
+                                                     ROU assets are depreciated over the shorter period of                 rate, initially measured using the index or rate at the
+                                                                     the lease term and useful life of the underlying asset. If           commencement date;
+                                                                     the Group is reasonably certain to exercise a purchase
+              •    The amount expected to be payable by the lessee          option, the right-of-use asset  is depreciated over the
+             under residual value guarantees;                            underlying asset’s useful life. The depreciation starts at the
+                                                          commencement date of the lease.
+              •    The exercise price of purchase options, if the lessee is
+              reasonably certain to exercise the options; and             The ROU assets are not presented as a separate line in the
+                                                                      Balance Sheet but presented below similar owned assets as
+              •    Payments of penalties for terminating the lease, if                                                                  a separate line in the PPE note under “Notes forming part of
+             the lease term reflects the exercise of an option to                                                                     the Financial Statement”.
+              terminate the lease.
+                                                              The Group applies Ind AS 36- Impairment of Assets to
+                                                                    determine whether a right-of-use asset is impaired and
+
+
+
+170      34th Annual Report 2025-26

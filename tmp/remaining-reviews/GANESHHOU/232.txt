@@ -1,0 +1,65 @@
+                         CORPORATE OVERVIEW         STATUTORY REPORTS        FINANCIAL STATEMENTS
+
+Notes forming part of Standalone Accounts
+for the year ended 31st March 2026
+
+Credit Risk Management
+Credit risk is the risk that a counterparty fails to discharge its obligation to the Company under a financial instrument
+or customer contract leading to a financial loss. The Company’s exposure to credit risk is influenced mainly by cash and
+cash equivalents, trade receivables including contract assets and financial assets measured at amortised cost.
+
+The Company continuously monitors defaults of customers and other counterparties and incorporates this information
+into its credit risk controls. Credit risk related to cash and cash equivalents and bank deposits is managed by only
+accepting highly rated banks and diversifying bank deposits. Other financial assets measured at amortized cost
+includes loans to employees, security deposits and other credit risk related to other financial assets is managed by
+monitoring the recoverability of such amounts continuously, while at the same time internal control system in place
+ensure the amounts are within defined limits.
+
+The Company has entered into contracts for the sale of residential and commercial units on an installment basis.
+The installments are specified in the contracts. The Company is exposed to credit risk in respect of installments due.
+However, the possession of residential and commercial units is handed over to the buyer only after all the installments
+are recovered.
+
+In addition, installment dues are monitored on an ongoing basis with the result that the Company’s exposure to credit
+risk is not significant. The Company evaluates the concentration of risk with respect to trade receivables as low, as
+none of its customers constitutes significant portions of trade receivables as at the year end.
+
+Liquidity Risk
+Prudent liquidity risk management implies maintaining sufficient cash and marketable securities and the availability
+of funding through an adequate amount of committed credit facilities to meet obligations when due and to close out
+market positions. Due to the dynamic nature of the underlying businesses, the company treasury maintains flexibility
+in funding by maintaining availability under committed credit lines.
+
+Management monitors rolling forecasts of the company’s liquidity position and cash and cash equivalents on the basis
+of expected cash flows. This is generally carried out at the local level in the operating companies of the company in
+accordance with practice and limits set by the company. These limits vary by location to take into account the liquidity
+of the market in which the entity operates. In addition, the company’s liquidity management policy involves projecting
+cash flows in major currencies and considering the level of liquid assets necessary to meet these, monitoring balance
+sheet liquidity ratios against internal and external regulatory requirements and maintaining debt financing plans.
+
+Financing Arrangements:                                                                           [AMT. ` IN LAKH]
+
+ Particulars                                                           31/03/2026     31/03/2025
+ Fix Rate:
+ Expiring within 1 year                                                             2267.75          437.40
+ Expiring beyond 1 year                                                                13152.66           0.00
+
+Maturities of financial liabilities as on:                                                              [AMT. ` IN LAKH]
+
+                                 31/03/2026                                   31/03/2025
+ Financial                                   More                                     More
+                       <3   3 to 12       1 to 5                          <3   3 to 12       1 to 5 Liabilities                                       than      Total                                than      Total
+                 month   month     years                   month   month     years
+                                         5 Years                                    5 Years
+                                         Non Derivative
+ Borrowings          566.94    1700.81  16979.53    8811.57 28058.85    109.35    328.05     214.61     0.00    652.01
+ Other Financial
+                     0.00     64.79     0.00     0.00     64.79     0.00        111.14     0.00     0.00        111.14
+ Liabilities
+ Trade payable        0.00   3820.38    207.09     0.00   4027.47     0.00  4064.56     0.00     0.00  4064.56
+
+
+
+
+
+         Powering Progress Shaping Communities                                    229•

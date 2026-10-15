@@ -1,0 +1,72 @@
+CONSOLIDATED BALANCE SHEET
+AS AT MARCH 31, 2026
+
+(Currency : Indian Rupees in lakhs)
+
+ Particulars                                              Note                As at              As at
+                                                                    March 31, 2026       March 31, 2025
+ I.   ASSETS
+      Financial assets
+     Cash and cash equivalents                              3 (a)                   3,615.74             9,604.87
+     Bank balances other than cash and cash equivalents         3 (b)                 27,421.99            32,639.06
+      Derivative financial instruments                         4                      1,194.74                            -
+     Loans                                                5                7,43,446.77              7,21,651.85
+     Investments                                         6                  98,192.67               1,81,818.45
+     Other financial assets                                     7                  5,862.97               12,102.59
+                                                                                 8,79,734.88           9,57,816.82
+     Non-financial assets
+     Current tax assets (net)                                 8                    1,255.84                  1,138.23
+     Deferred tax assets (net)                               9                  31,766.52              31,674.65
+      Property, plant and equipment                                10                 4,974.34              5,955.24
+     Assets acquired in satisfaction of claim                                     11                700.00              1,300.00
+     Goodwill                                                          12                 30,018.69             30,018.69
+     Other intangible assets                                            12                   487.22              539.00
+     Other non-financial assets                                        13                    2,713.43              2,922.89
+    Non - current assets held for sale                               14                                -           2,94,224.04
+                                                                                    71,916.04           3,67,772.74
+    TOTAL ASSETS                                                              9,51,650.92          13,25,589.56
+ II.   LIABILITIES AND EQUITY
+     LIABILITIES
+      Financial liabilities
+     Trade payables                                                   15
+        (i)   total outstanding to micro enterprises and small                                       5.01                  6.23
+           enterprises
+        (ii)  total outstanding dues of creditors other than micro                                     2.16                      1.82
+           enterprises and small enterprises
+     Debt securities                                                 16                 3,07,415.36             3,79,218.64
+     Borrowings (other than debt securities)                           17                2,40,261.02             3,12,429.59
+     Other financial liabilities                                         18                22,055.97            40,299.48
+                                                                                5,69,739.52           7,31,955.76
+     Non-financial liabilities
+     Current tax liabilities (net)                               8                   1,058.83                            -
+      Provisions                                                      19                    1,828.23                  901.31
+     Other non-financial liabilities                           20                  762.20               745.03
+       Liabilities for assets held for sale                               14                                -            2,28,445.14
+                                                                                3,649.26           2,30,091.48
+    TOTAL LIABILITIES                                                          5,73,388.78          9,62,047.24
+    EQUITY
+     Equity share capital                                               21                    16,153.73              13,609.74
+     Other equity                                           22                 3,62,108.41           3,49,932.58
+    TOTAL EQUITY                                                                3,78,262.14           3,63,542.32
+    TOTAL LIABILITIES AND EQUITY                                             9,51,650.92          13,25,589.56
+ See accompanying notes forming part of the consolidated financial statements 1 to 44
+
+In terms of our report attached                          For and on behalf of the Board of Directors of
+For M S K A & Associates LLP                            IndoStar Capital Finance Limited
+(formerly known as M S K A & Associates)
+Chartered Accountants
+ICAI Firm Registration Number: 105047W/W101187
+
+
+Tushar Kurani                                        Naina Krishna Murthy             Randhir Singh
+Partner                                                Non-Executive Independent        Managing Director &
+Membership No. 118580                                  Chairperson                       Executive Vice Chairman
+                                                         DIN: 01216114                       DIN: 05353131
+
+                                                    Jayesh Jain                      Shikha Jain
+                                                           Chief Financial Officer           Company Secretary
+
+Place: Sorrento, Italy                                         Place: Mumbai
+Date: May 27, 2026                                        Date: May 27, 2026
+
+280

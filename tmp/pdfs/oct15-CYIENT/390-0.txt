@@ -1,0 +1,59 @@
+                                                                    CONSOLIDATED FINANCIAL STATEMENTS
+
+
+19B. Deferred tax
+
+(a) Deferred tax assets and liabilities:
+
+                                                                 As at              As at
+                                 Particulars
+                                                                 March 31, 2026       March 31, 2025
+ Deferred tax assets (net)                                                              1,838                861
+ Deferred tax liabilities (net)                                                                  (741)                  (734)
+ Total                                                                              1,097                127
+
+
+
+(b) Movement in deferred tax assets and liabilities:
+
+                                      Recognised in     Recognised                 Foreign
+                       As at      the consolidated       in other                  currency       As at     FY 2025-26                                                    Others                            April 1, 2025    statement of    comprehensive               translation   March 31, 2026
+                                              profit and loss       income                adjustments
+ Deferred tax assets /
+ (liabilities) in relation
+ to:
+ Property, plant and               (757)             285                 -           -             (69)            (541)
+ equipment and
+ intangible assets
+ Expected credit loss            107              94                 -           -            7           208
+ allowance
+ Provisions                    647             154                  (7)           -           35           829
+
+ Contract assets                  (331)               (276)                 -           -             (67)            (674)
+
+ Cash flow hedges                1                   -           118           -               -           119
+
+ Carry forward of tax            137             350                 -           -           20           507
+ losses
+ Tax incentives                 222              83                 -           -           40           345
+
+ Gain on bargain                     (13)                   -                 -           -                (1)              (14)
+ purchase on business
+ combinations
+ Fair value changes#              42               3               (11)           -            6            40
+
+ Right-of-use assets              (682)             235                 -           -             (31)            (478)
+
+ Lease liabilities                723               (243)                 -           -           34           514
+
+ Provision for expenses            5             185                 -           -               -           190
+
+ Others                        26              21                 -           -            5            52
+
+ Net deferred tax                             127             891           100           -            (21)          1,097 assets/(liabilities)
+
+
+
+
+
+                                                                                                  Annual Report 2025-26  | 389

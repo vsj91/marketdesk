@@ -1,0 +1,62 @@
+Corporate Overview     Statutory Report     Standalone Financial Statements     Consolidated Financial Statements     Notice
+Notes Forming part of the Consolidated
+FOR THE YEAR ENDED 31ST MARCH 2026
+                                                                                                      (All amounts in INR lakhs, unless otherwise stated)
+
+(excluding net interest), is reflected immediately in the balance sheet with a charge or credit recognised in other comprehensive income in the
+period in which they occur. Remeasurement recognised in other comprehensive income is reflected immediately in retained earnings and is not
+reclassified to profit or loss. Past service cost is recognised in Statement of Profit and Loss in the period of a plan amendment. Net interest is
+calculated by applying the discount rate at the beginning of the period to the net defined benefit liability or asset.”
+
+The gratuity benefit obligation recognised in the standalone Balance Sheet represents the actual deficit or surplus in the Company’s defined
+benefit plans. Any surplus resulting from this calculation is limited to the present value of any economic benefits available in the form of refunds
+from the plans or reductions in future contributions to the plans.
+
+A.   Actuarial Assumptions
+
+     Date of Valuation                                                                          31st March, 2026     31st March, 2025
+     Expected Return on Plan Assets                                              7.27% to 7.36%             6.79%
+      Discount Rate                                                              7.27% to 7.36%             6.79%
+      Salary Escalation Rate                                                           10.00%            10.00%
+       Attrition Rate                                                                   10.00%            10.00%
+       Mortality Rate                                                                     Indian Assured       Indian Assured
+                                                                                       Lives Mortality       Lives Mortality
+                                                                                           (2012-14) Ultimate     (2012-14) Ultimate
+
+B.  Amount recognised in the Standalone Statement of Profit and Loss and Other Comprehensive Income
+
+      Particulars                                                               Year ended 31st     Year ended 31st
+                                                                             March, 2026       March, 2025
+      Current Service Cost                                                                       22.16               4.06
+     Net Interest Cost                                                                                   (0.23)               0.04
+      Past Service Cost - Recognised                                                                2.51                              -
+     Expenses Recognised in Statement of Profit or Loss                                    24.44               4.09
+      Actuarial (Gains) / Loss on Obligation for the Period                                                                   -                              -
+      Return on Plan Assets, Excluding Interest Income                                                                      -                              -
+     Expenses Recognised in Other Comprehensive Income                                                            -                              -
+
+C.  Movements in the present value of the Defined Benefit Obligation
+
+      Particulars                                                                                  31st March, 2026     31st March, 2025
+      Present Value of Benefit Obligation at the Beginning of the Year                                5.81               0.90
+       Interest Cost                                                                         0.39                0.07
+      Current Service Cost                                                                       22.16               4.06
+      Past Service Cost - Incurred during the year                                                    2.51                              -
+      Actuarial (Gains) / Losses on obligations - Due to Change in Financial                          (0.48)               0.26
+     Assumptions
+      Actuarial (Gains) / Losses on obligations - Due to Experience Adjustment                      (4.89)               0.52
+      Present Value of Benefit Obligation at the End of the Year                                  25.51                  5.81
+
+D.  Movements in the Fair Value of Plan Assets
+
+      Particulars                                                                                 31st March, 2026     31st March, 2025
+       Fair Value of Plan Assets at the Beginning of the Year                                         7.24                              -
+       Interest Income                                                                     0.62               0.03
+      Contributions by the Employer                                                         2.07                 7.20
+      Return on Plan Assets, Excluding Interest Income                                       0.06                  0.01
+       Fair Value of Plan Assets at the End of the Year                                           10.00                 7.24
+
+
+
+
+Fischer Medical Ventures Limited                                                                      219

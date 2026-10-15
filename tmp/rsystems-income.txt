@@ -1,0 +1,67 @@
+R Systems International Limited
+CIN : L74899DL1993PLC053579                                                                                   Annual Report 2025
+Consolidated Statement of Profit and Loss for the year ended December 31, 2025
+                                                                                                                             (Rs. in million)
+
+                                                                                    Year ended              Year ended
+  Particulars                                                          Notes
+                                                                        December 31, 2025      December 31, 2024
+  A. Income
+     (i) Revenue from operations                                               22                      19,582.06                  17,417.27
+      (ii) Other income                                                        23                        536.12                      83.14
+  Total income                                                                            20,118.18              17,500.41
+  B. Expenses
+     (i) Employee benefits expense                                             24                      12,872.69                  11,911.19
+      (ii) Finance costs                                                        25                        141.74                      83.95
+      (iii) Depreciation and amortisation expense                                   26                        663.98                    653.73
+     (iv) Other expenses                                                      27                       3,642.23                   2,936.52
+  Total expenses                                                                           17,320.64              15,585.39
+  C. Profit before exceptional item and tax (A-B)                                                 2,797.54                1,915.02
+  D. Exceptional item
+     Impact of New Labour Codes                                             24                        245.83                                   -
+  E. Profit before tax (C-D)                                                                    2,551.71                1,915.02
+  F. Tax expense                                                         28
+     (i) Current tax                                                                                         763.96                    678.38
+      (ii) Deferred tax credit                                                                                         (74.21)                     (75.18)
+  Total tax expense                                                                         689.75                603.20
+  G. Profit for the year (E-F)                                                                   1,861.96                1,311.82
+  H. Other comprehensive income / (loss)
+
+     Items that will not be reclassified to profit or loss
+      Re-measurements of the defined benefit plans                                                               (10.40)                     (12.14)
+       Deferred tax relating to re-measurements of the defined benefit plans                                         2.82                       2.85
+     Items that will be reclassified to profit or loss
+       Foreign currency translation reserve                                                                   273.63                       3.53
+  Total other comprehensive income / (loss)                                                   266.05                   (5.76)
+   I. Total comprehensive income for the year (G+H)                                             2,128.01                1,306.06
+   J. Profit attributable to
+     Equity shareholders of the company                                                                      1,861.96                   1,311.82
+    Non controlling interest                                                                                                                                  -                                      -
+                                                                                            1,861.96                1,311.82
+  K. Total comprehensive income attributable to
+     Equity shareholders of the company                                                                      2,128.01                   1,306.06
+    Non controlling interest                                                                                                                      -                                   -
+                                                                                            2,128.01                1,306.06
+   L. Earnings per share (EPS)                                                 29
+     Equity share of par value of Re. 1/- each
+     Basic                                                                                                   15.73                      11.09
+     Diluted                                                                                                 15.01                      10.59
+
+
+Notes forming integral part of the consolidated ﬁnancial statements        1-43
+In terms of our report attached
+For Deloitte Haskins & Sells LLP    For and on behalf of the Board of Directors of
+Chartered Accountants            R Systems International Limited
+(Firm’s Registration No. 117366W/W-100018)
+
+Alka Chadha                         Nitesh Bansal                    Ruchica Gupta
+Partner                                    Managing Director & Chief Executive Oﬃcer  Chairperson & Non-Executive Independent Director
+(Membership No. 93474)                                                DIN: 10170738                              DIN: 06912329
+Place : Mumbai                                 Place : Philadelphia, USA                    Place : New Delhi
+Date  : February 10, 2026                      Date  : February 10, 2026                  Date  : February 10, 2026
+
+                              Nand Sardana                   Bhasker Dubey
+                                                 Chief Financial Oﬃcer                  Company Secretary & Compliance Oﬃcer
+                                               Place : Greater Noida                       Place : Greater Noida
+                                           Date  : February 10, 2026                  Date  : February 10, 2026
+                                                                                                         224

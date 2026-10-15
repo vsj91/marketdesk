@@ -1,0 +1,75 @@
+                                                                                                                  Annual Report
+Acutaas Chemicals Limited
+                                                                  2025-26
+
+Notes to the Standalone Financial Statements
+for the year ended March 31, 2026
+
+                   (iii) Financial liabilities                                                     profit and loss. Asset/Liabilities in this category are
+                    The measurement of financial liabilities depends                    presented as current asset/current liabilities.
+                  on their classification, as described below:
+                                                             Derecognition
+                      (a) Loans and borrowings                         A financial  liability  is derecognised when the
+                     Borrowings are initially recognised at fair value,                     obligation under the  liability  is discharged or
+                       net of transaction costs incurred. Borrowings                    cancelled or expires. When an existing financial
+                     are subsequently measured at amortised cost.                            liability is replaced by another from the same lender on
+                 Any difference between the proceeds (net of                        substantially different terms, or the terms of an existing
+                       transaction costs) and the redemption amount is                            liability are substantially modified, such an exchange
+                     recognised in profit or loss over the period of the                     or modification is treated as the derecognition of the
+                    borrowings using the effective interest method.                       original liability and the recognition of a new liability.
+                     Fees paid on the establishment of loan facilities                   The difference in the respective carrying amounts is
+                     are recognised as transaction costs of the loan                    recognised in the statement of profit or loss.
+                         to the extent that it is probable that some or all
+                        of the facility will be drawn down. If not, the fee       1.11 Borrowing costs
+                                 is deferred until the draw down occurs.                    Borrowing costs directly attributable to the acquisition,
+                                                                                      construction or production of an asset that necessarily takes
+                    Borrowings are removed from the Standalone
+                                                                  a substantial period of time to get ready for its intended use
+                    Balance Sheet when the obligation specified
+                                                                                   or sale are capitalised as part of the cost of the asset. All
+                          in the contract  is discharged, cancelled or
+                                                                                    other borrowing costs are expensed in the period in which
+                      expired. The difference between the carrying
+                                                                                  they occur. Borrowing costs consist of interest and other
+                  amount of a financial liability that has been
+                                                                                          costs that an entity incurs in connection with the borrowing of
+                      extinguished or transferred to another party
+                                                                                        funds. Borrowing cost also includes exchange differences to
+                  and the consideration paid, including any non-
+                                                                                       the extent regarded as an adjustment to the borrowing costs.
+                    cash assets transferred or liabilities assumed, is
+                                                                          Other borrowing costs are expensed in the period in which
+                     recognised in profit or loss as other income |
+                                                                                   they are incurred.
+                       (expense).
+                    Borrowings are classified as current liabilities      1.12 Cash and cash equivalents
+                       unless the Company has an unconditional right             Cash and cash equivalent in the balance sheet comprise
+                         to defer settlement of the liability for at least 12              cash at banks and on hand and short-term deposits which
+                    months after the reporting period.                           are subject to an insignificant risk of changes in value.
+
+                     (b)  Trade & other payables                           For the purpose of the statement of cash flows, cash and
+                      After  initial recognition, trade and other              cash equivalents consist of cash and short-term deposits,
+                    payables maturing within one year from the               as defined above, as they are considered an integral part
+                   Balance sheet date, the carrying amounts                 of the Company’s cash management.
+                    approximate fair value due to the short maturity
+                        of these instruments.                       1.13 Employee Benefits
+                                                                                               i)   Defined contribution plans (Provident
+           (B)  Derivative financial instruments                        Fund)
+               The company holds derivatives financial instruments                        In accordance with Indian Law, eligible employees
+               such as foreign exchange forward and option                      receive benefits from Provident Fund, which is defined
+                 contracts to mitigate the risk of changes in exchange                       contribution plan. Both the employee and employer
+                  rates on foreign currency exposures. Company has                make monthly contributions to the plan, which  is
+                taken all the forward contract from the bank.                             administrated by the Government authorities, each
+                                                                                 equal to the specific percentage of employee’s basic
+            The company have derivative financial                       salary. The Company has no further obligation under
+              assets/financial liabilities which are not                      the plan beyond its monthly contributions. Obligation
+             designated as hedges;                                                   for contributions to the plan  is recognised as an
+                 Derivatives not designated are initially recognised                  employee benefit expense in the Statement of Profit
+                  at the fair value and attributable transaction cost                 and Loss when incurred.
+                are recognised in statement of profit and loss, when
+                                                                                                  ii)  Defined benefit plans (Gratuity)                 incurred. Subsequent to initial recognition, these
+                 derivatives are measured at  fair value through                      Gratuity liability is a defined benefit obligation and is
+                                                                          computed on the basis of an actuarial valuation by an
+
+
+208

@@ -1,0 +1,67 @@
+                                                   Corporate Overview          Statutory Reports         Financial Statements 
+
+Notes
+to the consolidated financial statements for the year ended March 31, 2026
+(All amounts are in Indian Rupees in Crores except share data and unless otherwise stated)
+
+     been considered as reportable segments of        The  preparation  of  financial  statements  as
+      the Group. The metering business comprises         per  lnd AS  requires management  to make
+      of  manufacturing  and  providing  ‘Metering         judgments, estimates and assumptions in the
+     and  Metering   solutions’  and  undertaking         application of accounting policies that affect the
+      ‘Engineering, Construction and Contracts’ on         reported amounts of assets, liabilities, income
+      turnkey basis. The strategic investment division        and expenses. Although these estimates are
+      comprises of  strategic investments made  in        based on the management’s best knowledge of
+      shares and securities. Further, the geographical         current events and actions, uncertainty about
+     segment is based on the areas in which major         these assumptions and estimates could result
+      operating divisions of the Group operates.                 in the outcomes requiring a material adjustment
+                                                             to the carrying amounts of assets or liabilities inw.    Contingent Liability and contingent assets
+                                                                future periods.
+    A contingent liability is possible obligation that        Revenue from contracts with customers
+       arises from past events whose existence will be
+                                                    The Group applied the following judgements      confirmed by the occurrence or non-occurrence
+                                                               that significantly affect the determination of the      of one or more uncertain future events beyond
+                                                  amount and timing of revenue from contracts      the control of Group or a present obligation that
+                                                           with customers:        is not recognised because it is not probable that
+     an outflow of resources embodying economic         Identifying performance obligations in AMISP
+      benefits will be required to settle the obligation.         Contract
+    A contingent liability also arises in extremely
+                                                    The Group determined that both the (a) the       rare cases where there is a liability that cannot
+     be recognised because it cannot be measured          supply,  installation,  integration,  testing, and
+        reliably. The Group does not recognise the        commissioning of the AMI system,and (b) the
+      contingent liability but discloses its existence in         operation, maintenance, and support services
+      the financial statements.                                   post-installation are capable of being distinct.
+                                                    The fact that the customer can benefit from
+    A contingent asset  is a possible asset that                                                      both products on their own and the promises
+       arises from past events and whose existence                                                             to  transfer  the equipment and  to  provide
+        will be confirmed only by the occurrence or                                                                       installation are distinct within the context of the
+      non-occurrence of one or more uncertain future
+                                                                 contract.
+      events not wholly within the control of the entity.
+     The Group does not recognise the contingent         Consequently, the Group allocated a portion
+      assets since this may result in the recognition of         of the transaction price to both performance
+     income that may never be realised but discloses         obligations based on relative stand-alone selling
+        its existence in the financial statements. Where          prices.
+     an inflow of economic benefits are probable, the
+                                                          Consideration    of    significant    financing
+     Group disclose a brief description of the nature
+                                                 component in a contract      of contingent assets at the end of the reporting
+      period. However, when the realisation of income        Under the AMISP Contract, the payment for
+        is virtually certain, then the related asset is not a         the supply and installation of meters is to be
+      contingent asset and the Group recognize such         received over a period of 93 months. The Group
+       assets.                                            concluded that there is a significant financing
+                                                  component to  this contract, considering the
+      Contingent liabilities and Contingent assets are                                                            length of time between the customer’s payment
+      reviewed at each Balance Sheet date.                                                   and the transfer of the performance obligation
+                                                                   for the supply and  installation of meters to
+x.   CSR expenditure                                                           the customer, as well as the prevailing market
+                                                                    interest rates.
+     The Group charge its CSR expenditure incurred
+      during the year to the statement of profit and          In determining the interest to be applied to the
+       loss.                                         amount of consideration, the Group concluded
+                                                               that the interest rate implicit in the contract (i.e.,
+y.     Significant accounting judgements, estimates         the interest rate that discounts the cash selling
+     and assumptions                                        price of the equipment to the amount received
+
+
+
+                                                                                               243

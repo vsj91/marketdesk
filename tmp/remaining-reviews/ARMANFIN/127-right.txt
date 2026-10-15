@@ -1,0 +1,57 @@
+  Corporate Overview       Statutory Reports       Financial Statements                           249
+
+Standalone Statement of Profit & Loss
+for the year ended March 31, 2026                                                                                         (₹ in Lakhs)
+
+                                                        Note    For the year ended    For the year ended        Particulars                                                              No.       31st March, 2026       31st March, 2025
+  (1)  Revenue from operations
+         Interest income                                         19                20,617.59              17,413.93
+       Gain on assignment of Financial Assets                      22                                   -                                -
+       Fees and Commission income                              20                  654.79                575.10
+       Net gain on fair value changes                             21                  306.97                198.65
+        Total Revenue from operations (1)                                         21,579.35            18,187.68
+  (2)   Other Income                                          23                  142.73                342.13
+  (3)   Total Income (1+2)                                                       21,722.08            18,529.81
+  (4)   Expenses
+       Finance costs                                           24                 5,702.54               4,356.42
+       Impairment of financial instruments                         25                 2,499.59               2,886.57
+       Employee benefits expenses                               26                 5,664.74               3,695.34
+        Depreciation, amortization and impairment                  27                   39.93                 37.03
+       Others expenses                                        28                 2,407.74               1,754.75
+        Total Expenses (4)                                                        16,314.54            12,730.10  (5)   Profit / (loss) before tax (3-4)                                                5,407.54             5,799.71                         Statements
+  (6)   Tax Expense:
+          (1) Current tax                                         29                 1,422.80               1,745.20
+          (2) Short / (excess) provision of income tax/deferred tax of    29                   15.37                                -                                                                                                                                                                                                                                                                                                                                                                                                                              Financial
+             earlier years
+          (3) Deferred tax                                        29                    (91.53)                (262.45)
+  (7)   Profit/(loss) for the period (5-6)                                              4,060.89             4,316.96
+  (8)   Other Comprehensive Income                                                                                                                                                                                                                                                                                                                                                                                                                                                                            Standalone         (A)   (i)  Items that will not be reclassified to profit or loss
+                        - Remeasurement of defined benefit obligations                                8.67                   5.86
+                     (ii)  Income tax relating to items not to be reclassified to                              (2.18)                    (1.47)                                                                                                                                                                                                                                      Arman
+                   profit or loss
+       Subtotal (A)                                                                   6.49                 4.38
+         (B)   (i)  Items that will be reclassified to profit or loss
+                        - Fair valuation gain / (loss) on financial instruments                          45.02                  (19.67)
+               measured at FVOCI
+                     (ii)  Income tax relating to items to be reclassified to                            (11.33)                   4.95
+                   profit or loss
+       Subtotal (B)                                                                33.69                (14.72)
+       Other comprehensive income (A + B)                                          40.18                (10.33)
+  (9)   Total comprehensive income   for  the  period (7+8)                     4,101.07             4,306.63
+       (Comprising profit (Loss) and other comprehensive income
+        for the period)
+ (10)  Earnings per equity share
+        Basic (C )                                               30                   38.68                 41.17
+        Diluted (C )                                             30                   38.43                 40.84
+See accompanying notes to the financial statements                1 to 55
+As per our report of even date attached herewith
+For, Laxminiwas & Co.                               For, Arman Financial Services Limited
+Chartered Accountants
+[Firm Regd. No. 011168S]
+                                          Jayendra Patel                   Vivek Modi
+[Guharoy Ashish Kumar]                      Whole-time Director                 Executive Director & Group CFO
+Partner                                        (DIN - 00011814)
+[M.No. 018659]
+                                          Aalok Patel                    Uttam Patel
+Place: Ahmedabad                                Vice Chairman & Managing Director  Company Secretary
+Date: May 27, 2026                              (DIN - 02482747)                     (M. No. A42878)

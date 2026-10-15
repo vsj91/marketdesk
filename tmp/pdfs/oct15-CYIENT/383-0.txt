@@ -1,0 +1,51 @@
+CONSOLIDATED FINANCIAL STATEMENTS
+
+
+
+   Principal assumptions used for the purposes of the actuarial valuation   As at March 31, 2026  As at March 31, 2025
+
+ Discount Rate (%)                                                  6.74%-7.13%        6.58%-6.70%
+ Salary Increase rate (%)                                              7.00%- 10.00%       4.00%- 10.00%
+ Attrition (%)                                                      8.00%-21.00%       8.00%-26.70%
+                                                                IALM (2012-14)       IALM (2012-14) Mortality Table                                                                              Ultimate              Ultimate
+ Retirement age                                                       58-60 years          58-60 years
+
+
+
+The following table sets out the defined benefit costs as per actuarial valuation for the Parent and its subsidiaries in
+India:
+                                                                        For the year ended     For the year ended                                 Particulars                                                                 March 31, 2026       March 31, 2025
+ Current service cost                                                            202                174
+ Past service cost (refer note 29 A)                                                  370                  1
+ Total service cost (A)                                                           572                175
+ Interest expense on defined benefit obligation                                        104                 95
+ Interest income on plan assets                                                                    (16)                     (14)
+ Net interest cost (B)                                                             88                 81
+ Defined benefit cost recognised in consolidated statement of profit and                                                                             660                256 loss (A)+(B)
+
+
+ Re-measurement effects recognised in other comprehensive income
+ Actuarial (gain)/loss due to change in demographic assumptions in defined                   24                         (1)
+ benefit obligation
+ Actuarial gain due to change in financial assumptions in defined benefit                           (16)                         (1)
+ obligation
+ Due to experience adjustments                                                                            (6)                 29
+ Return on plan assets (greater)/less than discount rate                                                  (3)                         (3)
+ Components of defined benefit costs recognised in other comprehensive                         (1)                 24
+ income
+ Total                                                                        659                280
+
+
+The amount included in the balance sheet arising from the entity’s obligation in respect of its defined benefit plans is as
+follows:
+
+                                 Particulars                          As at March 31, 2026  As at March 31, 2025
+ Present value of funded defined benefit obligation                                        2,242                 1,682
+ Fair value of plan assets                                                                      (254)                   (247)
+ Net liability arising from defined benefit obligation                                     1,988                1,435
+
+
+
+
+
+382  | Annual Report 2025-26

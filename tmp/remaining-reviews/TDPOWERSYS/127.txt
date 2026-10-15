@@ -1,0 +1,65 @@
+                         Corporate Overview       Statutory Reports       Financial Statements
+
+STANDALONE STATEMENT OF PROFIT & LOSS
+FOR THE YEAR ENDED MARCH 31, 2026
+                                           Amounts in Indian Rupees in lakhs, except as otherwise stated
+
+Particulars                                           Note       Year ended           Year ended
+                                                      No.     March 31, 2026       March 31, 2025
+I  REVENUE FROM OPERATIONS                      26                1,71,666.38               1,26,539.62
+II   Other income                                        27                 2,000.91                2,309.44
+III TOTAL INCOME (I + II)                                                   1,73,667.29            1,28,849.06
+IV  EXPENSES
+    Cost of materials consumed                          28   1,23,867.01              88,435.88
+    Purchases for spares & after market business, net of       29      2,064.67                  702.79
+    changes in inventories of stock in trade
+    Changes in inventories of ﬁnished goods and work in      30     (9,919.56)  1,16,012.12    (3,612.22)   85,526.45
+    progress
+    Employee beneﬁts expenses                             31                  14,715.63                 11,137.98
+    Finance costs                                        32                   190.32                 305.84
+    Depreciation and amortisation expense                  33                  2,213.58                 1,885.07
+    Other expenses                                      34                10,828.07                 8,777.50
+   TOTAL EXPENSES                                                       1,43,959.72             1,07,632.84
+V   Proﬁt before exceptional items and tax (III-IV)                             29,707.57               21,216.22
+VI  Exceptional items                                     35                 (300.00)                  (300.00)
+VII Proﬁt before tax (V+VI)                                                   29,407.57              20,916.22
+VIII Tax expense: (Refer Note No.39(a) & (b))
+    Current tax                                                         7,913.86                 5,250.70
+    Deferred tax (credit)                                                   (150.64)     7,763.22      294.52    5,545.22
+IX  Proﬁt for the year (VII-VIII)                                              21,644.35               15,371.00
+X   Other comprehensive income
+    Items that will not be reclassiﬁed to proﬁt or (loss)       37
+    Remeasurement of deﬁned beneﬁt plans                               75.10                  (118.08)
+    Income tax on above deﬁned beneﬁt plans                              (18.90)       56.20        29.72      (88.36)
+     (Refer Note No.39(c))
+    Items that will be reclassiﬁed to proﬁt or (loss)
+    Exchange difference on translation of foreign operations              68.49                     17.39
+    Income tax on exchange difference on translation of               (17.24)       51.25         (4.38)       13.01
+     foreign operations (Refer Note No.39(c))
+     Total                                                                      107.45                   (75.35)
+XI  Total comprehensive income for the year (IX+X)                            21,751.80              15,295.65
+XII Earnings per equity share of ` 2/- each
+     Basic (in `)                                         38                    13.86                    9.84
+     Diluted (in `)                                                                     13.85                    9.84
+Material Accounting Policies                                   1
+The accompanying notes form an integral part of the standalone ﬁnancial statements
+
+                               This is the statement of proﬁt and loss referred to in our report of even date attached
+For and on behalf of Board of Directors of                                        For VARMA & VARMA
+TD Power Systems Limited                                                      Chartered Accountants
+CIN No. L31103KA1999PLC025071                                           Firm Registration No. 004532S
+
+MOHIB N KHERICHA  NIKHIL KUMAR      DEEPAK KUMAR SINHA      ABRAHAM BABY CHERIAN
+Chairman             Managing Director       Chief Executive Ofﬁcer            Partner
+DIN: 00010365          DIN:00062243            Place: Bangalore               Membership No.218851
+Place: Ahmedabad        Place: Frankfurt                                               Place: Bangalore
+                                                                            Date : May 14, 2026
+M N VARALAKSHMI   BHARAT RAJWANI
+Chief Financial Ofﬁcer   Company Secretary
+Place: Bangalore        Membership No. A50096
+                           Place: Bangalore
+Date : May 14, 2026
+
+
+
+TD Power Systems Limited                                                            139

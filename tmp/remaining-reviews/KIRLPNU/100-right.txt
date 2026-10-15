@@ -1,0 +1,65 @@
+                                         Corporate Overview         Statutory Reports         Financial Statements
+
+Statement of Profit and Loss
+For the year ended 31st March, 2026
+CIN: L29120PN1974PLC110307
+                                                                                                             ₹ in Million
+
+ Particulars                                                                             Note No.          2025-26          2024-25
+INCOME :
+ I    Revenue from Operations                                                                      18              17,592.26           16,286.27
+ II   Other Income                                                                                19                270.78                221.11
+ III  TOTAL INCOME (I + II)                                                                                             17,863.04           16,507.38
+ EXPENSES :
+     Cost of Materials Consumed                                                           20             8,306.65            8,242.97
+     Purchase of Traded Goods                                                                          21                 575.13            488.68
+     Changes in Inventories of Finished Goods, Work-in-Progress and Traded Goods                      22                  (154.32)              (145.78)
+     Employee Benefits Expenses                                                             23               2,005.47             1,769.94
+     Finance Costs                                                                            24                     1.97                 0.41
+     Depreciation and Amortization Expense                                                     25                310.93            288.88
+     Other Expenses                                                                     26              3,254.53             3,017.26
+ IV  TOTAL EXPENSES                                                                                             14,300.36           13,662.36
+
+V    Profit before Exceptional Items and Tax (III - IV)                                                                    3,562.68           2,845.02
+ VI   Exceptional Items                                                                      52                140.35              38.49
+ VII  Profit Before Tax (V-VI)                                                                                           3,422.33           2,806.53
+
+ VIII Tax Expense:                                                                      46
+     Current Tax (Incl. of ₹ 4.57 Million in respect of earlier years (Previous Year - ₹ 85.00 Million))                            838.50            695.00
+     Deferred Tax                                                                                                                       (0.28)               0.83
+                                                                                                                 838.22            695.83
+
+ IX   Profit for the Year (VII-VIII)                                                                                           2,584.11             2,110.70
+
+ X   Other Comprehensive Income (OCI)
+      a)  Items that will not be reclassified to profit or loss
+                i)   Re-measurement of net Defined Benefit Obligation                                                           30.29               (20.60)
+                ii)   Equity Instruments through Other Comprehensive Income                                                        (559.55)             32.39
+                                                                                                                             (529.26)               11.79
+      b)  Income tax relating to items that will not be reclassified to profit or loss
+                i)   Taxes on Re-measurement of net Defined Benefit Obligation                                                                   (7.62)                5.19
+                ii)  Taxes on Equity Instruments through Other Comprehensive Income                                             80.02                 (3.49)
+                                                                                                                     72.40                 1.70
+     Total Other Comprehensive Income                                                                                  (456.86)              13.49
+
+     Total Comprehensive Income for the period (IX + X)                                                                      2,127.25            2,124.19
+     (Comprising Profit and Other Comprehensive Income for the period)
+     Earning per Share : [ nominal value per share ₹ 2/- ]                                           44
+       (1)  Basic ₹                                                                                                   39.80              32.56
+      (2)  Diluted ₹                                                                                                        39.74              32.48
+    Notes forming part of the Financial Statements                                                              1- 60
+
+ As per our attached report of even date.                                  For and on behalf of The Board of Directors
+
+ For Kirtane & Pandit LLP                                  Aman R. Kirloskar                   Rahul C. Kirloskar
+ Chartered Accountants                                          Managing Director                   Executive Chairman
+ Firm Registration No. 105215W/W100057                             DIN - 09823056                   DIN - 00007319
+
+
+ Anand Jog                                                             Jitendra Shah                   Ramesh Birajdar
+ Partner                                                 Company Secretary                 Vice President & Chief Financial Officer
+ Membership No. 108177                                     ACS 17243                    ACA 104452
+ Pune, 27th April, 2026                                                                                     Pune, 27th April, 2026
+
+
+                                                                                                Annual Report 2025-26      195

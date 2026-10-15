@@ -1,0 +1,74 @@
+Notes
+to the consolidated financial statements for the year ended March 31, 2026
+(All amounts are in Indian Rupees in Crores except share data and unless otherwise stated)
+
+      Derecognition                                            into for periods consistent with foreign currency
+                                                        exposure of the underlying transactions.    A financial liability  is derecognised when the
+      obligation under the liability is discharged or    s.    Cash and Cash Equivalents
+      cancelled or expires. When an existing financial
+                                                    Cash and cash equivalent in the balance sheet
+        liability is replaced by another from the same
+                                                       comprise cash at banks and on hand and short-
+      lender on substantially different terms, or the
+                                                      term  deposits  with an  original  maturity  of
+      terms of an existing  liability are substantially
+                                                             three months or less, which are subject to an
+      modified, such an exchange or modification
+                                                                     insignificant risk of changes in value.
+        is treated as the derecognition of the original
+        liability and the recognition of a new liability. The        For the purpose of the statement of cash flows,
+      difference in the respective carrying amounts is        cash and cash equivalents consist of cash and
+      recognised in the Statement of Profit and Loss.          short-term  deposits,  as  defined  above,  net
+                                                              of outstanding bank overdrafts as they are
+      Reclassification of financial assets
+                                                          considered an integral part of the Group’s cash
+     The Group determines classification of financial        management.
+      assets and liabilities on initial recognition. After
+                                                                                 t.    Dividend
+        initial recognition, no reclassification is made for
+       financial assets which are equity instruments        The  Group  recognises  a   liability  to  pay
+     and financial liabilities. If the Group reclassifies         dividend  to  equity  holders  of  the  parent
+       financial assets,  it applies the reclassification       when the distribution  is authorised, and the
+      prospectively  from  the  reclassification  date          distribution  is no longer at the discretion of
+     which is the first day of the immediately next         the Group. As per the Corporate Laws in India,
+      reporting  period  following  the  change  in        a distribution is authorised when it is approved
+      business model. The Group does not restate any        by the shareholders. A corresponding amount is
+      previously recognised gains, losses (including         recognised directly in equity.
+      impairment gains or losses) or interest.                                                               u.    Earnings Per Share
+      Offsetting of financial instruments
+                                                            Basic earnings per share is calculated by dividing
+      Financial assets and financial liabilities are offset         the net  profit or loss attributable to equity
+     and the net amount is reported in the balance         holders of the Group by the weighted average
+      sheet if there is a currently enforceable legal right       number of equity shares outstanding during
+      to offset the recognised amounts and there is an         the period excluding treasury shares and shares
+      intention to settle on a net basis, to realise the         held by Genus Shareholders’ Trust.
+      assets and settle the liabilities simultaneously.
+                                                    The weighted average number of equity shares
+                                                          outstanding during the period is adjusted for
+r.     Derivative Financial Instruments
+                                                           events such as bonus issue, bonus element in a
+        Initial recognition and subsequent measurement          rights issue and share split that have changed the
+                                                 number of equity shares outstanding, without a     The Group uses derivative financial instruments,
+                                                         corresponding change in resources.     such   as   foreign   currency   denominated
+      borrowings  and  foreign  exchange  forward        For the purpose of calculating diluted earnings
+      contracts to manage some of  its transaction         per share, the net profit or loss for the period
+      exposures. Such derivative financial instruments          attributable to equity shareholders of the Group
+      are initially recognised at fair value on the date        and the weighted average number of shares
+     on which a derivative contract is entered into         outstanding during the period are adjusted for
+     and are subsequently re-measured at fair value.         the effects of all dilutive potential equity shares.
+      Derivatives are carried as financial assets when
+                                                                       v.    Segment reporting
+      the fair value is positive and as financial liabilities
+     when the fair value is negative.                           Effective April 01, 2020, the Chief Operating
+                                                            Decision Maker (CODM) reviews the business
+     Any gains or losses arising from changes in the
+                                                           as  two  operating  segments   -  ‘Metering
+        fair value of derivatives are taken directly to profit
+                                                               Business’ and  ‘Strategic Investment  Activity’.
+      or loss. The foreign exchange forward are not
+                                                                      In accordance with the core principles of Ind
+      designated as cash flow hedges and are entered
+                                             AS  108  “Operating  Segments”,  these  have
+
+
+242    Annual Report 2025-26

@@ -1,0 +1,56 @@
+138  Glottis Ltd  | Annual Report 2025-26
+
+Notes
+forming part of the Audited Standalone Financial Statements for the year ended March 31, 2026
+                                                                              (Amounts in ₹ Lakhs, unless otherwise stated)
+
+    B.  Defined benefit plans
+    a)  Contribution to gratuity funds – Employee’s gratuity fund (Defined benefit plan)
+         In accordance with Indian Accounting Standard 19, an actuarial valuation was carried out in respect of
+        the aforesaid defined benefit plans based on the following assumptions. Since this is the first year of
+         valuation, previous year figures not provided
+
+               i.   Actuarial assumptions
+
+                                                                                Employee       Employee
+                                                                                                    gratuity          gratuity
+                 Particulars                                                                (unfunded)        (funded)
+                                                                             March 31, 2026  March 31, 2025
+              Discount rate (per annum)                                           7.20%         6.83%
+             Expected Rate of increase in compensation levels                         5.00%         5.00%
+             Expected Return on Planned Asset                                    7.08%         7.25%
+                Mortality Rate                                                          Indian Assured  Indian Assured
+                                                                                             Lives Mortality   Lives Mortality
+                                                                                (2012-14)      (2012-14)
+              Retirement age                                             60 years      60 years
+           The discount rate assumed is determined by reference to market yield at the Balance Sheet date on
+           government bonds. The estimate of future salary increases, considered in actuarial valuation, take
+            account of inflation, seniority, promotion and other relevant factors, such as supply and demand in
+            the employment market.
+
+               ii.  Changes in the present value of the defined benefit obligation in respect of Gratuity
+            (funded) are as follows:
+
+                 Particulars                                                        March 31, 2026  March 31, 2025
+              Present value obligation as at the beginning of the period                     133.45        115.87
+                Interest cost                                                            16.72           7.64
+              Past Service Cost                                                                                               -                     -
+              Current service cost                                                      29.43         17.01
+               Benefits paid                                                                         (7.89)           (7.93)
+               Acquisition cost                                                                                                 -                     -
+                Actuarial loss/(gain) on obligations                                               (10.53)          0.86
+             Present value obligation as at the end of the Period                       161.18        133.45
+
+               iii.  Expenses recognized in Statement of profit and loss
+
+                 Particulars                                                        March 31, 2026  March 31, 2025
+              Current service cost                                                      29.43         17.01
+                Interest cost                                                            16.72           7.64
+                 Deficit in acquisition cost recovered                                                                       -                     -
+             Expected return on plan assets                                                                             -                     -
+               Total expense recognized in Statement of profit and loss.                    46.15         24.65
+            iv.  Expenses recognised in the other comprehensive income
+
+                 Particulars                                                        March 31, 2026  March 31, 2025
+             Net actuarial loss/(gain) recognized during the period                                 (7.80)           (4.64)
+               Total Expenses recognised in the other comprehensive income                  (7.80)           (4.64)

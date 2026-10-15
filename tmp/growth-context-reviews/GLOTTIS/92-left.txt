@@ -1,0 +1,47 @@
+178   Glottis Ltd  | Annual Report 2025-26
+
+Notes
+forming part of the Audited Consolidated Financial Statements for the year ended March 31, 2026
+                                                                              (Amounts in ₹ Lakhs, unless otherwise stated)
+
+          Asset class               Useful Life                  g)  Financial Instruments
+         Lease Hold Property -   As per Terms of Lease               Financial assets and financial  liabilities are           Office Equipments
+                                                           recognised when an entity becomes a party to
+         Lease Hold Property -   As per Terms of Lease                                                           the contractual provisions of the instruments.          Furniture & Fixures
+         Lease Hold Property -   As per Terms of Lease                                                             Financial assets          Plant & Machinery
+        Computers & Software  3 years                                Initial recognition and measurement
+           Office Equipments     5 years                                                                               All financial assets are recognised initially at
+            Electrical Equipment &  5 years                                   fair value plus, in the case of financial assets
+            fittings                                                          not recorded at fair value through profit or
+                                                                             loss, transaction costs that are attributable        Depreciation   for  PPE  on  additions   is
+                                                                 to the  acquisition  of the  financial  asset.         calculated on pro-rata basis from the date
+                                                         Purchases or sales of financial assets that         of such additions. For deletion/ disposals,
+                                                                require delivery of assets within a time frame        the depreciation  is calculated on pro-rata
+                                                              established by regulation or convention in         basis up to the date on which such assets
+                                                           the market place (regular way trades) are       have been discarded/ sold. Additions to fixed
+                                                           recognised on the trade date,  i.e., the date         assets, costing Rs.0.10 Lakhs each or less are
+                                                                that the Group commits to purchase or sell           fully depreciated.
+                                                           the asset.
+       The residual values, useful lives and methods
+         of  depreciation  of  property,  plant  and         Subsequent measurement
+       equipment are reviewed at each financial                                                           For purposes of subsequent measurement,        year  end  and  adjusted   prospectively,                                                                       financial assets are classified on the basis of               if appropriate.                                                                      their contractual cash flow characteristics
+                                                   and  the   entity’s  business  model   of     f)  Intangible assets                                                  managing them.
+        Presentation                                           Financial  assets  are  classified  into  the
+         Intangible assets are stated at cost, net of           following categories:
+       accumulated depreciation and accumulated                                                                                                                    •    Financial instruments other than equity       impairment losses, if any.                                                               instruments at amortised cost
+        Transition to Ind AS                                                               •    Financial instruments other than equity
+                                                               instruments at fair value through other      On  transition  to  IndAS,  the Group  has
+                                                           comprehensive income (FVTOCI)        elected to continue with the carrying value
+         of all its intangible assets recognised as at                     •    Financial instruments other than equity
+          April 1, 2023 as per previous GAAP and use               instruments,  derivatives  and  equity
+         that carrying value as the deemed cost of              instruments at fair value through profit
+         intangible assets.                                           or loss (FVTPL)
+        Derecognition                                                                         •    Equity instruments measured  at  fair
+                                                                  value  through  other  comprehensive        Gains or losses arising from derecognition                                                       income (FVTOCI)         of intangible assets are measured as the
+         difference between the net disposal proceeds                                                        h)  Financial instruments other than equity       and the carrying amount of the asset and are                                                    instruments at amortised cost        recognized in the statement of profit and loss
+      when the asset is derecognized.                    The Group classifies a financial instruments
+                                                             other than equity instruments as at amortised
+        Amortisation                                              cost, if both the following conditions are met:
+       The  intangible  assets  are  amortised on             a)  The asset is held within a business model
+         straight line method, over their estimated            whose objective  is to hold assets for
+         useful life of 3 years.                                          collecting contractual cash flows; and

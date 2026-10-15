@@ -1,0 +1,64 @@
+                                                   Corporate Overview    Statutory Reports  ESG  Financial Statements
+
+         CONSOLIDATED STATEMENT OF PROFIT AND LOSS
+                          for the Year ended on 31 st March 2026  CIN: L33121GJ1994PLC022460                      (` in Cr)
+ Particulars                                                 Notes  Year Ended on   Year Ended on
+                                                                                  31 st March 2026   31 st March 2025
+  I.  Revenue from Operations                                        36         2,508.80           2,019.39
+  II.  Other Income                                                     37             60.85               31.70
+  III.  Total Income (I + II)                                                                2,569.65           2,051.09
+  IV. Expenses
+       (a) Cost of Materials Consumed                                    38              1,770.18            1,424.36
+      (b) Purchase of Stock in Trade                                      39                7.50              9.84
+       (c) Changes in Inventories of Finished Goods and Work in Progress      40               (82.81)             (49.69)
+      (d) Employee Beneﬁts Expenses                                          41              105.74             60.07
+       (e) Finance Cost                                               42               51.08             50.60
+        (f) Depreciation & Amortization Expenses                           6                29.91             26.96
+      (g) Other Expenses                                             43              325.01             247.35
+     Total Expenses                                                                       2,206.61           1,769.49
+ V.  Proﬁt before exceptional items and tax                                          363.04            281.60
+      Provision of impairment in subsidiary written back                                                           -               3.24
+  VI. Proﬁt Before Tax (III-IV+V)                                                      363.04          284.84
+  VII. Tax Expenses:                                             44
+       (a) Current Tax                                                                           95.57             76.94
+      (b) Tax relating to Earlier Years                                                             2.07               (0.43)
+       (c) Deferred Tax                                                                                    (6.77)                 (8.10)
+     Net Tax Expenses                                                               90.87             68.41
+  VIII. Proﬁt for The Year (VI-VII)                                                              272.17            216.43
+  IX. Other Comprehensive Income (OCI)                              45
+       (a) Items that will not be reclassiﬁed to proﬁt or loss
+               (i) Re-measurement of deﬁned beneﬁt plans                                            (0.04)               0.22
+               (ii) Income Tax relating to above                                                          (0.04)               (0.05)
+      (b) Items that will be reclassiﬁed to proﬁt or loss                                                              -                        -
+     Total Comprehensive Income for The Year                                               (0.08)                0.17
+ X.  Total Comprehensive Income for The Year (VIII+IX)                                 272.09            216.60
+     Proﬁt for the year attributable to:
+       -  Owners of the Company                                                     264.39            214.27
+       -  Non Controlling Interests                                                                 7.78                  2.16
+     Other Comprehensive Income for the year
+       -  Owners of the Company                                                                     (0.03)                 0.16
+       -  Non Controlling Interests                                                                    (0.05)                 0.01
+      Total Comprehensive Income for the year
+       -  Owners of the Company                                                     264.36            214.43
+       -  Non Controlling Interests                                                                    7.73                  2.17
+  XI.  Earnings Per Equity Share
+        (1) Basic (Rs.)                                                46               9.07                   7.21
+       (2) Diluted (Rs.)                                                                           9.07                   7.21
+     Nominal Value per Share (Rs.)                                                                  1.00                1.00
+ Material Accounting Policies and Notes to Consolidated Financial Statements 1-70
+
+As per our report of even date attached    For and on behalf of the Board
+
+For Manubhai & Shah LLP                           Satyen J. Mamtora                      Jitendra U. Mamtora
+Chartered Accountants                             Managing Director & CEO              Chairman and Whole Time Director
+ICAI Firm Reg. No. 106041W/W100136                     (DIN : 00139984)                        (DIN : 00139911)
+
+K. B. Solanki                                     Rakesh Kiri                        Mehul Shah
+Partner                                      Company Secretary                       Chief Financial Ofﬁcer
+Membership No. 110299
+
+Place : Ahmedabad                                                                             Place : Ahmedabad
+Date: 21st April, 2026                                                                                Date: 21st April, 2026
+
+
+                                                                                                                             217

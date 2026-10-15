@@ -1,0 +1,57 @@
+        RPP Infra Projects Limited                                                                            Annual Report 2025-26
+
+NOTES TO THE CONSOLIDATED FINANCIAL STATEMENTS
+for the year ended 31st March 2026
+
+45.2 Gearing ratio
+    The following table summarizes the capital of the Company and the gearing ratios:
+
+                                                                                                                                                      (` In Crore )
+      Particulars                                                                          As at               As at
+                                                                               31 Mar 2026         31 Mar 2025
+     Total equity as per balance sheet                                                          534.93               529.87
+    Non- current borrowings                                                                              2.57                   4.73
+     Current borrowings                                                                               98.43                 30.35
+    Cash and Bank balances                                                                              -30.78                  -22.38
+    Net Debt                                                                                   70.22                12.70
+    Net debt to Equity ratio                                                                               0.13                   0.02
+45.3 Categories of Financial Instruments
+
+                                                                                                                    ` ( Crore )
+      Particulars                                          Carrying Amount / Amortised cost           Fair Value (Level 3)
+                                                            As at           As at           As at           As at
+                                                     31 Mar 2026     31 Mar 2025     31 Mar 2026     31 Mar 2025
+     Financial Assets
+    Measured at Amortised cost
+      (a) Investment                                                       0.33             13.89              0.33             13.89
+      (b) Trade Receivables                                           145.57           183.81           145.57           183.81
+       (c) Cash and Cash equivalents                                     30.78             21.37             30.78             21.37
+      (d) Short Term Loans & Advances                                   62.26             57.41             62.26             57.41
+      (e) Other Financial assets                                        519.70           413.31           519.70           413.31
+     Financial Liabilities
+    Measured at amortised cost
+      (a) Borrowings                                                 101.00             40.99           101.00             40.99
+      (b) Trade payables                                              148.56           120.09           148.56           120.09
+       (c) Other financial liabilities                                      235.47           222.54           235.47           222.54
+45.3.2 Fair Value of Financial Asset and Financial Liability carried at amortised cost
+    The carrying amounts of current investments, trade and other receivables, cash and cash equivalents, trade and other payables are
+    considered to be the same as their fair values due to their short term nature. The carrying amounts of borrowings taken for short term
+     or borrowings taken on floating rate of interest are considered to be close to the fair value.
+45.4 Financial Risk Management Objectives
+     In course of its business, the Company is exposed to certain financial risks that could have significant influence on the Company’s
+    business and operational / financial performance. These include market risk (including currency risk and interest rate risk), credit risk and
+     liquidity risk.
+
+    The Management reviews and approves risk Management framework and policies for managing these risks and monitor suitable mitigating
+     actions taken by the management to minimise potential adverse effects and achieve greater predictablity to earnings.
+
+     In line with the overall risk management framework and policies, the treasury function provides services to the business, monitors and
+    manages through an analysis of the exposures by degree and magnitude of risks
+
+    45.4.1 Market Risk
+    Market risk is the risk or uncertainty arising from possible market price movements and their impact on the future performance of a
+     business. The major components of market risk are foreign currency exchange risk and interest rate risk.
+
+
+
+184

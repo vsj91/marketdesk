@@ -1,0 +1,47 @@
+  Corporate Overview      Statutory Reports       Financial Statements                           181
+
+
+Notes Forming Part of the Consolidated Financial Statements
+for the year ended March 31, 2026.                                                         (All Amounts are ₹ in Lakhs, unless otherwise stated)                                                                                                                                                                                                                                                                                                                                                                                                                                                                            Statements
+3.1    An analysis of changes in the gross carrying amount and the corresponding ECL Allowances:
+
+        Particulars                                          Stage 1      Stage 2      Stage 3        Total       Gross carrying amount as at March 31, 2024            2,01,600.96     4,535.82     6,170.81  2,12,307.60                       Financial
+      New Assets originated*                                     1,41,091.16      2,762.83        859.42    1,44,713.41
+       Net transfer between stages
+         Transfer from stage 1                                         (12,242.65)      6,788.19      5,454.45                    -                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        Consolidated         Transfer from stage 2                                           37.31       (146.62)        109.31                    -
+         Transfer from stage 3                                              2.54          3.45          (5.99)                    -                                                                                                                                                                                                                                      Arman        Assets derecognised or collected                            1,49,189.65      1,994.96      1,532.51    1,52,717.12
+        Write - offs                                                  16,635.44      2,538.51      5,020.99     24,194.94
+       Gross carrying amount as at March 31, 2025            1,64,664.23     9,410.21     6,034.51  1,80,108.95
+      New Assets originated*                                     2,11,315.35        892.19        982.12    2,13,189.66
+       Net transfer between stages
+         Transfer from stage 1                                         (10,608.36)      1,736.28      8,872.08                    -
+         Transfer from stage 2                                           22.66       (673.50)        650.84                    -
+         Transfer from stage 3                                              1.42          1.45          (2.87)                    -
+        Assets derecognised or collected                            1,39,259.35      2,471.05      2,400.90    1,44,131.30
+        Write - offs                                                    6,934.11      6,977.13      6,165.41     20,076.65
+       Gross carrying amount as at March 31, 2026            2,19,201.84     1,918.45     7,970.37  2,29,090.66
+       *Note: New assets originated are those assets which have either remained in stage 1 or have become stage 2 or 3 at the
+       year end
+
+3.2     Reconciliation of ECL balance is given below:
+
+        Particulars                                          Stage 1      Stage 2      Stage 3        Total
+       ECL Allowances as at March 31, 2024                     2,062.92     1,409.96     5,543.55     9,016.42
+        Addition During the Year                                      2,813.32      4,169.14      5,564.19     12,546.65
+        Reversal During the Year                                        (2,287.71)      (1,476.07)      (6,056.77)      (9,820.55)
+       ECL Allowances as at March 31, 2025                     2,588.53     4,103.03     5,050.97    11,742.52
+        Addition During the Year                                      2,743.40        972.55      9,390.49     13,106.44
+        Reversal During the Year                                        (3,867.86)      (4,603.89)      (8,633.94)    (17,105.69)
+       ECL Allowances as at March 31, 2026                     1,464.07      471.69     5,807.52     7,743.28
+       Note: During the year, the microfinance sector witnessed elevated credit stress, leading to higher ECL provisions in Q1
+      and Q2. Improved collection efficiency and portfolio performance in the second half resulted in a partial reversal of ECL
+       provisions in Q3 and Q4, with overall loan portfolio growth. As a matter of prudence, during the financial year ended
+      March 31, 2026, the Company has written off (net) C 18731.84 Lakhs. The Total ECL provision of C 7743.28 Lakhs on Loans
+      and Advances is retained by the company as at March 31, 2026. The ECL provision booked is based on the Company’s
+        historical experience, collection efficiencies, internal assessment and other emerging forward looking factors on account of
+      macroeconomic events. However, the actual impact may vary due to prevailing uncertainty. The Company’s management
+          is continuously monitoring the situation and the economic factors affecting the operations of the Company.
+
+3.3    Loans secured by hypothecation of assets (vehicles) are secured by hypothecation of the assets (vehicles) under finance. In
+       the opinion of the Board, the market value of the hypothecated assets (vehicle) as on Balance Sheet date is more than the
+      amount of loan outstanding.

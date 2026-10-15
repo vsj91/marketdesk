@@ -1,0 +1,53 @@
+                                                STEL HOLDINGS LIMITED
+
+
+  CONSOLIDATED BALANCE SHEET AS AT MARCH 31, 2026
+(All amounts are in Indian Rupees unless otherwise stated)                       (In ` lakhs)
+                                                       As at           As at    Particulars                            Note                                              March 31, 2026  March 31, 2025
+I.  ASSETS
+    Financial assets
+       Cash and cash equivalents                3                 0.56              9.68
+       Bank balances other than
+        cash and cash equivalents                4              237.51          2,721.44
+        Investments                           5          1,70,994.21       1,88,420.94
+        Other financial assets                    6                 7.81            22.64
+   Non financial assets
+        Current tax assets (net)                  7                 5.27                     -
+         Property, plant & equipment               8               70.61            75.20
+        Other intangible assets                   9                 0.09              0.26
+        Other non-financial assets                10                1.44              0.90
+    Total assets                                        1,71,317.50     1,91,251.06
+
+II. LIABILITIES AND EQUITY
+   LIABILITIES
+        Financial liabilities
+        Trade payables                         11
+         (a)  total outstanding dues of
+            micro and small enterprises                               0.53              0.45
+         (b) total outstanding dues of creditors
+            other than micro and small enterprises                     0.18              0.24
+        Other financial liabilities                  12                7.84          2,523.44
+      Non financial liabilities
+        Current tax liabilities (Net)               13                        -              5.17
+        Deferred tax liabilities (Net)               14           10,358.63         13,406.60
+        Other non-financial liabilities             15                1.35              0.44
+   EQUITY
+        Equity share capital                     16            1,845.54          1,845.54
+        Other equity                           17         1,59,103.42       1,73,469.18
+    Total liabilities                                     1,71,317.50     1,91,251.06
+    Overview of the Company                    1
+    Material accounting policies                   2
+
+The notes referred to above form an integral part of the Ind AS financial statements
+As per our report of even date attached
+For G. Joseph & Associates                         For and on behalf of the Board of Directors of
+Chartered Accountants                               STEL Holdings Limited
+(Firm Regn. No. 006310S)
+George S Nettady          Abraham Ittiyipe       Mahesh Narayanaswamy
+Partner                       Whole-time Director        Director
+M. No. 271968                DIN: 02717344           DIN: 01449684
+Place: Cochin                  Sruthi Sindhu          Sivaram Neelakantan Krishnan
+Date: 27 May 2026           Company Secretary         Chief Financial Officer
+
+
+                                                  128

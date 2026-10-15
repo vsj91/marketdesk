@@ -1,0 +1,55 @@
+Notes to the Consolidated Financial Statements
+for the year ended March 31, 2026
+
+2.   Fair Value Measurements
+    The fair value of financial instruments as referred to in the note above have been classified into three categories depending on the inputs
+    used in the valuation technique. The hierarchy gives the highest priority to quoted prices in active markets for identical assets or liabilities
+     (Level 1 measurements) and lowest priority to unobservable inputs (Level 3 measurements). The categories used are as follows:
+      •    Level 1: Quoted prices for identical instruments in an active market;
+      •    Level 2: Directly or indirectly observable market inputs, other than Level 1 inputs; and
+      •    Level 3: Inputs which are not based on observable market data.
+     For assets and liabilities which are measured at fair value as at Balance Sheet date, the classification of fair value calculations by category
+      is summarized below:
+    As at 31st March, 2026:
+                                                                                                             (Rs in Crores)
+                                                                                               Fair          Fair Value Hierarchy      Financial Assets/Financial Liabilities
+                                                                                  Value    Level 1    Level 2    Level 3
+      Financial assets measured at fair value through other comprehensive income
+        - Investments in quoted Mutual Funds                                                   0.86       0.86               -               -
+      Financial liabilities measured at fair value as per Approval Resolution Plan
+        - Non Convertible Debentures                                                       1,979.39               -               -   1,979.39
+
+    As at 31st March, 2025:
+                                                                                                             (Rs in Crores)
+                                                                                               Fair          Fair Value Hierarchy      Financial Assets/Financial Liabilities
+                                                                                  Value    Level 1    Level 2    Level 3
+      Financial assets measured at fair value through other comprehensive income
+        - Investments in quoted Mutual Funds                                                   0.88       0.88               -               -
+      Financial liabilities measured at fair value as per Approval Resolution Plan
+        - Non Convertible Debentures                                                       1,868.56               -               -   1.868.56
+    The carrying amount of financial assets and financial liabilities measured at amortised cost in the financial statements are a reasonable
+     approximation of their fair values since the Group does not anticipate that the carrying amounts would be significantly different from the
+     values that would eventually be received or settled.
+3.   Financial Risk Management – Objectives and Policies
+    The Group’s financial liabilities comprise mainly of borrowings, trade payables and other payables. The Group’s financial assets comprise
+     mainly of investments, cash and cash equivalents, other balances with banks, loans, trade receivables and other receivables.
+    The Group’s business activities are exposed to a variety of financial risks, namely liquidity risk, market risks and credit risk. The Board
+     of Directors (‘Board’) oversee the management of these financial risks through its Risk Management Committee. The Risk Management
+     Policy of the Group formulated by the Risk Management Committee are established to identify and analyse the risks faced by the Group,
+     to set and monitor appropriate risk limits and controls, periodically review the changes in market conditions and reflect the changes in the
+     policy accordingly.
+    A)  Market Risk
+         Market risk is the risk that the fair value of future cash flows of a financial instrument will fluctuate because of changes in market
+           prices. Market risk comprises three types of risks: interest rate risk, currency risk and other price risk. Financial instruments affected
+         by market risk include borrowings, investments, trade payables, trade receivables and loans.
+               i)    Interest Rate Risk
+                Interest rate risk is the risk that the fair value or future cash flows of a financial instrument will fluctuate because of changes in
+             market interest rates.
+              According to the Group, interest rate risk exposure is only for floating rate borrowings. For floating rate liabilities, the analysis is
+             prepared assuming the amount of the liability outstanding at the end of the reporting period was outstanding for the whole year.
+          A 50 basis point (bps) increase or decrease is used when reporting interest rate risk internally to key management personnel
+            and represents management’s assessment of the reasonably possible change in interest rates.
+
+
+
+                                                         Annual Report 2025-26        171

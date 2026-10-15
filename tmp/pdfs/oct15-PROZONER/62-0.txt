@@ -1,0 +1,63 @@
+                         PROZONE REALTY LIMITED           3. Financial Statements
+                            ANNUAL REPORT 2025-26                                 (Currency : Indian Rupees in Lakhs unless otherwise stated)
+
+
+     Notes to the standalone financial statements100
+       as at March 31, 2026 (contd...)
+
+
+
+                      Financial assets measured at fair value                              (ii)  Non-derivative financial liabilities
+                      Financial assets are measured at fair value through          A financial liability is
+                    OCI  if these financial assets are held within a
+                                                                                                                                                 (i)   a  contractual  obligation  to  deliver  cash  or
+                    business model with an objective to hold these
+                                                                                  another financial asset to another entity; or to
+                     assets in order to collect contractual cash flows or
+                                                                             exchange financial instruments under potentially
+                      to sell these financial assets and the contractual
+                                                                                     unfavourable conditions;
+                   terms of the financial asset give rise on specified
+                    dates to cash flows that are solely payments of                       (ii)  or a contract that will or may be settled in the entity's
+                       principal and interest on the principal amount              own equity instruments and is a non-derivative for
+                     outstanding. Movements in the carrying amount                which the entity is or may be obliged to deliver a
+                     are taken through OCI, except for the recognition                   variable number of its own equity instruments; or a
+                      of impairment gains or losses, interest revenue                   derivative that will or may be settled other than by
+                  and foreign exchange gains and losses which are                 the exchange of a fixed amount of cash or another
+                    recognised in the Statement of Profit and Loss.                       financial asset for a fixed number of the entity's
+                                                                   own equity instruments."
+                      Financial asset not measured at amortised cost or
+                      at fair value through OCI is carried at FVTPL."                       Recognition, measurement and classification
+
+                     Equity investments                                    A financial liability is recognised in the balance
+                                                                                  sheet only when the Company becomes party                           All equity investments in scope of Ind AS 109 are
+                                                                                         to the contractual provisions to the instrument.                  measured at fair value. On initial recognition of an
+                                                                         The Company initially recognises debt securities                      equity investment that is not held for trading, the
+                                                                                     issued and subordinated liabilities on the date that                 Company irrevocably elect to present subsequent
+                                                                                     they are originated. All other financial liabilities                   changes  in the investment’s  fair value  in OCI
+                                                                                              (including liabilities designated at fair value through                     (designates as FVOCI – equity investment). This
+                                                                                                  profit or loss) are recognised initially on the trade                      election is made on an investment-by-investment
+                                                                                  date at which the Company becomes a party to the                       basis. Equity instruments included  within the
+                                                                                       contractual provisions of the instrument.                   FVOCI category are measured at fair value with all
+                   changes recognised in the other comprehensive                   Financial liabilities are classified as either held at
+                    income. Equity instruments included within the
+                                                                                                       a)    fair value through profit or loss, or                 FVTPL category are measured at fair value with all
+                   changes recognised in the statement of profit and                    b)   at amortised cost. Management determines
+                        loss.                                                               the classiﬁcation of  its financial  liabilities
+                                                                                                at the time of initial recognition or, where                     De-recognition and offsetting
+                                                                                                  applicable, at the time of reclassification."
+                  The Company derecognises a financial asset when
+                    the contractual rights to the cash flows from the                   Financial liabilities at FVTPL
+                     asset expire, or it transfers the rights to receive                                                                                           Financial  liabilities  at FVTPL  include  financial
+                    the contractual cash flows on the financial asset                                                                                                                liabilities held for trading and financial liabilities
+                        in a transaction in which substantially all the risks                                                                                  designated upon initial recognition as at FVTPL.
+                  and rewards of ownership of the financial asset are                                                                                           Financial liabilities are classified as held for trading
+                      transferred. Any interest in transferred financial                                                                                                                                  if they are incurred for the purpose of repurchasing
+                     assets that is created or retained by the Company                                                                                                    in the near term. Gains or losses on liabilities held
+                          is recognised as a separate asset or liability.                                                                                                  for trading are recognised in the Statement of
+                      Financial assets and liabilities are offset and the                    Profit and Loss.
+                    net amount presented in the statement of financial                                                                                           Financial  guarantee  contracts  issued  by  the
+                      position when, and only when, the Company has a                                                                     Company  are those  contracts  that  require a
+                        legal right to offset the amounts and intends either                                                                          payment to be made to reimburse the holder for a
+                      to settle on a net basis or to realise the asset and                                                                                            loss it incurs because the specified debtor fails to
+                       settle the liability simultaneously.

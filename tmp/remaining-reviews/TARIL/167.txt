@@ -1,0 +1,60 @@
+             STANDALONE STATEMENT OF CASH FLOWS
+                               for the Year Ended on 31 st March, 2026 CIN: L33121GJ1994PLC022460                      (` in Cr)
+    Particulars                                                                      Year Ended on     Year Ended on
+                                                                                                 31 st March 2026      31 st March 2025
+     (A) Cash ﬂow From Operating Activities
+            1. Net Proﬁt Before Tax                                                           301.84            247.45
+          2. Adjustments for:                                                                                                    -                         -
+             (a) Depreciation and Amortization expense                                           23.20              24.28
+            (b) Finance Cost                                                                 44.92             48.38
+              (c)  Interest Income                                                                                     (18.12)                 (7.24)
+            (d) Finance Income                                                                                               -                         -
+             (e)  Provision for doubtful and bad debts written off                                   68.73             24.46
+                (f)  Excess Provision Written Back                                                        (24.66)                (0.22)
+            (g) Impairment of Investment                                                                                 -                (3.24)
+            (h) Provision for impairment of inventory                                                    0.10                         -
+                  (i)  Misc. Amount written back                                                                    (1.00)                (0.22)
+                (j)  Dividend received from subsidiary                                                      (0.99)                (0.99)
+             (k)  Fair value (gain)/loss on Investment in Mutual Funds                                    (5.98)                (13.96)
+                  (l)  Unrealized foreign exchange losses/(gain)                                                 (2.72)                  (1.46)
+         (m) Expense on employee stock option (ESOP) scheme                                        10.31                         -
+            (n) (Proﬁt)/Loss on sale of property, plant and equipment (Net)                             0.14                  (0.15)
+                                                                                            93.93            69.64
+         Operating Proﬁt Before Working Capital Changes (1 + 2)                          395.77             317.09
+          3. Adjustments for Working Capital Changes:
+                  (i)  (Increase) & Decrease in Operating Assets
+                  (a) Trade Receivables                                                                     (319.72)            (205.40)
+                 (b) Loans & Advances                                                                    (0.49)                (0.92)
+                   (c) Other Assets                                                                       37.55               (14.47)
+                 (d) Other Financial Assets                                                                         11.75              (147.95)
+                                                                                                                                        -                         -
+                   (ii) Increase/ (Decrease) in Operating Liabilities                                                           -                         -
+                  (a) Trade Payables                                                                     (98.27)              166.63
+                 (b) Provisions                                                                       175.89               32.62
+                   (c) Other Financial Liabilities                                                                             (1.41)               0.49
+                 (d) Other Liabilities                                                             0.04                 0.01
+
+                  (iii) (Increase)/ Decrease in Inventories                                                          (161.35)              (154.22)
+            Cash generated from operations                                                39.76                 (6.12)
+
+                Less: Direct Taxes Paid (Net Refund including Interest)                             98.32               27.73
+         Net Cash from Operating Activities (A)                                               (58.56)             (33.86)
+     (B) Cash ﬂow from Investing Activities
+             (a) Purchase of Property, Plant and Equipment, Intangible Assets,                      (98.73)                (97.81)
+               Capital Work in progress and Capital Advances (including recognition
+               of Right of Use Assets)
+            (b) Sale of Property, Plant and Equipment                                                   0.14              0.44
+              (c)  (Purchase)/ Sale of Mutual Funds                                                   92.33             (219.94)
+            (d) Investments in Subsidiaries                                                            (0.08)                (12.82)
+             (e) Investments in NCDs                                                                                        -              (25.00)
+                (f)  Investments in Others                                                                               (1.22)                  (1.79)
+            (g) Loan given to Subsidiary                                                                            (17.19)                (13.30)
+            (h) Loan-Inter-corporate deposits (net)                                                    (10.00)                         -
+                  (i)  Advance for capital asset                                                               (28.32)              (42.92)
+                (j)  Advance to subsidiary                                                                                       -                         -
+             (k) Dividend Income from Subsidiary                                                  0.99               0.99
+                  (l)  Interest Received                                                                          13.32                2.76
+         Net Cash from Investing Activities (B)                                              (48.76)           (409.39)
+
+
+166  Transformers and Rectifers (India) Limited | Annual Report 2025-26

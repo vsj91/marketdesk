@@ -1,0 +1,63 @@
+Notes forming part of the Consolidated Financial Statements
+
+1.20.Dividend
+    The Parent Company recognises a liability to pay dividend to equity holders of the Company when the
+     distribution is authorised, and the distribution is no longer at the discretion of the Company. As per the
+     corporate laws in India, a distribution is authorised when it is approved by the shareholders. A corresponding
+    amount is recognised directly in equity.
+
+1.21.Cash and Cash equivalents
+        i)   Cash and Cash equivalents in the balance sheet comprise cash at banks and on hand, short-term,
+          highly liquid investments with original maturities of three months or less that are readily convertible
+          to known amounts of cash and which are subject to an insignificant risk of changes in value.
+
+         ii)   Statement of Cash Flows is prepared in accordance with the Indirect Method prescribed in the Indian
+         Accounting Standard-7 'Statement of Cash Flows'.
+
+1.22.Operating Segments
+    The operating segments are identified on the basis of business activities whose operating results are
+     regularly reviewed by the Chief Operating Decision Maker of the Company and for which the discrete
+     financial information is available. The Company has only one reportable operating segment i.e. “Tyre Bead
+     Wire”.
+
+    The Board of directors of the Company has been identified as the Chief Operating Decision Maker which
+     reviews and assesses the financial performance and makes the strategic decisions.
+
+1.23.Exceptional items
+     Exceptional items refer to items of income or expense, including tax items, within the statement of profit
+    and loss from ordinary activities which are non-recurring and are of such size, nature or incidence that their
+     separate disclosure is considered necessary to explain the performance of the Company.
+
+1.24.Government Grants
+    Government grants are recognised where there is reasonable assurance that the grant will be received,
+     ultimate collection of the grant/subsidy is reasonably certain and all attached conditions will be complied
+     with. When the grant relates to an expense item, it is recognised as income on a systematic basis over the
+     periods that the related costs, for which it is intended to compensate, are expensed. When the grant relates
+     to an asset, it is recognised as reduced depreciation expense in equal amounts over the expected useful
+       life of the related asset.
+
+   When the company receives grants of non-monetary assets, the asset and the grant are recorded at fair
+     value amounts and released to profit or loss over the expected useful life in a pattern of consumption of the
+     benefit of the underlying asset i.e. by equal annual instalments.
+
+    The government grants in the form of subsidy are presented in the balance sheet by deducting it from the
+     carrying amount of the eligible assets on a pro rata basis. The grant is recognised in the Statement of Profit
+    and Loss over the life of a depreciable asset as a reduced depreciation expense.
+
+2.  Standards notified but not yet effective
+    The amendments to the standards that are notified by the Ministry of Corporate Affairs (MCA), but not
+     yet effective, up to the date of issuance of the Company’s financial statements are disclosed below. The
+    Company will adopt these amendments to the standards, when they become effective. The Company has
+    not early adopted any standard, interpretation or amendment that has been issued but is not yet effective.
+
+    Amendments to Ind AS 1 - Classification of Liabilities as Current or Non-current and Non-current Liabilities
+     with Covenants and Ind AS 10 Events after the Reporting Period
+
+     Ind AS 10 has been amended to remove the previous treatment under which a lender’s post reporting
+    date waiver—granted before the financial statements were approved for issue—of a breach of a material
+    covenant in a long term loan arrangement that occurred on or before the end of the reporting period,
+     resulting in the liability becoming payable on demand at the reporting date, was regarded as an adjusting
+     event.
+
+
+284 | Rajratan Global Wires Limited

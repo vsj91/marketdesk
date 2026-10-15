@@ -1,0 +1,68 @@
+Consolidated Balance Sheet as at March 31, 2026
+(CIN No. L27106MP1988PLC004778)
+                                                                                                                     (INR in Lakhs)
+ Particulars                                                 Note               As at             As at
+                                                                  March 31, 2026    March 31, 2025
+ASSETS
+1  Non-Current assets
+     (a)  Property, plant and equipment                         5               61,681           53,194
+     (b)  Capital work-in-progress                             6                 8,814             7,246
+     (c)  Goodwill                                         7                 10             10
+     (d) Other Intangible assets                              8                208             44
+     (e)  Intangible assets under development                    9                  5                           -
+      (f)  Financial Assets
+              (i)  Investments                                  10               144                           -
+              (i)  Other financial assets                            11               603            444
+     (g) Other non-current assets                            12                1,329            300
+        Total non-current assets                                                 72,794           61,238
+2   Current assets
+     (a)  Inventories                                      13               10,419           11,048
+     (b)  Financial Assets
+              (i)  Trade receivables                               14               25,535           18,250
+              (ii)  Cash and cash equivalents                        15                2,251             1,111
+               (iii) Bank balances other than (ii) above                  16                1,458             1,312
+            (iv) Other financial assets                            17                25            237
+     (c ) Current Tax Assets (Net)                             18                 9                           -
+    (d ) Other current assets                                19                3,409             2,760
+        Total current assets                                                     43,106           34,718
+      TOTAL ASSETS                                                           1,15,900           95,956
+EQUITY AND LIABILITIES
+    Equity
+     (a)  Equity share capital                                20                1,015             1,015
+     (b) Other equity                                     21               64,029           54,883
+        Total Equity                                                           65,044           55,898
+    LIABILITIES
+1  Non-Current liabilities
+     (a)  Financial Liabilities
+              (i)  Borrowings                                   22               12,933           11,514
+     (b)  Provisions                                       23                81             81
+     (c)  Deferred tax liabilities (Net)                           24                2,270             1,767
+        Total Non-Current liabilities                                              15,284           13,362
+2   Current liabilities
+     (a)  Financial liabilities
+              (i)  Borrowings                                   25               19,457           12,235
+               (iii) Trade Payables                                 26               13,914           13,063
+            (iv) Other financial liabilities                          27                1,123            509
+     (b) Other current liabilities                              28               576            668
+     (c)  Provisions                                       29               234            137
+     (d) Current tax liabilities (Net)                            30               268             83
+        Total current liabilities                                                   35,572           26,696
+        Total liabilities                                                         50,856           40,058
+      TOTAL EQUITY AND LIABILITIES                                            1,15,900           95,956
+
+
+The accompanying notes are an integral part of the consolidated financial statements
+As per our report of even dated
+For Fadnis & Gupte LLP                            For and on behalf of board Rajratan Global Wire Limited
+Chartered Accountants
+Firm Registration No. 006600C/C400324
+
+CA. Vikram Gupte                                    Sunil Chordia                        Yashovardhan Chordia
+Partner                                      Chairman & Managing Director        CEO & Deputy
+Membership No. 074814                       DIN : 00144786                     Managing Director
+                                                                            DIN : 08488886
+
+Indore                                  Shubham Jain                          Hitesh Jain
+April 21, 2026                             Company Secretary                       Chief Financial Officer
+
+262 | Rajratan Global Wires Limited

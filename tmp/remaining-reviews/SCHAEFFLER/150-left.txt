@@ -1,0 +1,77 @@
+Schaeffler India Limited | Integrated Annual Report 2025
+
+Consolidated Statement of Cash Flows
+for the year ended December 31, 2025
+                                                                                                                        (` in million)
+                                                                        Notes            For the year ended           For the year ended
+                                                                                 December 31, 2025        December 31, 2024
+ Cash flows from operating activities
+ Profit before tax                                                                                  15,623.6                  12,777.5
+ Adjustments for:
+ Depreciation and amortisation expense                                  30                     3,437.2                   2,815.5
+ Finance costs                                                      29                        52.2                      43.6
+ Interest income                                                     24                       (990.5)                     (890.6)
+ Loss/(profit) on sale of assets (net)                                                                     30.9                          (2.4)
+ Provision for doubtful debts                                           31                      165.4                        0.5
+ Unrealised exchange loss/(gain) (net)                                                                   19.5                          (0.6)
+ Bad debts written off                                                31                          0.3                        0.1
+                                                                                                    2,715.0                   1,966.1
+ Operating cash flow before changes in working capital                                                18,338.6                  14,743.6
+ Changes in working capital
+ (Increase) in inventories                                                                                  (3,370.6)                    (1,316.3)
+ (Increase) in trade and other receivables                                                                  (4,489.8)                    (2,426.8)
+ Increase in trade and other payables                                                                  5,845.3                    710.8
+ Increase/(Decrease) in other liabilities and provisions                                                  611.3                     (171.1)
+                                                                                                           (1,403.8)                   (3,203.4)
+ Cash generated from operating activities                                                            16,934.8                  11,540.2
+ Income tax paid (net of refunds)                                                                           (4,034.5)                   (3,141.5)
+ A   Net cash generated from operating activities                                                    12,900.3                   8,398.7
+     Cash flows from investing activities
+      Purchase of property, plant and equipment (including intangible,                                      (4,638.3)                   (7,440.2)
+       capital work-in-progress, capital advance and capital creditors)
+      Proceeds from sale of property, plant and equipment                                                  12.2                      14.1
+      Net proceeds from bank deposits (with original maturity of more than 3                                  47.5                   6,298.3
+     months and remaining maturity of less than 12 months)
+       Interest received                                                                               1,171.4                    882.1
+ B   Net cash (used) in investing activities                                                                (3,407.2)                     (245.7)
+     Cash flows from financing activities
+      Finance costs paid                                              29           (12.7)                          (9.1)
+       Principal payment of lease liabilities                                46 (3)          (65.8)                     (103.2)
+       Interest on lease liabilities                                       46 (3)          (39.5)                       (34.5)
+      Dividends paid on equity shares                                    15        (4,376.5)                   (4,063.9)
+ C   Net cash used in financing activities                                                                  (4,494.5)                   (4,210.7)
+      Net increase in cash and cash equivalents (A + B + C)                                               4,998.6                   3,942.3
+     Cash and cash equivalents at the beginning of year (see note 2 below)       10                      4,639.4                    697.1
+     Cash and cash equivalents at the end of year (see note 2 below)            10                      9,638.0                   4,639.4
+
+Notes:
+1)  The above cash flows statement has been prepared under the "Indirect Method" as set out in 'Indian Accounting Standard (Ind AS)
+    7 - Statement of Cash Flows
+2)  Cash and cash equivalents comprise of
+
+                                                                                                    For the year ended         For the year ended
+                                                                                  December 31, 2025      December 31, 2024
+ Cash on Hand                                                                                               0.1                      0.3
+ Current accounts                                                                                   597.9                   774.2
+ Deposit accounts (with original maturity of three months or less)                                            9,040.0                  3,864.9
+                                                                                                     9,638.0                  4,639.4
+
+3)   Refer note 46.3 for disclosure on change in liabilities from financing activities
+
+Material accounting policies                                   2
+Notes to the consolidated financial statements                    3 - 53
+The notes referred to above form an integral part of the consolidated financial statements.
+
+As per our report of even date attached
+For Walker Chandiok & Co LLP                                         For and on behalf of the Board of Directors
+Chartered Accountants
+Firm's Registration No: 001076N/N500013
+
+Khushroo B. Panthaky            E.V.Sumithasri                 Harsha Kadam                   Hardevi Vazirani
+Partner                          Chairperson                   Managing Director                  Director - Finance & CFO
+Membership No: 042423          DIN: 07087197                   DIN: 07736005                   DIN: 10212814
+
+Place: Mumbai                    Place: Bengaluru                Ashish Tiwari
+Date: February 24, 2026           Date: February 24, 2026         VP - Legal & Company Secretary
+
+295

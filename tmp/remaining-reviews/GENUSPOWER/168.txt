@@ -1,0 +1,67 @@
+                                                   Corporate Overview          Statutory Reports         Financial Statements 
+
+Notes
+to the standalone financial statements for the year ended March 31, 2026
+(All amounts are in Indian Rupees in Crores except share data and unless otherwise stated)
+
+             disclosures   for  such   arrangements.             Reforms
+          The  disclosure  requirements   in  the                                                         The Company is not within the scope of
+          amendments are intended to assist users of                                                                 the OECD Pillar Two Model Rules, as Pillar
+              financial statements in understanding the                                                   Two legislation has not yet been enacted
+             effects of supplier finance arrangements                                                                               in any of the jurisdiction in which the
+          on an entity’s liabilities, cash flows and                                                   Company operates.
+           exposure to liquidity risk.
+                                                               (d)  Amendment  to  Ind  AS  21-Lack  of
+          The Company does not have any supplier                                                                 exchangeability
+            finance arrangements during the reporting
+             period.                                         The Amendments introduces requirement
+                                                                   to assess when a currency is exchangeable
+      (b)  Amendment to Ind AS 1 - Classification of                                                                         into another currency and when  it  is
+               liabilities as current or non-current and
+                                                                         not. The amendment requires an entity
+            non-current liabilities with covenants:
+                                                                   to  estimate  the  spot  exchange  rate
+          The   amendment     specifies    the            when it concludes that a currency is not
+            requirements  for  classifying   liabilities              exchangeable  into  another  currency.
+            as current or non-current in the balance             These amendments had no effect on the
+             sheet, and clarifies the following:                           financial statements of the Company.
+
+                         i.    An entity’s right to defer settlement                                                           B.   The below amendments are notified but not
+                   of a  liability  for at  least twelve                                                           yet effective
+               months after the reporting period
+               must have  substance and must       Amendment to Ind AS 1 ‘Presentation of Financial
+                     exist at the end of the reporting         Statements’-  Classification  of  Liabilities  as
+                   period.  The  classification  of  a         current or non-current and non-current liabilities
+                        liability as current or non-current         with covenants:
+                         is unaffected by the likelihood that                                                    The amendment includes specific provisions that
+                  the entity will exercise its right to                                                                             will take effect for reporting periods beginning
+                  defer settlement.                                                  on or  after  1 April 2026, retrospectively, as
+                         ii.          If  an  entity’s  right  to  defer         outlined below:
+                  settlement of a liability is subject to
+                  covenants, such covenants affect          (a)   Breach of material covenant for long-term
+                whether that right exists at the end               loan arrangement on or before end of
+                   of the reporting period only if the               reporting period with effect that liability
+                    entity is required to comply with            becomes  payable on demand  as on
+                  the covenant on or before the end               reporting date, then it shall be classified
+                   of the reporting period.                         as current liability, if lender agreed after
+                                                                    reporting  period and  before  approval
+                        iii.     In  case  of  a  liability  that  can                                                                     of financial statements to not demand
+               be settled, at the option of the                                                        payment as a consequence of breach.
+                   counterparty, by the transfer of the
+                     entity’s own  equity  instruments,         (b)    Classify as non-current liability, if lender
+                such settlement terms do not affect              agreed by end of reporting period to
+                  the classification of the liability as               provide grace period ending at least 12
+                  current or non-current only  if the             months  after  reporting  period  within
+                  option  is  classified as an equity             which  entity  can  rectify  the  breach
+                   instrument.                                    provided  lender  does  not  demand
+                                                            immediate repayment.
+           These amendments have no effect on the
+          measurement of any items in the financial          (c)   Disclose information about the timing of
+           statements of the Company. The Company               settlement to understand the impact of
+            did not make retrospective adjustments               the liability on the financial statements.
+            as a result of adopting the amendments                                                    The Company does not expect this amendment
+            to Ind AS 1.                                                             to have an impact on its operations or financial
+       (c)   Amendment to Ind AS 12 – Pillar-Two Tax         statements.
+
+
+                                                                                                                          161

@@ -1,0 +1,60 @@
+Standalone Statement of Cash Flow
+for the Year Ended March 31, 2026
+
+
+
+                                                                                                                                                              (` in lakhs)
+                                                                                             For the year ended      For the year ended
+        Particulars
+                                                                                        March 31, 2026         March 31, 2025
+ A.    Cash Flow From Operating Activities :
+      Net Profit before Tax                                                                                        79.02                  636.70
+      Adjustment for :
+       Depreciation and Amortisation Expense                                                                          1,481.79                     1,565.12
+        Loss/(Profit) on sale/discard of Property, Plant and Equipment (net)                                         (664.00)                      (74.38)
+        Interest Income                                                                                                     (58.06)                       (52.26)
+       Dividend Received                                                                                                                   (5.25)                         (2.70)
+       Finance Costs                                                                                                          1,136.76                   959.59
+      Employee ESOP Compensation                                                                                   27.07                    46.67
+       Provision for Expected Credit Losses                                                                       28.85                         3.16
+       Amortization of Government Grant                                                                                 (104.37)                       (37.84)
+       Operating Profit before Working Capital Changes                                                                   1,921.81                3,044.06
+      Changes in Working Capital:
+
+      Adjustments for :
+
+       Decrease/(Increase) in Inventories                                                                               (443.96)                  958.78
+       Decrease/(Increase) in Trade and Other Receivables                                                                   (493.12)                     27.04
+       Increase/(Decrease) in Trade and Other Payables                                                         878.38                    (718.84)
+      Cash generated from Operation                                                                                       1,863.11                    3,311.04
+      Net Income Tax (paid) / refunds                                                                                     19.43                        (21.54)
+      Net Cash from Operating Activities                                                                           1,882.54                  3,289.50
+
+
+ B.    Cash Flow From Investing Activities :
+       Purchases of Property, Plant and Equipments and Intangible Assets                                                 (1,170.92)                     (927.99)
+        (including capital advance)
+       Proceeds from Sales of Property, Plant & Equipments (net of Advance)                                        813.01                   82.40
+        Inter corporate deposit given / recovered (net)                                                                  -                      (36.62)
+        Interest Income Received                                                                                         21.34                     52.26
+       Dividend Received                                                                                                    5.25                      2.70
+      Net Cash from / (used) in Investing Activities                                                                            (331.32)                     (827.25)
+
+
+ C.    Cash Flow From Financing Activities :
+       Proceeds from Issue of Equity Share Capital & Share Warrants (including Share Premium)                         -                     432.15
+       Proceeds from Non-Current Borrowing                                                                     779.24                    137.90
+      Repayment of Non-Current Borrowing                                                                           (2,249.30)                   (1,956.94)
+      Net increase / (decrease) in Current Borrowings                                                                    1,021.75                     84.18
+      Payment of Lease Liability                                                                                         (38.04)                      (78.03)
+       Finance Costs                                                                                                              (1,136.90)                    (959.92)
+      Net Cash used in Financing Activities                                                                                  (1,623.25)                  (2,340.66)
+      Net increase / (decrease) in cash and Cash Equivalents ( A+B+C)                                                      (72.03)                     121.59
+       Add: Opening Cash and Cash Equivalent                                                                   183.40                       61.81
+       Closing Cash and Cash Equivalent                                                                                       111.37                   183.40
+
+
+
+
+
+                                                                                        Pioneer Embroideries Limited    95

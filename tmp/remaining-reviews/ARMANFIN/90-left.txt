@@ -1,0 +1,60 @@
+                                                               Annual Report 2025 - 26     174
+
+
+     assessment, the Group applies judgement and considers   3.4  Reclassification of financial assets and liabilities
+     relevant factors such as the period for which the interest       The Group  does  not  reclassify  its  financial  assets
+     rate is set. In contrast, contractual terms that introduce       subsequent to their initial recognition, apart from the
+     a more than de minimis exposure to risks or volatility in        exceptional circumstances in which the Group acquires,
+     the contractual cash flows that are unrelated to a basic        disposes  of, or terminates a business  line.  Financial
+     lending arrangement do not give rise to contractual cash           liabilities  are never  reclassified. The Group  did not
+     flows that are solely payments of principal and interest on         reclassify any of its financial assets or liabilities in the year
+     the amount outstanding. In such cases, the financial asset       ended March 31, 2026 and March 31, 2025.
+       is required to be measured at FVTPL.
+                                                           3.5  Derecognition of financial assets and liabilities
+     Accordingly, financial assets are measured as follows:                                                            A.   Derecognition of financial assets due to substantial
+       i)    Financial assets carried at amortised cost (“AC”)         modification of terms and conditions
+       A financial asset is measured at amortised cost if it       The Group derecognises a financial asset, such as a loan
+              is held with in a business model whose objective        to a customer, when the terms and conditions have
+              is to hold the asset in order to collect contractual       been renegotiated to the extent that, substantially,  it
+         cash flows and the contractual terms of the financial       becomes a new loan, with the difference recognised
+          asset give rise on specified dates to cash flows that        as a derecognition gain or loss, to the extent that an
+          are solely payments of principal and interest on the       impairment loss has not already been recorded. Where the
+           principal amount outstanding.                              substantial modification is because of financial difficulties
+                                                                      of the borrower and the old loan was classified as credit-
+        ii)   Financial assets measured at FVOCI
+                                                                    impaired, the new loan  will  initially be identified as
+       A financial asset is measured at FVOCI if it is held                                                                     originated credit-impaired financial asset. On satisfactory
+          within a business model whose objective is achieved                                                            performance of the new loan, the new loan is transferred
+         by both collecting contractual cash flows and selling                                                                    to stage I or stage II of ECL.
+           financial assets and the contractual terms of the
+           financial asset give rise on specified dates to cash   B.   Derecognition of financial assets other than due to
+          flows that are solely payments of principal and        substantial modification
+           interest on the principal amount outstanding. Since,            i)    Financial assets
+          the loans and advances are held to sale and collect
+                                                    A financial asset (or, where applicable, a part of a
+          contractual cash flows, they are measured at FVOCI.
+                                                                                 financial asset or part of a group of similar financial
+        iii)  Financial assets at fair value through profit or              assets) is derecognised when the contractual rights
+          loss (“FVTPL”)                                                 to the cash flows from the financial asset expires or
+                                                                                                                 it transfers the rights to receive the contractual cash
+       A financial asset which is not classified in any of the
+                                                                         flows in a transaction in which substantially all of the
+         above categories are measured at FVTPL.
+                                                                                       risks and rewards of ownership of the financial asset
+      iv)  Investments in Mutual Funds                                  are transferred or in which the Group neither transfers
+                                                                   nor retains substantially all of the risks and rewards            All investments in Mutual Funds are measured at fair
+                                                                            of ownership and it does not retain control of the           value, with value changes recognised in Statement
+                                                                                 financial asset. On derecognition of a financial asset          of Profit and Loss (“FVTPL”).
+                                                                                 in its entirety, the difference between the carrying
+B.   Financial liability                                        amount (measured at the date of derecognition) and
+                                                                     the consideration received (including any new asset        i)    Initial recognition and measurement
+                                                                   obtained less any new liability assumed) is recognised
+            All financial liability is initially recognized at fair value.                                                                                 in the statement of profit and loss. Accordingly,
+          Transaction costs that are directly attributable to the                                                                      gain on sale or derecognition of assigned portfolio
+           acquisition or issue of financial liability, which are                                                                         are recorded upfront in the statement of profit and
+         not at fair value through profit or loss, are adjusted                                                                                 loss as per Ind AS 109. Also, the Group recognises
+          to the fair value on initial recognition.                                                                            servicing income as a percentage of interest spread
+                                                                     over tenure of loan in cases where  it retains the        ii)   Subsequent measurement
+                                                                          obligation to service the transferred financial asset.
+           Financial  liabilities are carried at amortized cost                                                                As per the guidelines of RBI, the Group is required to
+          using the effective interest method.                                                                               retain certain portion of the loan assigned to parties

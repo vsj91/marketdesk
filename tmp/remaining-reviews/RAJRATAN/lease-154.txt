@@ -1,0 +1,63 @@
+Notes forming part of the Standalone Financial Statements
+
+
+            S.   Item of PPE                                     Useful life as per   Useful life estimated
+          No.                                                Schedule II       by the Company
+       3    Vehicles
+         a    Four-wheeler                               8 years           11 years
+       b    Two-wheeler                               10 years          11 years
+       4    Office Equipment
+         a    Office Equipment                            5 years           6 years
+       b   Computer & Peripherals                        3 years           6 years
+        The useful life of assets has been considered as higher than the life prescribed by Schedule II on
+         account of proper use, regular maintenance undertaken by the Company and the condition of the
+           assets.
+
+1.2. Leases
+        i)   The Company has acquired industrial land at Plot N0. 200 - A & B, Sector I, Industrial Area, Pithampur,
+        Madhya Pradesh and at Plot no. D-1/2, Vallam -Vadagal, Sriperumbudur, Kancheepurarm, Tamil Nadu,
+        on long term lease from the respective State Industrial Development Authorities. The lease deed
+         conveys the right to control the use of the leasehold land and the Company has substantially all of the
+        economic benefits from use of the leasehold land and has right to direct the use of the leasehold land.
+        The cost of the right-of-use leasehold land comprises of the amount of the initial measurement of the
+          lease liability adjusted for any lease payments made at or before the commencement date plus any
+             initial direct costs incurred/ deemed cost at the date of transition to Ind AS. Since, the entire amount
+             is paid for, no lease liability is existing.
+
+         ii)   The  right-of-use  of leasehold land  is depreciated using the  straight-line method from the
+       commencement date over the lease term.
+
+         iii)   For short-term and low value leases, the Company recognises the lease payments as an operating
+        expense on a straight-line basis over the lease term.
+
+1.3. Intangible assets
+        i)    Intangible Assets that are acquired by the company and that have finite useful lives are stated at cost
+          of acquisition net of recoverable taxes, trade discount and rebates less accumulated amortization /
+         depletion and impairment loss, if any. Such cost includes purchase price, borrowing costs, and any
+          cost directly attributable to bringing the asset to its working condition for the intended use, and
+         adjustments arising from exchange rate variations attributable to the intangible assets.
+
+         ii)   Subsequent costs are included in the asset’s carrying amount or recognised as a separate asset, as
+          appropriate, only when it is probable that future economic benefits associated with the item will flow
+          to the entity and the cost can be measured reliably.
+
+         iii)   Intangible assets are de-recognised either on their disposal or where no future economic benefits
+          are expected from their use. Gains or losses arising from derecognition of an intangible asset are
+        measured as the difference between the net disposal proceeds and the carrying amount of the asset
+        and are recognised in the Statement of Profit and Loss when the asset is derecognised.
+
+       iv)   Intangible assets having finite useful life are amortized on a straight-line basis over their estimated
+          useful lives. The residual value of such intangible assets is assumed to be zero. An intangible asset
+         with an indefinite useful life is tested for impairment by comparing its recoverable amount with its’
+          carrying amount (a) annually and (b) whenever there is an indication that the intangible asset may be
+          impaired.
+
+      v)   The management has assessed the useful life of software classified as intangible assets as three years.
+
+       vi)  The amortisation period and the amortisation method for intangible asset with a finite useful life are
+         reviewed at each financial year end. If the expected useful of such asset is different from the previous
+          estimates, the changes are accounted for as change in an accounting estimate.
+
+
+
+190 | Rajratan Global Wires Limited

@@ -1,0 +1,55 @@
+  Notes to Consolidated Financial Statements                Notes to Consolidated Financial Statements
+    for the year ended March 31, 2026                                                                               for the year ended March 31, 2026
+
+
+                                                                                                                                                 (` in lakhs)                                                                                                                                                                            (` in lakhs)
+
+     3C.  Right of use Assets (Refer Note 40)                                                                                                                           Particulars                                           Computer Software       Hakoba Brand                  Total
+      Particulars                                                   Leasehold Land     Leased Property                  Total                           Depreciation
+     Cost                                                                                                                            As at April 01, 2024                                                                        57.41                     -                      57.41
+    As at April 01, 2024                                                              24.81                483.92                508.73                           Additions                                                                             5.27                     -                     5.27
+     Additions                                                                        -                     -                     -                           Disposals                                                                        -                     -                     -
+     Additions as per IND AS 116 (Lease)                                                -              488.60              488.60                       As at March 31, 2025                                                         62.68                        -                 62.68
+     Disposals                                                                        -                  112.82                  112.82                           Additions                                                                        4.95                     -                   4.95
+    As at March 31, 2025                                                             24.81               859.70                884.51                           Disposals                                                                        -                     -                     -
+     Additions                                                                        -                     -                     -                       As at March 31, 2026                                                             67.63                        -                  67.63
+     Additions as per IND AS 116 (Lease)                                                -                 45.59                 45.59
+     Disposals                                                                        -                  112.82                  112.82                        Net block
+    As at March 31, 2026                                                             24.81                 792.47                  817.28                       As at March 31, 2025                                                               19.43                  0.05                  19.48
+     Amortisation                                                                                                                    As at March 31, 2026                                                                 15.23                  0.05                   15.28
+    As at April 01, 2024                                                                   2.37                 96.42                 98.79
+     Additions                                                                   0.30                  86.16                 86.46                                    3.1    a)   Depreciation is provided on fixed assets over the remaining useful life in accordance with the provisions of Schedule II of the
+     Deletions                                                                        -                 90.73                 90.73                                        Act.
+    As at March 31, 2025                                                                 2.67                  91.85                 94.52                                     b)   Property, Plant and Equipment given as security for borrowings (Refer note 19 & 24).
+     Additions                                                                   0.30                   83.31                   83.61
+                                                                                                                                                                                                                     c)    Certain machinery at SPFY unit are hypothecated to Director of Industries Himachal Pradesh towards capital subsidy
+     Disposals                                                                        -                 86.01                 86.01                                    received from them.
+    As at March 31, 2026                                                                 2.97                   89.15                    92.12
+                                                                                                                                                                                        d)   During the year, borrowing cost amounting to `6.88 (` Nil) directly attributable to the acquisition of fixed assets are capitalized
+                                                                                                                                             by the Company as part of the cost of the assets up to the date of such asset is ready for its intended use.
+     Net block
+
+    As at March 31, 2025                                                                 22.14                 767.85               789.99                               3.2   a)    Capital work-in-progress ageing schedule for the year ended March 31, 2026:
+
+    As at March 31, 2026                                                             21.84                703.32                  725.16
+                                                                                                                                                             Amount in CWIP for a period of
+                                                                                                                                                                        Particulars                                                                                                           Total
+     3D.  Intangible Assets                                                                                                                                                    Less than 1 year              1-2 years             2-3 years    More than 3 years
+
+                                                                                                                                                                Projects in progress                  326.12                    -                    -                    -                 326.12
+      Particulars                                           Computer Software       Hakoba Brand                  Total                                                                    326.12                     -                     -                     -                 326.12
+     Cost                                                                                                                                                                                 b)   Above project is not overdue and not exceeds its cost of original plan as at the reporting date.
+    As at April 01, 2024                                                               76.77                  0.05                 76.82
+
+     Additions                                                                         5.34                     -                    5.34
+     Disposals                                                                        -                     -                     -
+    As at March 31, 2025                                                                     82.11                  0.05                   82.16
+
+     Additions                                                                        0.75                     -                   0.75
+     Disposals                                                                        -                     -                     -
+    As at March 31, 2026                                                        82.86                  0.05                   82.91
+
+
+
+
+174      34th Annual Report 2025-26                                                                                                                                                                                                            Pioneer Embroideries Limited     175
