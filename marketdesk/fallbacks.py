@@ -38,7 +38,9 @@ def lease_label(text):
     return label in {'lease liabilities','lease liability','lease liabilites','lease liablities','lease liabilties',
                      'lease laibility','lease liablilities','lease liabilty','lease obligation','lease obligations',
                      'lease laibilities','lease liabiities','lease liabililty','lease liablility','lease liabitliy','lease libailities','lease liabliities','lease liab',
-                     'lease liablity','lease libilities','lease lianilities','lease liabities','lease liabilitiea','leaseliabilities','rou lease liabilities'}
+                     'lease liablity','lease libilities','lease lianilities','lease liabities','lease liabilitiea','leaseliabilities','rou lease liabilities',
+                     'finance lease liability','finance lease liabilities','net liability in leased assets','maturity of leased liability',
+                     'lease liability - right of use assets','unamortised lease liabilities','other non-current financial lease liabilities'}
 
 def nse_annual(html,symbol,isin,url,year_offset=0,*,income_only=False):
     if len(html.encode())>2_000_000:raise ValueError('NSE document exceeds parsing limit')

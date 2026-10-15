@@ -1,7 +1,7 @@
 import copy,unittest,json,tempfile,hashlib
 from pathlib import Path
 from datetime import datetime,timezone,timedelta
-from marketdesk.annual_reports import parse_balance,parse_income,apply_report,balance_text,pdf_worker,retain_report,save_excerpt
+from marketdesk.annual_reports import parse_balance,parse_income,parse_lease_note,apply_report,balance_text,pdf_worker,retain_report,save_excerpt
 from unittest.mock import Mock,patch
 from marketdesk.quality import source_reasons
 
@@ -26,6 +26,71 @@ Finance costs      24      50.00     40.00
 Profit before tax (V - VI)        1000.00    900.00
 '''
 class AnnualReportTests(unittest.TestCase):
+ def test_currency_cr_and_spaced_date_ordinals(self):
+  text=TEXT.replace('Rs in lakhs','` in Cr').replace('March 31,','31 ST March,')
+  self.assertEqual(parse_balance(text,{**BASE,'cash_and_cash_equivalents':500,'equity':5000})['value'],50)
+  with self.assertRaises(ValueError):parse_balance(text.replace('` in Cr','USD in Cr'),BASE)
+  income=INCOME.replace('Profit','Proﬁt').replace('for the year ended March 31, 2026','').replace('Particulars          March 31, 2026      March 31, 2025','For the year ended 31 March\nParticulars    2026    2025')
+  self.assertEqual(parse_income(income,{**BASE,'profit_before_tax':10})['value'],.5)
+ def test_shared_day_month_header_requires_explicit_order(self):
+  text=TEXT.replace('as at March 31, 2026','').replace('Particulars                 March 31, 2026      March 31, 2025','As at 31 March\n\nParticulars    Note No.    2026    2025')
+  self.assertEqual(parse_balance(text,BASE)['value'],.5)
+  for bad in (text.replace('2026    2025','2025    2026'),text.replace('31 March','30 September'),text.replace('As at','Forecast for')):
+   with self.assertRaises(ValueError):parse_balance(bad,BASE)
+ def test_repeated_month_above_day_year_columns(self):
+  text=TEXT.replace('Particulars                 March 31, 2026      March 31, 2025','Particulars    As at March    As at March\n                31, 2026       31, 2025')
+  self.assertEqual(parse_balance(text,BASE)['value'],.5)
+  with self.assertRaises(ValueError):parse_balance(text.replace('31, 2025','30, 2025'),BASE)
+ def test_classified_lease_note_uses_explicit_total_not_dashes(self):
+  text='''Notes
+to the consolidated financial statements for the year ended March 31, 2026
+(Rs in lakhs)
+17 Lease liability (refer note 49)
+Particulars    March 31, 2026    March 31, 2025
+Current        50.00             40.00
+Non-Current    -                 -
+Closing balance   50.00          40.00
+18 Other financial liabilities
+Closing balance   900.00         800.00
+'''
+  self.assertEqual(parse_lease_note(text,BASE)['value'],.5)
+  with self.assertRaisesRegex(ValueError,'components contradict'):parse_lease_note(text.replace('Current        50.00','Current        70.00'),BASE)
+  with self.assertRaisesRegex(ValueError,'components contradict'):parse_lease_note(text.replace('Non-Current    -','Non-Current    10.00'),BASE)
+  for bad in (text.replace('Closing balance   50.00','Closing balance   -'),text.replace('Non-Current','Other'),text.replace('17 Lease liability','17 Lease assets'),text.replace('Current        50.00','Current        70.00'),text.replace('2026','2024')):
+   if '70.00' in bad:
+    # The selected balance component independently constrains the total.
+    with self.assertRaises(ValueError):parse_lease_note(bad,{**BASE,'current_lease_liabilities':.7})
+   else:
+    with self.assertRaises(ValueError):parse_lease_note(bad,BASE)
+ def test_owner_subtotal_then_nci_and_total_equity(self):
+  text=TEXT.replace('Total equity                      5000.00    4500.00','Equity\nEquity share capital    1000.00    1000.00\nOther equity    3900.00    3400.00\n4900.00    4400.00\nNon-controlling interest    100.00    100.00\nTotal equity    5000.00    4500.00')
+  self.assertEqual(parse_balance(text,BASE)['value'],.5)
+ def test_right_page_continues_on_next_left_page(self):
+  import pymupdf
+  first,last=TEXT.split('Non-current liabilities')
+  last='CONSOLIDATED BALANCE SHEET\nAs at March 31, 2026\nRs in lakhs\nParticulars    March 31, 2026    March 31, 2025\nNon-current liabilities'+last
+  for mismatch in (False,True):
+   with tempfile.TemporaryDirectory() as tmp:
+    root=Path(tmp);doc=pymupdf.open()
+    for x,txt in ((640,first),(25,last.replace('2026','2024') if mismatch else last)):
+     p=doc.new_page(width=1190,height=840)
+     for n,line in enumerate(txt.splitlines()):p.insert_text((x,40+n*17),line,fontname='cour',fontsize=7)
+     p.insert_text((25 if x==640 else 640,40),'STANDALONE STATEMENT OF PROFIT AND LOSS',fontname='cour',fontsize=7)
+    doc.save(root/'r.pdf');doc.close();(root/'c.json').write_text(json.dumps({'latest':BASE}));pdf_worker(root/'r.pdf',root/'c.json',root/'r.json');r=json.loads((root/'r.json').read_text())
+    self.assertEqual(r['status'],'unresolved' if mismatch else 'verified',r)
+    if not mismatch:self.assertEqual(r['evidence']['layout'],'right_then_left');self.assertEqual(r['evidence']['pages'],[1,2])
+ def test_following_balance_page_requires_matching_year(self):
+  import pymupdf
+  first,last=TEXT.split('Non-current liabilities')
+  last='CONSOLIDATED BALANCE SHEET\nAs at March 31, 2026\nRs in lakhs\nParticulars    March 31, 2026    March 31, 2025\nNon-current liabilities'+last
+  for mismatch in (False,True):
+   with tempfile.TemporaryDirectory() as tmp:
+    root=Path(tmp);doc=pymupdf.open()
+    for txt in (first,last.replace('2026','2024') if mismatch else last):
+     p=doc.new_page()
+     for n,line in enumerate(txt.splitlines()):p.insert_text((25,40+n*17),line,fontname='cour',fontsize=7)
+    doc.save(root/'r.pdf');doc.close();(root/'c.json').write_text(json.dumps({'latest':BASE}));pdf_worker(root/'r.pdf',root/'c.json',root/'r.json');r=json.loads((root/'r.json').read_text())
+    self.assertEqual(r['status'],'unresolved' if mismatch else 'verified',r)
  def test_explicit_currency_variants_and_value_footnotes(self):
   for unit in ('Indian Rupees lakhs','INR lakhs','₹ lakhs'):
    text=TEXT.replace('Rs in lakhs',unit).replace('BALANCE SHEET\nas at','Balance Sheetas at').replace('(ii) Lease','ia) Lease').replace('20.00     10.00','20.00     -*')

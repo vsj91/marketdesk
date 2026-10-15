@@ -4,6 +4,7 @@ from datetime import datetime,timedelta,timezone
 from .storage import connect,get_state,set_state,number,now
 from .paper import trade
 from .quality import audit
+from .quote_health import fresh,stale_holdings,stale_message,refresh_held_quotes
 
 IST=timezone(timedelta(hours=5,minutes=30))
 RULES={
@@ -14,21 +15,35 @@ RULES={
  'entry':'Complete annual inputs, no source conflicts, positive PBT/equity and revenue/profit YoY growth, interest coverage ≥ 3 (or reported zero finance costs), net debt/equity ≤ 0.5, and price above the 200-day average. Financial periods/basis/units must agree.',
  'exit':'Sell the whole position at a 10% stop or below the 200-day average. Incomplete financial refreshes block new buys; they do not force a sale.'}}
 
+def capacity_rules(portfolio,config):
+ rules=dict(RULES[portfolio])
+ for key in ('max_positions','max_buys_per_day'):
+  value=config.get(key)
+  if type(value) is int and value>0:rules[key]=value
+ return rules
+
 def init_auto(path):
  with connect(path) as db:
   db.executescript('''CREATE TABLE IF NOT EXISTS auto_days(portfolio TEXT NOT NULL,session TEXT NOT NULL,opening_equity REAL NOT NULL,halted INTEGER NOT NULL DEFAULT 0,PRIMARY KEY(portfolio,session));
   CREATE TABLE IF NOT EXISTS auto_events(id INTEGER PRIMARY KEY AUTOINCREMENT,created_at TEXT NOT NULL,portfolio TEXT NOT NULL,kind TEXT NOT NULL,symbol TEXT,reason TEXT NOT NULL,trade_id TEXT);''')
   if get_state(db,'auto_config') is None:set_state(db,'auto_config',{p:{'enabled':False} for p in RULES})
 
-def fresh(q,clock):
- if not q:return False
- try:return 0<=clock.timestamp()*1000-q['trade_time']<=30000 and 0<=(clock-datetime.fromisoformat(q['received_at'])).total_seconds()<=30
- except (ValueError,TypeError,KeyError):return False
-
 def session(clock):return clock.astimezone(IST).date().isoformat()
+def entry_window_open(clock,config,opening=False):
+ local=clock.astimezone(IST);minute=(local.hour,local.minute)
+ if config.get('full_session_buying') is True:return (9,15)<=minute<(15,30)
+ return (9,15)<=minute<(9,20) if opening else (9,20)<=minute<(15,0)
+
+def entry_window_label(config,opening=False):
+ if config.get('full_session_buying') is True:return '09:15–15:30 IST during the connected NSE normal session'
+ return 'next-session opening depth, 09:15–09:20 IST' if opening else '09:20–15:00 IST'
+
 def day_start(clock):return clock.astimezone(IST).replace(hour=0,minute=0,second=0,microsecond=0).astimezone(timezone.utc).isoformat()
 def event(db,portfolio,kind,reason,symbol=None,trade_id=None,clock=None):
  db.execute('INSERT INTO auto_events(created_at,portfolio,kind,symbol,reason,trade_id) VALUES(?,?,?,?,?,?)',((clock or datetime.now(timezone.utc)).isoformat(),portfolio,kind,symbol,reason,trade_id))
+
+def daily_buy_count(db,portfolio,clock):
+ return db.execute("SELECT COUNT(*) FROM trades WHERE portfolio=? AND source='automatic' AND side='BUY' AND created_at>=?",(portfolio,day_start(clock))).fetchone()[0]
 
 def load_signals(path):
  with connect(path) as db:
@@ -78,7 +93,29 @@ def exit_signal(portfolio,signal,position,price):
  if signal and price<signal['dma50' if portfolio=='trader' else 'dma200']:return 'Price below '+('50' if portfolio=='trader' else '200')+'-day average'
  return None
 
+def investor_valuation(db,clock):
+ """Opt-in current-session marks value holdings only; never authorize fills."""
+ cfg=get_state(db,'auto_config',{}).get('investor',{})
+ allow=cfg.get('allow_stale_held_valuation') is True
+ account=db.execute("SELECT * FROM portfolios WHERE name='investor'").fetchone()
+ value=account['cash'];marks=[]
+ for p in db.execute("SELECT * FROM positions WHERE portfolio='investor' AND quantity>0"):
+  q=db.execute('SELECT * FROM quotes WHERE symbol=?',(p['symbol'],)).fetchone()
+  if not q or not math.isfinite(q['price']) or q['price']<=0:return None,[]
+  if not fresh(q,clock):
+   if not allow:return None,[]
+   try:
+    traded=datetime.fromtimestamp(q['trade_time']/1000,timezone.utc)
+    received=datetime.fromisoformat(q['received_at'])
+    if (received.tzinfo is None or traded>clock or received>clock or
+        session(traded)!=session(clock) or session(received)!=session(clock)):return None,[]
+   except (TypeError,ValueError,OverflowError,OSError):return None,[]
+   marks.append(dict(symbol=p['symbol'],price=q['price'],trade_time=q['trade_time'],received_at=q['received_at']))
+  value+=p['quantity']*q['price']
+ return value,marks
+
 def equity(db,portfolio,clock):
+ if portfolio=='investor':return investor_valuation(db,clock)[0]
  account=db.execute('SELECT * FROM portfolios WHERE name=?',(portfolio,)).fetchone();value=account['cash']
  for p in db.execute('SELECT * FROM positions WHERE portfolio=? AND quantity>0',(portfolio,)):
   q=db.execute('SELECT * FROM quotes WHERE symbol=?',(p['symbol'],)).fetchone()
@@ -88,7 +125,7 @@ def equity(db,portfolio,clock):
 
 def daily_risk(db,portfolio,clock):
  value=equity(db,portfolio,clock)
- if value is None:return False,'A held stock has no fresh price; new buys wait.'
+ if value is None:return False,stale_message(db,portfolio,clock)
  key=session(clock)
  db.execute('INSERT OR IGNORE INTO auto_days VALUES(?,?,?,0)',(portfolio,key,value))
  day=db.execute('SELECT * FROM auto_days WHERE portfolio=? AND session=?',(portfolio,key)).fetchone()
@@ -100,7 +137,7 @@ def daily_risk(db,portfolio,clock):
 
 class AutoTrading:
  def __init__(self,path,refresh=None):
-  self.quality_checked=0;self.refresh=refresh;self.path=path;init_auto(path);self.stop_event=threading.Event();self.thread=None;self.scan_lock=threading.Lock();self.signals={};self.loaded=0
+  self.claude=None;self.quality_checked=0;self.refresh=refresh;self.path=path;init_auto(path);self.stop_event=threading.Event();self.thread=None;self.scan_lock=threading.Lock();self.signals={};self.loaded=0
  def start(self):
   if self.thread and self.thread.is_alive():return
   self.thread=threading.Thread(target=self.run,daemon=True);self.thread.start()
@@ -108,24 +145,53 @@ class AutoTrading:
  def configure(self,portfolio,enabled):
   if portfolio not in RULES or not isinstance(enabled,bool):raise ValueError('Choose Trader or Investor and a true/false enabled value.')
   with connect(self.path) as db:
-   db.execute('BEGIN IMMEDIATE');cfg=get_state(db,'auto_config');cfg[portfolio]={'enabled':enabled,'updated_at':now()};set_state(db,'auto_config',cfg)
+   db.execute('BEGIN IMMEDIATE');cfg=get_state(db,'auto_config');cfg[portfolio]={**cfg.get(portfolio,{}),'enabled':enabled,'updated_at':now()};set_state(db,'auto_config',cfg)
    statuses=get_state(db,'auto_status',{});statuses[portfolio]={'state':'waiting' if enabled else 'paused','message':'Enabled; awaiting the next engine check.' if enabled else 'Automatic paper trading is paused.','checked_at':now()};set_state(db,'auto_status',statuses)
    event(db,portfolio,'enabled' if enabled else 'paused','Automatic paper trading '+('enabled' if enabled else 'paused')+'. Existing holdings remain in the paper portfolio.')
   return self.snapshot()
  def snapshot(self):
   with connect(self.path) as db:
-   return {'config':get_state(db,'auto_config',{}),'status':get_state(db,'auto_status',{}),'rules':RULES,'events':[dict(r) for r in db.execute('SELECT * FROM auto_events ORDER BY id DESC LIMIT 30')],'interval_seconds':15}
+   return {'config':get_state(db,'auto_config',{}),'status':get_state(db,'auto_status',{}),'rules':self.active_rules(db),'events':[dict(r) for r in db.execute('SELECT * FROM auto_events ORDER BY id DESC LIMIT 30')],'interval_seconds':15}
+ def active_rules(self,db):
+  from .claude_trader import STRATEGY,active_rule
+  cfg=get_state(db,'auto_config',{})
+  rules={p:capacity_rules(p,cfg.get(p,{})) for p in RULES}
+  if cfg.get('trader',{}).get('strategy')==STRATEGY:rules['trader']=active_rule(cfg['trader'])
+  if cfg.get('investor',{}).get('allow_stale_held_valuation') is True:
+   rules['investor']['risk']='A 2% fall from the first marked portfolio equity of the session stops new buys for that session; exits remain active. Existing Investor holdings may use their last valid current-session quote for valuation when stale. Missing, invalid, future-dated or prior-session quotes block new buys. All orders and exits still require fresh prices and depth.'
+  for p in rules:
+   fee_limit=cfg.get(p,{}).get('max_round_trip_fee_pct')
+   if fee_limit is not None:
+    rules[p]['max_round_trip_fee_pct']=fee_limit
+    base=rules[p].get('risk',f"A {rules[p]['daily_loss_pct']}% fall from the first marked portfolio equity of the session stops new buys; exits remain active.")
+    rules[p]['risk']=base+f' Automatic buys require estimated buy-plus-sell fees ≤ {fee_limit}% of actual filled value, including delivery DP charges. Tiny partial buys are rejected; quantities are never increased to meet this check. Sell and stop orders are exempt.'
+   if cfg.get(p,{}).get('full_session_buying') is True:
+    rules[p]={**rules[p],'entry_window':entry_window_label(cfg[p])}
+  return rules
+ def scan_selected(self,portfolio,signals,clock,realtime,cfg):
+  from .claude_trader import STRATEGY,ClaudeTrader
+  if portfolio!='trader' or cfg.get('trader',{}).get('strategy')!=STRATEGY:
+   return self.scan(portfolio,signals,clock,realtime)
+  try:
+   if self.claude is None:self.claude=ClaudeTrader(self.path)
+   return self.claude.scan(clock,realtime)
+  except Exception as error:
+   # A Trader adapter failure must not alter Investor configuration.
+   with connect(self.path) as db:
+    current=get_state(db,'auto_config',{});current['trader']['enabled']=False;set_state(db,'auto_config',current)
+    event(db,'trader','error','Claude paper Trader paused after '+type(error).__name__+'. Review before enabling again.')
+   return {'state':'error','message':'Claude paper Trader paused after an engine error; Investor unchanged.'}
  def guard(self,portfolio,signal,clock):
   def check(db,order,quote,account,position):
-   if not get_state(db,'auto_config',{}).get(portfolio,{}).get('enabled'):raise ValueError('Automatic trading was paused.')
+   cfg=get_state(db,'auto_config',{}).get(portfolio,{})
+   if not cfg.get('enabled'):raise ValueError('Automatic trading was paused.')
    execution_clock=datetime.fromisoformat(quote['execution_time']) if quote.get('execution_time') else clock
-   rules=RULES[portfolio];price=quote['price'];held=position['quantity'] if position else 0
+   rules=capacity_rules(portfolio,cfg);price=quote['price'];held=position['quantity'] if position else 0
    if order['side']=='SELL':
     reason=exit_signal(portfolio,signal,position,price) if held else None
     if not reason or order['quantity']!=held:raise ValueError('Exit signal or held quantity changed; re-evaluate next cycle.')
     return reason
-   local=execution_clock.astimezone(IST)
-   if not (9,20)<=(local.hour,local.minute)<(15,0):raise ValueError('New entries run from 09:20 to 15:00 IST.')
+   if not entry_window_open(execution_clock,cfg):raise ValueError('New entries run '+entry_window_label(cfg)+'.')
    if held:raise ValueError('Already holding this stock; no automatic averaging.')
    count=db.execute('SELECT COUNT(*) FROM positions WHERE portfolio=? AND quantity>0',(portfolio,)).fetchone()[0]
    if count>=rules['max_positions']:raise ValueError('Position limit reached.')
@@ -135,12 +201,20 @@ class AutoTrading:
    if db.execute('SELECT 1 FROM trades WHERE portfolio=? AND symbol=? AND created_at>=? LIMIT 1',(portfolio,order['symbol'],start)).fetchone():raise ValueError('Already traded this stock today; no same-session re-entry.')
    okay,reason=daily_risk(db,portfolio,execution_clock)
    if not okay:raise ValueError(reason)
-   signal_result=entry_signal(portfolio,signal,price,execution_clock)
+   execution_signal=signal
+   if portfolio=='investor' and signal:
+    # A financial refresh can finish after candidate ranking or depth retrieval.
+    # Reapply the same thresholds to the current record inside the fill transaction.
+    current=db.execute('SELECT details FROM fundamentals WHERE symbol=?',(order['symbol'],)).fetchone()
+    execution_signal={**signal,'fundamentals':json.loads(current['details']) if current else {}}
+   signal_result=entry_signal(portfolio,execution_signal,price,execution_clock)
    if not signal_result:raise ValueError('Entry conditions changed; re-evaluate next cycle.')
    value=round(price*quote.get('fill_quantity',order['quantity']),2);total=value+quote.get('fill_fee',round(value*.001,2))
    budget=min(account['cash'],account['initial_cash']*rules['position_pct']/100)
    if total>budget:raise ValueError('Position budget exceeded at the latest price.')
-   return signal_result[0]
+   marks=investor_valuation(db,execution_clock)[1] if portfolio=='investor' else []
+   note='; stale holding valuation: '+', '.join(f"{m['symbol']} at {m['price']}" for m in marks) if marks else ''
+   return signal_result[0]+note
   return check
  def cycle(self,clock=None,signals=None):
   realtime=clock is None
@@ -160,23 +234,49 @@ class AutoTrading:
      if time.monotonic()-self.loaded>300 or not self.signals:self.signals=load_signals(self.path);self.loaded=time.monotonic()
      signals=self.signals
     if required_session:signals={symbol:signal for symbol,signal in signals.items() if signal['as_of'][:10]>=required_session}
-    for portfolio in enabled:statuses[portfolio]=self.scan(portfolio,signals,clock,realtime)
+    for portfolio in enabled:
+     scan_clock=datetime.now(timezone.utc) if realtime else clock
+     statuses[portfolio]=self.scan_selected(portfolio,signals,scan_clock,realtime,cfg)
    else:
     for p in enabled:statuses[p]={'state':'waiting','message':'Waiting for an open NSE session and a connected feed.'}
-   for status in statuses.values():status['checked_at']=clock.isoformat()
-   with connect(self.path) as db:set_state(db,'auto_status',statuses)
+   for p,status in statuses.items():
+    status['checked_at']=(datetime.now(timezone.utc) if realtime else clock).isoformat()
+    status['full_session_buying']=cfg.get(p,{}).get('full_session_buying') is True
+   with connect(self.path) as db:
+    db.execute('BEGIN IMMEDIATE')
+    checked=datetime.now(timezone.utc) if realtime else clock
+    for p,status in statuses.items():
+     status['stale_holdings']=stale_holdings(db,p,checked)
+     if p=='trader':
+      from .claude_trader import STRATEGY,portfolio_valuation
+      active=get_state(db,'auto_config',{}).get('trader',{})
+      status['allow_stale_held_valuation']=active.get('strategy')==STRATEGY and active.get('allow_stale_held_valuation') is True
+      if status['allow_stale_held_valuation']:
+       account=db.execute("SELECT * FROM portfolios WHERE name='trader'").fetchone()
+       _,marks=portfolio_valuation(db,account,checked)
+       status['valuation_only_holdings']=marks
+     elif p=='investor':
+      active=get_state(db,'auto_config',{}).get(p,{})
+      status['allow_stale_held_valuation']=active.get('allow_stale_held_valuation') is True
+      if status['allow_stale_held_valuation']:
+       _,marks=investor_valuation(db,checked)
+       status['valuation_only_holdings']=marks
+    set_state(db,'auto_status',statuses)
  def scan(self,portfolio,signals,clock,realtime=False):
   fills=0
+  if realtime:refresh_held_quotes(self.path,portfolio)
   with connect(self.path) as db:
-   db.execute('BEGIN IMMEDIATE');okay,risk_message=daily_risk(db,portfolio,clock)
+   db.execute('BEGIN IMMEDIATE')
+   if realtime:clock=datetime.now(timezone.utc)
+   okay,risk_message=daily_risk(db,portfolio,clock)
+   cfg=get_state(db,'auto_config',{}).get(portfolio,{})
    held=[dict(r) for r in db.execute('SELECT * FROM positions WHERE portfolio=? AND quantity>0',(portfolio,))]
    quotes={r['symbol']:dict(r) for r in db.execute('SELECT * FROM quotes')}
   for p in held:
    q=quotes.get(p['symbol']);signal=signals.get(p['symbol'])
    if fresh(q,clock) and exit_signal(portfolio,signal,p,q['price']):
     fills+=self.execute(portfolio,p['symbol'],'SELL',p['quantity'],signal,clock,realtime)
-  local=clock.astimezone(IST)
-  if not (9,20)<=(local.hour,local.minute)<(15,0):return {'state':'monitoring','message':'Monitoring exits. New entries run 09:20–15:00 IST.','fills_this_scan':fills}
+  if not entry_window_open(clock,cfg):return {'state':'monitoring','message':'Monitoring exits. New entries run '+entry_window_label(cfg)+'.','fills_this_scan':fills}
   if not okay:return {'state':'risk_wait','message':risk_message,'fills_this_scan':fills}
   candidates=[]
   for symbol,signal in signals.items():
@@ -186,15 +286,26 @@ class AutoTrading:
   for _,symbol in sorted(candidates,key=lambda x:(-x[0],x[1])):
    with connect(self.path) as db:
     account=db.execute('SELECT * FROM portfolios WHERE name=?',(portfolio,)).fetchone()
+    rules=capacity_rules(portfolio,get_state(db,'auto_config',{}).get(portfolio,{}))
     count=db.execute('SELECT COUNT(*) FROM positions WHERE portfolio=? AND quantity>0',(portfolio,)).fetchone()[0]
-    buys=db.execute("SELECT COUNT(*) FROM trades WHERE portfolio=? AND source='automatic' AND side='BUY' AND created_at>=?",(portfolio,day_start(clock))).fetchone()[0]
-    if count>=RULES[portfolio]['max_positions'] or buys>=RULES[portfolio]['max_buys_per_day']:break
+    buys=daily_buy_count(db,portfolio,clock)
+    if count>=rules['max_positions'] or buys>=rules['max_buys_per_day']:break
     if db.execute('SELECT 1 FROM positions WHERE portfolio=? AND symbol=? AND quantity>0',(portfolio,symbol)).fetchone():continue
     if db.execute('SELECT 1 FROM trades WHERE portfolio=? AND symbol=? AND created_at>=?',(portfolio,symbol,day_start(clock))).fetchone():continue
-   budget=min(account['cash'],account['initial_cash']*RULES[portfolio]['position_pct']/100)
+   budget=min(account['cash'],account['initial_cash']*rules['position_pct']/100)
    qty=max(0,math.floor((budget-25)/(quotes[symbol]['price']*1.025)))
    if qty>0:fills+=self.execute(portfolio,symbol,'BUY',qty,signals[symbol],clock,realtime)
-  return {'state':'monitoring','message':f'{len(candidates)} stocks meet entry rules. Position, cash and daily limits apply.','candidates':len(candidates),'fills_this_scan':fills}
+  with connect(self.path) as db:
+   rules=capacity_rules(portfolio,get_state(db,'auto_config',{}).get(portfolio,{}))
+   buy_count=daily_buy_count(db,portfolio,clock)
+   position_count=db.execute('SELECT COUNT(*) FROM positions WHERE portfolio=? AND quantity>0',(portfolio,)).fetchone()[0]
+  if buy_count>=rules['max_buys_per_day']:
+   message=f'Scan complete: {len(candidates)} qualifying stocks; daily new-position limit reached ({buy_count}/{rules["max_buys_per_day"]}). Exits continue; new buys resume next session.'
+  elif position_count>=rules['max_positions']:
+   message=f'Scan complete: {len(candidates)} qualifying stocks; maximum holdings reached ({position_count}/{rules["max_positions"]}). Exits continue.'
+  else:
+   message=f'Scan complete: {len(candidates)} stocks meet entry rules. Rechecking every 15 seconds; position, cash and daily limits apply.'
+  return {'state':'monitoring','message':message,'candidates':len(candidates),'fills_this_scan':fills,'buy_count':buy_count,'position_count':position_count,'max_positions':rules['max_positions'],'max_buys_per_day':rules['max_buys_per_day']}
  def execute(self,portfolio,symbol,side,qty,signal,clock,realtime=False):
   if realtime:clock=datetime.now(timezone.utc)
   order={'portfolio':portfolio,'symbol':symbol,'side':side,'quantity':qty,'request_id':f'auto-{portfolio}-{uuid.uuid4()}'}

@@ -30,8 +30,13 @@ def report_text(report,symbol,isin):
             bases=re.findall(r'report on the audit of (?:the )?(standalone|consolidated) financial statements',auditor[:6000])
             inherited_basis=e.get('statement_type')
             if set(bases)!={inherited_basis}:raise ValueError('Auditor statement basis not verified')
-        for p in list(doc)[:len(e['pages'])]:
-            if e['layout']=='left_half':clip=pymupdf.Rect(0,0,p.rect.width/2,p.rect.height)
+        for index,p in enumerate(list(doc)[:len(e['pages'])]):
+            if e['layout']=='joined_balance_spread':
+                texts.extend(balance_text(p,clip) for clip in (pymupdf.Rect(0,0,p.rect.width/2,p.rect.height),pymupdf.Rect(p.rect.width/2,0,p.rect.width,p.rect.height)))
+                continue
+            if e['layout']=='right_then_left':
+                clip=pymupdf.Rect(p.rect.width/2,0,p.rect.width,p.rect.height) if index==0 else pymupdf.Rect(0,0,p.rect.width/2,p.rect.height)
+            elif e['layout']=='left_half':clip=pymupdf.Rect(0,0,p.rect.width/2,p.rect.height)
             elif e['layout']=='right_half':clip=pymupdf.Rect(p.rect.width/2,0,p.rect.width,p.rect.height)
             elif e['layout']=='full_page':clip=None
             else:raise ValueError('Unsupported correction layout')

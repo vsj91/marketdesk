@@ -7,7 +7,12 @@ from marketdesk.storage import ROOT,DEFAULT_DB,connect,get_state,now
 from marketdesk.report_growth import recover_report_growth,apply_growth
 from marketdesk.intraday_data import atomic_json
 from marketdesk.quality import audit
-apply='--apply' in sys.argv;previous=json.loads((ROOT/'data/investor-growth/latest.json').read_text());symbols=[r['symbol'] for r in previous['results'] if r.get('reason')=='Matching prior-year filing absent from saved NSE index']
+apply='--apply' in sys.argv
+if '--symbols-file' in sys.argv:symbols=json.loads(Path(sys.argv[sys.argv.index('--symbols-file')+1]).read_text())
+else:
+ previous=json.loads((ROOT/'data/investor-growth/latest.json').read_text());symbols=[r['symbol'] for r in previous['results'] if r.get('reason')=='Matching prior-year filing absent from saved NSE index']
+workers=int(sys.argv[sys.argv.index('--workers')+1]) if '--workers' in sys.argv else 4
+if not 1<=workers<=4:raise SystemExit('Use 1–4 workers')
 with connect(DEFAULT_DB) as db:
  rows=[dict(r) for r in db.execute('select i.symbol,i.isin,f.details,q.report from instruments i join fundamentals f using(symbol) join quality q using(symbol)') if r['symbol'] in symbols and json.loads(r['details'])['latest']['profit_before_tax']>0 and not json.loads(r['report'])['investor_ready']]
  quality=get_state(db,'quality_summary',{})
@@ -17,7 +22,7 @@ verified={r['symbol']:r['evidence'] for r in json.loads(saved.read_text())['resu
 def fetch(r):
  if r['symbol'] in verified:return verified[r['symbol']]
  return recover_report_growth(r['symbol'],r['isin'],json.loads(r['details']))
-with ThreadPoolExecutor(max_workers=4) as pool:
+with ThreadPoolExecutor(max_workers=workers) as pool:
  futures={pool.submit(fetch,r):r for r in rows}
  for f in as_completed(futures):
   row=futures[f];entry={'symbol':row['symbol']}

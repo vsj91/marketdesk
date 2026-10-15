@@ -6,6 +6,21 @@ from marketdesk.quality import financial_reasons
 from datetime import datetime,timezone
 
 class AnnualConflictTests(unittest.TestCase):
+ def test_spread_correction_preserves_reading_order(self):
+  import pymupdf
+  with tempfile.TemporaryDirectory() as tmp,patch('marketdesk.annual_conflicts.ROOT',Path(tmp)):
+   for layout in ('joined_balance_spread','right_then_left'):
+    doc=pymupdf.open()
+    if layout=='joined_balance_spread':
+     p=doc.new_page(width=1190,height=840);p.insert_text((25,40),'FIRST');p.insert_text((640,40),'SECOND')
+    else:
+     p=doc.new_page(width=1190,height=840);p.insert_text((25,40),'EXCLUDED_AUDIT');p.insert_text((640,40),'FIRST')
+     p=doc.new_page(width=1190,height=840);p.insert_text((25,40),'SECOND');p.insert_text((640,40),'EXCLUDED_INCOME')
+    path=Path(tmp)/(layout+'.pdf');doc.save(path);doc.close()
+    proof={'status':'verified','symbol':'TEST','isin':'ISIN','observed_at':datetime.now(timezone.utc).isoformat(),'evidence_path':path.name,'excerpt_sha256':hashlib.sha256(path.read_bytes()).hexdigest(),'evidence':{'pages':[10] if layout=='joined_balance_spread' else [10,11],'layout':layout}}
+    text=report_text(proof,'TEST','ISIN');self.assertEqual(text.split(),['FIRST','SECOND'])
+    path.write_bytes(b'tampered')
+    with self.assertRaisesRegex(ValueError,'hash'):report_text(proof,'TEST','ISIN')
  def test_inherited_basis_requires_hash_bound_auditor_page(self):
   import pymupdf
   with tempfile.TemporaryDirectory() as tmp,patch('marketdesk.annual_conflicts.ROOT',Path(tmp)):

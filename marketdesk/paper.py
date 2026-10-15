@@ -1,7 +1,7 @@
 import json,uuid
 from datetime import datetime,timezone,timedelta
 from .storage import connect,now,get_state
-from .execution import fetch_book,match,charges,money
+from .execution import fetch_book,match,charges,money,automatic_buy_cost_check
 from .quality import init_quality,require_buy_quality
 
 def init_paper(path):
@@ -25,12 +25,13 @@ def duplicate(db,payload):
         if any(row[k]!=payload[v] for k,v in [('portfolio','portfolio'),('symbol','symbol'),('side','side'),('requested_quantity','quantity')]):raise ValueError('Order identifier already used for a different order.')
         return dict(row)
 
-def preflight(db,payload,clock,auto_guard):
+def preflight(db,payload,clock,auto_guard,*,realtime=False):
     portfolio,symbol=payload['portfolio'],payload['symbol']
     if auto_guard is None and get_state(db,'auto_config',{}).get(portfolio,{}).get('enabled'):raise ValueError('Pause automatic trading for this portfolio before placing a manual order.')
     stream=get_state(db,'stream',{})
     if stream.get('status')!='connected' or stream.get('market_status',{}).get('NSE_EQ')!='NORMAL_OPEN':raise ValueError('Paper fills need a connected feed and an open NSE equity session.')
     quote=db.execute('SELECT * FROM quotes WHERE symbol=?',(symbol,)).fetchone()
+    if realtime:clock=datetime.now(timezone.utc)
     if not quote or not 0<=clock.timestamp()*1000-quote['trade_time']<=30000:raise ValueError('Paper order blocked: no live trade price within 30 seconds.')
     if not 0<=(clock-datetime.fromisoformat(quote['received_at'])).total_seconds()<=30:raise ValueError('Paper order blocked: feed observation is stale.')
     latest=db.execute('SELECT close FROM candles WHERE symbol=? ORDER BY ts DESC LIMIT 1',(symbol,)).fetchone()
@@ -52,12 +53,13 @@ def trade(path,payload,clock=None,auto_guard=None):
     with connect(path) as db:
         existing=duplicate(db,payload)
         if existing:return existing
-        preflight(db,payload,clock,auto_guard)
+        preflight(db,payload,clock,auto_guard,realtime=realtime)
     # Read-only network call outside the ledger transaction. Everything is rechecked below.
     book=fetch_book(path,symbol)
     if realtime:clock=datetime.now(timezone.utc)
     with connect(path) as db:
         db.execute('BEGIN IMMEDIATE')
+        if realtime:clock=datetime.now(timezone.utc)
         existing=duplicate(db,payload)
         if existing:return existing
         quote,account,position=preflight(db,payload,clock,auto_guard)
@@ -68,6 +70,9 @@ def trade(path,payload,clock=None,auto_guard=None):
         day=clock.astimezone(timezone(timedelta(hours=5,minutes=30))).replace(hour=0,minute=0,second=0,microsecond=0).astimezone(timezone.utc).isoformat()
         dp=side=='SELL' and not db.execute("SELECT 1 FROM trades WHERE portfolio=? AND symbol=? AND side='SELL' AND created_at>=?",(portfolio,symbol,day)).fetchone()
         costs=charges(value,side,dp);fee=costs['total']
+        if auto_guard is not None and side=='BUY':
+            cost_check=automatic_buy_cost_check(get_state(db,'auto_config',{}).get(portfolio,{}),value,fee)
+            if cost_check:fill['buy_cost_check']=cost_check
         effective=dict(quote);effective.update(price=price,fill_quantity=qty,fill_fee=fee,execution_time=clock.isoformat())
         reason=auto_guard(db,payload,effective,account,position) if auto_guard else ''
         held=position['quantity'] if position else 0;cost=position['cost'] if position else 0
@@ -92,6 +97,7 @@ def trade(path,payload,clock=None,auto_guard=None):
 
 def portfolios(path):
     with connect(path) as db:
+        db.execute('BEGIN') # One consistent read snapshot for holdings and trade attribution.
         accounts=[dict(r) for r in db.execute('SELECT * FROM portfolios')]
         for a in accounts:
             positions=[]
@@ -107,4 +113,7 @@ def portfolios(path):
             a['positions']=positions;a['equity']=a['cash']+sum(p['value'] for p in positions) if all(p['value'] is not None for p in positions) else None
             a['pnl']=a['equity']-a['initial_cash'] if a['equity'] is not None else None
             a['trades']=[dict(r) for r in db.execute('SELECT * FROM trades WHERE portfolio=? ORDER BY created_at DESC LIMIT 200',(a['name'],))]
+            if a['name']=='trader':
+                from .strategy_performance import trader_performance
+                a['strategy_performance']=trader_performance(db,a)
         return accounts

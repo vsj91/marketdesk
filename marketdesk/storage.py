@@ -42,12 +42,12 @@ def get_state(db,key,default=None):
     r=db.execute('SELECT value FROM state WHERE key=?',(key,)).fetchone()
     return json.loads(r[0]) if r else default
 
-def store_quote(db,symbol,ltpc,received=None):
+def store_quote(db,symbol,ltpc,received=None,*,source='upstox_websocket_v3'):
     price=number(ltpc.get('ltp')); stamp=number(ltpc.get('ltt')); cp=number(ltpc.get('cp'))
     current=datetime.now(timezone.utc).timestamp()*1000
     if price is None or price<=0 or stamp is None or stamp<=0 or stamp>current+60000:return False
     result=db.execute('''INSERT INTO quotes VALUES(?,?,?,?,?,?) ON CONFLICT(symbol) DO UPDATE SET
       price=excluded.price,previous_close=excluded.previous_close,trade_time=excluded.trade_time,
       received_at=excluded.received_at,source=excluded.source WHERE excluded.trade_time>quotes.trade_time''',
-      (symbol,price,cp if cp and cp>0 else None,int(stamp),received or now(),'upstox_websocket_v3'))
+      (symbol,price,cp if cp and cp>0 else None,int(stamp),received or now(),source))
     return result.rowcount>0

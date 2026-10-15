@@ -19,6 +19,26 @@ def charges(value,side,dp=False):
     result={k:money(v) for k,v in raw.items()};result['total']=money(sum(Decimal(str(v)) for v in result.values()))
     return result
 
+def automatic_buy_cost_check(config,value,buy_fee):
+    """Check actual filled value, never enlarge orders or constrain exits.
+
+    Exit fees assume a delivery sale at the entry value, including DP charges.
+    This estimates fee drag only; it is not a profit or executable-exit forecast.
+    """
+    raw=config.get('max_round_trip_fee_pct')
+    if raw is None:return None
+    limit=number(raw)
+    if limit is None or limit<=0:raise ValueError('Invalid automatic buy fee limit; new buys wait.')
+    exit_fee=charges(value,'SELL',True)['total']
+    total=money(buy_fee+exit_fee)
+    if value<=0 or Decimal(str(total))*100>Decimal(str(value))*Decimal(str(limit)):
+        pct=total/value*100 if value>0 else float('inf')
+        raise ValueError(f'Buy too small after depth limits: estimated round-trip fees ₹{total:.2f} ({pct:.2f}%) exceed {limit:g}% of actual fill value ₹{value:.2f}.')
+    return dict(max_round_trip_fee_pct=limit,buy_fee=buy_fee,estimated_sell_fee=exit_fee,
+        estimated_round_trip_fee=total,filled_value=value,estimated_round_trip_fee_pct=total/value*100,
+        basis='Same-price delivery sale including DP charges; spread, slippage and partial-exit costs excluded')
+
+
 def normalize(raw,key,symbol,received):
     if raw.get('instrument_token')!=key or raw.get('symbol')!=symbol:raise ValueError('Depth instrument identity mismatch.')
     try:

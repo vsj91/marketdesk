@@ -48,6 +48,13 @@ class ExecutionTests(unittest.TestCase):
     self.book[field]=original
   self.book['trade_time']-=31000
   with self.assertRaises(ValueError):self.order()
+ def test_live_preflight_uses_current_time_after_quote_read(self):
+  from marketdesk.paper import preflight
+  payload=dict(portfolio='trader',symbol='TEST',side='BUY',quantity=1)
+  with connect(self.path) as db,patch('marketdesk.paper.datetime',wraps=datetime) as current:
+   current.now.return_value=self.clock
+   quote,_,_=preflight(db,payload,self.clock-timedelta(seconds=60),lambda *args:None,realtime=True)
+   self.assertEqual(quote['symbol'],'TEST')
  def test_pause_or_market_change_during_fetch(self):
   def closed(*args):
    with connect(self.path) as db:set_state(db,'stream',{'status':'disconnected'})
