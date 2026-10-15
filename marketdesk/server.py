@@ -10,6 +10,7 @@ from .refresh import Refresh
 from .autotrading import AutoTrading
 from .quality import audit
 from .power import SleepGuard
+from .market_caps import classifications,decorate_html,ClassificationRefresh
 
 class App:
     def __init__(self,path,read_only=False):
@@ -18,6 +19,7 @@ class App:
         self.feed=None if read_only else Feed(path);self.refresh=None if read_only else Refresh(path)
         self.auto=None if read_only else AutoTrading(path,self.refresh)
         self.power=None if read_only else SleepGuard()
+        self.cap_refresh=None if read_only else ClassificationRefresh(path)
         self.csrf=secrets.token_urlsafe(32);self.cache=None;self.cached_at=0;self.cache_lock=threading.Lock()
     def stocks(self):
         with self.cache_lock:
@@ -65,6 +67,7 @@ class Handler(BaseHTTPRequestHandler):
         app=self.server.app;url=urlsplit(self.path);q=parse_qs(url.query)
         try:
             if url.path=='/api/health':return self.send(app.health())
+            if url.path=='/api/stock-classifications':return self.send(classifications(app.path))
             if url.path=='/api/source-conflicts':
                 file=ROOT/'data/source-conflicts/latest.json'
                 report=json.loads(file.read_text()) if file.exists() else {'status':'not_started','results':[]}
@@ -88,7 +91,9 @@ class Handler(BaseHTTPRequestHandler):
                         'quality':dict(db.execute('SELECT * FROM quality WHERE symbol=?',(symbol,)).fetchone() or {}),'fundamentals':json.loads(f['details']) if f else {},'payloads':payloads,'issues':[dict(r) for r in db.execute('SELECT * FROM issues WHERE symbol=?',(symbol,))]})
             name=unquote(url.path).lstrip('/') or 'index.html';root=(ROOT/'web').resolve();file=(root/name).resolve()
             if root not in file.parents or not file.is_file():return self.send({'error':'Not found'},404)
-            return self.send(file.read_bytes(),content=mimetypes.guess_type(file.name)[0] or 'application/octet-stream')
+            body=file.read_bytes()
+            if file.suffix=='.html':body=decorate_html(body)
+            return self.send(body,content=mimetypes.guess_type(file.name)[0] or 'application/octet-stream')
         except Exception:return self.send({'error':'Local request failed. Check server and database.'},500)
     def do_POST(self):
         app=self.server.app
@@ -138,7 +143,8 @@ def serve(path=DEFAULT_DB,port=8765,live=False):
         try:app.feed.start()
         except Exception as e:print('Live feed unavailable; configure the token in the app.',flush=True)
     app.power.start()
+    app.cap_refresh.start()
     app.auto.start()
     try:server.serve_forever()
     except KeyboardInterrupt:pass
-    finally:app.power.stop();app.auto.stop();app.feed.stop();server.server_close()
+    finally:app.cap_refresh.stop();app.power.stop();app.auto.stop();app.feed.stop();server.server_close()
