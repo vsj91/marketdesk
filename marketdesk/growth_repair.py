@@ -33,8 +33,10 @@ def extract_saved(symbol,isin,record):
     path=ROOT/'data/filings'/symbol/(record['raw_sha256']+'.html')
     raw=path.read_bytes()
     if hashlib.sha256(raw).hexdigest()!=record['raw_sha256']:raise ValueError('Saved income evidence hash mismatch')
-    row=nse_annual(raw.decode('utf-8'),symbol,isin,record['source_url'],income_only=True)
+    offset=record.get('year_offset',0)
+    row=nse_annual(raw.decode('utf-8'),symbol,isin,record['source_url'],year_offset=offset,income_only=True)
     row.update({k:record[k] for k in ('raw_sha256','source_url','observed_at')})
+    row['year_offset']=offset
     return row
 
 
@@ -48,6 +50,13 @@ def recover(symbol,isin,details):
         proof=verify_nse(symbol,isin,details)
         latest={**latest,**{k:proof[k] for k in ('raw_sha256','source_url','observed_at')}}
     current=extract_saved(symbol,isin,latest)
+    # Prefer the audited comparative column in the same filing. Its own date,
+    # audit status and basis must match; retain its original observation time.
+    try:comparative=extract_saved(symbol,isin,{**latest,'year_offset':-1})
+    except ValueError:comparative=None
+    if comparative is not None and all(comparative.get(k) is not None for k in ('revenue','net_profit')):
+        summary=checked_pair(details,current,comparative)
+        return {'symbol':symbol,'isin':isin,'current':current,'prior':comparative,'summary':summary,'checked_at':now(),'status':'verified','method':'same_filing_audited_comparative'}
     prior_end=datetime.fromisoformat(current['period_end']).date().replace(year=datetime.fromisoformat(current['period_end']).year-1).isoformat()
     index=json.loads((ROOT/'data/fundamental-repair/sources'/symbol/'index.json').read_text())
     if index.get('symbol')!=symbol:raise ValueError('NSE index identity mismatch')

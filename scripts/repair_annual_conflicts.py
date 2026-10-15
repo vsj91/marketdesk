@@ -5,6 +5,7 @@ from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from marketdesk.storage import ROOT,DEFAULT_DB,connect,now,get_state,set_state
 from marketdesk.annual_conflicts import reconcile_debt,reconcile_reviewed,retain_annual_resolutions
+from marketdesk.liability_reviews import reconcile_liability_review
 from marketdesk.quality import audit
 from marketdesk.intraday_data import atomic_json
 apply='--apply' in sys.argv
@@ -20,7 +21,9 @@ for row in rows:
  symbol=row['symbol'];entry={'symbol':symbol};before=json.loads(row['details']);entry['before_conflicts']=before['source_conflicts']
  try:
   review=ROOT/'data/annual-reports'/symbol/'conflict-review.json'
-  if review.exists():proof=json.loads(review.read_text());resolver=reconcile_reviewed
+  liability=ROOT/'data/annual-reports'/symbol/'liability-review.json'
+  if liability.exists():proof=json.loads(liability.read_text());resolver=reconcile_liability_review
+  elif review.exists():proof=json.loads(review.read_text());resolver=reconcile_reviewed
   else:
    proof=copy.deepcopy(before['annual_report_check']);resolver=reconcile_debt
    if symbol in ('JUBLINGREA','ZUARI'):

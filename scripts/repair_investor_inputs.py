@@ -16,6 +16,9 @@ with connect(DEFAULT_DB) as db:
  quality=get_state(db,'quality_summary',{});allrows=[dict(r) for r in db.execute('SELECT i.symbol,i.isin,f.details,q.report FROM instruments i JOIN fundamentals f USING(symbol) JOIN quality q USING(symbol)')]
  complete_before=sum(not missing(json.loads(r['details'])) for r in allrows)
 rows=[r for r in allrows if not json.loads(r['report'])['price_reasons'] and json.loads(r['report'])['financial_reasons']==['Annual financial inputs incomplete']]
+if '--symbols-file' in sys.argv:
+ selected=set(json.loads(Path(sys.argv[sys.argv.index('--symbols-file')+1]).read_text()))
+ rows=[r for r in rows if r['symbol'] in selected]
 def priority(r):
  reason=(json.loads(r['details']).get('annual_report_check') or {}).get('reason','')
  if not reason:

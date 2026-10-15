@@ -4,6 +4,18 @@ from marketdesk.growth_repair import checked_pair
 from test_fallbacks import fixture
 
 class GrowthRepairTests(unittest.TestCase):
+ def test_current_filing_comparative_needs_no_older_index_and_retains_offset(self):
+  import tempfile,hashlib
+  from pathlib import Path
+  from unittest.mock import patch
+  from marketdesk.growth_repair import recover,extract_saved,retain_growth
+  parts=fixture().split('</table>');parts[1]+='<tr><td>Revenue from operations</td><td>2000</td><td>1500</td></tr><tr><td>Total profit (loss) for period</td><td>700</td><td>600</td></tr>';raw='</table>'.join(parts).encode()
+  with tempfile.TemporaryDirectory() as tmp,patch('marketdesk.growth_repair.ROOT',Path(tmp)):
+   folder=Path(tmp)/'data/filings/TEST';folder.mkdir(parents=True);sha=hashlib.sha256(raw).hexdigest();(folder/(sha+'.html')).write_bytes(raw)
+   record={'raw_sha256':sha,'source_url':'url','observed_at':'2026-10-13T00:00:00+00:00'};current=extract_saved('TEST','INE000A01010',record);details={'latest':current,'summary':{},'selected_source':'nse_audited_filing'}
+   proof=recover('TEST','INE000A01010',details);self.assertEqual(proof['prior']['year_offset'],-1);self.assertEqual(proof['prior']['observed_at'],record['observed_at']);self.assertAlmostEqual(proof['summary']['revenue_growth_yoy'],(20/15-1)*100)
+   retained=retain_growth(copy.deepcopy(details),{'growth_repair':proof},'TEST','INE000A01010');self.assertEqual(retained['summary'],proof['summary'])
+   wrong=copy.deepcopy(proof);wrong['prior']['year_offset']=0;self.assertEqual(retain_growth(copy.deepcopy(details),{'growth_repair':wrong},'TEST','INE000A01010')['summary'],{})
  def test_income_parse_does_not_require_comparative_balance(self):
   html=fixture();parts=html.split('</table>');parts[1]=parts[1].replace('</table>','')+'<tr><td>Revenue from operations</td><td>2000</td><td>1500</td></tr><tr><td>Total profit (loss) for period</td><td>700</td><td>600</td></tr>'
   # Remove balance entirely: only the explicit audited income column is usable.

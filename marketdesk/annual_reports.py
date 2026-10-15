@@ -10,11 +10,12 @@ from urllib.parse import urlsplit
 from .storage import ROOT,now
 from .intraday_data import atomic_json
 
-REVISION=8
-INCOME_REVISION=2
+REVISION=10
+INCOME_REVISION=3
 _pdf_slots=threading.BoundedSemaphore(6)
 NUM=r'(?:\(?-?\d[\d,]*(?:\.\d+)?\)?|[-–—]|Nil|NIL)'
 NOTE_REF=r'\d+[a-z]*(?:\s*\([a-z0-9]+\)|\.\d+)*'
+FORMULA_REF=r'\s*\((?:[ivx0-9+\-\s]+|[a-z]\s*(?:[+\-]\s*[a-z]\s*)+)\)$'
 LEASE_ROLLFORWARD=r'(?:carrying amounts of (?:the )?lease liabilities|reconciliation of (?:the )?lease liabilities|movement in (?:the )?lease liabilities)'
 
 def amount(token):
@@ -29,7 +30,7 @@ def amount(token):
     except ValueError:return None
 
 def caption(value):
-    value=re.sub(r'^\s*(?:(?:\([ivxa-z0-9]+\)|[ivx]+[.)]|[a-z]\)|[0-9]+[.)]?)\s*)+','',value.lower())
+    value=re.sub(r'^\s*(?:(?:\([ivxa-z0-9]+\)|[ivx]+[a-z]?[.)]|[a-z][.)]|[0-9]+[.)]?)\s*)+','',value.lower())
     value=re.sub(r'^[ivx]+\s+','',value)
     value=re.sub(r'\s*-\s*','-',value.replace('–','-').replace('‑','-'))
     value=re.sub(r'^[-•●]+\s*','',value)
@@ -37,6 +38,9 @@ def caption(value):
 
 def statement_context(text,latest,kind='balance'):
     text='\n'.join(line.strip() for line in text.replace('\u00a0',' ').splitlines())
+    text=re.sub(r'\bbalance\s+sheetas\b','Balance Sheet as',text,flags=re.I)
+    text=re.sub(r'\bIndian Rupees\b','INR',text,flags=re.I)
+    text=re.sub(r'(₹|`|\bINR|\bRs\.?|\brupees?)\s+((?:crore|lakh|million|thousand)s?)\b',r'\1 in \2',text,flags=re.I)
     text=re.sub(r'\blacs?\b','lakhs',text,flags=re.I)
     # Printed Indian currency unit abbreviation, only beside an explicit INR marker.
     text=re.sub(r'((?:\bRs\.?|\bINR|₹|`)\s+)cr\b\.?',r'\1crore',text,flags=re.I)
@@ -74,7 +78,7 @@ def parse_income(text,latest):
         m=re.search(r'\s{2,}('+NUM+r')\s{2,}('+NUM+r')\s*$',line)
         if not m:continue
         label=re.sub(r'\s{2,}'+NOTE_REF+r'\s*$','',line[:m.start()].strip(),flags=re.I)
-        label=caption(label);label=re.sub(r'^[ivx]+[.)]?\s+','',label);label=re.sub(r'\s*\([ivx0-9+\-\s]+\)$','',label).strip()
+        label=caption(label);label=re.sub(r'^[ivx]+[.)]?\s+','',label);label=re.sub(FORMULA_REF,'',label).strip()
         key='finance_costs' if label in ('finance costs','finance cost','finance cost (interest)','finance costs (interest)') else 'profit_before_tax' if label in ('profit before tax','profit/(loss) before tax','profit / (loss) before tax','profit (loss) before tax','profit/(loss) before taxation','profit before taxation') else None
         if key:
             if key in found:raise ValueError('Duplicate annual income caption')
@@ -115,6 +119,7 @@ def parse_balance(text,latest,allow_existing=False):
         found[key]=None if value is None else value*scale;evidence[key]=line.strip()
     for line in text.splitlines():
         # Stop at the next financial statement; don't read cash-flow lease payments.
+        line=re.sub(r'(?<=[0-9–—-])\*(?=\s|$)','',line)
         if re.search(r'^(?:standalone |consolidated )?statement of (?:profit|cash|changes)',line.strip().lower()):break
         clean=caption(line)
         if clean=='equity':equity_section=True
@@ -178,11 +183,11 @@ def balance_text(page,clip=None):
     for block in page.get_text('dict',**kwargs)['blocks']:
         for line in block.get('lines',[]):
             spans=line['spans'];joined=''.join(span.get('text','') for span in spans)
-            if not re.search(r'in\s+(?:lakh|crore|million|thousand)s?',joined,re.I):continue
+            if not re.search(r'\b(?:lakh|crore|million|thousand)s?\b',joined,re.I):continue
             for span in spans:
                 glyph=span.get('text','').strip()
                 if span.get('font')=='ITFRupee' and glyph in ('H','C','I'):
-                    text=re.sub(r'(?<!\w)'+glyph+r'\s+(?=in\s+(?:lakh|crore|million|thousand)s?)','₹ ',text,flags=re.I)
+                    text=re.sub(r'(?<!\w)'+glyph+r'\s+(?=(?:in\s+)?(?:lakh|crore|million|thousand)s?\b)','₹ ',text,flags=re.I)
     return text
 
 def pdf_worker(pdf_path,context_path,output_path):
@@ -204,7 +209,7 @@ def pdf_worker(pdf_path,context_path,output_path):
                     note=parse_lease_note(balance_text(page,clip),latest);note['pages']=[j+1];lease_notes.append((note,j))
                 except ValueError:pass
     for i,page in enumerate(doc):
-        plain=plain_pages[i];low=' '.join(plain.lower().split())
+        plain=plain_pages[i];low=re.sub(r'\bbalance\s+sheetas\b','balance sheet as',' '.join(plain.lower().split()))
         audit=re.findall(r'report on the audit of (?:the )?(standalone|consolidated) financial statements',low[:6000])
         if len(set(audit))==1:basis_context=(audit[0],i)
         # Cheap text pass; expensive layout text only for actual statement pages.
@@ -215,7 +220,7 @@ def pdf_worker(pdf_path,context_path,output_path):
             w,h=page.rect.width,page.rect.height
             clips.extend([pymupdf.Rect(0,0,w/2,h),pymupdf.Rect(w/2,0,w,h)])
         for clip in clips:
-            selected=[i];text=balance_text(page,clip);compact=' '.join(text.lower().split())
+            selected=[i];text=balance_text(page,clip);compact=re.sub(r'\bbalance\s+sheetas\b','balance sheet as',' '.join(text.lower().split()))
             if not re.search(r'\bbalance\s+sheet\b',compact[:1000]):continue
             # A landscape sheet can contain two consecutive printed balance
             # pages, rather than a balance sheet beside an income statement.
@@ -223,7 +228,10 @@ def pdf_worker(pdf_path,context_path,output_path):
             if clip is not None and clip.x0==0:
                 right=balance_text(page,pymupdf.Rect(page.rect.width/2,0,page.rect.width,page.rect.height))
                 right_head=' '.join(right.lower().split())[:700]
-                if re.search(r'balance\s+sheet\s*\(?cont',right_head) and not re.search(r'total\s+(?:equity and liabilities|liabilities and equity)',compact):
+                continued=re.search(r'balance\s+sheet\s*\(?cont',right_head)
+                right_captions={caption(line) for line in right.splitlines()}
+                repeated_header=(re.search(r'balance\s+sheet',right_head) and 'current liabilities' in right_captions and re.search(r'total\s+(?:equity and liabilities|liabilities and equity)',right,re.I) and not {'assets','non-current assets','current assets'} & right_captions)
+                if (continued or repeated_header) and not re.search(r'total\s+(?:equity and liabilities|liabilities and equity)',compact):
                     # Both halves must state the same annual financial context.
                     try:
                         statement_context(text,latest);statement_context(right,latest)

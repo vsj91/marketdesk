@@ -111,6 +111,9 @@ def retain_annual_resolutions(details,previous,symbol,isin):
         if record.get('selected_context')!=context(out):continue
         try:
             if record['kind']=='lease_classification':changes,conflicts,_=verify_debt(out,record['report'],symbol,isin)
+            elif record['kind']=='reviewed_liability_classification':
+                from .liability_reviews import verify_liability_review
+                changes,conflicts,_=verify_liability_review(out,record['report'],symbol,isin)
             else:changes,conflicts,_=verify_reviewed(out,record['report'],symbol,isin)
             if changes!=record['changes'] or conflicts!=record['conflicts']:continue
             out=apply_record(out,record)

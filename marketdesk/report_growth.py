@@ -4,7 +4,7 @@ from pathlib import Path
 from datetime import datetime,timezone
 import pymupdf
 from .storage import ROOT,now
-from .annual_reports import balance_text,statement_context,caption,amount,NUM,NOTE_REF,save_excerpt
+from .annual_reports import balance_text,statement_context,caption,amount,NUM,NOTE_REF,FORMULA_REF,save_excerpt
 from .financial_sources import request
 from .fallbacks import Fallbacks
 from .growth_repair import checked_pair
@@ -23,7 +23,7 @@ def parse_growth(text,latest):
   m=re.search(r'\s{2,}('+NUM+r')\s{2,}('+NUM+r')\s*$',line)
   if not m:continue
   label=re.sub(r'\s{2,}'+NOTE_REF+r'\s*$','',line[:m.start()].strip(),flags=re.I);label=caption(label)
-  label=re.sub(r'^[ivx]+[.)]?\s+','',label);label=re.sub(r'\s*\([ivx0-9+\-\s]+\)$','',label).strip()
+  label=re.sub(r'^[ivx]+[.)]?\s+','',label);label=re.sub(FORMULA_REF,'',label).strip()
   keys=[k for k,options in labels.items() if label in options]
   if not keys:continue
   key=keys[0]

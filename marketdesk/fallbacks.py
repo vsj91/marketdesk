@@ -33,11 +33,12 @@ def lease_label(text):
     label=text.casefold().strip()
     label=re.sub(r'^(?:\([a-z0-9]+\)|[ivx]+\)|[-–])\s*','',label)
     label=re.sub(r'^(?:non[- ]current|current|long[- ]term|short[- ]term)\s+','',label)
-    label=re.sub(r',\s*(?:non[- ]current|current)$','',label)
+    label=re.sub(r'[,\-–]\s*(?:non[- ]current|current)$','',label).strip()
     label=re.sub(r'\s*\((?:non[- ]current|current)\)$','',label)
     return label in {'lease liabilities','lease liability','lease liabilites','lease liablities','lease liabilties',
                      'lease laibility','lease liablilities','lease liabilty','lease obligation','lease obligations',
-                     'lease laibilities','lease liabiities','lease liabililty','lease liablility','lease liabitliy','lease libailities','lease liabliities','lease liab'}
+                     'lease laibilities','lease liabiities','lease liabililty','lease liablility','lease liabitliy','lease libailities','lease liabliities','lease liab',
+                     'lease liablity','lease libilities','lease lianilities','lease liabities','lease liabilitiea','leaseliabilities','rou lease liabilities'}
 
 def nse_annual(html,symbol,isin,url,year_offset=0,*,income_only=False):
     if len(html.encode())>2_000_000:raise ValueError('NSE document exceeds parsing limit')

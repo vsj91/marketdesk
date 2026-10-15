@@ -14,10 +14,14 @@ apply='--apply' in sys.argv
 with connect(DEFAULT_DB) as db:
  quality=get_state(db,'quality_summary',{})
  rows=[dict(r) for r in db.execute('SELECT i.symbol,i.isin,f.details,q.report FROM instruments i JOIN fundamentals f USING(symbol) JOIN quality q USING(symbol)')]
-rows=[r for r in rows if json.loads(r['report'])['financial_reasons']==['Comparable annual growth inputs missing'] and not json.loads(r['report'])['price_reasons']]
+allowed={'Comparable annual growth inputs missing'}
+if '--include-context' in sys.argv:allowed.add('Growth inputs do not match annual period, basis and units')
+partial='--include-incomplete' in sys.argv
+if partial:allowed.add('Annual financial inputs incomplete')
+rows=[r for r in rows if set(json.loads(r['report'])['financial_reasons']) & {'Comparable annual growth inputs missing','Growth inputs do not match annual period, basis and units'} and set(json.loads(r['report'])['financial_reasons'])<=allowed and not json.loads(r['report'])['price_reasons']]
 if '--sample' in sys.argv:rows=rows[:10]
 started=now();folder=ROOT/'data/investor-growth'/started.replace(':','-');atomic_json(folder/'before.json',rows)
-report={'status':'running','started_at':started,'total':len(rows),'done':0,'recovered':0,'investor_before':quality.get('investor_ready'),'applied':apply,'results':[]}
+report={'status':'running','started_at':started,'total':len(rows),'done':0,'recovered':0,'investor_before':quality.get('investor_ready'),'applied':apply,'results':[],'run_path':str(folder.relative_to(ROOT)),'mode':'local_paper_only'}
 def fetch(r):return recover(r['symbol'],r['isin'],json.loads(r['details']))
 with ThreadPoolExecutor(max_workers=6) as pool:
  futures={pool.submit(fetch,r):r for r in rows}
@@ -30,7 +34,7 @@ with ThreadPoolExecutor(max_workers=6) as pool:
     d['summary']=checked_pair(d,evidence['current'],evidence['prior']);d['growth_repair']=evidence
     times={r['endpoint']:r['observed_at'] for r in db.execute('SELECT endpoint,observed_at FROM payloads WHERE symbol=?',(row['symbol'],))}
     reasons=financial_reasons(d,raw['observed_at'],datetime.now(timezone.utc))+source_reasons(d,times,datetime.now(timezone.utc))
-    if reasons:raise ValueError('; '.join(reasons))
+    if set(reasons)-({'Annual financial inputs incomplete'} if partial else set()):raise ValueError('; '.join(reasons))
     assert before['latest']==d['latest'],'Annual values changed'
     if apply:db.execute('UPDATE fundamentals SET details=? WHERE symbol=?',(json.dumps(d,allow_nan=False),row['symbol']))
    entry.update(status='verified',current=evidence['current'],prior=evidence['prior']);report['recovered']+=1

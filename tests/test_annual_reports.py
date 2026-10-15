@@ -26,6 +26,47 @@ Finance costs      24      50.00     40.00
 Profit before tax (V - VI)        1000.00    900.00
 '''
 class AnnualReportTests(unittest.TestCase):
+ def test_explicit_currency_variants_and_value_footnotes(self):
+  for unit in ('Indian Rupees lakhs','INR lakhs','₹ lakhs'):
+   text=TEXT.replace('Rs in lakhs',unit).replace('BALANCE SHEET\nas at','Balance Sheetas at').replace('(ii) Lease','ia) Lease').replace('20.00     10.00','20.00     -*')
+   self.assertEqual(parse_balance(text,BASE)['value'],.5)
+   with self.assertRaises(ValueError):parse_balance(text.replace('20.00     -*','-*     -*'),BASE)
+  with self.assertRaises(ValueError):parse_balance(TEXT.replace('Rs in lakhs','USD lakhs'),BASE)
+ def test_rupee_font_immediately_before_unit_only(self):
+  for font,expected in [('ITFRupee','₹ millions'),('Regular','H millions')]:
+   page=Mock();page.get_text.side_effect=['H millions',{'blocks':[{'lines':[{'spans':[{'text':'H','font':font},{'text':' millions','font':'Regular'}]}]}]}]
+   self.assertEqual(balance_text(page),expected)
+ def test_assets_and_liabilities_on_separate_halves(self):
+  import pymupdf
+  left,right=TEXT.split('Total equity',1)
+  right='CONSOLIDATED BALANCE SHEET\nAs at March 31, 2026\nRs in lakhs\nParticulars     March 31, 2026      March 31, 2025\nII. EQUITY AND LIABILITIES\nTotal equity'+right
+  for bad in (False,True):
+   with tempfile.TemporaryDirectory() as tmp:
+    root=Path(tmp);doc=pymupdf.open();p=doc.new_page(width=1190,height=840)
+    for x,txt in ((25,left),(640,right.replace('2026','2024') if bad else right)):
+     for n,line in enumerate(txt.splitlines()):p.insert_text((x,40+n*17),line,fontname='cour',fontsize=7)
+    doc.save(root/'r.pdf');doc.close();(root/'c.json').write_text(json.dumps({'latest':BASE}));pdf_worker(root/'r.pdf',root/'c.json',root/'r.json');r=json.loads((root/'r.json').read_text())
+    self.assertEqual(r['status'],'unresolved' if bad else 'verified',r)
+    if not bad:self.assertEqual(r['evidence']['layout'],'joined_balance_spread')
+ def test_lettered_liability_sections_preserve_component_classification(self):
+  text=TEXT.replace('Non-current liabilities','B. Non-current liabilities').replace('Current liabilities','C. Current liabilities')
+  parsed=parse_balance(text,BASE)
+  self.assertEqual(parsed['components'],{'non_current_lease':.3,'current_lease':.2})
+  self.assertEqual(parsed['value'],.5)
+  with self.assertRaises(ValueError):parse_balance(text.replace('30.00','-'),BASE)
+ def test_repeated_balance_heading_can_continue_across_spread(self):
+  import pymupdf
+  left,right=TEXT.split('Current liabilities')
+  right='CONSOLIDATED BALANCE SHEET\nAs at March 31, 2026\nRs in lakhs\nParticulars     March 31, 2026      March 31, 2025\nCurrent liabilities'+right
+  for bad in (False,True):
+   with tempfile.TemporaryDirectory() as tmp:
+    root=Path(tmp);doc=pymupdf.open();p=doc.new_page(width=1190,height=840)
+    for x,txt in ((25,left),(640,right.replace('CONSOLIDATED','STANDALONE') if bad else right)):
+     for n,line in enumerate(txt.splitlines()):p.insert_text((x,40+n*17),line,fontname='cour',fontsize=7)
+    doc.save(root/'r.pdf');doc.close();(root/'c.json').write_text(json.dumps({'latest':BASE}));pdf_worker(root/'r.pdf',root/'c.json',root/'r.json');r=json.loads((root/'r.json').read_text())
+    self.assertEqual(r['status'],'unresolved' if bad else 'verified',r)
+    if not bad:
+     self.assertEqual(r['evidence']['value'],.5);self.assertEqual(r['evidence']['layout'],'joined_balance_spread')
  def test_spaced_note_references_and_roman_sections(self):
   text=TEXT.replace('12    500.00','7 (c)    500.00').replace('Non-current liabilities','I NON-CURRENT LIABILITIES').replace('Current liabilities','II CURRENT LIABILITIES').replace('Cash and cash equivalents','Cash & Cash Equivalents')
   self.assertEqual(parse_balance(text,BASE)['value'],.5)
@@ -45,6 +86,7 @@ class AnnualReportTests(unittest.TestCase):
  def test_annual_income_requires_pbt_anchor_and_explicit_finance_cost(self):
   latest={**BASE,'profit_before_tax':10,'finance_costs':None}
   self.assertEqual(parse_income(INCOME,latest)['value'],.5)
+  self.assertEqual(parse_income(INCOME.replace('Profit before tax (V - VI)','E. Profit before tax (C-D)'),latest)['value'],.5)
   self.assertEqual(parse_income(INCOME.replace('Profit before tax','VII Profit/(Loss) before tax').replace('Finance costs','Finance cost (Interest)'),latest)['value'],.5)
   for text in [INCOME.replace('1000.00','2000.00'),INCOME.replace('50.00','-'),INCOME.replace('Finance costs','Interest expense'),INCOME.replace('CONSOLIDATED','STANDALONE'),INCOME.replace('year ended','quarter ended'),INCOME.replace('INR','USD'),INCOME.replace('2026','2024')]:
    with self.assertRaises(ValueError):parse_income(text,latest)

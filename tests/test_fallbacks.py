@@ -11,6 +11,15 @@ def fixture():
  return table(meta)+table(income)+table(balance)
 
 class FallbackTests(unittest.TestCase):
+ def test_explicit_lease_caption_variants_keep_period_and_section(self):
+  for label in ('Lease Liablity','Lease libilities','Lease Lianilities','Lease liabities','Lease Liabilitiea','leaseliabilities','ROU Lease Liabilities'):
+   row=nse_annual(fixture().replace('Lease liabilities',label),'TEST','INE000A01010','url')
+   self.assertEqual(row['total_lease_liabilities'],.5,label)
+  html=fixture().replace('Lease liabilities','Lease Liabilities - Non Current',1)
+  html=html.replace('Lease liabilities','Lease Liabilities - Current',1)
+  self.assertEqual(nse_annual(html,'TEST','INE000A01010','url')['total_lease_liabilities'],.5)
+  for label in ('Lease liabilities, Capital Creditors and Deferred Expenses','Advance Lease Rental','Leasehold Land','Finance lease receiveables'):
+   self.assertIsNone(nse_annual(fixture().replace('Lease liabilities',label),'TEST','INE000A01010','url')['total_lease_liabilities'])
  def test_explicit_annual_context_and_unit_conversion(self):
   row=nse_annual(fixture(),'TEST','INE000A01010','https://nsearchives.nseindia.com/example')
   self.assertEqual(row['profit_before_tax'],10)
