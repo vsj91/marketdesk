@@ -10,13 +10,13 @@ from urllib.parse import urlsplit
 from .storage import ROOT,now
 from .intraday_data import atomic_json
 
-REVISION=14
-INCOME_REVISION=4
+REVISION=16
+INCOME_REVISION=5
 _pdf_slots=threading.BoundedSemaphore(6)
 NUM=r'(?:\(?-?\d[\d,]*(?:\.\d+)?\)?|[-–—]|Nil|NIL)'
 NOTE_REF=r'\d+[a-z]*(?:\s*\([a-z0-9]+\)|\.\d+)*'
 FORMULA_REF=r'\s*\((?:[ivx0-9+\-\s]+|[a-z]\s*(?:[+\-]\s*[a-z]\s*)+)\)$'
-LEASE_ROLLFORWARD=r'(?:carrying amounts of (?:the )?lease liabilities|reconciliation of (?:the )?lease liabilities|movement in (?:the )?(?:carrying value of (?:the )?)?lease liabilit(?:y|ies)|lease liabilit(?:y|ies) movement)'
+LEASE_ROLLFORWARD=r'(?:carrying amounts of (?:the )?lease liabilities|reconciliation of (?:the )?lease liabilities|movement (?:in|of) (?:the )?(?:carrying value of (?:the )?)?lease liabilit(?:y|ies)|lease liabilit(?:y|ies) movement)'
 LEASE_NOTE_HEADING=r'^\s*\d{1,3}\s+lease liabilit(?:y|ies)(?:\s*\(refer note\s+\d+\))?\s*$'
 
 def amount(token):
@@ -40,7 +40,14 @@ def caption(value):
 def statement_context(text,latest,kind='balance'):
     text='\n'.join(line.strip() for line in unicodedata.normalize('NFKC',text).replace('\u00a0',' ').splitlines())
     text=re.sub(r'\bbalance\s+sheetas\b','Balance Sheet as',text,flags=re.I)
+    text=re.sub(r'\bfinancial\s+statementsfor\b','financial statements for',text,flags=re.I)
     text=re.sub(r'\bIndian Rupees\b','INR',text,flags=re.I)
+    # Annual reports also print "crores of Indian Rupees" or "Crore Rupees".
+    # Normalize only an explicit Indian currency, never an unlabelled scale.
+    text=re.sub(r'\b((?:crore|lakh|million|thousand)s?)\s+(?:of\s+)?(INR|rupees?)\b',r'\2 in \1',text,flags=re.I)
+    text=re.sub(r'(₹|`|\bINR|\bRs\.?)\s*/\s*((?:crore|lakh|million|thousand)s?)\b',r'\1 in \2',text,flags=re.I)
+    # The PDF layout engine can join the adjacent "No." column label to a date.
+    text=re.sub(r'(\b\d{1,2}[./-]\d{1,2}[./-]20\d{2})(?=No\.)',r'\1 ',text)
     text=re.sub(r'(₹|`|\bINR|\bRs\.?|\brupees?)\s+((?:crore|lakh|million|thousand)s?)\b',r'\1 in \2',text,flags=re.I)
     text=re.sub(r'\blacs?\b','lakhs',text,flags=re.I)
     # Printed Indian currency unit abbreviation, only beside an explicit INR marker.
@@ -124,6 +131,27 @@ def parse_lease_note(text,latest):
     if sum(v for v in known if isinstance(v,(int,float)) and v>=0)>value+.015:raise ValueError('Lease closing balance contradicts known components')
     return {'value':value,'source_units':unit,'conversion_to_crore':scale,'line':closing[0].strip(),'method':'explicit_carrying_value_closing_balance'}
 
+def parse_classified_lease_note(text,latest):
+    """A lease note's explicit total, reconciled to both printed components."""
+    rows=r'\s{2,}('+NUM+r')\s{2,}('+NUM+r')\s*'
+    block=re.search(r'^\s*(?:\([a-z]\)\s*)?lease liabilities\s*\n'
+                    r'\s*current'+rows+r'\n\s*non[- ]current'+rows+
+                    r'\n\s*total lease liabilities'+rows+r'$',text,re.I|re.M)
+    if not block:raise ValueError('Explicit classified lease total unavailable')
+    # The note's own dates, currency and statement basis must be visible. Stop
+    # at this table, before later cash flows or undiscounted commitments.
+    context=text[:block.end()]
+    if re.search(r'undiscounted|maturity analysis|contractual maturities',context[max(0,block.start()-400):],re.I):raise ValueError('Lease maturity amounts are not carrying balances')
+    _,_,(unit,scale)=statement_context(context,latest,'lease_note')
+    current,noncurrent,total=[amount(block[i]) for i in (1,3,5)]
+    if any(v is None or v<0 for v in (current,noncurrent,total)):raise ValueError('Explicit lease components and total required')
+    if abs(current+noncurrent-total)>.015:raise ValueError('Classified lease total does not reconcile')
+    for key,value in (('current_lease_liabilities',current),('non_current_lease_liabilities',noncurrent)):
+        known=latest.get(key)
+        if known is not None and abs(known-value*scale)>max(.015,abs(known)*.00002):raise ValueError('Lease note contradicts known components')
+    return {'value':total*scale,'source_units':unit,'conversion_to_crore':scale,'line':block[0].strip(),'method':'explicit_classified_lease_total',
+            'components':{'current':current*scale,'non_current':noncurrent*scale}}
+
 def parse_capital_note(text,latest):
     """Explicit lease total in a capital note, with three anchors and net-debt proof.
 
@@ -204,9 +232,11 @@ def parse_balance(text,latest,allow_existing=False):
         label=line[:m.start()].strip()
         # Drop a separate note-number column, never a value column.
         label=re.sub(r'\s{2,}'+NOTE_REF+r'\s*$','',label,flags=re.I)
+        # A separate unpunctuated alphabetic row marker is not part of a caption.
+        label=re.sub(r'^[a-z]\s{2,}','',label,flags=re.I)
         label=caption(label);value=amount(m.group(1))
         if label in ('cash and cash equivalents','cash & cash equivalents'):record('cash',value,line)
-        if label in ('total equity','total equity (a)','total equity (1)'):record('equity',value,line)
+        if label in ('total equity','total equity (a)','total equity (1)','sub-total-equity'):record('equity',value,line)
         if label in ('equity attributable to owners of the company','equity attributable to owners of the parent'):record('owners_equity',value,line)
         if label in ('equity share capital','share capital'):record('share_capital',value,line)
         if label=='other equity':record('other_equity',value,line)
@@ -250,11 +280,11 @@ def balance_text(page,clip=None):
     for block in page.get_text('dict',**kwargs)['blocks']:
         for line in block.get('lines',[]):
             spans=line['spans'];joined=''.join(span.get('text','') for span in spans)
-            if not re.search(r'\b(?:lakh|crore|million|thousand)s?\b',joined,re.I):continue
+            if not re.search(r'\b(?:(?:lakh|crore|million|thousand)s?|cr)\b',joined,re.I):continue
             for span in spans:
                 glyph=span.get('text','').strip()
-                if span.get('font')=='ITFRupee' and glyph in ('H','C','I'):
-                    text=re.sub(r'(?<!\w)'+glyph+r'\s+(?=(?:in\s+)?(?:lakh|crore|million|thousand)s?\b)','₹ ',text,flags=re.I)
+                if span.get('font')=='ITFRupee' and glyph in ('H','C','I','D'):
+                    text=re.sub(r'(?<!\w)'+glyph+r'\s+(?=\(?(?:in\s+)?(?:(?:lakh|crore|million|thousand)s?|cr)\b)','₹ ',text,flags=re.I)
     return text
 
 def complete_candidate(candidates):
@@ -283,14 +313,16 @@ def pdf_worker(pdf_path,context_path,output_path):
                         capital=parse_capital_note(balance_text(page,clip),latest);capital['pages']=[j+1]
                         candidates.append((capital,[j]))
                     except ValueError:pass
-            if not re.search(LEASE_ROLLFORWARD,' '.join(plain.split()),re.I) and not re.search(r'lease liabilit(?:y|ies)\s*\(refer note',plain,re.I):continue
+            if not re.search(LEASE_ROLLFORWARD,' '.join(plain.split()),re.I) and not re.search(r'lease liabilit(?:y|ies)\s*\(refer note|total\s+lease\s+liabilities',plain,re.I):continue
             page=doc[j];clips=[None]
             if page.rect.width>page.rect.height*1.15:
                 w,h=page.rect.width,page.rect.height;clips.extend([pymupdf.Rect(0,0,w/2,h),pymupdf.Rect(w/2,0,w,h)])
             for clip in clips:
-                try:
-                    note=parse_lease_note(balance_text(page,clip),latest);note['pages']=[j+1];lease_notes.append((note,j))
-                except ValueError:pass
+                text=balance_text(page,clip)
+                for parser in (parse_lease_note,parse_classified_lease_note):
+                    try:
+                        note=parser(text,latest);note['pages']=[j+1];lease_notes.append((note,j))
+                    except ValueError:pass
     for i,page in enumerate(doc):
         plain=plain_pages[i];low=re.sub(r'\bbalance\s+sheetas\b','balance sheet as',' '.join(plain.lower().split()))
         audit=re.findall(r'report on the audit of (?:the )?(standalone|consolidated) financial statements',low[:6000])

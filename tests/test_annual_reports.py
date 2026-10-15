@@ -1,7 +1,7 @@
 import copy,unittest,json,tempfile,hashlib
 from pathlib import Path
 from datetime import datetime,timezone,timedelta
-from marketdesk.annual_reports import parse_balance,parse_income,parse_lease_note,parse_capital_note,complete_candidate,apply_report,balance_text,pdf_worker,retain_report,save_excerpt
+from marketdesk.annual_reports import parse_balance,parse_income,parse_lease_note,parse_classified_lease_note,parse_capital_note,complete_candidate,apply_report,balance_text,pdf_worker,retain_report,save_excerpt
 from unittest.mock import Mock,patch
 from marketdesk.quality import source_reasons
 
@@ -26,6 +26,90 @@ Finance costs      24      50.00     40.00
 Profit before tax (V - VI)        1000.00    900.00
 '''
 class AnnualReportTests(unittest.TestCase):
+ def test_classified_lease_total_requires_all_components_and_context(self):
+  text='''Notes to Consolidated Financial Statements
+Amounts recognised in the Consolidated Balance Sheet
+Rs in crore
+Particulars    March 31, 2026    March 31, 2025
+(b) Lease liabilities
+Current    46.45    31.29
+Non-current    171.75    112.29
+Total Lease liabilities    218.20    143.58
+Future undiscounted lease payments    4.61    36.51
+'''
+  self.assertEqual(parse_classified_lease_note(text,BASE)['value'],218.2)
+  self.assertEqual(parse_classified_lease_note(text.replace('Financial Statements','Financial Statementsfor the year ended March 31, 2026'),BASE)['value'],218.2)
+  for bad in (text.replace('171.75','-'),text.replace('218.20','220.00'),text.replace('Consolidated','Standalone'),text.replace('2026','2024'),text.replace('Rs in crore','in crore'),text.replace('Amounts recognised in the Consolidated Balance Sheet','Undiscounted contractual maturities')):
+   with self.assertRaises(ValueError):parse_classified_lease_note(bad,BASE)
+  with self.assertRaises(ValueError):parse_classified_lease_note(text,{**BASE,'current_lease_liabilities':50})
+
+ def test_note_total_is_applied_only_with_two_balance_anchors(self):
+  import pymupdf
+  note='''Notes to Consolidated Financial Statements
+Rs in lakhs
+Particulars    March 31, 2026    March 31, 2025
+(b) Lease liabilities
+Current    20.00    10.00
+Non-current    30.00    20.00
+Total Lease liabilities    50.00    30.00
+'''
+  balance='\n'.join(line for line in TEXT.splitlines() if 'Lease liabilities' not in line)
+  for bad in (False,True):
+   with tempfile.TemporaryDirectory() as tmp:
+    root=Path(tmp);doc=pymupdf.open()
+    for text in (balance.replace('5000.00','6000.00') if bad else balance,note):
+     page=doc.new_page()
+     for n,line in enumerate(text.splitlines()):page.insert_text((25,40+n*17),line,fontname='cour',fontsize=7)
+    doc.save(root/'r.pdf');doc.close();(root/'c.json').write_text(json.dumps({'latest':BASE}))
+    pdf_worker(root/'r.pdf',root/'c.json',root/'r.json');result=json.loads((root/'r.json').read_text())
+    self.assertEqual(result['status'],'unresolved' if bad else 'verified',result)
+    if not bad:self.assertEqual(result['evidence']['values']['total_lease_liabilities'],.5)
+
+ def test_explicit_reverse_currency_and_slash_units(self):
+  for unit in ('All amounts are in lakhs of Indian Rupees','All amounts in Lakh Rupees','` / Lakhs'):
+   self.assertEqual(parse_balance(TEXT.replace('Rs in lakhs',unit),BASE)['value'],.5)
+  for unit in ('lakhs of USD','lakhs of dollars','in lakhs','USD / Lakhs'):
+   with self.assertRaises(ValueError):parse_balance(TEXT.replace('Rs in lakhs',unit),BASE)
+
+ def test_date_touching_column_label_preserves_period_validation(self):
+  text=TEXT.replace('Particulars                 March 31, 2026      March 31, 2025','Particulars     31.03.2026    31.03.2025No.')
+  self.assertEqual(parse_balance(text,BASE)['value'],.5)
+  for invalid in (text.replace('31.03.2025','30.03.2025'),text.replace('31.03.2025','31.03.2024')):
+   with self.assertRaises(ValueError):parse_balance(invalid,BASE)
+
+ def test_explicit_equity_subtotal_is_an_anchor(self):
+  text=TEXT.replace('Total equity                      5000.00','Sub-total - Equity                5000.00')
+  self.assertEqual(parse_balance(text,BASE)['value'],.5)
+  with self.assertRaises(ValueError):parse_balance(text.replace('5000.00','5100.00'),BASE)
+
+ def test_font_mapped_currency_parentheses_and_abbreviations(self):
+  for glyph,unit in [('D','(in Crore)'),('H','cr')]:
+   for font in ('ITFRupee','Regular'):
+    page=Mock();page.get_text.side_effect=[glyph+' '+unit,{'blocks':[{'lines':[{'spans':[{'text':glyph,'font':font},{'text':' '+unit,'font':'Regular'}]}]}]}]
+    self.assertEqual(balance_text(page),('₹' if font=='ITFRupee' else glyph)+' '+unit)
+
+ def test_unpunctuated_row_marker_does_not_hide_cash_anchor(self):
+  text=TEXT.replace('Cash and cash equivalents','a  Cash and cash equivalents')
+  self.assertEqual(parse_balance(text,BASE)['value'],.5)
+  with self.assertRaises(ValueError):parse_balance(text.replace('500.00','600.00'),BASE)
+
+ def test_movement_of_lease_liabilities_ignores_later_maturity_table(self):
+  text='''Notes to the Consolidated Financial Statements
+for the year ended March 31, 2026
+51.1 The table below shows the movement of lease liabilities during the year:
+(Rs in crore)
+Particulars    31.03.2026    31.03.2025
+Opening balance    12.05    14.74
+Finance cost accrued    0.95    1.22
+Payment of lease liabilities    (3.93)    (3.91)
+Closing balance    9.07    12.05
+51.2 Contractual maturities of lease liabilities on an undiscounted basis:
+Total    56.55    60.48
+'''
+  self.assertEqual(parse_lease_note(text,BASE)['value'],9.07)
+  for bad in (text.replace('movement of lease liabilities','maturity analysis of lease liabilities'),text.replace('9.07','-'),text.replace('2026','2024')):
+   with self.assertRaises(ValueError):parse_lease_note(bad,BASE)
+
  def test_capital_note_requires_explicit_total_and_reconciled_anchors(self):
   text='''Notes to the Consolidated Financial Statements
 Capital Management

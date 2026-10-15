@@ -9,8 +9,9 @@ def repair_extra(symbol,isin,details):
     """Recover like-for-like annual growth and reverify eligible source conflicts.
 
     Primary order: audited NSE comparative filings, then company annual-report
-    income tables. NSE/BSE/company balance-sheet alternatives are handled by
-    AnnualReportSources. Yahoo's unspecified statement basis stays supplemental.
+    income tables from NSE, reviewed company websites and ISIN-matched BSE
+    archives. AnnualReportSources handles the same balance-sheet alternatives.
+    Yahoo's unspecified statement basis stays supplemental.
     """
     from .growth_repair import recover,checked_pair
     from .report_growth import recover_report_growth,apply_growth

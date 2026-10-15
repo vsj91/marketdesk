@@ -46,9 +46,11 @@ def parse_growth(text,latest):
  return {'current':current,'prior':prior,'lines':lines,'source_units':units,'conversion_to_crore':scale}
 
 
-def extract_pdf(path,latest):
+def extract_pdf(path,latest,expected_isin=None):
  candidates=[];diagnostics=[];basis_context=None
  with pymupdf.open(path) as doc:
+  if len(doc)>1200:raise ValueError("Annual report exceeds page limit")
+  if expected_isin and not any(expected_isin in re.sub(r"\s+","",p.get_text()) for p in doc):raise ValueError("Company PDF does not contain the expected ISIN")
   for i,p in enumerate(doc):
    low=' '.join(unicodedata.normalize('NFKC',p.get_text()).lower().split())
    audit=re.findall(r'report on the audit of (?:the )?(standalone|consolidated) financial statements',low[:6000])
@@ -76,30 +78,57 @@ def extract_pdf(path,latest):
 
 
 def recover_report_growth(symbol,isin,details):
- from .report_sources import fresh
+ """NSE, reviewed company sites, then ISIN-matched BSE reports.
+
+ Provider failure or an unsupported PDF advances to the next source. Every
+ accepted source still needs annual context and matching PBT/finance anchors.
+ """
+ from .report_sources import fresh,bse_reports,company_reports,public_request,COMPANY_PAGES
  from urllib.parse import urlsplit
- folder=ROOT/'data/annual-reports'/symbol;folder.mkdir(parents=True,exist_ok=True);path=folder/'index.json';index=json.loads(path.read_text()) if path.exists() else {};client=Fallbacks();latest=details['latest']
- if index.get('symbol')!=symbol or not fresh(index):
-  with request(client.session,'https://www.nseindia.com/api/annual-reports',params={'index':'equities','symbol':symbol}) as r:index={'symbol':symbol,'observed_at':now(),'payload':r.json()}
-  atomic_json(path,index)
+ folder=ROOT/'data/annual-reports'/symbol;folder.mkdir(parents=True,exist_ok=True)
+ path=folder/'index.json';client=Fallbacks();latest=details['latest']
  year=datetime.strptime(latest['period'],'%b %Y').year
- choices=[r['fileName'] for r in index.get('payload',{}).get('data',[]) if str(r.get('toYr'))==str(year) and urlsplit(r.get('fileName','')).scheme=='https' and urlsplit(r.get('fileName','')).hostname=='nsearchives.nseindia.com' and '/annual_reports/' in r['fileName'] and '_'+symbol+'_' in r['fileName']]
- if not choices:raise ValueError('Matching company annual report absent from NSE index')
- errors=[]
- for url in choices[:2]:
+ checks=[];errors=[];seen_hashes=set()
+ providers=['NSE']+(['Company website'] if isin in COMPANY_PAGES else [])+['BSE']
+ for provider in providers:
+  check={'provider':provider};checks.append(check)
   try:
-   with tempfile.TemporaryDirectory(dir=folder,prefix='income-') as tmp:
-    pdf=Path(tmp)/'report.pdf';digest=hashlib.sha256();size=0
-    with request(client.session,url,stream=True) as r,pdf.open('wb') as out:
-     for chunk in r.iter_content(131072):
-      size+=len(chunk)
-      if size>40_000_000:raise ValueError('Report exceeds 40 MB')
-      digest.update(chunk);out.write(chunk)
-    parsed,excerpt=extract_pdf(pdf,latest);sha=digest.hexdigest();target,excerpt_hash=save_excerpt(folder,excerpt,sha);stamp=now()
-    for row in (parsed['current'],parsed['prior']):row['observed_at']=stamp
-    return {'symbol':symbol,'isin':isin,'status':'verified','source':'company_annual_report','source_url':url,'raw_sha256':sha,'evidence_path':str(target.relative_to(ROOT)),'excerpt_sha256':excerpt_hash,'observed_at':stamp,'evidence':parsed}
-  except ValueError as e:errors.append(str(e))
- raise ValueError('; '.join(errors))
+   if provider=='BSE':choices=bse_reports(client.session,isin,year,folder)
+   elif provider=='Company website':choices=company_reports(client.session,isin,year,folder)
+   else:
+    index=json.loads(path.read_text()) if path.exists() else {}
+    if index.get('symbol')!=symbol or not fresh(index):
+     with request(client.session,'https://www.nseindia.com/api/annual-reports',params={'index':'equities','symbol':symbol}) as r:index={'symbol':symbol,'observed_at':now(),'payload':r.json()}
+     atomic_json(path,index)
+    choices=[]
+    for row in index.get('payload',{}).get('data',[]):
+     url=row.get('fileName','');u=urlsplit(url)
+     if str(row.get('toYr'))==str(year) and u.scheme=='https' and u.hostname=='nsearchives.nseindia.com' and u.path.startswith('/annual_reports/') and u.path.lower().endswith('.pdf') and '_'+symbol+'_' in u.path:
+      choices.append({**row,'provider':'NSE'})
+   check.update(status='available' if choices else 'unavailable',reports=len(choices))
+  except Exception as error:
+   check.update(status='unavailable',reason=str(error)[:180]);errors.append(provider+': '+str(error)[:180]);continue
+  for row in choices[:2]:
+   url=row['fileName']
+   try:
+    with tempfile.TemporaryDirectory(dir=folder,prefix='income-') as tmp:
+     pdf=Path(tmp)/'report.pdf';digest=hashlib.sha256();size=0
+     with (request if provider=='NSE' else public_request)(client.session,url,stream=True) as r,pdf.open('wb') as out:
+      for chunk in r.iter_content(131072):
+       size+=len(chunk)
+       if size>40_000_000:raise ValueError('Report exceeds 40 MB')
+       digest.update(chunk);out.write(chunk)
+     sha=digest.hexdigest()
+     if sha in seen_hashes:raise ValueError('Identical report already checked')
+     seen_hashes.add(sha)
+     parsed,excerpt=extract_pdf(pdf,latest,expected_isin=isin if row.get('require_pdf_isin') else None)
+     target,excerpt_hash=save_excerpt(folder,excerpt,sha);stamp=now()
+     for values in (parsed['current'],parsed['prior']):values['observed_at']=stamp
+     return {'symbol':symbol,'isin':isin,'status':'verified','source':'company_annual_report','provider':provider,'source_checks':checks,
+             'source_url':url,'index_url':row.get('index_url'),'identity':row.get('identity'),'raw_sha256':sha,
+             'evidence_path':str(target.relative_to(ROOT)),'excerpt_sha256':excerpt_hash,'observed_at':stamp,'evidence':parsed}
+   except Exception as error:errors.append(provider+': '+str(error)[:220])
+ raise ValueError('; '.join(errors) or 'Matching annual report absent from checked sources: '+', '.join(providers))
 
 
 def apply_growth(details,proof,symbol,isin):
