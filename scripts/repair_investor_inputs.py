@@ -18,7 +18,13 @@ with connect(DEFAULT_DB) as db:
 rows=[r for r in allrows if not json.loads(r['report'])['price_reasons'] and json.loads(r['report'])['financial_reasons']==['Annual financial inputs incomplete']]
 def priority(r):
  reason=(json.loads(r['details']).get('annual_report_check') or {}).get('reason','')
- return (0 if r['symbol'] in ('TTKPRESTIG','ASHAPURMIN','BAJAJCON') else 1 if 'Duplicate PDF' in reason else 2 if 'Fewer than two matching' in reason else 3,r['symbol'])
+ if not reason:
+  cached=[]
+  for p in (ROOT/'data/annual-reports'/r['symbol']).glob('*.json'):
+   old=json.loads(p.read_text())
+   if old.get('symbol')==r['symbol'] and old.get('revision'):cached.append(old)
+  if cached:reason=max(cached,key=lambda x:x.get('observed_at','')).get('reason','')
+ return (0 if r['symbol']=='ARVINDFASN' else 1 if 'Duplicate PDF' in reason else 2 if 'Fewer than two matching' in reason else 3,r['symbol'])
 rows=sorted(rows,key=priority)[:limit];started=now();folder=ROOT/'data/investor-inputs'/started.replace(':','-');atomic_json(folder/'before.json',rows)
 blockers={'ineligible':sum(not json.loads(r['report'])['investor_ready'] for r in allrows),'financial_only':sum(not json.loads(r['report'])['price_reasons'] and not json.loads(r['report'])['investor_ready'] for r in allrows),'price_blocked':sum(bool(json.loads(r['report'])['price_reasons']) for r in allrows)}
 report={'status':'running','started_at':started,'mode':'local_paper_only','total':len(rows),'done':0,'newly_complete':0,'improved_stocks':0,'recovered_fields':0,'annual_reports_verified':0,'bse_checked':0,'company_sites_checked':0,'report_provider_counts':{},'errors':0,'source_issue_stocks':0,'results':[],'quality_before':quality,'quality':quality,'complete_before':complete_before,'applied':apply,'run_path':str(folder.relative_to(ROOT)),'blocker_breakdown':blockers,'note':'Targets stocks whose only Investor blocker is incomplete annual inputs. Values require verified report context and matching anchors. Missing or dashed amounts are never replaced with zero. Both portfolios remain paper only.'}
@@ -31,6 +37,8 @@ def publish(final=False):
  with connect(DEFAULT_DB) as db:
   report['complete_now']=db.execute("SELECT COUNT(*) FROM fundamentals WHERE json_extract(details,'$.status')='COMPLETE'").fetchone()[0];report['incomplete_now']=len(allrows)-report['complete_now']
   ready={r['symbol'] for r in db.execute('SELECT symbol,report FROM quality') if json.loads(r['report'])['investor_ready']}
+  checks=[json.loads(r['report']) for r in db.execute('SELECT report FROM quality')]
+  report['blocker_breakdown']={'ineligible':sum(not q['investor_ready'] for q in checks),'financial_only':sum(not q['price_reasons'] and not q['investor_ready'] for q in checks),'price_blocked':sum(bool(q['price_reasons']) for q in checks)}
   report['newly_eligible']=[r['symbol'] for r in rows if r['symbol'] in ready]
   report['updated_at']=now()
   if apply:set_state(db,'fundamental_repair',{k:v for k,v in report.items() if k!='results'})

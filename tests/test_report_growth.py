@@ -11,6 +11,10 @@ Profit before tax    1000.00    900.00
 Net Profit After Tax    800.00    700.00
 '''
 class ReportGrowthTests(unittest.TestCase):
+ def test_customer_contract_revenue_requires_same_anchors(self):
+  text=TEXT.replace('Revenue from operations','Revenue from contracts with customers')
+  self.assertEqual(parse_growth(text,BASE)['current']['revenue'],100)
+  with self.assertRaises(ValueError):parse_growth(text.replace('10000.00','11000.00'),BASE)
  def test_matching_annual_comparatives(self):
   result=parse_growth(TEXT,BASE);self.assertEqual(result['current']['net_profit'],8);self.assertEqual(result['prior']['net_profit'],7);self.assertEqual(result['prior']['period'],'Mar 2025')
  def test_ligatures_are_decoded_without_changing_numbers(self):

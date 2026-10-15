@@ -10,11 +10,11 @@ from urllib.parse import urlsplit
 from .storage import ROOT,now
 from .intraday_data import atomic_json
 
-REVISION=6
+REVISION=8
 INCOME_REVISION=2
 _pdf_slots=threading.BoundedSemaphore(6)
 NUM=r'(?:\(?-?\d[\d,]*(?:\.\d+)?\)?|[-–—]|Nil|NIL)'
-NOTE_REF=r'\d+[a-z]*(?:\([a-z0-9]+\)|\.\d+)*'
+NOTE_REF=r'\d+[a-z]*(?:\s*\([a-z0-9]+\)|\.\d+)*'
 LEASE_ROLLFORWARD=r'(?:carrying amounts of (?:the )?lease liabilities|reconciliation of (?:the )?lease liabilities|movement in (?:the )?lease liabilities)'
 
 def amount(token):
@@ -30,6 +30,7 @@ def amount(token):
 
 def caption(value):
     value=re.sub(r'^\s*(?:(?:\([ivxa-z0-9]+\)|[ivx]+[.)]|[a-z]\)|[0-9]+[.)]?)\s*)+','',value.lower())
+    value=re.sub(r'^[ivx]+\s+','',value)
     value=re.sub(r'\s*-\s*','-',value.replace('–','-').replace('‑','-'))
     value=re.sub(r'^[-•●]+\s*','',value)
     return ' '.join(value.split()).strip(': ')
@@ -37,6 +38,8 @@ def caption(value):
 def statement_context(text,latest,kind='balance'):
     text='\n'.join(line.strip() for line in text.replace('\u00a0',' ').splitlines())
     text=re.sub(r'\blacs?\b','lakhs',text,flags=re.I)
+    # Printed Indian currency unit abbreviation, only beside an explicit INR marker.
+    text=re.sub(r'((?:\bRs\.?|\bINR|₹|`)\s+)cr\b\.?',r'\1crore',text,flags=re.I)
     # Some PDF text layers concatenate a lower-case preposition with the title.
     text=re.sub(r'(?<![A-Z])(CONSOLIDATED|STANDALONE)(?![A-Z])',r' \1 ',text)
     low=text.lower();head=re.sub(r'[ \t]+',' ',low)[:1800]
@@ -132,12 +135,12 @@ def parse_balance(text,latest,allow_existing=False):
         # Drop a separate note-number column, never a value column.
         label=re.sub(r'\s{2,}'+NOTE_REF+r'\s*$','',label,flags=re.I)
         label=caption(label);value=amount(m.group(1))
-        if label=='cash and cash equivalents':record('cash',value,line)
+        if label in ('cash and cash equivalents','cash & cash equivalents'):record('cash',value,line)
         if label in ('total equity','total equity (a)','total equity (1)'):record('equity',value,line)
         if label in ('equity attributable to owners of the company','equity attributable to owners of the parent'):record('owners_equity',value,line)
         if label in ('equity share capital','share capital'):record('share_capital',value,line)
         if label=='other equity':record('other_equity',value,line)
-        if label in ('non controlling interest','non-controlling interest','non-controlling interests'):record('nci',value,line)
+        if label in ('non controlling interest','non controlling interests','non-controlling interest','non-controlling interests'):record('nci',value,line)
         if label in ('borrowings','borrowings, current','borrowings, non-current') and section:record(section+'_borrowings',value,line)
         if label in ('lease liabilities','lease liability','lease obligations'):
             record((section+'_lease') if section else 'total_lease',value,line)

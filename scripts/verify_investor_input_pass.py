@@ -16,11 +16,12 @@ from marketdesk.intraday_data import atomic_json
 published=json.loads((ROOT/'data/fundamental-repair/latest.json').read_text())
 inputs=json.loads((ROOT/published['run_path']/'report.json').read_text());growth=json.loads((ROOT/'data/report-growth/latest.json').read_text());assert inputs['status']==growth['status']=='complete'
 base={r['symbol']:r for r in json.loads((ROOT/inputs['run_path']/'before.json').read_text())};base.update({r['symbol']:r for r in json.loads((ROOT/growth['run_path']/'before.json').read_text())})
-selected=[r['symbol'] for r in inputs['results'] if r.get('recovered')]+[r['symbol'] for r in growth['results'] if r['status']=='verified'];results=[]
+growth_symbols={r['symbol'] for r in growth['results'] if r['status']=='verified'}
+selected=list(dict.fromkeys(inputs.get('newly_eligible',[])+sorted(growth_symbols)));results=[]
 with connect(DEFAULT_DB) as db:
  for s in selected:
   r=db.execute('select i.isin,f.details,q.report from instruments i join fundamentals f using(symbol) join quality q using(symbol) where symbol=?',(s,)).fetchone();old=json.loads(r['details']);b=json.loads(base[s]['details']);q=json.loads(r['report']);assert q['investor_ready'],s
-  if old.get('company_growth_repair'):
+  if s in growth_symbols:
    proof=old['company_growth_repair'];reparsed=apply_growth(b,proof,s,r['isin']);assert reparsed['summary']==old['summary'] and old['latest']==b['latest'],s
   else:
    proof=old['annual_report_check'];text=report_text(proof,s,r['isin']);parsed=parse_balance(text,b['latest'],True)

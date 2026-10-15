@@ -26,6 +26,15 @@ Finance costs      24      50.00     40.00
 Profit before tax (V - VI)        1000.00    900.00
 '''
 class AnnualReportTests(unittest.TestCase):
+ def test_spaced_note_references_and_roman_sections(self):
+  text=TEXT.replace('12    500.00','7 (c)    500.00').replace('Non-current liabilities','I NON-CURRENT LIABILITIES').replace('Current liabilities','II CURRENT LIABILITIES').replace('Cash and cash equivalents','Cash & Cash Equivalents')
+  self.assertEqual(parse_balance(text,BASE)['value'],.5)
+  with self.assertRaisesRegex(ValueError,'two matching'):
+   parse_balance(text,{**BASE,'cash_and_cash_equivalents':10})
+  with self.assertRaises(ValueError):parse_balance(text.replace('March 31, 2026','March 31, 2024'),BASE)
+ def test_spaced_note_reference_does_not_supply_missing_values(self):
+  text=TEXT.replace('12    500.00','7 (c)    500.00').replace('49      30.00','49 (a)      -')
+  with self.assertRaisesRegex(ValueError,'No missing balance input'):parse_balance(text,BASE)
  def test_expanded_excerpt_does_not_overwrite_previous_evidence(self):
   with tempfile.TemporaryDirectory() as tmp:
    root=Path(tmp);p=root/'temporary.pdf';p.write_bytes(b'original balance page');old,digest=save_excerpt(root,p,'a'*64)
@@ -73,6 +82,10 @@ class AnnualReportTests(unittest.TestCase):
   self.assertEqual(parse_balance(text,BASE)['value'],.5)
  def test_lacs_unit_alias_keeps_conversion(self):
   self.assertEqual(parse_balance(TEXT.replace('lakhs','lacs'),BASE)['value'],.5)
+ def test_explicit_rupee_crore_abbreviation(self):
+  text=TEXT.replace('Rs in lakhs','Amounts in Rs. cr, unless otherwise stated')
+  self.assertEqual(parse_balance(text,{**BASE,'cash_and_cash_equivalents':500,'equity':5000})['value'],50)
+  with self.assertRaises(ValueError):parse_balance(text.replace('Rs. cr','USD cr'),BASE)
  def test_currency_before_unit_and_note_suffixes(self):
   for unit in ('Amounts in INR lakhs','All amounts are in ` lakh, unless otherwise stated'):
    text=TEXT.replace('Rs in lakhs',unit).replace('12    500.00','12a    500.00')

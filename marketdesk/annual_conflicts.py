@@ -22,7 +22,14 @@ def report_text(report,symbol,isin):
     age=(datetime.now(timezone.utc)-datetime.fromisoformat(report['observed_at'])).total_seconds()
     if not 0<=age<=30*86400:raise ValueError('Report observation expired')
     raw=checked_bytes(report['evidence_path'],report['excerpt_sha256']);e=report['evidence'];texts=[]
+    inherited_basis=None
     with pymupdf.open(stream=raw,filetype='pdf') as doc:
+        if e.get('basis_evidence_page'):
+            if len(doc)!=len(e['pages'])+1:raise ValueError('Auditor evidence page missing')
+            auditor=' '.join(doc[-1].get_text().lower().split())
+            bases=re.findall(r'report on the audit of (?:the )?(standalone|consolidated) financial statements',auditor[:6000])
+            inherited_basis=e.get('statement_type')
+            if set(bases)!={inherited_basis}:raise ValueError('Auditor statement basis not verified')
         for p in list(doc)[:len(e['pages'])]:
             if e['layout']=='left_half':clip=pymupdf.Rect(0,0,p.rect.width/2,p.rect.height)
             elif e['layout']=='right_half':clip=pymupdf.Rect(p.rect.width/2,0,p.rect.width,p.rect.height)
@@ -35,6 +42,7 @@ def report_text(report,symbol,isin):
     for line in report.get('reviewed_navigation_lines',[]):
         if text.splitlines()[0]!=line:raise ValueError('Reviewed navigation header changed')
         text='\n'.join(text.splitlines()[1:])
+    if inherited_basis:text=inherited_basis+'\n'+text
     return text
 
 def quantum(line,scale):
