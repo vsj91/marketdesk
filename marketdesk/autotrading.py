@@ -5,6 +5,7 @@ from .storage import connect,get_state,set_state,number,now
 from .paper import trade
 from .quality import audit
 from .quote_health import fresh,stale_holdings,stale_message,refresh_held_quotes
+from .buy_universe import allowed_symbols,require_buy_universe,universe_status,MembershipRefresh
 
 IST=timezone(timedelta(hours=5,minutes=30))
 RULES={
@@ -137,6 +138,7 @@ def daily_risk(db,portfolio,clock):
 
 class AutoTrading:
  def __init__(self,path,refresh=None):
+  self.membership_refresh=MembershipRefresh(path)
   self.claude=None;self.quality_checked=0;self.refresh=refresh;self.path=path;init_auto(path);self.stop_event=threading.Event();self.thread=None;self.scan_lock=threading.Lock();self.signals={};self.loaded=0
  def start(self):
   if self.thread and self.thread.is_alive():return
@@ -160,6 +162,7 @@ class AutoTrading:
   if cfg.get('investor',{}).get('allow_stale_held_valuation') is True:
    rules['investor']['risk']='A 2% fall from the first marked portfolio equity of the session stops new buys for that session; exits remain active. Existing Investor holdings may use their last valid current-session quote for valuation when stale. Missing, invalid, future-dated or prior-session quotes block new buys. All orders and exits still require fresh prices and depth.'
   for p in rules:
+   if cfg.get(p,{}).get('buy_universe')=='nifty500':rules[p]['buy_universe']=universe_status(db,p)
    fee_limit=cfg.get(p,{}).get('max_round_trip_fee_pct')
    if fee_limit is not None:
     rules[p]['max_round_trip_fee_pct']=fee_limit
@@ -192,6 +195,7 @@ class AutoTrading:
     if not reason or order['quantity']!=held:raise ValueError('Exit signal or held quantity changed; re-evaluate next cycle.')
     return reason
    if not entry_window_open(execution_clock,cfg):raise ValueError('New entries run '+entry_window_label(cfg)+'.')
+   require_buy_universe(db,portfolio,order['symbol'],execution_clock)
    if held:raise ValueError('Already holding this stock; no automatic averaging.')
    count=db.execute('SELECT COUNT(*) FROM positions WHERE portfolio=? AND quantity>0',(portfolio,)).fetchone()[0]
    if count>=rules['max_positions']:raise ValueError('Position limit reached.')
@@ -278,8 +282,12 @@ class AutoTrading:
     fills+=self.execute(portfolio,p['symbol'],'SELL',p['quantity'],signal,clock,realtime)
   if not entry_window_open(clock,cfg):return {'state':'monitoring','message':'Monitoring exits. New entries run '+entry_window_label(cfg)+'.','fills_this_scan':fills}
   if not okay:return {'state':'risk_wait','message':risk_message,'fills_this_scan':fills}
+  try:
+   with connect(self.path) as db:allowed=allowed_symbols(db,portfolio,clock)
+  except ValueError as error:return {'state':'data_wait','message':str(error),'fills_this_scan':fills}
   candidates=[]
   for symbol,signal in signals.items():
+   if allowed is not None and symbol not in allowed:continue
    q=quotes.get(symbol)
    result=entry_signal(portfolio,signal,q['price'],clock) if fresh(q,clock) else None
    if result:candidates.append((result[1],symbol))
@@ -350,6 +358,7 @@ class AutoTrading:
  def run(self):
   while not self.stop_event.is_set():
    try:
+    self.membership_refresh.start_if_due()
     if time.monotonic()-self.quality_checked>300:
      audit(self.path);self.quality_checked=time.monotonic()
     self.cycle()

@@ -15,6 +15,7 @@ from .execution import charges
 from .feed import load_token
 from .paper import trade
 from .quote_health import fresh,stale_message,refresh_held_quotes
+from .buy_universe import allowed_symbols,require_buy_universe
 
 IST = timezone(timedelta(hours=5, minutes=30))
 STRATEGY = 'claude-original-v2'
@@ -278,6 +279,7 @@ class ClaudeTrader:
                 if q==held:db.execute('DELETE FROM claude_positions WHERE symbol=?',(order['symbol'],))
                 return reason
             if not entry_window_open(execution,cfg,opening=True):raise ValueError('Claude entries only use '+entry_window_label(cfg,opening=True)+'.')
+            require_buy_universe(db,'trader',order['symbol'],execution)
             if local_day(execution)!=local_day(clock) or not eligible(signal,price,execution,self.benchmark,use_market_filter=market_filter_enabled(cfg)):raise ValueError('Completed signal, market filter or fill gap check failed.')
             start=day_start(execution)
             if held or db.execute("SELECT 1 FROM trades WHERE portfolio='trader' AND symbol=? AND created_at>=?",(order['symbol'],start)).fetchone():raise ValueError('No averaging or same-session re-entry.')
@@ -325,7 +327,11 @@ class ClaudeTrader:
         label='Original Claude' if use_market_filter else 'Claude V2 (Nifty 500 filter off)'
         if not entry_window_open(clock,cfg,opening=True):return status(label+' active. Monitoring exits; new signals use '+entry_window_label(cfg,opening=True)+'.')
         candidates=[]
+        try:
+            with connect(self.path) as db:allowed=allowed_symbols(db,'trader',clock)
+        except ValueError as error:return status(str(error),'data_wait')
         for symbol,rows in self.histories.items():
+            if allowed is not None and symbol not in allowed:continue
             q=quotes.get(symbol);s=rows[-1]
             if fresh(q,clock) and eligible(s,q['price'],clock,self.benchmark,use_market_filter=use_market_filter):candidates.append((s['rank'],symbol,s))
         for _,symbol,s in sorted(candidates,key=lambda x:(-x[0],x[1])):

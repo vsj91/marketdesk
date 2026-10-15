@@ -3,6 +3,7 @@ from datetime import datetime,timezone,timedelta
 from .storage import connect,now,get_state
 from .execution import fetch_book,match,charges,money,automatic_buy_cost_check
 from .quality import init_quality,require_buy_quality
+from .buy_universe import require_buy_universe
 
 def init_paper(path):
     init_quality(path)
@@ -37,7 +38,9 @@ def preflight(db,payload,clock,auto_guard,*,realtime=False):
     latest=db.execute('SELECT close FROM candles WHERE symbol=? ORDER BY ts DESC LIMIT 1',(symbol,)).fetchone()
     if latest and quote['previous_close'] and abs(quote['previous_close']/latest['close']-1)>.25:
         raise ValueError('Previous close differs from stored history by over 25%; corporate-action/position review required before any fill.')
-    if payload['side']=='BUY':require_buy_quality(db,symbol,portfolio,clock)
+    if payload['side']=='BUY':
+        require_buy_universe(db,portfolio,symbol,clock)
+        require_buy_quality(db,symbol,portfolio,clock)
     account=db.execute('SELECT * FROM portfolios WHERE name=?',(portfolio,)).fetchone()
     position=db.execute('SELECT * FROM positions WHERE portfolio=? AND symbol=?',(portfolio,symbol)).fetchone()
     if payload['side']=='SELL' and payload['quantity']>(position['quantity'] if position else 0):raise ValueError('Cannot sell more shares than this paper portfolio holds.')
