@@ -1,3 +1,4 @@
+from .working_universe import symbol_filter
 """Local, conservative eligibility audit. No interpolation or guessed financial values."""
 import collections,json,math
 from datetime import datetime,timedelta,timezone
@@ -65,16 +66,16 @@ def audit(path,clock=None):
     clock=clock or datetime.now(timezone.utc);init_quality(path)
     with connect(path) as db:
         db.execute('BEGIN')
-        instruments=[r['symbol'] for r in db.execute('SELECT symbol FROM instruments')]
+        instruments=[r['symbol'] for r in db.execute('SELECT symbol FROM instruments WHERE '+symbol_filter(db))]
         histories=collections.defaultdict(lambda:collections.deque(maxlen=201));counts=collections.Counter()
-        for r in db.execute('SELECT symbol,ts,open,high,low,close,volume FROM candles ORDER BY symbol,ts'):
+        for r in db.execute('SELECT symbol,ts,open,high,low,close,volume FROM candles WHERE '+symbol_filter(db)+' ORDER BY symbol,ts'):
             histories[r['symbol']].append(dict(r));counts[r['ts'][:10]]+=1
         # A local consensus calendar, explicitly not an independently verified NSE calendar.
         threshold=max(1,len(instruments)//2);sessions=sorted(d for d,n in counts.items() if n>=threshold and d<clock.astimezone(IST).date().isoformat())
-        funds={r['symbol']:(json.loads(r['details']),r['observed_at']) for r in db.execute('SELECT * FROM fundamentals')}
+        funds={r['symbol']:(json.loads(r['details']),r['observed_at']) for r in db.execute('SELECT * FROM fundamentals WHERE '+symbol_filter(db))}
         evidence=collections.defaultdict(dict)
-        for r in db.execute('SELECT symbol,endpoint,observed_at FROM payloads'):evidence[r['symbol']][r['endpoint']]=r['observed_at']
-        bad={r[0] for r in db.execute("SELECT DISTINCT symbol FROM issues WHERE kind IN ('candle','identity')")}
+        for r in db.execute('SELECT symbol,endpoint,observed_at FROM payloads WHERE '+symbol_filter(db)):evidence[r['symbol']][r['endpoint']]=r['observed_at']
+        bad={r[0] for r in db.execute("SELECT DISTINCT symbol FROM issues WHERE "+symbol_filter(db)+" AND kind IN ('candle','identity')")}
     reports={};totals=collections.Counter()
     for symbol in instruments:
         reasons=inspect_history(list(histories[symbol]),sessions,clock)

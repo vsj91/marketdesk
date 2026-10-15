@@ -4,6 +4,7 @@ import sys,json,copy,time,hashlib
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor,as_completed
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
+from marketdesk.working_universe import symbol_filter
 from marketdesk.storage import ROOT,DEFAULT_DB,connect,now,get_state,set_state
 from marketdesk.annual_reports import AnnualReportSources,apply_report,save_excerpt,REVISION,pdf_worker
 from marketdesk.annual_conflicts import reconcile_debt
@@ -13,7 +14,7 @@ from marketdesk.quality import audit
 from marketdesk.intraday_data import atomic_json
 apply='--apply' in sys.argv;limit=int(sys.argv[sys.argv.index('--limit')+1]) if '--limit' in sys.argv else 200
 with connect(DEFAULT_DB) as db:
- quality=get_state(db,'quality_summary',{});allrows=[dict(r) for r in db.execute('SELECT i.symbol,i.isin,f.details,q.report FROM instruments i JOIN fundamentals f USING(symbol) JOIN quality q USING(symbol)')]
+ quality=get_state(db,'quality_summary',{});allrows=[dict(r) for r in db.execute('SELECT i.symbol,i.isin,f.details,q.report FROM instruments i JOIN fundamentals f USING(symbol) JOIN quality q USING(symbol) WHERE '+symbol_filter(db,'i.symbol'))]
  complete_before=sum(not missing(json.loads(r['details'])) for r in allrows)
 rows=[r for r in allrows if not json.loads(r['report'])['price_reasons'] and json.loads(r['report'])['financial_reasons']==['Annual financial inputs incomplete']]
 if '--symbols-file' in sys.argv:
@@ -38,9 +39,9 @@ def publish(final=False):
  if apply and (final or time.monotonic()-last_audit>30):
   report['quality']=audit(DEFAULT_DB);last_audit=time.monotonic()
  with connect(DEFAULT_DB) as db:
-  report['complete_now']=db.execute("SELECT COUNT(*) FROM fundamentals WHERE json_extract(details,'$.status')='COMPLETE'").fetchone()[0];report['incomplete_now']=len(allrows)-report['complete_now']
-  ready={r['symbol'] for r in db.execute('SELECT symbol,report FROM quality') if json.loads(r['report'])['investor_ready']}
-  checks=[json.loads(r['report']) for r in db.execute('SELECT report FROM quality')]
+  report['complete_now']=db.execute("SELECT COUNT(*) FROM fundamentals WHERE "+symbol_filter(db)+" AND json_extract(details,'$.status')='COMPLETE'").fetchone()[0];report['incomplete_now']=len(allrows)-report['complete_now']
+  ready={r['symbol'] for r in db.execute('SELECT symbol,report FROM quality WHERE '+symbol_filter(db)) if json.loads(r['report'])['investor_ready']}
+  checks=[json.loads(r['report']) for r in db.execute('SELECT report FROM quality WHERE '+symbol_filter(db))]
   report['blocker_breakdown']={'ineligible':sum(not q['investor_ready'] for q in checks),'financial_only':sum(not q['price_reasons'] and not q['investor_ready'] for q in checks),'price_blocked':sum(bool(q['price_reasons']) for q in checks)}
   report['newly_eligible']=[r['symbol'] for r in rows if r['symbol'] in ready]
   report['updated_at']=now()

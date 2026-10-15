@@ -1,3 +1,4 @@
+from .working_universe import symbol_filter,enabled,research_symbols
 import threading,time,csv,json,shutil
 from datetime import datetime,timedelta,timezone
 from pathlib import Path
@@ -25,7 +26,7 @@ class Refresh:
         if not load_token() and mode=='candles':raise ValueError('An Upstox access token is required for candles.')
         if not self.lock.acquire(blocking=False):raise ValueError('A data refresh is already running.')
         with connect(self.path) as db:
-            all_rows=[dict(r) for r in db.execute('SELECT * FROM instruments ORDER BY symbol')]
+            all_rows=[dict(r) for r in db.execute('SELECT * FROM instruments WHERE '+symbol_filter(db,include_holdings=mode in ('candles','both'))+' ORDER BY symbol')]
         rows=[r for r in all_rows if not symbols or r['symbol'] in symbols]
         with connect(self.path) as db:
             failed={r[0] for r in db.execute("SELECT DISTINCT symbol FROM payloads WHERE http_status!=200 OR error IS NOT NULL")}
@@ -33,7 +34,7 @@ class Refresh:
         completed=[]
         with connect(self.path) as db:previous=get_state(db,'refresh',{})
         if not symbols and previous.get('scope')=='all' and previous.get('mode')==mode and previous.get('status') in ('failed','interrupted'):
-            completed=previous.get('completed_symbols',[])
+            completed=[s for s in previous.get('completed_symbols',[]) if s in {r['symbol'] for r in all_rows}]
             rows=[r for r in rows if r['symbol'] not in completed]
         if not rows:self.lock.release();raise ValueError('No matching symbols.')
         self.state={'completed_symbols':completed,'scope':'all' if not symbols else 'selected','status':'running','total':len(rows)+len(completed),'done':len(completed),'errors':0,'started_at':now(),'mode':mode};self.save()
@@ -47,10 +48,16 @@ class Refresh:
             started=previous['started_at'] if resume else now()
             saved=ROOT/'data/fundamental-repair'/started.replace(':','-')/'before.json'
             rows=json.loads(saved.read_text()) if resume and saved.exists() else targets(self.path)
+            with connect(self.path) as db:
+                active={r[0] for r in db.execute('SELECT symbol FROM instruments WHERE '+symbol_filter(db))}
+            rows=[r for r in rows if r['symbol'] in active]
+            # A changed scope starts a fresh checkpoint rather than carrying old totals.
+            if resume and previous.get('working_universe')!=('nifty500' if enabled(db) else 'all'):
+                resume=False;started=now();rows=targets(self.path)
             if not rows:raise ValueError('All annual inputs are already complete.')
             with connect(self.path) as db:
                 if not resume:set_state(db,'refresh_before_fundamental_repair',previous)
-                complete=db.execute("SELECT COUNT(*) FROM fundamentals WHERE json_extract(details,'$.status')='COMPLETE'").fetchone()[0]
+                complete=db.execute("SELECT COUNT(*) FROM fundamentals WHERE "+symbol_filter(db)+" AND json_extract(details,'$.status')='COMPLETE'").fetchone()[0]
             self.state={'scope':'incomplete','status':'running','total':len(rows),'done':0,'errors':0,'started_at':started,
                         'mode':'fundamental_repair','stage':'NSE / BSE / company annual reports / Yahoo','complete_before':previous.get('complete_before',complete) if resume else complete}
             self.save()
@@ -59,7 +66,9 @@ class Refresh:
             self.lock.release();raise
 
     def save(self):
-        with connect(self.path) as db:set_state(db,'refresh',self.state)
+        with connect(self.path) as db:
+            self.state['working_universe']='nifty500' if enabled(db) else 'all'
+            set_state(db,'refresh',self.state)
     def run(self,rows,mode):
         root=ROOT/'data'/'imports'
         archive=ROOT/'data'/'refresh-history'/self.state['started_at'].replace(':','-')
@@ -68,15 +77,21 @@ class Refresh:
         provider.RAW_JSON_DIR=root/'RAW_CANDLES'/'json';provider.RAW_CSV_DIR=root/'RAW_CANDLES'/'csv'
         try:
             for row in rows:
-                symbol=row['symbol'];self.state['current']=symbol;self.save()
+                symbol=row['symbol']
+                with connect(self.path) as db:
+                    research=research_symbols(db)
+                    active={r[0] for r in db.execute('SELECT symbol FROM instruments WHERE '+symbol_filter(db,include_holdings=mode in ('candles','both')))}
+                if symbol not in active:continue
+                row_mode='candles' if research is not None and symbol not in research else mode
+                self.state['current']=symbol;self.save()
                 # Preserve the previous raw response before a network retry replaces it.
                 old=root/'RAW_FUNDAMENTALS'/symbol
                 if old.exists():shutil.copytree(old,archive/symbol,dirs_exist_ok=True)
                 failed=False
-                if not provider.UPSTOX_AUTH_ERROR and mode in ('both','fundamentals'):
+                if not provider.UPSTOX_AUTH_ERROR and row_mode in ('both','fundamentals'):
                     result=provider.fetch_and_save_fundamental_jsons(symbol,row['instrument_key'],row)
                     failed=result['status'] in ('FAILED','AUTH_FAILED','INVALID_ISIN')
-                if not provider.UPSTOX_AUTH_ERROR and mode in ('both','candles'):
+                if not provider.UPSTOX_AUTH_ERROR and row_mode in ('both','candles'):
                     with connect(self.path) as db:
                         latest=db.execute('SELECT MAX(ts) FROM candles WHERE symbol=?',(symbol,)).fetchone()[0]
                     today=datetime.now(timezone(timedelta(hours=5,minutes=30))).date()
@@ -103,7 +118,7 @@ class Refresh:
                     failed=True
                     self.state['upstox_warning']='Upstox access unavailable; NSE/Yahoo fundamentals continue. Renew the token to refresh candles.'
                 import_exports(root,self.path,[symbol])
-                if mode in ('both','fundamentals'):
+                if row_mode in ('both','fundamentals'):
                     with connect(self.path) as db:
                         entry=db.execute('SELECT details FROM fundamentals WHERE symbol=?',(symbol,)).fetchone()
                     details=json.loads(entry[0]) if entry else provider.extract_fundamental_details({})

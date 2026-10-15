@@ -1,3 +1,4 @@
+from .working_universe import symbol_filter
 """Offline daily-open proxy. Opens the source database read-only; no paper ledger writes."""
 import collections
 import hashlib
@@ -28,20 +29,20 @@ def load_snapshot(path, end=None):
         db.execute('PRAGMA query_only=ON')
         db.execute('BEGIN')
         captured_at = datetime.now(timezone.utc).isoformat()
-        symbols = [r[0] for r in db.execute('SELECT symbol FROM instruments ORDER BY symbol')]
+        symbols = [r[0] for r in db.execute('SELECT symbol FROM instruments WHERE '+symbol_filter(db)+' ORDER BY symbol')]
         history = collections.defaultdict(list)
         counts = collections.Counter()
         digest = hashlib.sha256()
-        for row in db.execute('SELECT symbol,ts,open,high,low,close,volume FROM candles ORDER BY symbol,ts'):
+        for row in db.execute('SELECT symbol,ts,open,high,low,close,volume FROM candles WHERE '+symbol_filter(db)+' ORDER BY symbol,ts'):
             r = dict(row)
             if end and r['ts'][:10] > end:
                 continue
             history[r['symbol']].append(r)
             counts[r['ts'][:10]] += 1
             digest.update(json.dumps(r, sort_keys=True).encode())
-        funds = {r['symbol']:(json.loads(r['details']),r['observed_at']) for r in db.execute('SELECT * FROM fundamentals')}
+        funds = {r['symbol']:(json.loads(r['details']),r['observed_at']) for r in db.execute('SELECT * FROM fundamentals WHERE '+symbol_filter(db))}
         evidence = collections.defaultdict(dict)
-        for r in db.execute('SELECT symbol,endpoint,observed_at FROM payloads'):
+        for r in db.execute('SELECT symbol,endpoint,observed_at FROM payloads WHERE '+symbol_filter(db)):
             evidence[r['symbol']][r['endpoint']] = r['observed_at']
         digest.update(json.dumps(funds,sort_keys=True).encode())
         digest.update(json.dumps(evidence,sort_keys=True).encode())

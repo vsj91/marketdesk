@@ -1,3 +1,4 @@
+from .working_universe import symbol_filter
 """Original Claude V2, opt-in for the local paper Trader. No broker order APIs.
 
 Daily signals use completed candles only; observed opening depth replaces the
@@ -209,7 +210,7 @@ class ClaudeTrader:
             bench=[dict(r) for r in db.execute('SELECT * FROM claude_benchmark WHERE day<? ORDER BY day',(today,))]
             fetch=get_state(db,'claude_benchmark_fetch',{})
             required=get_state(db,'auto_previous_session','')
-            latest=db.execute('SELECT MAX(substr(ts,1,10)) FROM candles WHERE substr(ts,1,10)<?',(today,)).fetchone()[0] or ''
+            latest=db.execute('SELECT MAX(substr(ts,1,10)) FROM candles WHERE '+symbol_filter(db,include_holdings=True)+' AND substr(ts,1,10)<?',(today,)).fetchone()[0] or ''
             self.benchmark=None
             if len(bench)>=201 and fetch.get('okay') and fetch.get('session')==today:
                 last=bench[-1];age=(datetime.fromisoformat(today)-datetime.fromisoformat(last['day'])).days
@@ -218,7 +219,7 @@ class ClaudeTrader:
             bad={r[0] for r in db.execute("SELECT DISTINCT symbol FROM issues WHERE kind IN ('candle','identity')")}
             bad.update(r[0] for r in db.execute("SELECT symbol FROM quality WHERE json_extract(report,'$.trader_ready')=0"))
             groups=collections.defaultdict(list)
-            for row in db.execute('SELECT symbol,ts,open,high,low,close,volume FROM candles WHERE substr(ts,1,10)<? ORDER BY symbol,ts',(today,)):
+            for row in db.execute('SELECT symbol,ts,open,high,low,close,volume FROM candles WHERE '+symbol_filter(db,include_holdings=True)+' AND substr(ts,1,10)<? ORDER BY symbol,ts',(today,)):
                 groups[row['symbol']].append(dict(row))
         required_days={r['day'] for r in bench[-201:]}
         self.histories={}

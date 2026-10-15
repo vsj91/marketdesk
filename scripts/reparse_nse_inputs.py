@@ -8,6 +8,7 @@ import sys,json,copy,hashlib
 from pathlib import Path
 from datetime import datetime,timezone
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
+from marketdesk.working_universe import symbol_filter
 from marketdesk.storage import ROOT,DEFAULT_DB,connect,now
 from marketdesk.fallbacks import nse_annual
 from marketdesk.provider import FUNDAMENTAL_REQUIRED_FIELDS
@@ -16,7 +17,7 @@ from marketdesk.intraday_data import atomic_json
 from marketdesk.quality import audit
 apply='--apply' in sys.argv
 folder=ROOT/'data/nse-caption-repair'/now().replace(':','-')
-with connect(DEFAULT_DB) as db:rows=[dict(r) for r in db.execute('SELECT i.symbol,i.isin,f.details,q.report FROM instruments i JOIN fundamentals f USING(symbol) JOIN quality q USING(symbol)')]
+with connect(DEFAULT_DB) as db:rows=[dict(r) for r in db.execute('SELECT i.symbol,i.isin,f.details,q.report FROM instruments i JOIN fundamentals f USING(symbol) JOIN quality q USING(symbol) WHERE '+symbol_filter(db,'i.symbol'))]
 report={'status':'running','mode':'local_paper_only','started_at':now(),'run_path':str(folder.relative_to(ROOT)),'results':[],'applied':apply}
 baseline=[]
 for r in rows:

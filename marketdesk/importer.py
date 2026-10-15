@@ -3,6 +3,7 @@ from pathlib import Path
 from datetime import datetime, timezone, timedelta
 from .storage import connect, init, now, number, set_state, ROOT
 from . import provider
+from .working_universe import research_symbols,held_symbols
 
 ENDPOINTS=('profile','income_statement','balance_sheet','cash_flow','key_ratios')
 
@@ -51,6 +52,8 @@ def import_exports(folder,db_path, symbols=None):
     names=set(universe)|{p.stem for p in candle_dir.glob('*.csv')}|{p.name for p in fund_dir.iterdir() if p.is_dir()} if fund_dir.exists() else set(universe)|{p.stem for p in candle_dir.glob('*.csv')}
     if symbols is not None:names &= set(symbols)
     with connect(db_path) as db:
+        active=research_symbols(db)
+        if active is not None:names &= active | held_symbols(db)
         canonical={r.get('instrument_key'):sym for sym,r in universe.items() if r.get('instrument_key')}
         used={}
         for symbol in sorted(names):
@@ -67,7 +70,7 @@ def import_exports(folder,db_path, symbols=None):
                 jf=folder/'RAW_CANDLES'/'json'/(symbol+'.json')
                 if jf.exists():key=json.loads(jf.read_text()).get('instrument_key')
             if not provider.is_cash_equity_instrument(key):report['invalid_instruments']+=1;continue
-            if master and (key not in master or master[key].get('instrument_type')!='EQ' or master[key].get('segment')!='NSE_EQ'):
+            if master and (key not in master or master[key].get('instrument_type') not in ({'EQ','BE','RR'} if active is not None and symbol in active else {'EQ'}) or master[key].get('segment')!='NSE_EQ'):
                 report['excluded_non_equity_or_unknown']+=1
                 db.execute('INSERT OR IGNORE INTO issues VALUES(?,?,?)',(symbol,'identity','Not a verified NSE common equity in the local instrument master'))
                 continue

@@ -1,4 +1,5 @@
-import os,threading,json,ssl,uuid
+from .working_universe import symbol_filter
+import os,threading,json,ssl,uuid,time
 import socket as network
 from urllib.parse import urlsplit
 import requests,certifi,websocket
@@ -60,7 +61,7 @@ class Feed:
         with self.lifecycle:
             self.stop();token=load_token()
             if not token:raise ValueError('Save an Upstox access token first.')
-            with connect(self.path) as db:keys={r['instrument_key']:r['symbol'] for r in db.execute('SELECT * FROM instruments ORDER BY symbol')}
+            with connect(self.path) as db:keys={r['instrument_key']:r['symbol'] for r in db.execute('SELECT * FROM instruments WHERE '+symbol_filter(db,include_holdings=True)+' ORDER BY symbol')}
             if not keys:raise ValueError('Import instruments first.')
             if len(keys)>5000:raise ValueError('LTPC limit is 5,000 instruments; reduce the universe.')
             generation=self.generation;stop=threading.Event();self.stop_event=stop
@@ -68,15 +69,29 @@ class Feed:
             threading.Thread(target=self.run,args=(token,keys,generation,stop),daemon=True).start()
     def run(self,token,keys,generation,stop):
         def active():return not stop.is_set() and self.generation==generation
+        last_scope=[0.0]
+        def sync_scope(ws):
+            with connect(self.path) as db:
+                current={r['instrument_key']:r['symbol'] for r in db.execute('SELECT * FROM instruments WHERE '+symbol_filter(db,include_holdings=True))}
+            for method,names in (('unsub',sorted(set(keys)-set(current))),('sub',sorted(set(current)-set(keys)))):
+                if names:ws.send(json.dumps({'guid':str(uuid.uuid4()),'method':method,'data':{'mode':'ltpc','instrumentKeys':names}}).encode(),opcode=websocket.ABNF.OPCODE_BINARY)
+            keys.clear();keys.update(current);last_scope[0]=time.monotonic()
+            self.update(subscriptions=len(keys))
         def on_open(ws):
             if not active():ws.close();return
             self.update(status='connected',stage='subscribing',error=None,market_status={},connected_at=now(),retry=0)
+            with connect(self.path) as db:
+                current={r['instrument_key']:r['symbol'] for r in db.execute('SELECT * FROM instruments WHERE '+symbol_filter(db,include_holdings=True))}
+            keys.clear();keys.update(current);last_scope[0]=time.monotonic()
+            self.update(subscriptions=len(keys))
             names=list(keys)
             for offset in range(0,len(names),500):
                 ws.send(json.dumps({'guid':str(uuid.uuid4()),'method':'sub','data':{'mode':'ltpc','instrumentKeys':names[offset:offset+500]}}).encode(),opcode=websocket.ABNF.OPCODE_BINARY)
         def on_message(ws,data):
             if not active():return
-            try:self.message(MessageToDict(MarketDataFeedV3_pb2.FeedResponse.FromString(data)),keys)
+            try:
+                if time.monotonic()-last_scope[0]>30:sync_scope(ws)
+                self.message(MessageToDict(MarketDataFeedV3_pb2.FeedResponse.FromString(data)),keys)
             except Exception:self.update(error='A malformed feed message was rejected.')
         def on_error(ws,error):
             if active():self.update(status='error',market_status={},error='Upstox socket failed ('+type(error).__name__+'). Retrying the connection.')

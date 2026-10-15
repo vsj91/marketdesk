@@ -1,3 +1,4 @@
+from .working_universe import symbol_filter,status as working_status,enabled,scope_report,sync_instruments
 import json,os,re,secrets,threading,time,mimetypes,hashlib
 from pathlib import Path
 from http.server import ThreadingHTTPServer,BaseHTTPRequestHandler
@@ -10,16 +11,18 @@ from .refresh import Refresh
 from .autotrading import AutoTrading
 from .quality import audit
 from .power import SleepGuard
+from .universe_exits import RequestedExits
 from .market_caps import classifications,decorate_html,ClassificationRefresh
 
 class App:
     def __init__(self,path,read_only=False):
         self.path=path
-        if not read_only:init(path);init_paper(path);audit(path)
+        if not read_only:init(path);init_paper(path);sync_instruments(path);audit(path)
         self.feed=None if read_only else Feed(path);self.refresh=None if read_only else Refresh(path)
         self.auto=None if read_only else AutoTrading(path,self.refresh)
         self.power=None if read_only else SleepGuard()
         self.cap_refresh=None if read_only else ClassificationRefresh(path)
+        self.requested_exits=None if read_only else RequestedExits(path)
         self.csrf=secrets.token_urlsafe(32);self.cache=None;self.cached_at=0;self.cache_lock=threading.Lock()
     def stocks(self):
         with self.cache_lock:
@@ -28,22 +31,29 @@ class App:
             return self.cache
     def health(self):
         with connect(self.path) as db:
-            counts={table:db.execute('SELECT COUNT(*) FROM '+table).fetchone()[0] for table in ('instruments','candles','fundamentals','quotes','issues')}
+            counts={table:db.execute('SELECT COUNT(*) FROM '+table+' WHERE '+symbol_filter(db)).fetchone()[0] for table in ('instruments','candles','fundamentals','quotes','issues')}
             stream=get_state(db,'stream',{});refresh=get_state(db,'refresh',{});quality=get_state(db,'quality_summary',{});quality['repair_queue']=get_state(db,'quality_repair_queue',{})
             report=get_state(db,'last_import',{});repair=get_state(db,'fundamental_repair',{})
-            incomplete=db.execute("SELECT COUNT(*) FROM fundamentals WHERE COALESCE(json_extract(details,'$.status'),'MISSING')!='COMPLETE'").fetchone()[0]
+            incomplete=db.execute("SELECT COUNT(*) FROM fundamentals WHERE "+symbol_filter(db)+" AND COALESCE(json_extract(details,'$.status'),'MISSING')!='COMPLETE'").fetchone()[0]
             missing={}
-            for r in db.execute('SELECT details FROM fundamentals'):
+            for r in db.execute('SELECT details FROM fundamentals WHERE '+symbol_filter(db)):
                 for key in json.loads(r[0]).get('missing_fields',[]):missing[key]=missing.get(key,0)+1
             missing_records=counts['instruments']-counts['fundamentals']
             if missing_records:
                 from .provider import FUNDAMENTAL_REQUIRED_FIELDS
                 for field in (*FUNDAMENTAL_REQUIRED_FIELDS,'sector'):missing[field]=missing.get(field,0)+missing_records
-            full={endpoint:db.execute("SELECT COUNT(*) FROM payloads WHERE endpoint=? AND json_array_length(json_extract(payload,'$.data.full_statement'))>0",(endpoint,)).fetchone()[0] for endpoint in ('income_statement','balance_sheet','cash_flow')}
-            failures=db.execute("SELECT COUNT(*) FROM payloads WHERE http_status!=200 OR error IS NOT NULL OR COALESCE(json_extract(payload,'$.status'),'')!='success'").fetchone()[0]
-            latest=db.execute('SELECT MAX(ts) FROM candles').fetchone()[0]
-            short=db.execute('SELECT COUNT(*) FROM (SELECT symbol FROM candles GROUP BY symbol HAVING COUNT(*)<200)').fetchone()[0]
-        return {'fundamental_repair':repair,'sleep_guard':self.power.snapshot() if self.power else None,'quality':quality,'counts':counts,'stream':stream,'refresh':{k:v for k,v in refresh.items() if k!='completed_symbols'},'import':report,'token_saved':bool(load_token()),'complete_fundamentals':counts['fundamentals']-incomplete,'partial_fundamentals':incomplete+missing_records,'missing_fields':missing,'detailed_statements':full,'failed_endpoints':failures,'latest_candle':latest,'short_histories':short,'mode':'local_paper_only','now':now(),'csrf':self.csrf}
+            full={endpoint:db.execute("SELECT COUNT(*) FROM payloads WHERE "+symbol_filter(db)+" AND endpoint=? AND json_array_length(json_extract(payload,'$.data.full_statement'))>0",(endpoint,)).fetchone()[0] for endpoint in ('income_statement','balance_sheet','cash_flow')}
+            failures=db.execute("SELECT COUNT(*) FROM payloads WHERE "+symbol_filter(db)+" AND (http_status!=200 OR error IS NOT NULL OR COALESCE(json_extract(payload,'$.status'),'')!='success')").fetchone()[0]
+            latest=db.execute('SELECT MAX(ts) FROM candles WHERE '+symbol_filter(db)).fetchone()[0]
+            short=db.execute('SELECT COUNT(*) FROM (SELECT symbol FROM candles WHERE '+symbol_filter(db)+' GROUP BY symbol HAVING COUNT(*)<200)').fetchone()[0]
+            universe=working_status(db)
+            if enabled(db):
+                active={r[0] for r in db.execute('SELECT symbol FROM instruments WHERE '+symbol_filter(db))}
+                quality['repair_queue']['symbols']=[s for s in quality['repair_queue'].get('symbols',[]) if s in active]
+                if refresh.get('working_universe')!='nifty500':refresh={'status':'ready','mode':'Nifty 500','total':len(active),'done':0}
+                if repair.get('working_universe')!='nifty500':repair={}
+                report={}
+        return {'universe':universe,'fundamental_repair':repair,'sleep_guard':self.power.snapshot() if self.power else None,'quality':quality,'counts':counts,'stream':stream,'refresh':{k:v for k,v in refresh.items() if k!='completed_symbols'},'import':report,'token_saved':bool(load_token()),'complete_fundamentals':counts['fundamentals']-incomplete,'partial_fundamentals':incomplete+missing_records,'missing_fields':missing,'detailed_statements':full,'failed_endpoints':failures,'latest_candle':latest,'short_histories':short,'mode':'local_paper_only','now':now(),'csrf':self.csrf}
 
 class Server(ThreadingHTTPServer):
     daemon_threads=True
@@ -73,16 +83,18 @@ class Handler(BaseHTTPRequestHandler):
                 report=json.loads(file.read_text()) if file.exists() else {'status':'not_started','results':[]}
                 for row in report['results']:
                     if row.get('evidence'):row['evidence']={k:v for k,v in row['evidence'].items() if k!='annual'}
+                with connect(app.path) as db:report=scope_report(db,report)
                 return self.send(report)
             if url.path=='/api/fundamental-repair':
                 file=ROOT/'data/fundamental-repair/latest.json'
-                return self.send(json.loads(file.read_text()) if file.exists() else {'status':'not_started','results':[]})
+                with connect(app.path) as db:report=scope_report(db,json.loads(file.read_text()) if file.exists() else {'status':'not_started','results':[]})
+                return self.send(report)
             if url.path=='/api/stocks':return self.send({'stocks':app.stocks()})
             if url.path=='/api/paper':return self.send({'portfolios':portfolios(app.path),'automation':app.auto.snapshot()})
             if url.path=='/api/stock':
                 symbol=q.get('symbol',[''])[0]
                 with connect(app.path) as db:
-                    i=db.execute('SELECT * FROM instruments WHERE symbol=?',(symbol,)).fetchone()
+                    i=db.execute('SELECT * FROM instruments WHERE '+symbol_filter(db,include_holdings=True)+' AND symbol=?',(symbol,)).fetchone()
                     if not i:return self.send({'error':'Unknown stock'},404)
                     f=db.execute('SELECT * FROM fundamentals WHERE symbol=?',(symbol,)).fetchone()
                     payloads=[dict(r) for r in db.execute('SELECT endpoint,http_status,error,observed_at,source_url,payload FROM payloads WHERE symbol=?',(symbol,))]
@@ -91,7 +103,10 @@ class Handler(BaseHTTPRequestHandler):
                         'quality':dict(db.execute('SELECT * FROM quality WHERE symbol=?',(symbol,)).fetchone() or {}),'fundamentals':json.loads(f['details']) if f else {},'payloads':payloads,'issues':[dict(r) for r in db.execute('SELECT * FROM issues WHERE symbol=?',(symbol,))]})
             name=unquote(url.path).lstrip('/') or 'index.html';root=(ROOT/'web').resolve();file=(root/name).resolve()
             if root not in file.parents or not file.is_file():return self.send({'error':'Not found'},404)
-            body=file.read_bytes()
+            with connect(app.path) as db:scoped=enabled(db)
+            if scoped and name in ('replay.html','intraday-replay.html','trader-review.html','trader-comparison.html'):
+                body=b'<!doctype html><html><head><title>MarketDesk research archive</title><link rel="stylesheet" href="/style.css"></head><body><main><a href="/">Back to MarketDesk</a><h1>Nifty 500 research</h1><p>The previous broad-universe experiment is archived locally. It is not a result for the current Nifty 500 universe.</p><p>Replacement buy rules remain inactive while they are developed and tested.</p></main></body></html>'
+            else:body=file.read_bytes()
             if file.suffix=='.html':body=decorate_html(body)
             return self.send(body,content=mimetypes.guess_type(file.name)[0] or 'application/octet-stream')
         except Exception:return self.send({'error':'Local request failed. Check server and database.'},500)
@@ -125,6 +140,7 @@ class Handler(BaseHTTPRequestHandler):
             if path=='/api/paper/order':return self.send(trade(app.path,payload))
             if path=='/api/watch':
                 with connect(app.path) as db:
+                    if payload.get('watched') and not db.execute('SELECT 1 FROM instruments WHERE '+symbol_filter(db)+' AND symbol=?',(payload.get('symbol'),)).fetchone():raise ValueError('Stock is outside the research universe.')
                     if payload.get('watched'):db.execute('INSERT OR IGNORE INTO watchlist VALUES(?)',(payload.get('symbol'),))
                     else:db.execute('DELETE FROM watchlist WHERE symbol=?',(payload.get('symbol'),))
                 app.cache=None;return self.send({'saved':True})
@@ -144,7 +160,8 @@ def serve(path=DEFAULT_DB,port=8765,live=False):
         except Exception as e:print('Live feed unavailable; configure the token in the app.',flush=True)
     app.power.start()
     app.cap_refresh.start()
+    app.requested_exits.start()
     app.auto.start()
     try:server.serve_forever()
     except KeyboardInterrupt:pass
-    finally:app.cap_refresh.stop();app.power.stop();app.auto.stop();app.feed.stop();server.server_close()
+    finally:app.requested_exits.stop();app.cap_refresh.stop();app.power.stop();app.auto.stop();app.feed.stop();server.server_close()

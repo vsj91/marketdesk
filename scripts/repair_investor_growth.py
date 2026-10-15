@@ -4,6 +4,7 @@ import json,sys,copy
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor,as_completed
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
+from marketdesk.working_universe import symbol_filter
 from marketdesk.storage import ROOT,DEFAULT_DB,connect,now,get_state,set_state
 from marketdesk.growth_repair import recover,checked_pair
 from marketdesk.quality import audit,financial_reasons,source_reasons,IST
@@ -13,7 +14,7 @@ from datetime import datetime,timezone
 apply='--apply' in sys.argv
 with connect(DEFAULT_DB) as db:
  quality=get_state(db,'quality_summary',{})
- rows=[dict(r) for r in db.execute('SELECT i.symbol,i.isin,f.details,q.report FROM instruments i JOIN fundamentals f USING(symbol) JOIN quality q USING(symbol)')]
+ rows=[dict(r) for r in db.execute('SELECT i.symbol,i.isin,f.details,q.report FROM instruments i JOIN fundamentals f USING(symbol) JOIN quality q USING(symbol) WHERE '+symbol_filter(db,'i.symbol'))]
 allowed={'Comparable annual growth inputs missing'}
 if '--include-context' in sys.argv:allowed.add('Growth inputs do not match annual period, basis and units')
 partial='--include-incomplete' in sys.argv

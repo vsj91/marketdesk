@@ -3,6 +3,7 @@
 import json,sys,copy
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
+from marketdesk.working_universe import symbol_filter
 from marketdesk.storage import ROOT,DEFAULT_DB,connect,now,get_state,set_state
 from marketdesk.annual_conflicts import reconcile_debt,reconcile_reviewed,retain_annual_resolutions
 from marketdesk.liability_reviews import reconcile_liability_review
@@ -10,7 +11,7 @@ from marketdesk.quality import audit
 from marketdesk.intraday_data import atomic_json
 apply='--apply' in sys.argv
 with connect(DEFAULT_DB) as db:
- quality=get_state(db,'quality_summary',{});rows=[dict(r) for r in db.execute('SELECT i.symbol,i.isin,f.details,q.report FROM instruments i JOIN fundamentals f USING(symbol) JOIN quality q USING(symbol)') if json.loads(r['details']).get('source_conflicts')]
+ quality=get_state(db,'quality_summary',{});rows=[dict(r) for r in db.execute('SELECT i.symbol,i.isin,f.details,q.report FROM instruments i JOIN fundamentals f USING(symbol) JOIN quality q USING(symbol) WHERE '+symbol_filter(db,'i.symbol')) if json.loads(r['details']).get('source_conflicts')]
 started=now();folder=ROOT/'data/annual-conflicts'/started.replace(':','-');atomic_json(folder/'before.json',rows)
 report={'status':'running','method':'company_annual_reports','started_at':started,'total':len(rows),'done':0,'resolved_fields':0,'cleared_stocks':0,'unresolved_stocks':0,'investor_before':quality.get('investor_ready'),'quality_before':quality,'applied':apply,'mode':'local_paper_only','results':[],'run_path':str(folder.relative_to(ROOT))}
 def publish():
@@ -43,7 +44,7 @@ for row in rows:
 if apply:
  report['quality']=audit(DEFAULT_DB);report['investor_after']=report['quality']['investor_ready'];report['remaining_conflict_stocks']=report['quality']['reasons'].get('Financial sources disagree',0)
  with connect(DEFAULT_DB) as db:
-  ready={r['symbol'] for r in db.execute('SELECT symbol,report FROM quality') if json.loads(r['report'])['investor_ready']}
+  ready={r['symbol'] for r in db.execute('SELECT symbol,report FROM quality WHERE '+symbol_filter(db)) if json.loads(r['report'])['investor_ready']}
  report['newly_eligible']=[r['symbol'] for r in rows if not json.loads(r['report'])['investor_ready'] and r['symbol'] in ready]
 report.update(status='complete',finished_at=now());publish()
 if apply:

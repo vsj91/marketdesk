@@ -106,6 +106,8 @@ def refresh_membership(path):
         with connect(path) as db:
             set_state(db, KEY, snapshot)
             set_state(db, KEY+'_refresh', dict(status='ok', checked_at=snapshot['fetched_at']))
+        from .working_universe import sync_instruments
+        sync_instruments(path,fetch_missing=True)
         return True
     except (requests.RequestException, ValueError, UnicodeError) as error:
         with connect(path) as db:

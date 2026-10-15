@@ -1,3 +1,4 @@
+from .working_universe import symbol_filter
 import json
 from datetime import datetime, timezone
 from .storage import connect, get_state, number
@@ -15,15 +16,15 @@ def technical(rows):
 
 def listing(db_path):
     with connect(db_path) as db:
-        instruments=[dict(r) for r in db.execute('SELECT * FROM instruments ORDER BY symbol')]
-        fundamentals={r['symbol']:(json.loads(r['details']),r['observed_at']) for r in db.execute('SELECT * FROM fundamentals')}
-        quotes={r['symbol']:dict(r) for r in db.execute('SELECT * FROM quotes')}
-        quality={r['symbol']:json.loads(r['report']) for r in db.execute('SELECT * FROM quality')}
-        watched={r[0] for r in db.execute('SELECT symbol FROM watchlist')}
-        bad={r[0] for r in db.execute("SELECT DISTINCT symbol FROM issues WHERE kind='candle'")}
+        instruments=[dict(r) for r in db.execute('SELECT * FROM instruments WHERE '+symbol_filter(db)+' ORDER BY symbol')]
+        fundamentals={r['symbol']:(json.loads(r['details']),r['observed_at']) for r in db.execute('SELECT * FROM fundamentals WHERE '+symbol_filter(db))}
+        quotes={r['symbol']:dict(r) for r in db.execute('SELECT * FROM quotes WHERE '+symbol_filter(db))}
+        quality={r['symbol']:json.loads(r['report']) for r in db.execute('SELECT * FROM quality WHERE '+symbol_filter(db))}
+        watched={r[0] for r in db.execute('SELECT symbol FROM watchlist WHERE '+symbol_filter(db))}
+        bad={r[0] for r in db.execute("SELECT DISTINCT symbol FROM issues WHERE "+symbol_filter(db)+" AND kind='candle'")}
         # One indexed ordered read avoids one database query per symbol.
         candles={}
-        for r in db.execute('SELECT symbol,ts,close,volume FROM candles ORDER BY symbol,ts'):candles.setdefault(r['symbol'],[]).append(r)
+        for r in db.execute('SELECT symbol,ts,close,volume FROM candles WHERE '+symbol_filter(db)+' ORDER BY symbol,ts'):candles.setdefault(r['symbol'],[]).append(r)
         stream=get_state(db,'stream',{})
     result=[];clock=datetime.now(timezone.utc).timestamp()*1000
     for item in instruments:

@@ -1,3 +1,4 @@
+from .working_universe import symbol_filter
 """Targeted local fundamental repair. Does not write candles or paper trading tables."""
 import copy,json,threading
 from concurrent.futures import ThreadPoolExecutor,as_completed
@@ -16,7 +17,7 @@ def missing(details):
 
 def targets(path):
     with connect(path) as db:
-        rows=[dict(r) for r in db.execute('SELECT i.symbol,i.isin,f.details,f.observed_at FROM instruments i LEFT JOIN fundamentals f ON i.symbol=f.symbol ORDER BY i.symbol')]
+        rows=[dict(r) for r in db.execute('SELECT i.symbol,i.isin,f.details,f.observed_at FROM instruments i LEFT JOIN fundamentals f ON i.symbol=f.symbol WHERE '+symbol_filter(db,'i.symbol')+' ORDER BY i.symbol')]
     return [r for r in rows if json.loads(r['details'] or '{}').get('status')!='COMPLETE']
 
 
@@ -26,7 +27,7 @@ def run_repair(job,rows):
     if not (folder/'before.json').exists():atomic_json(folder/'before.json',rows)
     report={'status':'running','started_at':started,'total':len(rows),'done':0,'newly_complete':0,
             'improved_stocks':0,'recovered_fields':0,'errors':0,'source_issue_stocks':0,'annual_reports_verified':0,'bse_checked':0,'company_sites_checked':0,'report_provider_counts':{},'results':[],
-            'complete_before':job.state['complete_before'],'incomplete_before':len(rows),'mode':'local_paper_only',
+            'complete_before':job.state['complete_before'],'incomplete_before':len(rows),'mode':'local_paper_only','working_universe':job.state.get('working_universe','all'),
             'note':'Verified annual fields only. Missing is not zero. Yahoo figures with unspecified statement basis remain supplemental. Complete inputs do not imply Investor eligibility or a validated strategy.'}
     checkpoint=folder/'report.json'
     if checkpoint.exists():
@@ -49,8 +50,8 @@ def run_repair(job,rows):
     def publish():
         report['updated_at']=now()
         with connect(job.path) as db:
-            report['complete_now']=db.execute("SELECT COUNT(*) FROM fundamentals WHERE json_extract(details,'$.status')='COMPLETE'").fetchone()[0]
-            report['incomplete_now']=db.execute('SELECT COUNT(*) FROM instruments').fetchone()[0]-report['complete_now']
+            report['complete_now']=db.execute("SELECT COUNT(*) FROM fundamentals WHERE "+symbol_filter(db)+" AND json_extract(details,'$.status')='COMPLETE'").fetchone()[0]
+            report['incomplete_now']=db.execute('SELECT COUNT(*) FROM instruments WHERE '+symbol_filter(db)).fetchone()[0]-report['complete_now']
             set_state(db,'fundamental_repair',{k:v for k,v in report.items() if k!='results'})
         atomic_json(folder/'report.json',report)
         atomic_json(ROOT/'data/fundamental-repair/latest.json',report)

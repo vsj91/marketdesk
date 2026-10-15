@@ -3,6 +3,7 @@ import sys,json
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor,as_completed
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
+from marketdesk.working_universe import symbol_filter
 from marketdesk.storage import ROOT,DEFAULT_DB,connect,get_state,now
 from marketdesk.report_growth import recover_report_growth,apply_growth
 from marketdesk.intraday_data import atomic_json
@@ -14,7 +15,7 @@ else:
 workers=int(sys.argv[sys.argv.index('--workers')+1]) if '--workers' in sys.argv else 4
 if not 1<=workers<=4:raise SystemExit('Use 1–4 workers')
 with connect(DEFAULT_DB) as db:
- rows=[dict(r) for r in db.execute('select i.symbol,i.isin,f.details,q.report from instruments i join fundamentals f using(symbol) join quality q using(symbol)') if r['symbol'] in symbols and json.loads(r['details'])['latest']['profit_before_tax']>0 and not json.loads(r['report'])['investor_ready']]
+ rows=[dict(r) for r in db.execute('select i.symbol,i.isin,f.details,q.report from instruments i join fundamentals f using(symbol) join quality q using(symbol) WHERE '+symbol_filter(db,'i.symbol')) if r['symbol'] in symbols and json.loads(r['details'])['latest']['profit_before_tax']>0 and not json.loads(r['report'])['investor_ready']]
  quality=get_state(db,'quality_summary',{})
 started=now();folder=ROOT/'data/report-growth'/started.replace(':','-');atomic_json(folder/'before.json',rows);report={'status':'running','started_at':started,'total':len(rows),'done':0,'recovered':0,'quality_before':quality,'results':[],'mode':'local_paper_only','applied':apply,'run_path':str(folder.relative_to(ROOT))}
 saved=ROOT/'data/report-growth/latest.json'

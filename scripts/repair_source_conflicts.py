@@ -4,6 +4,7 @@ import json,sys,copy
 from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor,as_completed
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
+from marketdesk.working_universe import symbol_filter
 from marketdesk.storage import ROOT,DEFAULT_DB,connect,now,get_state,set_state
 from marketdesk.conflict_repair import verify_nse,reconcile
 from marketdesk.quality import audit
@@ -11,7 +12,7 @@ from marketdesk.intraday_data import atomic_json
 apply='--apply' in sys.argv
 with connect(DEFAULT_DB) as db:
  quality=get_state(db,'quality_summary',{})
- rows=[dict(r) for r in db.execute('SELECT i.symbol,i.isin,f.details,q.report FROM instruments i JOIN fundamentals f USING(symbol) JOIN quality q USING(symbol)')]
+ rows=[dict(r) for r in db.execute('SELECT i.symbol,i.isin,f.details,q.report FROM instruments i JOIN fundamentals f USING(symbol) JOIN quality q USING(symbol) WHERE '+symbol_filter(db,'i.symbol'))]
 rows=[r for r in rows if json.loads(r['details']).get('source_conflicts')]
 rows.sort(key=lambda r:(not (json.loads(r['report'])['financial_reasons']==['Financial sources disagree'] and not json.loads(r['report'])['price_reasons']),r['symbol']))
 if '--sample' in sys.argv:rows=rows[:10]
@@ -43,7 +44,7 @@ with ThreadPoolExecutor(max_workers=6) as pool:
 if apply:
  report['quality']=audit(DEFAULT_DB);report['investor_after']=report['quality']['investor_ready']
  with connect(DEFAULT_DB) as db:
-  ready={r['symbol'] for r in db.execute('SELECT symbol,report FROM quality') if json.loads(r['report'])['investor_ready']}
+  ready={r['symbol'] for r in db.execute('SELECT symbol,report FROM quality WHERE '+symbol_filter(db)) if json.loads(r['report'])['investor_ready']}
  report['newly_eligible']=[r['symbol'] for r in rows if not json.loads(r['report'])['investor_ready'] and r['symbol'] in ready]
  report['remaining_conflict_stocks']=report['quality']['reasons'].get('Financial sources disagree',0)
 report.update(status='complete',finished_at=now());publish()
