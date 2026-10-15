@@ -3,7 +3,7 @@ import json,os,re,secrets,threading,time,mimetypes,hashlib
 from pathlib import Path
 from http.server import ThreadingHTTPServer,BaseHTTPRequestHandler
 from urllib.parse import urlsplit,parse_qs,unquote
-from .storage import ROOT,DEFAULT_DB,connect,init,now,get_state
+from .storage import ROOT,DEFAULT_DB,connect,init,now,get_state,set_state
 from .analytics import listing
 from .paper import init_paper,trade,portfolios
 from .feed import Feed,load_token
@@ -11,18 +11,30 @@ from .refresh import Refresh
 from .autotrading import AutoTrading
 from .quality import audit
 from .power import SleepGuard
+from .maintenance import Maintenance
 from .universe_exits import RequestedExits
 from .market_caps import classifications,decorate_html,ClassificationRefresh
 
 class App:
     def __init__(self,path,read_only=False):
         self.path=path
-        if not read_only:init(path);init_paper(path);sync_instruments(path);audit(path)
+        if not read_only:
+            init(path);init_paper(path)
+            with connect(path) as db:
+                if get_state(db,'working_universe') is None:set_state(db,'working_universe','nifty500')
+            sync_instruments(path);audit(path)
         self.feed=None if read_only else Feed(path);self.refresh=None if read_only else Refresh(path)
         self.auto=None if read_only else AutoTrading(path,self.refresh)
+        if not read_only:
+            with connect(path) as db:
+                if enabled(db):
+                    cfg=get_state(db,'auto_config',{})
+                    for portfolio in ('trader','investor'):cfg.setdefault(portfolio,{})['buy_universe']='nifty500'
+                    set_state(db,'auto_config',cfg)
         self.power=None if read_only else SleepGuard()
         self.cap_refresh=None if read_only else ClassificationRefresh(path)
         self.requested_exits=None if read_only else RequestedExits(path)
+        self.maintenance=None if read_only else Maintenance(path,self.refresh)
         self.csrf=secrets.token_urlsafe(32);self.cache=None;self.cached_at=0;self.cache_lock=threading.Lock()
     def stocks(self):
         with self.cache_lock:
@@ -161,7 +173,8 @@ def serve(path=DEFAULT_DB,port=8765,live=False):
     app.power.start()
     app.cap_refresh.start()
     app.requested_exits.start()
+    app.maintenance.start()
     app.auto.start()
     try:server.serve_forever()
     except KeyboardInterrupt:pass
-    finally:app.requested_exits.stop();app.cap_refresh.stop();app.power.stop();app.auto.stop();app.feed.stop();server.server_close()
+    finally:app.maintenance.stop();app.requested_exits.stop();app.cap_refresh.stop();app.power.stop();app.auto.stop();app.feed.stop();server.server_close()

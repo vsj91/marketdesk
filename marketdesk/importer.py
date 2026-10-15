@@ -39,7 +39,8 @@ def summary_metrics(payloads):
             out[category+'_growth_yoy']=(value/prev-1)*100 if prev is not None and prev>0 else None
     return out
 
-def import_exports(folder,db_path, symbols=None):
+def import_exports(folder,db_path, symbols=None,mode='both'):
+    if mode not in ('both','candles','fundamentals'):raise ValueError('Invalid import mode')
     init(db_path);folder=Path(folder);report=collections.Counter();missing=collections.Counter()
     candle_dir=folder/'RAW_CANDLES'/'csv';fund_dir=folder/'RAW_FUNDAMENTALS'
     universe={}
@@ -58,8 +59,8 @@ def import_exports(folder,db_path, symbols=None):
         used={}
         for symbol in sorted(names):
             raw={};payloads={};source_times=[]
-            for endpoint in ENDPOINTS:
-                f=fund_dir/symbol/(endpoint+'.json')
+            for endpoint in (() if mode=='candles' else ENDPOINTS):
+                f=fund_dir/provider.safe_symbol_file_name(symbol)/(endpoint+'.json')
                 if f.exists():
                     try:raw[endpoint]=json.loads(f.read_text())
                     except (ValueError,OSError):report['invalid_json']+=1
@@ -67,13 +68,15 @@ def import_exports(folder,db_path, symbols=None):
             r=universe.get(symbol,{})
             key=r.get('instrument_key') or meta.get('instrument_key')
             if not key:
-                jf=folder/'RAW_CANDLES'/'json'/(symbol+'.json')
+                jf=folder/'RAW_CANDLES'/'json'/(provider.safe_symbol_file_name(symbol)+'.json')
                 if jf.exists():key=json.loads(jf.read_text()).get('instrument_key')
             if not provider.is_cash_equity_instrument(key):report['invalid_instruments']+=1;continue
             if master and (key not in master or master[key].get('instrument_type') not in ({'EQ','BE','RR'} if active is not None and symbol in active else {'EQ'}) or master[key].get('segment')!='NSE_EQ'):
                 report['excluded_non_equity_or_unknown']+=1
                 db.execute('INSERT OR IGNORE INTO issues VALUES(?,?,?)',(symbol,'identity','Not a verified NSE common equity in the local instrument master'))
                 continue
+            if master and master[key].get('trading_symbol')==symbol:
+                db.execute("DELETE FROM issues WHERE symbol=? AND kind='identity' AND detail='Not a verified NSE common equity in the local instrument master'",(symbol,))
             if master and master[key].get('trading_symbol')!=symbol:
                 report['quarantined_master_aliases']+=1
                 db.execute('INSERT OR IGNORE INTO issues VALUES(?,?,?)',(symbol,'identity','Master symbol is '+master[key].get('trading_symbol','unknown')))
@@ -85,7 +88,8 @@ def import_exports(folder,db_path, symbols=None):
             used[key]=symbol
             isin=key.split('|')[1]
             db.execute('INSERT INTO instruments VALUES(?,?,?,?,?) ON CONFLICT(symbol) DO UPDATE SET instrument_key=excluded.instrument_key,isin=excluded.isin', (symbol,key,isin,master.get(key,{}).get('name') or symbol,None))
-            db.execute('DELETE FROM issues WHERE symbol=? AND kind IN (\'candle\',\'fundamentals\')',(symbol,))
+            kinds=('candle','fundamentals') if mode=='both' else (('candle',) if mode=='candles' else ('fundamentals',))
+            db.execute('DELETE FROM issues WHERE symbol=? AND kind IN ('+','.join('?' for _ in kinds)+')',(symbol,*kinds))
             for endpoint,record in raw.items():
                 if record.get('instrument_key')!=key or record.get('symbol')!=symbol:
                     report['identity_mismatches']+=1
@@ -133,9 +137,9 @@ def import_exports(folder,db_path, symbols=None):
                 db.execute('INSERT INTO fundamentals VALUES(?,?,?) ON CONFLICT(symbol) DO UPDATE SET details=excluded.details,observed_at=excluded.observed_at',(symbol,json.dumps(details,allow_nan=False),stamp))
                 profile=payloads.get('profile',{}).get('data',{})
                 db.execute('UPDATE instruments SET sector=?,name=? WHERE symbol=?',(details.get('sector'),profile.get('name') or profile.get('company_name') or master.get(key,{}).get('name') or symbol,symbol))
-            f=candle_dir/(symbol+'.csv')
-            if f.exists():
-                jf=folder/'RAW_CANDLES'/'json'/(symbol+'.json');cmeta=json.loads(jf.read_text()) if jf.exists() else {}
+            f=candle_dir/(provider.safe_symbol_file_name(symbol)+'.csv')
+            if mode!='fundamentals' and f.exists():
+                jf=folder/'RAW_CANDLES'/'json'/(provider.safe_symbol_file_name(symbol)+'.json');cmeta=json.loads(jf.read_text()) if jf.exists() else {}
                 if cmeta.get('instrument_key')!=key or cmeta.get('symbol')!=symbol:
                     report['identity_mismatches']+=1
                     db.execute('INSERT OR IGNORE INTO issues VALUES(?,?,?)',(symbol,'identity','Candle identity mismatch; excluded'))

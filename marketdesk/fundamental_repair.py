@@ -8,6 +8,7 @@ from .annual_reports import AnnualReportSources,apply_report
 from .provider import FUNDAMENTAL_REQUIRED_FIELDS
 from .intraday_data import atomic_json
 from .quality import audit
+from .automatic_repair import repair_extra
 
 
 def missing(details):
@@ -17,8 +18,8 @@ def missing(details):
 
 def targets(path):
     with connect(path) as db:
-        rows=[dict(r) for r in db.execute('SELECT i.symbol,i.isin,f.details,f.observed_at FROM instruments i LEFT JOIN fundamentals f ON i.symbol=f.symbol WHERE '+symbol_filter(db,'i.symbol')+' ORDER BY i.symbol')]
-    return [r for r in rows if json.loads(r['details'] or '{}').get('status')!='COMPLETE']
+        rows=[dict(r) for r in db.execute('SELECT i.symbol,i.isin,f.details,f.observed_at,q.report FROM instruments i LEFT JOIN fundamentals f ON i.symbol=f.symbol LEFT JOIN quality q ON i.symbol=q.symbol WHERE '+symbol_filter(db,'i.symbol')+' ORDER BY i.symbol')]
+    return [r for r in rows if (json.loads(r['details'] or '{}').get('status')!='COMPLETE' or json.loads(r['report'] or '{}').get('financial_reasons'))]
 
 
 def run_repair(job,rows):
@@ -46,9 +47,14 @@ def run_repair(job,rows):
         result=local.client.fetch(row['symbol'],row['isin'],sector_missing=not before.get('sector'),reuse_recent=True)
         proposed=apply_fallback(copy.deepcopy(before),result)
         if missing(proposed):result['annual_report']=AnnualReportSources().fetch(row['symbol'],row['isin'],proposed)
+        if result.get('annual_report'):proposed=apply_report(proposed,result['annual_report'])
+        result['extra_repaired']=repair_extra(row['symbol'],row['isin'],proposed)
+        result['extra_baseline']=proposed
         return result
     def publish():
         report['updated_at']=now()
+        if report['done']:
+            report['quality']=audit(job.path)
         with connect(job.path) as db:
             report['complete_now']=db.execute("SELECT COUNT(*) FROM fundamentals WHERE "+symbol_filter(db)+" AND json_extract(details,'$.status')='COMPLETE'").fetchone()[0]
             report['incomplete_now']=db.execute('SELECT COUNT(*) FROM instruments WHERE '+symbol_filter(db)).fetchone()[0]-report['complete_now']
@@ -72,6 +78,8 @@ def run_repair(job,rows):
                         details=json.loads(current['details']) if current else {}
                         details=apply_fallback(copy.deepcopy(details),result)
                         if result.get('annual_report'):details=apply_report(details,result['annual_report'])
+                        # Reapply only while the source context still matches the worker snapshot.
+                        if details==result.get('extra_baseline'):details=result['extra_repaired']
                         selected=details.get('latest') or {}
                         observed=selected.get('observed_at') if details.get('selected_source')=='nse_audited_filing' else None
                         observed=observed or (current['observed_at'] if current else None) or row.get('observed_at') or started
@@ -91,7 +99,7 @@ def run_repair(job,rows):
                     if ar.get('status')=='verified':
                         providers=report.setdefault('report_provider_counts',{});provider=ar.get('provider','NSE')
                         providers[provider]=providers.get(provider,0)+1
-                    report['newly_complete']+=int(complete);report['improved_stocks']+=int(bool(gained));report['recovered_fields']+=len(gained)
+                    report['newly_complete']+=int(complete and before.get('status')!='COMPLETE');report['improved_stocks']+=int(bool(gained));report['recovered_fields']+=len(gained)
                     report['source_issue_stocks']+=int(bool(issues) or yahoo.get('status') in ('unavailable','cooldown') or result.get('annual_report',{}).get('status')=='unresolved')
                 except Exception as error:
                     report['errors']+=1;entry['error']=type(error).__name__;entry['status']='error'

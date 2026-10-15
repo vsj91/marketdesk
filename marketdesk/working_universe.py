@@ -50,6 +50,8 @@ def scope_report(db,report):
     if symbols is None:return report
     import collections,json
     rows=[r for r in report.get('results',[]) if r.get('symbol') in symbols]
+    if report.get('working_universe')=='nifty500' and len(rows)==len(report.get('results',[])):
+        return report
     quality=get_state(db,'quality_summary',{})
     complete=db.execute("SELECT COUNT(*) FROM fundamentals WHERE "+symbol_filter(db)+" AND json_extract(details,'$.status')='COMPLETE'").fetchone()[0]
     out={k:report[k] for k in ('status','started_at','updated_at','finished_at','method') if k in report}

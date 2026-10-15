@@ -15,7 +15,8 @@ class RefreshTests(unittest.TestCase):
    names=['UPSTOX_TOKEN','UPSTOX_AUTH_ERROR','FUNDAMENTAL_DIR','RAW_JSON_DIR','RAW_CSV_DIR']
    before={n:getattr(provider,n) for n in names};headers=dict(provider.headers)
    try:
-    with patch('marketdesk.refresh.ROOT',root),patch('marketdesk.refresh.load_token',return_value=''),patch('marketdesk.refresh.import_exports'),patch.object(job.fallbacks,'fetch',return_value={'nse':{'status':'no_data'},'yahoo':{'status':'no_data'}}) as fallback:
+    with patch('marketdesk.annual_reports.AnnualReportSources') as reports,patch('marketdesk.refresh.ROOT',root),patch('marketdesk.refresh.load_token',return_value=''),patch('marketdesk.refresh.import_exports'),patch.object(job.fallbacks,'fetch',return_value={'nse':{'status':'no_data'},'yahoo':{'status':'no_data'}}) as fallback:
+     reports.return_value.fetch.return_value={'status':'unresolved'}
      job.run([row],'fundamentals')
      fallback.assert_called_once_with('TEST','INE000A01010')
      self.assertEqual(job.state['status'],'complete');self.assertEqual(job.state['done'],1)

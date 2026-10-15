@@ -23,7 +23,6 @@ class Refresh:
     def start(self,symbols,mode='both'):
         if mode=='fundamental_repair':return self.start_fundamental_repair()
         if mode not in ('both','candles','fundamentals'):raise ValueError('Invalid refresh mode.')
-        if not load_token() and mode=='candles':raise ValueError('An Upstox access token is required for candles.')
         if not self.lock.acquire(blocking=False):raise ValueError('A data refresh is already running.')
         with connect(self.path) as db:
             all_rows=[dict(r) for r in db.execute('SELECT * FROM instruments WHERE '+symbol_filter(db,include_holdings=mode in ('candles','both'))+' ORDER BY symbol')]
@@ -85,13 +84,13 @@ class Refresh:
                 row_mode='candles' if research is not None and symbol not in research else mode
                 self.state['current']=symbol;self.save()
                 # Preserve the previous raw response before a network retry replaces it.
-                old=root/'RAW_FUNDAMENTALS'/symbol
+                old=root/'RAW_FUNDAMENTALS'/provider.safe_symbol_file_name(symbol)
                 if old.exists():shutil.copytree(old,archive/symbol,dirs_exist_ok=True)
-                failed=False
+                failed=False;candle_failed=False
                 if not provider.UPSTOX_AUTH_ERROR and row_mode in ('both','fundamentals'):
                     result=provider.fetch_and_save_fundamental_jsons(symbol,row['instrument_key'],row)
                     failed=result['status'] in ('FAILED','AUTH_FAILED','INVALID_ISIN')
-                if not provider.UPSTOX_AUTH_ERROR and row_mode in ('both','candles'):
+                if row_mode in ('both','candles'):
                     with connect(self.path) as db:
                         latest=db.execute('SELECT MAX(ts) FROM candles WHERE symbol=?',(symbol,)).fetchone()[0]
                     today=datetime.now(timezone(timedelta(hours=5,minutes=30))).date()
@@ -113,11 +112,22 @@ class Refresh:
                         for x in result['candles']:old[x[0]]=x
                         result['candles']=[old[k] for k in sorted(old,reverse=True)]
                         provider.save_raw_candle_exports(symbol,row['instrument_key'],row.get('sector'),result,'SUCCESS')
-                    else:failed=True
+                    else:failed=True;candle_failed=True
                 if provider.UPSTOX_AUTH_ERROR:
                     failed=True
                     self.state['upstox_warning']='Upstox access unavailable; NSE/Yahoo fundamentals continue. Renew the token to refresh candles.'
-                import_exports(root,self.path,[symbol])
+                import_exports(root,self.path,[symbol],mode=row_mode)
+                if row_mode in ('both','candles'):
+                    with connect(self.path) as db:
+                        count,latest=db.execute('SELECT COUNT(*),MAX(substr(ts,1,10)) FROM candles WHERE symbol=?',(symbol,)).fetchone()
+                        sessions=get_state(db,'quality_sessions',[])
+                    candle_failed=candle_failed or count<200 or bool(sessions and (not latest or latest<sessions[-1]))
+                if candle_failed:
+                    try:
+                        from .candle_fallback import fetch as alternate_candles
+                        alternate_candles(self.path,symbol,row['isin'],start,end)
+                    except Exception as error:
+                        with connect(self.path) as db:set_state(db,'candle_fallback_'+symbol,{'status':'unavailable','checked_at':now(),'reason':str(error)[:180]})
                 if row_mode in ('both','fundamentals'):
                     with connect(self.path) as db:
                         entry=db.execute('SELECT details FROM fundamentals WHERE symbol=?',(symbol,)).fetchone()
@@ -127,6 +137,12 @@ class Refresh:
                         self.state['stage']='NSE / Yahoo fallback';self.save()
                         supplemental=self.fallbacks.fetch(symbol,row['isin'])
                         details=apply_fallback(details,supplemental)
+                        # Primary audited report alternatives: NSE archives, company site, BSE.
+                        if details.get('missing_fields'):
+                            from .annual_reports import AnnualReportSources,apply_report
+                            details=apply_report(details,AnnualReportSources().fetch(symbol,row['isin'],details))
+                        from .automatic_repair import repair_extra
+                        details=repair_extra(symbol,row['isin'],details)
                         with connect(self.path) as db:
                             db.execute('INSERT INTO fundamentals VALUES(?,?,?) ON CONFLICT(symbol) DO UPDATE SET details=excluded.details,observed_at=excluded.observed_at',(symbol,json.dumps(details,allow_nan=False),now()))
                 self.state['stage']='Upstox'
