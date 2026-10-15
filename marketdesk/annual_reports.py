@@ -10,7 +10,7 @@ from urllib.parse import urlsplit
 from .storage import ROOT,now
 from .intraday_data import atomic_json
 
-REVISION=11
+REVISION=12
 INCOME_REVISION=4
 _pdf_slots=threading.BoundedSemaphore(6)
 NUM=r'(?:\(?-?\d[\d,]*(?:\.\d+)?\)?|[-–—]|Nil|NIL)'
@@ -208,6 +208,13 @@ def balance_text(page,clip=None):
                     text=re.sub(r'(?<!\w)'+glyph+r'\s+(?=(?:in\s+)?(?:lakh|crore|million|thousand)s?\b)','₹ ',text,flags=re.I)
     return text
 
+def complete_candidate(candidates):
+    """Use one self-contained proof that agrees with every partial match."""
+    for candidate in candidates:
+        values=candidate[0]['values']
+        if all(all(key in values and values[key]==value for key,value in other['values'].items()) for other,_ in candidates):return candidate
+    raise ValueError('Annual report has conflicting or complementary matching balance sheets')
+
 def pdf_worker(pdf_path,context_path,output_path):
     import pymupdf
     context=json.loads(Path(context_path).read_text());latest=context['latest'];doc=pymupdf.open(pdf_path)
@@ -312,12 +319,13 @@ def pdf_worker(pdf_path,context_path,output_path):
             except ValueError as error:
                 issues.append(str(error));diagnostics.append({'page':i+1,'reason':str(error),'layout':'full_page' if clip is None else 'half_page'})
     if not candidates:result={'status':'unresolved','reason':'; '.join(dict.fromkeys(issues))[:400] or 'No supported balance sheet with explicit lease amounts'}
-    elif len({json.dumps(e['values'],sort_keys=True) for e,_ in candidates})!=1:result={'status':'unresolved','reason':'Annual report has conflicting matching balance sheets'}
     else:
-        evidence,selected=candidates[0];excerpt=pymupdf.open()
-        for n in selected:excerpt.insert_pdf(doc,from_page=n,to_page=n)
-        evidence_path=Path(output_path).with_suffix('.pdf');excerpt.save(evidence_path,garbage=4,deflate=True,no_new_id=True)
-        result={'status':'verified','evidence':evidence,'excerpt':str(evidence_path)}
+        try:
+            evidence,selected=complete_candidate(candidates);excerpt=pymupdf.open()
+            for n in selected:excerpt.insert_pdf(doc,from_page=n,to_page=n)
+            evidence_path=Path(output_path).with_suffix('.pdf');excerpt.save(evidence_path,garbage=4,deflate=True,no_new_id=True)
+            result={'status':'verified','evidence':evidence,'excerpt':str(evidence_path)}
+        except ValueError as error:result={'status':'unresolved','reason':str(error)}
     result['diagnostics']=diagnostics[:60]
     Path(output_path).write_text(json.dumps(result))
 

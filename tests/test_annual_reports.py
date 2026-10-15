@@ -1,7 +1,7 @@
 import copy,unittest,json,tempfile,hashlib
 from pathlib import Path
 from datetime import datetime,timezone,timedelta
-from marketdesk.annual_reports import parse_balance,parse_income,parse_lease_note,apply_report,balance_text,pdf_worker,retain_report,save_excerpt
+from marketdesk.annual_reports import parse_balance,parse_income,parse_lease_note,complete_candidate,apply_report,balance_text,pdf_worker,retain_report,save_excerpt
 from unittest.mock import Mock,patch
 from marketdesk.quality import source_reasons
 
@@ -26,6 +26,14 @@ Finance costs      24      50.00     40.00
 Profit before tax (V - VI)        1000.00    900.00
 '''
 class AnnualReportTests(unittest.TestCase):
+ def test_complete_proof_can_subsume_partial_match_but_not_disagreement(self):
+  full=({'values':{'total_lease_liabilities':5,'total_borrowings':30,'cash_and_cash_equivalents':10}},[1,2])
+  partial=({'values':{'total_lease_liabilities':5,'total_borrowings':30}},[2])
+  self.assertEqual(complete_candidate([partial,full]),full)
+  bad=({'values':{'total_lease_liabilities':6}},[3])
+  with self.assertRaises(ValueError):complete_candidate([full,bad])
+  complementary=({'values':{'finance_costs':2}},[4])
+  with self.assertRaises(ValueError):complete_candidate([full,complementary])
  def test_currency_cr_and_spaced_date_ordinals(self):
   text=TEXT.replace('Rs in lakhs','` in Cr').replace('March 31,','31 ST March,')
   self.assertEqual(parse_balance(text,{**BASE,'cash_and_cash_equivalents':500,'equity':5000})['value'],50)
