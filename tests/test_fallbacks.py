@@ -11,6 +11,15 @@ def fixture():
  return table(meta)+table(income)+table(balance)
 
 class FallbackTests(unittest.TestCase):
+ def test_empty_revenue_heading_does_not_mask_reported_total(self):
+  marker='<tr><td>Finance costs</td><td>100</td><td>90</td></tr>'
+  rows='<tr><td>Revenue from operations</td><td></td><td></td></tr><tr><td>Total Revenue From Operations</td><td>10000</td><td>9000</td></tr>'
+  html=fixture().replace(marker,marker+rows)
+  for income_only in (False,True):
+   self.assertEqual(nse_annual(html,'TEST','INE000A01010','url',income_only=income_only)['revenue'],100)
+   self.assertEqual(nse_annual(html,'TEST','INE000A01010','url',year_offset=-1,income_only=income_only)['revenue'],90)
+   with self.assertRaisesRegex(ValueError,'Conflicting NSE income'):
+    nse_annual(html.replace('<td></td><td></td>','<td>11000</td><td>9000</td>'), 'TEST','INE000A01010','url',income_only=income_only)
  def test_explicit_lease_caption_variants_keep_period_and_section(self):
   for label in ('Lease Liablity','Lease libilities','Lease Lianilities','Lease liabities','Lease Liabilitiea','leaseliabilities','ROU Lease Liabilities','Finance Lease Liability','Finance Lease Liabilities','Net Liability in Leased Assets','Current Maturity of Leased Liability'):
    row=nse_annual(fixture().replace('Lease liabilities',label),'TEST','INE000A01010','url')

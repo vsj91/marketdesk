@@ -25,6 +25,8 @@ class Maintenance:
             age=(clock-datetime.fromisoformat(job.get('finished_at') or job['started_at'])).total_seconds()
             if job['status']=='interrupted' or age>3600:
                 self.refresh.start([],job['mode']);return
+        from .price_reconciliation import reconcile
+        reconcile(self.path)
         audit(self.path,clock)
         last=state.get('last_started',{})
         def due(mode):

@@ -7,6 +7,7 @@ from urllib.parse import urlsplit
 import requests
 from .storage import ROOT,now,number
 from .provider import FUNDAMENTAL_REQUIRED_FIELDS,_fundamental_period
+PARSER_REVISION=6
 
 class Tables(HTMLParser):
     def __init__(self):super().__init__(convert_charrefs=True);self.tables=[];self.table=None;self.row=None;self.cell=None;self.depth=0
@@ -102,13 +103,24 @@ def nse_annual(html,symbol,isin,url,year_offset=0,*,income_only=False):
             sources[key]={'source':'nse_audited_filing','source_url':url,'label':label,'reported_value':text,'rounding_quantum':scales[unit]*10**(-len(text.split('.')[1]) if '.' in text else 0),'source_units':unit,'conversion_to_crore':scales[unit],'period_end':end.isoformat(),'statement_type':basis}
             return val*scales[unit]
         except ValueError:return None
+    def income_metric(key,labels):
+        # NBFC templates print an empty revenue heading and a populated total.
+        # Only numeric reported rows compete; conflicting totals remain invalid.
+        candidates=[]
+        for label in labels:
+            if not has(income,label):continue
+            value=get(income,label,ic,key)
+            if value is not None:candidates.append((value,sources[key]))
+        if len({v for v,_ in candidates})>1:raise ValueError('Conflicting NSE income captions: '+key)
+        if not candidates:sources.pop(key,None);return None
+        sources[key]=candidates[-1][1]
+        return candidates[-1][0]
     for key,label in [('profit_before_tax','Total profit before tax'),('finance_costs','Finance costs')]:out[key]=get(income,label,ic,key)
     if income_only:
         # Comparative income columns are independently dated and audited. A
         # missing comparative balance column must not discard valid growth data.
         for key,labels in [('revenue',('Revenue from operations','Total Revenue from operations')),('net_profit',('Total profit (loss) for period',))]:
-            found=[label for label in labels if has(income,label)]
-            if len(found)==1:out[key]=get(income,found[0],ic,key)
+            out[key]=income_metric(key,labels)
         out.update(period=end.strftime('%b %Y'),period_end=end.isoformat(),statement_type=basis,units_in='crore',reporting_frequency='annual',sources=sources,source='nse_audited_filing',income_only=True)
         return out
     for key,label in [('equity','Total equity'),('current_borrowings','Borrowings, current'),('non_current_borrowings','Borrowings, non-current'),('cash_and_cash_equivalents','Cash and cash equivalents')]:out[key]=get(balance,label,bc,key)
@@ -133,8 +145,7 @@ def nse_annual(html,symbol,isin,url,year_offset=0,*,income_only=False):
             out[total]=out[a]+out[b];sources[total]={'source':'nse_audited_filing','source_url':url,'formula':a+' + '+b,'inputs':{a:out[a],b:out[b]}}
     if any(out.get(k) is not None and out[k]<0 for k in ['finance_costs','current_borrowings','non_current_borrowings','current_lease_liabilities','non_current_lease_liabilities','cash_and_cash_equivalents','debt_securities','other_borrowings','subordinated_liabilities','total_borrowings','total_lease_liabilities']):raise ValueError('NSE negative debt/cash inputs require review')
     for key,labels in [('revenue',('Revenue from operations','Total Revenue from operations')),('net_profit',('Total profit (loss) for period',))]:
-        found=[label for label in labels if has(income,label)]
-        if len(found)==1:out[key]=get(income,found[0],ic,key)
+        out[key]=income_metric(key,labels)
     out.update(period=end.strftime('%b %Y'),period_end=end.isoformat(),statement_type=basis,units_in='crore',reporting_frequency='annual',sources=sources,source='nse_audited_filing',missing_fields=[k for k in FUNDAMENTAL_REQUIRED_FIELDS if out.get(k) is None])
     return out
 
@@ -213,7 +224,7 @@ class Fallbacks:
                 old=json.loads(cache.read_text())
                 age=(datetime.now(timezone.utc)-datetime.fromisoformat(old['observed_at'])).total_seconds()
                 if (old.get('symbol'),old.get('isin'))!=(symbol,isin):raise ValueError('Fallback cache identity mismatch')
-                if old.get('version')==2 and old.get('parser_revision')==5 and 0<=age<86400 and (reuse_recent or not old.get('nse',{}).get('errors')) and not (sector_missing and not old.get('yahoo',{}).get('sector')):return old
+                if old.get('version')==2 and old.get('parser_revision')==PARSER_REVISION and 0<=age<86400 and (reuse_recent or not old.get('nse',{}).get('errors')) and not (sector_missing and not old.get('yahoo',{}).get('sector')):return old
             if not hasattr(self,'annual_sources'):self.annual_sources=AnnualSources()
             result=self.annual_sources.fetch(symbol,isin,sector_missing)
             atomic_json(cache,result)

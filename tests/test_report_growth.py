@@ -11,6 +11,10 @@ Profit before tax    1000.00    900.00
 Net Profit After Tax    800.00    700.00
 '''
 class ReportGrowthTests(unittest.TestCase):
+ def test_explicit_year_after_tax_caption_keeps_anchors(self):
+  text=TEXT.replace('Profit before tax','Profit for the year before tax (5 - 6)').replace('Net Profit After Tax','Net profit for the year after tax (7 - 8)')
+  self.assertEqual(parse_growth(text,BASE)['prior']['net_profit'],7)
+  with self.assertRaises(ValueError):parse_growth(text.replace('before tax (5 - 6)','before exceptional items and tax (5 - 6)'),BASE)
  def test_customer_contract_revenue_requires_same_anchors(self):
   text=TEXT.replace('Revenue from operations','Revenue from contracts with customers')
   self.assertEqual(parse_growth(text,BASE)['current']['revenue'],100)

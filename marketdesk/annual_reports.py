@@ -10,13 +10,13 @@ from urllib.parse import urlsplit
 from .storage import ROOT,now
 from .intraday_data import atomic_json
 
-REVISION=12
+REVISION=14
 INCOME_REVISION=4
 _pdf_slots=threading.BoundedSemaphore(6)
 NUM=r'(?:\(?-?\d[\d,]*(?:\.\d+)?\)?|[-–—]|Nil|NIL)'
 NOTE_REF=r'\d+[a-z]*(?:\s*\([a-z0-9]+\)|\.\d+)*'
 FORMULA_REF=r'\s*\((?:[ivx0-9+\-\s]+|[a-z]\s*(?:[+\-]\s*[a-z]\s*)+)\)$'
-LEASE_ROLLFORWARD=r'(?:carrying amounts of (?:the )?lease liabilities|reconciliation of (?:the )?lease liabilities|movement in (?:the )?lease liabilities)'
+LEASE_ROLLFORWARD=r'(?:carrying amounts of (?:the )?lease liabilities|reconciliation of (?:the )?lease liabilities|movement in (?:the )?(?:carrying value of (?:the )?)?lease liabilit(?:y|ies)|lease liabilit(?:y|ies) movement)'
 LEASE_NOTE_HEADING=r'^\s*\d{1,3}\s+lease liabilit(?:y|ies)(?:\s*\(refer note\s+\d+\))?\s*$'
 
 def amount(token):
@@ -48,7 +48,7 @@ def statement_context(text,latest,kind='balance'):
     # Some PDF text layers concatenate a lower-case preposition with the title.
     text=re.sub(r'(?<![A-Z])(CONSOLIDATED|STANDALONE)(?![A-Z])',r' \1 ',text)
     low=text.lower();head=re.sub(r'[ \t]+',' ',low)[:1800]
-    heading=r'\bbalance\s+sheet\b' if kind=='balance' else r'\bnotes\s+to\s+(?:the\s+)?(?:standalone\s+|consolidated\s+)?financial\s+statements\b' if kind=='lease_note' else r'\bstatement\s+of\s+(?:(?:standalone|consolidated)\s+)?profit\s+(?:and|or|&)\s+loss\b'
+    heading=r'\bbalance\s+sheet\b' if kind=='balance' else r'\bnotes\s+(?:to|forming\s+part\s+of)\s+(?:the\s+)?(?:standalone\s+|consolidated\s+)?financial\s+statements\b' if kind=='lease_note' else r'\bstatement\s+of\s+(?:(?:standalone|consolidated)\s+)?profit\s+(?:and|or|&)\s+loss\b'
     if not re.search(heading,head):raise ValueError('No '+kind+' statement heading')
     if kind=='income' and re.search(r'quarter|three months|six months',head):raise ValueError('Quarterly income columns are not annual inputs')
     basis=latest.get('statement_type')
@@ -123,6 +123,55 @@ def parse_lease_note(text,latest):
     known=[latest.get(k) for k in ('current_lease_liabilities','non_current_lease_liabilities')]
     if sum(v for v in known if isinstance(v,(int,float)) and v>=0)>value+.015:raise ValueError('Lease closing balance contradicts known components')
     return {'value':value,'source_units':unit,'conversion_to_crore':scale,'line':closing[0].strip(),'method':'explicit_carrying_value_closing_balance'}
+
+def parse_capital_note(text,latest):
+    """Explicit lease total in a capital note, with three anchors and net-debt proof.
+
+    This is a carrying balance, not a lease commitment/maturity schedule. A dash
+    never means zero. All amounts come from the same two-column annual table.
+    """
+    normalized='\n'.join(line.strip() for line in text.splitlines())
+    heading=re.search(r'^\s*(?:[A-Z0-9]+[.)]?\s+)?capital management\s*$',normalized,re.I|re.M)
+    if not heading:raise ValueError('Capital management heading unavailable')
+    scope=normalized[heading.start():heading.start()+5000]
+    # Keep the financial note title, but require dates and units in this table.
+    title=re.search(r'^.*notes to (?:the )?(?:consolidated|standalone) financial statements.*$',normalized,re.I|re.M)
+    if not title:raise ValueError('Explicit financial note basis unavailable')
+    table=re.search(r'^.*total borrowings\s{2,}'+NUM+r'\s{2,}'+NUM+r'\s*$',scope,re.I|re.M)
+    if not table:raise ValueError('Capital note borrowings table unavailable')
+    header=scope[max(0,table.start()-500):table.start()]
+    _,basis,(unit,scale)=statement_context(title[0]+'\n'+header,latest,'lease_note')
+    found={};lines={}
+    labels={'total borrowings':'total_borrowings','lease liabilities':'total_lease_liabilities',
+            'lease liabilitites':'total_lease_liabilities', # Printed Acutaas report caption.
+            'less: cash and cash equivalents':'cash_and_cash_equivalents',
+            'net debt':'net_debt','net debts':'net_debt','total equity':'equity'}
+    for line in scope[table.start():].splitlines():
+        if re.match(r'\s*note\s*:',line,re.I):break
+        match=re.search(r'\s{2,}('+NUM+r')\s{2,}('+NUM+r')\s*$',line)
+        if not match:continue
+        label=re.sub(r'\s*\([a-z]\)\s*$','',caption(line[:match.start()]))
+        key=labels.get(label)
+        if not key:continue
+        if key in found:raise ValueError('Duplicate capital note caption')
+        value=amount(match[1])
+        if value is None:raise ValueError('Capital note amount is not explicit')
+        # Parentheses following "Less:" express a deduction, not negative cash.
+        if key=='cash_and_cash_equivalents':value=abs(value)
+        found[key]=value*scale;lines[key]=line
+    required={'total_borrowings','total_lease_liabilities','cash_and_cash_equivalents','net_debt','equity'}
+    if set(found)!=required:raise ValueError('Capital note proof is incomplete')
+    if any(found[k]<0 for k in required-{'net_debt'}):raise ValueError('Negative capital note input')
+    anchors=['total_borrowings','cash_and_cash_equivalents','equity']
+    if any(not isinstance(latest.get(k),(int,float)) or abs(found[k]-latest[k])>max(.015,abs(latest[k])*.00002) for k in anchors):raise ValueError('Capital note anchors do not match')
+    if abs(found['total_borrowings']+found['total_lease_liabilities']-found['cash_and_cash_equivalents']-found['net_debt'])>max(.000001,scale*.03):raise ValueError('Capital note net-debt arithmetic does not reconcile')
+    known=[latest.get(k) for k in ('current_lease_liabilities','non_current_lease_liabilities')]
+    if sum(v for v in known if isinstance(v,(int,float)) and v>=0)>found['total_lease_liabilities']+.015:raise ValueError('Capital note contradicts known lease components')
+    value=found['total_lease_liabilities']
+    return {'value':value,'values':{'total_lease_liabilities':value},'period':latest['period'],
+            'statement_type':basis,'units_in':'crore','source_units':unit,'conversion_to_crore':scale,
+            'source_currency':'INR','matched_fields':anchors,'lines':lines,'capital_note_values':found,
+            'method':'explicit_capital_note_with_reconciled_net_debt'}
 
 def parse_balance(text,latest,allow_existing=False):
     """Two-column annual balance only; period, basis, scale and 2 anchors required."""
@@ -225,6 +274,15 @@ def pdf_worker(pdf_path,context_path,output_path):
     plain_pages=[p.get_text() for p in doc]
     if latest.get('total_lease_liabilities') is None:
         for j,plain in enumerate(plain_pages):
+            if re.search(r'capital\s+management',plain,re.I):
+                page=doc[j];clips=[None]
+                if page.rect.width>page.rect.height*1.15:
+                    w,h=page.rect.width,page.rect.height;clips.extend([pymupdf.Rect(0,0,w/2,h),pymupdf.Rect(w/2,0,w,h)])
+                for clip in clips:
+                    try:
+                        capital=parse_capital_note(balance_text(page,clip),latest);capital['pages']=[j+1]
+                        candidates.append((capital,[j]))
+                    except ValueError:pass
             if not re.search(LEASE_ROLLFORWARD,' '.join(plain.split()),re.I) and not re.search(r'lease liabilit(?:y|ies)\s*\(refer note',plain,re.I):continue
             page=doc[j];clips=[None]
             if page.rect.width>page.rect.height*1.15:

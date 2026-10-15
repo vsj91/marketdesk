@@ -24,6 +24,14 @@ The local login service runs independently of Codex and of basket enablement:
   be verified. Comparable growth requires matching annual periods, units and basis.
 - Financial repairs recover audited comparative growth and reverify supported
   source conflicts. Unresolved conflicts and missing values remain blocked.
+- Annual-report repairs recognize explicit lease carrying-value rollforwards and
+  capital-management totals. Capital totals require three matching balance
+  anchors and reconciled net-debt arithmetic; no dash is interpreted as zero.
+- Large daily moves can be reconciled against NSE's historical OHLCV, previous
+  close, corporate-action records and verified official constituent ISINs.
+  Evidence is rechecked against current candles at audit and execution time and
+  expires after 24 hours. A verified market move needs no price adjustment;
+  demergers and other corporate actions remain blocked pending adjusted history.
 - Each job finishes with an audit. Interrupted jobs resume from saved checkpoints;
   failed jobs back off. Provider helpers retain rate limits, timeouts and source
   caches. A five-minute trading audit independently checks readiness.

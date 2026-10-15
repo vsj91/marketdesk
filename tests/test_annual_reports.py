@@ -1,7 +1,7 @@
 import copy,unittest,json,tempfile,hashlib
 from pathlib import Path
 from datetime import datetime,timezone,timedelta
-from marketdesk.annual_reports import parse_balance,parse_income,parse_lease_note,complete_candidate,apply_report,balance_text,pdf_worker,retain_report,save_excerpt
+from marketdesk.annual_reports import parse_balance,parse_income,parse_lease_note,parse_capital_note,complete_candidate,apply_report,balance_text,pdf_worker,retain_report,save_excerpt
 from unittest.mock import Mock,patch
 from marketdesk.quality import source_reasons
 
@@ -26,6 +26,32 @@ Finance costs      24      50.00     40.00
 Profit before tax (V - VI)        1000.00    900.00
 '''
 class AnnualReportTests(unittest.TestCase):
+ def test_capital_note_requires_explicit_total_and_reconciled_anchors(self):
+  text='''Notes to the Consolidated Financial Statements
+Capital Management
+Rs in lakhs
+Particulars                     March 31, 2026  March 31, 2025
+Total Borrowings                 200.00  150.00
+Lease Liabilitites                50.00   45.00
+Less: Cash and cash equivalents  (500.00)  (400.00)
+Net Debts (A)                    (250.00)  (205.00)
+Total Equity                    5000.00  4500.00
+'''
+  base={**BASE,'total_borrowings':2}
+  result=parse_capital_note(text,base)
+  self.assertEqual(result['value'],.5)
+  self.assertEqual(set(result['matched_fields']),{'total_borrowings','cash_and_cash_equivalents','equity'})
+  # Maturity totals, a wrong year/basis, a dash, an anchor discrepancy or
+  # a different net-debt definition cannot manufacture a valid lease total.
+  for invalid in [text.replace('Capital Management','Lease maturity analysis'),
+                  text.replace('Consolidated','Standalone'),
+                  text.replace('2026','2024'),text.replace('50.00   45.00','-   45.00'),
+                  text.replace('5000.00','6000.00'),text.replace('(250.00)','(251.00)'),
+                  text.replace('Rs in lakhs','Amounts'),
+                  text+'Lease liabilities  50.00  45.00\n']:
+   with self.subTest(invalid=invalid),self.assertRaises(ValueError):parse_capital_note(invalid,base)
+  with self.assertRaises(ValueError):parse_capital_note(text,{**base,'non_current_lease_liabilities':.6})
+
  def test_complete_proof_can_subsume_partial_match_but_not_disagreement(self):
   full=({'values':{'total_lease_liabilities':5,'total_borrowings':30,'cash_and_cash_equivalents':10}},[1,2])
   partial=({'values':{'total_lease_liabilities':5,'total_borrowings':30}},[2])
@@ -305,6 +331,10 @@ Closing balance     50.00      -
 Current liabilities   -       -
 '''
   self.assertEqual(parse_lease_note(note,BASE)['value'],.5)
+  for heading in ('Movement in the carrying value of the Lease Liability','Lease liability movement'):
+   alternate=note.replace('Set out below are the carrying amounts of lease liabilities and the movements during the year:',heading).replace('Notes to','Notes forming part of the')
+   self.assertEqual(parse_lease_note(alternate,BASE)['value'],.5)
+   with self.assertRaises(ValueError):parse_lease_note(alternate.replace(heading,'Movement in the carrying value of the Right to Use Asset'),BASE)
   for bad in (note.replace('50.00      -\nCurrent','-      -\nCurrent'),note.replace('carrying amounts','undiscounted carrying amounts'),note.replace('Consolidated','Standalone'),note.replace('2026','2024')):
    with self.assertRaises(ValueError):parse_lease_note(bad,BASE)
   with self.assertRaises(ValueError):parse_lease_note(note,{**BASE,'non_current_lease_liabilities':2})

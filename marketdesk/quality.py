@@ -42,7 +42,7 @@ def source_reasons(f,times,clock):
         except (TypeError,ValueError):return ['Underlying financial evidence timestamp missing']
     return []
 
-def inspect_history(rows,sessions,clock):
+def inspect_history(rows,sessions,clock,confirmed_moves=()):
     reasons=[];dates=[r['ts'][:10] for r in rows];today=clock.astimezone(IST).date()
     if len(rows)<200:reasons.append('Fewer than 200 completed daily candles')
     if not rows:return reasons+['No daily candles']
@@ -54,7 +54,7 @@ def inspect_history(rows,sessions,clock):
     missing=sorted(set(expected)-set(dates))
     if missing:reasons.append(f'{len(missing)} gaps against locally observed market sessions (first: {missing[0]})')
     if any(not all(number(r[k]) is not None for k in ('open','high','low','close','volume')) or min(r['open'],r['high'],r['low'],r['close'])<=0 or r['volume']<0 or r['high']<max(r['open'],r['close'],r['low']) or r['low']>min(r['open'],r['close']) for r in rows):reasons.append('Invalid OHLCV values')
-    jumps=[b['ts'][:10] for a,b in zip(rows,rows[1:]) if a['close']>0 and (abs(b['open']/a['close']-1)>.25 or abs(b['close']/a['close']-1)>.25)]
+    jumps=[b['ts'][:10] for a,b in zip(rows,rows[1:]) if b['ts'][:10] not in confirmed_moves and a['close']>0 and (abs(b['open']/a['close']-1)>.25 or abs(b['close']/a['close']-1)>.25)]
     if jumps:reasons.append(f'Unreconciled price discontinuity / possible corporate action ({jumps[-1]})')
     if any(r['volume']<=0 for r in rows[-20:]):reasons.append('Zero volume in recent 20 sessions')
     return reasons
@@ -76,12 +76,14 @@ def audit(path,clock=None):
         evidence=collections.defaultdict(dict)
         for r in db.execute('SELECT symbol,endpoint,observed_at FROM payloads WHERE '+symbol_filter(db)):evidence[r['symbol']][r['endpoint']]=r['observed_at']
         bad={r[0] for r in db.execute("SELECT DISTINCT symbol FROM issues WHERE "+symbol_filter(db)+" AND kind IN ('candle','identity')")}
+        from .price_reconciliation import confirmed
+        confirmed_moves={symbol:confirmed(db,symbol,list(histories[symbol]),clock) for symbol in instruments}
     reports={};totals=collections.Counter()
     for symbol in instruments:
-        reasons=inspect_history(list(histories[symbol]),sessions,clock)
+        reasons=inspect_history(list(histories[symbol]),sessions,clock,confirmed_moves[symbol])
         if symbol in bad:reasons.append('Unresolved source candle or identity issue')
         f,observed=funds.get(symbol,({},None));fr=financial_reasons(f,observed,clock)+source_reasons(f,evidence[symbol],clock)
-        report={'trader_ready':not reasons,'investor_ready':not(reasons or fr),'price_reasons':reasons,'financial_reasons':fr,'as_of':histories[symbol][-1]['ts'] if histories[symbol] else None,'corporate_actions':'not independently reconciled'}
+        report={'trader_ready':not reasons,'investor_ready':not(reasons or fr),'price_reasons':reasons,'financial_reasons':fr,'as_of':histories[symbol][-1]['ts'] if histories[symbol] else None,'corporate_actions':'not independently reconciled','exchange_verified_market_moves':sorted(confirmed_moves[symbol])}
         reports[symbol]=report
         for r in set(reasons+fr):totals['Missing locally observed sessions' if 'gaps against' in r else 'Possible corporate action / price discontinuity' if 'discontinuity' in r else r]+=1
     summary={'checked_at':clock.isoformat(),'stocks':len(instruments),'trader_ready':sum(r['trader_ready'] for r in reports.values()),'investor_ready':sum(r['investor_ready'] for r in reports.values()),'latest_observed_session':sessions[-1] if sessions else None,'reasons':dict(totals),'calendar_basis':'Majority of local instrument histories; not an official exchange calendar','paper_validated':False,'live_execution_ready':False}
@@ -94,7 +96,8 @@ def require_buy_quality(db,symbol,portfolio,clock):
     if not row or not 0<=(clock-datetime.fromisoformat(row['checked_at'])).total_seconds()<=600:raise ValueError('Data check missing or stale; wait for the local audit.')
     report=json.loads(row['report']);reasons=list(report['price_reasons'])
     current=list(reversed([dict(r) for r in db.execute('SELECT ts,open,high,low,close,volume FROM candles WHERE symbol=? ORDER BY ts DESC LIMIT 201',(symbol,))]))
-    reasons+=inspect_history(current,get_state(db,'quality_sessions',[]),clock)
+    from .price_reconciliation import confirmed
+    reasons+=inspect_history(current,get_state(db,'quality_sessions',[]),clock,confirmed(db,symbol,current,clock))
     # Re-check financial eligibility against the current record inside the fill transaction.
     if portfolio=='investor':
         f=db.execute('SELECT * FROM fundamentals WHERE symbol=?',(symbol,)).fetchone()

@@ -4,7 +4,7 @@ from datetime import datetime,timezone
 from pathlib import Path
 from urllib.parse import urlsplit
 import requests
-from .fallbacks import nse_annual,Fallbacks
+from .fallbacks import nse_annual,Fallbacks,PARSER_REVISION
 from .storage import ROOT,now
 from .intraday_data import atomic_json
 
@@ -116,5 +116,5 @@ class AnnualSources:
             fresh=client.yahoo(symbol)
             if fresh.get('status')=='available' or yahoo.get('status')!='available':yahoo=fresh
             else:yahoo={**yahoo,'last_attempt':{'observed_at':now(),'status':fresh.get('status'),'error':fresh.get('error')}}
-        return {'version':VERSION,'parser_revision':5,'symbol':symbol,'isin':isin,'observed_at':now(),'nse':nse,'yahoo':yahoo,
+        return {'version':VERSION,'parser_revision':PARSER_REVISION,'symbol':symbol,'isin':isin,'observed_at':now(),'nse':nse,'yahoo':yahoo,
                 'note':'Yahoo unspecified-basis figures are retained as supplemental evidence, not merged into verified NSE/Upstox annual fields.'}

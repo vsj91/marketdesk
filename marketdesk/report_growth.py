@@ -16,8 +16,8 @@ def parse_growth(text,latest):
  text,basis,(units,scale)=statement_context(text,latest,'income');found={};lines={}
  labels={
   'revenue':{'revenue from operations','total revenue from operations','revenue from operations (net)','revenue from contracts with customers'},
-  'net_profit':{'profit for the year','profit for the period','profit/(loss) for the year','profit/(loss) for the period','profit / (loss) for the year','profit / (loss) for the period','profit (loss) for the year','profit (loss) for the period','profit after tax','net profit after tax','net profit/(loss) after tax','profit/(loss) after tax','profit for the year after tax','profit for the period/year','profit for the year/period'},
-  'profit_before_tax':{'profit before tax','profit/(loss) before tax','profit / (loss) before tax','profit (loss) before tax','profit before taxation'},
+  'net_profit':{'profit for the year','profit for the period','profit/(loss) for the year','profit/(loss) for the period','profit / (loss) for the year','profit / (loss) for the period','profit (loss) for the year','profit (loss) for the period','profit after tax','net profit after tax','net profit/(loss) after tax','profit/(loss) after tax','profit for the year after tax','net profit for the year after tax','profit for the period/year','profit for the year/period'},
+  'profit_before_tax':{'profit before tax','profit/(loss) before tax','profit / (loss) before tax','profit (loss) before tax','profit before taxation','profit for the year before tax'},
   'finance_costs':{'finance costs','finance cost','finance costs (interest)','finance cost (interest)'}}
  for line in text.splitlines():
   m=re.search(r'\s{2,}('+NUM+r')\s{2,}('+NUM+r')\s*$',line)
