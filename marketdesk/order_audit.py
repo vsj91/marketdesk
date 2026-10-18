@@ -69,6 +69,7 @@ def blocked_category(reason):
     if 'cash' in text:return 'cash'
     if 'budget' in text or 'position cap' in text:return 'position_cap'
     if 'limit' in text and ('position' in text or 'holdings' in text):return 'capacity'
+    if 'breakout no longer confirmed' in text:return 'signal_confirmation'
     if 'stale' in text or 'fresh' in text or 'price' in text and '30 seconds' in text:return 'price_freshness'
     return 'other'
 
