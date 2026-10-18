@@ -123,7 +123,8 @@ def _trade(path,payload,clock=None,auto_guard=None,audit_details=None,audit_iden
             event(db,portfolio,'fill',side+' '+str(qty)+' / '+str(requested)+' shares ('+fill['status']+'): '+reason,symbol,row[0],clock,details=audit_details)
         return annotate(db,[dict(db.execute('SELECT * FROM trades WHERE id=?',(row[0],)).fetchone())])[0]
 
-def portfolios(path):
+def portfolios(path,clock=None):
+    clock=clock or datetime.now(timezone.utc)
     with connect(path) as db:
         db.execute('BEGIN') # One consistent read snapshot for holdings and trade attribution.
         accounts=[dict(r) for r in db.execute('SELECT * FROM portfolios')]
@@ -131,14 +132,17 @@ def portfolios(path):
             positions=[]
             for row in db.execute('SELECT * FROM positions WHERE portfolio=? AND quantity>0',(a['name'],)):
                 p=dict(row);q=db.execute('SELECT price,trade_time,received_at FROM quotes WHERE symbol=?',(p['symbol'],)).fetchone()
-                c=db.execute('SELECT close,ts FROM candles WHERE symbol=? ORDER BY ts DESC LIMIT 1',(p['symbol'],)).fetchone()
-                p['mark']=q['price'] if q else c['close'] if c else None
-                p['mark_time']=datetime.fromtimestamp(q['trade_time']/1000,timezone.utc).isoformat() if q else c['ts'] if c else None
-                p['mark_source']='last_trade' if q else 'daily_close' if c else 'missing'
+                c=db.execute('SELECT close,ts,source,observed_at FROM candles WHERE symbol=? ORDER BY ts DESC LIMIT 1',(p['symbol'],)).fetchone()
+                from .marks import display_mark
+                p.update(display_mark(q,c,clock))
                 p['value']=p['quantity']*p['mark'] if p['mark'] is not None else None
                 p['unrealized_pnl']=p['value']-p['cost'] if p['value'] is not None else None
                 positions.append(p)
             a['positions']=positions;a['equity']=a['cash']+sum(p['value'] for p in positions) if all(p['value'] is not None for p in positions) else None
+            a['last_trade_equity']=a['cash']+sum(p['quantity']*p['last_trade_mark'] for p in positions) if all(p['last_trade_mark'] is not None for p in positions) else None
+            close_days={p['official_close_session'] for p in positions}
+            a['official_close_session']=next(iter(close_days)) if len(close_days)==1 and None not in close_days else None
+            a['official_close_equity']=a['cash']+sum(p['quantity']*p['official_close'] for p in positions) if a['official_close_session'] else None
             a['pnl']=a['equity']-a['initial_cash'] if a['equity'] is not None else None
             a['trades']=annotate(db,[dict(r) for r in db.execute('SELECT * FROM trades WHERE portfolio=? ORDER BY created_at DESC LIMIT 200',(a['name'],))])
             from .exposure import exposure
