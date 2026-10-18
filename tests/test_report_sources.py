@@ -1,10 +1,38 @@
-import unittest
-from marketdesk.report_sources import bse_security,bse_pdf_url,company_reports
-from unittest.mock import Mock,patch
+import hashlib,unittest
+from marketdesk.report_sources import bse_security,bse_pdf_url,company_reports,download_report
+from unittest.mock import Mock,MagicMock,patch
+import requests
 from pathlib import Path
 import tempfile
 
 class ReportSourceTests(unittest.TestCase):
+ def response(self,chunks,headers=None):
+  response=MagicMock();response.__enter__.return_value=response
+  response.headers=headers or {};response.iter_content.return_value=chunks
+  return response
+ def test_interrupted_pdf_restarts_and_hashes_only_complete_response(self):
+  def broken():
+   yield b'%PDF-partial'
+   raise requests.exceptions.ChunkedEncodingError('interrupted')
+  raw=b'%PDF-complete'
+  first=self.response(broken());second=self.response([raw],{'Content-Length':str(len(raw))})
+  request=Mock(side_effect=[first,second])
+  with tempfile.TemporaryDirectory() as tmp,patch('marketdesk.report_sources.time.sleep'):
+   path=Path(tmp)/'report.pdf';sha,size=download_report(request,Mock(),'https://source.test/report.pdf',path)
+   self.assertEqual(path.read_bytes(),raw);self.assertEqual(size,len(raw));self.assertEqual(sha,hashlib.sha256(raw).hexdigest())
+  self.assertEqual(request.call_count,2);first.__exit__.assert_called_once();second.__exit__.assert_called_once()
+ def test_incomplete_download_is_bounded_and_leaves_no_partial_file(self):
+  request=Mock(side_effect=[self.response([b'%PDF-'],{'Content-Length':'100'}) for _ in range(3)])
+  with tempfile.TemporaryDirectory() as tmp,patch('marketdesk.report_sources.time.sleep'):
+   path=Path(tmp)/'report.pdf'
+   with self.assertRaises(requests.exceptions.ChunkedEncodingError):download_report(request,Mock(),'https://source.test/r.pdf',path)
+   self.assertFalse(path.exists());self.assertEqual(request.call_count,3)
+ def test_invalid_oversized_and_access_denied_responses_are_not_retried(self):
+  for request,limit in [(Mock(return_value=self.response([b'<html>blocked</html>'])),100),(Mock(return_value=self.response([b'%PDF-too-large'])),5),(Mock(side_effect=ValueError('NSE HTTP 403')),100)]:
+   with tempfile.TemporaryDirectory() as tmp:
+    path=Path(tmp)/'report.pdf'
+    with self.assertRaises(ValueError):download_report(request,Mock(),'https://source.test/r.pdf',path,limit=limit)
+    self.assertFalse(path.exists());self.assertEqual(request.call_count,1)
  def test_exact_isin_match_required(self):
   rows=[{'ISIN_NUMBER':'INE451C01013','Segment':'Equity','SCRIP_CD':'505036','Scrip_Name':'Example'}]
   self.assertEqual(bse_security(rows,'INE451C01013')['SCRIP_CD'],'505036')

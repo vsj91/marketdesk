@@ -1,5 +1,5 @@
 """One research/data scope. Saved history and the paper ledger are never deleted."""
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from .storage import get_state
 from .buy_universe import KEY, SOURCE, validate_members
 
@@ -50,6 +50,46 @@ def scope_report(db,report):
     if symbols is None:return report
     import collections,json
     rows=[r for r in report.get('results',[]) if r.get('symbol') in symbols]
+    # Keep the repair page complete: every currently blocked constituent gets
+    # a plain-language category and its exact quality reasons, even when it was
+    # not part of the historical repair queue.
+    quality_rows={r['symbol']:json.loads(r['report']) for r in db.execute('SELECT symbol,report FROM quality WHERE '+symbol_filter(db))}
+    existing={r.get('symbol') for r in rows}
+    for symbol,q in quality_rows.items():
+        if q.get('investor_ready'):continue
+        reasons=list(q.get('price_reasons',[]))+list(q.get('financial_reasons',[]))
+        if any('Fewer than 200' in x for x in q.get('price_reasons',[])):
+            candles=[r[0] for r in db.execute('SELECT ts FROM candles WHERE symbol=? ORDER BY ts',(symbol,))]
+            sessions=get_state(db,'quality_sessions',[])
+            eligible='unknown date'
+            if candles and sessions:
+                try:
+                    need=max(0,200-len(candles));pos=sessions.index(candles[-1][:10]);eligible=sessions[pos+need] if pos+need<len(sessions) else None
+                except (ValueError,IndexError):pass
+            if eligible is None and candles:
+                # A projected weekday date is clearly labelled; exchange
+                # holidays can move it later when fresh sessions arrive.
+                day=datetime.fromisoformat(candles[-1]).date();remaining=max(0,200-len(candles))
+                while remaining:
+                    day+=timedelta(days=1)
+                    if day.weekday()<5:remaining-=1
+                eligible=day.isoformat()+' (projected weekday)'
+            category='Too new, eligible from '+eligible
+        elif any('Financial sources disagree' in x for x in q.get('financial_reasons',[])):
+            category='Sources disagree'
+        elif q.get('price_reasons') or q.get('financial_reasons'):
+            category='Fixable' if any('Annual' in x or 'Growth' in x for x in reasons) else 'Needs source data'
+        else:
+            category='Needs source data'
+        if symbol not in existing:
+            rows.append({'symbol':symbol,'status':'unresolved','before_missing':[],
+                         'after_missing':[],'source':None,'period':None,'basis':None,
+                         'source_conflicts':int(any('Financial sources disagree' in x for x in reasons)),
+                         'blocker_category':category,'blocker_reason':'; '.join(reasons) or 'Data-validity check failed'})
+        else:
+            for row in rows:
+                if row.get('symbol')==symbol:
+                    row['blocker_category']=category;row['blocker_reason']='; '.join(reasons) or 'Data-validity check failed'
     if report.get('working_universe')=='nifty500' and len(rows)==len(report.get('results',[])):
         return report
     quality=get_state(db,'quality_summary',{})

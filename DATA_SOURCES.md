@@ -42,6 +42,22 @@ validates alternate history. Every repair keeps provenance and actual evidence
 times. A repair attempt does not mean a stock became eligible. New listings with
 fewer than 200 completed candles cannot legitimately pass the current history rule.
 
+Annual-report extraction also supports explicitly headed Note/Page reference
+columns. Known rotated navigation labels are excluded only when they lie wholly
+outside all horizontal page text; financial headings and value columns remain
+intact. Evidence excerpts retain the printed pages without interactive PDF form
+controls, which can contain cyclic trees. Source and excerpt SHA-256 hashes are
+kept, and every recovered amount still requires annual context and matching
+financial anchors.
+
+Interrupted public PDF downloads restart from byte zero at most twice, through
+the existing provider pacing/cooldown helpers. Incomplete files are removed;
+access rejections, invalid PDFs and oversized responses are not retried. The
+bounded download limit is 80 MB, covering large primary annual reports. Parser
+subprocesses use the package root explicitly, so repair commands also work when
+launched from another directory. These changes do not modify strategy rules,
+the 200-session history requirement, financial validation, or paper ledgers.
+
 `blend_candidate.py` contains original research-only replacement buy hypotheses.
 It is not imported by the trading engine. Investor selection requires documented
 valuation, governance and business-quality reviews in addition to numerical

@@ -26,6 +26,35 @@ Finance costs      24      50.00     40.00
 Profit before tax (V - VI)        1000.00    900.00
 '''
 class AnnualReportTests(unittest.TestCase):
+ def test_evidence_extraction_does_not_copy_interactive_widget_trees(self):
+  import pymupdf
+  with tempfile.TemporaryDirectory() as tmp:
+   root=Path(tmp);doc=pymupdf.open();page=doc.new_page()
+   for n,line in enumerate(TEXT.splitlines()):page.insert_text((25,40+n*17),line,fontname='cour',fontsize=7)
+   doc.save(root/'r.pdf');doc.close();(root/'c.json').write_text(json.dumps({'latest':BASE}))
+   with patch.object(pymupdf.Document,'_do_widgets',side_effect=RuntimeError('cyclic source widget tree')) as widgets:
+    pdf_worker(root/'r.pdf',root/'c.json',root/'r.json')
+    widgets.assert_not_called()
+   result=json.loads((root/'r.json').read_text());self.assertEqual(result['status'],'verified')
+   with pymupdf.open(result['excerpt']) as excerpt:self.assertIn('Lease liabilities',excerpt[0].get_text())
+ def test_rotated_navigation_does_not_merge_annual_income_rows(self):
+  import pymupdf
+  for label in ('Financial Statements','Amounts in USD'):
+   doc=pymupdf.open();page=doc.new_page(width=650,height=800)
+   for n,line in enumerate(INCOME.splitlines()):page.insert_text((25,40+n*17),line,fontname='cour',fontsize=7)
+   page.insert_text((625,70),label,fontsize=8,rotate=270)
+   text=balance_text(page)
+   if label=='Financial Statements':
+    self.assertNotIn(label,text)
+    self.assertEqual(parse_income(text,{**BASE,'profit_before_tax':10})['value'],.5)
+   else:self.assertIn('USD',text)
+   doc.close()
+ def test_separate_note_and_page_columns_require_explicit_header(self):
+  text=TEXT.replace('Particulars                 March 31, 2026      March 31, 2025','Particulars    Note    Page    As at March 31, 2026    March 31, 2025')
+  text=text.replace('Cash and cash equivalents    12','Cash and cash equivalents    11    288').replace('Total equity                      5000.00','Total equity    14    289                      5000.00').replace('49      30.00','49    290      30.00').replace('49      20.00','49    290      20.00')
+  self.assertEqual(parse_balance(text,BASE)['value'],.5)
+  with self.assertRaises(ValueError):parse_balance(text.replace('Note    Page','Note'),BASE)
+  with self.assertRaises(ValueError):parse_balance(text.replace('5000.00','6000.00'),BASE)
  def test_classified_lease_total_requires_all_components_and_context(self):
   text='''Notes to Consolidated Financial Statements
 Amounts recognised in the Consolidated Balance Sheet

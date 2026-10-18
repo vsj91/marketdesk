@@ -72,7 +72,7 @@ def extract_pdf(path,latest,expected_isin=None):
   unique={json.dumps({k:v for k,v in p['current'].items() if k!='observed_at'},sort_keys=True)+json.dumps({k:v for k,v in p['prior'].items() if k!='observed_at'},sort_keys=True) for p in candidates}
   if len(unique)!=1:raise ValueError('Conflicting matching income tables')
   parsed=candidates[0];excerpt=pymupdf.open()
-  for n in parsed['pages']+([parsed['basis_evidence_page']] if parsed.get('basis_evidence_page') else []):excerpt.insert_pdf(doc,from_page=n-1,to_page=n-1)
+  for n in parsed['pages']+([parsed['basis_evidence_page']] if parsed.get('basis_evidence_page') else []):excerpt.insert_pdf(doc,from_page=n-1,to_page=n-1,widgets=False)
   output=Path(path).with_name('income-evidence.pdf');excerpt.save(output,garbage=4,deflate=True,no_new_id=True);excerpt.close()
   return parsed,output
 
@@ -83,7 +83,7 @@ def recover_report_growth(symbol,isin,details):
  Provider failure or an unsupported PDF advances to the next source. Every
  accepted source still needs annual context and matching PBT/finance anchors.
  """
- from .report_sources import fresh,bse_reports,company_reports,public_request,COMPANY_PAGES
+ from .report_sources import fresh,bse_reports,company_reports,public_request,COMPANY_PAGES,download_report
  from urllib.parse import urlsplit
  folder=ROOT/'data/annual-reports'/symbol;folder.mkdir(parents=True,exist_ok=True)
  path=folder/'index.json';client=Fallbacks();latest=details['latest']
@@ -112,13 +112,8 @@ def recover_report_growth(symbol,isin,details):
    url=row['fileName']
    try:
     with tempfile.TemporaryDirectory(dir=folder,prefix='income-') as tmp:
-     pdf=Path(tmp)/'report.pdf';digest=hashlib.sha256();size=0
-     with (request if provider=='NSE' else public_request)(client.session,url,stream=True) as r,pdf.open('wb') as out:
-      for chunk in r.iter_content(131072):
-       size+=len(chunk)
-       if size>40_000_000:raise ValueError('Report exceeds 40 MB')
-       digest.update(chunk);out.write(chunk)
-     sha=digest.hexdigest()
+     pdf=Path(tmp)/'report.pdf'
+     sha,size=download_report(request if provider=='NSE' else public_request,client.session,url,pdf)
      if sha in seen_hashes:raise ValueError('Identical report already checked')
      seen_hashes.add(sha)
      parsed,excerpt=extract_pdf(pdf,latest,expected_isin=isin if row.get('require_pdf_isin') else None)

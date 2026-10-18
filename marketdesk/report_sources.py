@@ -3,7 +3,7 @@
 Security matching is by ISIN, never company-name similarity. Source failures are
 returned as evidence in the repair report; they are not silently filled with zero.
 """
-import json,re,threading,time
+import hashlib,json,re,threading,time
 from datetime import datetime,timezone
 from urllib.parse import urlsplit,urljoin,unquote
 import requests
@@ -26,6 +26,40 @@ COMPANY_PAGES={
  'INE550H01011':'https://www.supremeinfra.com/Supreme-Infrastructure-India-Limited/Investors/Annual-Reports',
  'INE248A01017':'https://www.itiltd.in/investors.php',
 }
+
+def download_report(requester,session,url,path,limit=80_000_000):
+    """Retry interrupted public PDF streams from byte zero, at most three times.
+
+    Each attempt uses the provider's existing pacing and cooldown. Never retry
+    an HTTP/access rejection, oversized response, or an invalid PDF. Partial
+    files are removed; only a complete attempt contributes to the source hash.
+    The 80 MB cap accommodates large primary reports (for example Lenskart's
+    61 MB annual filing); worker, free-space and page-count bounds still apply.
+    """
+    from pathlib import Path
+    path=Path(path)
+    for attempt in range(3):
+        try:
+            size=0;digest=hashlib.sha256();prefix=b''
+            with requester(session,url,stream=True) as response,path.open('wb') as out:
+                for chunk in response.iter_content(131072):
+                    if not chunk:continue
+                    size+=len(chunk)
+                    if size>limit:raise ValueError('Annual report exceeds download limit')
+                    if len(prefix)<1024:prefix=(prefix+chunk)[:1024]
+                    digest.update(chunk);out.write(chunk)
+                length=response.headers.get('Content-Length')
+                if length and not response.headers.get('Content-Encoding') and size!=int(length):
+                    raise requests.exceptions.ChunkedEncodingError('Incomplete annual report response')
+            if not prefix.lstrip().startswith(b'%PDF-'):raise ValueError('Annual report response is not a PDF')
+            return digest.hexdigest(),size
+        except (requests.exceptions.ConnectionError,requests.exceptions.Timeout,requests.exceptions.ChunkedEncodingError):
+            path.unlink(missing_ok=True)
+            if attempt==2:raise
+            time.sleep(attempt+1)
+        except Exception:
+            path.unlink(missing_ok=True)
+            raise
 
 def public_request(session,url,**kwargs):
     u=urlsplit(url);host=u.hostname or ''

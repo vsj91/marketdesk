@@ -10,7 +10,7 @@ from urllib.parse import urlsplit
 from .storage import ROOT,now
 from .intraday_data import atomic_json
 
-REVISION=16
+REVISION=19
 INCOME_REVISION=5
 _pdf_slots=threading.BoundedSemaphore(6)
 NUM=r'(?:\(?-?\d[\d,]*(?:\.\d+)?\)?|[-–—]|Nil|NIL)'
@@ -205,6 +205,10 @@ def parse_balance(text,latest,allow_existing=False):
     """Two-column annual balance only; period, basis, scale and 2 anchors required."""
     text,basis,(unit,scale)=statement_context(text,latest)
     section=None;found={};evidence={};equity_section=False;previous_key=None;subtotal_equity=None
+    # Some audited tables have separate Note and Page reference columns.
+    # Remove both only when that exact header is present; numeric financial
+    # columns must never be mistaken for references.
+    note_and_page=bool(re.search(r'\bNote\s+Page\s+(?:As at|31[ .-])',text[:1800],re.I))
     def record(key,value,line):
         nonlocal previous_key
         previous_key=key
@@ -231,7 +235,9 @@ def parse_balance(text,latest,allow_existing=False):
         if not m:continue
         label=line[:m.start()].strip()
         # Drop a separate note-number column, never a value column.
-        label=re.sub(r'\s{2,}'+NOTE_REF+r'\s*$','',label,flags=re.I)
+        if note_and_page:
+            label=re.sub(r'\s{2,}'+NOTE_REF+r'\s{2,}\d{1,4}\s*$','',label,flags=re.I)
+        else:label=re.sub(r'\s{2,}'+NOTE_REF+r'\s*$','',label,flags=re.I)
         # A separate unpunctuated alphabetic row marker is not part of a caption.
         label=re.sub(r'^[a-z]\s{2,}','',label,flags=re.I)
         label=caption(label);value=amount(m.group(1))
@@ -277,7 +283,22 @@ def balance_text(page,clip=None):
     """Resolve only documented rupee-font glyphs next to an explicit unit label."""
     kwargs={'clip':clip} if clip is not None else {}
     text=page.get_text(sort=True,**kwargs)
-    for block in page.get_text('dict',**kwargs)['blocks']:
+    blocks=page.get_text('dict',**kwargs)['blocks']
+    lines=[line for block in blocks for line in block.get('lines',[])]
+    rotated=[line for line in lines if tuple(line.get('dir',(1.,0.)))!=(1.,0.)]
+    horizontal=[line for line in lines if tuple(line.get('dir',(1.,0.)))==(1.,0.)]
+    # Rotated navigation in the outside margin can make MuPDF join financial
+    # rows. Exclude only these known labels, wholly beyond every horizontal
+    # text box. Never crop overlapping or rotated financial table headings.
+    labels={'financial statements','statutory reports','corporate overview'}
+    if rotated and horizontal and all(' '.join(''.join(s.get('text','') for s in line['spans']).lower().split()) in labels for line in rotated):
+        edge=min(line['bbox'][0] for line in rotated)
+        if edge>max(line['bbox'][2] for line in horizontal) and edge>page.rect.width*.9:
+            import pymupdf
+            bounds=pymupdf.Rect(clip or page.rect);bounds.x1=min(bounds.x1,edge-.1)
+            kwargs={'clip':bounds}
+            text=page.get_text(sort=True,**kwargs)
+    for block in blocks:
         for line in block.get('lines',[]):
             spans=line['spans'];joined=''.join(span.get('text','') for span in spans)
             if not re.search(r'\b(?:(?:lakh|crore|million|thousand)s?|cr)\b',joined,re.I):continue
@@ -412,7 +433,10 @@ def pdf_worker(pdf_path,context_path,output_path):
     else:
         try:
             evidence,selected=complete_candidate(candidates);excerpt=pymupdf.open()
-            for n in selected:excerpt.insert_pdf(doc,from_page=n,to_page=n)
+            # Evidence needs the printed page content, not interactive forms.
+            # Some public reports contain cyclic widget trees that make grafting
+            # fail even though their financial table text parses correctly.
+            for n in selected:excerpt.insert_pdf(doc,from_page=n,to_page=n,widgets=False)
             evidence_path=Path(output_path).with_suffix('.pdf');excerpt.save(evidence_path,garbage=4,deflate=True,no_new_id=True)
             result={'status':'verified','evidence':evidence,'excerpt':str(evidence_path)}
         except ValueError as error:result={'status':'unresolved','reason':str(error)}
@@ -444,7 +468,7 @@ class AnnualReportSources:
     def fetch(self,symbol,isin,details):
         from .financial_sources import request
         from .fallbacks import Fallbacks
-        from .report_sources import bse_reports,company_reports,public_request,fresh,COMPANY_PAGES
+        from .report_sources import bse_reports,company_reports,public_request,fresh,COMPANY_PAGES,download_report
         latest=details.get('latest') or {}
         income_needed=latest.get('finance_costs') is None and latest.get('profit_before_tax') is not None
         folder=ROOT/'data/annual-reports'/symbol;folder.mkdir(parents=True,exist_ok=True)
@@ -494,21 +518,14 @@ class AnnualReportSources:
                 with _pdf_slots:
                     if shutil.disk_usage(ROOT).free<1_000_000_000:raise ValueError('Less than 1 GB free; PDF fetch deferred')
                     with tempfile.TemporaryDirectory(prefix='report-',dir=ROOT/'data/annual-reports') as tmp:
-                        tmp=Path(tmp);pdf=tmp/'report.pdf';size=0;digest=hashlib.sha256()
-                        response=(request if row['provider']=='NSE' else public_request)(client.session,url,stream=True)
-                        try:
-                            with pdf.open('wb') as out:
-                                for chunk in response.iter_content(131072):
-                                    size+=len(chunk)
-                                    if size>40_000_000:raise ValueError('Annual report exceeds 40 MB download limit')
-                                    out.write(chunk);digest.update(chunk)
-                        finally:response.close()
-                        raw_hash=digest.hexdigest();attempt['raw_sha256']=raw_hash
+                        tmp=Path(tmp);pdf=tmp/'report.pdf'
+                        raw_hash,size=download_report(request if row['provider']=='NSE' else public_request,client.session,url,pdf)
+                        attempt['raw_sha256']=raw_hash
                         if raw_hash in seen_hashes:raise ValueError('Identical report already parsed from another source')
                         seen_hashes.add(raw_hash)
                         context=tmp/'context.json';context.write_text(json.dumps({'latest':latest,'symbol':symbol,'isin':isin,'require_pdf_isin':row.get('require_pdf_isin',False)}))
                         output=tmp/'result.json'
-                        subprocess.run([sys.executable,'-m','marketdesk.annual_reports',str(pdf),str(context),str(output)],timeout=90,check=True,capture_output=True)
+                        subprocess.run([sys.executable,'-m','marketdesk.annual_reports',str(pdf),str(context),str(output)],cwd=ROOT,timeout=90,check=True,capture_output=True)
                         parsed=json.loads(output.read_text());attempt.update({k:v for k,v in parsed.items() if k not in ('excerpt','evidence')})
                         if parsed['status']=='verified':
                             target,excerpt_hash=save_excerpt(folder,parsed['excerpt'],raw_hash)
