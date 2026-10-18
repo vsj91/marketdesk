@@ -54,7 +54,7 @@ def trade(path,payload,clock=None,auto_guard=None,audit_context=None):
     details=dict(audit_context or {})
     details.update(requested_quantity=payload.get('quantity'),filled_quantity=0,risk_used_inr=None,risk_pct_equity=None)
     with connect(path) as db:
-        identity=current_identity(db,payload.get('portfolio'),auto_guard is not None)
+        identity=list(current_identity(db,payload.get('portfolio'),auto_guard is not None))
     try:
         return _trade(path,payload,clock,auto_guard,details,identity)
     except ValueError as error:
@@ -94,7 +94,7 @@ def _trade(path,payload,clock=None,auto_guard=None,audit_details=None,audit_iden
         day=clock.astimezone(timezone(timedelta(hours=5,minutes=30))).replace(hour=0,minute=0,second=0,microsecond=0).astimezone(timezone.utc).isoformat()
         dp=side=='SELL' and not db.execute("SELECT 1 FROM trades WHERE portfolio=? AND symbol=? AND side='SELL' AND created_at>=?",(portfolio,symbol,day)).fetchone()
         costs=charges(value,side,dp);fee=costs['total']
-        audit_identity=current_identity(db,portfolio,auto_guard is not None)
+        audit_identity[:]=current_identity(db,portfolio,auto_guard is not None)
         if auto_guard is not None and side=='BUY':
             cost_check=automatic_buy_cost_check(get_state(db,'auto_config',{}).get(portfolio,{}),value,fee)
             if cost_check:fill['buy_cost_check']=cost_check
@@ -143,7 +143,7 @@ def portfolios(path,clock=None):
             a['last_trade_equity']=a['cash']+sum(p['quantity']*p['last_trade_mark'] for p in positions) if all(p['last_trade_mark'] is not None for p in positions) else None
             close_days={p['official_close_session'] for p in positions}
             a['official_close_session']=next(iter(close_days)) if len(close_days)==1 and None not in close_days else None
-            a['official_close_equity']=a['cash']+sum(p['quantity']*p['official_close'] for p in positions) if a['official_close_session'] else None
+            a['official_close_equity']=a['cash']+sum(p['quantity']*p['official_close'] for p in positions) if a['official_close_session'] and all(p['mark_source']=='official_daily_close' for p in positions) and not db.execute("SELECT 1 FROM trades WHERE portfolio=? AND date(created_at,'+5 hours','+30 minutes')>? LIMIT 1",(a['name'],a['official_close_session'])).fetchone() else None
             a['pnl']=a['equity']-a['initial_cash'] if a['equity'] is not None else None
             a['trades']=annotate(db,[dict(r) for r in db.execute('SELECT * FROM trades WHERE portfolio=? ORDER BY created_at DESC LIMIT 200',(a['name'],))])
             from .exposure import exposure

@@ -329,11 +329,11 @@ class ClaudeTrader:
         check.audit_strategy=STRATEGY
         return check
 
-    def execute(self,symbol,side,qty,signal,clock,realtime):
+    def execute(self,symbol,side,qty,signal,clock,realtime,audit_context=None):
         from .autotrading import event
         if realtime:clock=datetime.now(timezone.utc)
         try:
-            trade(self.path,dict(portfolio='trader',symbol=symbol,side=side,quantity=qty,request_id='claude-'+str(uuid.uuid4())),None if realtime else clock,auto_guard=self.guard(signal,clock))
+            trade(self.path,dict(portfolio='trader',symbol=symbol,side=side,quantity=qty,request_id='claude-'+str(uuid.uuid4())),None if realtime else clock,auto_guard=self.guard(signal,clock),audit_context=audit_context)
             return 1
         except ValueError as error:
             with connect(self.path) as db:event(db,'trader','blocked',str(error),symbol,clock=clock,details=getattr(error,'order_audit',None))
@@ -382,7 +382,15 @@ class ClaudeTrader:
                 except ValueError as error:return status(str(error),'risk_wait')
             # Reserve 0.5% adverse depth movement for the sizing request; exact fill is rechecked atomically.
             q=quantity(quotes[symbol]['price']*1.005,s['atr'],eq,heat,budget)
-            if q:fills+=self.execute(symbol,'BUY',q,s,clock,realtime)
+            if q:
+                price=quotes[symbol]['price']*1.005;n=q+1;buy=charges(n*price,'BUY')['total']
+                risk=n*2*s['atr']+buy+charges(n*(price-2*s['atr']),'SELL',True)['total']+n*price*.005
+                constraints=[]
+                if risk>.005*eq:constraints.append('risk_per_trade')
+                if heat+risk>.03*(eq-buy):constraints.append('risk_budget')
+                if n*price+buy>budget:constraints.append('cash' if budget==account['cash'] else 'position_cap')
+                context=dict(sizing_price=price,equity_at_sizing=eq,portfolio_risk_at_sizing=heat,position_budget=budget,binding_constraints=constraints,quantity_after_risk=q)
+                fills+=self.execute(symbol,'BUY',q,s,clock,realtime,context)
             else:
                 from .autotrading import event
                 with connect(self.path) as db:event(db,'trader','blocked','No whole share fits Claude risk, heat or position budget.',symbol,clock=clock,details=dict(blocked_by='risk_budget',requested_quantity=0,filled_quantity=0,risk_used_inr=0,equity_before=eq,portfolio_risk_before=heat,position_budget=budget))
