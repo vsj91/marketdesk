@@ -9,6 +9,7 @@ from datetime import datetime, timezone, timedelta
 from decimal import Decimal, ROUND_HALF_UP
 from .execution import charges
 from .storage import get_state
+from .order_audit import annotate,legacy_identity
 
 D = lambda x: Decimal(str(x))
 CENT = Decimal('.01')
@@ -18,17 +19,18 @@ LABELS = {'claude': 'Claude entries', 'legacy': 'Before Claude · old strategy',
 def rounded(x):
     return x.quantize(CENT, rounding=ROUND_HALF_UP)
 
-def attribution(trades, positions, selected_at=None, clock=None):
+def attribution(trades, positions, selected_at=None, clock=None, by_version=False):
     clock = clock or datetime.now(timezone.utc)
     selected = datetime.fromisoformat(selected_at) if selected_at else None
-    groups = {k:dict(key=k,label=v,realized=D(0),unrealized=D(0),fees=D(0),exit_fees=D(0),buys=0,sells=0,open_symbols=[]) for k,v in LABELS.items()}
+    labels={t.get('strategy_version_id',legacy_identity(t)[0]):t.get('strategy_label',legacy_identity(t)[1]) for t in trades if t['side']=='BUY'} if by_version else LABELS
+    groups = {k:dict(key=k,label=v,realized=D(0),unrealized=D(0),fees=D(0),exit_fees=D(0),buys=0,sells=0,open_symbols=[]) for k,v in labels.items()}
     pools = defaultdict(dict); cash_flow=D(0); sold_today=set(); day=clock.astimezone(IST).date()
     for t in trades:
         symbol=t['symbol'];q=D(t['quantity']);value=rounded(q*D(t['price']));fee=D(t['fee'])
         stamp=datetime.fromisoformat(t['created_at'])
         if t['side']=='BUY':
-            is_claude=(t.get('source')=='automatic' and t.get('request_id','').startswith('claude-') and t.get('reason','').startswith(('Original Claude V2 completed breakout;','Claude V2 (Nifty 500 filter off) completed breakout;')))
-            key='claude' if is_claude else 'legacy' if selected is None or stamp<selected else 'other'
+            is_claude=(t.get('source')=='automatic' and t.get('request_id','').startswith('claude-') and t.get('reason','').startswith(('Original Claude V2 completed breakout;','Claude V2 (Nifty 500 filter off) completed breakout;','Original Claude V2 live breakout above ','Claude V2 (Nifty 500 filter off) live breakout above ')))
+            key=t.get('strategy_version_id',legacy_identity(t)[0]) if by_version else 'claude' if is_claude else 'legacy' if selected is None or stamp<selected else 'other'
             pool=pools[symbol].setdefault(key,dict(qty=D(0),cost=D(0)))
             pool['qty']+=q;pool['cost']+=value+fee
             groups[key]['fees']+=fee;groups[key]['buys']+=1;cash_flow-=value+fee
@@ -60,7 +62,7 @@ def attribution(trades, positions, selected_at=None, clock=None):
         basis=sum((x['cost'] for x in cohorts.values()),D(0))
         if abs(basis-D(p['cost']))>D('.011'):raise ValueError('Cost basis and paper ledger disagree.')
         active=[k for k,pool in cohorts.items() if pool['qty']>D('0.00000001')]
-        origins[symbol]=' + '.join(LABELS[k] for k in active)
+        origins[symbol]=' + '.join(labels[k] for k in active)
         mark=p.get('mark');timestamp=p.get('mark_time')
         if timestamp:mark_times.append(timestamp)
         try:fresh=mark is not None and p.get('mark_source')=='last_trade' and 0<=(clock-datetime.fromisoformat(timestamp)).total_seconds()<=30
@@ -89,10 +91,10 @@ def attribution(trades, positions, selected_at=None, clock=None):
 
 def trader_performance(db,account,clock=None):
     cfg=get_state(db,'auto_config',{}).get('trader',{})
-    trades=[dict(r) for r in db.execute("SELECT * FROM trades WHERE portfolio='trader' ORDER BY rowid")]
+    trades=annotate(db,[dict(r) for r in db.execute("SELECT * FROM trades WHERE portfolio='trader' ORDER BY rowid")])
     if cfg.get('strategy')!='claude-original-v2' and not any(t['request_id'].startswith('claude-') for t in trades):return None
     try:
-        result=attribution(trades,account['positions'],cfg.get('strategy_selected_at'),clock)
+        result=attribution(trades,account['positions'],cfg.get('strategy_selected_at'),clock,by_version=True)
         if abs(D(account['initial_cash'])+D(result['expected_cash_change'])-D(account['cash']))>D('.011'):
             raise ValueError('Cash does not reconcile to the recorded trade history.')
         return result

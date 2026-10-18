@@ -4,6 +4,7 @@ from .storage import connect,now,get_state
 from .execution import fetch_book,match,charges,money,automatic_buy_cost_check
 from .quality import init_quality,require_buy_quality
 from .buy_universe import require_buy_universe
+from .order_audit import init_metadata,current_identity,save_identity,annotate
 
 def init_paper(path):
     init_quality(path)
@@ -19,6 +20,7 @@ def init_paper(path):
             if name not in columns:db.execute('ALTER TABLE trades ADD COLUMN '+name+' '+definition)
         db.execute('UPDATE trades SET requested_quantity=quantity WHERE requested_quantity IS NULL')
         for name in ('trader','investor'):db.execute('INSERT OR IGNORE INTO portfolios VALUES(?,?,?)',(name,1000000,1000000))
+        init_metadata(db)
 
 def duplicate(db,payload):
     row=db.execute('SELECT * FROM trades WHERE request_id=?',(payload['request_id'],)).fetchone()
@@ -93,10 +95,11 @@ def trade(path,payload,clock=None,auto_guard=None):
         fill.update(charges=costs,book=book,requested_quantity=requested,slippage_vs_ltp_bps=round((price/quote['price']-1)*(1 if side=='BUY' else -1)*10000,2),charge_basis='Delivery-style estimate; same-day netting and settlement not modeled')
         row=(str(uuid.uuid4()),request_id,portfolio,symbol,side,qty,price,fee,quote['trade_time'],clock.isoformat(),'automatic' if auto_guard else 'manual',reason,requested,json.dumps(fill),fill['model'])
         db.execute('INSERT INTO trades(id,request_id,portfolio,symbol,side,quantity,price,fee,quote_time,created_at,source,reason,requested_quantity,execution,fill_model) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',row)
+        save_identity(db,row[0],current_identity(db,portfolio,auto_guard is not None),'captured at execution')
         if auto_guard:
             from .autotrading import event
             event(db,portfolio,'fill',side+' '+str(qty)+' / '+str(requested)+' shares ('+fill['status']+'): '+reason,symbol,row[0],clock)
-        return dict(db.execute('SELECT * FROM trades WHERE id=?',(row[0],)).fetchone())
+        return annotate(db,[dict(db.execute('SELECT * FROM trades WHERE id=?',(row[0],)).fetchone())])[0]
 
 def portfolios(path):
     with connect(path) as db:
@@ -115,7 +118,7 @@ def portfolios(path):
                 positions.append(p)
             a['positions']=positions;a['equity']=a['cash']+sum(p['value'] for p in positions) if all(p['value'] is not None for p in positions) else None
             a['pnl']=a['equity']-a['initial_cash'] if a['equity'] is not None else None
-            a['trades']=[dict(r) for r in db.execute('SELECT * FROM trades WHERE portfolio=? ORDER BY created_at DESC LIMIT 200',(a['name'],))]
+            a['trades']=annotate(db,[dict(r) for r in db.execute('SELECT * FROM trades WHERE portfolio=? ORDER BY created_at DESC LIMIT 200',(a['name'],))])
             if a['name']=='trader':
                 from .strategy_performance import trader_performance
                 a['strategy_performance']=trader_performance(db,a)
