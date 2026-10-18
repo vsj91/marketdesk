@@ -141,6 +141,8 @@ def portfolios(path):
             a['positions']=positions;a['equity']=a['cash']+sum(p['value'] for p in positions) if all(p['value'] is not None for p in positions) else None
             a['pnl']=a['equity']-a['initial_cash'] if a['equity'] is not None else None
             a['trades']=annotate(db,[dict(r) for r in db.execute('SELECT * FROM trades WHERE portfolio=? ORDER BY created_at DESC LIMIT 200',(a['name'],))])
+            from .exposure import exposure
+            a['exposure']=exposure(db,positions,a['equity'])
             if a['name']=='trader':
                 from .strategy_performance import trader_performance
                 a['strategy_performance']=trader_performance(db,a)
