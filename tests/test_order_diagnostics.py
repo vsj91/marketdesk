@@ -1,12 +1,12 @@
 import json,unittest
 from unittest.mock import patch
-from test_claude_trader import ClaudeTests
+import test_claude_trader
 from marketdesk.storage import connect
 from support import fixture_book
 
 class DiagnosticsTests(unittest.TestCase):
  def setUp(self):
-  self.fixture=ClaudeTests();self.fixture.setUp();self.addCleanup(self.fixture.doCleanups)
+  self.fixture=test_claude_trader.ClaudeTests();self.fixture.setUp();self.addCleanup(self.fixture.doCleanups)
  def test_rejection_preserves_sizing_and_does_not_book_risk(self):
   f=self.fixture;f.enable_fee_cap()
   def shallow(path,symbol):

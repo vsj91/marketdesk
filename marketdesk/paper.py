@@ -27,7 +27,7 @@ def duplicate(db,payload):
     row=db.execute('SELECT * FROM trades WHERE request_id=?',(payload['request_id'],)).fetchone()
     if row:
         if any(row[k]!=payload[v] for k,v in [('portfolio','portfolio'),('symbol','symbol'),('side','side'),('requested_quantity','quantity')]):raise ValueError('Order identifier already used for a different order.')
-        return dict(row)
+        return annotate(db,[dict(row)])[0]
 
 def preflight(db,payload,clock,auto_guard,*,realtime=False):
     portfolio,symbol=payload['portfolio'],payload['symbol']
@@ -94,6 +94,7 @@ def _trade(path,payload,clock=None,auto_guard=None,audit_details=None,audit_iden
         day=clock.astimezone(timezone(timedelta(hours=5,minutes=30))).replace(hour=0,minute=0,second=0,microsecond=0).astimezone(timezone.utc).isoformat()
         dp=side=='SELL' and not db.execute("SELECT 1 FROM trades WHERE portfolio=? AND symbol=? AND side='SELL' AND created_at>=?",(portfolio,symbol,day)).fetchone()
         costs=charges(value,side,dp);fee=costs['total']
+        audit_identity=current_identity(db,portfolio,auto_guard is not None)
         if auto_guard is not None and side=='BUY':
             cost_check=automatic_buy_cost_check(get_state(db,'auto_config',{}).get(portfolio,{}),value,fee)
             if cost_check:fill['buy_cost_check']=cost_check
