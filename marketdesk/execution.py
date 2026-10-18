@@ -33,7 +33,7 @@ def automatic_buy_cost_check(config,value,buy_fee):
     total=money(buy_fee+exit_fee)
     if value<=0 or Decimal(str(total))*100>Decimal(str(value))*Decimal(str(limit)):
         pct=total/value*100 if value>0 else float('inf')
-        raise ValueError(f'Buy too small after depth limits: estimated round-trip fees ₹{total:.2f} ({pct:.2f}%) exceed {limit:g}% of actual fill value ₹{value:.2f}.')
+        raise ValueError(f'Buy too small for fee floor: estimated round-trip fees ₹{total:.2f} ({pct:.2f}%) exceed {limit:g}% of actual fill value ₹{value:.2f}.')
     return dict(max_round_trip_fee_pct=limit,buy_fee=buy_fee,estimated_sell_fee=exit_fee,
         estimated_round_trip_fee=total,filled_value=value,estimated_round_trip_fee_pct=total/value*100,
         basis='Same-price delivery sale including DP charges; spread, slippage and partial-exit costs excluded')

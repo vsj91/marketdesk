@@ -5,6 +5,7 @@ from datetime import datetime,timedelta,timezone
 from .storage import connect,get_state,set_state,number,now
 from .paper import trade
 from .execution import charges,money
+from .order_audit import init_attempts,blocked_category,current_identity
 from .quality import audit
 from .quote_health import fresh,stale_holdings,stale_message,refresh_held_quotes
 from .buy_universe import allowed_symbols,require_buy_universe,universe_status,MembershipRefresh
@@ -37,6 +38,7 @@ def init_auto(path):
  with connect(path) as db:
   db.executescript('''CREATE TABLE IF NOT EXISTS auto_days(portfolio TEXT NOT NULL,session TEXT NOT NULL,opening_equity REAL NOT NULL,halted INTEGER NOT NULL DEFAULT 0,PRIMARY KEY(portfolio,session));
   CREATE TABLE IF NOT EXISTS auto_events(id INTEGER PRIMARY KEY AUTOINCREMENT,created_at TEXT NOT NULL,portfolio TEXT NOT NULL,kind TEXT NOT NULL,symbol TEXT,reason TEXT NOT NULL,trade_id TEXT);''')
+  init_attempts(db)
   if get_state(db,'auto_config') is None:set_state(db,'auto_config',{p:{'enabled':False} for p in RULES})
 
 def session(clock):return clock.astimezone(IST).date().isoformat()
@@ -50,8 +52,13 @@ def entry_window_label(config,opening=False):
  return 'next-session opening depth, 09:15–09:20 IST' if opening else '09:20–15:00 IST'
 
 def day_start(clock):return clock.astimezone(IST).replace(hour=0,minute=0,second=0,microsecond=0).astimezone(timezone.utc).isoformat()
-def event(db,portfolio,kind,reason,symbol=None,trade_id=None,clock=None):
+def event(db,portfolio,kind,reason,symbol=None,trade_id=None,clock=None,details=None):
  db.execute('INSERT INTO auto_events(created_at,portfolio,kind,symbol,reason,trade_id) VALUES(?,?,?,?,?,?)',((clock or datetime.now(timezone.utc)).isoformat(),portfolio,kind,symbol,reason,trade_id))
+ if kind in ('blocked','fill') or details is not None:
+  details=dict(details or {})
+  for key,value in dict(requested_quantity=None,filled_quantity=0 if kind=='blocked' else None,risk_used_inr=0 if kind=='blocked' else None,risk_pct_equity=None,strategy_version_id=current_identity(db,portfolio,True)[0]).items():details.setdefault(key,value)
+  if kind=='blocked':details.setdefault('blocked_by',blocked_category(reason))
+  db.execute('INSERT INTO auto_event_evidence VALUES(last_insert_rowid(),?)',(json.dumps(details,sort_keys=True),))
 
 def daily_buy_count(db,portfolio,clock):
  return db.execute("SELECT COUNT(*) FROM trades WHERE portfolio=? AND source='automatic' AND side='BUY' AND created_at>=?",(portfolio,day_start(clock))).fetchone()[0]
@@ -193,7 +200,7 @@ class AutoTrading:
   return self.snapshot()
  def snapshot(self):
   with connect(self.path) as db:
-   return {'config':get_state(db,'auto_config',{}),'status':get_state(db,'auto_status',{}),'rules':self.active_rules(db),'events':[dict(r) for r in db.execute('SELECT * FROM auto_events ORDER BY id DESC LIMIT 30')],'interval_seconds':15}
+   return {'config':get_state(db,'auto_config',{}),'status':get_state(db,'auto_status',{}),'rules':self.active_rules(db),'events':event_snapshot(db),'interval_seconds':15}
  def active_rules(self,db):
   from .claude_trader import STRATEGY,active_rule
   cfg=get_state(db,'auto_config',{})
@@ -274,6 +281,8 @@ class AutoTrading:
    marks=investor_valuation(db,execution_clock)[1] if portfolio=='investor' else []
    note='; stale holding valuation: '+', '.join(f"{m['symbol']} at {m['price']}" for m in marks) if marks else ''
    return signal_result[0]+note
+  check.audit_signal=signal
+  check.audit_strategy=portfolio+'-fundamental'
   return check
  def cycle(self,clock=None,signals=None):
   realtime=clock is None
@@ -364,12 +373,17 @@ class AutoTrading:
     if db.execute('SELECT 1 FROM trades WHERE portfolio=? AND symbol=? AND created_at>=?',(portfolio,symbol,day_start(clock))).fetchone():continue
    budget=buy_budget(portfolio,account,rules,buy_config)
    qty=max(0,math.floor((budget-25)/(quotes[symbol]['price']*1.025)))
+   sizing=dict(position_budget=budget,quantity_before_risk=qty,binding_constraints=['position_cap' if budget<account['cash'] else 'cash'])
    if portfolio=='investor' and qty>0:
     try:
      with connect(self.path) as db:risk=investor_portfolio_risk(db,datetime.now(timezone.utc) if realtime else clock)
     except ValueError as error:return {'state':'risk_wait','message':str(error),'fills_this_scan':fills}
     if risk:qty=investor_risk_quantity(qty,quotes[symbol]['price']*1.005,quotes[symbol]['price'],risk)
-   if qty>0:fills+=self.execute(portfolio,symbol,'BUY',qty,signals[symbol],clock,realtime)
+   if qty<sizing['quantity_before_risk']:sizing['binding_constraints']=['risk_budget']
+   sizing['quantity_after_risk']=qty
+   if qty>0:fills+=self.execute(portfolio,symbol,'BUY',qty,signals[symbol],clock,realtime,sizing)
+   else:
+    with connect(self.path) as db:event(db,portfolio,'blocked','No whole share fits the current risk or position budget.',symbol,clock=clock,details=dict(sizing,blocked_by='risk_budget' if sizing['quantity_before_risk'] else 'position_cap',requested_quantity=0,filled_quantity=0,risk_used_inr=0))
   with connect(self.path) as db:
    rules=capacity_rules(portfolio,get_state(db,'auto_config',{}).get(portfolio,{}))
    buy_count=daily_buy_count(db,portfolio,clock)
@@ -381,13 +395,13 @@ class AutoTrading:
   else:
    message=f'Scan complete: {len(candidates)} stocks meet entry rules. Rechecking every 15 seconds; position, cash and daily limits apply.'
   return {'state':'monitoring','message':message,'candidates':len(candidates),'fills_this_scan':fills,'buy_count':buy_count,'position_count':position_count,'max_positions':rules['max_positions'],'max_buys_per_day':rules['max_buys_per_day']}
- def execute(self,portfolio,symbol,side,qty,signal,clock,realtime=False):
+ def execute(self,portfolio,symbol,side,qty,signal,clock,realtime=False,audit_context=None):
   if realtime:clock=datetime.now(timezone.utc)
   order={'portfolio':portfolio,'symbol':symbol,'side':side,'quantity':qty,'request_id':f'auto-{portfolio}-{uuid.uuid4()}'}
   try:
-   trade(self.path,order,None if realtime else clock,auto_guard=self.guard(portfolio,signal,clock));return 1
+   trade(self.path,order,None if realtime else clock,auto_guard=self.guard(portfolio,signal,clock),audit_context=audit_context);return 1
   except ValueError as error:
-   with connect(self.path) as db:event(db,portfolio,'blocked',str(error),symbol,clock=clock)
+   with connect(self.path) as db:event(db,portfolio,'blocked',str(error),symbol,clock=clock,details=getattr(error,'order_audit',None))
    return 0
  def refresh_daily_candles(self,clock=None):
   if self.refresh is None:return
@@ -439,3 +453,11 @@ class AutoTrading:
        cfg[p]['enabled']=False;event(db,p,'error','Engine paused after '+type(error).__name__+'. Review before enabling again.')
      set_state(db,'auto_config',cfg)
    self.stop_event.wait(15)
+
+
+def event_snapshot(db):
+ rows=[dict(r) for r in db.execute('SELECT * FROM auto_events ORDER BY id DESC LIMIT 30')]
+ for r in rows:
+  evidence=db.execute('SELECT details FROM auto_event_evidence WHERE event_id=?',(r['id'],)).fetchone()
+  r['audit']=json.loads(evidence[0]) if evidence else {'blocked_by':blocked_category(r['reason']) if r['kind']=='blocked' else None,'evidence':'Legacy reason only; sizing inputs unverified'}
+ return rows

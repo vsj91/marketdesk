@@ -51,3 +51,87 @@ def annotate(db,trades):
         else:
             key,label,_=legacy_identity(t);t.update(strategy_version_id=key,strategy_label=label,strategy_provenance='read-only legacy inference')
     return trades
+
+
+def init_attempts(db):
+    db.executescript('''CREATE TABLE IF NOT EXISTS order_attempts(
+      id TEXT PRIMARY KEY,request_id TEXT,created_at TEXT NOT NULL,portfolio TEXT,symbol TEXT,side TEXT,
+      strategy_version_id TEXT NOT NULL,status TEXT NOT NULL,details TEXT NOT NULL);
+    CREATE TABLE IF NOT EXISTS auto_event_evidence(event_id INTEGER PRIMARY KEY,details TEXT NOT NULL);''')
+
+
+def blocked_category(reason):
+    text=reason.lower()
+    if 'fees' in text and ('too small' in text or 'exceed' in text and 'fill value' in text):return 'fee_floor'
+    if 'sector' in text:return 'sector_cap'
+    if 'risk' in text or 'heat' in text:return 'risk_budget'
+    if 'depth' in text:return 'depth'
+    if 'cash' in text:return 'cash'
+    if 'budget' in text or 'position cap' in text:return 'position_cap'
+    if 'limit' in text and ('position' in text or 'holdings' in text):return 'capacity'
+    if 'stale' in text or 'fresh' in text or 'price' in text and '30 seconds' in text:return 'price_freshness'
+    return 'other'
+
+
+def diagnostics(db,order,fill,guard,clock,context=None):
+    """Observe existing formulas only. Never set quantities, stops or eligibility."""
+    from .execution import charges,money
+    result=dict(context or {})
+    q=fill['quantity'];price=fill['price'];fee=charges(fill['value'],order['side'],order['side']=='SELL')['total']
+    result.update(requested_quantity=order['quantity'],filled_quantity=0,matched_quantity=q,
+      fill_price=price,depth_reduced=q<order['quantity'],risk_used_inr=None,risk_pct_equity=None,
+      binding_constraints=list(result.get('binding_constraints',[])))
+    if q<order['quantity']:result['binding_constraints'].append('depth')
+    if guard is None:
+        result['risk_evidence']='Manual order: no strategy stop supplied';return result
+    signal=getattr(guard,'audit_signal',None);portfolio=order['portfolio']
+    account=db.execute('SELECT * FROM portfolios WHERE name=?',(portfolio,)).fetchone()
+    try:
+        if portfolio=='trader' and getattr(guard,'audit_strategy',None)=='claude-original-v2':
+            from .claude_trader import limits,holding_stop_risk
+            eq,heat,budget=limits(db,account,clock)
+            result.update(equity_before=eq,portfolio_risk_before=heat,portfolio_risk_cap_pct=3,position_budget=budget)
+            if order['side']=='BUY' and signal:
+                distance=2*signal['atr'];risk=q*distance+fee+charges(q*(price-distance),'SELL',True)['total']+q*price*.005
+                result.update(stop_distance=distance,stop_price=price-distance,risk_used_inr=risk,risk_pct_equity=risk/eq*100)
+                # Which existing constraints would reject one additional share at this fill price?
+                n=q+1;buy=charges(n*price,'BUY')['total'];nrisk=n*distance+buy+charges(n*(price-distance),'SELL',True)['total']+n*price*.005
+                mark=db.execute('SELECT price FROM quotes WHERE symbol=?',(order['symbol'],)).fetchone()[0]
+                if nrisk>.005*eq:result['binding_constraints'].append('risk_per_trade')
+                if heat+nrisk>.03*(eq-buy+n*(mark-price)):result['binding_constraints'].append('risk_budget')
+                if n*price+buy>budget:result['binding_constraints'].append('cash' if account['cash']<=account['initial_cash']*.1 else 'position_cap')
+            elif order['side']=='SELL':
+                p=db.execute('SELECT * FROM positions WHERE portfolio=? AND symbol=?',(portfolio,order['symbol'])).fetchone()
+                s=db.execute('SELECT * FROM claude_positions WHERE symbol=?',(order['symbol'],)).fetchone()
+                if p and s:
+                    left=dict(p);left.update(quantity=p['quantity']-q,cost=money(p['cost']*(p['quantity']-q)/p['quantity']))
+                    released=holding_stop_risk(p,s)-(holding_stop_risk(left,s) if left['quantity'] else 0)
+                    result.update(stop_price=s['stop'],risk_released_inr=released,risk_used_inr=0,risk_pct_equity=0)
+        elif portfolio=='investor':
+            from .autotrading import investor_portfolio_risk,investor_stop_risk,investor_buy_fits
+            r=investor_portfolio_risk(db,clock)
+            if r:result.update(equity_before=r['equity'],portfolio_risk_before=r['risk'],portfolio_risk_cap_pct=r['cap_pct'])
+            if order['side']=='BUY':
+                cost=fill['value']+fee;risk=investor_stop_risk(cost)
+                result.update(stop_price=cost/q*.9,stop_distance=cost/q*.1,risk_used_inr=risk,risk_pct_equity=risk/r['equity']*100 if r else None)
+                if r and not investor_buy_fits(q+1,price,price,r):result['binding_constraints'].append('risk_budget')
+            else:
+                p=db.execute('SELECT * FROM positions WHERE portfolio=? AND symbol=?',(portfolio,order['symbol'])).fetchone()
+                if p:
+                    remaining=money(p['cost']*(p['quantity']-q)/p['quantity'])
+                    result.update(stop_price=p['cost']/p['quantity']*.9,risk_used_inr=0,risk_pct_equity=0,
+                      risk_released_inr=investor_stop_risk(p['cost'])-(investor_stop_risk(remaining) if remaining else 0))
+        result['risk_evidence']='Observed before execution using existing strategy formulas'
+    except (ValueError,KeyError,TypeError,ZeroDivisionError) as error:
+        result['risk_evidence']='Unavailable: '+str(error)
+    result['binding_constraints']=list(dict.fromkeys(result['binding_constraints']))
+    result['constraint_basis']='Scan sizing reductions plus constraints rejecting one more share at the matched price; simultaneous constraints retained'
+    return result
+
+
+def save_attempt(db,order,identity,status,details,clock):
+    import uuid
+    key,label,definition=identity
+    db.execute('INSERT OR IGNORE INTO strategy_versions VALUES(?,?,?)',(key,label,json.dumps(definition,sort_keys=True)))
+    db.execute('INSERT INTO order_attempts VALUES(?,?,?,?,?,?,?,?,?)',
+      (str(uuid.uuid4()),order.get('request_id'),clock.isoformat(),order.get('portfolio'),order.get('symbol'),order.get('side'),key,status,json.dumps(details,sort_keys=True)))

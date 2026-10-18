@@ -4,7 +4,7 @@ from .storage import connect,now,get_state
 from .execution import fetch_book,match,charges,money,automatic_buy_cost_check
 from .quality import init_quality,require_buy_quality
 from .buy_universe import require_buy_universe
-from .order_audit import init_metadata,current_identity,save_identity,annotate
+from .order_audit import init_metadata,current_identity,save_identity,annotate,init_attempts,diagnostics,save_attempt,blocked_category
 
 def init_paper(path):
     init_quality(path)
@@ -21,6 +21,7 @@ def init_paper(path):
         db.execute('UPDATE trades SET requested_quantity=quantity WHERE requested_quantity IS NULL')
         for name in ('trader','investor'):db.execute('INSERT OR IGNORE INTO portfolios VALUES(?,?,?)',(name,1000000,1000000))
         init_metadata(db)
+        init_attempts(db)
 
 def duplicate(db,payload):
     row=db.execute('SELECT * FROM trades WHERE request_id=?',(payload['request_id'],)).fetchone()
@@ -48,7 +49,24 @@ def preflight(db,payload,clock,auto_guard,*,realtime=False):
     if payload['side']=='SELL' and payload['quantity']>(position['quantity'] if position else 0):raise ValueError('Cannot sell more shares than this paper portfolio holds.')
     return quote,account,position
 
-def trade(path,payload,clock=None,auto_guard=None):
+def trade(path,payload,clock=None,auto_guard=None,audit_context=None):
+    audit_clock=clock or datetime.now(timezone.utc)
+    details=dict(audit_context or {})
+    details.update(requested_quantity=payload.get('quantity'),filled_quantity=0,risk_used_inr=None,risk_pct_equity=None)
+    with connect(path) as db:
+        identity=current_identity(db,payload.get('portfolio'),auto_guard is not None)
+    try:
+        return _trade(path,payload,clock,auto_guard,details,identity)
+    except ValueError as error:
+        details.update(blocked_by=blocked_category(str(error)),reason=str(error),filled_quantity=0)
+        details['proposed_risk_inr']=details.get('risk_used_inr');details['risk_used_inr']=0
+        details['strategy_version_id']=identity[0]
+        with connect(path) as db:save_attempt(db,payload,identity,'blocked',details,audit_clock)
+        error.order_audit=details
+        raise
+
+
+def _trade(path,payload,clock=None,auto_guard=None,audit_details=None,audit_identity=None):
     realtime=clock is None;clock=clock or datetime.now(timezone.utc)
     portfolio=payload.get('portfolio');symbol=payload.get('symbol');side=payload.get('side');requested=payload.get('quantity');request_id=payload.get('request_id')
     if portfolio not in ('trader','investor') or side not in ('BUY','SELL'):raise ValueError('Choose a valid paper portfolio and side.')
@@ -71,6 +89,7 @@ def trade(path,payload,clock=None,auto_guard=None):
         if book['symbol']!=symbol:raise ValueError('Depth identity mismatch.')
         fill=match(db,book,side,requested,clock)
         qty,price,value=fill['quantity'],fill['price'],fill['value']
+        audit_details.update(diagnostics(db,payload,fill,auto_guard,clock,audit_details))
         if abs(price/quote['price']-1)>.05:raise ValueError('Depth and live price disagree by more than 5%.')
         day=clock.astimezone(timezone(timedelta(hours=5,minutes=30))).replace(hour=0,minute=0,second=0,microsecond=0).astimezone(timezone.utc).isoformat()
         dp=side=='SELL' and not db.execute("SELECT 1 FROM trades WHERE portfolio=? AND symbol=? AND side='SELL' AND created_at>=?",(portfolio,symbol,day)).fetchone()
@@ -93,12 +112,15 @@ def trade(path,payload,clock=None,auto_guard=None):
         for level in fill['levels']:
             db.execute('INSERT INTO depth_used VALUES(?,?,?,?) ON CONFLICT(book_key,side,price) DO UPDATE SET quantity=quantity+excluded.quantity',(book['key'],side,level['price'],level['quantity']))
         fill.update(charges=costs,book=book,requested_quantity=requested,slippage_vs_ltp_bps=round((price/quote['price']-1)*(1 if side=='BUY' else -1)*10000,2),charge_basis='Delivery-style estimate; same-day netting and settlement not modeled')
+        fill['audit']=dict(audit_details,filled_quantity=qty,strategy_version_id=audit_identity[0])
         row=(str(uuid.uuid4()),request_id,portfolio,symbol,side,qty,price,fee,quote['trade_time'],clock.isoformat(),'automatic' if auto_guard else 'manual',reason,requested,json.dumps(fill),fill['model'])
         db.execute('INSERT INTO trades(id,request_id,portfolio,symbol,side,quantity,price,fee,quote_time,created_at,source,reason,requested_quantity,execution,fill_model) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',row)
-        save_identity(db,row[0],current_identity(db,portfolio,auto_guard is not None),'captured at execution')
+        save_identity(db,row[0],audit_identity,'captured at execution')
+        audit_details.update(filled_quantity=qty,trade_id=row[0],strategy_version_id=audit_identity[0])
+        save_attempt(db,payload,audit_identity,'filled',audit_details,clock)
         if auto_guard:
             from .autotrading import event
-            event(db,portfolio,'fill',side+' '+str(qty)+' / '+str(requested)+' shares ('+fill['status']+'): '+reason,symbol,row[0],clock)
+            event(db,portfolio,'fill',side+' '+str(qty)+' / '+str(requested)+' shares ('+fill['status']+'): '+reason,symbol,row[0],clock,details=audit_details)
         return annotate(db,[dict(db.execute('SELECT * FROM trades WHERE id=?',(row[0],)).fetchone())])[0]
 
 def portfolios(path):

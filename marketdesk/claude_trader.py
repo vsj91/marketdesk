@@ -325,6 +325,8 @@ class ClaudeTrader:
             valuation_note='; stale holding valuation: '+', '.join(f"{m['symbol']} at {m['price']}" for m in stale_marks) if stale_marks else ''
             trigger=(f" live breakout above {signal['live_high20']:.4f}; completed inputs " if live else ' completed breakout; signal ')
             return label+trigger+signal['as_of']+'; 2 ATR stop; 0.5% risk; paper only'+('; full-session buying' if cfg.get('full_session_buying') is True else '')+valuation_note
+        check.audit_signal=signal
+        check.audit_strategy=STRATEGY
         return check
 
     def execute(self,symbol,side,qty,signal,clock,realtime):
@@ -334,7 +336,7 @@ class ClaudeTrader:
             trade(self.path,dict(portfolio='trader',symbol=symbol,side=side,quantity=qty,request_id='claude-'+str(uuid.uuid4())),None if realtime else clock,auto_guard=self.guard(signal,clock))
             return 1
         except ValueError as error:
-            with connect(self.path) as db:event(db,'trader','blocked',str(error),symbol,clock=clock)
+            with connect(self.path) as db:event(db,'trader','blocked',str(error),symbol,clock=clock,details=getattr(error,'order_audit',None))
             return 0
 
     def scan(self,clock,realtime=False):
@@ -381,6 +383,9 @@ class ClaudeTrader:
             # Reserve 0.5% adverse depth movement for the sizing request; exact fill is rechecked atomically.
             q=quantity(quotes[symbol]['price']*1.005,s['atr'],eq,heat,budget)
             if q:fills+=self.execute(symbol,'BUY',q,s,clock,realtime)
+            else:
+                from .autotrading import event
+                with connect(self.path) as db:event(db,'trader','blocked','No whole share fits Claude risk, heat or position budget.',symbol,clock=clock,details=dict(blocked_by='risk_budget',requested_quantity=0,filled_quantity=0,risk_used_inr=0,equity_before=eq,portfolio_risk_before=heat,position_budget=budget))
         window='full-session buying' if cfg.get('full_session_buying') is True else 'opening signals'
         with connect(self.path) as db:
             max_positions,max_buys=position_limits(get_state(db,'auto_config',{}).get('trader',{}))
