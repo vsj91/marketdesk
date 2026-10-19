@@ -1,4 +1,4 @@
-"""User-approved exact printed identities, limited to NCI and non-current debt."""
+"""Exact printed identities: NCI, non-current debt, and nil borrowings across both liability sections."""
 import re
 from decimal import Decimal, InvalidOperation
 
@@ -49,11 +49,52 @@ def identity_evidence(text,scale):
         proofs['nci']={'value':0.,'method':'exact_printed_balance_identity','expression':'owners_equity + total_non_current_liabilities + total_current_liabilities = total_equity_and_liabilities',
             'operands':{k:str(r['amount']) for k,r in zip(('owners_equity','total_non_current_liabilities','total_current_liabilities','total_equity_and_liabilities'),(owners,nc,cur,total))},
             'lines':[r['line'] for r in (owners,nc,cur,total)],'conversion_to_crore':scale,'total_equity_crore':float(owners['amount']*Decimal(str(scale)))}
+    absent=borrowings_absent_identity(text,scale)
+    if absent:proofs['borrowings_absent']=absent
     if closed and nc and not incomplete and not has_borrow and noncurrent and sum((r['amount'] for r in noncurrent),Decimal(0))==nc['amount']:
         proofs['non_current_borrowings']={'value':0.,'method':'exact_exhaustive_non_current_liability_identity','expression':'sum(all printed non-current liability lines) = printed non-current liabilities total',
             'operands':[{'label':r['label'],'amount':str(r['amount']),'line':r['line']} for r in noncurrent],
             'printed_total':str(nc['amount']),'total_line':nc['line'],'conversion_to_crore':scale}
     return proofs
+
+def borrowings_absent_identity(text,scale):
+    """Prove borrowings are nil from the audited balance sheet itself, never from a blank.
+
+    Every printed line in both the non-current and current liability sections must sum
+    exactly (both years, Decimal) to that section's printed total, and no borrowing,
+    debt-security or loan caption may appear in either section. A dashed line is then
+    proven nil by the arithmetic. Any omitted or double-counted line breaks the sum."""
+    from .annual_reports import NUM,caption
+    lines={'non_current':[],'current':[]};totals={};section=None;mentions=[]
+    for raw in text.splitlines():
+        if re.search(r'^(?:standalone |consolidated )?statement of (?:profit|cash|changes)',raw.strip(),re.I):break
+        head=re.sub(r'^(?:\(?[ivx]+[.)]|\(?[a-z][.)])\s*','',raw.strip().lower())
+        if re.fullmatch(r'non[- ]current liabilities',head):
+            if section or 'non_current' in totals:return None
+            section='non_current';continue
+        if re.fullmatch(r'current liabilities',head):
+            if section or 'current' in totals:return None
+            section='current';continue
+        if section is None:continue
+        if re.search(r'borrow|debt securit|\bloans?\b|debenture',head):mentions.append(raw.strip())
+        m=re.search(r'\s{2,}('+NUM+r')\s{2,}('+NUM+r')\s*$',raw)
+        if not m:continue
+        label=caption(raw[:m.start()]).lower()
+        values=[decimal_amount(m[1]),decimal_amount(m[2])]
+        # Only the section's own total closes it; any other line (even a subtotal) is summed,
+        # so a double-counted subtotal breaks the identity rather than passing it.
+        if (section=='non_current' and re.fullmatch(r'total non[- ]current liabilities',label)) or (section=='current' and label=='total current liabilities'):
+            if any(v is None or v<0 for v in values):return None
+            totals[section]={'values':values,'line':raw.strip()};section=None;continue
+        if any(v is not None and v<0 for v in values):return None
+        lines[section].append({'values':values,'line':raw.strip()})
+    if mentions or set(totals)!={'non_current','current'}:return None
+    for key in ('non_current','current'):
+        for col in (0,1):
+            if sum((r['values'][col] for r in lines[key] if r['values'][col] is not None),Decimal(0))!=totals[key]['values'][col]:return None
+    return {'value':0.,'method':'exact_exhaustive_liability_identity','expression':'sum(all printed liability lines) = printed section total, for both sections and years; no borrowing caption',
+            'non_current':{'lines':[r['line'] for r in lines['non_current']],'total_line':totals['non_current']['line']},
+            'current':{'lines':[r['line'] for r in lines['current']],'total_line':totals['current']['line']},'conversion_to_crore':scale}
 
 def borrowings_reconciliation(existing,audited,leases,lines,scale):
     if not all(isinstance(v,(int,float)) for v in (existing,audited,leases)) or leases<=0:return None

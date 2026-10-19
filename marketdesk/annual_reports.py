@@ -10,7 +10,7 @@ from urllib.parse import urlsplit
 from .storage import ROOT,now
 from .intraday_data import atomic_json
 
-REVISION=38
+REVISION=39
 RULE_REVISION=2  # Explicit user approval: printed identities and debt/lease reconciliation.
 INCOME_REVISION=5
 # An auditor's basis heading covers the statements that follow it, up to this many
@@ -514,6 +514,8 @@ def parse_balance(text,latest,allow_existing=False,allow_identity=True,current_n
         record('nci',current_nci['printed_value'],current_nci['row_text'])
     if 'nci' not in found and 'nci' in identities:found['nci']=0.
     if 'non_current_borrowings' not in found and 'non_current_borrowings' in identities:found['non_current_borrowings']=0.
+    if 'borrowings_absent' in identities and not any(k.endswith('_borrowings') and found.get(k) for k in found):
+        found['current_borrowings']=found.get('current_borrowings') or 0.;found['non_current_borrowings']=found.get('non_current_borrowings') or 0.
     matched=[]
     def same(a,b):return a is not None and b is not None and abs(a-b)<=max(.015,abs(b)*.00002)
     if same(found.get('cash'),latest.get('cash_and_cash_equivalents')):matched.append('cash_and_cash_equivalents')

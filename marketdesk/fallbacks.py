@@ -7,7 +7,7 @@ from urllib.parse import urlsplit
 import requests
 from .storage import ROOT,now,number
 from .provider import FUNDAMENTAL_REQUIRED_FIELDS,_fundamental_period
-PARSER_REVISION=6
+PARSER_REVISION=7
 
 class Tables(HTMLParser):
     def __init__(self):super().__init__(convert_charrefs=True);self.tables=[];self.table=None;self.row=None;self.cell=None;self.depth=0
@@ -42,6 +42,33 @@ def lease_label(text):
                      'lease liablity','lease libilities','lease lianilities','lease liabities','lease liabilitiea','leaseliabilities','rou lease liabilities',
                      'finance lease liability','finance lease liabilities','net liability in leased assets','maturity of leased liability',
                      'lease liability - right of use assets','unamortised lease liabilities','other non-current financial lease liabilities'}
+
+def nil_by_financial_liability_identity(balance,col):
+    """Division III balance sheet: reported financial-liability rows sum exactly to the printed total."""
+    from decimal import Decimal,InvalidOperation
+    def dec(text):
+        text=text.replace(',','').strip()
+        if re.fullmatch(r'\(\d+(?:\.\d+)?\)',text):text='-'+text[1:-1]
+        try:return Decimal(text)
+        except InvalidOperation:return None
+    starts=[i for i,row in enumerate(balance) if 'Financial Liabilities' in row]
+    ends=[i for i,row in enumerate(balance) if 'Total Financial Liabilities' in row]
+    if len(starts)!=1 or len(ends)!=1 or ends[0]<=starts[0]:return None
+    leaves=[];total=None
+    for row in balance[starts[0]+1:ends[0]+1]:
+        labels=[i for i,c in enumerate(row) if re.search(r'[A-Za-z]',c)]
+        if not labels:continue
+        label=row[labels[-1]];cells=row[labels[-1]+1:]
+        text=cells[col[0]] if len(cells)==col[1] else ''
+        if label=='Total Financial Liabilities':total=dec(text);break
+        if not text.strip():continue
+        value=dec(text)
+        if value is None or value<0:return None
+        # A template "Total of ..." row restates its own child rows, which are counted.
+        if label.startswith('Total of '):continue
+        leaves.append((label,value))
+    if total is None or sum((v for _,v in leaves),Decimal(0))!=total:return None
+    return {'expression':'sum(reported financial-liability rows) = Total Financial Liabilities','rows':[[l,str(v)] for l,v in leaves],'total':str(total)}
 
 def nse_annual(html,symbol,isin,url,year_offset=0,*,income_only=False):
     if len(html.encode())>2_000_000:raise ValueError('NSE document exceeds parsing limit')
@@ -128,6 +155,13 @@ def nse_annual(html,symbol,isin,url,year_offset=0,*,income_only=False):
     # Preserve components but require all explicit debt components before summing.
     if has(balance,'Borrowings (Other than Debt Securities)'):
         components={key:get(balance,label,bc,key) for key,label in [('debt_securities','Debt Securities'),('other_borrowings','Borrowings (Other than Debt Securities)'),('subordinated_liabilities','Subordinated Liabilities')]}
+        blank=[k for k,v in components.items() if v is None]
+        proof=nil_by_financial_liability_identity(balance,bc) if blank else None
+        if proof:
+            # Every reported financial-liability row sums exactly to the printed total, so the
+            # unreported debt components are nil by arithmetic -- not read as zero from a blank.
+            for key in blank:
+                components[key]=0.;sources[key]={'source':'nse_audited_filing','source_url':url,'value':0.,'method':'exact_financial_liability_identity','identity':proof,'period_end':end.isoformat(),'statement_type':basis}
         out.update(components)
         if all(v is not None for v in components.values()):
             out['total_borrowings']=sum(components.values());sources['total_borrowings']={'source':'nse_audited_filing','source_url':url,'formula':'debt_securities + other_borrowings + subordinated_liabilities','inputs':components}

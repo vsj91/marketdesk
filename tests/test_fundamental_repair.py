@@ -18,7 +18,8 @@ class AnnualRepairTests(unittest.TestCase):
  def test_report_repair_reuses_recent_filing_check_without_reaging(self):
   with tempfile.TemporaryDirectory() as folder:
    root=Path(folder);(root/'data/fallbacks').mkdir(parents=True)
-   old={'version':2,'parser_revision':6,'symbol':'TEST','isin':ISIN,'observed_at':now(),'nse':{'errors':[{'reason':'Unsupported lease caption'}]},'yahoo':{}}
+   from marketdesk.fallbacks import PARSER_REVISION
+   old={'version':2,'parser_revision':PARSER_REVISION,'symbol':'TEST','isin':ISIN,'observed_at':now(),'nse':{'errors':[{'reason':'Unsupported lease caption'}]},'yahoo':{}}
    (root/'data/fallbacks/TEST.json').write_text(json.dumps(old))
    with patch('marketdesk.fallbacks.ROOT',root),patch.object(AnnualSources,'fetch') as fetch:
     self.assertEqual(Fallbacks().fetch('TEST',ISIN,reuse_recent=True),old);fetch.assert_not_called()
