@@ -48,6 +48,12 @@ def repair_extra(symbol,isin,details):
                 out=apply_insurer_report(out,fetch_insurer_report(symbol,isin,out),symbol,isin)
                 attempts.append({'source':'Insurer annual report Form A-PL','status':'verified'})
         except Exception as error:attempts.append({'source':'Audited insurance sources','status':'unresolved','reason':str(error)[:180]})
+    from .reit_inputs import reit_refresh_due,fetch_reit_inputs,apply_reit_inputs
+    if reit_refresh_due(symbol,out):
+        try:
+            out=apply_reit_inputs(out,fetch_reit_inputs(symbol,isin,out),symbol,isin)
+            attempts.append({'source':'Audited NSE REIT filing','status':'verified'})
+        except Exception as error:attempts.append({'source':'Audited NSE REIT filing','status':'unresolved','reason':str(error)[:180]})
     latest=out.get('latest') or {}
     if not latest.get('period') or latest.get('statement_type') not in ('consolidated','standalone'):
         out['automatic_repair']={'checked_at':now(),'attempts':attempts+[{'source':'Audited annual context','status':'unresolved','reason':'A verified annual period and statement basis are required before growth repair'}]}

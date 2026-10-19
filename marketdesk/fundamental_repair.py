@@ -23,7 +23,8 @@ def targets(path):
     from .bank_inputs import bank_refresh_due
     from .insurer_inputs import insurer_refresh_due
     # Bank and insurer filing evidence is refreshed before it reaches the 30-day freshness limit.
-    return [r for r in rows if (json.loads(r['details'] or '{}').get('status')!='COMPLETE' or json.loads(r['report'] or '{}').get('financial_reasons') or bank_refresh_due(json.loads(r['details'] or '{}')) or insurer_refresh_due(json.loads(r['details'] or '{}')))]
+    from .reit_inputs import reit_refresh_due
+    return [r for r in rows if (json.loads(r['details'] or '{}').get('status')!='COMPLETE' or json.loads(r['report'] or '{}').get('financial_reasons') or bank_refresh_due(json.loads(r['details'] or '{}')) or insurer_refresh_due(json.loads(r['details'] or '{}')) or reit_refresh_due(r['symbol'],json.loads(r['details'] or '{}')))]
 
 
 def run_repair(job,rows):
