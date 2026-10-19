@@ -10,7 +10,7 @@ from urllib.parse import urlsplit
 from .storage import ROOT,now
 from .intraday_data import atomic_json
 
-REVISION=37
+REVISION=38
 RULE_REVISION=2  # Explicit user approval: printed identities and debt/lease reconciliation.
 INCOME_REVISION=5
 # An auditor's basis heading covers the statements that follow it, up to this many
@@ -283,25 +283,43 @@ def parse_numbered_ofl_note(text):
     sheet prints an unclassified "Other financial liabilities <note>" row with
     exactly the same two printed totals (see bound_ofl_lease), so the note shares
     that statement's basis, dates and unit. No dash is read as zero."""
-    title=re.search(r'^[ \t]*(?:Note\s+)?(\d{1,3})[.:]\s*Other financial liabilities\s*$',text,re.I|re.M)
+    title=re.search(r'^[ \t]*(?:Note\s+)?(\d{1,3})(?:[.:]\s*|\s+)Other financial liabilities(?:\s{2,}[^\n]*\b20\d{2}\b[^\n]*)?\s*$',text,re.I|re.M)
     if not title:raise ValueError('Numbered other-financial-liabilities note unavailable')
-    scope=re.split(r'\n[ \t]*(?:Note\s+)?\d{1,3}[.:]\s+[A-Z]',text[title.end():],maxsplit=1)[0]
+    scope=re.split(r'\n[ \t]*(?:Note\s+)?\d{1,3}(?:[.:]\s*|\s+)[A-Z]',text[title.end():],maxsplit=1)[0]
     if re.search(r'\b(?:current|non.current|undiscounted|maturit(?:y|ies))\b',scope,re.I):raise ValueError('Classified/maturity note cannot establish an unclassified lease total')
-    rows=[];total=None;lease=None
+    # Carrying amounts may be grouped as payable within / after twelve months;
+    # one lease row under each group is summed. Any other text line is rejected.
+    groups=('payable within twelve months? after (?:the )?reporting (?:period|date)','payable after twelve months? after (?:the )?reporting (?:period|date)')
+    rows=[];total=None;lease=None;group=None;grouped_leases={};pending=None
     for line in scope.splitlines():
         row=re.search(r'\s{2,}('+NUM+r')\s{2,}('+NUM+r')\s*$',line)
         if not row:
-            if line.strip():raise ValueError('Unparsed line inside other-financial-liabilities note')
-            continue
-        label=' '.join(line[:row.start()].lower().split());values=[amount(row[1]),amount(row[2])]
+            # Column headers (dates, "As at", "Particulars") only before the first row.
+            if not line.strip() or (not rows and pending is None and re.search(r'\bas at\b|\bparticulars\b|\b20\d{2}\b',line,re.I)):continue
+            heading=[i for i,g in enumerate(groups) if re.fullmatch(r'\s*'+g+r'\s*',line,re.I)]
+            if heading and pending is None and (group is None or heading[0]>group):group=heading[0];continue
+            # One wrapped caption line continues on the next numeric row.
+            if pending is not None or heading:raise ValueError('Unparsed line inside other-financial-liabilities note')
+            pending=line.strip();continue
+        label=' '.join((((pending+' ') if pending else '')+line[:row.start()]).lower().split());pending=None
+        values=[amount(row[1]),amount(row[2])]
         if values[0] is None or values[0]<0:raise ValueError('Every current OFL amount must be explicitly numeric')
         item={'label':label,'printed_values':values,'line':line.strip()}
-        if label=='total':total=item;break
-        if re.fullmatch(r'lease liabilit(?:y|ies)(?:\s*\(refer note:?\s*\d+\))?',label):
-            if lease is not None:raise ValueError('Duplicate lease line in OFL note')
-            lease=item
+        # The closing total may be printed with or without a "Total" caption.
+        if label in ('total',''):total=item;break
+        if re.fullmatch(r'lease liabilit(?:y|ies)\*?(?:\s*\(refer note:?\s*\d+\))?\*?',label):
+            if group is not None:
+                if group in grouped_leases:raise ValueError('Duplicate lease line in OFL group')
+                grouped_leases[group]=item
+            else:
+                if lease is not None:raise ValueError('Duplicate lease line in OFL note')
+                lease=item
         rows.append(item)
-    if total is None or lease is None or len(rows)<2:raise ValueError('Complete OFL lease table unavailable')
+    if grouped_leases:
+        if lease is not None or len(grouped_leases)!=2:raise ValueError('Grouped OFL note needs one lease row in each group')
+        parts=[grouped_leases[0]['printed_values'][0],grouped_leases[1]['printed_values'][0]]
+        lease={'label':'lease liabilities (within + after twelve months)','printed_values':[round(sum(parts),6),None],'line':' + '.join(grouped_leases[g]['line'] for g in (0,1)),'parts':parts}
+    if pending is not None or total is None or lease is None or len(rows)<2:raise ValueError('Complete OFL lease table unavailable')
     if abs(sum(r['printed_values'][0] for r in rows)-total['printed_values'][0])>.015:raise ValueError('OFL note rows do not sum to printed total')
     prior=[r['printed_values'][1] for r in rows]
     if total['printed_values'][1] is None:raise ValueError('Prior OFL total must be explicitly numeric')
@@ -312,7 +330,7 @@ def parse_numbered_ofl_note(text):
 def bound_ofl_lease(note,text,scale):
     """Crore value of a numbered OFL lease row whose note totals equal the balance row exactly."""
     if re.search(r'^\s*(?:non[- ]current|current) liabilities\s*$',text,re.I|re.M):return None
-    rows=list(re.finditer(r'^\s*Other financial liabilities\s{2,}'+re.escape(note['note'])+r'\s{2,}('+NUM+r')\s{2,}('+NUM+r')\s*$',text,re.I|re.M))
+    rows=list(re.finditer(r'^\s*(?:\([a-z]\)\s+)?Other financial liabilities\s{2,}'+re.escape(note['note'])+r'\s{2,}('+NUM+r')\s{2,}('+NUM+r')\s*$',text,re.I|re.M))
     if len(rows)!=1 or [amount(rows[0][1]),amount(rows[0][2])]!=note['printed_totals']:return None
     return {'value':note['printed_value']*scale,'conversion_to_crore':scale,'balance_row':rows[0][0].strip(),**note}
 

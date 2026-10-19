@@ -151,5 +151,27 @@ class BoundOflLeaseTests(unittest.TestCase):
                     OFL_NOTE.replace('6,013.39','-'),OFL_NOTE.replace('Lease Liability (Refer Note: 38)','Security deposits')):
             with self.assertRaises(ValueError):parse_numbered_ofl_note(bad)
 
+    def test_grouped_twelve_month_rows_and_wrapped_unlabelled_total(self):
+        from marketdesk.annual_reports import parse_numbered_ofl_note
+        grouped=f"""19 OTHER FINANCIAL LIABILITIES
+{W}As at{W}As at Particulars{W}March 31, 2026{W}March 31, 2025
+ Payable within twelve month after reporting period
+ Unpaid dividends{W}0.21{W}0.32
+ Lease liability*{W}61.28{W}66.00
+ Payable after twelve months after reporting date
+ Lease liability*{W}105.26{W}158.07
+ Total{W}166.75{W}224.39"""
+        self.assertAlmostEqual(parse_numbered_ofl_note(grouped)['printed_value'],166.54)
+        with self.assertRaises(ValueError):parse_numbered_ofl_note(grouped.replace(' Payable after twelve months after reporting date\n',''))
+        wrapped=f"""17 Other financial liabilities{W}31 March 2026{W}31 March 2025
+ Lease liabilities (Refer note 42){W}374.47{W}292.28
+ Amounts payable under assignment of receivables (collections made on behalf of
+ assignee){W}326.11{W}278.77
+ Employee benefits payable{W}206.40{W}146.72
+{W}906.98{W}717.77"""
+        note=parse_numbered_ofl_note(wrapped);self.assertEqual((note['printed_value'],note['printed_totals']),(374.47,[906.98,717.77]))
+        # Two unexplained text lines in a row are never stitched into one caption.
+        with self.assertRaises(ValueError):parse_numbered_ofl_note(wrapped.replace(' assignee)',' extra words\n assignee)'))
+
 
 if __name__=='__main__':unittest.main()
