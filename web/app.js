@@ -116,6 +116,7 @@ const BASKETS={
  investor:{title:'Investor',blurb:'Owns profitable, growing, low-debt companies while the price stays above its 200-day average.'},
  momentum:{title:'Momentum',blurb:'Holds the 10 strongest stocks of the past six months. Reviewed at the start of each month.'},
  lowvol:{title:'Low volatility',blurb:'Holds the 10 calmest stocks that are still in an uptrend. Reviewed at the start of each month.'},
+ momentum12:{title:'Momentum 12-1',blurb:'Holds the 10 strongest stocks of the past year, skipping the latest month, while above the 200-day average. Reviewed at the start of each month.'},
  high52:{title:'52-week high',blurb:'Holds the 10 stocks trading closest to their one-year high while above the 200-day average. Reviewed at the start of each month.'},
  smart_beta:{title:'Multi-factor',blurb:'Ranks stocks on value, quality, momentum and low volatility and holds the top 15, at most 30% in one sector. Signals refresh daily.'},
  risk_parity:{title:'Risk parity',blurb:'Holds the top multi-factor names, giving calmer stocks more money so no single stock dominates the swings.'},

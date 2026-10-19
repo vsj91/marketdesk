@@ -9,6 +9,7 @@ MIN_HISTORY=130          # 6-month lookback + 1-month skip + margin
 LOOKBACK,SKIP=126,21     # 6-1 momentum: return from ~6 months ago to ~1 month ago
 VOL_WINDOW=120
 HIGH_WINDOW=252          # 52-week high: about one year of sessions
+LONG_LOOKBACK=252        # 12-1 momentum: return from ~12 months ago to ~1 month ago
 MIN_TURNOVER=10_000_000  # ₹1 crore average daily traded value, same as Trader/Investor
 
 BASKETS={
@@ -32,6 +33,11 @@ BASKETS={
    entry='Rank Nifty 500 stocks by how close the completed close is to the highest high of the latest 252 sessions (nearest first). Buy the top 10 that also close above the 200-day average. Stocks with under a year of clean history are not ranked. Empty slots are refilled from the current top 10.',
    exit='At the first session of each month, sell holdings that drop out of the top 30 or close below the 200-day average. Between rebalances a 20% loss from average cost exits.',
    risk='Equal weight: up to 10% of starting capital per stock including buy fees. New buys pause at a 15% fall from the equity peak; exits stay active.'),
+ 'momentum12':dict(name='12-1 momentum · monthly · paper basket',family='Cross-sectional momentum (12-1 month relative strength, Jegadeesh and Titman)',
+   max_positions=10,position_pct=10,max_buys_per_day=10,stop_pct=20,keep_rank=30,rebalance='monthly',
+   entry='Rank Nifty 500 stocks by return from 252 to 21 completed sessions ago (about 12 months, skipping the latest month). Buy the top 10 that also have a positive 12-1 return and a completed close above the 200-day average. Stocks with under a year of clean history are not ranked. Empty slots are refilled from the current top 10.',
+   exit='At the first session of each month, sell holdings that drop out of the top 30, turn negative on 12-1 momentum or close below the 200-day average. Between rebalances a 20% loss from average cost exits.',
+   risk='Equal weight: up to 10% of starting capital per stock including buy fees. New buys pause at a 15% fall from the equity peak; exits stay active. Expect deep drawdowns: about 50% at worst in the 2018-2026 backtest.'),
 }
 
 # Retired baskets keep their ledger history but never trade again and are hidden from the screens.
@@ -60,7 +66,11 @@ def stats(rows,confirmed=()):
     rets=[math.log(b/a) for a,b in zip(closes[-VOL_WINDOW-1:],closes[-VOL_WINDOW:])]
     window=long_window(len(rows))
     high52=closes[-1]/max(r['high'] for r in rows[-HIGH_WINDOW:]) if len(rows)>=HIGH_WINDOW else None
-    return dict(high52=high52,as_of=rows[-1]['ts'][:10],close=closes[-1],dma200=sum(closes[-window:])/window,dma5=sum(closes[-5:])/5,
+    year=rows[-(LONG_LOOKBACK+1):]
+    # 12-1 momentum needs the whole year free of unverified breaks, not just the 6-month lookback.
+    mom12=closes[-SKIP-1]/closes[-LONG_LOOKBACK-1]-1 if len(rows)>LONG_LOOKBACK and not any(
+        b['ts'][:10] not in confirmed and abs(b['close']/a['close']-1)>.25 for a,b in zip(year,year[1:])) else None
+    return dict(high52=high52,momentum12=mom12,as_of=rows[-1]['ts'][:10],close=closes[-1],dma200=sum(closes[-window:])/window,dma5=sum(closes[-5:])/5,
         momentum=closes[-SKIP-1]/closes[-LOOKBACK-1]-1,volatility=statistics.pstdev(rets)*math.sqrt(250),rsi2=rsi(closes[-30:]),
         turnover20=sum(r['close']*r['volume'] for r in rows[-20:])/20)
 
@@ -76,6 +86,8 @@ def ranking(basket,signals):
         pool=[(s['rsi2'],k) for k,s in signals.items() if tradable(s) and s['rsi2'] is not None and s['rsi2']<10 and s['close']>s['dma200']]
     elif basket=='high52':
         pool=[(-s['high52'],k) for k,s in signals.items() if tradable(s) and s.get('high52') and s['close']>s['dma200']]
+    elif basket=='momentum12':
+        pool=[(-s['momentum12'],k) for k,s in signals.items() if tradable(s) and s.get('momentum12') is not None and s['momentum12']>0 and s['close']>s['dma200']]
     else:raise ValueError('Unknown basket')
     return [k for _,k in sorted(pool)]
 
@@ -85,6 +97,7 @@ def rebalance_exit(basket,symbol,signal,order):
     if not signal:return 'No valid completed history at monthly review'
     if signal['close']<signal['dma200']:return 'Completed close below the 200-day average at monthly review'
     if basket=='momentum' and signal['momentum']<=0:return 'Negative 6-1 momentum at monthly review'
+    if basket=='momentum12' and not (signal.get('momentum12') or 0)>0:return 'Negative or unavailable 12-1 momentum at monthly review'
     rank=order.index(symbol)+1 if symbol in order else None
     if rank is None or rank>rule['keep_rank']:return f"Outside the top {rule['keep_rank']} at monthly review"
     return None

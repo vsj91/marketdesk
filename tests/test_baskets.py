@@ -27,6 +27,15 @@ class BasketRuleTests(unittest.TestCase):
         dip=candles(.002,count=260);dip[-1]=dict(dip[-1],close=dip[-1]['close']*.97)
         year['DIP']=stats(dip)
         self.assertEqual(ranking('high52',year),['TOP','DIP'])           # nearest the high first; falling stock excluded
+        self.assertEqual(ranking('momentum12',signals),[])                # 200 sessions: no 12-1 return yet
+        strong={'FAST':stats(candles(.004,count=260)),'SLOW':stats(candles(.001,count=260)),'FALL':stats(candles(-.002,count=260))}
+        self.assertEqual(ranking('momentum12',strong),['FAST','SLOW'])
+        early=candles(.002,count=260)
+        for r in early[20:]:
+            for k in ('open','high','low','close'):r[k]*=1.3                    # unverified jump 8 months ago
+        self.assertIsNone(stats(early)['momentum12'])                     # outside the 6-month check, inside the year
+        self.assertIn('12-1',rebalance_exit('momentum12','A',{**strong['FAST'],'momentum12':-.1},['A']))
+        self.assertIsNone(rebalance_exit('momentum12','FAST',strong['FAST'],['FAST']))
 
     def test_only_unverified_large_moves_break_history(self):
         rows=candles(.002)
@@ -97,7 +106,7 @@ class BasketEngineTests(unittest.TestCase):
         self.assertEqual(sold,['No valid completed history at monthly review'])
     def test_new_baskets_cap_round_trip_fees_at_one_and_a_half_percent(self):
         with connect(self.path) as db:cfg=get_state(db,'auto_config')
-        for name in ('lowvol','high52','smart_beta','risk_parity','stat_arb','regime','news_momentum','news_catalyst'):
+        for name in ('lowvol','high52','momentum12','smart_beta','risk_parity','stat_arb','regime','news_momentum','news_catalyst'):
             self.assertEqual(cfg[name]['max_round_trip_fee_pct'],1.5,name)
         self.assertEqual(cfg['ema_price_action']['max_round_trip_fee_pct'],1.)
     def test_retired_basket_cannot_be_enabled_and_never_trades(self):
