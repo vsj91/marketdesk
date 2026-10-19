@@ -438,6 +438,13 @@ class AutoTradingTests(unittest.TestCase):
    if edit=='finance':f['latest']['finance_costs']=None
    self.assertIsNone(entry_signal('investor',s,102,self.clock),edit)
   self.assertIsNotNone(entry_signal('investor',self.signal,102,self.clock))
+ def test_investor_rank_prefers_growth_profitability_and_trend_among_qualifiers(self):
+  base=entry_signal('investor',self.signal,102,self.clock)[1]
+  weak_growth=copy.deepcopy(self.signal);weak_growth['fundamentals']['summary'].update(revenue_growth_yoy=5,net_profit_growth_yoy=5)
+  weak_quality=copy.deepcopy(self.signal);weak_quality['fundamentals']['latest'].update(equity=weak_quality['fundamentals']['latest']['equity']*10)
+  self.assertLess(entry_signal('investor',weak_growth,102,self.clock)[1],base)
+  self.assertLess(entry_signal('investor',weak_quality,102,self.clock)[1],base)
+  self.assertGreater(entry_signal('investor',self.signal,110,self.clock)[1],base)
  def test_closed_disconnected_stale_or_future_quote_no_fills(self):
   self.enable()
   for status,market in [('connected','CLOSING_END'),('disconnected','NORMAL_OPEN')]:

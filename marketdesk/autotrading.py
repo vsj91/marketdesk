@@ -102,7 +102,11 @@ def entry_signal(portfolio,signal,price,clock):
   revenue,profit=number(summary.get('revenue_growth_yoy')),number(summary.get('net_profit_growth_yoy'))
   if pbt<=0 or equity<=0 or min(finance,borrowings,leases,cash)<0 or revenue is None or profit is None or min(revenue,profit)<=0:return None
   if finance and (pbt+finance)/finance<3 or (borrowings+leases-cash)/equity>.5:return None
-  return ('Complete matching annual inputs, positive growth, debt/interest filters and price above 200-day average',min(revenue,100)+min(profit,100))
+  # Rank among stocks that already pass every gate: growth 50%, profitability on equity 30%, trend strength 20%.
+  growth=(min(revenue,100)+min(profit,100))/200
+  quality=min(max(pbt/equity,0),.4)/.4
+  trend=min(max(price/signal['dma200']-1,0),.5)/.5
+  return ('Complete matching annual inputs, positive growth, debt/interest filters and price above 200-day average',.5*growth+.3*quality+.2*trend)
  except (ValueError,TypeError,KeyError,ZeroDivisionError):return None
 
 def exit_signal(portfolio,signal,position,price):
