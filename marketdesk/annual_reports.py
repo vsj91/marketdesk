@@ -10,7 +10,7 @@ from urllib.parse import urlsplit
 from .storage import ROOT,now
 from .intraday_data import atomic_json
 
-REVISION=40
+REVISION=41
 RULE_REVISION=2  # Explicit user approval: printed identities and debt/lease reconciliation.
 INCOME_REVISION=5
 # An auditor's basis heading covers the statements that follow it, up to this many
@@ -266,7 +266,7 @@ def parse_lease_rollforward(text,latest):
 def parse_classified_lease_note(text,latest):
     """A lease note's explicit total, reconciled to both printed components."""
     rows=r'\s{2,}('+NUM+r')\s{2,}('+NUM+r')\s*'
-    block=re.search(r'^\s*(?:\([a-z]\)\s*)?(?:lease liabilities|carrying amount of lease liability:)\s*\n'
+    block=re.search(r'^\s*(?:\([a-z]\)\s*)?(?:lease liabilities|carrying amount of lease liability:)(?:\s{2,}[a-z]+\s+\d{1,2},?\s+20\d{2}\s{2,}[a-z]+\s+\d{1,2},?\s+20\d{2})?\s*\n'
                     r'\s*current'+rows+r'\n\s*non[- ]current'+rows+
                     r'\n\s*total(?: lease liabilities)?'+rows+r'$',text,re.I|re.M)
     if not block:raise ValueError('Explicit classified lease total unavailable')
@@ -603,11 +603,13 @@ def parse_balance(text,latest,allow_existing=False,allow_identity=True,current_n
     nbfc_keys=('debt_securities','other_borrowings','subordinated_liabilities')
     nbfc_anchor=None
     definition=latest.get('sources',{}).get('total_borrowings',{}).get('formula')
-    if section is None and definition=='debt_securities + other_borrowings + subordinated_liabilities' and all(found.get(k) is not None and found[k]>=0 and same(found[k],latest.get(k)) for k in nbfc_keys):
-        total=sum(found[k] for k in nbfc_keys)
+    # A component printed as a dash agrees with an audited NSE value of exactly 0.
+    nbfc_values={k:(0. if k in found and found[k] is None and latest.get(k)==0 else found.get(k)) for k in nbfc_keys}
+    if section is None and definition=='debt_securities + other_borrowings + subordinated_liabilities' and all(nbfc_values[k] is not None and nbfc_values[k]>=0 and same(nbfc_values[k],latest.get(k)) for k in nbfc_keys):
+        total=sum(nbfc_values[k] for k in nbfc_keys)
         if same(total,latest.get('total_borrowings')):
             if 'total_borrowings' not in matched:matched.append('total_borrowings')
-            nbfc_anchor={'formula':definition,'operands':{k:found[k] for k in nbfc_keys},'result':total,'lines':{k:evidence[k] for k in nbfc_keys}}
+            nbfc_anchor={'formula':definition,'operands':nbfc_values,'result':total,'lines':{k:evidence[k] for k in nbfc_keys}}
     if len(matched)<2:raise ValueError('Fewer than two matching balance-sheet anchors')
     parts=[found.get(k+'_lease') for k in ('current','non_current')]
     if all(v is not None and v>=0 for v in parts):value=sum(parts)

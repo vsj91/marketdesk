@@ -110,3 +110,35 @@ class FilingIdentityTests(unittest.TestCase):
         for args in (('OTHER','INE419M01027','TDPOWERSYS','INE419M01035'),('TDPOWERSYS','INE419N01027','TDPOWERSYS','INE419M01035'),
                      ('TDPOWERSYS','INE419M02027','TDPOWERSYS','INE419M01035'),('HEG','INE545A01032','HEGAM','INE545A01024')):
             self.assertIsNone(filing_identity(*args),args)
+
+
+class CreditaccLayoutTests(unittest.TestCase):
+    def test_classified_lease_table_with_dated_heading(self):
+        from marketdesk.annual_reports import parse_classified_lease_note
+        text=f"""Notes to the Consolidated Financial Statements
+for the year ended March 31, 2026
+36.2 Total lease liabilities are analysed as follows:
+{W}₹ in crore
+     Lease liabilities{W}March 31, 2026{W}March 31, 2025
+     Current{W}28.48{W}24.48
+     Non-current{W}80.37{W}83.22
+     Total{W}108.85{W}107.70"""
+        latest={'period':'Mar 2026','statement_type':'consolidated','units_in':'crore'}
+        self.assertAlmostEqual(parse_classified_lease_note(text,latest)['value'],108.85)
+        with self.assertRaises(ValueError):parse_classified_lease_note(text.replace('108.85','108.95'),latest)
+
+    def test_nbfc_dash_matches_only_an_audited_explicit_zero(self):
+        from marketdesk.annual_reports import parse_balance
+        text=f"""Consolidated Balance Sheet as at March 31, 2026
+₹ in crore
+Particulars{W}Note{W}March 31, 2026{W}March 31, 2025
+Cash and cash equivalents{W}4{W}1,151.58{W}1,271.49
+Debt securities{W}13{W}912.25{W}1,541.75
+Borrowings (other than debt securities){W}14{W}22,728.88{W}18,878.73
+Subordinated liabilities{W}15{W}-{W}25.29
+Total liabilities and equity{W}31,930.23{W}27,802.45"""
+        latest={'period':'Mar 2026','statement_type':'consolidated','units_in':'crore','cash_and_cash_equivalents':1151.58,'equity':7842.25,
+                'total_borrowings':23641.13,'debt_securities':912.25,'other_borrowings':22728.88,'subordinated_liabilities':0.0,
+                'sources':{'total_borrowings':{'formula':'debt_securities + other_borrowings + subordinated_liabilities'}}}
+        self.assertEqual(parse_balance(text,latest,allow_existing=True)['matched_fields'],['cash_and_cash_equivalents','total_borrowings'])
+        with self.assertRaisesRegex(ValueError,'two matching'):parse_balance(text,{**latest,'subordinated_liabilities':0.5,'total_borrowings':23641.63},allow_existing=True)
