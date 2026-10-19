@@ -39,7 +39,10 @@ class FallbackTests(unittest.TestCase):
   self.assertEqual(row['total_lease_liabilities'],.5)
   self.assertEqual(row['missing_fields'],[])
  def test_wrong_company_rejected(self):
-  with self.assertRaises(ValueError):nse_annual(fixture(),'OTHER','INE000A01010','url')
+  for symbol,isin in (('OTHER','INE999A01010'),('TEST','INE999A01010'),('OTHER','INE000B01010')):
+   with self.assertRaises(ValueError):nse_annual(fixture(),symbol,isin,'url')
+  # The identical ISIN under a renamed symbol is the same security.
+  self.assertEqual(nse_annual(fixture(),'RENAMED','INE000A01010','url')['filing_identity'],'symbol_renamed')
  def test_bad_basis_and_units_rejected(self):
   for text in [fixture().replace('Lakhs','Thousands'),fixture().replace('Consolidated','Unknown')]:
    with self.assertRaises(ValueError):nse_annual(text,'TEST','INE000A01010','url')

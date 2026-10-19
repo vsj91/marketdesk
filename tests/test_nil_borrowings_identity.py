@@ -100,3 +100,13 @@ class LeaseRollforwardTests(unittest.TestCase):
 
 
 if __name__=='__main__':unittest.main()
+
+
+class FilingIdentityTests(unittest.TestCase):
+    def test_same_security_after_rename_or_isin_reissue_only(self):
+        from marketdesk.fallbacks import filing_identity
+        self.assertEqual(filing_identity('TDPOWERSYS','INE419M01027','TDPOWERSYS','INE419M01035'),'isin_reissued')
+        self.assertEqual(filing_identity('HEG','INE545A01024','HEGAM','INE545A01024'),'symbol_renamed')
+        for args in (('OTHER','INE419M01027','TDPOWERSYS','INE419M01035'),('TDPOWERSYS','INE419N01027','TDPOWERSYS','INE419M01035'),
+                     ('TDPOWERSYS','INE419M02027','TDPOWERSYS','INE419M01035'),('HEG','INE545A01032','HEGAM','INE545A01024')):
+            self.assertIsNone(filing_identity(*args),args)

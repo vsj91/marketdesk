@@ -7,7 +7,7 @@ from urllib.parse import urlsplit
 import requests
 from .storage import ROOT,now,number
 from .provider import FUNDAMENTAL_REQUIRED_FIELDS,_fundamental_period
-PARSER_REVISION=7
+PARSER_REVISION=8
 
 class Tables(HTMLParser):
     def __init__(self):super().__init__(convert_charrefs=True);self.tables=[];self.table=None;self.row=None;self.cell=None;self.depth=0
@@ -70,6 +70,15 @@ def nil_by_financial_liability_identity(balance,col):
     if total is None or sum((v for _,v in leaves),Decimal(0))!=total:return None
     return {'expression':'sum(reported financial-liability rows) = Total Financial Liabilities','rows':[[l,str(v)] for l,v in leaves],'total':str(total)}
 
+def filing_identity(filed_symbol,filed_isin,symbol,isin):
+    """Same security: exact match, a renamed symbol with the identical ISIN, or the same
+    symbol with an ISIN reissued in the same issuer code and equity series (only the
+    two-digit serial and check digit differ, as after a face-value change)."""
+    if (filed_symbol,filed_isin)==(symbol,isin):return 'exact'
+    if filed_isin==isin and re.fullmatch(r'IN[A-Z0-9]{10}',isin or ''):return 'symbol_renamed'
+    if filed_symbol==symbol and re.fullmatch(r'INE[A-Z0-9]{4}01\d{2}\d',filed_isin or '') and re.fullmatch(r'INE[A-Z0-9]{4}01\d{2}\d',isin or '') and filed_isin[:9]==isin[:9]:return 'isin_reissued'
+    return None
+
 def nse_annual(html,symbol,isin,url,year_offset=0,*,income_only=False):
     if len(html.encode())>2_000_000:raise ValueError('NSE document exceeds parsing limit')
     parser=Tables();parser.feed(html);tables=parser.tables
@@ -90,7 +99,8 @@ def nse_annual(html,symbol,isin,url,year_offset=0,*,income_only=False):
         if len(found)!=1:raise ValueError('Unsupported or ambiguous NSE statement template')
         return found[0]
     meta=choose('NSE Symbol','ISIN')
-    if scalar(meta,'NSE Symbol')!=symbol or scalar(meta,'ISIN')!=isin or scalar(meta,'Class of security')!='Equity':raise ValueError('NSE filing identity mismatch')
+    identity=filing_identity(scalar(meta,'NSE Symbol'),scalar(meta,'ISIN'),symbol,isin)
+    if not identity or scalar(meta,'Class of security')!='Equity':raise ValueError('NSE filing identity mismatch')
     currency=scalar(meta,'Description of presentation currency')
     if income_only and currency=='INR (in Actuals)' and not has(meta,'Level of rounding used in financial results'):
         currency,unit='INR','Rupees'
@@ -148,7 +158,7 @@ def nse_annual(html,symbol,isin,url,year_offset=0,*,income_only=False):
         # missing comparative balance column must not discard valid growth data.
         for key,labels in [('revenue',('Revenue from operations','Total Revenue from operations')),('net_profit',('Total profit (loss) for period',))]:
             out[key]=income_metric(key,labels)
-        out.update(period=end.strftime('%b %Y'),period_end=end.isoformat(),statement_type=basis,units_in='crore',reporting_frequency='annual',sources=sources,source='nse_audited_filing',income_only=True)
+        out.update(period=end.strftime('%b %Y'),period_end=end.isoformat(),statement_type=basis,units_in='crore',reporting_frequency='annual',sources=sources,source='nse_audited_filing',income_only=True,filing_identity=identity)
         return out
     for key,label in [('equity','Total equity'),('current_borrowings','Borrowings, current'),('non_current_borrowings','Borrowings, non-current'),('cash_and_cash_equivalents','Cash and cash equivalents')]:out[key]=get(balance,label,bc,key)
     # NBFC statements do not split borrowings into current/non-current sections.
@@ -180,7 +190,7 @@ def nse_annual(html,symbol,isin,url,year_offset=0,*,income_only=False):
     if any(out.get(k) is not None and out[k]<0 for k in ['finance_costs','current_borrowings','non_current_borrowings','current_lease_liabilities','non_current_lease_liabilities','cash_and_cash_equivalents','debt_securities','other_borrowings','subordinated_liabilities','total_borrowings','total_lease_liabilities']):raise ValueError('NSE negative debt/cash inputs require review')
     for key,labels in [('revenue',('Revenue from operations','Total Revenue from operations')),('net_profit',('Total profit (loss) for period',))]:
         out[key]=income_metric(key,labels)
-    out.update(period=end.strftime('%b %Y'),period_end=end.isoformat(),statement_type=basis,units_in='crore',reporting_frequency='annual',sources=sources,source='nse_audited_filing',missing_fields=[k for k in FUNDAMENTAL_REQUIRED_FIELDS if out.get(k) is None])
+    out.update(period=end.strftime('%b %Y'),period_end=end.isoformat(),statement_type=basis,units_in='crore',reporting_frequency='annual',sources=sources,source='nse_audited_filing',missing_fields=[k for k in FUNDAMENTAL_REQUIRED_FIELDS if out.get(k) is None],filing_identity=identity)
     return out
 
 class Fallbacks:
