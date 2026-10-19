@@ -10,7 +10,7 @@ from urllib.parse import urlsplit
 from .storage import ROOT,now
 from .intraday_data import atomic_json
 
-REVISION=39
+REVISION=40
 RULE_REVISION=2  # Explicit user approval: printed identities and debt/lease reconciliation.
 INCOME_REVISION=5
 # An auditor's basis heading covers the statements that follow it, up to this many
@@ -197,6 +197,71 @@ def parse_lease_note(text,latest):
     result={'value':value,'source_units':unit,'conversion_to_crore':scale,'line':closing[0].strip(),'method':'explicit_carrying_value_closing_balance'}
     if shared_header:result['shared_table_header']=shared_header
     return result
+
+def parse_lease_rollforward(text,latest):
+    """A lease-liability roll-forward whose printed arithmetic reconciles exactly.
+
+    opening + printed movements = closing must hold to the paisa (Decimal) in the
+    current-year column, and in the prior-year column where it is printed; the prior
+    closing must equal the current opening. Unsigned outflows (payments, deletions) are
+    subtracted only when that is the one reading that reconciles. A dash counts as nil
+    only inside an identity that then holds exactly. The page must state the unit, both
+    year-end dates in the table header and the selected statement basis."""
+    from decimal import Decimal
+    from .balance_identity import decimal_amount
+    lines=[line.rstrip() for line in text.splitlines()]
+    heads=[i for i,line in enumerate(lines) if re.search(r'lease\s+liabilit(?:y|ies)',line,re.I) and not re.search(r'undiscounted|maturit|right[- ]of[- ]use|interest on|payment of|\s{2,}'+NUM+r'\s*$',line,re.I)
+           and re.fullmatch(r'\s*(?:\(?[a-z0-9]{1,4}[.)]\s*)*(?:the following is the |the table below shows the |details of |movement (?:in|of) (?:the )?)?(?:carrying (?:value|amount) of )?(?:the )?(?:movement (?:in|of) )?lease\s+liabilit(?:y|ies)(?: during the year)?\s*:?\s*',line,re.I)]
+    if len(heads)!=1:raise ValueError('Lease roll-forward heading absent or ambiguous')
+    start=heads[0]
+    date=datetime.strptime(latest['period'],'%b %Y');day=calendar.monthrange(date.year,date.month)[1]
+    def dated(line,year):
+        compact=re.sub(r'[-./]',' ',line.lower())
+        return re.search(r'\b'+str(day)+r'(?:st|nd|rd|th)?\s+(?:'+date.strftime('%B').lower()+'|'+date.strftime('%b').lower()+'|0?'+str(date.month)+r')\s+'+str(year)+r'\b',compact) or re.search(r'(?:'+date.strftime('%B').lower()+'|'+date.strftime('%b').lower()+r')\s+'+str(day)+r',?\s+'+str(year)+r'\b',compact)
+    header=[i for i in range(start+1,min(start+5,len(lines))) if dated(lines[i],date.year) and dated(lines[i],date.year-1)]
+    if len(header)!=1:raise ValueError('Lease roll-forward needs both year-end dates in its own header')
+    rows=[];closing=None
+    for line in lines[header[0]+1:header[0]+16]:
+        m=re.search(r'\s{2,}('+NUM+r')\s{2,}('+NUM+r')\s*$',line)
+        if not m:
+            if line.strip() and re.search(r'right[- ]of[- ]use|depreciation|amorti[sz]ation|undiscounted|maturit',line,re.I):raise ValueError('Lease roll-forward mixes another table')
+            continue
+        label=' '.join(line[:m.start()].lower().split())
+        values=[decimal_amount(m[1]),decimal_amount(m[2])]
+        if re.search(r'right[- ]of[- ]use|depreciation|amorti[sz]ation',label):raise ValueError('Lease roll-forward mixes another table')
+        rows.append({'label':label,'values':values,'line':line.strip()})
+        if re.match(r'(?:closing balance|balance as at 3[01]|balance at the end of the (?:year|period)|as at 3[01])',label):closing=rows.pop();break
+    if closing is None or len(rows)<2:raise ValueError('Lease roll-forward closing balance unavailable')
+    if not re.match(r'(?:opening balance|balance as at (?:1st |1 )?(?:april|apr)|balance at the beginning of the (?:year|period)|as at (?:1st |1 )?(?:april|apr))',rows[0]['label']):raise ValueError('Lease roll-forward opening balance unavailable')
+    outflow=r'payment|paid|deletion|deduction|termination|reduction|repaid|derecogni|less'
+    def reconciles(col):
+        values=[r['values'][col] for r in rows];total=closing['values'][col]
+        if total is None:total=Decimal(0)
+        for flip in (False,True):
+            amount=Decimal(0)
+            for r,v in zip(rows,values):
+                v=v if v is not None else Decimal(0)
+                if flip and v>0 and re.search(outflow,r['label']) and r is not rows[0]:v=-v
+                amount+=v
+            if amount==total:return 'unsigned_outflows_subtracted' if flip else 'printed_signs'
+        return None
+    current=reconciles(0)
+    if not current or closing['values'][0] is None or closing['values'][0]<0:raise ValueError('Lease roll-forward arithmetic does not reconcile')
+    prior=reconciles(1)
+    if any(r['values'][1] is not None for r in rows+[closing]) and not prior:raise ValueError('Prior-year lease roll-forward does not reconcile')
+    if (closing['values'][1] or Decimal(0))!=(rows[0]['values'][0] or Decimal(0)):raise ValueError('Prior closing lease balance differs from current opening')
+    before='\n'.join(lines[:start]).lower()
+    units=[(m.start(),m[1]) for m in re.finditer(r'(?:₹|`|\binr\b|\brs\.?)\s*(?:in\s+)?(crores?|lakhs?|millions?|thousands?)\b|all amounts (?:are )?in (?:₹|inr|rs\.?)?\s*(crores?|lakhs?|millions?)',before)]
+    if not units:raise ValueError('Lease roll-forward unit not explicit')
+    unit=(units[-1][1] or '').rstrip('s') or re.search(r'(crore|lakh|million)',before[units[-1][0]:]).group(1)
+    scale={'crore':1.,'lakh':.01,'million':.1,'thousand':1e-4}[unit]
+    titles=set(re.findall(r'notes\s+(?:to|forming\s+part\s+of)\s+(?:the\s+)?(standalone|consolidated)\s+financial\s+statements',' '.join(text.lower().split())))
+    if titles!={latest.get('statement_type')}:raise ValueError('Lease roll-forward basis not explicit or differs')
+    value=float(closing['values'][0])*scale
+    known=[latest.get(k) for k in ('current_lease_liabilities','non_current_lease_liabilities')]
+    if sum(v for v in known if isinstance(v,(int,float)) and v>=0)>value+.015:raise ValueError('Lease closing balance contradicts known components')
+    return {'value':value,'source_units':unit,'conversion_to_crore':scale,'line':closing['line'],'method':'reconciled_lease_rollforward','sign_reading':current,
+            'table':[r['line'] for r in rows]+[closing['line']],'header':lines[header[0]].strip()}
 
 def parse_classified_lease_note(text,latest):
     """A lease note's explicit total, reconciled to both printed components."""
@@ -722,6 +787,8 @@ def pdf_worker(pdf_path,context_path,output_path):
     candidates=[];issues=[];diagnostics=[];basis_context=None;lease_notes=[];ofl_notes=[]
     plain_pages=[p.get_text() for p in doc]
     sole=sole_entity_basis(plain_pages) if latest.get('statement_type')=='standalone' else None
+    # Any printed lease-liability or lease-payment amount anywhere rules out a nil lease identity.
+    lease_amount_pages=[j+1 for j,plain in enumerate(plain_pages) if re.search(r'(?:lease\s+liabilit(?:y|ies)|lease\s+obligations?|payments?\s+of\s+lease)[^\n]{0,80}\d',' '.join(plain.split()),re.I)]
     if latest.get('total_lease_liabilities') is None:
         for j,plain in enumerate(plain_pages):
             if re.search(r'capital\s+management',plain,re.I):
@@ -733,7 +800,7 @@ def pdf_worker(pdf_path,context_path,output_path):
                         capital=parse_capital_note(balance_text(page,clip),latest);capital['pages']=[j+1]
                         candidates.append((capital,[j]))
                     except ValueError:pass
-            if not re.search(LEASE_ROLLFORWARD,' '.join(plain.split()),re.I) and not re.search(r'lease liabilit(?:y|ies)\s*\(refer note|total\s+lease\s+liabilities|carrying amount of lease liability',plain,re.I) and not (re.search(r'lease liabilit',plain,re.I) and re.search(r'balance as at|reconciliation of movement of liabilities|other financial liabilities',plain,re.I)):continue
+            if not re.search(LEASE_ROLLFORWARD,' '.join(plain.split()),re.I) and not re.search(r'lease liabilit(?:y|ies)\s*\(refer note|total\s+lease\s+liabilities|carrying amount of lease liability',plain,re.I) and not (re.search(r'lease liabilit',plain,re.I) and re.search(r'balance as at|closing balance|reconciliation of movement of liabilities|other financial liabilities',plain,re.I)):continue
             page=doc[j];clips=[None]
             if page.rect.width>page.rect.height*1.15:
                 w,h=page.rect.width,page.rect.height;clips.extend([pymupdf.Rect(0,0,w/2,h),pymupdf.Rect(w/2,0,w,h)])
@@ -747,7 +814,7 @@ def pdf_worker(pdf_path,context_path,output_path):
                         except ValueError:pass
                 try:ofl_notes.append((parse_numbered_ofl_note(text),j))
                 except ValueError:pass
-                for parser in (parse_lease_note,parse_classified_lease_note,parse_dated_lease_rollforward,parse_financing_lease_reconciliation,parse_unclassified_lease_note):
+                for parser in (parse_lease_note,parse_classified_lease_note,parse_dated_lease_rollforward,parse_financing_lease_reconciliation,parse_unclassified_lease_note,parse_lease_rollforward):
                     try:
                         note=parser(text,latest);note['pages']=[j+1];lease_notes.append((note,j))
                     except ValueError:pass
@@ -810,7 +877,7 @@ def pdf_worker(pdf_path,context_path,output_path):
             try:
                 income_needed=latest.get('finance_costs') is None and latest.get('profit_before_tax') is not None
                 current_nci=verified_current_nci(text,page,latest,clip) if len(selected)==1 and not joined_spread else None
-                evidence=parse_balance(text,latest,allow_existing=income_needed or bool(lease_notes or ofl_notes),allow_identity=len(selected)==1,current_nci=current_nci);evidence['pages']=[n+1 for n in selected]
+                evidence=parse_balance(text,latest,allow_existing=income_needed or bool(lease_notes or ofl_notes) or (latest.get("total_lease_liabilities") is None and not lease_amount_pages),allow_identity=len(selected)==1,current_nci=current_nci);evidence['pages']=[n+1 for n in selected]
                 if current_nci:evidence['printed_cell_evidence']={'nci':{**current_nci,'page':i+1}}
                 if column_evidence:evidence['column_order_evidence']={**column_evidence,'page':i+1}
                 for identity in evidence.get('identity_evidence',{}).values():identity['pages']=list(evidence['pages'])
@@ -818,6 +885,9 @@ def pdf_worker(pdf_path,context_path,output_path):
                 if 'total_lease_liabilities' not in evidence['values'] and matching_notes and len({round(v['value'],6) for v,_ in matching_notes})==1 and sum(v for v in evidence['components'].values() if v is not None)<=matching_notes[0][0]['value']+.015:
                     note,j=matching_notes[0];evidence['values']['total_lease_liabilities']=note['value'];evidence['value']=note['value'];evidence['lease_note_evidence']=note
                     if j not in selected:selected.append(j);evidence['pages'].append(j+1)
+                no_lease=evidence.get('identity_evidence',{}).get('lease_absent')
+                if 'total_lease_liabilities' not in evidence['values'] and no_lease and not lease_notes and not ofl_notes and not lease_amount_pages and not any(v is not None for v in evidence['components'].values()):
+                    evidence['values']['total_lease_liabilities']=0.;evidence['value']=0.;evidence['lease_absent_evidence']={**no_lease,'report_wide_lease_amounts':'none printed'}
                 if 'total_lease_liabilities' not in evidence['values'] and not any(v is not None for v in evidence['components'].values()):
                     bound=[(b,j) for b,j in ((bound_ofl_lease(note,text,evidence['conversion_to_crore']),j) for note,j in ofl_notes) if b]
                     if len(bound)==1 or (bound and len({round(b['value'],6) for b,_ in bound})==1):

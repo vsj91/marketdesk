@@ -51,22 +51,24 @@ def identity_evidence(text,scale):
             'lines':[r['line'] for r in (owners,nc,cur,total)],'conversion_to_crore':scale,'total_equity_crore':float(owners['amount']*Decimal(str(scale)))}
     absent=borrowings_absent_identity(text,scale)
     if absent:proofs['borrowings_absent']=absent
+    no_lease=lease_absent_identity(text,scale)
+    if no_lease:proofs['lease_absent']=no_lease
     if closed and nc and not incomplete and not has_borrow and noncurrent and sum((r['amount'] for r in noncurrent),Decimal(0))==nc['amount']:
         proofs['non_current_borrowings']={'value':0.,'method':'exact_exhaustive_non_current_liability_identity','expression':'sum(all printed non-current liability lines) = printed non-current liabilities total',
             'operands':[{'label':r['label'],'amount':str(r['amount']),'line':r['line']} for r in noncurrent],
             'printed_total':str(nc['amount']),'total_line':nc['line'],'conversion_to_crore':scale}
     return proofs
 
-def borrowings_absent_identity(text,scale):
-    """Prove borrowings are nil from the audited balance sheet itself, never from a blank.
+def _liability_sections(text):
+    """Non-current and current liability sections: every printed line and the printed total.
 
-    Every printed line in both the non-current and current liability sections must sum
-    exactly (both years, Decimal) to that section's printed total, and no borrowing,
-    debt-security or loan caption may appear in either section. A dashed line is then
-    proven nil by the arithmetic. Any omitted or double-counted line breaks the sum."""
+    A section closes at its own "Total ... liabilities" line, or at an unlabelled pair of
+    amounts printed directly before the next section heading / total liabilities line.
+    Returns None when the layout is not exactly two closed sections."""
     from .annual_reports import NUM,caption
-    lines={'non_current':[],'current':[]};totals={};section=None;mentions=[]
-    for raw in text.splitlines():
+    lines={'non_current':[],'current':[]};totals={};section=None;texts=[]
+    raw_lines=[l for l in text.splitlines() if l.strip()]
+    for index,raw in enumerate(raw_lines):
         if re.search(r'^(?:standalone |consolidated )?statement of (?:profit|cash|changes)',raw.strip(),re.I):break
         head=re.sub(r'^(?:\(?[ivx]+[.)]|\(?[a-z][.)])\s*','',raw.strip().lower())
         if re.fullmatch(r'non[- ]current liabilities',head):
@@ -76,25 +78,55 @@ def borrowings_absent_identity(text,scale):
             if section or 'current' in totals:return None
             section='current';continue
         if section is None:continue
-        if re.search(r'borrow|debt securit|\bloans?\b|debenture',head):mentions.append(raw.strip())
-        m=re.search(r'\s{2,}('+NUM+r')\s{2,}('+NUM+r')\s*$',raw)
+        texts.append(head)
+        m=re.fullmatch(r'\s*('+NUM+r')\s{2,}('+NUM+r')\s*',raw) or re.search(r'\s{2,}('+NUM+r')\s{2,}('+NUM+r')\s*$',raw)
         if not m:continue
-        label=caption(raw[:m.start()]).lower()
+        label=caption(raw[:m.start(1)]).lower() if m.start(1)>0 else ''
         values=[decimal_amount(m[1]),decimal_amount(m[2])]
-        # Only the section's own total closes it; any other line (even a subtotal) is summed,
-        # so a double-counted subtotal breaks the identity rather than passing it.
-        if (section=='non_current' and re.fullmatch(r'total non[- ]current liabilities',label)) or (section=='current' and label=='total current liabilities'):
+        following=' '.join(raw_lines[index+1].lower().split()) if index+1<len(raw_lines) else ''
+        own_total=(section=='non_current' and re.fullmatch(r'total non[- ]current liabilities',label)) or (section=='current' and label=='total current liabilities')
+        unlabelled_total=not label.strip() and (re.match(r'(?:\(?[ivx]+[.)]\s*)?current liabilities$',following) if section=='non_current' else re.match(r'total liabilities\b',following))
+        if own_total or unlabelled_total:
             if any(v is None or v<0 for v in values):return None
             totals[section]={'values':values,'line':raw.strip()};section=None;continue
         if any(v is not None and v<0 for v in values):return None
         lines[section].append({'values':values,'line':raw.strip()})
-    if mentions or set(totals)!={'non_current','current'}:return None
+    if set(totals)!={'non_current','current'}:return None
     for key in ('non_current','current'):
         for col in (0,1):
             if sum((r['values'][col] for r in lines[key] if r['values'][col] is not None),Decimal(0))!=totals[key]['values'][col]:return None
-    return {'value':0.,'method':'exact_exhaustive_liability_identity','expression':'sum(all printed liability lines) = printed section total, for both sections and years; no borrowing caption',
+    return lines,totals,texts
+
+
+def _absent(text,scale,pattern,expression,method):
+    found=_liability_sections(text)
+    if not found:return None
+    lines,totals,texts=found
+    if any(re.search(pattern,t) for t in texts):return None
+    return {'value':0.,'method':method,'expression':expression,
             'non_current':{'lines':[r['line'] for r in lines['non_current']],'total_line':totals['non_current']['line']},
             'current':{'lines':[r['line'] for r in lines['current']],'total_line':totals['current']['line']},'conversion_to_crore':scale}
+
+
+def borrowings_absent_identity(text,scale):
+    """Prove borrowings are nil from the audited balance sheet itself, never from a blank.
+
+    Every printed line in both the non-current and current liability sections must sum
+    exactly (both years, Decimal) to that section's printed total, and no borrowing,
+    debt-security or loan caption may appear in either section. A dashed line is then
+    proven nil by the arithmetic. Any omitted or double-counted line breaks the sum."""
+    return _absent(text,scale,r'borrow|debt securit|\bloans?\b|debenture','sum(all printed liability lines) = printed section total, for both sections and years; no borrowing caption','exact_exhaustive_liability_identity')
+
+
+def lease_absent_identity(text,scale):
+    """The same exhaustive identity with no lease caption in either liability section.
+
+    Schedule III (Division II, as amended in 2021) requires lease liabilities as their own
+    line under financial liabilities, so an exactly reconciling balance sheet without one
+    carries none. The caller must also confirm no lease-liability amount is printed anywhere
+    else in the report."""
+    return _absent(text,scale,r'\blease','sum(all printed liability lines) = printed section total, for both sections and years; no lease caption','exact_exhaustive_liability_identity_no_lease_line')
+
 
 def borrowings_reconciliation(existing,audited,leases,lines,scale):
     if not all(isinstance(v,(int,float)) for v in (existing,audited,leases)) or leases<=0:return None

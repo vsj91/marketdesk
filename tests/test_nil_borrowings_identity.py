@@ -45,4 +45,58 @@ class NilBorrowingsTests(unittest.TestCase):
         self.assertIsNone(nil_by_financial_liability_identity([r if r[1]!='Total Financial Liabilities' else ['', 'Total Financial Liabilities','63,251.31'] for r in rows],(0,1)))
 
 
+OLECTRA=f"""Equity and Liabilities
+Non-current liabilities
+Financial Liabilities
+Borrowings{W}17{W}17,041.50{W}14,169.66
+Provisions{W}18{W}4,581.73{W}4,000.81
+Deferred tax liabilities, net{W}9{W}1,697.35{W}1,348.05
+23,320.58{W}19,518.52
+Current liabilities
+Financial Liabilities
+Borrowings{W}17{W}20,987.88{W}11,315.13
+Other financial liabilities{W}20{W}6,864.78{W}9,110.07
+Provisions{W}18{W}104.97{W}41.16
+27,957.63{W}20,466.36
+Total liabilities{W}53,278.21{W}39,984.88"""
+
+
+class NilLeaseTests(unittest.TestCase):
+    def test_unlabelled_section_totals_and_no_lease_line(self):
+        from marketdesk.balance_identity import lease_absent_identity
+        self.assertEqual(lease_absent_identity(OLECTRA,.01)['value'],0.)
+        self.assertIsNone(borrowings_absent_identity(OLECTRA,.01))
+        for bad in (OLECTRA.replace('Provisions{W}18{W}104.97'.format(W=W),'Lease liabilities{W}18{W}104.97'.format(W=W)),OLECTRA.replace('6,864.78','6,864.79')):
+            self.assertIsNone(lease_absent_identity(bad,.01))
+
+
+ROLL=f"""Notes to the Consolidated Financial Statements
+(₹ in million)
+ ii)   The following is the carrying value of lease liability :
+           Particulars{W}31-March-2026{W}31-March-2025
+         Opening Balance{W}136{W}187
+           Additions during the year
+         Finance cost accrued during the year{W}14{W}15
+          Payment of lease liabilities during the year{W}(29){W}(66)
+          Closing Balance{W}121{W}136"""
+
+
+class LeaseRollforwardTests(unittest.TestCase):
+    latest={'period':'Mar 2026','statement_type':'consolidated'}
+
+    def test_reconciled_rollforward_with_unit_dates_and_basis(self):
+        from marketdesk.annual_reports import parse_lease_rollforward
+        r=parse_lease_rollforward(ROLL,self.latest)
+        self.assertAlmostEqual(r['value'],12.1);self.assertEqual(r['sign_reading'],'printed_signs')
+        unsigned=ROLL.replace('(29)','29').replace('(66)','66')
+        self.assertEqual(parse_lease_rollforward(unsigned,self.latest)['sign_reading'],'unsigned_outflows_subtracted')
+
+    def test_refuses_broken_arithmetic_wrong_basis_or_missing_unit(self):
+        from marketdesk.annual_reports import parse_lease_rollforward
+        for text,latest in ((ROLL.replace('Closing Balance{W}121'.format(W=W),'Closing Balance{W}122'.format(W=W)),self.latest),
+                            (ROLL,{'period':'Mar 2026','statement_type':'standalone'}),(ROLL.replace('(₹ in million)',''),self.latest),
+                            (ROLL.replace('31-March-2025','31-March-2024'),self.latest),(ROLL.replace('Opening Balance{W}136'.format(W=W),'Opening Balance{W}135'.format(W=W)),self.latest)):
+            with self.assertRaises(ValueError):parse_lease_rollforward(text,latest)
+
+
 if __name__=='__main__':unittest.main()
