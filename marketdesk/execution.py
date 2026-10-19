@@ -19,7 +19,19 @@ def charges(value,side,dp=False):
     result={k:money(v) for k,v in raw.items()};result['total']=money(sum(Decimal(str(v)) for v in result.values()))
     return result
 
-def automatic_buy_cost_check(config,value,buy_fee):
+def intraday_charges(value,side,dp=False):
+    # Intraday (MIS-style) estimate for the EMA + Price Action basket, which squares off the same session:
+    # brokerage the lower of ₹20 or 0.1% per order, 0.025% STT on sells, 0.003% buy stamp duty, the same
+    # exchange/SEBI/IPFT/GST basis as charges(); no DP charge. Not verified against a contract note.
+    v=Decimal(str(value))
+    raw={'brokerage':min(Decimal(20),v*Decimal('.001')),'stt':v*Decimal('.00025') if side=='SELL' else Decimal(0),'exchange':v*Decimal('.0000307'),'sebi':v*Decimal('.000001'),'ipft':v*Decimal('.000000001'),'stamp':v*Decimal('.00003') if side=='BUY' else Decimal(0),'dp':Decimal(0)}
+    raw['gst']=(raw['brokerage']+raw['exchange']+raw['ipft'])*Decimal('.18')
+    result={k:money(v) for k,v in raw.items()};result['total']=money(sum(Decimal(str(v)) for v in result.values()))
+    return result
+
+def charges_for(product):return intraday_charges if product=='intraday' else charges
+
+def automatic_buy_cost_check(config,value,buy_fee,product='delivery'):
     """Check actual filled value, never enlarge orders or constrain exits.
 
     Exit fees assume a delivery sale at the entry value, including DP charges.
@@ -29,14 +41,14 @@ def automatic_buy_cost_check(config,value,buy_fee):
     if raw is None:return None
     limit=number(raw)
     if limit is None or limit<=0:raise ValueError('Invalid automatic buy fee limit; new buys wait.')
-    exit_fee=charges(value,'SELL',True)['total']
+    exit_fee=charges_for(product)(value,'SELL',True)['total']
     total=money(buy_fee+exit_fee)
     if value<=0 or Decimal(str(total))*100>Decimal(str(value))*Decimal(str(limit)):
         pct=total/value*100 if value>0 else float('inf')
         raise ValueError(f'Buy too small for fee floor: estimated round-trip fees ₹{total:.2f} ({pct:.2f}%) exceed {limit:g}% of actual fill value ₹{value:.2f}.')
     return dict(max_round_trip_fee_pct=limit,buy_fee=buy_fee,estimated_sell_fee=exit_fee,
         estimated_round_trip_fee=total,filled_value=value,estimated_round_trip_fee_pct=total/value*100,
-        basis='Same-price delivery sale including DP charges; spread, slippage and partial-exit costs excluded')
+        basis=('Same-price intraday sale' if product=='intraday' else 'Same-price delivery sale including DP charges')+'; spread, slippage and partial-exit costs excluded')
 
 
 def normalize(raw,key,symbol,received):

@@ -120,6 +120,9 @@ const BASKETS={
  risk_parity:{title:'Risk parity',blurb:'Holds the top multi-factor names, giving calmer stocks more money so no single stock dominates the swings.'},
  stat_arb:{title:'Stat-arb',blurb:'Buys sound large and mid caps after an unusually sharp fall below their 20-day average while the long trend still rises; sells at the average.'},
  regime:{title:'Regime switching',blurb:'Shifts between momentum, quality, low-volatility and value stocks depending on whether the market is rising, choppy or falling.'},
+ news_momentum:{title:'AI News Momentum Trader',blurb:'Buys verified positive NSE filings once the next completed session confirms volume, trend and a reaction that is not already priced in. Holds 1–20 sessions.'},
+ news_catalyst:{title:'AI News Catalyst Investor',blurb:'Owns companies whose verified business catalyst is backed by growth, financial quality and a reasonable valuation. Holds months, reviewed weekly.'},
+ ema_price_action:{title:'EMA + Price Action Trader',blurb:'Intraday 5-minute EMA 9/21 crossovers above the 200 EMA with RSI, ATR, structural stops, partial profits and an EMA20 trail. Squares off at 15:12.'},
  reversion:{title:'Mean reversion',blurb:'Buys sharp two-day dips in uptrending stocks and sells on the bounce.',caution:'In the one-year backtest, trading fees outweighed the gains at ₹10,000 per trade, so this basket starts switched off.'}};
 const basketTitle=n=>BASKETS[n]?.title||String(n).charAt(0).toUpperCase()+String(n).slice(1);
 const signedInr=x=>x==null?'—':(x>0?'+':'')+inr(x);
@@ -143,7 +146,7 @@ function todayBuys(p){const today=new Date().toLocaleDateString('en-CA',{timeZon
 function basketCard(p,auto){
  const n=p.name,cfg=auto.config[n]||{},[label,dotTone]=friendlyStatus(cfg.enabled,auto.status[n]);
  const invested=p.equity?Math.min(100,Math.max(0,(p.equity-p.cash)/p.equity*100)):0;
- return `<div class="basket ${n===basket?'selected':''}" role="button" tabindex="0" aria-pressed="${n===basket}" data-basket="${esc(n)}"><div class="basket-top"><span class="basket-name">${esc(basketTitle(n))}</span>${switchHtml(n,cfg.enabled)}</div><div class="basket-value">${inr(p.equity)}</div><div class="basket-change ${tone(p.pnl)}">${signedInr(p.pnl)} · ${pct(p.pnl==null?null:p.pnl/p.initial_cash*100)}</div><div class="alloc"><i data-width="${invested.toFixed(1)}"></i></div><div class="alloc-label"><span>${fmt(invested,0)}% invested</span><span>${p.positions.length} held</span></div><div class="basket-status"><span class="dot ${dotTone}"></span>${esc(label)}</div></div>`;
+ return `<div class="basket ${n===basket?'selected':''}" role="button" tabindex="0" aria-pressed="${n===basket}" data-basket="${esc(n)}"><div class="basket-top"><span class="basket-name">${esc(basketTitle(n))}</span>${switchHtml(n,cfg.enabled)}</div><div class="basket-value">${inr(p.equity)}</div><div class="basket-change ${tone(p.pnl)}">${signedInr(p.pnl)} · ${pct(p.pnl==null?null:p.pnl/p.initial_cash*100)}</div><div class="alloc"><i data-width="${invested.toFixed(1)}"></i></div><div class="alloc-label"><span>${fmt(invested,0)}% invested</span><span>${p.positions.length} held</span></div>${typeof signalCardLine==='function'?signalCardLine(n):''}<div class="basket-status"><span class="dot ${dotTone}"></span>${esc(label)}</div></div>`;
 }
 function eventHtml(e){
  const m=e.kind==='fill'&&/^(BUY|SELL) (\d+) \/ (\d+) shares \(([A-Z_]+)\): ([\s\S]*)$/.exec(e.reason||'');
@@ -179,6 +182,7 @@ function basketDetail(p,auto,openDetails){
  ${group(n+'-ledger','Trade history',`${p.trades.length} orders`,ledgerHtml(p,openDetails),open('ledger'))}
  ${p.exposure?.sectors?.length?group(n+'-sectors','Sector mix','',exposurePanel(p),open('sectors')):''}
  ${n==='trader'&&p.strategy_performance?group(n+'-performance','Performance by entry strategy','',strategyPerformance(p),open('performance')):''}
+ ${typeof signalSection==='function'?signalSection(n,open):''}
  ${group(n+'-rules','How this basket decides','',rulesHtml(r),open('rules'))}`;
 }
 function renderPaper(){

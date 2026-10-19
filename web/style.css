@@ -249,3 +249,4 @@ input[type=search]{padding-left:34px;background-image:url("data:image/svg+xml,%3
 #quant{margin-top:28px}
 #paper .basket-detail{margin-bottom:12px}
 #paper[data-detail="daily"] #basketGrid .basket.selected,#paper[data-detail="live"] #quantGrid .basket.selected{border-color:var(--line);box-shadow:var(--shadow)}
+.signal-config{margin:10px 0}.param-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}.signal-config label{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted)}.signal-config label small{color:var(--faint)}.spark{width:100%;max-width:420px;height:60px;color:var(--up);display:block;margin:8px 0}

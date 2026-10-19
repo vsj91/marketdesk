@@ -17,6 +17,7 @@ from .maintenance import Maintenance
 from .universe_exits import RequestedExits
 from .market_caps import classifications,decorate_html,ClassificationRefresh
 from .quant.runner import QuantRunner
+from .signal_baskets.runner import SignalRunner
 
 class App:
     def __init__(self,path,read_only=False):
@@ -40,6 +41,7 @@ class App:
         self.requested_exits=None if read_only else RequestedExits(path)
         self.maintenance=None if read_only else Maintenance(path,self.refresh)
         self.quant=None if read_only else QuantRunner(path)
+        self.signals=None if read_only else SignalRunner(path)
         self.csrf=secrets.token_urlsafe(32);self.cache=None;self.cached_at=0;self.cache_lock=threading.Lock()
     def stocks(self):
         with self.cache_lock:
@@ -117,6 +119,9 @@ class Handler(BaseHTTPRequestHandler):
                 return self.send(report)
             if url.path=='/api/stocks':return self.send({'stocks':app.stocks()})
             if url.path=='/api/quant-baskets':return self.send(app.quant.snapshot())
+            if url.path=='/api/signal-baskets':
+                from .signal_baskets.report import snapshot as signal_snapshot
+                return self.send(signal_snapshot(app.path))
             if url.path=='/api/paper':return self.send({'portfolios':portfolios(app.path),'automation':app.auto.snapshot()})
             if url.path=='/api/stock':
                 symbol=q.get('symbol',[''])[0]
@@ -165,6 +170,9 @@ class Handler(BaseHTTPRequestHandler):
                 app.refresh.start(symbols,payload.get('mode','both'));return self.send({'status':'running'},202)
             if path=='/api/paper/automation':return self.send(app.auto.configure(payload.get('portfolio'),payload.get('enabled')))
             if path=='/api/paper/order':return self.send(trade(app.path,payload))
+            if path=='/api/signal-baskets/config':
+                from .signal_baskets.config import update as update_signal_config
+                return self.send(update_signal_config(app.path,payload))
             if path=='/api/watch':
                 with connect(app.path) as db:
                     if payload.get('watched') and not db.execute('SELECT 1 FROM instruments WHERE '+symbol_filter(db)+' AND symbol=?',(payload.get('symbol'),)).fetchone():raise ValueError('Stock is outside the research universe.')
@@ -191,6 +199,7 @@ def serve(path=DEFAULT_DB,port=8765,live=False):
     app.maintenance.start()
     app.auto.start()
     app.quant.start()
+    app.signals.start()
     try:server.serve_forever()
     except KeyboardInterrupt:pass
-    finally:app.quant.stop();app.maintenance.stop();app.requested_exits.stop();app.cap_refresh.stop();app.power.stop();app.auto.stop();app.feed.stop();server.server_close()
+    finally:app.signals.stop();app.quant.stop();app.maintenance.stop();app.requested_exits.stop();app.cap_refresh.stop();app.power.stop();app.auto.stop();app.feed.stop();server.server_close()

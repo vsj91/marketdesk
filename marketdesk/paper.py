@@ -1,12 +1,13 @@
 import json,uuid
 from datetime import datetime,timezone,timedelta
 from .storage import connect,now,get_state
-from .execution import fetch_book,match,charges,money,automatic_buy_cost_check
+from .execution import fetch_book,match,charges,charges_for,money,automatic_buy_cost_check
 from .quality import init_quality,require_buy_quality
 from .buy_universe import require_buy_universe
 from .basket_rules import BASKETS
 from .quant.names import LIVE_BASKETS,LIVE_CAPITAL
-PORTFOLIOS=('trader','investor',*BASKETS,*LIVE_BASKETS)
+from .signal_baskets.names import SIGNAL_BASKETS,SIGNAL_CAPITAL
+PORTFOLIOS=('trader','investor',*BASKETS,*LIVE_BASKETS,*SIGNAL_BASKETS)
 from .order_audit import init_metadata,current_identity,save_identity,annotate,init_attempts,diagnostics,save_attempt,blocked_category
 
 def init_paper(path):
@@ -27,6 +28,8 @@ def init_paper(path):
         for name in BASKETS:db.execute('INSERT OR IGNORE INTO portfolios VALUES(?,?,?)',(name,100000,100000))
         # Quant baskets: daily signals from marketdesk.quant, live fills through this ledger.
         for name in LIVE_BASKETS:db.execute('INSERT OR IGNORE INTO portfolios VALUES(?,?,?)',(name,LIVE_CAPITAL,LIVE_CAPITAL))
+        # Signal baskets (news momentum, news catalyst, EMA + price action): own cash, positions and orders.
+        for name in SIGNAL_BASKETS:db.execute('INSERT OR IGNORE INTO portfolios VALUES(?,?,?)',(name,SIGNAL_CAPITAL,SIGNAL_CAPITAL))
         init_metadata(db)
         init_attempts(db)
 
@@ -100,10 +103,12 @@ def _trade(path,payload,clock=None,auto_guard=None,audit_details=None,audit_iden
         if abs(price/quote['price']-1)>.05:raise ValueError('Depth and live price disagree by more than 5%.')
         day=clock.astimezone(timezone(timedelta(hours=5,minutes=30))).replace(hour=0,minute=0,second=0,microsecond=0).astimezone(timezone.utc).isoformat()
         dp=side=='SELL' and not db.execute("SELECT 1 FROM trades WHERE portfolio=? AND symbol=? AND side='SELL' AND created_at>=?",(portfolio,symbol,day)).fetchone()
-        costs=charges(value,side,dp);fee=costs['total']
+        # A guard may declare an intraday product (signal_baskets EMA); every other order keeps delivery charges.
+        product=getattr(auto_guard,'product','delivery');dp=dp and product!='intraday'
+        costs=charges_for(product)(value,side,dp);fee=costs['total']
         audit_identity[:]=current_identity(db,portfolio,auto_guard is not None)
         if auto_guard is not None and side=='BUY':
-            cost_check=automatic_buy_cost_check(get_state(db,'auto_config',{}).get(portfolio,{}),value,fee)
+            cost_check=automatic_buy_cost_check(get_state(db,'auto_config',{}).get(portfolio,{}),value,fee,product)
             if cost_check:fill['buy_cost_check']=cost_check
         effective=dict(quote);effective.update(price=price,fill_quantity=qty,fill_fee=fee,execution_time=clock.isoformat())
         reason=auto_guard(db,payload,effective,account,position) if auto_guard else ''
@@ -119,7 +124,7 @@ def _trade(path,payload,clock=None,auto_guard=None,audit_details=None,audit_iden
         db.execute('INSERT INTO positions VALUES(?,?,?,?) ON CONFLICT(portfolio,symbol) DO UPDATE SET quantity=excluded.quantity,cost=excluded.cost',(portfolio,symbol,new_qty,new_cost))
         for level in fill['levels']:
             db.execute('INSERT INTO depth_used VALUES(?,?,?,?) ON CONFLICT(book_key,side,price) DO UPDATE SET quantity=quantity+excluded.quantity',(book['key'],side,level['price'],level['quantity']))
-        fill.update(charges=costs,book=book,requested_quantity=requested,slippage_vs_ltp_bps=round((price/quote['price']-1)*(1 if side=='BUY' else -1)*10000,2),charge_basis='Delivery-style estimate; same-day netting and settlement not modeled')
+        fill.update(charges=costs,book=book,requested_quantity=requested,slippage_vs_ltp_bps=round((price/quote['price']-1)*(1 if side=='BUY' else -1)*10000,2),charge_basis=('Intraday (MIS-style) estimate' if product=='intraday' else 'Delivery-style estimate')+'; same-day netting and settlement not modeled')
         fill['audit']=dict(audit_details,filled_quantity=qty,strategy_version_id=audit_identity[0])
         row=(str(uuid.uuid4()),request_id,portfolio,symbol,side,qty,price,fee,quote['trade_time'],clock.isoformat(),'automatic' if auto_guard else 'manual',reason,requested,json.dumps(fill),fill['model'])
         db.execute('INSERT INTO trades(id,request_id,portfolio,symbol,side,quantity,price,fee,quote_time,created_at,source,reason,requested_quantity,execution,fill_model) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',row)

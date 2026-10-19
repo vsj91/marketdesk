@@ -25,7 +25,11 @@ def current_identity(db,portfolio,automatic):
     from .autotrading import capacity_rules
     from .basket_rules import BASKETS
     from .quant.names import LIVE_BASKETS
-    if portfolio in BASKETS:
+    from .signal_baskets.names import SIGNAL_BASKETS
+    if portfolio in SIGNAL_BASKETS:
+        from .signal_baskets.engine import rules as signal_rules
+        rules=signal_rules(portfolio,cfg);family=portfolio
+    elif portfolio in BASKETS:
         from .baskets import rules as basket_rules
         rules=basket_rules(portfolio,cfg);family='basket-'+portfolio
     elif portfolio in LIVE_BASKETS:
