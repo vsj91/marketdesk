@@ -49,9 +49,17 @@ class App:
             stream=get_state(db,'stream',{});refresh=get_state(db,'refresh',{});quality=get_state(db,'quality_summary',{});quality['repair_queue']=get_state(db,'quality_repair_queue',{})
             report=get_state(db,'last_import',{});repair=get_state(db,'fundamental_repair',{})
             incomplete=db.execute("SELECT COUNT(*) FROM fundamentals WHERE "+symbol_filter(db)+" AND COALESCE(json_extract(details,'$.status'),'MISSING')!='COMPLETE'").fetchone()[0]
-            missing={}
-            for r in db.execute('SELECT details FROM fundamentals WHERE '+symbol_filter(db)):
-                for key in json.loads(r[0]).get('missing_fields',[]):missing[key]=missing.get(key,0)+1
+            # Banks, insurers and NBFCs report borrowings/leases/finance costs differently; those gaps are not actionable.
+            from .history_rules import is_financial
+            from .liability_bound import attach,bounded_debt_pass
+            missing={};financial_gaps={};bounded=[];financial_incomplete=0
+            records={r[0]:(json.loads(r[1]),is_financial(r[2])) for r in db.execute('SELECT f.symbol,f.details,i.sector FROM fundamentals f JOIN instruments i USING(symbol) WHERE f.'+symbol_filter(db))}
+            attach(db,{k:v[0] for k,v in records.items()})
+            for symbol,(details,financial) in records.items():
+                target=financial_gaps if financial else missing
+                if financial and details.get('status')!='COMPLETE':financial_incomplete+=1
+                if not financial and bounded_debt_pass(details):bounded.append(symbol);continue
+                for key in details.get('missing_fields',[]):target[key]=target.get(key,0)+1
             missing_records=counts['instruments']-counts['fundamentals']
             if missing_records:
                 from .provider import FUNDAMENTAL_REQUIRED_FIELDS
@@ -68,7 +76,7 @@ class App:
                 if refresh.get('working_universe')!='nifty500':refresh={'status':'ready','mode':'Nifty 500','total':len(active),'done':0}
                 if repair.get('working_universe')!='nifty500':repair={}
                 report={}
-        return {'universe':universe,'fundamental_repair':repair,'sleep_guard':self.power.snapshot() if self.power else None,'quality':quality,'close_check':get_state(db,'close_check',{}),'scorecard':scorecard(db),'counts':counts,'stream':stream,'refresh':{k:v for k,v in refresh.items() if k!='completed_symbols'},'import':report,'token_saved':bool(load_token()),'complete_fundamentals':counts['fundamentals']-incomplete,'partial_fundamentals':incomplete+missing_records,'missing_fields':missing,'detailed_statements':full,'failed_endpoints':failures,'latest_candle':latest,'short_histories':short,'recent_listings':recent,'mode':'local_paper_only','now':now(),'csrf':self.csrf}
+        return {'universe':universe,'fundamental_repair':repair,'sleep_guard':self.power.snapshot() if self.power else None,'quality':quality,'close_check':get_state(db,'close_check',{}),'scorecard':scorecard(db),'counts':counts,'stream':stream,'refresh':{k:v for k,v in refresh.items() if k!='completed_symbols'},'import':report,'token_saved':bool(load_token()),'complete_fundamentals':counts['fundamentals']-incomplete,'partial_fundamentals':incomplete+missing_records,'actionable_partial_fundamentals':incomplete+missing_records-financial_incomplete-len(bounded),'financial_incomplete':financial_incomplete,'bounded_debt':sorted(bounded),'financial_not_applicable_fields':financial_gaps,'missing_fields':missing,'detailed_statements':full,'failed_endpoints':failures,'latest_candle':latest,'short_histories':short,'recent_listings':recent,'mode':'local_paper_only','now':now(),'csrf':self.csrf}
 
 class Server(ThreadingHTTPServer):
     daemon_threads=True

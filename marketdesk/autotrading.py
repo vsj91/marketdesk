@@ -7,6 +7,7 @@ from .paper import trade
 from .execution import charges,money
 from .order_audit import init_attempts,blocked_category,current_identity
 from .quality import audit
+from .liability_bound import attach,bounded_debt_pass,BOUNDED_FIELDS
 from . import drawdown
 from .history_rules import MIN_SESSIONS,long_window,effective_rows
 from .quote_health import fresh,stale_holdings,stale_message,refresh_held_quotes
@@ -75,7 +76,7 @@ def load_signals(path):
   for row in db.execute('SELECT symbol,ts,open,close,high,volume FROM candles WHERE '+symbol_filter(db,include_holdings=True)+' ORDER BY symbol,ts'):histories[row['symbol']].append(dict(row))
   bad={r[0] for r in db.execute("SELECT DISTINCT symbol FROM issues WHERE kind IN ('candle','identity')")}
   bad.update(r['symbol'] for r in db.execute("SELECT symbol FROM quality WHERE json_extract(report,'$.trader_ready')=0"))
-  funds={r['symbol']:json.loads(r['details']) for r in db.execute('SELECT symbol,details FROM fundamentals WHERE '+symbol_filter(db,include_holdings=True))}
+  funds=attach(db,{r['symbol']:json.loads(r['details']) for r in db.execute('SELECT symbol,details FROM fundamentals WHERE '+symbol_filter(db,include_holdings=True))})
  result={}
  latest_session=max((rows[-1]['ts'][:10] for rows in histories.values() if rows),default='')
  for symbol,history in histories.items():
@@ -96,17 +97,21 @@ def entry_signal(portfolio,signal,price,clock):
     return ('20-session price breakout, positive 50/200-day trend and historical volume confirmation',price/signal['high20']-1)
    return None
   f=signal['fundamentals'];annual=f.get('latest') or {};summary=f.get('summary') or {}
-  if f.get('status')!='COMPLETE' or f.get('source_conflicts') or price<=signal['dma200']:return None
+  bounded=bounded_debt_pass(f)
+  if (f.get('status')!='COMPLETE' and not bounded) or f.get('source_conflicts') or price<=signal['dma200']:return None
   period=datetime.strptime(annual['period'],'%b %Y').date()
   if not 0<=(clock.date()-period).days<=550:return None
   if any(summary.get(field)!=annual.get('period') for field in ('revenue_period','net_profit_period')):return None
   if summary.get('statement_type')!=annual.get('statement_type') or summary.get('units')!=annual.get('units_in') or summary.get('frequency') not in ('yearly','annual'):return None
-  values=[number(annual.get(k)) for k in ('profit_before_tax','finance_costs','equity','total_borrowings','total_lease_liabilities','cash_and_cash_equivalents')]
-  if any(v is None for v in values):return None
+  keys=('profit_before_tax','finance_costs','equity','total_borrowings','total_lease_liabilities','cash_and_cash_equivalents')
+  values=[number(annual.get(k)) for k in keys]
+  # A bounded record may miss only borrowing/lease lines; every other input stays required.
+  if any(v is None and not (bounded and k in BOUNDED_FIELDS) for k,v in zip(keys,values)):return None
   pbt,finance,equity,borrowings,leases,cash=values
   revenue,profit=number(summary.get('revenue_growth_yoy')),number(summary.get('net_profit_growth_yoy'))
-  if pbt<=0 or equity<=0 or min(finance,borrowings,leases,cash)<0 or revenue is None or profit is None or min(revenue,profit)<=0:return None
-  if finance and (pbt+finance)/finance<3 or (borrowings+leases-cash)/equity>.5:return None
+  if pbt<=0 or equity<=0 or min(v for v in (finance,borrowings,leases,cash) if v is not None)<0 or revenue is None or profit is None or min(revenue,profit)<=0:return None
+  net_debt=f['liability_bound']['total_liabilities']-cash if None in (borrowings,leases) else borrowings+leases-cash
+  if finance and (pbt+finance)/finance<3 or net_debt/equity>.5:return None
   # Rank among stocks that already pass every gate: growth 50%, profitability on equity 30%, trend strength 20%.
   growth=(min(revenue,100)+min(profit,100))/200
   quality=min(max(pbt/equity,0),.4)/.4
@@ -277,7 +282,7 @@ class AutoTrading:
     # A financial refresh can finish after candidate ranking or depth retrieval.
     # Reapply the same thresholds to the current record inside the fill transaction.
     current=db.execute('SELECT details FROM fundamentals WHERE symbol=?',(order['symbol'],)).fetchone()
-    execution_signal={**signal,'fundamentals':json.loads(current['details']) if current else {}}
+    execution_signal={**signal,'fundamentals':attach(db,{order['symbol']:json.loads(current['details']) if current else {}})[order['symbol']]}
    signal_result=entry_signal(portfolio,execution_signal,price,execution_clock)
    if not signal_result:raise ValueError('Entry conditions changed; re-evaluate next cycle.')
    value=round(price*quote.get('fill_quantity',order['quantity']),2);total=value+quote.get('fill_fee',round(value*.001,2))

@@ -4,12 +4,13 @@ from .history_rules import MIN_SESSIONS,tier,effective_rows,is_financial
 import collections,json,math
 from datetime import datetime,timedelta,timezone
 from .storage import connect,get_state,set_state,number
+from .liability_bound import attach,bounded_debt_pass
 IST=timezone(timedelta(hours=5,minutes=30))
 FIELDS=('profit_before_tax','finance_costs','equity','total_borrowings','total_lease_liabilities','cash_and_cash_equivalents')
 
 def financial_reasons(f,observed,clock):
     reasons=[];annual=f.get('latest') or {};summary=f.get('summary') or {}
-    if f.get('status')!='COMPLETE' or any(number(annual.get(k)) is None for k in FIELDS):reasons.append('Annual financial inputs incomplete')
+    if (f.get('status')!='COMPLETE' or any(number(annual.get(k)) is None for k in FIELDS)) and not bounded_debt_pass(f):reasons.append('Annual financial inputs incomplete')
     if f.get('source_conflicts'):reasons.append('Financial sources disagree')
     if f.get('annual_conflict_recheck_required'):reasons.append('Annual-report correction requires re-verification')
     try:
@@ -74,6 +75,7 @@ def audit(path,clock=None):
         # A local consensus calendar, explicitly not an independently verified NSE calendar.
         threshold=max(1,len(instruments)//2);sessions=sorted(d for d,n in counts.items() if n>=threshold and d<clock.astimezone(IST).date().isoformat())
         funds={r['symbol']:(json.loads(r['details']),r['observed_at']) for r in db.execute('SELECT * FROM fundamentals WHERE '+symbol_filter(db))}
+        attach(db,{s:d for s,(d,_) in funds.items()})
         evidence=collections.defaultdict(dict)
         for r in db.execute('SELECT symbol,endpoint,observed_at FROM payloads WHERE '+symbol_filter(db)):evidence[r['symbol']][r['endpoint']]=r['observed_at']
         bad={r[0] for r in db.execute("SELECT DISTINCT symbol FROM issues WHERE "+symbol_filter(db)+" AND kind IN ('candle','identity')")}
@@ -102,7 +104,7 @@ def require_buy_quality(db,symbol,portfolio,clock):
     # Re-check financial eligibility against the current record inside the fill transaction.
     if portfolio=='investor':
         f=db.execute('SELECT * FROM fundamentals WHERE symbol=?',(symbol,)).fetchone()
-        details=json.loads(f['details']) if f else {}
+        details=attach(db,{symbol:json.loads(f['details']) if f else {}})[symbol]
         reasons+=financial_reasons(details,f['observed_at'] if f else None,clock)
         times={r['endpoint']:r['observed_at'] for r in db.execute('SELECT endpoint,observed_at FROM payloads WHERE symbol=?',(symbol,))}
         reasons+=source_reasons(details,times,clock)
