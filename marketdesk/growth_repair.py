@@ -25,10 +25,16 @@ def checked_pair(details,current,prior):
     summary.update(statement_type=current['statement_type'],units=current['units_in'],frequency='annual')
     for key in ('revenue','net_profit'):
         a,b=current.get(key),prior.get(key)
-        if any(not isinstance(x,(int,float)) or not math.isfinite(x) for x in (a,b)) or b<=0:raise ValueError('Growth needs numeric income and a positive prior-year denominator')
-        summary[key]=a;summary[key+'_period']=current['period'];summary[key+'_growth_yoy']=(a/b-1)*100
-        summary.setdefault('growth_sources',{})[key]='nse_audited_filing'
-        summary.setdefault('growth_observed_at',{})[key]=[current['observed_at'],prior['observed_at']]
+        if any(not isinstance(x,(int,float)) or not math.isfinite(x) for x in (a,b)):raise ValueError('Growth needs numeric income for both years')
+        summary[key]=a;summary[key+'_period']=current['period']
+        if b>0:
+            summary[key+'_growth_yoy']=(a/b-1)*100;summary.get('growth_inputs',{}).pop(key,None)
+            summary.setdefault('growth_sources',{})[key]='nse_audited_filing'
+            summary.setdefault('growth_observed_at',{})[key]=[current['observed_at'],prior['observed_at']]
+        else:
+            # A zero or negative prior base has no growth percent; both verified years are kept.
+            summary[key+'_growth_yoy']=None;summary.get('growth_sources',{}).pop(key,None);summary.get('growth_observed_at',{}).pop(key,None)
+            summary.setdefault('growth_inputs',{})[key]={'current':a,'prior':b,'prior_period':prior['period'],'source':'nse_audited_filing','observed_at':[current['observed_at'],prior['observed_at']]}
     return summary
 
 

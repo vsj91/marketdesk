@@ -157,7 +157,8 @@ def apply_growth(details,proof,symbol,isin):
   parsed[name]['observed_at']=proof['observed_at']
   if parsed[name]!=e[name]:raise ValueError('Income evidence changed')
  summary=checked_pair(details,parsed['current'],parsed['prior'])
- summary['growth_sources']={k:'company_annual_report' for k in ('revenue','net_profit')}
+ summary['growth_sources']={k:'company_annual_report' for k in ('revenue','net_profit') if summary.get(k+'_growth_yoy') is not None}
+ for entry in (summary.get('growth_inputs') or {}).values():entry['source']='company_annual_report'
  out=copy.deepcopy(details);out['summary']=summary;out['company_growth_repair']=copy.deepcopy(proof);return out
 
 def retain_company_growth(details,previous,symbol,isin):

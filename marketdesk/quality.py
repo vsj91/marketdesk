@@ -5,12 +5,31 @@ import collections,json,math
 from datetime import datetime,timedelta,timezone
 from .storage import connect,get_state,set_state,number
 from .liability_bound import attach,bounded_debt_pass
+from .bank_inputs import not_applicable,SOURCE as BANK_SOURCE
 IST=timezone(timedelta(hours=5,minutes=30))
 FIELDS=('profit_before_tax','finance_costs','equity','total_borrowings','total_lease_liabilities','cash_and_cash_equivalents')
 
+GROWTH_INPUT_SOURCES=('upstox','nse_audited_filing','company_annual_report',BANK_SOURCE)
+
+def undefined_growth(summary,key):
+    """Both years' figures are on file but the prior base is zero or negative, so a growth % is undefined.
+
+    The current value must be the selected summary value and the prior period exactly
+    one year earlier, from one named source. The growth % itself stays None."""
+    g=((summary or {}).get('growth_inputs') or {}).get(key) or {}
+    a,b,selected=number(g.get('current')),number(g.get('prior')),number((summary or {}).get(key))
+    if None in (a,b,selected) or b>0 or g.get('source') not in GROWTH_INPUT_SOURCES or abs(a-selected)>max(.015,abs(selected)*.00002):return False
+    try:
+        current=datetime.strptime(summary[key+'_period'],'%b %Y');prior=datetime.strptime(g['prior_period'],'%b %Y')
+    except (KeyError,TypeError,ValueError):return False
+    return (prior.year+1,prior.month)==(current.year,current.month)
+
 def financial_reasons(f,observed,clock):
     reasons=[];annual=f.get('latest') or {};summary=f.get('summary') or {}
-    if (f.get('status')!='COMPLETE' or any(number(annual.get(k)) is None for k in FIELDS)) and not bounded_debt_pass(f):reasons.append('Annual financial inputs incomplete')
+    # A line the audited filing's reporting framework does not carry (bank leases) is not missing.
+    na=not_applicable(f)
+    status_ok=f.get('status')=='COMPLETE' or bool(na and f.get('sector') and f.get('status')=='PARTIAL' and set(f.get('missing_fields') or [])<=na)
+    if (not status_ok or any(number(annual.get(k)) is None and k not in na for k in FIELDS)) and not bounded_debt_pass(f):reasons.append('Annual financial inputs incomplete')
     if f.get('source_conflicts'):reasons.append('Financial sources disagree')
     if f.get('annual_conflict_recheck_required'):reasons.append('Annual-report correction requires re-verification')
     try:
@@ -22,7 +41,7 @@ def financial_reasons(f,observed,clock):
     except (TypeError,ValueError):reasons.append('Financial observation time unavailable')
     if annual.get('statement_type') not in ('consolidated','standalone') or not annual.get('units_in'):reasons.append('Annual basis or units unavailable')
     if (any(summary.get(k)!=annual.get('period') for k in ('revenue_period','net_profit_period')) or summary.get('statement_type')!=annual.get('statement_type') or summary.get('units')!=annual.get('units_in') or summary.get('frequency') not in ('yearly','annual')):reasons.append('Growth inputs do not match annual period, basis and units')
-    if any(number(summary.get(k)) is None for k in ('revenue_growth_yoy','net_profit_growth_yoy')):reasons.append('Comparable annual growth inputs missing')
+    if any(number(summary.get(k+'_growth_yoy')) is None and not undefined_growth(summary,k) for k in ('revenue','net_profit')):reasons.append('Comparable annual growth inputs missing')
     if any(number(annual.get(k)) is not None and number(annual[k])<0 for k in FIELDS[1:] if k!='equity'):reasons.append('Negative finance, debt or cash input needs review')
     return reasons
 
@@ -31,13 +50,17 @@ def source_reasons(f,times,clock):
     required=[] if nse else ['income_statement','balance_sheet','cash_flow']
     growth=[key for key in ('revenue','net_profit') if summary.get(key+'_growth_yoy') is not None]
     if nse and any(summary.get('growth_sources',{}).get(key) not in ('nse_audited_filing','company_annual_report') for key in growth):required.append('income_statement')
+    # Undefined-growth inputs taken from the provider still need a fresh provider payload.
+    if nse and any(((summary.get('growth_inputs') or {}).get(key) or {}).get('source')=='upstox' for key in ('revenue','net_profit') if key not in growth):required.append('income_statement')
     observations=[times.get(k) for k in required]
-    for evidence in (f.get('latest') or {}).get('sources',{}).values():
-        if isinstance(evidence,dict) and evidence.get('source')=='company_annual_report':observations.append(evidence.get('observed_at'))
+    for evidence in list((f.get('latest') or {}).get('sources',{}).values())+list(((f.get('latest') or {}).get('not_applicable') or {}).values()):
+        if isinstance(evidence,dict) and evidence.get('source') in ('company_annual_report',BANK_SOURCE):observations.append(evidence.get('observed_at'))
     if f.get('selected_source')=='nse_audited_filing':observations.append((f.get('latest') or {}).get('observed_at') or (f.get('fallbacks') or {}).get('nse',{}).get('observed_at'))
     if nse:
         for key in growth:
             if summary.get('growth_sources',{}).get(key) in ('nse_audited_filing','company_annual_report'):observations.extend(summary.get('growth_observed_at',{}).get(key) or [None])
+    for key,entry in (summary.get('growth_inputs') or {}).items():
+        if key not in growth and isinstance(entry,dict) and entry.get('source') in ('nse_audited_filing','company_annual_report'):observations.extend(entry.get('observed_at') or [None])
     for stamp in observations:
         try:
             if not 0<=(clock-datetime.fromisoformat(stamp)).total_seconds()<=30*86400:return ['Underlying financial evidence older than 30 days or future dated']

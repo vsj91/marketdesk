@@ -37,6 +37,9 @@ def summary_metrics(payloads):
             prev=next((v for o,v,p in values[1:] if o==(order[0]-1,order[1])),None)
             # Negative/zero comparison bases are not a meaningful growth percent.
             out[category+'_growth_yoy']=(value/prev-1)*100 if prev is not None and prev>0 else None
+            if prev is not None and prev<=0:
+                prior_period=next(p for o,v,p in values[1:] if o==(order[0]-1,order[1]))
+                out.setdefault('growth_inputs',{})[category]={'current':value,'prior':prev,'prior_period':prior_period,'source':'upstox'}
     return out
 
 def import_exports(folder,db_path, symbols=None,mode='both'):
@@ -134,6 +137,8 @@ def import_exports(folder,db_path, symbols=None,mode='both'):
                     details=retain_annual_resolutions(details,json.loads(previous[0]),symbol,isin)
                     from .report_growth import retain_company_growth
                     details=retain_company_growth(details,json.loads(previous[0]),symbol,isin)
+                    from .bank_inputs import retain_bank_inputs
+                    details=retain_bank_inputs(details,json.loads(previous[0]),symbol,isin)
                 db.execute('INSERT INTO fundamentals VALUES(?,?,?) ON CONFLICT(symbol) DO UPDATE SET details=excluded.details,observed_at=excluded.observed_at',(symbol,json.dumps(details,allow_nan=False),stamp))
                 profile=payloads.get('profile',{}).get('data',{})
                 db.execute('UPDATE instruments SET sector=?,name=? WHERE symbol=?',(details.get('sector'),profile.get('name') or profile.get('company_name') or master.get(key,{}).get('name') or symbol,symbol))

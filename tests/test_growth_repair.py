@@ -36,8 +36,14 @@ class GrowthRepairTests(unittest.TestCase):
   prior={**current,'period':'Mar 2025','period_end':'2025-03-31','revenue':100,'net_profit':10}
   details={'latest':copy.deepcopy(current),'summary':{}}
   summary=checked_pair(details,current,prior);self.assertAlmostEqual(summary['revenue_growth_yoy'],20);self.assertEqual(details['summary'],{})
-  for key,value in [('statement_type','standalone'),('units_in','lakh'),('period_end','2024-03-31'),('net_profit',0),('net_profit',-1),('revenue',None)]:
+  for key,value in [('statement_type','standalone'),('units_in','lakh'),('period_end','2024-03-31'),('revenue',None)]:
    with self.assertRaises(ValueError):checked_pair(details,current,{**prior,key:value})
+  # A zero or negative prior base keeps both verified years and leaves growth undefined.
+  from marketdesk.quality import undefined_growth
+  for value in (0,-1):
+   summary=checked_pair(details,current,{**prior,'net_profit':value})
+   self.assertIsNone(summary['net_profit_growth_yoy']);self.assertEqual(summary['growth_inputs']['net_profit']['prior'],value)
+   self.assertTrue(undefined_growth(summary,'net_profit'));self.assertNotIn('net_profit',summary['growth_sources'])
   with self.assertRaises(ValueError):checked_pair(details,{**current,'finance_costs':9},prior)
 
  def test_retained_growth_requires_unchanged_hash_and_current_context(self):

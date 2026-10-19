@@ -20,7 +20,9 @@ def missing(details):
 def targets(path):
     with connect(path) as db:
         rows=[dict(r) for r in db.execute('SELECT i.symbol,i.isin,f.details,f.observed_at,q.report FROM instruments i LEFT JOIN fundamentals f ON i.symbol=f.symbol LEFT JOIN quality q ON i.symbol=q.symbol WHERE '+symbol_filter(db,'i.symbol')+' ORDER BY i.symbol')]
-    return [r for r in rows if (json.loads(r['details'] or '{}').get('status')!='COMPLETE' or json.loads(r['report'] or '{}').get('financial_reasons'))]
+    from .bank_inputs import bank_refresh_due
+    # Bank filing evidence is refreshed before it reaches the 30-day freshness limit.
+    return [r for r in rows if (json.loads(r['details'] or '{}').get('status')!='COMPLETE' or json.loads(r['report'] or '{}').get('financial_reasons') or bank_refresh_due(json.loads(r['details'] or '{}')))]
 
 
 def run_repair(job,rows):
@@ -84,7 +86,7 @@ def run_repair(job,rows):
                         # Reapply only while the source context still matches the worker snapshot.
                         if details==result.get('extra_baseline'):details=result['extra_repaired']
                         selected=details.get('latest') or {}
-                        observed=selected.get('observed_at') if details.get('selected_source')=='nse_audited_filing' else None
+                        observed=selected.get('observed_at') if details.get('selected_source') in ('nse_audited_filing','nse_audited_banking_filing') else None
                         observed=observed or (current['observed_at'] if current else None) or row.get('observed_at') or started
                         db.execute('INSERT INTO fundamentals VALUES(?,?,?) ON CONFLICT(symbol) DO UPDATE SET details=excluded.details,observed_at=excluded.observed_at',(symbol,json.dumps(details,allow_nan=False),observed))
                     remaining=missing(details);gained=sorted(set(old_missing)-set(remaining))

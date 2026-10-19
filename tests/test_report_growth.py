@@ -54,8 +54,11 @@ class ReportGrowthTests(unittest.TestCase):
  def test_ligatures_are_decoded_without_changing_numbers(self):
   self.assertEqual(parse_growth(TEXT.replace('Profit','Proﬁt'),BASE)['current']['profit_before_tax'],10)
  def test_wrong_context_anchors_missing_or_negative_denominator_blocked(self):
-  for text in [TEXT.replace('STANDALONE','CONSOLIDATED'),TEXT.replace('INR','USD'),TEXT.replace('1000.00','2000.00'),TEXT.replace('700.00','(700.00)'),TEXT.replace('700.00','-'),TEXT.replace('Net Profit After Tax','Other comprehensive income')]:
+  for text in [TEXT.replace('STANDALONE','CONSOLIDATED'),TEXT.replace('INR','USD'),TEXT.replace('1000.00','2000.00'),TEXT.replace('700.00','-'),TEXT.replace('Net Profit After Tax','Other comprehensive income')]:
    with self.assertRaises(ValueError):parse_growth(text,BASE)
+ def test_negative_prior_profit_keeps_both_years_without_growth(self):
+  parsed=parse_growth(TEXT.replace('700.00','(700.00)'),BASE)
+  self.assertAlmostEqual(parsed['prior']['net_profit'],-7.0)
  def test_duplicate_profit_rows_rejected(self):
   with self.assertRaises(ValueError):parse_growth(TEXT+'Net Profit After Tax    800.00    700.00\n',BASE)
  def test_company_growth_evidence_time_is_required(self):

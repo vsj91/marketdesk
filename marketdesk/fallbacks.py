@@ -260,6 +260,8 @@ def apply_fallback(details,result):
                     value=row.get(key);previous=(prior or {}).get(key)
                     summary[key]=value;summary[key+'_period']=row['period']
                     summary[key+'_growth_yoy']=(value/previous-1)*100 if value is not None and previous is not None and previous>0 else None
+                    if value is not None and previous is not None and previous<=0:
+                        summary.setdefault('growth_inputs',{})[key]={'current':value,'prior':previous,'prior_period':prior['period'],'source':'nse_audited_filing','observed_at':[row.get('observed_at'),prior.get('observed_at')]}
                     if summary[key+'_growth_yoy'] is not None:
                         summary['growth_sources'][key]='nse_audited_filing'
                         summary['growth_observed_at'][key]=[row.get('observed_at'),prior.get('observed_at')]
@@ -269,6 +271,7 @@ def apply_fallback(details,result):
                 for key in ('revenue','net_profit'):
                     if summary[key+'_growth_yoy'] is None and all(old.get(k)==summary.get(k) for k in ('statement_type','units')) and old.get(key+'_period')==row['period'] and old.get('frequency') in ('annual','yearly'):
                         summary[key+'_growth_yoy']=old.get(key+'_growth_yoy')
+                        if key in (old.get('growth_inputs') or {}) and key not in summary.get('growth_inputs',{}):summary.setdefault('growth_inputs',{})[key]=old['growth_inputs'][key]
                         summary['growth_sources'][key]=old.get('growth_sources',{}).get(key,'upstox')
                         if key in old.get('growth_observed_at',{}):summary['growth_observed_at'][key]=old['growth_observed_at'][key]
                 details['summary']=summary

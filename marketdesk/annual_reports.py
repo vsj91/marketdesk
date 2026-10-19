@@ -1035,7 +1035,9 @@ def apply_report(details,report):
     latest['missing_fields']=[k for k in latest.get('missing_fields',[]) if k not in filled];details['latest']=latest
     details['missing_fields']=[k for k in details.get('missing_fields',[]) if k not in filled]
     from .provider import FUNDAMENTAL_REQUIRED_FIELDS
-    details['status']='COMPLETE' if details.get('sector') and all(latest.get(k) is not None for k in FUNDAMENTAL_REQUIRED_FIELDS) else 'PARTIAL'
+    from .bank_inputs import not_applicable
+    na=not_applicable(details)
+    details['status']='COMPLETE' if details.get('sector') and all(latest.get(k) is not None or k in na for k in FUNDAMENTAL_REQUIRED_FIELDS) else 'PARTIAL'
     return details
 
 def retain_report(details,previous,symbol,isin):
