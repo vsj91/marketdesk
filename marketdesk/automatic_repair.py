@@ -36,6 +36,18 @@ def repair_extra(symbol,isin,details):
                 out=apply_bank_inputs(out,fetch_bank_inputs(symbol,isin,out),symbol,isin)
                 attempts.append({'source':'Audited NSE banking filing','status':'verified'})
         except Exception as error:attempts.append({'source':'Audited NSE banking filing','status':'unresolved','reason':str(error)[:180]})
+    # Insurers: audited NSE insurance filings, then the annual report's Form A-PL for
+    # interest on subordinated debt (and growth for a first-year listing).
+    if 'insurance' in (out.get('sector') or '').lower():
+        from .insurer_inputs import insurer_refresh_due,fetch_insurer_record,insurer_record,fetch_insurer_report,apply_insurer_report
+        try:
+            if insurer_refresh_due(out):out=insurer_record(out,fetch_insurer_record(symbol,isin,out),symbol,isin)
+            attempts.append({'source':'Audited NSE insurance filing','status':'verified'})
+            reasons=financial_reasons(out,now(),datetime.now(timezone.utc))
+            if out.get('insurer_record') and ('Annual financial inputs incomplete' in reasons or 'Comparable annual growth inputs missing' in reasons):
+                out=apply_insurer_report(out,fetch_insurer_report(symbol,isin,out),symbol,isin)
+                attempts.append({'source':'Insurer annual report Form A-PL','status':'verified'})
+        except Exception as error:attempts.append({'source':'Audited insurance sources','status':'unresolved','reason':str(error)[:180]})
     latest=out.get('latest') or {}
     if not latest.get('period') or latest.get('statement_type') not in ('consolidated','standalone'):
         out['automatic_repair']={'checked_at':now(),'attempts':attempts+[{'source':'Audited annual context','status':'unresolved','reason':'A verified annual period and statement basis are required before growth repair'}]}

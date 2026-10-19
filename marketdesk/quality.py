@@ -5,11 +5,11 @@ import collections,json,math
 from datetime import datetime,timedelta,timezone
 from .storage import connect,get_state,set_state,number
 from .liability_bound import attach,bounded_debt_pass
-from .bank_inputs import not_applicable,SOURCE as BANK_SOURCE
+from .bank_inputs import not_applicable,SOURCE as BANK_SOURCE,INSURER_SOURCE
 IST=timezone(timedelta(hours=5,minutes=30))
 FIELDS=('profit_before_tax','finance_costs','equity','total_borrowings','total_lease_liabilities','cash_and_cash_equivalents')
 
-GROWTH_INPUT_SOURCES=('upstox','nse_audited_filing','company_annual_report',BANK_SOURCE)
+GROWTH_INPUT_SOURCES=('upstox','nse_audited_filing','company_annual_report',BANK_SOURCE,INSURER_SOURCE)
 
 def undefined_growth(summary,key):
     """Both years' figures are on file but the prior base is zero or negative, so a growth % is undefined.
@@ -54,7 +54,7 @@ def source_reasons(f,times,clock):
     if nse and any(((summary.get('growth_inputs') or {}).get(key) or {}).get('source')=='upstox' for key in ('revenue','net_profit') if key not in growth):required.append('income_statement')
     observations=[times.get(k) for k in required]
     for evidence in list((f.get('latest') or {}).get('sources',{}).values())+list(((f.get('latest') or {}).get('not_applicable') or {}).values()):
-        if isinstance(evidence,dict) and evidence.get('source') in ('company_annual_report',BANK_SOURCE):observations.append(evidence.get('observed_at'))
+        if isinstance(evidence,dict) and evidence.get('source') in ('company_annual_report',BANK_SOURCE,INSURER_SOURCE):observations.append(evidence.get('observed_at'))
     if f.get('selected_source')=='nse_audited_filing':observations.append((f.get('latest') or {}).get('observed_at') or (f.get('fallbacks') or {}).get('nse',{}).get('observed_at'))
     if nse:
         for key in growth:

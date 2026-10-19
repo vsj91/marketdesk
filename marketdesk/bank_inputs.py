@@ -117,11 +117,15 @@ def anchors(latest,bank):
     return matched
 
 
+INSURER_SOURCE='nse_audited_insurance_filing'
+INSURER_FRAMEWORK='IRDAI financial statement regulations (Indian GAAP)'
+NA_SOURCES={SOURCE:FRAMEWORK,INSURER_SOURCE:INSURER_FRAMEWORK}
+
 def not_applicable(details):
-    """Inputs a verified bank filing shows the reporting framework does not carry."""
+    """Inputs a verified bank or insurer filing shows its reporting framework does not carry."""
     latest=(details or {}).get('latest') or {};out=set()
     for key,entry in (latest.get('not_applicable') or {}).items():
-        if isinstance(entry,dict) and entry.get('source')==SOURCE and entry.get('framework')==FRAMEWORK and entry.get('period')==latest.get('period') and entry.get('statement_type')==latest.get('statement_type'):out.add(key)
+        if isinstance(entry,dict) and NA_SOURCES.get(entry.get('source'))==entry.get('framework') and entry.get('framework') and entry.get('period')==latest.get('period') and entry.get('statement_type')==latest.get('statement_type'):out.add(key)
     return out
 
 
@@ -166,11 +170,11 @@ def apply_bank_inputs(details,proof,symbol,isin):
     return out
 
 
-def saved_proof(symbol,isin,proof):
+def saved_proof(symbol,isin,proof,parser=None):
     """Re-read the hash-bound saved filing; never trust stored values."""
     raw=(ROOT/'data/filings'/symbol/(proof['raw_sha256']+'.html')).read_bytes()
-    if hashlib.sha256(raw).hexdigest()!=proof['raw_sha256']:raise ValueError('Saved bank filing hash mismatch')
-    return {**{k:v for k,v in proof.items() if k!='bank'},'bank':bank_annual(raw.decode('utf-8'),symbol,isin,proof['source_url'])}
+    if hashlib.sha256(raw).hexdigest()!=proof['raw_sha256']:raise ValueError('Saved filing hash mismatch')
+    return {**{k:v for k,v in proof.items() if k!='bank'},'bank':(parser or bank_annual)(raw.decode('utf-8'),symbol,isin,proof['source_url'])}
 
 
 def retain_bank_inputs(details,previous,symbol,isin):
@@ -194,27 +198,30 @@ def _age(stamp):
     except (TypeError,ValueError):return 1e12
 
 
-def _index(symbol,client):
+def _index(symbol,client,kinds=('BANKING',)):
     from .financial_sources import request
     from .intraday_data import atomic_json
     folder=ROOT/'data/fundamental-repair/sources'/symbol;folder.mkdir(parents=True,exist_ok=True)
     index_file=folder/'index.json';index=json.loads(index_file.read_text()) if index_file.exists() else {}
-    if index.get('symbol',symbol)!=symbol or not 0<=_age(index.get('observed_at'))<86400:
-        response=request(client.session,'https://www.nseindia.com/api/integrated-filing-results',params={'symbol':symbol})
-        index={'symbol':symbol,'observed_at':now(),'payload':response.json()};atomic_json(index_file,index)
+    if index.get('symbol',symbol)!=symbol or index.get('size')!=100 or not 0<=_age(index.get('observed_at'))<86400:
+        # The default page holds 20 filings; size=100 returns the full history.
+        response=request(client.session,'https://www.nseindia.com/api/integrated-filing-results',params={'symbol':symbol,'size':100})
+        index={'symbol':symbol,'observed_at':now(),'payload':response.json(),'size':100};atomic_json(index_file,index)
     rows=index['payload'];rows=rows if isinstance(rows,list) else rows.get('data',[])
     out=[]
     for row in rows:
-        url=row.get('ixbrl') or '';u=urlsplit(url)
-        if row.get('symbol')!=symbol or row.get('audited')!='Audited' or (row.get('consolidated') or '').lower() not in ('standalone','consolidated'):continue
-        if u.scheme!='https' or u.hostname!='nsearchives.nseindia.com' or not u.path.startswith('/corporate/ixbrl/') or 'BANKING' not in u.path:continue
+        # Some filings publish only the XBRL instance (no iXBRL page); both are NSE archive documents.
+        url=row.get('ixbrl') or row.get('xbrl') or '';u=urlsplit(url)
+        # The index 'audited' flag describes the quarter; the parser checks the year-to-date audit.
+        if row.get('symbol')!=symbol or (row.get('consolidated') or '').lower() not in ('standalone','consolidated'):continue
+        if u.scheme!='https' or u.hostname!='nsearchives.nseindia.com' or not (u.path.startswith('/corporate/ixbrl/') or u.path.startswith('/corporate/xbrl/')) or not any(k in u.path for k in kinds):continue
         try:day=datetime.strptime(row.get('qe_Date',''),'%d-%b-%Y').date()
         except ValueError:continue
         out.append({'url':url,'day':day,'basis':row['consolidated'].lower()})
     return out
 
 
-def _filing(symbol,isin,url,client):
+def _filing(symbol,isin,url,client,parser=None):
     from .financial_sources import request
     from .intraday_data import atomic_json
     folder=ROOT/'data/fundamental-repair/sources'/symbol
@@ -222,7 +229,7 @@ def _filing(symbol,isin,url,client):
     record=json.loads(cache.read_text()) if cache.exists() else {}
     if record.get('source_url')!=url or not 0<=_age(record.get('observed_at'))<7*86400:
         response=request(client.session,url);record={'source_url':url,'observed_at':now(),'html':response.text};atomic_json(cache,record)
-    bank=bank_annual(record['html'],symbol,isin,url)
+    bank=(parser or bank_annual)(record['html'],symbol,isin,url)
     content=record['html'].encode('utf-8');digest=hashlib.sha256(content).hexdigest()
     raw=ROOT/'data/filings'/symbol/(digest+'.html');raw.parent.mkdir(parents=True,exist_ok=True)
     if not raw.exists():raw.write_bytes(content)

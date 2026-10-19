@@ -40,7 +40,7 @@ def work(row):
     d=json.loads(row['details']);symbol=row['symbol']
     proposed=provider_growth_inputs(d,payloads.get(symbol,{}))
     proposed=repair_extra(symbol,row['isin'],proposed)
-    observed=proposed['latest'].get('observed_at') if proposed.get('selected_source') in ('nse_audited_filing','nse_audited_banking_filing') and proposed['latest'].get('observed_at') else row['observed_at']
+    observed=proposed['latest'].get('observed_at') if proposed.get('selected_source') in ('nse_audited_filing','nse_audited_banking_filing','nse_audited_insurance_filing') and proposed['latest'].get('observed_at') else row['observed_at']
     return d,proposed,observed
 
 started=now();folder=ROOT/'data/readiness-inputs'/started.replace(':','-');atomic_json(folder/'before.json',rows)
