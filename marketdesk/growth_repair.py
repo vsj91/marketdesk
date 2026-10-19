@@ -12,9 +12,12 @@ def checked_pair(details,current,prior):
     latest=details.get('latest') or {}
     for key in ('period','statement_type','units_in'):
         if current.get(key)!=latest.get(key):raise ValueError('Current income context does not match selected annual')
+    # A report printed in coarser units (e.g. whole INR millions) can only match
+    # to half its printed rounding step; the step is read from the printed digits.
+    quanta=current.get('rounding_quanta') or {}
     for key in ('profit_before_tax','finance_costs'):
         a,b=current.get(key),latest.get(key)
-        if a is None or b is None or abs(a-b)>max(.015,abs(b)*.00002):raise ValueError('Current income anchors do not match')
+        if a is None or b is None or abs(a-b)>max(.015,abs(b)*.00002,quanta.get(key,0)/2+1e-9):raise ValueError('Current income anchors do not match')
     end=datetime.fromisoformat(current['period_end']).date()
     if prior.get('period_end')!=end.replace(year=end.year-1).isoformat():raise ValueError('Prior income is not the preceding annual period')
     if any(prior.get(k)!=current.get(k) for k in ('statement_type','units_in')):raise ValueError('Prior income basis or units differ')

@@ -4,7 +4,7 @@ from pathlib import Path
 from datetime import datetime,timezone
 import pymupdf
 from .storage import ROOT,now
-from .annual_reports import balance_text,statement_context,caption,amount,NUM,NOTE_REF,FORMULA_REF,save_excerpt
+from .annual_reports import balance_text,statement_context,caption,amount,NUM,NOTE_REF,FORMULA_REF,save_excerpt,sole_entity_basis,SOLE_ENTITY_CLAUSE
 from .financial_sources import request
 from .fallbacks import Fallbacks
 from .growth_repair import checked_pair
@@ -13,7 +13,7 @@ from .intraday_data import atomic_json
 
 def parse_growth(text,latest):
  text=unicodedata.normalize('NFKC',text)
- text,basis,(units,scale)=statement_context(text,latest,'income');found={};lines={}
+ text,basis,(units,scale)=statement_context(text,latest,'income');found={};lines={};quanta={}
  labels={
   'revenue':{'revenue from operations','total revenue from operations','revenue from operations (net)','revenue from contracts with customers'},
   'net_profit':{'profit for the year','profit for the period','profit/(loss) for the year','profit/(loss) for the period','profit / (loss) for the year','profit / (loss) for the period','profit (loss) for the year','profit (loss) for the period','profit after tax','net profit after tax','net profit/(loss) after tax','profit/(loss) after tax','profit for the year after tax','net profit for the year after tax','profit for the period/year','profit for the year/period'},
@@ -31,6 +31,7 @@ def parse_growth(text,latest):
   vals=[amount(m[i]) for i in (1,2)]
   if any(v is None for v in vals):raise ValueError('Missing explicit comparative income: '+key)
   found[key]=[v*scale for v in vals];lines[key]=line.strip()
+  token=m[1].replace(',','').strip('()-');quanta[key]=scale*10**(-len(token.split('.')[1]) if '.' in token else 0)
  if set(found)!=set(labels):raise ValueError('Explicit annual income rows missing: '+','.join(sorted(set(labels)-set(found))))
  current={k:v[0] for k,v in found.items()};prior={k:v[1] for k,v in found.items()}
  end=datetime.strptime(latest['period'],'%b %Y');import calendar
@@ -38,7 +39,8 @@ def parse_growth(text,latest):
  for row,delta in [(current,0),(prior,-1)]:
   period=date.replace(year=date.year+delta);row.update(period=period.strftime('%b %Y'),period_end=period.isoformat(),statement_type=basis,units_in='crore')
  for key in ('revenue','net_profit'):
-  if latest.get(key) is not None and abs(current[key]-latest[key])>max(.015,abs(latest[key])*.00002):raise ValueError('Selected annual '+key+' differs from report')
+  if latest.get(key) is not None and abs(current[key]-latest[key])>max(.015,abs(latest[key])*.00002,quanta[key]/2+1e-9):raise ValueError('Selected annual '+key+' differs from report')
+ current['rounding_quanta']=quanta
  # checked_pair independently validates PBT, finance costs, annual context and
  # positive prior-year denominators. Observation times are supplied by caller.
  for row in (current,prior):row['observed_at']=now()
@@ -51,10 +53,12 @@ def extract_pdf(path,latest,expected_isin=None):
  with pymupdf.open(path) as doc:
   if len(doc)>1200:raise ValueError("Annual report exceeds page limit")
   if expected_isin and not any(expected_isin in re.sub(r"\s+","",p.get_text()) for p in doc):raise ValueError("Company PDF does not contain the expected ISIN")
+  sole=sole_entity_basis([p.get_text() for p in doc]) if latest.get('statement_type')=='standalone' else None
   for i,p in enumerate(doc):
    low=' '.join(unicodedata.normalize('NFKC',p.get_text()).lower().split())
    audit=re.findall(r'report on the audit of (?:the )?(standalone|consolidated) financial statements',low[:6000])
    if len(set(audit))==1:basis_context=(audit[0],i)
+   elif sole and i==sole[0]:basis_context=('standalone',i)
    if not re.search(r'statement of (?:standalone |consolidated )?profit',low):continue
    clips=[('full_page',None)]
    if p.rect.width>p.rect.height*1.15:clips.extend([('left_half',pymupdf.Rect(0,0,p.rect.width/2,p.rect.height)),('right_half',pymupdf.Rect(p.rect.width/2,0,p.rect.width,p.rect.height))])
@@ -64,7 +68,9 @@ def extract_pdf(path,latest,expected_isin=None):
      text=basis_context[0]+'\n'+text;contextual=True
     try:
      parsed=parse_growth(text,latest);parsed.update(pages=[i+1],layout=layout)
-     if contextual:parsed.update(basis_evidence_page=basis_context[1]+1,basis_evidence=basis_context[0])
+     if contextual:
+      parsed.update(basis_evidence_page=basis_context[1]+1,basis_evidence=basis_context[0])
+      if sole and basis_context[1]==sole[0]:parsed.update(basis_method='sole_entity_no_subsidiary',basis_clause=sole[1])
      candidates.append(parsed)
     except ValueError as e:
      if re.search(r'statement of (?:standalone |consolidated )?profit',' '.join(text.lower().split())[:800]):diagnostics.append({'page':i+1,'reason':str(e)})
@@ -140,7 +146,9 @@ def apply_growth(details,proof,symbol,isin):
    texts.append(balance_text(p,clip))
   if e.get('basis_evidence_page'):
    audit=' '.join(doc[-1].get_text().lower().split());bases=re.findall(r'report on the audit of (?:the )?(standalone|consolidated) financial statements',audit[:6000])
-   if set(bases)!={e['basis_evidence']}:raise ValueError('Auditor basis context changed')
+   if e.get('basis_method')=='sole_entity_no_subsidiary':
+    if e['basis_evidence']!='standalone' or bases or not re.search(SOLE_ENTITY_CLAUSE,audit):raise ValueError('Auditor no-subsidiary statement changed')
+   elif set(bases)!={e['basis_evidence']}:raise ValueError('Auditor basis context changed')
    texts.insert(0,e['basis_evidence'])
  parsed=parse_growth('\n'.join(texts),details['latest'])
  for name in ('current','prior'):

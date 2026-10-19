@@ -508,7 +508,13 @@ def balance_text(page,clip=None):
         return label in labels or bool(re.fullmatch(r'[a-z .&]+\s*\|\s*annual report 20\d{2}[-–]\d{2}',label))
     if rotated and horizontal and all(navigation_label(line) for line in rotated):
         edge=min(line['bbox'][0] for line in rotated)
-        if edge>max(line['bbox'][2] for line in horizontal) and edge>page.rect.width*.9:
+        # A one- or two-glyph decorative icon (no digits) in the outer margin is
+        # not table text; it must not keep the navigation rail inside the crop.
+        def margin_icon(line):
+            text=''.join(s.get('text','') for s in line['spans']).strip()
+            return len(text)<=2 and not re.search(r'\d',text) and line['bbox'][0]>=page.rect.width*.9
+        table=[line for line in horizontal if not margin_icon(line)] or horizontal
+        if edge>max(line['bbox'][2] for line in table) and edge>page.rect.width*.9:
             import pymupdf
             bounds=pymupdf.Rect(clip or page.rect);bounds.x1=min(bounds.x1,edge-.1)
             kwargs={'clip':bounds}
@@ -556,6 +562,30 @@ def audited_section_basis(text):
         matches+=list(re.finditer(r'in connection with our audit of the (standalone|consolidated) financial statements',compact,re.I))
     if matches and len({m[1].lower() for m in matches})==1:
         return matches[0][1].lower(),matches[0][0]
+    return None
+
+SOLE_ENTITY_CLAUSE=(r'company (?:did|does) not have any subsidiar(?:y|ies)\s*(?:,|or|and)\s*(?:any )?(?:associates?|joint ventures?)(?: companies| company)?'
+                    r'\s*(?:,|or|and)\s*(?:or |and )?(?:any )?(?:associates?|joint ventures?)')
+
+def sole_entity_basis(pages):
+    """Standalone basis for a company that prepares only one set of statements.
+
+    Ind AS 110/28 require consolidated statements whenever a company has a
+    subsidiary, associate or joint venture, and listed companies then label both
+    sets. A company with none prints a single, unlabelled set. Accept that set as
+    standalone only when the auditor's report is titled for unqualified
+    "financial statements", no consolidated or standalone audit report or
+    consolidated statement heading appears anywhere, and the auditor's own
+    report states the company has no subsidiary, associate or joint venture.
+    Returns (clause page index, printed clause) or None."""
+    compact=[' '.join(unicodedata.normalize('NFKC',p).lower().split()) for p in pages]
+    if any(re.search(r'report on the audit of (?:the )?(?:standalone|consolidated)',c) or
+           re.search(r'consolidated (?:balance sheet|statement of profit|statement of cash flows?)\b',c[:600]) for c in compact):return None
+    headings=[i for i,c in enumerate(compact) if re.search(r'report on the audit of (?:the )?(?:ind[- ]as )?financial statements',c[:6000])]
+    if not headings:return None
+    for i in range(headings[0],min(headings[0]+21,len(compact))):
+        m=re.search(SOLE_ENTITY_CLAUSE,compact[i])
+        if m:return i,m[0]
     return None
 
 def verified_column_transcription(text,page,latest,clip=None):
@@ -617,6 +647,7 @@ def pdf_worker(pdf_path,context_path,output_path):
         Path(output_path).write_text(json.dumps({'status':'unresolved','reason':'Company PDF does not contain the expected ISIN'}));return
     candidates=[];issues=[];diagnostics=[];basis_context=None;lease_notes=[]
     plain_pages=[p.get_text() for p in doc]
+    sole=sole_entity_basis(plain_pages) if latest.get('statement_type')=='standalone' else None
     if latest.get('total_lease_liabilities') is None:
         for j,plain in enumerate(plain_pages):
             if re.search(r'capital\s+management',plain,re.I):
@@ -648,6 +679,7 @@ def pdf_worker(pdf_path,context_path,output_path):
         plain=plain_pages[i];low=balance_heading_text(' '.join(plain.lower().split())).lower()
         audit=audited_section_basis(plain)
         if audit:basis_context=(audit[0],i,audit[1])
+        elif sole and i==sole[0]:basis_context=('standalone',i,sole[1])
         # Cheap text pass; expensive layout text only for actual statement pages.
         if not re.search(r'\bbalance\s+sheet\b',low) or not ('cash and cash equivalents' in low or 'equity and liabilities' in low):continue
         clips=[None]
@@ -730,6 +762,7 @@ def pdf_worker(pdf_path,context_path,output_path):
                 if contextual:
                     evidence['basis_evidence_page']=basis_context[1]+1
                     evidence['basis_evidence']=basis_context[2]
+                    if sole and basis_context[1]==sole[0]:evidence['basis_method']='sole_entity_no_subsidiary'
                     selected.append(basis_context[1])
                 evidence['layout']='right_then_left' if cross_spread else 'joined_balance_spread' if joined_spread else 'full_page' if clip is None else 'left_half' if clip.x0==0 else 'right_half'
                 candidates.append((evidence,selected))
