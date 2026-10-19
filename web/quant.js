@@ -37,7 +37,7 @@ function renderQuant(){
  if(!list.some(b=>b.basket===quantPick))quantPick=list[0].basket;
  const open=new Set(Array.from(root.querySelectorAll('details[open]')).map(el=>el.dataset.disclosure));
  const total=list.reduce((a,b)=>a+b.nav,0),start=list.reduce((a,b)=>a+b.capital,0);
- $('quantTotal').innerHTML=`<div class="muted">All quant baskets · paper</div><div class="big">${inr(total)}</div><div class="${tone(total-start)}">${signedInr(total-start)} · ${pct((total-start)/start*100)}</div>`;
+ $('quantTotal').innerHTML=`<div class="muted">Daily baskets total</div><div class="big">${inr(total)}</div><div class="${tone(total-start)}">${signedInr(total-start)} · ${pct((total-start)/start*100)}</div>`;
  $('quantGrid').innerHTML=list.map(quantCard).join('');
  $('quantGrid').querySelectorAll('[data-width]').forEach(el=>el.style.width=el.dataset.width+'%');
  $('quantDetail').innerHTML=quantDetail(list.find(b=>b.basket===quantPick),open);
