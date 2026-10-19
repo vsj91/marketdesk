@@ -120,6 +120,56 @@ def run_trend(bars,feats,by_day,capital,gate=None,size=10000,max_positions=10,st
         equity.append((day,cash+sum(p['qty']*by_day[s2].get(day,{}).get('close',p['entry_px']) for s2,p in pos.items())));prev=day
     return trades,equity,pos
 
+def load_fundamentals(path):
+    db=sqlite3.connect(f'file:{path}?mode=ro',uri=True);db.row_factory=sqlite3.Row
+    return {r['symbol']:json.loads(r['details']) for r in db.execute('SELECT symbol,details FROM fundamentals')}
+
+def filing_date(details,lag_days=75):
+    """Conservative public date for the stored annual figures: period end plus 75 days (SEBI allows 60)."""
+    try:period=datetime.strptime(details['latest']['period'],'%b %Y')
+    except (KeyError,ValueError,TypeError):return None
+    import calendar
+    end=period.replace(day=calendar.monthrange(period.year,period.month)[1])
+    return (end+__import__('datetime').timedelta(days=lag_days)).date().isoformat()
+
+def run_investor(bars,feats,by_day,funds,capital,gate=None,size=10000,max_positions=10,stop=.10,start=None,end=None):
+    """Investor rules with the live entry_signal. Annual figures are used only after period end + 75 days, so
+    only the latest filings are available: the test window is the months after those filings were public."""
+    from marketdesk.autotrading import entry_signal
+    avail={s2:filing_date(d) for s2,d in funds.items()}
+    days=sorted({d for s2 in by_day for d in by_day[s2]});days=[d for d in days if (not start or d>=start) and (not end or d<=end)]
+    cash=float(capital);pos={};trades=[];equity=[];prev=None
+    for i,day in enumerate(days):
+        for s2 in list(pos):
+            p=pos[s2];bar=by_day[s2].get(day)
+            if not bar:continue
+            px=None;reason=None;lvl=p['entry_px']*(1-stop)
+            if bar['open']<=lvl:px,reason=bar['open'],'stop(gap)'
+            elif bar['low']<=lvl:px,reason=lvl,'stop'
+            elif p['ma_exit']:px,reason=bar['open'],'trend'
+            if px:
+                v=p['qty']*px*(1-SLIP);fee=charges(round(v,2),'SELL',True)['total'];cash+=v-fee
+                trades.append(dict(symbol=s2,entry=p['entry_day'],exit=day,pnl=v-fee-p['cost'],ret=(v-fee)/p['cost']-1,reason=reason,days=i-p['i']));del pos[s2];continue
+            f=feats.get(s2,{}).get(day)
+            if f and bar['close']<f['dma200']:p['ma_exit']=True
+        if prev and (gate is None or gate.get(prev)):
+            clock=datetime.fromisoformat(day+'T09:20:00+05:30');cands=[]
+            for s2,fd in feats.items():
+                f=fd.get(prev)
+                if not f or s2 in pos or not by_day[s2].get(day) or not avail.get(s2) or avail[s2]>prev:continue
+                sig=dict(as_of=prev+'T00:00:00+05:30',close=f['close'],dma50=f['dma50'],dma200=f['dma200'],high20=f['high20'],volume_ratio=f['volume_ratio'],turnover20=f['turnover20'],fundamentals=funds[s2])
+                r=entry_signal('investor',sig,by_day[s2][day]['open'],clock)
+                if r:cands.append((r[1],s2))
+            for _,s2 in sorted(cands,reverse=True):
+                if len(pos)>=max_positions:break
+                bar=by_day[s2][day];price=bar['open']*(1+SLIP);qty=int(min(cash,size)//price)
+                if qty<1:continue
+                v=qty*price;fee=charges(round(v,2),'BUY')['total']
+                if v+fee>cash:continue
+                cash-=v+fee;pos[s2]=dict(qty=qty,entry_px=price,cost=v+fee,ma_exit=False,entry_day=day,i=i)
+        equity.append((day,cash+sum(p['qty']*by_day[s2].get(day,{}).get('close',p['entry_px']) for s2,p in pos.items())));prev=day
+    return trades,equity,pos
+
 def metrics(trades,equity,capital):
     wins=[t for t in trades if t['pnl']>0];loss=[t for t in trades if t['pnl']<=0]
     peak=capital;dd=0
@@ -150,5 +200,12 @@ def main():
             trades,equity,_=run_trend(bars,feats,by_day,100000,gate=g,start=st or days[0],end=e)
             out['results'].append(dict(variant=name,period=period,capital=100000,**metrics(trades,equity,100000)))
             print(name,period,out['results'][-1],flush=True)
+    funds=load_fundamentals(args.database);fd=sorted(v for v in (filing_date(d) for d in funds.values()) if v)
+    start=fd[int(len(fd)*.5)];window=[d for d in all_days if d>=start]
+    ew=lambda a,b:round(100*statistics.mean(by_day[s2][b]['close']/by_day[s2][a]['close']-1 for s2 in by_day if a in by_day[s2] and b in by_day[s2]),2)
+    out['investor_window']={'start':start,'end':window[-1],'sessions':len(window),'equal_weight_buy_and_hold_pct':ew(window[0],window[-1])}
+    for name,g in (('investor_live_rules',None),('investor_live_rules+nifty200',gate)):
+        trades,equity,pos=run_investor(bars,feats,by_day,funds,100000,gate=g,start=start)
+        m=metrics(trades,equity,100000);m['open_positions']=len(pos);out['results'].append(dict(variant=name,period='after_filings',capital=100000,**m));print(name,out['results'][-1],flush=True)
     Path(args.output).write_text(json.dumps(out,indent=2))
 if __name__=='__main__':main()
