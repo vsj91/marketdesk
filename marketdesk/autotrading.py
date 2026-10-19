@@ -39,7 +39,8 @@ def buy_budget(portfolio,account,rules,config):
 def init_auto(path):
  with connect(path) as db:
   db.executescript('''CREATE TABLE IF NOT EXISTS auto_days(portfolio TEXT NOT NULL,session TEXT NOT NULL,opening_equity REAL NOT NULL,halted INTEGER NOT NULL DEFAULT 0,PRIMARY KEY(portfolio,session));
-  CREATE TABLE IF NOT EXISTS auto_events(id INTEGER PRIMARY KEY AUTOINCREMENT,created_at TEXT NOT NULL,portfolio TEXT NOT NULL,kind TEXT NOT NULL,symbol TEXT,reason TEXT NOT NULL,trade_id TEXT);''')
+  CREATE TABLE IF NOT EXISTS auto_events(id INTEGER PRIMARY KEY AUTOINCREMENT,created_at TEXT NOT NULL,portfolio TEXT NOT NULL,kind TEXT NOT NULL,symbol TEXT,reason TEXT NOT NULL,trade_id TEXT);
+  CREATE INDEX IF NOT EXISTS auto_events_lookup ON auto_events(portfolio,kind,symbol,created_at);''')
   init_attempts(db)
   if get_state(db,'auto_config') is None:set_state(db,'auto_config',{p:{'enabled':False} for p in RULES})
 
@@ -55,6 +56,9 @@ def entry_window_label(config,opening=False):
 
 def day_start(clock):return clock.astimezone(IST).replace(hour=0,minute=0,second=0,microsecond=0).astimezone(timezone.utc).isoformat()
 def event(db,portfolio,kind,reason,symbol=None,trade_id=None,clock=None,details=None):
+ # Scans repeat every 15 seconds; log each unchanged block once per session so fills stay visible.
+ # Order attempts keep their own full audit rows.
+ if kind=='blocked' and symbol and db.execute("SELECT 1 FROM auto_events WHERE portfolio=? AND kind='blocked' AND symbol=? AND reason=? AND created_at>=? LIMIT 1",(portfolio,symbol,reason,day_start(clock or datetime.now(timezone.utc)))).fetchone():return
  db.execute('INSERT INTO auto_events(created_at,portfolio,kind,symbol,reason,trade_id) VALUES(?,?,?,?,?,?)',((clock or datetime.now(timezone.utc)).isoformat(),portfolio,kind,symbol,reason,trade_id))
  if kind in ('blocked','fill') or details is not None:
   details=dict(details or {})
@@ -466,7 +470,17 @@ class AutoTrading:
 
 
 def event_snapshot(db):
- rows=[dict(r) for r in db.execute('SELECT * FROM auto_events ORDER BY id DESC LIMIT 30')]
+ # Group identical blocks per session into one line listing the stocks; history is not deleted.
+ rows=[];groups={}
+ # Once 30 lines are filled, keep reading a bounded tail only to complete the stock lists.
+ for r in db.execute('SELECT * FROM auto_events ORDER BY id DESC LIMIT 30000'):
+  blocked=r['kind']=='blocked' and r['symbol']
+  key=(r['portfolio'],r['reason'],session(datetime.fromisoformat(r['created_at']))) if blocked else None
+  if key in groups:
+   if r['symbol'] not in groups[key]['symbols']:groups[key]['symbols'].append(r['symbol'])
+  elif len(rows)<30:
+   rows.append(dict(r,symbols=[r['symbol']]) if blocked else dict(r))
+   if blocked:groups[key]=rows[-1]
  for r in rows:
   evidence=db.execute('SELECT details FROM auto_event_evidence WHERE event_id=?',(r['id'],)).fetchone()
   r['audit']=json.loads(evidence[0]) if evidence else {'blocked_by':blocked_category(r['reason']) if r['kind']=='blocked' else None,'evidence':'Legacy reason only; sizing inputs unverified'}

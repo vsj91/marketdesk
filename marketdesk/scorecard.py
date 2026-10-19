@@ -6,6 +6,15 @@ from .storage import get_state
 MIN_DAYS=90;MIN_CLOSED={'trader':30,'investor':20};MAX_DRAWDOWN_PCT=20.0;MIN_CHECKED_SESSIONS=20
 
 def gate(key,label,met,detail):return {'key':key,'label':label,'met':bool(met),'detail':detail}
+def inr(value):return ('−₹' if value<0 else '₹')+f'{abs(value):,.0f}'
+
+def closed_round_trips(db,name):
+    """Count exits that took a holding to zero; partial trims are not closed trades."""
+    held={};closed=0
+    for t in db.execute('SELECT symbol,side,quantity FROM trades WHERE portfolio=? ORDER BY created_at,rowid',(name,)):
+        before=held.get(t['symbol'],0);held[t['symbol']]=before+(t['quantity'] if t['side']=='BUY' else -t['quantity'])
+        if t['side']=='SELL' and before>0 and held[t['symbol']]<=0:closed+=1
+    return closed
 
 def scorecard(db,clock=None):
     clock=clock or datetime.now(timezone.utc);dd=get_state(db,'drawdown',{});cc=get_state(db,'close_check',{}).get('sessions',{})
@@ -17,7 +26,7 @@ def scorecard(db,clock=None):
     for name in ('trader','investor'):
         account=db.execute('SELECT * FROM portfolios WHERE name=?',(name,)).fetchone()
         first=db.execute('SELECT MIN(created_at) FROM trades WHERE portfolio=?',(name,)).fetchone()[0]
-        closed=db.execute("SELECT COUNT(*) FROM trades WHERE portfolio=? AND side='SELL'",(name,)).fetchone()[0]
+        closed=closed_round_trips(db,name)
         days=(clock-datetime.fromisoformat(first)).days if first else 0
         info=dd.get(name,{});peak=info.get('max_drawdown_pct');pnl=None
         if account:
@@ -27,8 +36,8 @@ def scorecard(db,clock=None):
                 value+=p['quantity']*q['price'] if q else p['cost']
             pnl=value-account['initial_cash']
         baskets[name]=[gate('days',f'Paper record of {MIN_DAYS}+ days',days>=MIN_DAYS,f'{days} days since the first trade'),
-            gate('closed',f'{MIN_CLOSED[name]}+ closed trades',closed>=MIN_CLOSED[name],f'{closed} closed so far'),
-            gate('profit','Profit after fees and slippage',days>=MIN_DAYS and pnl is not None and pnl>0,'Unavailable' if pnl is None else f'₹{pnl:,.0f} net on the current marks'+('' if days>=MIN_DAYS else f' (counts only after {MIN_DAYS} days)')),
+            gate('closed',f'{MIN_CLOSED[name]}+ closed trades',closed>=MIN_CLOSED[name],f'{closed} fully closed so far (partial trims not counted)'),
+            gate('profit','Profit after fees and slippage',days>=MIN_DAYS and pnl is not None and pnl>0,'Unavailable' if pnl is None else f'{inr(pnl)} net on the current marks'+('' if days>=MIN_DAYS else f' (counts only after {MIN_DAYS} days)')),
             gate('drawdown',f'Worst drawdown within {MAX_DRAWDOWN_PCT:g}%',days>=MIN_DAYS and peak is not None and peak<=MAX_DRAWDOWN_PCT,'Not tracked yet' if peak is None else f'{peak:g}% worst so far'+('' if days>=MIN_DAYS else f' (counts only after {MIN_DAYS} days)'))]
     met=sum(g['met'] for g in shared)+sum(g['met'] for v in baskets.values() for g in v);total=len(shared)+sum(len(v) for v in baskets.values())
     return {'shared':shared,'baskets':baskets,'met':met,'total':total,'ready':met==total,

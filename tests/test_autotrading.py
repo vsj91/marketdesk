@@ -40,6 +40,24 @@ class AutoTradingTests(unittest.TestCase):
  def investor_order(self,symbol='TEST',qty=1):
   import uuid
   return trade(self.path,dict(portfolio='investor',symbol=symbol,side='BUY',quantity=qty,request_id=str(uuid.uuid4())),self.clock,auto_guard=self.engine.guard('investor',self.signals[symbol],self.clock))
+ def test_repeated_blocked_scan_events_are_logged_once_per_session(self):
+  from marketdesk.autotrading import event
+  later=self.clock+timedelta(seconds=15);next_day=self.clock+timedelta(days=1)
+  with connect(self.path) as db:
+   for clock in (self.clock,later):event(db,'investor','blocked','No whole share fits the current risk or position budget.','TEST',clock=clock)
+   event(db,'investor','blocked','Position limit reached.','TEST',clock=later)
+   event(db,'investor','blocked','No whole share fits the current risk or position budget.','TEST',clock=next_day)
+   rows=db.execute("SELECT reason,COUNT(*) FROM auto_events WHERE kind='blocked' GROUP BY reason ORDER BY reason").fetchall()
+  self.assertEqual([tuple(r) for r in rows],[('No whole share fits the current risk or position budget.',2),('Position limit reached.',1)])
+ def test_activity_feed_collapses_legacy_repeated_blocks(self):
+  from marketdesk.autotrading import event_snapshot
+  with connect(self.path) as db:
+   for n in range(40):db.execute("INSERT INTO auto_events(created_at,portfolio,kind,symbol,reason) VALUES(?,?,?,?,?)",((self.clock+timedelta(seconds=15*n)).isoformat(),'investor','blocked','TEST','No whole share fits.'))
+   db.execute("INSERT INTO auto_events(created_at,portfolio,kind,symbol,reason) VALUES(?,?,?,?,?)",((self.clock+timedelta(hours=1)).isoformat(),'investor','fill','TEST','BUY 1'))
+   db.execute("INSERT INTO auto_events(created_at,portfolio,kind,symbol,reason) VALUES(?,?,?,?,?)",(self.clock.isoformat(),'investor','blocked','OTHER','No whole share fits.'))
+   rows=event_snapshot(db)
+  self.assertEqual([r['kind'] for r in rows],['blocked','fill'])
+  self.assertEqual(rows[0]['symbols'],['OTHER','TEST'])
  def test_expanded_investor_scan_buys_five_and_blocks_sixth(self):
   self.increase_investor_capacity()
   for n in range(6):self.add_stock('EXTRA'+str(n))
