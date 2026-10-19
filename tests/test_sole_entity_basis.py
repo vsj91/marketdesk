@@ -61,4 +61,62 @@ class MarginIconTests(unittest.TestCase):
         self.assertRegex(row,'Financial$')
 
 
+W=' '*10
+RITES_TEXT=f"""CONSOLIDATED BALANCE SHEET
+as at 31st March, 2026
+(₹ in crore)
+Particulars{W}Note No.{W}As at 31.03.2026{W}As at 31.03.2025
+Assets
+Cash and Cash Equivalents-Owned Fund{W}15.1{W}96.03{W}65.59
+Cash and Cash Equivalents-Clients Fund{W}16.1{W}460.98{W}622.51
+Equity
+Equity Share Capital{W}21{W}480.60{W}480.60
+Other Equity{W}22{W}2,200.64{W}2,159.55
+Non-Controlling Interests{W}22.4{W}112.79{W}109.11
+{W}2,794.03{W}2,749.26
+Liabilities
+Non Current Liabilities
+Lease Liabilities{W}56(a){W}4.90{W}6.59
+Current Liabilities
+Lease Liabilities{W}56(a){W}1.69{W}2.44
+Total Equity and Liabilities{W}5,925.94{W}6,119.20
+The accompanying notes form an integral part of standalone financial statements"""
+
+
+class BalanceRefinementTests(unittest.TestCase):
+    latest={'period':'Mar 2026','statement_type':'consolidated','units_in':'crore','cash_and_cash_equivalents':557.01,'equity':2794.03,'total_borrowings':0.0}
+
+    def test_captioned_cash_parts_anchor_only_as_their_exact_sum(self):
+        from marketdesk.annual_reports import parse_balance
+        values=parse_balance(RITES_TEXT,self.latest,allow_existing=True)['values']
+        self.assertEqual(values['total_lease_liabilities'],6.59);self.assertAlmostEqual(values['cash_and_cash_equivalents'],557.01)
+        # One part alone, a repeated part, or a different sum is not an anchor.
+        for bad in (RITES_TEXT.replace('Cash and Cash Equivalents-Clients Fund','Other bank balances'),
+                    RITES_TEXT.replace('Clients Fund','Owned Fund'),RITES_TEXT.replace('460.98','461.98')):
+            with self.assertRaisesRegex(ValueError,'two matching'):parse_balance(bad,self.latest,allow_existing=True)
+
+    def test_basis_after_closing_total_is_not_heading(self):
+        from marketdesk.annual_reports import statement_context
+        self.assertEqual(statement_context(RITES_TEXT,self.latest)[1],'consolidated')
+        # Before the closing total, a contradicting basis is still rejected.
+        mixed=RITES_TEXT.replace('Assets\n','Assets\nStandalone\n',1)
+        with self.assertRaisesRegex(ValueError,'Mixed'):statement_context(mixed,self.latest)
+
+
+class IncomeMarkerTests(unittest.TestCase):
+    def test_single_letter_row_marker_on_profit(self):
+        from marketdesk.report_growth import parse_growth
+        latest={'period':'Mar 2026','statement_type':'standalone','units_in':'crore','revenue':3.41,'net_profit':212.07,'profit_before_tax':463.3,'finance_costs':0.78}
+        text=f"""standalone
+Statement of Profit and Loss for the year ended March 31, 2026{W}(₹ in Crore)
+Particulars{W}Note{W}Year Ended{W}Year Ended
+{W}No.{W}March 31, 2026{W}March 31, 2025
+Revenue From Operations{W}23{W}3.41{W}2.69
+Finance Costs{W}29{W}0.78{W}0.88
+Profit / (Loss) Before Tax{W}463.30{W}97.20
+Profit / (Loss) for the year (A){W}212.07{W}69.53"""
+        parsed=parse_growth(text,latest);self.assertEqual(parsed['prior']['net_profit'],69.53)
+        with self.assertRaisesRegex(ValueError,'rows missing'):parse_growth(text.replace('(A)','(AB)'),latest)
+
+
 if __name__=='__main__':unittest.main()

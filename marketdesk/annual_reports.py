@@ -10,9 +10,12 @@ from urllib.parse import urlsplit
 from .storage import ROOT,now
 from .intraday_data import atomic_json
 
-REVISION=35
+REVISION=36
 RULE_REVISION=2  # Explicit user approval: printed identities and debt/lease reconciliation.
 INCOME_REVISION=5
+# An auditor's basis heading covers the statements that follow it, up to this many
+# pages (long qualified opinions and annexures), until any other audit heading.
+BASIS_CONTEXT_PAGES=40
 _pdf_slots=threading.BoundedSemaphore(6)
 NUM=r'(?:\(?-?\d[\d,]*(?:\.\d+)?\)?|[-–—]|Nil|NIL)'
 NOTE_REF=r'\d+[a-z]*(?:\s*\([a-z0-9]+\)|\.\d+[a-z]*)*'
@@ -64,7 +67,11 @@ def statement_context(text,latest,kind='balance'):
     text=re.sub(r'((?:\bRs\.?|\bINR|₹|`)\s+(?:in\s+)?)cr\b\.?',r'\1crore',text,flags=re.I)
     # Some PDF text layers concatenate a lower-case preposition with the title.
     text=re.sub(r'(?<![A-Z])(CONSOLIDATED|STANDALONE)(?![A-Z])',r' \1 ',text)
-    low=text.lower();head=re.sub(r'[ \t]+',' ',low)[:1800]
+    low=text.lower()
+    # A balance sheet's heading ends at its closing total; the footnote and
+    # signature block printed after it are not the statement heading.
+    closing=re.search(r'^total (?:equity (?:and|&) liabilities|liabilities (?:and|&) equity)\b.*$',low,re.M) if kind=='balance' else None
+    head=re.sub(r'[ \t]+',' ',low[:closing.end()] if closing else low)[:1800]
     heading=r'\bbalance\s+sheet\b' if kind=='balance' else r'\bnotes\s+(?:to|forming\s+part\s+of)\s+(?:the\s+)?(?:standalone\s+|consolidated\s+)?financial\s+statements?\b' if kind=='lease_note' else r'\bstatement\s+of\s+(?:(?:standalone|consolidated)\s+)?profit\s+(?:and|or|&)\s+loss\b'
     numbered_lease=(kind=='lease_note' and re.search(r'\b(?:standalone|consolidated) financial statements\b',head) and re.search(r'^\d+\.\s+disclosures for leasing arrangements\s*$',head,re.M))
     if not re.search(heading,head) and not numbered_lease:raise ValueError('No '+kind+' statement heading')
@@ -389,7 +396,7 @@ def parse_balance(text,latest,allow_existing=False,allow_identity=True,current_n
     text,basis,(unit,scale)=statement_context(text,latest)
     from .balance_identity import identity_evidence,borrowings_reconciliation
     identities=identity_evidence(text,scale) if allow_identity else {}
-    section=None;found={};evidence={};equity_section=False;previous_key=None;subtotal_equity=None
+    section=None;found={};evidence={};equity_section=False;previous_key=None;subtotal_equity=None;cash_parts=[]
     # Some audited tables have separate Note and Page reference columns.
     # Remove both only when that exact header is present; numeric financial
     # columns must never be mistaken for references.
@@ -427,6 +434,10 @@ def parse_balance(text,latest,allow_existing=False,allow_identity=True,current_n
         label=re.sub(r'^[a-z]\s{2,}','',label,flags=re.I)
         label=caption(label);value=amount(m.group(1))
         if label in ('cash and cash equivalents','cash & cash equivalents','cash and cash equivalent','cash & cash equivalent'):record('cash',value,line)
+        # Some balance sheets print cash only as explicitly captioned parts
+        # (e.g. "Cash and Cash Equivalents-Owned Fund" / "-Clients Fund").
+        part=re.fullmatch(r'cash (?:and|&) cash equivalents?\s*[-–]\s*([a-z][a-z ]{2,40})',label)
+        if part and value is not None:cash_parts.append((part[1],value*scale,line.strip()))
         if label=='sub-total-equity' or re.fullmatch(r'total[ -]equity(?: \([a-z0-9]+\))?',label):record('equity',value,line)
         if label in ('equity attributable to owners of the company','equity attributable to owners of the parent','total equity attributable to owners of the company','total equity attributable to owners of the parent'):record('owners_equity',value,line)
         if label in ('equity share capital','share capital'):record('share_capital',value,line)
@@ -437,6 +448,8 @@ def parse_balance(text,latest,allow_existing=False,allow_identity=True,current_n
             record({'debt securities':'debt_securities','borrowings (other than debt securities)':'other_borrowings','subordinated liabilities':'subordinated_liabilities'}[label],value,line)
         if label in ('lease liabilities','lease liability','lease obligations','financial liabilities-lease liabilities','net liability in leased assets','current maturity of leased liability'):
             record((section+'_lease') if section else 'total_lease',value,line)
+    if 'cash' not in found and len(cash_parts)>=2 and len({name for name,_,_ in cash_parts})==len(cash_parts):
+        found['cash']=sum(v for _,v,_ in cash_parts);evidence['cash']=' + '.join(line for _,_,line in cash_parts)
     equity_subtotal=explicit_equity_section_subtotal(text,basis,scale) if found.get('equity') is None else None
     if equity_subtotal:found['equity']=equity_subtotal['value'];evidence['equity']=equity_subtotal['subtotal']
     if 'nci' not in found and current_nci is not None:
@@ -538,7 +551,8 @@ def balance_text(page,clip=None):
             if not re.search(r'\b(?:(?:lakh|crore|million|thousand)s?|cr)\b',joined,re.I):continue
             for span in spans:
                 glyph=span.get('text','').strip()
-                if span.get('font')=='ITFRupee' and glyph in ('H','C','I','D','J'):
+                # Glyphs confirmed by rendering to print ₹ in ITFRupee (R: MMTC FY2026 p131).
+                if span.get('font')=='ITFRupee' and glyph in ('H','C','I','D','J','R'):
                     text=re.sub(r'(?<!\w)'+glyph+r'\s+(?=\(?(?:in\s+)?(?:(?:lakh|crore|million|thousand)s?|cr)\b)','₹ ',text,flags=re.I)
     return text
 
@@ -680,6 +694,7 @@ def pdf_worker(pdf_path,context_path,output_path):
         audit=audited_section_basis(plain)
         if audit:basis_context=(audit[0],i,audit[1])
         elif sole and i==sole[0]:basis_context=('standalone',i,sole[1])
+        elif re.search(r'report on the audit of (?:the )?(?:standalone|consolidated)',low):basis_context=None
         # Cheap text pass; expensive layout text only for actual statement pages.
         if not re.search(r'\bbalance\s+sheet\b',low) or not ('cash and cash equivalents' in low or 'equity and liabilities' in low):continue
         clips=[None]
@@ -724,7 +739,7 @@ def pdf_worker(pdf_path,context_path,output_path):
                         text+='\n'+following;selected.append(i+1)
                     except ValueError:pass
             contextual=False
-            if not re.search(r'\b(?:standalone|consolidated)\b',compact[:1800]) and basis_context and 0<i-basis_context[1]<=12:
+            if not re.search(r'\b(?:standalone|consolidated)\b',compact[:1800]) and basis_context and 0<i-basis_context[1]<=BASIS_CONTEXT_PAGES:
                 text=basis_context[0]+'\n'+text;contextual=True
             text,column_evidence=verified_column_transcription(text,page,latest,clip)
             try:

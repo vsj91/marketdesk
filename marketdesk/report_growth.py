@@ -4,7 +4,7 @@ from pathlib import Path
 from datetime import datetime,timezone
 import pymupdf
 from .storage import ROOT,now
-from .annual_reports import balance_text,statement_context,caption,amount,NUM,NOTE_REF,FORMULA_REF,save_excerpt,sole_entity_basis,SOLE_ENTITY_CLAUSE
+from .annual_reports import balance_text,statement_context,caption,amount,NUM,NOTE_REF,FORMULA_REF,save_excerpt,sole_entity_basis,SOLE_ENTITY_CLAUSE,BASIS_CONTEXT_PAGES
 from .financial_sources import request
 from .fallbacks import Fallbacks
 from .growth_repair import checked_pair
@@ -24,6 +24,8 @@ def parse_growth(text,latest):
   if not m:continue
   label=re.sub(r'\s{2,}'+NOTE_REF+r'\s*$','',line[:m.start()].strip(),flags=re.I);label=caption(label)
   label=re.sub(r'^[ivx]+[.)]?\s+','',label);label=re.sub(FORMULA_REF,'',label).strip()
+  # A trailing single-letter row marker, e.g. "Profit / (Loss) for the year (A)".
+  label=re.sub(r'\s+\([a-z]\)$','',label)
   keys=[k for k,options in labels.items() if label in options]
   if not keys:continue
   key=keys[0]
@@ -57,14 +59,14 @@ def extract_pdf(path,latest,expected_isin=None):
   for i,p in enumerate(doc):
    low=' '.join(unicodedata.normalize('NFKC',p.get_text()).lower().split())
    audit=re.findall(r'report on the audit of (?:the )?(standalone|consolidated) financial statements',low[:6000])
-   if len(set(audit))==1:basis_context=(audit[0],i)
+   if audit:basis_context=(audit[0],i) if len(set(audit))==1 else None
    elif sole and i==sole[0]:basis_context=('standalone',i)
    if not re.search(r'statement of (?:standalone |consolidated )?profit',low):continue
    clips=[('full_page',None)]
    if p.rect.width>p.rect.height*1.15:clips.extend([('left_half',pymupdf.Rect(0,0,p.rect.width/2,p.rect.height)),('right_half',pymupdf.Rect(p.rect.width/2,0,p.rect.width,p.rect.height))])
    for layout,clip in clips:
     text=balance_text(p,clip);contextual=False
-    if not re.search(r'\b(?:standalone|consolidated)\b',' '.join(text.lower().split())[:1800]) and basis_context and 0<i-basis_context[1]<=12:
+    if not re.search(r'\b(?:standalone|consolidated)\b',' '.join(text.lower().split())[:1800]) and basis_context and 0<i-basis_context[1]<=BASIS_CONTEXT_PAGES:
      text=basis_context[0]+'\n'+text;contextual=True
     try:
      parsed=parse_growth(text,latest);parsed.update(pages=[i+1],layout=layout)
