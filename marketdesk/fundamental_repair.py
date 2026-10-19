@@ -1,6 +1,7 @@
 from .working_universe import symbol_filter
 """Targeted local fundamental repair. Does not write candles or paper trading tables."""
 import copy,json,threading
+from .yahoo_crosscheck import apply_yahoo_crosscheck
 from concurrent.futures import ThreadPoolExecutor,as_completed
 from .storage import ROOT,connect,now,get_state,set_state
 from .fallbacks import Fallbacks,apply_fallback
@@ -48,6 +49,7 @@ def run_repair(job,rows):
         proposed=apply_fallback(copy.deepcopy(before),result)
         if missing(proposed):result['annual_report']=AnnualReportSources().fetch(row['symbol'],row['isin'],proposed)
         if result.get('annual_report'):proposed=apply_report(proposed,result['annual_report'])
+        proposed=apply_yahoo_crosscheck(proposed,result.get('yahoo',{}))
         result['extra_repaired']=repair_extra(row['symbol'],row['isin'],proposed)
         result['extra_baseline']=proposed
         return result
@@ -78,6 +80,7 @@ def run_repair(job,rows):
                         details=json.loads(current['details']) if current else {}
                         details=apply_fallback(copy.deepcopy(details),result)
                         if result.get('annual_report'):details=apply_report(details,result['annual_report'])
+                        details=apply_yahoo_crosscheck(details,result.get('yahoo',{}))
                         # Reapply only while the source context still matches the worker snapshot.
                         if details==result.get('extra_baseline'):details=result['extra_repaired']
                         selected=details.get('latest') or {}
