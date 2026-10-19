@@ -1,4 +1,4 @@
-"""Live paper engine for the additional baskets (momentum, low volatility, mean reversion).
+"""Live paper engine for the additional baskets (momentum, low volatility, 52-week high, mean reversion).
 
 Rules live in basket_rules and are shared with scripts/backtest_baskets.py. Orders go through
 paper.trade with an automatic guard, so the same fresh-quote, depth, data-quality, universe and

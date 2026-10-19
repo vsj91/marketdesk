@@ -8,6 +8,7 @@ from .history_rules import long_window,effective_rows
 MIN_HISTORY=130          # 6-month lookback + 1-month skip + margin
 LOOKBACK,SKIP=126,21     # 6-1 momentum: return from ~6 months ago to ~1 month ago
 VOL_WINDOW=120
+HIGH_WINDOW=252          # 52-week high: about one year of sessions
 MIN_TURNOVER=10_000_000  # ₹1 crore average daily traded value, same as Trader/Investor
 
 BASKETS={
@@ -26,6 +27,11 @@ BASKETS={
    entry='Completed close above the 200-day average and 2-day RSI below 10 (a sharp short dip inside an uptrend). Buy the deepest dips first, next session.',
    exit='Sell the session after a completed close above the 5-day average, after 10 sessions held, or at an 8% loss from average cost.',
    risk='Equal weight: up to 10% of starting capital per stock including buy fees. Frequent trading makes fees the main risk. New buys pause at a 15% fall from the equity peak; exits stay active.'),
+ 'high52':dict(name='52-week high · monthly · paper basket',family='52-week-high momentum (George and Hwang)',
+   max_positions=10,position_pct=10,max_buys_per_day=10,stop_pct=20,keep_rank=30,rebalance='monthly',
+   entry='Rank Nifty 500 stocks by how close the completed close is to the highest high of the latest 252 sessions (nearest first). Buy the top 10 that also close above the 200-day average. Stocks with under a year of clean history are not ranked. Empty slots are refilled from the current top 10.',
+   exit='At the first session of each month, sell holdings that drop out of the top 30 or close below the 200-day average. Between rebalances a 20% loss from average cost exits.',
+   risk='Equal weight: up to 10% of starting capital per stock including buy fees. New buys pause at a 15% fall from the equity peak; exits stay active.'),
 }
 
 # Retired baskets keep their ledger history but never trade again and are hidden from the screens.
@@ -53,7 +59,8 @@ def stats(rows,confirmed=()):
     if any(b['ts'][:10] not in confirmed and abs(b['close']/a['close']-1)>.25 for a,b in zip(recent,recent[1:])):return None
     rets=[math.log(b/a) for a,b in zip(closes[-VOL_WINDOW-1:],closes[-VOL_WINDOW:])]
     window=long_window(len(rows))
-    return dict(as_of=rows[-1]['ts'][:10],close=closes[-1],dma200=sum(closes[-window:])/window,dma5=sum(closes[-5:])/5,
+    high52=closes[-1]/max(r['high'] for r in rows[-HIGH_WINDOW:]) if len(rows)>=HIGH_WINDOW else None
+    return dict(high52=high52,as_of=rows[-1]['ts'][:10],close=closes[-1],dma200=sum(closes[-window:])/window,dma5=sum(closes[-5:])/5,
         momentum=closes[-SKIP-1]/closes[-LOOKBACK-1]-1,volatility=statistics.pstdev(rets)*math.sqrt(250),rsi2=rsi(closes[-30:]),
         turnover20=sum(r['close']*r['volume'] for r in rows[-20:])/20)
 
@@ -67,6 +74,8 @@ def ranking(basket,signals):
         pool=[(s['volatility'],k) for k,s in signals.items() if tradable(s) and s['volatility']>0 and s['close']>s['dma200']]
     elif basket=='reversion':
         pool=[(s['rsi2'],k) for k,s in signals.items() if tradable(s) and s['rsi2'] is not None and s['rsi2']<10 and s['close']>s['dma200']]
+    elif basket=='high52':
+        pool=[(-s['high52'],k) for k,s in signals.items() if tradable(s) and s.get('high52') and s['close']>s['dma200']]
     else:raise ValueError('Unknown basket')
     return [k for _,k in sorted(pool)]
 

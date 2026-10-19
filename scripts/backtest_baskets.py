@@ -59,7 +59,7 @@ def run(basket,signals,by_day,capital=100000,start=None):
                 qty=int(max(0,budget-25)//(price*1.025))
                 if qty<1:continue
                 value=qty*price;fee=charges(round(value,2),'BUY')['total']
-                if value+fee>cash or fee+charges(round(value,2),'SELL',True)['total']>value*.025:continue
+                if value+fee>cash or fee+charges(round(value,2),'SELL',True)['total']>value*.015:continue
                 cash-=value+fee;fees+=fee;pos[s]=dict(qty=qty,cost=value+fee,day=day,i=i)
         equity.append((day,cash+sum(p['qty']*by_day[s].get(day,{}).get('close',p['cost']/p['qty']) for s,p in pos.items())));prev=day
     return trades,equity,pos,fees

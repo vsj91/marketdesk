@@ -22,6 +22,11 @@ class BasketRuleTests(unittest.TestCase):
         self.assertNotIn('FALL',ranking('lowvol',signals))               # below its 200-day average
         self.assertEqual(rsi([1,2,3,4]),100.)
         self.assertIsNone(stats(candles(.002,count=100)))                # too little history
+        self.assertEqual(ranking('high52',signals),[])                    # 200 sessions: no 52-week high yet
+        year={'TOP':stats(candles(.002,count=260)),'FALL':stats(candles(-.002,count=260))}
+        dip=candles(.002,count=260);dip[-1]=dict(dip[-1],close=dip[-1]['close']*.97)
+        year['DIP']=stats(dip)
+        self.assertEqual(ranking('high52',year),['TOP','DIP'])           # nearest the high first; falling stock excluded
 
     def test_only_unverified_large_moves_break_history(self):
         rows=candles(.002)
@@ -92,7 +97,7 @@ class BasketEngineTests(unittest.TestCase):
         self.assertEqual(sold,['No valid completed history at monthly review'])
     def test_new_baskets_cap_round_trip_fees_at_one_and_a_half_percent(self):
         with connect(self.path) as db:cfg=get_state(db,'auto_config')
-        for name in ('lowvol','smart_beta','risk_parity','stat_arb','regime','news_momentum','news_catalyst'):
+        for name in ('lowvol','high52','smart_beta','risk_parity','stat_arb','regime','news_momentum','news_catalyst'):
             self.assertEqual(cfg[name]['max_round_trip_fee_pct'],1.5,name)
         self.assertEqual(cfg['ema_price_action']['max_round_trip_fee_pct'],1.)
     def test_retired_basket_cannot_be_enabled_and_never_trades(self):
