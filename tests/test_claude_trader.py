@@ -10,6 +10,9 @@ from support import seed_quality,fixture_book
 
 class ClaudeTests(unittest.TestCase):
  def setUp(self):
+  # Mechanics tests were written against the original 0.5% / 3% limits; pin them here.
+  for name,value in (('TRADE_RISK',.005),('HEAT_CAP',.03)):
+   patcher=patch('marketdesk.claude_trader.'+name,value);patcher.start();self.addCleanup(patcher.stop)
   self.temp=tempfile.TemporaryDirectory();self.addCleanup(self.temp.cleanup);self.path=Path(self.temp.name)/'paper.db'
   init(self.path);init_paper(self.path);self.auto=AutoTrading(self.path);self.c=ClaudeTrader(self.path)
   self.clock=datetime(2026,10,13,9,16,tzinfo=IST)
@@ -599,5 +602,11 @@ class IndicatorTests(unittest.TestCase):
   rows[-1]['high']+=14
   self.assertAlmostEqual(features(rows)[-1]['atr'],4)
   self.assertAlmostEqual(features(rows)[-1]['live_high20'],rows[-1]['high'])
+
+ def test_one_percent_trade_risk_sizes_larger_than_half_percent(self):
+  import marketdesk.claude_trader as ct
+  with patch.object(ct,'TRADE_RISK',.005),patch.object(ct,'HEAT_CAP',.03):half=quantity(100,2,1_000_000,0,10_000_000)
+  with patch.object(ct,'TRADE_RISK',.01),patch.object(ct,'HEAT_CAP',.06):
+   self.assertGreater(quantity(100,2,1_000_000,0,10_000_000),half)
 
 if __name__=='__main__':unittest.main()
