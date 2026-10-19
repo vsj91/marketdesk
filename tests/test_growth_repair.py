@@ -67,3 +67,16 @@ class GrowthRepairTests(unittest.TestCase):
    bad=copy.deepcopy(base);bad['latest']['period']='Mar 2027';self.assertEqual(retain_growth(bad,previous,'TEST','INE000A01010')['summary'],{})
    (folder/(reports[1]['raw_sha256']+'.html')).write_bytes(b'changed')
    self.assertEqual(retain_growth(copy.deepcopy(base),previous,'TEST','INE000A01010')['summary'],{})
+
+
+class NseIndexTests(unittest.TestCase):
+ def test_missing_index_is_fetched_with_full_history_and_reused(self):
+  import tempfile
+  from pathlib import Path
+  from unittest.mock import patch,Mock
+  from marketdesk import growth_repair
+  with tempfile.TemporaryDirectory() as folder,patch.object(growth_repair,'ROOT',Path(folder)),patch.object(growth_repair,'request') as request:
+   request.return_value=Mock(json=Mock(return_value={'data':[{'symbol':'TEST'}]}))
+   index=growth_repair.nse_index('TEST')
+   self.assertEqual(request.call_args.kwargs['params'],{'symbol':'TEST','size':100});self.assertEqual(index['size'],100)
+   growth_repair.nse_index('TEST');self.assertEqual(request.call_count,1)

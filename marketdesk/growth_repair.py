@@ -49,6 +49,18 @@ def extract_saved(symbol,isin,record):
     return row
 
 
+def nse_index(symbol):
+    """Saved NSE integrated-filing index with full history (size=100), refreshed daily."""
+    path=ROOT/'data/fundamental-repair/sources'/symbol/'index.json'
+    index=json.loads(path.read_text()) if path.exists() else {}
+    try:age=(datetime.now(timezone.utc)-datetime.fromisoformat(index['observed_at'])).total_seconds()
+    except (KeyError,TypeError,ValueError):age=1e12
+    if index.get('symbol',symbol)!=symbol or index.get('size')!=100 or not 0<=age<86400:
+        response=request(Fallbacks().session,'https://www.nseindia.com/api/integrated-filing-results',params={'symbol':symbol,'size':100})
+        index={'symbol':symbol,'observed_at':now(),'payload':response.json(),'size':100};path.parent.mkdir(parents=True,exist_ok=True);atomic_json(path,index)
+    return index
+
+
 def recover(symbol,isin,details):
     latest=details.get('latest') or {}
     if details.get('selected_source')!='nse_audited_filing':raise ValueError('Selected annual is not a verified NSE filing')
@@ -67,7 +79,7 @@ def recover(symbol,isin,details):
         summary=checked_pair(details,current,comparative)
         return {'symbol':symbol,'isin':isin,'current':current,'prior':comparative,'summary':summary,'checked_at':now(),'status':'verified','method':'same_filing_audited_comparative'}
     prior_end=datetime.fromisoformat(current['period_end']).date().replace(year=datetime.fromisoformat(current['period_end']).year-1).isoformat()
-    index=json.loads((ROOT/'data/fundamental-repair/sources'/symbol/'index.json').read_text())
+    index=nse_index(symbol)
     if index.get('symbol')!=symbol:raise ValueError('NSE index identity mismatch')
     rows=index['payload'];rows=rows if isinstance(rows,list) else rows.get('data',[])
     candidate=None
