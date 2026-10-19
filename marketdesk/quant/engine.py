@@ -37,6 +37,30 @@ class BasketEngine:
                 (name,strategy,j(overrides or {}),float(capital),float(capital),day or date.today().isoformat()))
             return cur.rowcount==1
 
+    def retire(self,name,day,reason):
+        """Stop a basket for good without deleting history: cancel pending buys, queue exits for every
+        holding (filled next session like any other order) and never run its strategy again.
+        Returns False if it was already retired."""
+        with connect(self.path) as db:
+            db.execute('BEGIN IMMEDIATE')
+            b=db.execute('SELECT * FROM qb_baskets WHERE name=?',(name,)).fetchone()
+            if not b:raise ValueError(f'No basket named {name!r}.')
+            state=json.loads(b['state'])
+            if state.get('retired'):return False
+            for o in db.execute("SELECT * FROM qb_orders WHERE basket=? AND status='pending' AND side='BUY'",(name,)).fetchall():
+                db.execute("UPDATE qb_orders SET status='cancelled',fill_day=? WHERE id=?",(day,o['id']))
+                self._log(db,name,day,o['symbol'],'CANCEL',None,None,f"Buy {o['symbol']} cancelled: basket retired")
+            selling={r[0] for r in db.execute("SELECT symbol FROM qb_orders WHERE basket=? AND status='pending' AND side='SELL'",(name,))}
+            for p in db.execute('SELECT * FROM qb_positions WHERE basket=?',(name,)).fetchall():
+                if p['symbol'] in selling:continue
+                db.execute('INSERT INTO qb_orders(basket,signal_day,symbol,side,qty,kind,reason,details) VALUES(?,?,?,?,?,?,?,?)',
+                    (name,day,p['symbol'],'SELL',p['qty'],'exit','Basket retired',j({})))
+                self._log(db,name,day,p['symbol'],'EXIT',None,0.,f"Exit {p['symbol']}: basket retired")
+            state.update(retired=True,retired_day=day,retired_reason=reason);state.pop('targets',None)
+            db.execute('UPDATE qb_baskets SET state=? WHERE name=?',(j(state),name))
+            self._log(db,name,day,None,'NOTE',None,None,f'Basket retired: {reason}')
+            return True
+
     def names(self):
         with connect(self.path) as db:return [r[0] for r in db.execute('SELECT name FROM qb_baskets ORDER BY name')]
 
@@ -63,6 +87,7 @@ class BasketEngine:
             book=self._book(db,name);prices=self._prices(snapshot,book);cash=self._cash(db,name)
             nav=cash+sum(p['qty']*prices[s] for s,p in book.items())
             due,why=self._due(basket,cfg,state,snapshot)
+            if state.get('retired'):due=False      # retired: pending exits still fill and NAV is still marked
             targets={};queued=0;ran=False;reg=state.get('regime')
             if due:
                 plan=self._plan(basket['strategy'],snapshot,book,dict(cfg,current_regime=state.get('regime')),nav)
@@ -272,6 +297,7 @@ class BasketEngine:
                 for r in db.execute("SELECT * FROM qb_orders WHERE basket=? AND status='pending' ORDER BY id",(name,))]
         return dict(basket=name,strategy=b['strategy'],config=config(b['strategy'],json.loads(b['config'])),as_of=as_of,
             capital=b['capital'],nav=nav[-1] if nav else b['capital'],cash=round(b['cash'],2),regime=json.loads(b['state']).get('regime'),
+            retired=bool(json.loads(b['state']).get('retired')),retired_day=json.loads(b['state']).get('retired_day'),
             last_rebalance=b['last_rebalance'],holdings=holdings,
             performance=dict(**perf,realized_pnl=round(realized[0],2),total_charges=round(realized[1],2),fills=realized[2],risk_free_rate=self.risk_free),
             pending_orders=pending,rebalance_log=log,paper_only=True)

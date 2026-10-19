@@ -16,6 +16,8 @@ IST=timezone(timedelta(hours=5,minutes=30))
 DEFAULT_BASKETS={'smart_beta':'multifactor','risk_parity':'risk_parity','stat_arb':'stat_arb','trend':'trend','regime':'regime'}
 TITLES={'smart_beta':'Multi-factor smart beta','risk_parity':'Risk parity','stat_arb':'Stat-arb mean reversion',
     'trend':'ATR trend following','regime':'Regime switching'}
+# Retired baskets keep their ledger history but never trade again (and are not created on a fresh ledger).
+RETIRED={'trend':'Duplicates the Trader basket (breakout entries with ATR trailing stops).'}
 CAPITAL=100_000
 INTERVAL=300
 
@@ -46,8 +48,11 @@ class QuantRunner:
             market=load_market(self.path);done=[d for d in sessions(market) if d<today]
             if not done:return self._set('data_wait','No completed sessions in the database yet.')
             if not self.engine.names():
-                for name,strategy in DEFAULT_BASKETS.items():self.engine.create(name,strategy,self.capital,day=done[-1])
+                for name,strategy in DEFAULT_BASKETS.items():
+                    if name not in RETIRED:self.engine.create(name,strategy,self.capital,day=done[-1])
             last=self._last_run()
+            for name,reason in RETIRED.items():
+                if name in self.engine.names():self.engine.retire(name,last or done[-1],reason)
             todo=[d for d in done if (last is None or d>last) and d>=self._start()]
             for day in todo:self.engine.run_day(snapshot(market,day))
             return self._set('ok',f'Up to date through {done[-1]}.' if not todo else f'Processed {len(todo)} session(s) through {todo[-1]}.',last_session=todo[-1] if todo else last)

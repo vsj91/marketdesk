@@ -188,6 +188,10 @@ class EngineTests(unittest.TestCase):
         with self.assertRaises(ValueError):e.create('x','martingale')
         self.assertFalse(e.create('mf','trend'))
 
+def snapshot_of(market,day):
+    from marketdesk.quant.data import snapshot
+    return snapshot(market,day)
+
 class RunnerTests(unittest.TestCase):
     def setUp(self):
         from marketdesk.storage import init
@@ -209,12 +213,35 @@ class RunnerTests(unittest.TestCase):
             # Today's session (index 300) is not complete yet: baskets start on the previous one.
             st=r.tick(self.clock(self.days[300]))
             self.assertEqual(st['state'],'ok');self.assertEqual(st['last_session'],self.days[299])
-            snap=r.snapshot();self.assertEqual(len(snap['baskets']),5)
+            snap=r.snapshot();self.assertEqual(len(snap['baskets']),4)
             self.assertTrue(all(b['performance']['sessions']==1 for b in snap['baskets']))   # no backfill
             st=r.tick(self.clock(self.days[305]))                                              # app was closed for days
             self.assertEqual(st['last_session'],self.days[304])
             self.assertTrue(all(b['performance']['sessions']==6 for b in r.snapshot()['baskets']))
             self.assertIn('Up to date',r.tick(self.clock(self.days[305]))['message'])
+    def test_retired_trend_basket_exits_and_stops_trading(self):
+        from unittest import mock
+        r=self.runner();e=r.engine
+        # Retirement is by basket name; risk parity is used because it reliably holds stocks on synthetic data.
+        e.create('trend','risk_parity',1_000_000,dict(sector_cap=1.),day=self.days[290])
+        with mock.patch('marketdesk.quant.runner.RETIRED',{}),mock.patch('marketdesk.quant.runner.load_market',return_value=self.market):
+            for k in range(291,300):e.run_day(snapshot_of(self.market,self.days[k]))
+        held=len(e.payload('trend')['holdings'])
+        with mock.patch('marketdesk.quant.runner.load_market',return_value=self.market):
+            r.tick(self.clock(self.days[301]));r.tick(self.clock(self.days[303]))
+        p=e.payload('trend');log=[x['reason'] for x in p['rebalance_log']]
+        self.assertTrue(p['retired']);self.assertTrue(any(x.startswith('Basket retired') for x in log))
+        self.assertEqual(p['holdings'],[]);self.assertEqual(p['pending_orders'],[])
+        self.assertFalse(any(x['action']=='ADD' and x['day']>p['retired_day'] for x in p['rebalance_log']))
+        self.assertGreater(held,0)
+        self.assertEqual(sum(x.startswith('Exit ') and x.endswith(': basket retired') for x in log),held)
+        self.assertNotIn('trend',[n for n in e.names() if not e.payload(n)['retired']])
+        self.assertFalse(e.retire('trend',self.days[303],'again'))
+    def test_fresh_ledger_does_not_create_retired_baskets(self):
+        from unittest import mock
+        r=self.runner()
+        with mock.patch('marketdesk.quant.runner.load_market',return_value=self.market):r.tick(self.clock(self.days[300]))
+        self.assertNotIn('trend',r.engine.names());self.assertEqual(len(r.engine.names()),4)
     def test_waits_for_running_candle_refresh_and_reports_errors(self):
         from unittest import mock
         from marketdesk.storage import connect,set_state
