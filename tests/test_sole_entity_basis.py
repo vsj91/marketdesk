@@ -31,6 +31,11 @@ class SoleEntityBasisTests(unittest.TestCase):
         contents='Financial statements 156 Independent Auditors’ Report on the Financial Statements 168 Balance Sheet'
         self.assertIsNone(sole_entity_basis([contents,clause]+['notes']*30))
 
+    def test_auditor_states_no_consolidated_statements(self):
+        title='Report on Audit of the Financial Statements Opinion: We have audited the accompanying Ind AS financial statements'
+        clause='21. The Company doesn’t have any subsidiaries and consolidated financial statements. Accordingly, clause 3(xxi) is not applicable.'
+        self.assertEqual(sole_entity_basis(['x',title,clause])[0],2)
+
     def test_rejects_any_consolidated_or_labelled_audit(self):
         for extra in ('Report on the Audit of the Consolidated Financial Statements','Report on the audit of the Standalone Financial Statements',
                       'Consolidated Balance Sheet as at March 31, 2026','Consolidated Statement of Profit and Loss for the year'):
@@ -186,3 +191,17 @@ class BoundOflLeaseTests(unittest.TestCase):
 
 
 if __name__=='__main__':unittest.main()
+
+
+class DashedNoteTitleTests(unittest.TestCase):
+    def test_note_dash_title_row_markers_and_lettered_total(self):
+        from marketdesk.annual_reports import parse_numbered_ofl_note
+        text=f"""Note 16 - Other Financial Liabilities
+{W}(Amt ` in lakhs)
+ Sr.{W}As at{W}As at  Particulars No.{W}March 31, 2026{W}March 31, 2025
+ (i)  Unpaid matured deposits and interest accrued thereon{W}475.70{W}615.91
+ (iv)  Lease Liability (refer Note 45){W}2,812.23{W}3,441.87
+ (v)  Others{W}783.15{W}682.05
+ (B)  Total{W}4,071.08{W}4,739.83
+16.1 Footnote mentioning a current account."""
+        note=parse_numbered_ofl_note(text);self.assertEqual((note['note'],note['printed_value']),('16',2812.23))

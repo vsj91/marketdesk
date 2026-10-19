@@ -10,7 +10,7 @@ from urllib.parse import urlsplit
 from .storage import ROOT,now
 from .intraday_data import atomic_json
 
-REVISION=44
+REVISION=45
 RULE_REVISION=2  # Explicit user approval: printed identities and debt/lease reconciliation.
 INCOME_REVISION=5
 # An auditor's basis heading covers the statements that follow it, up to this many
@@ -348,9 +348,12 @@ def parse_numbered_ofl_note(text):
     sheet prints an unclassified "Other financial liabilities <note>" row with
     exactly the same two printed totals (see bound_ofl_lease), so the note shares
     that statement's basis, dates and unit. No dash is read as zero."""
-    title=re.search(r'^[ \t]*(?:Note\s+)?(\d{1,3})(?:[.:]\s*|\s+)Other financial liabilities(?:\s{2,}[^\n]*\b20\d{2}\b[^\n]*)?\s*$',text,re.I|re.M)
+    title=re.search(r'^[ \t]*(?:Note\s+)?(\d{1,3})(?:[.:]\s*|\s*[-–]\s*|\s+)Other financial liabilities(?:\s{2,}[^\n]*\b20\d{2}\b[^\n]*)?\s*$',text,re.I|re.M)
     if not title:raise ValueError('Numbered other-financial-liabilities note unavailable')
     scope=re.split(r'\n[ \t]*(?:Note\s+)?\d{1,3}(?:[.:]\s*|\s+)[A-Z]',text[title.end():],maxsplit=1)[0]
+    # Only the table up to its total row; footnotes after it are not part of the classification.
+    closing=re.search(r'^[ \t]*(?:\(?[a-z]\)\s*)?total\b[^\n]*\d\s*$',scope,re.I|re.M)
+    if closing:scope=scope[:closing.end()]
     if re.search(r'\b(?:current|non.current|undiscounted|maturit(?:y|ies))\b',scope,re.I):raise ValueError('Classified/maturity note cannot establish an unclassified lease total')
     # Carrying amounts may be grouped as payable within / after twelve months;
     # one lease row under each group is summed. Any other text line is rejected.
@@ -360,13 +363,15 @@ def parse_numbered_ofl_note(text):
         row=re.search(r'\s{2,}('+NUM+r')\s{2,}('+NUM+r')\s*$',line)
         if not row:
             # Column headers (dates, "As at", "Particulars") only before the first row.
-            if not line.strip() or (not rows and pending is None and re.search(r'\bas at\b|\bparticulars\b|\b20\d{2}\b',line,re.I)):continue
+            if not line.strip() or (not rows and pending is None and re.search(r'\bas at\b|\bparticulars\b|\b20\d{2}\b|\bin\s+(?:lakhs?|crores?|millions?)\b',line,re.I)):continue
             heading=[i for i,g in enumerate(groups) if re.fullmatch(r'\s*'+g+r'\s*',line,re.I)]
             if heading and pending is None and (group is None or heading[0]>group):group=heading[0];continue
             # One wrapped caption line continues on the next numeric row.
             if pending is not None or heading:raise ValueError('Unparsed line inside other-financial-liabilities note')
             pending=line.strip();continue
         label=' '.join((((pending+' ') if pending else '')+line[:row.start()]).lower().split());pending=None
+        # Row markers such as "(iv)" or "(B)" are not part of the caption.
+        label=re.sub(r'^(?:sr\.?\s*)?\(?(?:[ivx]{1,4}|[a-z]|\d{1,2})\)\s*','',label)
         values=[amount(row[1]),amount(row[2])]
         if values[0] is None or values[0]<0:raise ValueError('Every current OFL amount must be explicitly numeric')
         item={'label':label,'printed_values':values,'line':line.strip()}
@@ -708,7 +713,8 @@ def audited_section_basis(text):
         return matches[0][1].lower(),matches[0][0]
     return None
 
-SOLE_ENTITY_CLAUSE=(r'company (?:(?:did|does) not have any|has no|(?:did|does) not hold any investments? in any) subsidiar(?:y|ies)\s*(?:,|or|and)\s*(?:any )?(?:associates?|joint ventures?)(?: companies| company)?'
+SOLE_ENTITY_CLAUSE=(r'company (?:do(?:es)?n[’\']t|did ?n[’\']t|(?:did|does) not) have any subsidiar(?:y|ies) and consolidated financial statements|'
+                    r'company (?:(?:did|does) not have any|has no|(?:did|does) not hold any investments? in any) subsidiar(?:y|ies)\s*(?:,|or|and)\s*(?:any )?(?:associates?|joint ventures?)(?: companies| company)?'
                     r'\s*(?:,|or|and)\s*(?:or |and )?(?:any )?(?:associates?|joint ventures?)')
 
 def sole_entity_basis(pages):
@@ -724,7 +730,7 @@ def sole_entity_basis(pages):
     Returns (clause page index, printed clause) or None."""
     # Some text layers use control characters (e.g. \x03) as spaces.
     compact=[' '.join(re.sub(r'[\x00-\x1f]',' ',unicodedata.normalize('NFKC',p)).lower().split()) for p in pages]
-    auditor_title=r"(?:report on the audit of (?:the )?|independent auditors?['’]?s?['’]? report on (?:the )?)"
+    auditor_title=r"(?:report on (?:the )?audit of (?:the )?|independent auditors?['’]?s?['’]? report on (?:the )?)"
     if any(re.search(auditor_title+r'(?:standalone|consolidated)',c) or
            re.search(r'consolidated (?:balance sheet|statement of profit|statement of cash flows?)\b',c[:600]) for c in compact):return None
     # The title must be on the auditor's opinion page itself, not cited in a contents list.
