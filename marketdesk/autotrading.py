@@ -6,6 +6,7 @@ from .storage import connect,get_state,set_state,number,now
 from .paper import trade
 from .execution import charges,money
 from .quality import audit
+from .history_rules import MIN_SESSIONS,long_window,effective_rows
 from .quote_health import fresh,stale_holdings,stale_message,refresh_held_quotes
 from .buy_universe import allowed_symbols,require_buy_universe,universe_status,MembershipRefresh
 
@@ -59,18 +60,18 @@ def daily_buy_count(db,portfolio,clock):
 def load_signals(path):
  with connect(path) as db:
   histories=collections.defaultdict(lambda:collections.deque(maxlen=201))
-  for row in db.execute('SELECT symbol,ts,close,high,volume FROM candles WHERE '+symbol_filter(db,include_holdings=True)+' ORDER BY symbol,ts'):histories[row['symbol']].append(dict(row))
+  for row in db.execute('SELECT symbol,ts,open,close,high,volume FROM candles WHERE '+symbol_filter(db,include_holdings=True)+' ORDER BY symbol,ts'):histories[row['symbol']].append(dict(row))
   bad={r[0] for r in db.execute("SELECT DISTINCT symbol FROM issues WHERE kind IN ('candle','identity')")}
   bad.update(r['symbol'] for r in db.execute("SELECT symbol FROM quality WHERE json_extract(report,'$.trader_ready')=0"))
   funds={r['symbol']:json.loads(r['details']) for r in db.execute('SELECT symbol,details FROM fundamentals WHERE '+symbol_filter(db,include_holdings=True))}
  result={}
  latest_session=max((rows[-1]['ts'][:10] for rows in histories.values() if rows),default='')
  for symbol,history in histories.items():
-  rows=list(history)
-  if symbol in bad or len(rows)<200 or rows[-1]['ts'][:10]!=latest_session:continue
+  rows=effective_rows(history)
+  if symbol in bad or len(rows)<MIN_SESSIONS or rows[-1]['ts'][:10]!=latest_session:continue
   closes=[r['close'] for r in rows];volumes=[r['volume'] for r in rows]
   previous_volume=sum(volumes[-40:-10])/30
-  result[symbol]={'as_of':rows[-1]['ts'],'close':closes[-1],'dma50':sum(closes[-50:])/50,'dma200':sum(closes[-200:])/200,'high20':max(r['high'] for r in rows[-20:]),'volume_ratio':(sum(volumes[-10:])/10)/previous_volume if previous_volume>0 else 0,'turnover20':sum(r['close']*r['volume'] for r in rows[-20:])/20,'fundamentals':funds.get(symbol,{})}
+  result[symbol]={'as_of':rows[-1]['ts'],'close':closes[-1],'dma50':sum(closes[-50:])/50,'dma200':sum(closes[-long_window(len(rows)):])/long_window(len(rows)),'short_history':len(rows)<200,'high20':max(r['high'] for r in rows[-20:]),'volume_ratio':(sum(volumes[-10:])/10)/previous_volume if previous_volume>0 else 0,'turnover20':sum(r['close']*r['volume'] for r in rows[-20:])/20,'fundamentals':funds.get(symbol,{})}
  return result
 
 def entry_signal(portfolio,signal,price,clock):

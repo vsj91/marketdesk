@@ -130,7 +130,22 @@ class QualityTests(unittest.TestCase):
   self.assertTrue(any('discontinuity' in r for r in reasons));self.assertIn('Zero volume in recent 20 sessions',reasons)
   self.rows[-1]['ts']='2026-10-12T00:00:00+05:30'
   self.assertIn('Current or future daily candle',inspect_history(self.rows,self.days,self.clock))
-  self.assertIn('Fewer than 200 completed daily candles',inspect_history(self.rows[-20:],self.days,self.clock))
+  self.assertIn('Fewer than 80 completed daily candles',inspect_history(self.rows[-20:],self.days,self.clock))
+ def test_recent_listing_with_enough_sessions_passes_short_history_tier(self):
+  from marketdesk.history_rules import tier
+  short=self.rows[-100:]
+  self.assertFalse(any('Fewer than' in r for r in inspect_history(short,self.days,self.clock)))
+  self.assertEqual((tier(100),tier(250),tier(79)),('short','full','insufficient'))
+ def test_corporate_action_history_restarts_after_break_and_passes_at_floor(self):
+  rows=[dict(r) for r in self.rows]
+  for r in rows[-100:]:
+   for k in ('open','high','low','close'):r[k]=r[k]/3
+  # break 100 sessions ago: post-break history clears the 80-session floor
+  self.assertFalse(any('discontinuity' in r for r in inspect_history(rows,self.days,self.clock)))
+  recent=[dict(r) for r in self.rows]
+  for r in recent[-20:]:
+   for k in ('open','high','low','close'):r[k]=r[k]/3
+  self.assertTrue(any('discontinuity' in r for r in inspect_history(recent,self.days,self.clock)))
  def test_duplicate_invalid_ohlc_and_stale(self):
   self.rows[-1]['ts']=self.rows[-2]['ts'];self.rows[-1]['high']=10
   result=inspect_history(self.rows,self.days,self.clock)

@@ -1,4 +1,5 @@
 from .working_universe import symbol_filter,status as working_status,enabled,scope_report,sync_instruments
+from .history_rules import MIN_SESSIONS
 import json,os,re,secrets,threading,time,mimetypes,hashlib
 from pathlib import Path
 from http.server import ThreadingHTTPServer,BaseHTTPRequestHandler
@@ -57,7 +58,7 @@ class App:
             full={endpoint:db.execute("SELECT COUNT(*) FROM payloads WHERE "+symbol_filter(db)+" AND endpoint=? AND json_array_length(json_extract(payload,'$.data.full_statement'))>0",(endpoint,)).fetchone()[0] for endpoint in ('income_statement','balance_sheet','cash_flow')}
             failures=db.execute("SELECT COUNT(*) FROM payloads WHERE "+symbol_filter(db)+" AND (http_status!=200 OR error IS NOT NULL OR COALESCE(json_extract(payload,'$.status'),'')!='success')").fetchone()[0]
             latest=db.execute('SELECT MAX(ts) FROM candles WHERE '+symbol_filter(db)).fetchone()[0]
-            short=db.execute('SELECT COUNT(*) FROM (SELECT symbol FROM candles WHERE '+symbol_filter(db)+' GROUP BY symbol HAVING COUNT(*)<200)').fetchone()[0]
+            short=db.execute('SELECT COUNT(*) FROM (SELECT symbol FROM candles WHERE '+symbol_filter(db)+' GROUP BY symbol HAVING COUNT(*)<'+str(MIN_SESSIONS)+')').fetchone()[0]
             universe=working_status(db)
             if enabled(db):
                 active={r[0] for r in db.execute('SELECT symbol FROM instruments WHERE '+symbol_filter(db))}

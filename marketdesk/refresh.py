@@ -1,4 +1,5 @@
 from .working_universe import symbol_filter,enabled,research_symbols
+from .history_rules import MIN_SESSIONS
 import threading,time,csv,json,shutil
 from datetime import datetime,timedelta,timezone
 from pathlib import Path
@@ -121,7 +122,7 @@ class Refresh:
                     with connect(self.path) as db:
                         count,latest=db.execute('SELECT COUNT(*),MAX(substr(ts,1,10)) FROM candles WHERE symbol=?',(symbol,)).fetchone()
                         sessions=get_state(db,'quality_sessions',[])
-                    candle_failed=candle_failed or count<200 or bool(sessions and (not latest or latest<sessions[-1]))
+                    candle_failed=candle_failed or count<MIN_SESSIONS or bool(sessions and (not latest or latest<sessions[-1]))
                 if candle_failed:
                     try:
                         from .candle_fallback import fetch as alternate_candles

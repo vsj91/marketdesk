@@ -1,4 +1,5 @@
 from .working_universe import symbol_filter
+from .history_rules import MIN_SESSIONS,tier,effective_rows,is_financial
 """Local, conservative eligibility audit. No interpolation or guessed financial values."""
 import collections,json,math
 from datetime import datetime,timedelta,timezone
@@ -43,8 +44,8 @@ def source_reasons(f,times,clock):
     return []
 
 def inspect_history(rows,sessions,clock,confirmed_moves=()):
-    reasons=[];dates=[r['ts'][:10] for r in rows];today=clock.astimezone(IST).date()
-    if len(rows)<200:reasons.append('Fewer than 200 completed daily candles')
+    rows=effective_rows(rows,confirmed_moves);reasons=[];dates=[r['ts'][:10] for r in rows];today=clock.astimezone(IST).date()
+    if len(rows)<MIN_SESSIONS:reasons.append(f'Fewer than {MIN_SESSIONS} completed daily candles')
     if not rows:return reasons+['No daily candles']
     if len(set(dates))!=len(dates):reasons.append('Duplicate daily sessions')
     if any(d>=today.isoformat() for d in dates):reasons.append('Current or future daily candle')
@@ -66,7 +67,7 @@ def audit(path,clock=None):
     clock=clock or datetime.now(timezone.utc);init_quality(path)
     with connect(path) as db:
         db.execute('BEGIN')
-        instruments=[r['symbol'] for r in db.execute('SELECT symbol FROM instruments WHERE '+symbol_filter(db))]
+        sectors={r['symbol']:r['sector'] for r in db.execute('SELECT symbol,sector FROM instruments WHERE '+symbol_filter(db))};instruments=list(sectors)
         histories=collections.defaultdict(lambda:collections.deque(maxlen=201));counts=collections.Counter()
         for r in db.execute('SELECT symbol,ts,open,high,low,close,volume FROM candles WHERE '+symbol_filter(db)+' ORDER BY symbol,ts'):
             histories[r['symbol']].append(dict(r));counts[r['ts'][:10]]+=1
@@ -83,10 +84,10 @@ def audit(path,clock=None):
         reasons=inspect_history(list(histories[symbol]),sessions,clock,confirmed_moves[symbol])
         if symbol in bad:reasons.append('Unresolved source candle or identity issue')
         f,observed=funds.get(symbol,({},None));fr=financial_reasons(f,observed,clock)+source_reasons(f,evidence[symbol],clock)
-        report={'trader_ready':not reasons,'investor_ready':not(reasons or fr),'price_reasons':reasons,'financial_reasons':fr,'as_of':histories[symbol][-1]['ts'] if histories[symbol] else None,'corporate_actions':'not independently reconciled','exchange_verified_market_moves':sorted(confirmed_moves[symbol])}
+        report={'trader_ready':not reasons,'financial_sector':is_financial(sectors[symbol]),'history_tier':tier(len(effective_rows(histories[symbol],confirmed_moves[symbol]))),'investor_ready':not(reasons or fr),'price_reasons':reasons,'financial_reasons':fr,'as_of':histories[symbol][-1]['ts'] if histories[symbol] else None,'corporate_actions':'not independently reconciled','exchange_verified_market_moves':sorted(confirmed_moves[symbol])}
         reports[symbol]=report
         for r in set(reasons+fr):totals['Missing locally observed sessions' if 'gaps against' in r else 'Possible corporate action / price discontinuity' if 'discontinuity' in r else r]+=1
-    summary={'checked_at':clock.isoformat(),'stocks':len(instruments),'trader_ready':sum(r['trader_ready'] for r in reports.values()),'investor_ready':sum(r['investor_ready'] for r in reports.values()),'latest_observed_session':sessions[-1] if sessions else None,'reasons':dict(totals),'calendar_basis':'Majority of local instrument histories; not an official exchange calendar','paper_validated':False,'live_execution_ready':False}
+    summary={'checked_at':clock.isoformat(),'stocks':len(instruments),'trader_ready':sum(r['trader_ready'] for r in reports.values()),'investor_ready':sum(r['investor_ready'] for r in reports.values()),'latest_observed_session':sessions[-1] if sessions else None,'reasons':dict(totals),'calendar_basis':'Majority of local instrument histories; not an official exchange calendar','financial_sector_stocks':sum(r['financial_sector'] for r in reports.values()),'investor_ready_non_financial':sum(r['investor_ready'] and not r['financial_sector'] for r in reports.values()),'paper_validated':False,'live_execution_ready':False}
     with connect(path) as db:
         db.executemany('INSERT OR REPLACE INTO quality VALUES(?,?,?)',[(s,json.dumps(r),clock.isoformat()) for s,r in reports.items()]);set_state(db,'quality_summary',summary);set_state(db,'quality_sessions',sessions[-201:])
     return summary
