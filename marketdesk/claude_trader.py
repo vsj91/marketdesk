@@ -20,12 +20,14 @@ from .quote_health import fresh,stale_message,refresh_held_quotes
 from .buy_universe import allowed_symbols,require_buy_universe
 
 IST = timezone(timedelta(hours=5, minutes=30))
+TRADE_RISK = .01   # fraction of equity risked per trade (fixed costs dominate below ~₹5k positions)
+HEAT_CAP = .06     # fraction of equity at risk across all holdings
 STRATEGY = 'claude-original-v2'
 RULE = dict(name='Original Claude V2 · paper Trader', strategy=STRATEGY,
     max_positions=5, position_pct=10, max_buys_per_day=3, daily_loss_pct=None,
     entry='Completed close above prior 20-session high; prior 50-day average above prior 200-day; non-overlapping prior 10/30 volume ≥ 1.2; Nifty 500 close above 200-day average. Rank by 63-session return. Next session only, first available fresh depth 09:15–09:20 IST; missed openings expire.',
     exit='Initial stop 2 × Wilder ATR(14) below fill; highest completed close minus 3 × ATR trailing stop, ratchet only from the following session; completed close below prior 50-day average exits next session. No fixed profit target.',
-    risk='0.5% of current equity at risk including estimated round-trip fees and 0.25% per-side slippage reserve; 3% portfolio risk cap including buy/sell fees and the same slippage reserve for existing holdings and proposed buys. Existing holdings retain at least their previous protective stop during migration. No daily 2% circuit in original Claude.',
+    risk='1% of current equity at risk including estimated round-trip fees and 0.25% per-side slippage reserve; 6% portfolio risk cap including buy/sell fees and the same slippage reserve for existing holdings and proposed buys. Existing holdings retain at least their previous protective stop during migration. No daily 2% circuit in original Claude.',
     execution='Local depth-limited simulation only. Actual opening quotes, never a retrospective opening-price fill.')
 
 
@@ -181,7 +183,7 @@ def fits(q, price, atr, eq, heat, budget, mark, fee=None):
     buy=charges(round(q*price,2),'BUY')['total'] if fee is None else fee
     risk=q*2*atr+buy+charges(q*(price-2*atr),'SELL',True)['total']+q*price*.005
     after=eq-buy+q*(mark-price)
-    return q*price+buy <= budget and risk <= .005*eq and heat+risk <= .03*after
+    return q*price+buy <= budget and risk <= TRADE_RISK*eq and heat+risk <= HEAT_CAP*after
 
 
 def quantity(price, atr, eq, heat, budget):
@@ -324,7 +326,7 @@ class ClaudeTrader:
             _,stale_marks=portfolio_valuation(db,account,execution)
             valuation_note='; stale holding valuation: '+', '.join(f"{m['symbol']} at {m['price']}" for m in stale_marks) if stale_marks else ''
             trigger=(f" live breakout above {signal['live_high20']:.4f}; completed inputs " if live else ' completed breakout; signal ')
-            return label+trigger+signal['as_of']+'; 2 ATR stop; 0.5% risk; paper only'+('; full-session buying' if cfg.get('full_session_buying') is True else '')+valuation_note
+            return label+trigger+signal['as_of']+'; 2 ATR stop; 1% risk; paper only'+('; full-session buying' if cfg.get('full_session_buying') is True else '')+valuation_note
         return check
 
     def execute(self,symbol,side,qty,signal,clock,realtime):

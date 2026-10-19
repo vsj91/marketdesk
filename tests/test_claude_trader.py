@@ -10,6 +10,9 @@ from support import seed_quality,fixture_book
 
 class ClaudeTests(unittest.TestCase):
  def setUp(self):
+  # Mechanics tests were written against the original 0.5% / 3% limits; pin them here.
+  for name,value in (('TRADE_RISK',.005),('HEAT_CAP',.03)):
+   patcher=patch('marketdesk.claude_trader.'+name,value);patcher.start();self.addCleanup(patcher.stop)
   self.temp=tempfile.TemporaryDirectory();self.addCleanup(self.temp.cleanup);self.path=Path(self.temp.name)/'paper.db'
   init(self.path);init_paper(self.path);self.auto=AutoTrading(self.path);self.c=ClaudeTrader(self.path)
   self.clock=datetime(2026,10,13,9,16,tzinfo=IST)
