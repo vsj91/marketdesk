@@ -10,7 +10,7 @@ from urllib.parse import urlsplit
 from .storage import ROOT,now
 from .intraday_data import atomic_json
 
-REVISION=42
+REVISION=43
 RULE_REVISION=2  # Explicit user approval: printed identities and debt/lease reconciliation.
 INCOME_REVISION=5
 # An auditor's basis heading covers the statements that follow it, up to this many
@@ -910,7 +910,7 @@ def pdf_worker(pdf_path,context_path,output_path):
                             income_clips.extend([pymupdf.Rect(0,0,w/2,h),pymupdf.Rect(w/2,0,w,h)])
                         for income_clip in income_clips:
                             income_text=balance_text(income_page,income_clip)
-                            if not re.search(r'statement\s+of\s+(?:(?:standalone|consolidated)\s+)?profit',' '.join(income_text.lower().split())[:1000]):continue
+                            if not re.search(r'statement\s+of\s+(?:(?:standalone|consolidated)\s+)?profit',' '.join(unicodedata.normalize('NFKC',income_text).lower().split())[:1000]):continue
                             try:
                                 income=parse_income(income_text,latest)
                                 income['pages']=[j+1];incomes.append((income,j))
@@ -931,6 +931,10 @@ def pdf_worker(pdf_path,context_path,output_path):
                 candidates.append((evidence,selected))
             except ValueError as error:
                 issues.append(str(error));diagnostics.append({'page':i+1,'reason':str(error),'layout':'full_page' if clip is None else 'half_page'})
+    # On a landscape two-page spread the full-page text interleaves both pages; where a
+    # half-page reading of the same page succeeded, it is the faithful one.
+    halves={c[0]['pages'][0] for c in candidates if c[0].get('layout') in ('left_half','right_half','joined_balance_spread','right_then_left')}
+    candidates=[c for c in candidates if not (c[0].get('layout')=='full_page' and c[0]['pages'][0] in halves)]
     if not candidates:result={'status':'unresolved','reason':'; '.join(dict.fromkeys(issues))[:400] or 'No supported balance sheet with explicit lease amounts'}
     else:
         try:

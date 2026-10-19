@@ -70,7 +70,7 @@ def _liability_sections(text):
     raw_lines=[l for l in text.splitlines() if l.strip()]
     for index,raw in enumerate(raw_lines):
         if re.search(r'^(?:standalone |consolidated )?statement of (?:profit|cash|changes)',raw.strip(),re.I):break
-        head=re.sub(r'^(?:\(?[ivx]+[.)]|\(?[a-z][.)])\s*','',raw.strip().lower())
+        head=re.sub(r'^(?:\(?[ivx]+[.)]|\(?[a-z][.)]|\(?\d{1,2}[.)])\s*','',raw.strip().lower())
         if re.fullmatch(r'non[- ]current liabilities',head):
             if section or 'non_current' in totals:return None
             section='non_current';continue

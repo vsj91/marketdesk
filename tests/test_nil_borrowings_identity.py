@@ -142,3 +142,20 @@ Total liabilities and equity{W}31,930.23{W}27,802.45"""
                 'sources':{'total_borrowings':{'formula':'debt_securities + other_borrowings + subordinated_liabilities'}}}
         self.assertEqual(parse_balance(text,latest,allow_existing=True)['matched_fields'],['cash_and_cash_equivalents','total_borrowings'])
         with self.assertRaisesRegex(ValueError,'two matching'):parse_balance(text,{**latest,'subordinated_liabilities':0.5,'total_borrowings':23641.63},allow_existing=True)
+
+
+class NumberedSectionTests(unittest.TestCase):
+    def test_numbered_section_headings(self):
+        text=f"""(3)  Non-current liabilities
+(a)  Financial liabilities
+(i)  Other non-current financial liabilities{W}17{W}68.76{W}58.02
+(ii)  Lease liabilities{W}36{W}3.83{W}0.31
+(b)  Deferred tax liabilities (net){W}33{W}38.70{W}26.27
+(c)  Non-current provisions{W}18{W}4.37{W}3.49
+Total non-current liabilities{W}115.66{W}88.09
+(4)  Current liabilities
+(ii)  Lease liabilities{W}36{W}0.93{W}0.70
+(iii)  Other current financial liabilities{W}20{W}2,459.31{W}1,180.78
+(d)  Income tax liabilities (net){W}23{W}61.20{W}-
+Total current liabilities{W}2,521.44{W}1,181.48"""
+        self.assertEqual(borrowings_absent_identity(text,1.)['value'],0.)
