@@ -58,6 +58,7 @@ class App:
             full={endpoint:db.execute("SELECT COUNT(*) FROM payloads WHERE "+symbol_filter(db)+" AND endpoint=? AND json_array_length(json_extract(payload,'$.data.full_statement'))>0",(endpoint,)).fetchone()[0] for endpoint in ('income_statement','balance_sheet','cash_flow')}
             failures=db.execute("SELECT COUNT(*) FROM payloads WHERE "+symbol_filter(db)+" AND (http_status!=200 OR error IS NOT NULL OR COALESCE(json_extract(payload,'$.status'),'')!='success')").fetchone()[0]
             latest=db.execute('SELECT MAX(ts) FROM candles WHERE '+symbol_filter(db)).fetchone()[0]
+            recent=db.execute('SELECT COUNT(*) FROM (SELECT symbol FROM candles WHERE '+symbol_filter(db)+' GROUP BY symbol HAVING COUNT(*)>='+str(MIN_SESSIONS)+' AND COUNT(*)<200)').fetchone()[0]
             short=db.execute('SELECT COUNT(*) FROM (SELECT symbol FROM candles WHERE '+symbol_filter(db)+' GROUP BY symbol HAVING COUNT(*)<'+str(MIN_SESSIONS)+')').fetchone()[0]
             universe=working_status(db)
             if enabled(db):
@@ -66,7 +67,7 @@ class App:
                 if refresh.get('working_universe')!='nifty500':refresh={'status':'ready','mode':'Nifty 500','total':len(active),'done':0}
                 if repair.get('working_universe')!='nifty500':repair={}
                 report={}
-        return {'universe':universe,'fundamental_repair':repair,'sleep_guard':self.power.snapshot() if self.power else None,'quality':quality,'counts':counts,'stream':stream,'refresh':{k:v for k,v in refresh.items() if k!='completed_symbols'},'import':report,'token_saved':bool(load_token()),'complete_fundamentals':counts['fundamentals']-incomplete,'partial_fundamentals':incomplete+missing_records,'missing_fields':missing,'detailed_statements':full,'failed_endpoints':failures,'latest_candle':latest,'short_histories':short,'mode':'local_paper_only','now':now(),'csrf':self.csrf}
+        return {'universe':universe,'fundamental_repair':repair,'sleep_guard':self.power.snapshot() if self.power else None,'quality':quality,'counts':counts,'stream':stream,'refresh':{k:v for k,v in refresh.items() if k!='completed_symbols'},'import':report,'token_saved':bool(load_token()),'complete_fundamentals':counts['fundamentals']-incomplete,'partial_fundamentals':incomplete+missing_records,'missing_fields':missing,'detailed_statements':full,'failed_endpoints':failures,'latest_candle':latest,'short_histories':short,'recent_listings':recent,'mode':'local_paper_only','now':now(),'csrf':self.csrf}
 
 class Server(ThreadingHTTPServer):
     daemon_threads=True
