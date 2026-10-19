@@ -12,6 +12,7 @@ import uuid
 from datetime import datetime, timedelta, timezone
 from urllib.parse import quote
 import requests
+from .history_rules import MIN_SESSIONS,long_window,effective_rows
 from .storage import connect, get_state, set_state
 from .execution import charges
 from .feed import load_token
@@ -49,7 +50,8 @@ def local_day(clock):
 
 def features(rows):
     """Matches the frozen research indicator windows, including shifted volume."""
-    if len(rows) < 201:
+    rows = effective_rows(rows)
+    if len(rows) < MIN_SESSIONS+1:
         return None
     prior = None; atr = None; seed = []; out = []; jumps = [0]
     for n, row in enumerate(rows):
@@ -62,14 +64,15 @@ def features(rows):
             seed.append(tr)
             if len(seed) == 14: atr = sum(seed)/14
         else: atr = (13*atr+tr)/14
-        if n >= 200:
-            prev = rows[n-200:n]
+        if n >= MIN_SESSIONS:
+            window = long_window(n)
+            prev = rows[n-window:n]
             volume = sum(r['volume'] for r in rows[n-40:n-10])/30
             quality = all(r['volume'] > 0 for r in rows[n-20:n])
-            quality = quality and jumps[n]-jumps[max(1,n-200)] == 0
+            quality = quality and jumps[n]-jumps[max(1,n-window)] == 0
             out.append(dict(as_of=row['ts'][:10], close=c, atr=atr,
                 dma50=sum(r['close'] for r in rows[n-50:n])/50,
-                dma200=sum(r['close'] for r in prev)/200,
+                dma200=sum(r['close'] for r in prev)/window, short_history=n<200,
                 high20=max(r['high'] for r in rows[n-20:n]),
                 live_high20=max(r['high'] for r in rows[n-19:n+1]),
                 volume_ratio=(sum(r['volume'] for r in rows[n-10:n])/10)/volume if volume else 0,

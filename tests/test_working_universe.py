@@ -60,7 +60,13 @@ class WorkingUniverseTests(unittest.TestCase):
   with connect(self.path) as db:r=scope_report(db,{'working_universe':'nifty500','results':[]})
   self.assertEqual(len(r['results']),1)
   self.assertTrue(r['results'][0]['blocker_category'].startswith('Too new, eligible from '))
-  self.assertIn('Fewer than 200 completed daily candles',r['results'][0]['blocker_reason'])
+  self.assertIn('Fewer than 80 completed daily candles',r['results'][0]['blocker_reason'])
+ def test_repair_report_allows_null_report_from_running_refresh(self):
+  audit(self.path)
+  with connect(self.path) as db:r=scope_report(db,{'results':[{'symbol':'INCLUDED','annual_report':None}]})
+  self.assertEqual(r['annual_reports_verified'],0)
+  self.assertEqual(r['quality']['stocks'],1)
+  self.assertTrue(r['results'][0]['blocker_category'].startswith('Too new, eligible from '))
  def test_exit_retry_is_only_for_requested_holding_and_preserves_failure(self):
   with connect(self.path) as db:set_state(db,EXIT_KEY,[{'portfolio':'trader','symbol':'HELD','max_quantity':1}])
   with patch('marketdesk.universe_exits.refresh_held_quotes'),patch('marketdesk.universe_exits.trade',side_effect=ValueError('stale')) as trade:

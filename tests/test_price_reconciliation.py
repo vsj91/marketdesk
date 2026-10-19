@@ -18,7 +18,7 @@ class ReconciliationTests(unittest.TestCase):
  def test_verified_market_move_does_not_waive_short_history(self):
   day=verify(self.proof,'TEST','ISIN',self.rows,self.clock)
   reasons=inspect_history(self.rows,[r['ts'][:10] for r in self.rows],self.clock,{day})
-  self.assertIn('Fewer than 200 completed daily candles',reasons)
+  self.assertIn('Fewer than 80 completed daily candles',reasons)
   self.assertFalse(any('discontinuity' in r for r in reasons))
   self.assertTrue(any('discontinuity' in r for r in inspect_history(self.rows,[],self.clock)))
  def test_evidence_mismatch_expiry_and_corporate_actions_fail_closed(self):

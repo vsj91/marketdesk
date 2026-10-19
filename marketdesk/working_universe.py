@@ -1,4 +1,5 @@
 """One research/data scope. Saved history and the paper ledger are never deleted."""
+from .history_rules import MIN_SESSIONS
 from datetime import datetime, timezone, timedelta
 from .storage import get_state
 from .buy_universe import KEY, SOURCE, validate_members
@@ -58,18 +59,18 @@ def scope_report(db,report):
     for symbol,q in quality_rows.items():
         if q.get('investor_ready'):continue
         reasons=list(q.get('price_reasons',[]))+list(q.get('financial_reasons',[]))
-        if any('Fewer than 200' in x for x in q.get('price_reasons',[])):
+        if any('Fewer than 80' in x for x in q.get('price_reasons',[])):
             candles=[r[0] for r in db.execute('SELECT ts FROM candles WHERE symbol=? ORDER BY ts',(symbol,))]
             sessions=get_state(db,'quality_sessions',[])
             eligible='unknown date'
             if candles and sessions:
                 try:
-                    need=max(0,200-len(candles));pos=sessions.index(candles[-1][:10]);eligible=sessions[pos+need] if pos+need<len(sessions) else None
+                    need=max(0,MIN_SESSIONS-len(candles));pos=sessions.index(candles[-1][:10]);eligible=sessions[pos+need] if pos+need<len(sessions) else None
                 except (ValueError,IndexError):pass
             if eligible is None and candles:
                 # A projected weekday date is clearly labelled; exchange
                 # holidays can move it later when fresh sessions arrive.
-                day=datetime.fromisoformat(candles[-1]).date();remaining=max(0,200-len(candles))
+                day=datetime.fromisoformat(candles[-1]).date();remaining=max(0,MIN_SESSIONS-len(candles))
                 while remaining:
                     day+=timedelta(days=1)
                     if day.weekday()<5:remaining-=1
@@ -104,7 +105,7 @@ def scope_report(db,report):
                investor_after=quality.get('investor_ready'),resolved_fields=sum(len(r.get('resolved',[])) for r in rows),
                cleared_stocks=sum(r.get('status')=='resolved' for r in rows),unresolved_stocks=sum(r.get('status')!='resolved' for r in rows),
                remaining_conflict_stocks=quality.get('reasons',{}).get('Financial sources disagree',0),
-               annual_reports_verified=sum(r.get('annual_report',{}).get('status')=='verified' for r in rows),
+               annual_reports_verified=sum((r.get('annual_report') or {}).get('status')=='verified' for r in rows),
                note='Nifty 500 rows only. Current coverage uses the active universe; earlier all-stock baselines are not comparable.')
     return out
 

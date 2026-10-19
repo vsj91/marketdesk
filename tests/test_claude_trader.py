@@ -609,4 +609,15 @@ class IndicatorTests(unittest.TestCase):
   with patch.object(ct,'TRADE_RISK',.01),patch.object(ct,'HEAT_CAP',.06):
    self.assertGreater(quantity(100,2,1_000_000,0,10_000_000),half)
 
+ def test_recent_listing_uses_scaled_long_average_and_full_history_unchanged(self):
+  def make(n):
+   return [dict(ts=(datetime(2025,1,1)+timedelta(days=i)).isoformat(),open=100+i*.1,high=100+i*.1+2,low=100+i*.1-1,close=100+i*.1,volume=100000+i*100) for i in range(n)]
+  self.assertIsNone(features(make(60)))
+  short=make(100);f=features(short)[-1]
+  self.assertTrue(f['short_history'])
+  self.assertAlmostEqual(f['dma200'],sum(r['close'] for r in short[0:99])/99)
+  full=make(220);g=features(full)[-1]
+  self.assertFalse(g['short_history'])
+  self.assertAlmostEqual(g['dma200'],sum(r['close'] for r in full[-201:-1])/200)
+
 if __name__=='__main__':unittest.main()
