@@ -32,7 +32,7 @@ for symbol in symbols:
         details=apply_yahoo_crosscheck(details,result.get('yahoo',{}))
         details=repair_extra(symbol,isin,details)
         latest=details.get('latest') or {}
-        if details.get('selected_source') in ('nse_audited_filing','nse_audited_banking_filing','nse_audited_insurance_filing') and latest.get('observed_at'):observed=latest['observed_at']
+        if details.get('selected_source') in ('nse_audited_filing','nse_audited_banking_filing','nse_audited_insurance_filing','company_annual_report') and latest.get('observed_at'):observed=latest['observed_at']
         with connect(DEFAULT_DB) as db:
             live=json.loads(db.execute('SELECT details FROM fundamentals WHERE symbol=?',(symbol,)).fetchone()[0])
             if live!=original:raise ValueError('Concurrent financial update; left for retry')

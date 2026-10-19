@@ -32,7 +32,9 @@ def report_text(report,symbol,isin):
             if e.get('basis_method')=='sole_entity_no_subsidiary':
                 from .annual_reports import SOLE_ENTITY_CLAUSE
                 if inherited_basis!='standalone' or bases or not re.search(SOLE_ENTITY_CLAUSE,auditor):raise ValueError('Auditor no-subsidiary statement not verified')
-            elif set(bases)!={inherited_basis}:raise ValueError('Auditor statement basis not verified')
+            elif set(bases)!={inherited_basis}:
+                from .annual_reports import audited_section_basis
+                if (audited_section_basis(doc[-1].get_text()) or [None])[0]!=inherited_basis:raise ValueError('Auditor statement basis not verified')
         for index,p in enumerate(list(doc)[:len(e['pages'])]):
             if e['layout']=='joined_balance_spread':
                 texts.extend(balance_text(p,clip) for clip in (pymupdf.Rect(0,0,p.rect.width/2,p.rect.height),pymupdf.Rect(p.rect.width/2,0,p.rect.width,p.rect.height)))

@@ -10,7 +10,7 @@ from urllib.parse import urlsplit
 from .storage import ROOT,now
 from .intraday_data import atomic_json
 
-REVISION=43
+REVISION=44
 RULE_REVISION=2  # Explicit user approval: printed identities and debt/lease reconciliation.
 INCOME_REVISION=5
 # An auditor's basis heading covers the statements that follow it, up to this many
@@ -701,6 +701,9 @@ def audited_section_basis(text):
         matches+=list(re.finditer(r'in conjunction with our audit of the (standalone|consolidated) financial statements of the Company for the year ended on that date',compact,re.I))
     if re.search(r'auditor[’\x27]s responsibilit(?:y|ies) for the audit of the financial statements',compact,re.I):
         matches+=list(re.finditer(r'in connection with our audit of the (standalone|consolidated) financial statements',compact,re.I))
+    # CARO annexure: "...not applicable in respect of audit of standalone financial statements of the Company".
+    if re.search(r'clause 3\(xxi\) of the order',compact,re.I):
+        matches+=list(re.finditer(r'in respect of (?:the )?audit of (?:the )?(standalone|consolidated) financial statements of the company',compact,re.I))
     if matches and len({m[1].lower() for m in matches})==1:
         return matches[0][1].lower(),matches[0][0]
     return None
@@ -911,6 +914,8 @@ def pdf_worker(pdf_path,context_path,output_path):
                         for income_clip in income_clips:
                             income_text=balance_text(income_page,income_clip)
                             if not re.search(r'statement\s+of\s+(?:(?:standalone|consolidated)\s+)?profit',' '.join(unicodedata.normalize('NFKC',income_text).lower().split())[:1000]):continue
+                            # The auditor-derived basis covering the balance sheet covers the adjacent P&L too.
+                            if inherited and not re.search(r'\b(?:standalone|consolidated)\b',' '.join(income_text.lower().split())[:1800]):income_text=inherited+income_text
                             try:
                                 income=parse_income(income_text,latest)
                                 income['pages']=[j+1];incomes.append((income,j))

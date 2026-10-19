@@ -88,7 +88,7 @@ def run_repair(job,rows):
                         # Reapply only while the source context still matches the worker snapshot.
                         if details==result.get('extra_baseline'):details=result['extra_repaired']
                         selected=details.get('latest') or {}
-                        observed=selected.get('observed_at') if details.get('selected_source') in ('nse_audited_filing','nse_audited_banking_filing','nse_audited_insurance_filing') else None
+                        observed=selected.get('observed_at') if details.get('selected_source') in ('nse_audited_filing','nse_audited_banking_filing','nse_audited_insurance_filing','company_annual_report') else None
                         observed=observed or (current['observed_at'] if current else None) or row.get('observed_at') or started
                         db.execute('INSERT INTO fundamentals VALUES(?,?,?) ON CONFLICT(symbol) DO UPDATE SET details=excluded.details,observed_at=excluded.observed_at',(symbol,json.dumps(details,allow_nan=False),observed))
                     remaining=missing(details);gained=sorted(set(old_missing)-set(remaining))

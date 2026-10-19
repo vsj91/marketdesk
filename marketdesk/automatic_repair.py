@@ -54,6 +54,17 @@ def repair_extra(symbol,isin,details):
             out=apply_reit_inputs(out,fetch_reit_inputs(symbol,isin,out),symbol,isin)
             attempts.append({'source':'Audited NSE REIT filing','status':'verified'})
         except Exception as error:attempts.append({'source':'Audited NSE REIT filing','status':'unresolved','reason':str(error)[:180]})
+    # No exchange or provider annual record at all: build one from the audited annual
+    # report, anchored on independent same-period figures; refresh it before 30 days.
+    record=out.get('report_record') or {}
+    try:record_age=(datetime.now(timezone.utc)-datetime.fromisoformat(record['report']['observed_at'])).days
+    except (KeyError,TypeError,ValueError):record_age=None
+    if not (out.get('latest') or {}).get('period') or (record and (record_age is None or record_age>=20)):
+        from .company_record import build_report_record
+        try:
+            out=build_report_record(symbol,isin,out)
+            attempts.append({'source':'Audited company annual report with independent anchors','status':'verified'})
+        except Exception as error:attempts.append({'source':'Audited company annual report with independent anchors','status':'unresolved','reason':str(error)[:180]})
     latest=out.get('latest') or {}
     if not latest.get('period') or latest.get('statement_type') not in ('consolidated','standalone'):
         out['automatic_repair']={'checked_at':now(),'attempts':attempts+[{'source':'Audited annual context','status':'unresolved','reason':'A verified annual period and statement basis are required before growth repair'}]}

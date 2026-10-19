@@ -4,7 +4,7 @@ from pathlib import Path
 from datetime import datetime,timezone
 import pymupdf
 from .storage import ROOT,now
-from .annual_reports import balance_text,statement_context,caption,amount,NUM,NOTE_REF,FORMULA_REF,save_excerpt,sole_entity_basis,SOLE_ENTITY_CLAUSE,BASIS_CONTEXT_PAGES
+from .annual_reports import balance_text,statement_context,caption,amount,NUM,NOTE_REF,FORMULA_REF,save_excerpt,sole_entity_basis,SOLE_ENTITY_CLAUSE,BASIS_CONTEXT_PAGES,audited_section_basis
 from .financial_sources import request
 from .fallbacks import Fallbacks
 from .growth_repair import checked_pair
@@ -60,6 +60,7 @@ def extract_pdf(path,latest,expected_isin=None):
    low=' '.join(unicodedata.normalize('NFKC',p.get_text()).lower().split())
    audit=re.findall(r'report on the audit of (?:the )?(standalone|consolidated) financial statements',low[:6000])
    if audit:basis_context=(audit[0],i) if len(set(audit))==1 else None
+   elif audited_section_basis(p.get_text()):basis_context=(audited_section_basis(p.get_text())[0],i)
    elif sole and i==sole[0]:basis_context=('standalone',i)
    if not re.search(r'statement of (?:standalone |consolidated )?profit',low):continue
    clips=[('full_page',None)]
@@ -150,7 +151,7 @@ def apply_growth(details,proof,symbol,isin):
    audit=' '.join(doc[-1].get_text().lower().split());bases=re.findall(r'report on the audit of (?:the )?(standalone|consolidated) financial statements',audit[:6000])
    if e.get('basis_method')=='sole_entity_no_subsidiary':
     if e['basis_evidence']!='standalone' or bases or not re.search(SOLE_ENTITY_CLAUSE,audit):raise ValueError('Auditor no-subsidiary statement changed')
-   elif set(bases)!={e['basis_evidence']}:raise ValueError('Auditor basis context changed')
+   elif set(bases)!={e['basis_evidence']} and (audited_section_basis(doc[-1].get_text()) or [None])[0]!=e['basis_evidence']:raise ValueError('Auditor basis context changed')
    texts.insert(0,e['basis_evidence'])
  parsed=parse_growth('\n'.join(texts),details['latest'])
  for name in ('current','prior'):
