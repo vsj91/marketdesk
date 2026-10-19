@@ -3,7 +3,7 @@ import pymupdf
 from marketdesk.annual_reports import sole_entity_basis,balance_text
 from marketdesk.growth_repair import checked_pair
 
-HEADING='Independent Auditor’s Report To the Members of Example Limited Report on the Audit of the Financial Statements Opinion We have audited'
+HEADING='Independent Auditor’s Report To the Members of Example Limited Report on the Audit of the Financial Statements Opinion We have audited the accompanying financial statements'
 CLAUSE='(f) The Company does not have any subsidiary, associate or joint venture. Accordingly, clause 3(xxi) is not applicable.'
 
 
@@ -19,6 +19,17 @@ class SoleEntityBasisTests(unittest.TestCase):
                        '(e) The Company does not hold any investment in any subsidiaries, associates or joint ventures (as defined under the Act).'):
             self.assertEqual(sole_entity_basis(['x',HEADING,clause])[0],2,clause)
         self.assertIsNone(sole_entity_basis(['x',HEADING,'The Company has subsidiaries, associates and joint ventures.']))
+
+    def test_auditor_title_variants_and_contents_pages(self):
+        clause=CLAUSE
+        title='Independent Auditors’ Report on the Financial Statements To the members Opinion We have audited the financial statements of X'
+        self.assertEqual(sole_entity_basis(['x',title,clause])[0],2)
+        # Control characters used as spaces in a text layer.
+        spaced='Report\x03on\x03the\x03Audit\x03of\x03the\x03Financial\x03Statements Opinion We\x03have\x03audited\x03the\x03accompanying\x03financial\x03statements'
+        self.assertEqual(sole_entity_basis(['x',spaced,clause])[0],2)
+        # A contents page citing the report is not the auditor's report.
+        contents='Financial statements 156 Independent Auditors’ Report on the Financial Statements 168 Balance Sheet'
+        self.assertIsNone(sole_entity_basis([contents,clause]+['notes']*30))
 
     def test_rejects_any_consolidated_or_labelled_audit(self):
         for extra in ('Report on the Audit of the Consolidated Financial Statements','Report on the audit of the Standalone Financial Statements',

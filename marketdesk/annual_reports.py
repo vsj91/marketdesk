@@ -10,7 +10,7 @@ from urllib.parse import urlsplit
 from .storage import ROOT,now
 from .intraday_data import atomic_json
 
-REVISION=41
+REVISION=42
 RULE_REVISION=2  # Explicit user approval: printed identities and debt/lease reconciliation.
 INCOME_REVISION=5
 # An auditor's basis heading covers the statements that follow it, up to this many
@@ -266,7 +266,7 @@ def parse_lease_rollforward(text,latest):
 def parse_classified_lease_note(text,latest):
     """A lease note's explicit total, reconciled to both printed components."""
     rows=r'\s{2,}('+NUM+r')\s{2,}('+NUM+r')\s*'
-    block=re.search(r'^\s*(?:\([a-z]\)\s*)?(?:lease liabilities|carrying amount of lease liability:)(?:\s{2,}[a-z]+\s+\d{1,2},?\s+20\d{2}\s{2,}[a-z]+\s+\d{1,2},?\s+20\d{2})?\s*\n'
+    block=re.search(r'^\s*(?:\(?[a-z]\)\s*)?(?:lease liabilities|carrying amount of lease liability:)(?:\s{2,}[a-z]+\s+\d{1,2},?\s+20\d{2}\s{2,}[a-z]+\s+\d{1,2},?\s+20\d{2})?\s*\n'
                     r'\s*current'+rows+r'\n\s*non[- ]current'+rows+
                     r'\n\s*total(?: lease liabilities)?'+rows+r'$',text,re.I|re.M)
     if not block:raise ValueError('Explicit classified lease total unavailable')
@@ -719,14 +719,18 @@ def sole_entity_basis(pages):
     consolidated statement heading appears anywhere, and the auditor's own
     report states the company has no subsidiary, associate or joint venture.
     Returns (clause page index, printed clause) or None."""
-    compact=[' '.join(unicodedata.normalize('NFKC',p).lower().split()) for p in pages]
-    if any(re.search(r'report on the audit of (?:the )?(?:standalone|consolidated)',c) or
+    # Some text layers use control characters (e.g. \x03) as spaces.
+    compact=[' '.join(re.sub(r'[\x00-\x1f]',' ',unicodedata.normalize('NFKC',p)).lower().split()) for p in pages]
+    auditor_title=r"(?:report on the audit of (?:the )?|independent auditors?['’]?s?['’]? report on (?:the )?)"
+    if any(re.search(auditor_title+r'(?:standalone|consolidated)',c) or
            re.search(r'consolidated (?:balance sheet|statement of profit|statement of cash flows?)\b',c[:600]) for c in compact):return None
-    headings=[i for i,c in enumerate(compact) if re.search(r'report on the audit of (?:the )?(?:ind[- ]as )?financial statements',c[:6000])]
-    if not headings:return None
-    for i in range(headings[0],min(headings[0]+21,len(compact))):
-        m=re.search(SOLE_ENTITY_CLAUSE,compact[i])
-        if m:return i,m[0]
+    # The title must be on the auditor's opinion page itself, not cited in a contents list.
+    opinion=r'wehaveaudited(?:the)?(?:accompanying)?(?:ind-?as)?financialstatements'
+    headings=[i for i,c in enumerate(compact) if re.search(auditor_title+r'(?:ind[- ]as )?financial statements',c[:6000]) and re.search(opinion,c.replace(' ',''))]
+    for h in headings:
+        for i in range(h,min(h+21,len(compact))):
+            m=re.search(SOLE_ENTITY_CLAUSE,compact[i])
+            if m:return i,m[0]
     return None
 
 def verified_column_transcription(text,page,latest,clip=None):
@@ -808,6 +812,8 @@ def pdf_worker(pdf_path,context_path,output_path):
                 w,h=page.rect.width,page.rect.height;clips.extend([pymupdf.Rect(0,0,w/2,h),pymupdf.Rect(w/2,0,w,h)])
             for clip in clips:
                 text=balance_text(page,clip)
+                # In a proven single-entity report every note belongs to the standalone statements.
+                if sole and not re.search(r'\b(?:standalone|consolidated)\b',' '.join(text.lower().split())[:1800]):text='standalone\n'+text
                 if re.search(r'Disclosures for leasing arrangements',text,re.I):
                     active=active_financial_navigation(page,clip)
                     if active:
