@@ -1,5 +1,6 @@
 from .working_universe import symbol_filter,status as working_status,enabled,scope_report,sync_instruments
 from .history_rules import MIN_SESSIONS
+from .scorecard import scorecard
 import json,os,re,secrets,threading,time,mimetypes,hashlib
 from pathlib import Path
 from http.server import ThreadingHTTPServer,BaseHTTPRequestHandler
@@ -67,7 +68,7 @@ class App:
                 if refresh.get('working_universe')!='nifty500':refresh={'status':'ready','mode':'Nifty 500','total':len(active),'done':0}
                 if repair.get('working_universe')!='nifty500':repair={}
                 report={}
-        return {'universe':universe,'fundamental_repair':repair,'sleep_guard':self.power.snapshot() if self.power else None,'quality':quality,'counts':counts,'stream':stream,'refresh':{k:v for k,v in refresh.items() if k!='completed_symbols'},'import':report,'token_saved':bool(load_token()),'complete_fundamentals':counts['fundamentals']-incomplete,'partial_fundamentals':incomplete+missing_records,'missing_fields':missing,'detailed_statements':full,'failed_endpoints':failures,'latest_candle':latest,'short_histories':short,'recent_listings':recent,'mode':'local_paper_only','now':now(),'csrf':self.csrf}
+        return {'universe':universe,'fundamental_repair':repair,'sleep_guard':self.power.snapshot() if self.power else None,'quality':quality,'close_check':get_state(db,'close_check',{}),'scorecard':scorecard(db),'counts':counts,'stream':stream,'refresh':{k:v for k,v in refresh.items() if k!='completed_symbols'},'import':report,'token_saved':bool(load_token()),'complete_fundamentals':counts['fundamentals']-incomplete,'partial_fundamentals':incomplete+missing_records,'missing_fields':missing,'detailed_statements':full,'failed_endpoints':failures,'latest_candle':latest,'short_histories':short,'recent_listings':recent,'mode':'local_paper_only','now':now(),'csrf':self.csrf}
 
 class Server(ThreadingHTTPServer):
     daemon_threads=True

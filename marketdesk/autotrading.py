@@ -7,6 +7,7 @@ from .paper import trade
 from .execution import charges,money
 from .order_audit import init_attempts,blocked_category,current_identity
 from .quality import audit
+from . import drawdown
 from .history_rules import MIN_SESSIONS,long_window,effective_rows
 from .quote_health import fresh,stale_holdings,stale_message,refresh_held_quotes
 from .buy_universe import allowed_symbols,require_buy_universe,universe_status,MembershipRefresh
@@ -343,12 +344,16 @@ class AutoTrading:
    if realtime:clock=datetime.now(timezone.utc)
    okay,risk_message=daily_risk(db,portfolio,clock)
    cfg=get_state(db,'auto_config',{}).get(portfolio,{})
+   dd_halted,dd_info=False,None
+   marked=equity(db,portfolio,clock)
+   if marked:dd_halted,dd_info=drawdown.update(db,portfolio,marked,db.execute('SELECT initial_cash FROM portfolios WHERE name=?',(portfolio,)).fetchone()[0],drawdown.limit_pct(cfg))
    held=[dict(r) for r in db.execute('SELECT * FROM positions WHERE portfolio=? AND quantity>0',(portfolio,))]
    quotes={r['symbol']:dict(r) for r in db.execute('SELECT * FROM quotes')}
   for p in held:
    q=quotes.get(p['symbol']);signal=signals.get(p['symbol'])
    if fresh(q,clock) and exit_signal(portfolio,signal,p,q['price']):
     fills+=self.execute(portfolio,p['symbol'],'SELL',p['quantity'],signal,clock,realtime)
+  if dd_halted:return {'state':'risk_wait','message':drawdown.message(dd_info),'fills_this_scan':fills}
   if not entry_window_open(clock,cfg):return {'state':'monitoring','message':'Monitoring exits. New entries run '+entry_window_label(cfg)+'.','fills_this_scan':fills}
   if not okay:return {'state':'risk_wait','message':risk_message,'fills_this_scan':fills}
   if portfolio=='investor':

@@ -28,6 +28,7 @@ class Maintenance:
         from .price_reconciliation import reconcile
         reconcile(self.path)
         audit(self.path,clock)
+        self.close_check(clock,day)
         last=state.get('last_started',{})
         def due(mode):
             try:return datetime.fromisoformat(last[mode]).astimezone(IST).date().isoformat()!=day
@@ -47,6 +48,18 @@ class Maintenance:
         if due('fundamental_repair'):
             from .fundamental_repair import targets
             if targets(self.path):self.refresh.start([],'fundamental_repair')
+    def close_check(self,clock,day):
+        """Once per evening (after NSE publishes the bhavcopy), or once if never run. Failures never block maintenance."""
+        with connect(self.path) as db:stamp=get_state(db,'close_check',{}).get('checked_at')
+        try:ran_today=stamp and datetime.fromisoformat(stamp).astimezone(IST).date().isoformat()==day
+        except ValueError:ran_today=False
+        if ran_today or (stamp and clock.astimezone(IST).hour<19):return
+        try:
+            from .close_check import run
+            run(self.path)
+        except Exception as error:
+            with connect(self.path) as db:
+                state=get_state(db,'nifty500_maintenance',{});state['close_check_error']={'at':now(),'reason':str(error)[:180]};set_state(db,'nifty500_maintenance',state)
     def start(self):threading.Thread(target=self.run,daemon=True).start()
     def run(self):
         while not self.stop_event.is_set():

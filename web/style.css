@@ -3,3 +3,6 @@
 .panel,.detail,.layout>*,.chart-labels{min-width:0}.chart-labels{flex-wrap:wrap;gap:4px}
 
 .auto-event{border-bottom:1px solid var(--line);padding:12px 0}.auto-event small{color:var(--muted)}#automationCards details p{font-size:12px}#portfolioCards td small[title]{max-width:250px;white-space:normal}
+
+.gates{list-style:none;margin:6px 0 14px;padding:0}.gates li{padding:9px 0;border-bottom:1px solid var(--line);font-size:12px}.gates li strong{display:block}.gates li small{display:block;color:var(--muted);margin-top:3px}.gates .ok strong{color:var(--accent)}.gates .no strong{color:var(--warn)}#readiness>.panel{margin-bottom:20px}
+.metric strong small.sub{display:block;font-weight:400;color:var(--muted);font-size:10px;margin-top:4px}

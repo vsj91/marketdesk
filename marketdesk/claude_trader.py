@@ -12,6 +12,7 @@ import uuid
 from datetime import datetime, timedelta, timezone
 from urllib.parse import quote
 import requests
+from . import drawdown
 from .history_rules import MIN_SESSIONS,long_window,effective_rows
 from .storage import connect, get_state, set_state
 from .execution import charges
@@ -360,6 +361,12 @@ class ClaudeTrader:
             exits=[p for p in held if fresh(quotes.get(p['symbol']),clock) and self.exit_reason(db,p['symbol'],quotes[p['symbol']]['price'])]
         fills=sum(self.execute(p['symbol'],'SELL',p['quantity'],None,clock,realtime) for p in exits)
         def status(message,state='monitoring',**extra):return dict(state=state,message=message,fills_this_scan=fills,strategy=STRATEGY,nifty500_filter_enabled=use_market_filter,live_breakout=cfg.get('live_breakout') is True,**extra)
+        with connect(self.path) as db:
+            db.execute('BEGIN IMMEDIATE')
+            account=db.execute("SELECT * FROM portfolios WHERE name='trader'").fetchone()
+            marked,_=portfolio_valuation(db,account,clock)
+            dd_halted,dd_info=drawdown.update(db,'trader',marked,account['initial_cash'],drawdown.limit_pct(cfg)) if marked else (False,None)
+        if dd_halted:return status(drawdown.message(dd_info),'risk_wait')
         if not self.benchmark:return status('Waiting for verified completed Nifty 500 history; new buys blocked. Exits remain active.','data_wait')
         if use_market_filter and not self.benchmark['allowed']:return status('Nifty 500 is below its 200-day average; no new entries. Exits remain active.','market_wait')
         label='Original Claude' if use_market_filter else 'Claude V2 (Nifty 500 filter off)'
