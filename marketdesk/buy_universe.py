@@ -80,7 +80,9 @@ def universe_status(db, portfolio, clock=None):
     result = dict(name='Nifty 500', fetched_at=snapshot.get('fetched_at'), source=SOURCE)
     try:
         symbols = allowed_symbols(db, portfolio, clock)
-        ready = sum(bool(json.loads(r['report']).get(portfolio+'_ready'))
+        # Only Investor needs financial inputs; every other basket uses the price-data check.
+        check = 'investor_ready' if portfolio == 'investor' else 'trader_ready'
+        ready = sum(bool(json.loads(r['report']).get(check))
                     for r in db.execute('SELECT symbol,report FROM quality') if r['symbol'] in symbols)
         result.update(status='ok', constituents=len(snapshot['members']), matched=len(symbols), data_ready=ready,
                       source_rows=snapshot.get('source_rows',len(snapshot['members'])))

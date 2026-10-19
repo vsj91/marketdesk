@@ -486,14 +486,16 @@ class AutoTrading:
 
 def event_snapshot(db):
  # Group identical blocks per session into one line listing the stocks; history is not deleted.
- rows=[];groups={}
- # Once 30 lines are filled, keep reading a bounded tail only to complete the stock lists.
+ rows=[];groups={};per=collections.Counter()
+ # Up to 30 lines per basket, so a quiet basket still shows its own history.
+ # A bounded tail is read to complete the grouped stock lists.
  for r in db.execute('SELECT * FROM auto_events ORDER BY id DESC LIMIT 30000'):
   blocked=r['kind']=='blocked' and r['symbol']
   key=(r['portfolio'],r['reason'],session(datetime.fromisoformat(r['created_at']))) if blocked else None
   if key in groups:
    if r['symbol'] not in groups[key]['symbols']:groups[key]['symbols'].append(r['symbol'])
-  elif len(rows)<30:
+  elif per[r['portfolio']]<30:
+   per[r['portfolio']]+=1
    rows.append(dict(r,symbols=[r['symbol']]) if blocked else dict(r))
    if blocked:groups[key]=rows[-1]
  for r in rows:
