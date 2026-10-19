@@ -4,6 +4,8 @@ from .storage import connect,now,get_state
 from .execution import fetch_book,match,charges,money,automatic_buy_cost_check
 from .quality import init_quality,require_buy_quality
 from .buy_universe import require_buy_universe
+from .basket_rules import BASKETS
+PORTFOLIOS=('trader','investor',*BASKETS)
 from .order_audit import init_metadata,current_identity,save_identity,annotate,init_attempts,diagnostics,save_attempt,blocked_category
 
 def init_paper(path):
@@ -20,6 +22,8 @@ def init_paper(path):
             if name not in columns:db.execute('ALTER TABLE trades ADD COLUMN '+name+' '+definition)
         db.execute('UPDATE trades SET requested_quantity=quantity WHERE requested_quantity IS NULL')
         for name in ('trader','investor'):db.execute('INSERT OR IGNORE INTO portfolios VALUES(?,?,?)',(name,1000000,1000000))
+        # Additional baskets start at ₹1,00,000, the same capital the Trader and Investor ledgers use.
+        for name in BASKETS:db.execute('INSERT OR IGNORE INTO portfolios VALUES(?,?,?)',(name,100000,100000))
         init_metadata(db)
         init_attempts(db)
 
@@ -69,7 +73,7 @@ def trade(path,payload,clock=None,auto_guard=None,audit_context=None):
 def _trade(path,payload,clock=None,auto_guard=None,audit_details=None,audit_identity=None):
     realtime=clock is None;clock=clock or datetime.now(timezone.utc)
     portfolio=payload.get('portfolio');symbol=payload.get('symbol');side=payload.get('side');requested=payload.get('quantity');request_id=payload.get('request_id')
-    if portfolio not in ('trader','investor') or side not in ('BUY','SELL'):raise ValueError('Choose a valid paper portfolio and side.')
+    if portfolio not in PORTFOLIOS or side not in ('BUY','SELL'):raise ValueError('Choose a valid paper portfolio and side.')
     if not isinstance(symbol,str) or not symbol:raise ValueError('Choose a stock.')
     if isinstance(requested,bool) or not isinstance(requested,int) or not 1<=requested<=1000000:raise ValueError('Quantity must be a positive whole number, at most 1,000,000.')
     if not isinstance(request_id,str) or not 16<=len(request_id)<=80:raise ValueError('Missing valid order identifier.')

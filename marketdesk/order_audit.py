@@ -23,7 +23,11 @@ def current_identity(db,portfolio,automatic):
     if not automatic:return 'manual/v1','Manual paper order',{'mode':'manual'}
     cfg=get_state(db,'auto_config',{}).get(portfolio,{})
     from .autotrading import capacity_rules
-    if portfolio=='trader' and cfg.get('strategy')=='claude-original-v2':
+    from .basket_rules import BASKETS
+    if portfolio in BASKETS:
+        from .baskets import rules as basket_rules
+        rules=basket_rules(portfolio,cfg);family='basket-'+portfolio
+    elif portfolio=='trader' and cfg.get('strategy')=='claude-original-v2':
         from .claude_trader import active_rule
         rules=active_rule(cfg);family='claude-v2'
     else:rules=capacity_rules(portfolio,cfg);family=portfolio+'-fundamental' if portfolio=='investor' else 'trader-daily'

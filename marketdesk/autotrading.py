@@ -12,6 +12,8 @@ from . import drawdown
 from .history_rules import MIN_SESSIONS,long_window,effective_rows
 from .quote_health import fresh,stale_holdings,stale_message,refresh_held_quotes
 from .buy_universe import allowed_symbols,require_buy_universe,universe_status,MembershipRefresh
+from .basket_rules import BASKETS
+ENGINES=(*('trader','investor'),*BASKETS)
 
 IST=timezone(timedelta(hours=5,minutes=30))
 RULES={
@@ -201,13 +203,15 @@ def daily_risk(db,portfolio,clock):
 class AutoTrading:
  def __init__(self,path,refresh=None):
   self.membership_refresh=MembershipRefresh(path)
-  self.claude=None;self.quality_checked=0;self.refresh=refresh;self.path=path;init_auto(path);self.stop_event=threading.Event();self.thread=None;self.scan_lock=threading.Lock();self.signals={};self.loaded=0
+  self.claude=None;self.quality_checked=0;self.refresh=refresh;self.path=path;init_auto(path)
+  from .baskets import BasketEngine
+  self.baskets=BasketEngine(path);self.stop_event=threading.Event();self.thread=None;self.scan_lock=threading.Lock();self.signals={};self.loaded=0
  def start(self):
   if self.thread and self.thread.is_alive():return
   self.thread=threading.Thread(target=self.run,daemon=True);self.thread.start()
  def stop(self):self.stop_event.set()
  def configure(self,portfolio,enabled):
-  if portfolio not in RULES or not isinstance(enabled,bool):raise ValueError('Choose Trader or Investor and a true/false enabled value.')
+  if portfolio not in ENGINES or not isinstance(enabled,bool):raise ValueError('Choose a paper basket and a true/false enabled value.')
   with connect(self.path) as db:
    db.execute('BEGIN IMMEDIATE');cfg=get_state(db,'auto_config');cfg[portfolio]={**cfg.get(portfolio,{}),'enabled':enabled,'updated_at':now()};set_state(db,'auto_config',cfg)
    statuses=get_state(db,'auto_status',{});statuses[portfolio]={'state':'waiting' if enabled else 'paused','message':'Enabled; awaiting the next engine check.' if enabled else 'Automatic paper trading is paused.','checked_at':now()};set_state(db,'auto_status',statuses)
@@ -242,9 +246,15 @@ class AutoTrading:
     rules[p]['risk']=base+f' Automatic buys require estimated buy-plus-sell fees ≤ {fee_limit}% of actual filled value, including delivery DP charges. Tiny partial buys are rejected; quantities are never increased to meet this check. Sell and stop orders are exempt.'
    if cfg.get(p,{}).get('full_session_buying') is True:
     rules[p]={**rules[p],'entry_window':entry_window_label(cfg[p])}
+  from .baskets import rules as basket_rules
+  for p in BASKETS:
+   rules[p]=basket_rules(p,cfg.get(p,{}))
+   if cfg.get(p,{}).get('buy_universe')=='nifty500':rules[p]['buy_universe']=universe_status(db,p)
+   if cfg.get(p,{}).get('full_session_buying') is True:rules[p]['entry_window']=entry_window_label(cfg[p])
   return rules
  def scan_selected(self,portfolio,signals,clock,realtime,cfg):
   from .claude_trader import STRATEGY,ClaudeTrader
+  if portfolio in BASKETS:return self.baskets.scan(portfolio,clock,realtime)
   if portfolio!='trader' or cfg.get('trader',{}).get('strategy')!=STRATEGY:
    return self.scan(portfolio,signals,clock,realtime)
   try:
@@ -304,8 +314,8 @@ class AutoTrading:
   clock=clock or datetime.now(timezone.utc)
   with self.scan_lock:
    with connect(self.path) as db:cfg=get_state(db,'auto_config',{});stream=get_state(db,'stream',{})
-   statuses={p:{'state':'paused','message':'Automatic paper trading is paused.'} for p in RULES}
-   enabled=[p for p in RULES if cfg.get(p,{}).get('enabled')]
+   statuses={p:{'state':'paused','message':'Automatic paper trading is paused.'} for p in ENGINES}
+   enabled=[p for p in ENGINES if cfg.get(p,{}).get('enabled')]
    opened=stream.get('status')=='connected' and stream.get('market_status',{}).get('NSE_EQ')=='NORMAL_OPEN'
    if enabled and opened:
     with connect(self.path) as db:
@@ -467,7 +477,7 @@ class AutoTrading:
    except Exception as error:
     with connect(self.path) as db:
      cfg=get_state(db,'auto_config',{})
-     for p in RULES:
+     for p in ENGINES:
       if cfg.get(p,{}).get('enabled'):
        cfg[p]['enabled']=False;event(db,p,'error','Engine paused after '+type(error).__name__+'. Review before enabling again.')
      set_state(db,'auto_config',cfg)

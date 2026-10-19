@@ -31,7 +31,8 @@ class App:
             with connect(path) as db:
                 if enabled(db):
                     cfg=get_state(db,'auto_config',{})
-                    for portfolio in ('trader','investor'):cfg.setdefault(portfolio,{})['buy_universe']='nifty500'
+                    from .paper import PORTFOLIOS
+                    for portfolio in PORTFOLIOS:cfg.setdefault(portfolio,{})['buy_universe']='nifty500'
                     set_state(db,'auto_config',cfg)
         self.power=None if read_only else SleepGuard()
         self.cap_refresh=None if read_only else ClassificationRefresh(path)
