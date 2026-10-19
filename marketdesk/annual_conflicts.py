@@ -43,7 +43,18 @@ def report_text(report,symbol,isin):
             elif e['layout']=='right_half':clip=pymupdf.Rect(p.rect.width/2,0,p.rect.width,p.rect.height)
             elif e['layout']=='full_page':clip=None
             else:raise ValueError('Unsupported correction layout')
-            texts.append(balance_text(p,clip))
+            page_text=balance_text(p,clip)
+            # Re-derive printed column order from this excerpt page's own word
+            # coordinates, exactly as the original parse did; never trust a stored line.
+            stored=e.get('column_order_evidence')
+            if stored and index==0 and len(e['pages'])==1 and stored.get('page')==e['pages'][0]:
+                from .annual_reports import verified_column_transcription
+                context_row={k:e.get(k) for k in ('period','statement_type','units_in')}
+                basis_text=(inherited_basis+'\n' if inherited_basis else '')+page_text
+                derived,proof=verified_column_transcription(basis_text,p,context_row,clip)
+                if not proof or proof['transcription']!=stored.get('transcription'):raise ValueError('Printed column order not re-verified')
+                page_text=proof['transcription']+'\n'+page_text
+            texts.append(page_text)
     text='\n'.join(texts)
     # Only a reviewed header line can be excluded (e.g. a navigation bar naming
     # both standalone and consolidated sections). Its exact text is hash-bound.

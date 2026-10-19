@@ -31,6 +31,18 @@ class AnnualConflictTests(unittest.TestCase):
     if basis=='consolidated':self.assertTrue(report_text(proof,'TEST','ISIN').startswith('consolidated\n'))
     else:
      with self.assertRaisesRegex(ValueError,'Auditor statement basis'):report_text(proof,'TEST','ISIN')
+ def test_printed_column_order_is_rederived_from_excerpt_page(self):
+  import pymupdf
+  with tempfile.TemporaryDirectory() as tmp,patch('marketdesk.annual_conflicts.ROOT',Path(tmp)):
+   doc=pymupdf.open();doc.new_page().insert_text((30,40),'Balance Sheet');path=Path(tmp)/'report.pdf';doc.save(path);doc.close()
+   line='PDF column headers (left to right): 31 March 2026    31 March 2025'
+   proof={'status':'verified','symbol':'TEST','isin':'ISIN','observed_at':datetime.now(timezone.utc).isoformat(),'evidence_path':'report.pdf','excerpt_sha256':hashlib.sha256(path.read_bytes()).hexdigest(),
+          'evidence':{'pages':[232],'layout':'full_page','period':'Mar 2026','statement_type':'consolidated','units_in':'crore','column_order_evidence':{'page':232,'transcription':line}}}
+   with patch('marketdesk.annual_reports.verified_column_transcription',return_value=('x',{'transcription':line})):
+    self.assertEqual(report_text(proof,'TEST','ISIN').splitlines()[0],line)
+   for derived in (None,{'transcription':line.replace('2025','2024')}):
+    with patch('marketdesk.annual_reports.verified_column_transcription',return_value=('x',derived)):
+     with self.assertRaisesRegex(ValueError,'column order'):report_text(proof,'TEST','ISIN')
  def setUp(self):
   self.latest={'current_borrowings':12,'non_current_borrowings':23,'total_borrowings':35,'total_lease_liabilities':5}
   self.parsed={'conversion_to_crore':1,'borrowing_components':{'current_borrowings':10,'non_current_borrowings':20},'components':{'current_lease':2,'non_current_lease':3},'lines':{'current_borrowings':'Borrowings    10.00    9.00','non_current_borrowings':'Borrowings    20.00    19.00','current_lease':'Lease liabilities    2.00    1.00','non_current_lease':'Lease liabilities    3.00    2.00'}}

@@ -27,7 +27,9 @@ for row in rows:
   elif review.exists():proof=json.loads(review.read_text());resolver=reconcile_reviewed
   else:
    proof=copy.deepcopy(before['annual_report_check']);resolver=reconcile_debt
-   if symbol in ('JUBLINGREA','ZUARI'):
+   # PARADEEP reviewed 2026-10-19: NSE iXBRL prints 605992.00 / 84636.00 lakh; report borrowings+leases
+   # are 605991.54 / 84636.22 lakh (FY2026 consolidated, p232), each within half a lakh.
+   if symbol in ('JUBLINGREA','ZUARI','PARADEEP'):
     proof['reviewed_nse_rounding']={'quantum_crore':.01,'reason':'Reviewed NSE components are rounded to whole lakhs despite .00 padding; company report gives finer precision. Both components and the total reconcile within 0.005 crore per rounded component.'}
   with connect(DEFAULT_DB) as db:
    current=json.loads(db.execute('SELECT details FROM fundamentals WHERE symbol=?',(symbol,)).fetchone()[0])
