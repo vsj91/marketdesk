@@ -1,0 +1,17 @@
+Consolidated Balance Sheetas at March 31, 2026
+All amounts are in INR crores, except share data and where otherwise stated
+Note    March 31, 2026    March 31, 2025
+(iii) Cash and cash equivalents    9(a)    226.00    157.83
+Equity
+(a) Equity share capital    11    18.30    18.30
+(b) Other equity    12    8,080.66    7,370.83
+Total equity attributable to owners of the Company    8,098.96    7,389.13
+Liabilities
+Non-current liabilities
+(i) Lease liabilities    14    99.91    81.36
+Total non-current liabilities    595.32    465.83
+Current liabilities
+(i) Borrowings    13    276.46    144.57
+(ii) Lease liabilities    14    29.79    34.87
+Total current liabilities    2,762.44    2,313.33
+Total equity and liabilities    11,456.72    10,168.29

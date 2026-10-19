@@ -1,0 +1,52 @@
+                                                          Statutory Reports             Financial Statements
+
+Notes to the Consolidated Financial Statement
+for year ended March 31, 2026
+
+     B)  The following is the movement in lease liabilities for the year ended March 31, 2026
+                                                                                                               (` in Lakhs)
+                                                             As at           As at
+                                     Particulars
+                                                          March 31, 2026   March 31, 2025
+         As at beginning of the year                                        16,428.18           28.85
+          Add: Balance of Subsidiary Consolidated during the year                                  -          8,494.84
+          Add: Re-statement of Lease Liabilities                                                             -          8,043.44
+           Addition during the year                                          492.34            1,514.02
+          Finance Cost accrued during the year                                   1,323.74             1,415.37
+           (Deletion)/Adjustment made during the year                          870.38                            -
+         Payment of Lease liability                                             (3,629.30)          (3,068.34)
+          Lease Liability as at end of the year                             15,485.34         16,428.18
+
+     C)   Maturity Analysis of Lease liabilities
+                                                                                                               (` in Lakhs)
+            Maturity analysis – contractual undiscounted cash flows    Apr'25-Mar'26    Apr'24-Mar'25
+          Less than one year (Excluding GST)                                 2,643.53            2,771.54
+        One to five years (Excluding GST)                                     3,608.19         6,885.22
+         More than five years                                              9,062.87           10,155.79
+            Total undiscounted lease liabilities for the period ended            15,314.60         19,812.55
+          Lease liabilities included in the statement of financial position
+                Current                                                   2,620.90             2,169.71
+                Non-current                                                  12,864.44          14,258.47
+
+     D)  Amounts recognised in the statement of profit or loss #
+                                                                                                               (` in Lakhs)
+                                     Particulars                         Apr'25-Mar'26    Apr'24-Mar'25
+           Depreciation                                                      2,847.25           2,599.13
+            Interest on lease liabilities                                              1,323.74             1,415.37
+          Expenses relating to short-term leases                             204.39             116.05
+                                       Total                                 4,375.38          4,130.55
+
+              # Since the project is yet to commence its commercial operations, hence for the year ended March
+          31 2026, the entire amount aggregating to ` 127.85 Lakh (March 31, 2025 ` 117.22 Lakh) have been
+           transferred to pre & pre-operative expenses as part of CWIP.
+
+     E)  Amount recognised in the statement of cash flows
+                                                                                                               (` in Lakhs)
+                                     Particulars                         Apr'25-Mar'26    Apr'24-Mar'25
+            Total cash outflow for leases                                        3,833.70           3,184.39
+
+
+
+
+
+                                      Annual Report 2025-26                                273

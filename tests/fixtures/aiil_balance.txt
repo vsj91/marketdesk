@@ -1,0 +1,73 @@
+Consolidated Balance Sheet
+as at 31st March, 2026
+                                                                                                                                                          (Rs. in Crores)
+      Particulars                                                       Note No.                 As at                As at
+                                                                                  March 31, 2026       March 31, 2025
+ ASSETS
+ 1    Financial Assets
+        (a)  Cash and Cash Equivalents                                         4                      50.38                108.48
+       (b)  Bank Balance other than (a) above                                   5                    436.37                362.95
+        (c)   Receivables
+                  (I) Trade Receivables                                              6                      35.45                 19.46
+                  (II) Other Receivables                                                                             0.54                   1.43
+       (d)  Loans                                                        7                    2,008.16              2065.47
+        (e)   Investments                                                    8                  15,472.61              12,738.77
+         (f)   Other Financial Assets                                            9                      40.90                144.15
+ 2   Non-Financial Assets
+        (a)   Inventory                                                     10                     30.92                              -
+       (b)   Current Tax Assets (Net)                                          11                     15.11                 19.45
+        (c)   Deferred Tax Assets (Net)                                         12                       3.04                              -
+       (d)  Investment Property                                             13                    368.78                321.64
+        (e)   Property, Plant and Equipment                                   14A                   256.33                 92.69
+         (f)   Goodwill                                                                                    10.42                              -
+        (g)   Intangible assets under development                               14B                      5.72                   6.15
+       (h)  Other Intangible Assets                                        14C                   147.69                   0.07
+          (i)   Other Non-Financial Assets                                        15                    328.32                206.70
+ Total Assets                                                                                       19,210.73             16,087.41
+ LIABILITIES AND EQUITY
+ LIABILITIES
+ 1    Financial Liabilities
+        (a)   Payables
+                  (I)   Trade Payables
+                            (i)    total outstanding dues of micro enterprises and small                                        9.44                   0.12
+                     enterprises
+                            (ii)   total outstanding dues of creditors other than micro             16                    347.38                 66.61
+                     enterprises and small enterprises
+                  (II)  Other Payables
+                            (i)    total outstanding dues of micro enterprises and small                                                          -                              -
+                     enterprises
+                            (ii)   total outstanding dues of creditors other than micro                                         4.06                   1.08
+                     enterprises and small enterprises
+        (b)  Debt Securities                                                 17                     63.80                 63.80
+        (c)   Borrowings (Other than Debt Securities)                              18                   1,116.41                600.26
+        (d)  Subordinated Liabilities                                           19                   2,122.35                 30.13
+        (e)  Other Financial Liabilities                                         20                    434.72                 76.07
+         (f)   Contractual debt obligations                                       21                    295.41                360.01
+ 2   Non-Financial Liabilities
+        (a)   Provisions                                                     22                       8.81                   0.23
+        (b)  Deferred tax liabilities (Net)                                       23                       7.74                171.35
+        (c)   Other Non-Financial Liabilities                                     24                     34.75                 28.40
+ 3   EQUITY
+        (a)   Equity Share Capital                                             25                     84.92                 16.98
+        (b)  Other Equity                                                   26                  14,642.92              14,672.36
+ 4   Non controlling Interest                                                                           38.02
+           Total Liabilities and Equity                                                                  19,210.73             16,087.41
+
+As per our report of even date attached
+For Maharaj N R Suresh and Co. LLP           For APAS & Co. LLP                For and on behalf of the Board of Directors of
+Chartered Accountants                       Chartered Accountants           Authum Investment & Infrastrucuture Limited
+FRN No. 001931S/000020              FRN No. 000340C/C400308
+
+K V Srinivasan                             Rajeev Ranjan                    Divy Dangi                     Amit Dangi
+Partner                                       Partner                       Whole Time Director             Whole Time Director
+Membership No. 204368                   Membership No. 535395           DIN: 08323807                   DIN: 06527044
+
+Place: Mumbai                                                        Akash Suri                     Amit Kumar Jha
+Date: 26th May, 2026                                    WTD & CEO                       Chief Financial Officer
+                                                                          DIN: 09298275
+
+                                                                                        Place: Mumbai                     Dipyanti Jaiswar
+                                                                                Date: 26th May, 2026            Company Secretary
+
+
+310 | Authum Investment & Infrastructure Limited

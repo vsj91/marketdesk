@@ -1,0 +1,74 @@
+Notes to the consolidated financial statements
+for the year ended 31st March 2026
+(All amounts in ₹ lakhs, unless stated otherwise)
+
+43  Leases
+
+The Group as a lessee
+
+The Group's leases primarily consists of leases for land. Generally, the contracts are made for fixed period and does not have a purchase
+option at the end of lease term. The Group’s obligations under its leases are secured by the lessor’s title to the leased assets. The Group
+applies the ‘short-term lease’ recognition exemptions for these leases with lease terms of 12 months or less.
+
+(i)   Amount recognised in the Balance sheet
+
+    The balance sheet shows the following amounts relating to the leases:
+
+                                                                                     As at              As at
+      Particulars
+                                                                                                               31st March 2026        31st March 2025
+
+     Carrying amount of right-of-use assets:
+    Land                                                                                         2,092.75             2,119.46
+     Total                                                                                   2,092.75            2,119.46
+
+
+
+                                                                                     As at              As at
+      Particulars
+                                                                                                               31st March 2026        31st March 2025
+
+     Carrying amount of lease liability:
+     Current                                                                                   307.45                42.78
+     Non-current                                                                               330.38              686.20
+     Total                                                                                637.83             728.98
+
+
+
+                                                                                     As at              As at
+      Particulars
+                                                                                                               31st March 2026        31st March 2025
+     Additions to right-of-use assets:
+    Land                                                                                                                    -              455.46
+     Total                                                                                                              -             455.46
+
+
+(ii)  The amount recognised in the statement of profit and loss
+
+    The statement of profit and loss shows the following amounts relating to the leases:
+
+                                                                                     As at              As at
+      Particulars
+                                                                                                               31st March 2026        31st March 2025
+     Depreciation charge of right of use of assets:
+    Land                                                                                        23.87                24.79
+     Total                                                                                   23.87               24.79
+
+
+
+                                                                                     As at              As at
+      Particulars
+                                                                                                               31st March 2026        31st March 2025
+
+      Interest expense on lease liabilities (included in finance cost)                                      42.78                49.56
+     Expenses relating to short term and low value leases (included in other expenses)                 496.76              132.22
+    The total cash outflow for leases for the year ended were H                                        42.78                32.18
+
+
+(iii)  The Company do not have any operating leases that are non-cancellable.
+
+
+
+
+
+276     PTC Industries Limited

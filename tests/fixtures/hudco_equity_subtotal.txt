@@ -1,0 +1,81 @@
+      FINANCING INFRASTRUCTURE FOR VIKSIT BHARAT
+
+
+BALANCE SHEET AS AT 31ST MARCH, 2026
+                                                                                                                                                              (` in Crore)
+  S. No. PARTICULARS                                         NOTE No.                 As at                As at
+                                                                                                                           31st March, 2026             31st March, 2025
+       I   ASSETS
+   1    Financial Assets
+    (a)   Cash and Cash Equivalents                                             6                            2.08                       5.55
+    (b)   Bank Balance other than (a) above                                        7                        224.03                     58.99
+    (c)    Derivative Financial Instruments                                          8                        2,154.88                   1,643.28
+    (d)   Receivables
+                     - Trade Receivables                                              9                            0.77                       1.84
+                     - Other Receivables                                                                                  6.58                       2.34
+    (e)   Loans                                                              10                    1,60,547.15                1,24,340.71
+     (f)   Investments                                                         11                       2,228.66                   1,319.62
+    (g)   Other Financial Assets                                                 12                        894.63                   634.96
+                                                    Sub Total (1)                             1,66,058.78                1,28,007.29
+   2    Non-Financial Assets
+    (a)   Current Tax Assets (Net)                                               13                           4.29                                      -
+    (b)   Deferred Tax Assets (Net)                                              21                        448.08
+    (c)   Investment Property                                              14A                        20.20                     18.81
+    (d)   Property, Plant and Equipment                                      14B                        59.20                     56.94
+    (e)   Capital Work-in-Progress                                          14C                        22.97                     14.37
+     (f)    Intangible Assets under Development                                 14D                                           -                       1.68
+    (g)   Other Intangible Assets                                             14E                          8.26                     12.13
+    (h)   Assets classified as held for sale                                       14F                          0.41
+      (i)   Other Non-Financial Assets                                             15                        217.60                   386.17
+                                                    Sub Total (2)                                781.01                   490.10
+                        TOTAL ASSETS (1+2)                                                      1,66,839.79                1,28,497.39
+       II    LIABILITIES AND EQUITY
+  A    Liabilities
+   1    Financial Liabilities
+    (a)   Derivative Financial Instruments                                                                       235.01                                      -
+    (b)   Payables
+      (i)   Trade Payable
+               - Total outstanding dues of MSME                                                                                                                -                                      -
+               - Total outstanding dues of creditors other than MSME                       16                                            -                                      -
+      (ii)   Other Payables
+               - Total outstanding dues of MSME                                                                         0.86                       1.02
+               - Total outstanding dues of creditors other than MSME                                                       9.76                     19.77
+    (c)   Debt Securities                                                       17                     60,814.71                 55,907.15
+    (d)   Borrowings                                                          18                     80,862.29                 51,389.61
+    (e)   Other Financial Liabilities                                               19                       2,418.34                   1,320.43
+                                                  Sub Total (A-1)                             1,44,340.98                1,08,637.98
+   2    Non-Financial Liabilities
+    (a)   Current Tax Liabilities (Net)                                             13                                            -                     12.64
+    (b)   Provisions                                                           20                        397.00                   364.78
+    (c)   Deferred Tax Liabilites (Net)                                            21                                            -                   1,465.93
+    (d)   Other Non-Financial Liabilities                                           22                        124.61                     46.27
+                                                  Sub Total (A-2)                                521.61                   1,889.62
+                                            Sub Total (A)(A-1+A-2)                             1,44,862.59                1,10,527.60
+  B    Equity
+    (a)   Equity Share Capital                                                   23                       2,001.90                   2,001.90
+    (b)   Instruments entirely equity in nature                                      24                       1,442.00                                      -
+    (c)   Other Equity                                                         25                     18,533.30                 15,967.89
+                                                   Sub Total (B)                              21,977.20                 17,969.79
+                       TOTAL LIABILITIES AND EQUITY (A+B)                                                1,66,839.79                1,28,497.39
+ Note: Company Overview and Material Accounting Policies Information                    1 to 5
+ Note: The Notes referred to above form part of the Financial Statements                       6 to 41
+
+                                                                                              For and on behalf of the Board of Directors
+             Sd/-                                Sd/-                                     Sd/-                                  Sd/-
+         Vikas Goyal                    Daljeet Singh Khatri                     M. Nagaraj                    Sanjay Kulshrestha
+    Company Secretary      Director Finance & Chief Financial Officer      Director Corporate Planning       Chairman & Managing Director
+        (FCS: 6671)                      (DIN: 06630234)                         (DIN: 05184848)                      (DIN: 06428038)
+
+                                                                          As per our separate report of even date attached
+                                                                                                              For SARC & Associates
+                                                                                                                 Chartered Accountants
+                                                                                                           FRN- 006085N
+
+                                                                                                                                                  Sd/-
+                                                                                                         Kamal Aggarwal
+Place: New Delhi                                                                                                                                      Partner
+Date: 14th May, 2026                                                                                                                                   (M. No.- 090129)
+
+
+
+                                                   206      | ANNUAL REPORT 2025-26

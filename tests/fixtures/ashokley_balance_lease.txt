@@ -1,0 +1,12 @@
+CONSOLIDATED BALANCE SHEET AS AT MARCH 31, 2026
+Particulars    Note    March 31, 2026    March 31, 2025
+` Crores
+(iii) Cash and cash equivalents    1.13a    6,280.89    6,544.77
+Total equity    18,546.24    15,844.86
+Non-current liabilities
+(i) Borrowings    1.20    46,016.36    36,382.92
+(ii) Lease liabilities    202.37    185.40
+Current liabilities
+(i) Borrowings    1.26    17,633.44    13,318.18
+(ii) Lease Liabilities    83.53    75.61
+Total equity and liabilities    1,01,040.74    81,714.64

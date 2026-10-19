@@ -1,0 +1,60 @@
+Consolidated Financial Statements
+10.   Segment Information:
+      As the Group has no activities other than those of an investment company, the segment reporting under Indian Accounting Standard Ind AS
+      108 - 'Operating Segments' is not applicable. The Group does not have any reportable geographical segment.
+
+11.   Contingent Liabilities & Commitments:                                                                                                 (` in lacs)
+                                                                                                        Year Ended     Year Ended
+                                                                                                     31.03.2026      31.03.2025
+      Contingent Liabilities                                                                                                                                            -                      -
+     Commitments
+(a)    Uncalled liability on investments in Venture Capital Funds.....................................................................................................       1,618.40        2,252.70
+
+12.   Dividend of ` 3.40 per share (Face Value ` 1) (Previous year ` 27 per share - Face Vale ` 10) amounting to ` 17,202.40 lacs (previous year
+      ` 13,660.73 lacs) is proposed on ordinary shares. The recommended dividend will be accounted for when approved by the shareholders.
+13.   Disclosures for leasing arrangements
+(A)   Company as a Lessee
+(a)   The Holding Company has renewed the operating lease for its office premises for an additional term of three years, commencing on October 1,
+       2024. Furthermore, the Holding Company has entered into a lease agreement for another premises designated as a backup site, also for a period
+       of three years.
+      The Subsidiary Company has taken its office premises on operating lease for a period of 3 years commencing August 1,2024.
+(b)   Amount recognised during the year
+                                                                                                                                                                                                                                                    (` in lacs)
+                                                                                                        Year Ended     Year Ended
+                                                                                                     31.03.2026      31.03.2025
+        a)   Depreciation on ROU Asset.......................................................................................................................................................          95.66           87.01
+       b)   Finance cost on lease liability....................................................................................................................................................          14.41           10.98
+ (c)   The movement in the lease liabilities during the year is as under :
+      Opening effect of lease liability..........................................................................................................................................................         221.65           40.82
+      Add: Additions..........................................................................................................................................................................................                      -         261.15
+      Add: Finance cost accrued during the year....................................................................................................................................          14.41           10.98
+        Less: Deletions..........................................................................................................................................................................................                      -                      -
+        Less: Payment of lease liabilities during the year.........................................................................................................................          (96.28)           (91.30)
+      Balance at the end of the year............................................................................................................................................................         139.78         221.65
+(d)   The details regarding the contractual maturities of lease liabilities on an undiscounted basis:
+        a)   Less than one year.........................................................................................................................................................................         101.46           96.28
+       b)  One to five years............................................................................................................................................................................          50.48         151.94
+        c)   More than 5 years..........................................................................................................................................................................                      -                      -
+           Total...................................................................................................................................................................         151.94         248.22
+
+(B)   Holding Company as a Lessor
+      The Holding Company has leased out 2 floors under operating leases having original lease term of 5 years. All leases include a clause to enable
+      upward revision of the rental charges according to prevailing market conditions.
+
+(a)   Amount recognised in the statement of profit and loss for investment properties
+                                                                                                                                                     (` in lacs)
+                                                                                                        Year Ended     Year Ended
+                                                                                                     31.03.2026      31.03.2025
+       Rental income derived from investment properties...................................................................................................................       1,233.52         125.18
+       Direct operating expenses for generating rental income.........................................................................................................          90.83           17.04
+        Profit arising from investment properties before depreciation .............................................................................................       1,142.69         108.14
+        Less: Depreciation....................................................................................................................................................................................         263.48           58.48
+        Profit from leasing of investment properties.................................................................................................................................         879.21           49.66
+
+(b)   Cash Flows on undiscounted basis
+        a)   Less than one year.........................................................................................................................................................................       1,192.08        1,161.38
+       b)  One to five years............................................................................................................................................................................       4,393.98        2,427.19
+        c)   More than 5 years..........................................................................................................................................................................                      -                      -
+           Total...................................................................................................................................................................        5,586.06        3,588.57
+ (c)     Title deeds for all the leased premises are held in the name of the Holding Company.
+                                                                                                    217

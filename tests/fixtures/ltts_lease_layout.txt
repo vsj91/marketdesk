@@ -1,0 +1,22 @@
+Consolidated Balance Sheet
+as at March 31, 2026
+
+
+
+                                                                                                                                                                        (₹ in Million)
+                                                                                 As at          As at
+Particulars                                                       Note No.
+                                                                          March 31, 2026  March 31, 2025
+   ASSETS:
+I.  Non-current assets
+    (a) Property, plant and equipment                                   4              3,575          3,582
+            (iii) Cash and cash equivalent                                    12            16,497         13,831
+    Total equity                                                                     64,922        60,975
+   Non-current liabilities
+           (i) Lease liabilities                                            18             4,092          4,423
+    Total non-current liabilities                                                               7,611         5,560
+   Current liabilities
+            (ii) Lease liabilities                                           20             1,693          1,353
+    (b) Other current liabilities                                         21             5,194          5,493
+    Total current liabilities                                                              25,715        29,900
+   TOTAL EQUITY AND LIABILITIES                                                 104,889        96,435

@@ -1,0 +1,60 @@
+476  PNB Housing Finance Limited
+
+   NOTES TO CONSOLIDATED FINANCIAL STATEMENTS
+       for the year ended March 31, 2026
+
+
+      Note 37   Leases
+
+        i)  Movement of lease liability
+
+                                                                                                                                                                             (₹ in crore)
+
+                                                                                                       As at             As at         Particulars                                                                                                                                                31st March 2026        31st March 2025
+
+       Lease liability as at the beginning of the year (a)                                                              145.69              132.96
+
+        Additions (b)                                                                                         60.62                43.13
+
+        Accretion of interest (c)                                                                                       12.28              10.25
+
+       Payments (d)                                                                                               38.97              37.60
+
+        Modification (e)                                                                                                                  9.18               3.05
+
+       Lease liability as at the end of the year (a+b+c-d-e)                                                       170.44             145.69
+
+
+        (ii) Maturity analysis of minimum undiscounted lease payments after the reporting period:
+
+                                                                                                                                                                             (₹ in crore)
+
+                                                                                                       As at             As at         Particulars                                                                                                                                                31st March 2026        31st March 2025
+
+       Less than one year                                                                                    38.20              36.53
+
+        Later than one year but not later than five years                                                               120.76              98.35
+
+        Later than five years                                                                                     58.32              49.05
+
+         Total                                                                                                    217.28             183.93
+
+
+        (iii) Maturity analysis of minimum discounted lease payments after the reporting period:
+
+
+                                                                                                                                                                             (₹ in crore)
+
+                                                                                                       As at             As at         Particulars                                                                                                                                                31st March 2026        31st March 2025
+
+       Less than one year                                                                                     26.26              26.58
+
+        Later than one year but not later than five years                                                                   91.48               75.21
+
+        Later than five years                                                                                     52.70              43.90
+
+         Total                                                                                                 170.44             145.69
+
+       (iv) There are no gains or losses from sales and leaseback for the year ended 31st March 2026 and 31st March 2025.
+
+       (v)  There are no variable lease payments for the year ended 31st March 2026 and 31st March 2025.

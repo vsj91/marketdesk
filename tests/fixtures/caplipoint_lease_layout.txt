@@ -1,0 +1,23 @@
+CONSOLIDATEDAS AT March 31, 2026      BALANCE SHEET (All amounts are in ` Crores unless otherwise stated)
+ Particulars                                                                                      Notes        As at March 31, 2026       As at March 31, 2025
+ ASSETS
+ (1)   Non-Current Assets
+       (a)  Property, Plant and Equipment                                                         2A                           547.49                    530.32
+       (b)  Capital work-in-progress                                                           2B                         208.62                    139.22
+        (c)  Intangible assets                                                                 2C                           28.87                      11.27
+       (d)  Right of Use Assets                                                            2D                             3.65                        4.19
+       (e)  Intangible Assets under development                                                    2E                           24.96                       4.28
+         (f)  Financial Assets
+                 (i)  Investments                                                                 3                           473.31                    279.13
+                  (ii)  Other Financial Assets                                                          4                           28.40                     22.20
+                  (iii) Cash and Cash equivalents                                                       10                           94.18                    199.45
+      Total-Equity                                                                                                              3,630.80                   2,886.39
+       (A) Non-Current Liabilities
+                        (i)  Lease Liabilities                                                              17                             2.06                        2.91
+            (d)  Other non current liabilities                                                       19                           13.06                     10.82
+          Total-Non current liabilities                                                                                            28.72                     18.48
+       (B) Current Liabilities
+                        (i)  Borrowings                                                              20                              0.57                       0.55
+                         (iii) Lease Liabilities                                                           22                             1.98                       1.56
+             (c)  Other Current Liabilities                                                        25                           16.60                       17.46
+          Total-Current liabilities                                                                                             385.96                    305.99

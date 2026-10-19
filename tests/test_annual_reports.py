@@ -26,6 +26,38 @@ Finance costs      24      50.00     40.00
 Profit before tax (V - VI)        1000.00    900.00
 '''
 class AnnualReportTests(unittest.TestCase):
+ def test_balance_title_joined_to_date_is_located_without_changing_context(self):
+  from marketdesk.annual_reports import balance_heading_text
+  text=TEXT.replace('CONSOLIDATED BALANCE SHEET\nas at March 31, 2026','CONSOLIDATED\nas at March 31, 2026Balance Sheet')
+  self.assertEqual(parse_balance(text,BASE)['value'],.5)
+  self.assertIn('2026 Balance Sheet',balance_heading_text(text))
+  self.assertIn('2026 Consolidated Balance Sheet',balance_heading_text('2026Consolidated Balance Sheet'))
+  with self.assertRaises(ValueError):parse_balance(text.replace('CONSOLIDATED','STANDALONE'),BASE)
+ def test_decimal_note_suffix_recovers_cash_without_masking_debt_conflict(self):
+  text=(Path(__file__).parent/'fixtures/ashokley_balance_lease.txt').read_text()
+  latest={**BASE,'cash_and_cash_equivalents':6280.89,'equity':18546.24,'total_borrowings':63935.70}
+  evidence=parse_balance(text,latest)
+  self.assertEqual(evidence['matched_fields'],['cash_and_cash_equivalents','equity'])
+  self.assertAlmostEqual(evidence['value'],285.90)
+  self.assertEqual(evidence['lease_calculation']['operands'],{'current_lease':83.53,'non_current_lease':202.37})
+  report={'status':'verified','evidence':evidence,'source_url':'https://example.test/report.pdf','observed_at':datetime.now(timezone.utc).isoformat(),'raw_sha256':'abc','evidence_path':'data/report.pdf'}
+  result=apply_report({'latest':latest},report)
+  self.assertAlmostEqual(result['latest']['total_lease_liabilities'],285.90)
+  self.assertAlmostEqual(result['latest']['total_borrowings'],63649.80)
+  self.assertEqual(result['borrowings_reconciliation_log'][0]['vendor_value'],63935.70)
+  self.assertEqual(result['source_conflicts'],[])
+  for bad in (text.replace('1.13a','1.13a uncertain'),text.replace('6,280.89','7,280.89'),text.replace('18,546.24','19,546.24')):
+   with self.assertRaisesRegex(ValueError,'two matching'):parse_balance(bad,latest)
+ def test_owner_equity_caption_does_not_infer_missing_consolidated_nci(self):
+  text=(Path(__file__).parent/'fixtures/are_m_balance_lease.txt').read_text()
+  latest={**BASE,'cash_and_cash_equivalents':226,'equity':8098.96,'total_borrowings':276.46}
+  self.assertAlmostEqual(parse_balance(text,latest)['value'],129.70)
+  self.assertEqual(parse_balance(text,latest)['identity_evidence']['nci']['value'],0)
+  with self.assertRaisesRegex(ValueError,'two matching'):parse_balance(text.replace('11,456.72','11,456.73'),latest)
+  # Only an explicit NCI row can substantiate a derived consolidated total.
+  explicit=text.replace('Liabilities\nNon-current','Non-controlling interests    Nil    Nil\nLiabilities\nNon-current')
+  self.assertAlmostEqual(parse_balance(explicit,latest)['value'],129.70)
+  with self.assertRaises(ValueError):parse_balance(explicit.replace('Nil    Nil','-    -'),latest)
  def test_evidence_extraction_does_not_copy_interactive_widget_trees(self):
   import pymupdf
   with tempfile.TemporaryDirectory() as tmp:
@@ -112,7 +144,7 @@ Total Lease liabilities    50.00    30.00
   with self.assertRaises(ValueError):parse_balance(text.replace('5000.00','5100.00'),BASE)
 
  def test_font_mapped_currency_parentheses_and_abbreviations(self):
-  for glyph,unit in [('D','(in Crore)'),('H','cr')]:
+  for glyph,unit in [('D','(in Crore)'),('H','cr'),('J','in crore')]:
    for font in ('ITFRupee','Regular'):
     page=Mock();page.get_text.side_effect=[glyph+' '+unit,{'blocks':[{'lines':[{'spans':[{'text':glyph,'font':font},{'text':' '+unit,'font':'Regular'}]}]}]}]
     self.assertEqual(balance_text(page),('₹' if font=='ITFRupee' else glyph)+' '+unit)
@@ -478,13 +510,15 @@ Closing balance     50.00      -
     self.assertEqual(r['status'],expected,r)
     if expected=='verified':self.assertEqual(r['evidence']['lease_note_evidence']['value'],.5);self.assertIn(2,r['evidence']['pages'])
  def test_archive_dedup_requires_fresh_observation_and_fresh_matching_copy(self):
-  from marketdesk.annual_reports import known_archive_duplicate
+  from marketdesk.annual_reports import known_archive_duplicate,REVISION,RULE_REVISION
   row={'provider':'BSE','fileName':'https://www.bseindia.com/xml-data/corpfiling/AttachHis/a.pdf'}
-  old={'observed_at':datetime.now(timezone.utc).isoformat(),'attempts':[{'provider':'BSE','source_url':row['fileName'],'raw_sha256':'abc'}]}
-  self.assertEqual(known_archive_duplicate(row,old,{'abc'})['raw_sha256'],'abc')
-  self.assertIsNone(known_archive_duplicate(row,old,{'different'}))
-  self.assertIsNone(known_archive_duplicate({**row,'provider':'Company website'},old,{'abc'}))
-  self.assertIsNone(known_archive_duplicate(row,{**old,'observed_at':(datetime.now(timezone.utc)-timedelta(days=2)).isoformat()},{'abc'}))
+  old={'revision':REVISION,'rule_revision':RULE_REVISION,'status':'verified','observed_at':datetime.now(timezone.utc).isoformat(),'attempts':[{'provider':'BSE','source_url':row['fileName'],'raw_sha256':'abc'}]}
+  seen={('abc',REVISION,RULE_REVISION)}
+  self.assertEqual(known_archive_duplicate(row,old,seen)['raw_sha256'],'abc')
+  for changed in ({'revision':REVISION-1},{'rule_revision':RULE_REVISION-1},{'status':'unresolved'},{'observed_at':(datetime.now(timezone.utc)-timedelta(days=2)).isoformat()}):
+   self.assertIsNone(known_archive_duplicate(row,{**old,**changed},seen))
+  self.assertIsNone(known_archive_duplicate(row,old,{'abc'}))
+  self.assertIsNone(known_archive_duplicate({**row,'provider':'Company website'},old,seen))
 
 class BalanceLayoutRecoveryTests(unittest.TestCase):
  def test_bullet_prefixes_do_not_hide_cash_or_leases(self):

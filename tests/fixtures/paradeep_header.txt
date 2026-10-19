@@ -1,0 +1,15 @@
+Consolidated Balance Sheet
+as at 31 March 2026
+(All amounts are in rupees lakhs, unless otherwise stated)
+
+                                                                                                    As at
+                                                                                 As at
+                                                                     Notes                           31 March 2025
+                                                                            31 March 2026
+                                                                                                                       [Refer Note 44(a)]
+ASSETS
+I.   Non-current assets
+     (a)  Property, plant and equipment                                                        4(a)                 5,79,314.21                4,96,460.26
+     (b)  Right-of-use assets                                                                    4(c)                    2,974.72                  2,980.57
+     (c)  Capital work-in-progress                                                             4(b)                  42,371.40                 58,434.35
+     (d)  Goodwill                                                                                             14,134.26                 13,910.15

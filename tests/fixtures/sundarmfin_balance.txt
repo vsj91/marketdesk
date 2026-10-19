@@ -1,0 +1,64 @@
+               Consolidated Balance Sheet
+                              as at 31st March, 2026                           (` in crores)
+                                    Particulars                                 Note    March 31, 2026    March 31, 2025
+  ASSETS
+  Financial Assets
+  Cash and cash equivalents                                              5               525.62            310.72
+ Bank Balances                                                       6               994.06           1,821.21
+  Receivables                                                         8
+      (I) Trade receivables                                                                     99.46              89.41
+      (II) Other receivables                                                                     30.60              38.56
+  Loans                                                              9            73,254.79          64,647.68
+  Investments                                                         10             9,029.01           6,481.03
+  Other Financial assets                                                 11              187.20            125.02
+  Non-Financial Assets
+  Current tax assets (Net)                                                 12             −            123.87
+  Investment Property                                                  13               52.27              55.60
+  Property, Plant and Equipment                                          14              623.76            608.75
+  Assets held for sale                                               13&14              19.76              28.29
+  Right-of-use assets                                                    15              150.82            130.37
+  Goodwill                                                           16              472.48            472.51
+  Other intangible assets                                                16              157.51            182.51
+  Intangible assets under development                                      16                 5.02               1.25
+  Other non-financial assets                                              17              193.05            219.89
+  Total Assets                                                                   85,795.41        75,336.67
+  LIABILITIES AND EQUITY
+  Liabilities
+  Financial Liabilities
+   Derivative financial instruments                                          7                21.53              26.13
+  Payables                                                           18
+   (I) Trade Payables
+     (i) Total outstanding dues of micro enterprises and small enterprises                               4.27               8.79
+     (ii) Total outstanding dues of creditors other than micro enterprises and small enterprises            187.25            213.41
+  (II) Other Payables
+     (i) Total outstanding dues of micro enterprises and small enterprises                     −           −
+     (ii) Total outstanding dues of creditors other than micro enterprises and small enterprises              20.53              22.53
+  Debt securities                                                      19            26,859.79          22,930.46
+  Borrowings (Other than debt securities)                                  20            31,261.23          26,891.57
+  Deposits                                                           21             8,873.04           8,677.15
+  Subordinated liabilities                                                22             2,642.24           2,584.45
+  Other financial liabilities                                              23              720.98            603.20
+  Non-Financial Liabilities
+  Provisions                                                         24              170.39              97.54
+  Other non-financial liabilities                                           25               68.51              63.47
+  Current tax liabilities (Net)                                             12               37.66           −
+  Deferred tax liabilities (Net)                                            12               34.34              21.14
+  Equity
+   Equity share capital                                                  26              110.21            110.21
+  Other equity *                                                       26            14,783.44          13,086.62
+  Total Liabilities and Equity                                                      85,795.41        75,336.67
+Material Accounting policies and notes to the consolidated financial statements      1-43
+ * Refer Statement of Changes in equity
+As per our report of even date attached           S. Viji                     Harsha Viji                   Bhavani Balasubramanian
+For Brahmayya & Co.,                                          Chairman                        Executive Vice Chairman                               DirectorChartered Accountants
+Firm Regd. No. 000511S                       DIN: 00139043                 DIN: 00602484                               DIN: 09194973
+L Ravi Sankar
+Partner                                             Rajiv C. Lochan               A.N. Raju                           M. RamaswamyMembership No. 025929
+For R.G.N. Price & Co.,                     Managing Director                 Joint Managing Director                    Chief Financial Officer
+Chartered Accountants                         DIN: 05309534               DIN:00036201                                  ACA: 024937
+Firm Regd. No. 002785S
+K Venkatakrishnan
+Partner                                                                                                                              P.N. Srikant
+Membership No. 208591                                                                                         CCO & Company SecretaryPlace : Chennai
+Date  : May 25, 2026                                                                                                            ACS: 17154
+SUNDARAM FINANCE LIMITED                                 260

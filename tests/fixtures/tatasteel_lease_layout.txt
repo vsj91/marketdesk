@@ -1,0 +1,35 @@
+CONSOLIDATED BALANCE SHEET
+as at March 31, 2026
+
+
+                                                                                                                                                                               (₹ crore)
+                                                                                                            As at              As at                                                                             Note       Page                                                                                                 March 31, 2026      March 31, 2025
+Assets
+ I    Non-current assets
+       (a)   Property, plant and equipment                                       3       F164           1,49,878.21         1,25,215.17
+      (b)  Capital work-in-progress                                            3       F164            27,510.29          40,601.88
+       (c)   Right-of-use assets                                                4       F170            10,072.66           8,087.95
+      (d)  Goodwill                                                        5       F173              7,533.80           5,958.53
+                  (iii)  Cash and cash equivalents                                      16       F192              8,884.95           9,604.96
+                     Financial Statements
+
+CONSOLIDATED BALANCE SHEET (CONTD.)
+as at March 31, 2026
+
+
+                                                                                                                                                                               (₹ crore)
+                                                                                                            As at              As at                                                                             Note       Page                                                                                                 March 31, 2026      March 31, 2025
+Equity and liabilities
+ IV   Equity
+       (a)  Equity share capital                                               19       F194              1,247.44           1,247.44
+      (b)  Other equity                                                     20       F197           1,00,920.21          89,922.19
+     Total equity                                                                                    1,03,780.45        91,352.78
+V   Non-current liabilities
+                 (i)   Borrowings                                                  22       F204            63,753.67          68,551.81
+                 (ii)  Lease liabilities                                                                                   6,232.99           4,832.71
+     Total non-current liabilities                                                                     1,00,556.02       1,01,948.47
+ VI  Current liabilities
+                 (i)   Borrowings                                                  22       F204            21,202.72          20,412.00
+                 (ii)  Lease liabilities                                                                                   1,192.30           1,004.53
+     Total current liabilities                                                                         96,917.64        86,093.55
+ Total equity and liabilities                                                                           3,01,254.11       2,79,394.80
