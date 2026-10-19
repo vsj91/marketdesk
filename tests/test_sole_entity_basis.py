@@ -15,6 +15,10 @@ class SoleEntityBasisTests(unittest.TestCase):
         self.assertEqual(sole_entity_basis(self.pages()),(3,'company does not have any subsidiary, associate or joint venture'))
         lg='we report that the Company did not have any subsidiaries, joint ventures or associate companies during the year.'
         self.assertEqual(sole_entity_basis(['x',HEADING,lg])[0],2)
+        for clause in ('(e) the Company has no subsidiaries, associate and joint ventures, hence reporting under clause 3(ix)(e) is not applicable.',
+                       '(e) The Company does not hold any investment in any subsidiaries, associates or joint ventures (as defined under the Act).'):
+            self.assertEqual(sole_entity_basis(['x',HEADING,clause])[0],2,clause)
+        self.assertIsNone(sole_entity_basis(['x',HEADING,'The Company has subsidiaries, associates and joint ventures.']))
 
     def test_rejects_any_consolidated_or_labelled_audit(self):
         for extra in ('Report on the Audit of the Consolidated Financial Statements','Report on the audit of the Standalone Financial Statements',
@@ -117,6 +121,35 @@ Profit / (Loss) Before Tax{W}463.30{W}97.20
 Profit / (Loss) for the year (A){W}212.07{W}69.53"""
         parsed=parse_growth(text,latest);self.assertEqual(parsed['prior']['net_profit'],69.53)
         with self.assertRaisesRegex(ValueError,'rows missing'):parse_growth(text.replace('(A)','(AB)'),latest)
+
+
+OFL_NOTE=f"""{W}As at{W}As at
+Particulars{W}March 31, 2026{W}March 31, 2025
+19. Other financial liabilities
+Unpaid dividends{W}7.03{W}-
+Lease Liability (Refer Note: 38){W}6,013.39{W}5,724.38
+Employee related payables{W}4,410.63{W}3,657.00
+Others{W}155.43{W}82.58
+Total{W}10,586.48{W}9,463.96
+20. Provisions
+Provision for gratuity{W}1,422.79{W}1,724.74"""
+BALANCE_ROW=f"Financial Liabilities\nDebt securities{W}17{W}78,323.23{W}78,178.40\nOther financial liabilities{W}19{W}10,586.48{W}9,463.96\n"
+
+
+class BoundOflLeaseTests(unittest.TestCase):
+    def test_lease_row_binds_only_to_identical_unclassified_balance_row(self):
+        from marketdesk.annual_reports import parse_numbered_ofl_note,bound_ofl_lease
+        note=parse_numbered_ofl_note(OFL_NOTE);self.assertEqual(note['printed_value'],6013.39)
+        self.assertAlmostEqual(bound_ofl_lease(note,BALANCE_ROW,.01)['value'],60.1339)
+        for bad in (BALANCE_ROW.replace('10,586.48','10,586.49'),BALANCE_ROW.replace('19','21',1).replace('liabilities{W}19'.format(W=W),'liabilities{W}21'.format(W=W)),
+                    'Current Liabilities\n'+BALANCE_ROW):
+            self.assertIsNone(bound_ofl_lease(note,bad,.01))
+
+    def test_note_must_sum_and_not_be_maturity_classified(self):
+        from marketdesk.annual_reports import parse_numbered_ofl_note
+        for bad in (OFL_NOTE.replace('155.43','156.43'),OFL_NOTE.replace('Others','Payable within twelve months current'),
+                    OFL_NOTE.replace('6,013.39','-'),OFL_NOTE.replace('Lease Liability (Refer Note: 38)','Security deposits')):
+            with self.assertRaises(ValueError):parse_numbered_ofl_note(bad)
 
 
 if __name__=='__main__':unittest.main()

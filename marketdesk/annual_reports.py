@@ -10,7 +10,7 @@ from urllib.parse import urlsplit
 from .storage import ROOT,now
 from .intraday_data import atomic_json
 
-REVISION=36
+REVISION=37
 RULE_REVISION=2  # Explicit user approval: printed identities and debt/lease reconciliation.
 INCOME_REVISION=5
 # An auditor's basis heading covers the statements that follow it, up to this many
@@ -275,6 +275,46 @@ def parse_unclassified_lease_note(text,latest):
     return {'value':lease['printed_values'][0]*scale,'source_units':unit,'conversion_to_crore':scale,'line':lease['line'],'method':'explicit_lease_row_in_reconciled_unclassified_note',
             'parent_balance_requirement':{'note':title[1],'current':total['printed_values'][0]*scale,'prior':total['printed_values'][1]*scale},
             'arithmetic':{'rows':parts,'printed_total':total,'summed_columns':[sum(r['printed_values'][j] for r in parts) for j in (0,1)]}}
+
+def parse_numbered_ofl_note(text):
+    """Printed lease row in a numbered, fully summing "Other financial liabilities" note.
+
+    The note need not print its own unit: it is accepted only when the balance
+    sheet prints an unclassified "Other financial liabilities <note>" row with
+    exactly the same two printed totals (see bound_ofl_lease), so the note shares
+    that statement's basis, dates and unit. No dash is read as zero."""
+    title=re.search(r'^[ \t]*(?:Note\s+)?(\d{1,3})[.:]\s*Other financial liabilities\s*$',text,re.I|re.M)
+    if not title:raise ValueError('Numbered other-financial-liabilities note unavailable')
+    scope=re.split(r'\n[ \t]*(?:Note\s+)?\d{1,3}[.:]\s+[A-Z]',text[title.end():],maxsplit=1)[0]
+    if re.search(r'\b(?:current|non.current|undiscounted|maturit(?:y|ies))\b',scope,re.I):raise ValueError('Classified/maturity note cannot establish an unclassified lease total')
+    rows=[];total=None;lease=None
+    for line in scope.splitlines():
+        row=re.search(r'\s{2,}('+NUM+r')\s{2,}('+NUM+r')\s*$',line)
+        if not row:
+            if line.strip():raise ValueError('Unparsed line inside other-financial-liabilities note')
+            continue
+        label=' '.join(line[:row.start()].lower().split());values=[amount(row[1]),amount(row[2])]
+        if values[0] is None or values[0]<0:raise ValueError('Every current OFL amount must be explicitly numeric')
+        item={'label':label,'printed_values':values,'line':line.strip()}
+        if label=='total':total=item;break
+        if re.fullmatch(r'lease liabilit(?:y|ies)(?:\s*\(refer note:?\s*\d+\))?',label):
+            if lease is not None:raise ValueError('Duplicate lease line in OFL note')
+            lease=item
+        rows.append(item)
+    if total is None or lease is None or len(rows)<2:raise ValueError('Complete OFL lease table unavailable')
+    if abs(sum(r['printed_values'][0] for r in rows)-total['printed_values'][0])>.015:raise ValueError('OFL note rows do not sum to printed total')
+    prior=[r['printed_values'][1] for r in rows]
+    if total['printed_values'][1] is None:raise ValueError('Prior OFL total must be explicitly numeric')
+    if all(v is not None for v in prior) and abs(sum(prior)-total['printed_values'][1])>.015:raise ValueError('Prior OFL rows do not sum to printed total')
+    return {'printed_value':lease['printed_values'][0],'note':title[1],'printed_totals':total['printed_values'],'line':lease['line'],'rows':rows,'printed_total':total,
+            'method':'lease_row_in_summing_ofl_note_bound_to_balance_row'}
+
+def bound_ofl_lease(note,text,scale):
+    """Crore value of a numbered OFL lease row whose note totals equal the balance row exactly."""
+    if re.search(r'^\s*(?:non[- ]current|current) liabilities\s*$',text,re.I|re.M):return None
+    rows=list(re.finditer(r'^\s*Other financial liabilities\s{2,}'+re.escape(note['note'])+r'\s{2,}('+NUM+r')\s{2,}('+NUM+r')\s*$',text,re.I|re.M))
+    if len(rows)!=1 or [amount(rows[0][1]),amount(rows[0][2])]!=note['printed_totals']:return None
+    return {'value':note['printed_value']*scale,'conversion_to_crore':scale,'balance_row':rows[0][0].strip(),**note}
 
 def matching_unclassified_note(note,text,balance_scale):
     requirement=note.get('parent_balance_requirement')
@@ -578,7 +618,7 @@ def audited_section_basis(text):
         return matches[0][1].lower(),matches[0][0]
     return None
 
-SOLE_ENTITY_CLAUSE=(r'company (?:did|does) not have any subsidiar(?:y|ies)\s*(?:,|or|and)\s*(?:any )?(?:associates?|joint ventures?)(?: companies| company)?'
+SOLE_ENTITY_CLAUSE=(r'company (?:(?:did|does) not have any|has no|(?:did|does) not hold any investments? in any) subsidiar(?:y|ies)\s*(?:,|or|and)\s*(?:any )?(?:associates?|joint ventures?)(?: companies| company)?'
                     r'\s*(?:,|or|and)\s*(?:or |and )?(?:any )?(?:associates?|joint ventures?)')
 
 def sole_entity_basis(pages):
@@ -659,7 +699,7 @@ def pdf_worker(pdf_path,context_path,output_path):
     if len(doc)>1200:raise ValueError('Annual report exceeds page limit')
     if context.get('require_pdf_isin') and not any(context['isin'] in re.sub(r'\s+','',p.get_text()) for p in doc):
         Path(output_path).write_text(json.dumps({'status':'unresolved','reason':'Company PDF does not contain the expected ISIN'}));return
-    candidates=[];issues=[];diagnostics=[];basis_context=None;lease_notes=[]
+    candidates=[];issues=[];diagnostics=[];basis_context=None;lease_notes=[];ofl_notes=[]
     plain_pages=[p.get_text() for p in doc]
     sole=sole_entity_basis(plain_pages) if latest.get('statement_type')=='standalone' else None
     if latest.get('total_lease_liabilities') is None:
@@ -685,6 +725,8 @@ def pdf_worker(pdf_path,context_path,output_path):
                         try:
                             note=parse_numbered_lease_disclosure(active[0],latest);note['basis_evidence']={**active[1],'page':j+1};note['pages']=[j+1];lease_notes.append((note,j))
                         except ValueError:pass
+                try:ofl_notes.append((parse_numbered_ofl_note(text),j))
+                except ValueError:pass
                 for parser in (parse_lease_note,parse_classified_lease_note,parse_dated_lease_rollforward,parse_financing_lease_reconciliation,parse_unclassified_lease_note):
                     try:
                         note=parser(text,latest);note['pages']=[j+1];lease_notes.append((note,j))
@@ -704,6 +746,9 @@ def pdf_worker(pdf_path,context_path,output_path):
             clips.extend([pymupdf.Rect(0,0,w/2,h),pymupdf.Rect(w/2,0,w,h)])
         for clip in clips:
             selected=[i];text=balance_text(page,clip);compact=balance_heading_text(' '.join(text.lower().split())).lower()
+            # An auditor-derived basis must also apply when checking a continuation
+            # page; an explicit contrary basis on either page still fails.
+            inherited=basis_context[0]+'\n' if not re.search(r'\b(?:standalone|consolidated)\b',compact[:1800]) and basis_context and 0<i-basis_context[1]<=BASIS_CONTEXT_PAGES else ''
             if not re.search(r'\bbalance\s+sheet\b',compact[:1000]):continue
             # A landscape sheet can contain two consecutive printed balance
             # pages, rather than a balance sheet beside an income statement.
@@ -717,7 +762,7 @@ def pdf_worker(pdf_path,context_path,output_path):
                 if (continued or repeated_header) and not re.search(r'total\s+(?:equity and liabilities|liabilities and equity)',compact):
                     # Both halves must state the same annual financial context.
                     try:
-                        statement_context(text,latest);statement_context(right,latest)
+                        statement_context(inherited+text,latest);statement_context(inherited+right,latest)
                         text+='\n'+right;compact=' '.join(text.lower().split());joined_spread=True
                     except ValueError:pass
             cross_spread=False
@@ -728,14 +773,14 @@ def pdf_worker(pdf_path,context_path,output_path):
                     nxt=doc[i+1];next_clip=pymupdf.Rect(0,0,nxt.rect.width/2,nxt.rect.height)
                     following=balance_text(nxt,next_clip)
                     try:
-                        statement_context(text,latest);statement_context(following,latest)
+                        statement_context(inherited+text,latest);statement_context(inherited+following,latest)
                         if not re.search(r'\bbalance\s+sheet\b',' '.join(following.lower().split())[:700]):raise ValueError('No continuation heading')
                         text+='\n'+following;selected.append(i+1);cross_spread=True
                     except ValueError:pass
                 else:
                     following=balance_text(doc[i+1],next_clip)
                     try:
-                        statement_context(text,latest);statement_context(following,latest)
+                        statement_context(inherited+text,latest);statement_context(inherited+following,latest)
                         text+='\n'+following;selected.append(i+1)
                     except ValueError:pass
             contextual=False
@@ -745,7 +790,7 @@ def pdf_worker(pdf_path,context_path,output_path):
             try:
                 income_needed=latest.get('finance_costs') is None and latest.get('profit_before_tax') is not None
                 current_nci=verified_current_nci(text,page,latest,clip) if len(selected)==1 and not joined_spread else None
-                evidence=parse_balance(text,latest,allow_existing=income_needed or bool(lease_notes),allow_identity=len(selected)==1,current_nci=current_nci);evidence['pages']=[n+1 for n in selected]
+                evidence=parse_balance(text,latest,allow_existing=income_needed or bool(lease_notes or ofl_notes),allow_identity=len(selected)==1,current_nci=current_nci);evidence['pages']=[n+1 for n in selected]
                 if current_nci:evidence['printed_cell_evidence']={'nci':{**current_nci,'page':i+1}}
                 if column_evidence:evidence['column_order_evidence']={**column_evidence,'page':i+1}
                 for identity in evidence.get('identity_evidence',{}).values():identity['pages']=list(evidence['pages'])
@@ -753,6 +798,11 @@ def pdf_worker(pdf_path,context_path,output_path):
                 if 'total_lease_liabilities' not in evidence['values'] and matching_notes and len({round(v['value'],6) for v,_ in matching_notes})==1 and sum(v for v in evidence['components'].values() if v is not None)<=matching_notes[0][0]['value']+.015:
                     note,j=matching_notes[0];evidence['values']['total_lease_liabilities']=note['value'];evidence['value']=note['value'];evidence['lease_note_evidence']=note
                     if j not in selected:selected.append(j);evidence['pages'].append(j+1)
+                if 'total_lease_liabilities' not in evidence['values'] and not any(v is not None for v in evidence['components'].values()):
+                    bound=[(b,j) for b,j in ((bound_ofl_lease(note,text,evidence['conversion_to_crore']),j) for note,j in ofl_notes) if b]
+                    if len(bound)==1 or (bound and len({round(b['value'],6) for b,_ in bound})==1):
+                        note,j=bound[0];evidence['values']['total_lease_liabilities']=note['value'];evidence['value']=note['value'];evidence['lease_note_evidence']=note
+                        if j not in selected:selected.append(j);evidence['pages'].append(j+1)
                 if income_needed:
                     incomes=[];income_issues=[]
                     for j in range(i,min(i+3,len(doc))):
