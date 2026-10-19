@@ -55,7 +55,7 @@ main{max-width:1240px;margin:auto;padding:28px 32px 48px}
 .asof{text-align:right;color:var(--muted);font-size:13px}.asof strong{color:var(--text);font-weight:600}
 
 /* Segmented tab bar */
-nav{display:inline-flex;gap:2px;padding:3px;margin-bottom:26px;background:var(--fill);border-radius:12px;max-width:100%;overflow-x:auto}
+nav{display:inline-flex;gap:2px;padding:3px;margin-bottom:26px;background:var(--fill);border-radius:12px;max-width:100%;overflow-x:auto;scrollbar-width:none}nav::-webkit-scrollbar{display:none}
 nav button{background:none;color:var(--text);border-radius:9px;padding:7px 18px;font-weight:500;white-space:nowrap}
 nav button.active{background:var(--surface);box-shadow:0 1px 3px rgba(0,0,0,.12),0 0 0 .5px rgba(0,0,0,.04)}
 nav #gapCount:not(:empty){display:inline-block;min-width:20px;margin-left:6px;padding:0 6px;border-radius:980px;background:var(--warn-soft);color:var(--warn);font-size:12px}
@@ -205,3 +205,39 @@ dialog input{display:block;width:100%;margin:8px 0}
  .row{grid-template-columns:minmax(0,1fr) auto;gap:4px 12px}.row .r{min-width:0}.row .chip{grid-column:2;min-width:0}
  .pill{white-space:nowrap}
  .table-scroll{max-height:460px}nav{display:flex}nav button{padding:7px 12px;font-size:14px}}
+
+/* Research: filter chips and Stocks-style list */
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:-4px 0 16px}
+.chip-btn{background:var(--surface);color:var(--text);border:1px solid var(--line-strong);padding:6px 14px;font-size:14px}
+.chip-btn.active{background:var(--text);color:var(--bg);border-color:var(--text)}
+input[type=search]{padding-left:34px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2386868b' stroke-width='2.4' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='m20 20-3.5-3.5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:12px center}
+.stock-list{display:block}
+.stock-row{display:grid;grid-template-columns:minmax(0,1fr) auto 82px;align-items:center;gap:14px;padding:12px 18px;border-bottom:1px solid var(--line);cursor:pointer}
+.stock-row:last-child{border-bottom:0}
+.stock-row:hover{background:var(--surface-2)}
+.stock-row.selected{background:var(--accent-soft)}
+.stock-row .l{min-width:0}.stock-row .l strong{display:block;font-weight:600;font-size:15px}.stock-row .l small{display:block;color:var(--muted);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.stock-row .r{text-align:right;font-variant-numeric:tabular-nums}.stock-row .r strong{font-weight:500}.stock-row .r small{display:block;font-size:12px;color:var(--muted)}
+.stock-row .chip{justify-self:end}
+.chip.warn{background:var(--warn-soft);color:var(--warn)}
+.star{color:#ff9f0a}
+.price-line{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.detail h2 .stock-cap{font-size:12px!important;vertical-align:middle}
+.detail .status-banner p{color:var(--muted)}
+
+/* Data health */
+.job-card{margin-bottom:16px}.job-card .job-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}.job-card h3{margin:0}
+.job-card:not(.running) #jobHelp{display:none}
+.health-tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:8px}
+.health-tile{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 20px}
+.health-tile .tile-top{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:var(--text)}
+.health-tile>strong{display:block;font-size:30px;font-weight:600;letter-spacing:-.02em;margin:8px 0 2px;font-variant-numeric:tabular-nums}
+.health-tile>strong small{font-size:15px;font-weight:500;color:var(--muted)}
+.health-tile p{font-size:13px;margin:0}
+#healthCards .group{background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);padding:0 20px}
+#healthCards .group>div{padding:6px 0 16px}
+.gates li{display:flex;gap:12px;align-items:flex-start}
+.gate-mark{width:22px;height:22px;flex:none;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:700;background:var(--fill);color:var(--muted);margin-top:1px}
+.gates .ok .gate-mark{background:var(--up-soft);color:var(--up)}
+@media(max-width:1000px){.health-tiles{grid-template-columns:1fr 1fr}}
+@media(max-width:650px){.stock-row{grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;padding:12px 16px}.stock-row .chip{grid-column:2}.health-tiles{gap:10px}.health-tile{padding:14px}.health-tile>strong{font-size:24px}.chips{flex-wrap:nowrap;overflow-x:auto;margin:-4px -16px 14px;padding:0 16px;scrollbar-width:none}.chip-btn{white-space:nowrap}}
