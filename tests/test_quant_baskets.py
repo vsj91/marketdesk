@@ -50,7 +50,9 @@ class CalcTests(unittest.TestCase):
         self.assertEqual(calc.atr_shares(1_000_000,0),0)
     def test_momentum_skips_latest_month(self):
         closes=[100.]*232+[150.]*20+[150.]+[120.]*20
-        self.assertAlmostEqual(calc.momentum_12_1(closes),(120/100-1)-(120/150-1))
+        self.assertAlmostEqual(calc.momentum_12_1(closes),150/100-1)
+        # The latest month does not move the score: same 12-1 path, different final month.
+        self.assertAlmostEqual(calc.momentum_12_1(closes[:-21]+[60.]*21),calc.momentum_12_1(closes[:-21]+[300.]*21))
     def test_rolling_z(self):
         self.assertLess(calc.rolling_z([100.]*19+[90.]+[100.]*0),-3)
         self.assertIsNone(calc.rolling_z([100.]*20))
@@ -114,6 +116,13 @@ class StrategyTests(unittest.TestCase):
         per=[sum(snap['sectors'][s]==sec for s in picks) for sec in SECTORS];self.assertLessEqual(max(per),4)
         self.assertTrue(all(abs(t['weight']-1/15)<1e-12 for t in picks.values()))
         self.assertIn('composite',next(iter(picks.values()))['score'])
+    def test_verified_large_move_keeps_the_stock(self):
+        snap=market();bars=snap['bars']['S03']
+        for b in bars[-30:]:
+            for k in ('open','high','low','close'):b[k]*=1.3
+        self.assertNotIn('S03',strategies.features(dict(snap)))
+        self.assertIn('S03',strategies.features(dict(snap,confirmed={'S03':{bars[-30]['day']}})))
+
     def test_multifactor_without_fundamentals_holds_cash(self):
         snap=dict(market(),fundamentals={})
         plan=strategies.multifactor(snap,{},strategies.config('multifactor'));self.assertEqual(plan['targets'],{});self.assertTrue(plan['meta']['note'])

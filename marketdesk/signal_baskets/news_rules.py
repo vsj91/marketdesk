@@ -17,7 +17,9 @@ from .indicators import ema_series,atr_series,finite
 
 MOMENTUM_DEFAULTS=dict(min_impact=60.,min_confidence=.5,max_news_age_hours=36.,min_turnover_cr=5.,min_price=30.,
     min_rel_volume=1.5,max_reaction_pct=10.,max_run_up_pct=15.,min_atr_pct=1.,max_atr_pct=6.,require_regime=True,
-    stop_atr_mult=2.,target_atr_mult=4.,min_rr=2.,trail_atr_mult=2.5,resistance_lookback=120,
+    # A 2-ATR stop and a 4-ATR target cap risk-reward at exactly 2.0, so a 2.0 minimum rejected every setup with
+    # any overhead resistance; 1.8 (as in the EMA basket) leaves room for a resistance at least 3.6 ATR away.
+    stop_atr_mult=2.,target_atr_mult=4.,min_rr=1.8,trail_atr_mult=2.5,resistance_lookback=120,
     risk_pct=1.,max_position_pct=15.,max_positions=6,max_per_sector=2,max_entries_per_day=3,max_gap_pct=4.,
     max_hold_sessions=20,follow_through_sessions=5,signal_expiry_sessions=2,exit_on_negative_news=True,min_exit_impact=50.,
     slippage_bps=10.,max_slippage_pct=.5)

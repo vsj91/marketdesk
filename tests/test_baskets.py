@@ -23,6 +23,14 @@ class BasketRuleTests(unittest.TestCase):
         self.assertEqual(rsi([1,2,3,4]),100.)
         self.assertIsNone(stats(candles(.002,count=100)))                # too little history
 
+    def test_only_unverified_large_moves_break_history(self):
+        rows=candles(.002)
+        for r in rows[170:]:
+            for k in ('open','high','low','close'):r[k]*=1.3                   # a genuine 30% results-day jump
+        self.assertIsNone(stats(rows))                                         # unverified: possible corporate action
+        s=stats(rows,{rows[170]['ts'][:10]})                                   # NSE-verified ordinary move
+        self.assertIsNotNone(s);self.assertEqual(ranking('momentum',{'JUMP':s}),['JUMP'])
+
     def test_exit_rules(self):
         s=stats(candles(.002))
         self.assertIsNone(rebalance_exit('momentum','A',s,['A']))

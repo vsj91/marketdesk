@@ -240,6 +240,17 @@ class NewsTests(unittest.TestCase):
         self.assertEqual(status,'BUY_CANDIDATE',reasons);self.assertGreaterEqual(plan['risk_reward'],2)
         self.assertEqual(news_rules.momentum_confirm(analysis(),ctx,bars,{},sector_count=2)[0],'REJECTED')   # sector cap
 
+    def test_resistance_between_3_6_and_4_atr_passes_default_rr(self):
+        # 2-ATR stop / 4-ATR target cap RR at 2.0: under a 2.0 minimum any overhead resistance rejected the setup.
+        closes=[100*(1.004**i) for i in range(80)];closes[-1]=closes[-2]*1.03
+        bars=daily(closes,volume=600000,last_volume=1500000);ctx=news_rules.daily_context(bars,[100+i*.05 for i in range(80)])
+        bars[-30]['high']=ctx['close']+3.8*ctx['atr']
+        status,reasons,plan=news_rules.momentum_confirm(analysis(),ctx,bars,{})
+        self.assertEqual(status,'BUY_CANDIDATE',reasons);self.assertAlmostEqual(plan['risk_reward'],1.9)
+        self.assertEqual(news_rules.momentum_confirm(analysis(),ctx,bars,{'min_rr':2.})[0],'REJECTED')
+        bars[-30]['high']=ctx['close']+3.4*ctx['atr']                             # 1.7R: still too close
+        self.assertEqual(news_rules.momentum_confirm(analysis(),ctx,bars,{})[0],'REJECTED')
+
     def test_news_session_is_next_weekday_after_close(self):
         self.assertEqual(news_session('2026-10-16T16:00:00+05:30'),'2026-10-19')
         self.assertEqual(news_session('2026-10-16T09:00:00+05:30'),'2026-10-16')

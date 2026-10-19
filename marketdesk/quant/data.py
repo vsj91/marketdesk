@@ -10,11 +10,14 @@ Sources and their limits (each is a known approximation, not hidden):
   AMFI state         six-month average market cap and Large/Mid/Small label; the cap is rolled
                      forward/back by the stock's price against its average close over the AMFI window
   not available      dividend yield (the value sleeve uses earnings yield and book/price only),
-                     sector indices (stat-arb Z-scores use price), VIX (realized index vol is used)"""
+                     sector indices (stat-arb Z-scores use price), VIX (realized index vol is used)
+  price_reconciliation NSE-verified ordinary large moves (proofs last 24 hours and cover the latest
+                     201 candles; an older or unverified >25% move still excludes the stock)"""
 import bisect,collections,json,sqlite3
-from datetime import date,timedelta
+from datetime import date,datetime,timedelta,timezone
 from ..history_rules import is_financial
 from ..working_universe import symbol_filter
+from ..price_reconciliation import confirmed,jumps
 from .calc import finite
 
 FILING_LAG_DAYS=60
@@ -62,6 +65,11 @@ def load_market(path):
                 cash=latest.get('cash_and_cash_equivalents'),ocf=_operating_cash(cash_flow.get(r['symbol']),latest.get('period')),
                 dividend_yield=None,financial=is_financial(sector or ''))
         bench=[(r['day'],r['close']) for r in db.execute('SELECT day,close FROM claude_benchmark ORDER BY day')]
+        # Large moves NSE verified as ordinary market moves (the proofs the data audit accepts) are not breaks.
+        clock=datetime.now(timezone.utc);moves={}
+        for s,rows in bars.items():
+            recent=[dict(b,ts=b['day']) for b in rows[-LOOKBACK_BARS:]]
+            if jumps(recent):moves[s]=confirmed(db,s,recent,clock)
     finally:db.close()
     period=amfi.get('period')
     anchor={}
@@ -72,7 +80,7 @@ def load_market(path):
             if len(w)>=60:anchor[s]=sum(w)/len(w)
     sectors={s:i.get('sector') for s,i in inst.items()}
     return dict(bars=dict(bars),days={s:[b['day'] for b in rows] for s,rows in bars.items()},sectors=sectors,size=size,caps=caps,
-        cap_anchor=anchor,fundamentals=funds,benchmark=bench,amfi_period=period)
+        cap_anchor=anchor,fundamentals=funds,benchmark=bench,amfi_period=period,confirmed=moves)
 
 def sessions(market):
     return sorted({d for days in market['days'].values() for d in days})
@@ -92,4 +100,4 @@ def snapshot(market,day,lookback=LOOKBACK_BARS):
     bdays=[d for d,_ in market['benchmark']];n=bisect.bisect_right(bdays,day)
     bench=[c for _,c in market['benchmark'][max(0,n-lookback):n]]
     return dict(day=day,bars=bars,fundamentals=funds,sectors=market['sectors'],size=market['size'],
-        benchmark=bench,benchmark_day=bdays[n-1] if n else None)
+        benchmark=bench,benchmark_day=bdays[n-1] if n else None,confirmed=market.get('confirmed',{}))

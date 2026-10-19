@@ -21,10 +21,11 @@ def realized_vol(closes,window):
     return statistics.stdev(r)*math.sqrt(TRADING_DAYS) if len(r)>=2 else None
 
 def momentum_12_1(closes,long=TRADING_DAYS,skip=21):
-    """R(12M) - R(1M): trailing 12-month return minus the latest month, so the
-    short-term reversal month does not drive the ranking."""
+    """Return from 12 months ago to 1 month ago (close[t-21] / close[t-252] - 1). The latest month is
+    left out entirely, so the short-term reversal month cannot move the ranking. (The R12 - R1
+    difference is not equivalent: it still depends on the latest close and mis-ranks large moves.)"""
     if len(closes)<long+1:return None
-    return (closes[-1]/closes[-long-1]-1)-(closes[-1]/closes[-skip-1]-1)
+    return closes[-skip-1]/closes[-long-1]-1
 
 def rolling_z(values,window=20):
     """(latest - mean) / sample std over the latest `window` values (latest included)."""

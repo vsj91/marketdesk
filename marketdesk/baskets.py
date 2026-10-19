@@ -11,6 +11,7 @@ from .paper import trade
 from .quote_health import fresh,refresh_held_quotes
 from .buy_universe import allowed_symbols,require_buy_universe
 from .working_universe import symbol_filter
+from .price_reconciliation import confirmed,jumps
 from . import drawdown
 
 # The server sets buy_universe to Nifty 500 for every basket while the working universe is enabled.
@@ -55,7 +56,9 @@ class BasketEngine:
                 groups[r['symbol']].append(dict(r))
             self.bad={r[0] for r in db.execute("SELECT symbol FROM quality WHERE json_extract(report,'$.trader_ready')=0")}
             self.bad.update(r[0] for r in db.execute("SELECT DISTINCT symbol FROM issues WHERE kind IN ('candle','identity')"))
-        signals={s:stats(rows[-300:]) for s,rows in groups.items()}
+            # Large moves NSE verified as ordinary (the same proofs the data audit accepts) are genuine, not breaks.
+            moves={s:confirmed(db,s,rows[-300:],clock) for s,rows in groups.items() if jumps(rows[-300:])}
+        signals={s:stats(rows[-300:],moves.get(s,())) for s,rows in groups.items()}
         latest=max((s['as_of'] for s in signals.values() if s),default='')
         # Only signals from the latest completed session are current; older ones are stale.
         self.signals={k:s for k,s in signals.items() if s and s['as_of']==latest}

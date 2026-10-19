@@ -40,15 +40,17 @@ def rsi(closes,period=2):
     if gain is None:return None
     return 100. if loss==0 else 100-100/(1+gain/loss)
 
-def stats(rows):
-    """Indicators from completed rows (oldest first), or None if history is short or broken."""
-    rows=effective_rows(rows)
+def stats(rows,confirmed=()):
+    """Indicators from completed rows (oldest first), or None if history is short or broken.
+    `confirmed` holds session dates whose large move NSE verified as an ordinary market move
+    (price_reconciliation.confirmed, as in the data audit); those are not treated as breaks."""
+    rows=effective_rows(rows,confirmed)
     if len(rows)<MIN_HISTORY:return None
     closes=[r['close'] for r in rows]
     if any(not (isinstance(c,(int,float)) and math.isfinite(c) and c>0) for c in closes):return None
     recent=rows[-(LOOKBACK+1):]
-    # A >25% one-day move inside the lookback is treated as an unreconciled corporate action.
-    if any(abs(b['close']/a['close']-1)>.25 for a,b in zip(recent,recent[1:])):return None
+    # An unverified >25% one-day move inside the lookback is treated as an unreconciled corporate action.
+    if any(b['ts'][:10] not in confirmed and abs(b['close']/a['close']-1)>.25 for a,b in zip(recent,recent[1:])):return None
     rets=[math.log(b/a) for a,b in zip(closes[-VOL_WINDOW-1:],closes[-VOL_WINDOW:])]
     window=long_window(len(rows))
     return dict(as_of=rows[-1]['ts'][:10],close=closes[-1],dma200=sum(closes[-window:])/window,dma5=sum(closes[-5:])/5,

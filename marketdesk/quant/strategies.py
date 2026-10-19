@@ -9,6 +9,7 @@ Snapshot (built by quant.data or by tests):
   size        {symbol: 'Large cap'|'Mid cap'|'Small cap'}
   benchmark   [index closes] oldest first, ending at `day`
   vix         optional [VIX closes]
+  confirmed   optional {symbol: {day}} large moves NSE verified as ordinary market moves
 
 Plan returned by every strategy:
   targets {symbol: {weight|shares|keep, reason, score}}  -- what the basket should hold
@@ -20,7 +21,7 @@ from . import calc
 
 MIN_PRICE=20
 MIN_TURNOVER=10_000_000      # Rs 1 crore average daily traded value
-MAX_DAILY_JUMP=.25           # a >25% close-to-close move is treated as an unadjusted corporate action
+MAX_DAILY_JUMP=.25           # a >25% close-to-close move is an unadjusted corporate action unless NSE verified it
 
 DEFAULTS={
  'multifactor':dict(rebalance='monthly',n=15,sector_cap=.30,factor_weights=dict(value=.25,quality=.30,momentum=.30,lowvol=.15),
@@ -47,13 +48,13 @@ def features(snapshot):
     """Per-symbol indicators on the completed session; symbols failing data guards are left out.
     Cached on the snapshot so five baskets on the same session compute them once."""
     if '_features' in snapshot:return snapshot['_features']
-    out=snapshot['_features']={};bench=snapshot.get('benchmark') or []
+    out=snapshot['_features']={};bench=snapshot.get('benchmark') or [];moves=snapshot.get('confirmed') or {}
     for sym,bars in snapshot['bars'].items():
         if not bars or bars[-1]['day']!=snapshot['day']:continue        # no print today: stale
         closes=[b['close'] for b in bars]
         if any(not (calc.finite(c) and c>0) for c in closes):continue
-        recent=closes[-calc.TRADING_DAYS-1:]
-        if any(abs(b/a-1)>MAX_DAILY_JUMP for a,b in zip(recent,recent[1:])):continue
+        recent=bars[-calc.TRADING_DAYS-1:];verified=moves.get(sym,())
+        if any(b['day'] not in verified and abs(b['close']/a['close']-1)>MAX_DAILY_JUMP for a,b in zip(recent,recent[1:])):continue
         turnover=sum(b['close']*b['volume'] for b in bars[-20:])/min(20,len(bars))
         adv=sum(b['volume'] for b in bars[-20:])/min(20,len(bars))
         f=dict(close=closes[-1],bars=len(bars),turnover20=turnover,adv20=adv,
