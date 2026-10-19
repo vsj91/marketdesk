@@ -16,6 +16,7 @@ from .power import SleepGuard
 from .maintenance import Maintenance
 from .universe_exits import RequestedExits
 from .market_caps import classifications,decorate_html,ClassificationRefresh
+from .quant.runner import QuantRunner
 
 class App:
     def __init__(self,path,read_only=False):
@@ -38,6 +39,7 @@ class App:
         self.cap_refresh=None if read_only else ClassificationRefresh(path)
         self.requested_exits=None if read_only else RequestedExits(path)
         self.maintenance=None if read_only else Maintenance(path,self.refresh)
+        self.quant=None if read_only else QuantRunner(path)
         self.csrf=secrets.token_urlsafe(32);self.cache=None;self.cached_at=0;self.cache_lock=threading.Lock()
     def stocks(self):
         with self.cache_lock:
@@ -114,6 +116,7 @@ class Handler(BaseHTTPRequestHandler):
                 with connect(app.path) as db:report=scope_report(db,json.loads(file.read_text()) if file.exists() else {'status':'not_started','results':[]})
                 return self.send(report)
             if url.path=='/api/stocks':return self.send({'stocks':app.stocks()})
+            if url.path=='/api/quant-baskets':return self.send(app.quant.snapshot())
             if url.path=='/api/paper':return self.send({'portfolios':portfolios(app.path),'automation':app.auto.snapshot()})
             if url.path=='/api/stock':
                 symbol=q.get('symbol',[''])[0]
@@ -187,6 +190,7 @@ def serve(path=DEFAULT_DB,port=8765,live=False):
     app.requested_exits.start()
     app.maintenance.start()
     app.auto.start()
+    app.quant.start()
     try:server.serve_forever()
     except KeyboardInterrupt:pass
-    finally:app.maintenance.stop();app.requested_exits.stop();app.cap_refresh.stop();app.power.stop();app.auto.stop();app.feed.stop();server.server_close()
+    finally:app.quant.stop();app.maintenance.stop();app.requested_exits.stop();app.cap_refresh.stop();app.power.stop();app.auto.stop();app.feed.stop();server.server_close()
