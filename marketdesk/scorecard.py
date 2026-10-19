@@ -24,7 +24,8 @@ def scorecard(db,clock=None):
             gate('orders','Real broker order placement with kill switch',False,'Not built. The app is paper-only by design and places no broker orders')]
     baskets={}
     from .paper import PORTFOLIOS
-    for name in PORTFOLIOS:
+    from .basket_rules import RETIRED
+    for name in (n for n in PORTFOLIOS if n not in RETIRED):
         account=db.execute('SELECT * FROM portfolios WHERE name=?',(name,)).fetchone()
         first=db.execute('SELECT MIN(created_at) FROM trades WHERE portfolio=?',(name,)).fetchone()[0]
         closed=closed_round_trips(db,name)

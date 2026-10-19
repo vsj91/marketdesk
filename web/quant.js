@@ -32,7 +32,7 @@ function quantDetail(b,open){
  ${group('q-'+b.basket+'-log','Rebalance audit log',b.rebalance_log.length?`latest ${b.rebalance_log.length}`:'',quantLog(b),open.has('q-'+b.basket+'-log'))}`;
 }
 function renderQuant(){
- if(!quantData)return;const list=quantData.baskets,root=$('quant');
+ if(!quantData)return;const list=quantData.baskets.filter(b=>!b.retired||b.holdings.length),root=$('quant');  // retired baskets stay in the ledger, hidden here
  if(!list.length){$('quantGrid').innerHTML='';$('quantDetail').innerHTML=`<div class="empty">${esc(quantData.status?.message||'Baskets are created on the first daily run.')}</div>`;return;}
  if(!list.some(b=>b.basket===quantPick))quantPick=list[0].basket;
  const open=new Set(Array.from(root.querySelectorAll('details[open]')).map(el=>el.dataset.disclosure));
@@ -44,8 +44,6 @@ function renderQuant(){
  root.querySelectorAll('[data-quant]').forEach(card=>{const pick=()=>{quantPick=card.dataset.quant;try{localStorage.setItem('marketdesk-quant',quantPick);}catch{}renderQuant();};card.onclick=pick;card.onkeydown=e=>{if((e.key==='Enter'||e.key===' ')&&e.target===card){e.preventDefault();pick();}};});
 }
 async function loadQuant(){if(quantBusy)return;quantBusy=true;try{quantData=await api('/api/quant-baskets');renderQuant();}catch(e){$('quantDetail').innerHTML=`<div class="empty">${esc(e.message)}</div>`;}finally{quantBusy=false;}}
-document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>{
- const on=b.dataset.tab==='quant';$('quant').hidden=!on;
- if(on){$('stats').hidden=true;$('universeNote').hidden=true;loadQuant();}
-}));
-setInterval(()=>{if(!$('quant').hidden)loadQuant();},30000);
+// Daily baskets live inside the Paper baskets tab.
+document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>{if(b.dataset.tab==='paper')loadQuant();}));
+setInterval(()=>{if(!$('paper').hidden)loadQuant();},30000);

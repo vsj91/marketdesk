@@ -241,3 +241,11 @@ input[type=search]{padding-left:34px;background-image:url("data:image/svg+xml,%3
 .gates .ok .gate-mark{background:var(--up-soft);color:var(--up)}
 @media(max-width:1000px){.health-tiles{grid-template-columns:1fr 1fr}}
 @media(max-width:650px){.stock-row{grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;padding:12px 16px}.stock-row .chip{grid-column:2}.health-tiles{gap:10px}.health-tile{padding:14px}.health-tile>strong{font-size:24px}.chips{flex-wrap:nowrap;overflow-x:auto;margin:-4px -16px 14px;padding:0 16px;scrollbar-width:none}.chip-btn{white-space:nowrap}}
+
+/* Merged Paper baskets tab: live and daily groups, one detail panel at a time */
+.subhead{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin:8px 0 12px}
+.subhead h3{font-size:20px;margin:0}.subhead p{margin:2px 0 0;font-size:14px}
+.subhead .paper-total .big{font-size:22px}
+#quant{margin-top:28px}
+#paper .basket-detail{margin-bottom:12px}
+#paper[data-detail="daily"] #basketGrid .basket.selected,#paper[data-detail="live"] #quantGrid .basket.selected{border-color:var(--line);box-shadow:var(--shadow)}

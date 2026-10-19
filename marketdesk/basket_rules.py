@@ -28,6 +28,9 @@ BASKETS={
    risk='Equal weight: up to 10% of starting capital per stock including buy fees. Frequent trading makes fees the main risk. New buys pause at a 15% fall from the equity peak; exits stay active.'),
 }
 
+# Retired baskets keep their ledger history but never trade again and are hidden from the screens.
+RETIRED={'reversion':'Retired: it duplicates the daily Stat-arb basket, and fees outweighed gains in the backtest.'}
+
 def rsi(closes,period=2):
     gain=loss=None
     for a,b in zip(closes,closes[1:]):

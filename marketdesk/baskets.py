@@ -6,7 +6,7 @@ fee checks apply as for Trader and Investor. No broker order APIs."""
 import collections,math,time,uuid
 from datetime import datetime,timezone
 from .storage import connect,get_state,set_state
-from .basket_rules import BASKETS,stats,ranking,rebalance_exit,daily_exit,stop_exit
+from .basket_rules import BASKETS,RETIRED,stats,ranking,rebalance_exit,daily_exit,stop_exit
 from .paper import trade
 from .quote_health import fresh,refresh_held_quotes
 from .buy_universe import allowed_symbols,require_buy_universe
@@ -25,6 +25,7 @@ def init(path):
         cfg=get_state(db,'auto_config',{})
         for name in BASKETS:
             if name not in cfg:cfg[name]={**DEFAULT_CONFIG,'enabled':name not in START_PAUSED}
+            if name in RETIRED:cfg[name].update(enabled=False,retired=True,retired_reason=RETIRED[name])
         set_state(db,'auto_config',cfg)
 
 def rules(name,config):

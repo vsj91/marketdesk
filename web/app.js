@@ -87,7 +87,7 @@ function renderDetail(){
  ${tab==='investor'&&f.fallbacks?`<details><summary>NSE / Yahoo fallback coverage</summary><p>NSE: ${esc(f.fallbacks.nse?.status||'not requested')} · Yahoo: ${esc(f.fallbacks.yahoo?.status||'not requested')}</p>${f.fallbacks.yahoo?.annual?.length?`<p>Yahoo annual research · ${esc(f.fallbacks.yahoo.annual[0].period)} · ${esc(f.fallbacks.yahoo.annual[0].currency||'currency unknown')} · consolidated/standalone basis unspecified. Kept separate.</p><div class="metrics">${Object.entries(f.fallbacks.yahoo.annual[0]).filter(([k,v])=>typeof v==='number').map(([k,v])=>metric(k.replaceAll('_',' '),fmt(v))).join('')}</div>`:''}</details>`:''}
  ${x.candle_issues?'<div class="note">Some source candles failed validation. Review the source issues before relying on calculated trends.</div>':''}
  <div class="status-banner"><span class="dot ${x.quality?.[tab==='investor'?'investor_ready':'trader_ready']?'up':'warn'}"></span><div><strong>${x.quality?.[tab==='investor'?'investor_ready':'trader_ready']?'Data ready for new buys':'New buys blocked by data checks'}</strong><p>${esc([...(x.quality?.price_reasons||['Audit pending']),...(tab==='investor'?(x.quality?.financial_reasons||[]):[])].join('; ')||'Entry signals and fresh bid/ask depth still required. Corporate actions are not independently reconciled.')}</p></div></div>
- <div class="actions"><button id="refreshStock">Refresh this stock</button><span class="muted">Reloads financials and completed daily candles.</span></div><div class="order-box"><h3>Paper order</h3><form id="orderForm"><div class="order-fields"><div><label for="orderPortfolio">Portfolio</label><select id="orderPortfolio">${Object.keys(BASKETS).map(n=>`<option value="${n}" ${tab===n?'selected':''}>${esc(basketTitle(n))}</option>`).join('')}</select></div><div><label for="orderSide">Side</label><select id="orderSide"><option>BUY</option><option>SELL</option></select></div><div><label for="orderQty">Shares</label><input id="orderQty" type="number" min="1" max="1000000" step="1" value="1" required></div></div><button id="orderSubmit" class="primary" type="submit">Place paper order</button><p class="muted">Fresh live price and bid/ask depth required. Partial fills cancel the remainder. Delivery-style charges are estimates. Paper only.</p></form></div><details><summary>Source responses & extraction evidence</summary><pre id="evidence"></pre></details>`;
+ <div class="actions"><button id="refreshStock">Refresh this stock</button><span class="muted">Reloads financials and completed daily candles.</span></div><div class="order-box"><h3>Paper order</h3><form id="orderForm"><div class="order-fields"><div><label for="orderPortfolio">Portfolio</label><select id="orderPortfolio">${Object.keys(BASKETS).filter(n=>!paperData?.automation?.config?.[n]?.retired).map(n=>`<option value="${n}" ${tab===n?'selected':''}>${esc(basketTitle(n))}</option>`).join('')}</select></div><div><label for="orderSide">Side</label><select id="orderSide"><option>BUY</option><option>SELL</option></select></div><div><label for="orderQty">Shares</label><input id="orderQty" type="number" min="1" max="1000000" step="1" value="1" required></div></div><button id="orderSubmit" class="primary" type="submit">Place paper order</button><p class="muted">Fresh live price and bid/ask depth required. Partial fills cancel the remainder. Delivery-style charges are estimates. Paper only.</p></form></div><details><summary>Source responses & extraction evidence</summary><pre id="evidence"></pre></details>`;
  $('evidence').textContent=JSON.stringify({fundamentals:detail.fundamentals,issues:detail.issues,endpoints:detail.payloads},null,2);chart(rows);
  $('watch').onclick=async()=>{try{await api('/api/watch',{symbol:selected,watched:!x.watched});x.watched=!x.watched;renderTable();renderDetail();}catch(e){toast(e.message);}};
  $('refreshStock').onclick=()=>refresh([selected]);
@@ -120,7 +120,14 @@ const BASKETS={
 const basketTitle=n=>BASKETS[n]?.title||String(n).charAt(0).toUpperCase()+String(n).slice(1);
 const signedInr=x=>x==null?'—':(x>0?'+':'')+inr(x);
 const tone=x=>x==null||Math.abs(x)<.005?'flat':x>0?'up':'down';
-let basket='trader',paperData=null;try{basket=localStorage.getItem('marketdesk-basket')||basket;}catch{}
+let basket='trader',paperData=null,detailGroup='live';try{basket=localStorage.getItem('marketdesk-basket')||basket;detailGroup=localStorage.getItem('marketdesk-detail-group')||detailGroup;}catch{}
+// One detail panel at a time: under the live group or under the daily group, whichever was tapped last.
+function applyDetailGroup(){$('paper').dataset.detail=detailGroup;$('basketDetail').hidden=detailGroup!=='live';$('quantDetail').hidden=detailGroup!=='daily';}
+function useDetailGroup(group,scroll){detailGroup=group;try{localStorage.setItem('marketdesk-detail-group',group);}catch{}applyDetailGroup();if(scroll)setTimeout(()=>$(group==='live'?'basketDetail':'quantDetail').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'}),0);}
+[['basketGrid','[data-basket]','live'],['quantGrid','[data-quant]','daily']].forEach(([grid,card,group])=>{
+ const pick=e=>{if(e.target.closest(card)&&!e.target.closest('[data-toggle]'))useDetailGroup(group,group==='daily');};
+ $(grid).addEventListener('click',pick,true);$(grid).addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' ')pick(e);},true);
+});
 function friendlyStatus(enabled,s){
  if(!enabled)return ['Off',''];
  return ({monitoring:['Active','up'],market_wait:['Waiting for the market trend','warn'],risk_wait:['Paused by a risk limit','warn'],data_wait:['Waiting for data','warn'],waiting:['Waiting for the market to open',''],error:['Stopped after an error','down']})[s?.state]||['Checking…',''];
@@ -171,16 +178,17 @@ function basketDetail(p,auto,openDetails){
  ${group(n+'-rules','How this basket decides','',rulesHtml(r),open('rules'))}`;
 }
 function renderPaper(){
- const data=paperData;if(!data)return;const auto=data.automation,list=data.portfolios;
+ const data=paperData;if(!data)return;const auto=data.automation,list=data.portfolios.filter(p=>!auto.config[p.name]?.retired||p.positions.length);
  if(!list.some(p=>p.name===basket))basket=list[0]?.name||'trader';
  const root=$('paper'),openDetails=new Set(Array.from(root.querySelectorAll('details[open]')).map(el=>el.dataset.disclosure));
  const scrolls=new Map(Array.from(root.querySelectorAll('[data-scroll]')).map(el=>[el.dataset.scroll,[el.scrollLeft,el.scrollTop]]));
  const total=list.reduce((a,p)=>a+(p.equity??NaN),0),start=list.reduce((a,p)=>a+p.initial_cash,0),live=list.filter(p=>auto.config[p.name]?.enabled).length;
- $('paperTotal').innerHTML=Number.isFinite(total)?`<div class="muted">All baskets · ${live} of ${list.length} on</div><div class="big">${inr(total)}</div><div class="${tone(total-start)}">${signedInr(total-start)} · ${pct((total-start)/start*100)}</div>`:'';
+ $('paperTotal').innerHTML=Number.isFinite(total)?`<div class="muted">${live} of ${list.length} on</div><div class="big">${inr(total)}</div><div class="${tone(total-start)}">${signedInr(total-start)} · ${pct((total-start)/start*100)}</div>`:'';
  $('basketGrid').innerHTML=list.map(p=>basketCard(p,auto)).join('');
  $('basketGrid').querySelectorAll('[data-width]').forEach(el=>el.style.width=el.dataset.width+'%');
  const current=list.find(p=>p.name===basket);$('basketDetail').innerHTML=current?basketDetail(current,auto,openDetails):'<div class="empty">No baskets.</div>';
  root.querySelectorAll('[data-scroll]').forEach(el=>{const pos=scrolls.get(el.dataset.scroll);if(pos){el.scrollLeft=pos[0];el.scrollTop=pos[1];}});
+ applyDetailGroup();
  root.querySelectorAll('[data-basket]').forEach(card=>{const pick=()=>{basket=card.dataset.basket;try{localStorage.setItem('marketdesk-basket',basket);}catch{}renderPaper();$('basketDetail').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});};card.onclick=pick;card.onkeydown=e=>{if((e.key==='Enter'||e.key===' ')&&e.target===card){e.preventDefault();pick();}};});
  root.querySelectorAll('[data-toggle]').forEach(sw=>sw.onclick=async e=>{e.stopPropagation();if(automationAction)return;automationAction=true;const name=sw.dataset.toggle,on=sw.getAttribute('aria-checked')!=='true';sw.setAttribute('aria-checked',String(on));try{await api('/api/paper/automation',{portfolio:name,enabled:on});toast(`${basketTitle(name)} ${on?'turned on':'turned off'}.`);}catch(err){toast(err.message);}finally{automationAction=false;await renderPortfolios();}});
 }

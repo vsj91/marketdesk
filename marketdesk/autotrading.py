@@ -12,7 +12,7 @@ from . import drawdown
 from .history_rules import MIN_SESSIONS,long_window,effective_rows
 from .quote_health import fresh,stale_holdings,stale_message,refresh_held_quotes
 from .buy_universe import allowed_symbols,require_buy_universe,universe_status,MembershipRefresh
-from .basket_rules import BASKETS
+from .basket_rules import BASKETS,RETIRED
 ENGINES=(*('trader','investor'),*BASKETS)
 
 IST=timezone(timedelta(hours=5,minutes=30))
@@ -212,6 +212,7 @@ class AutoTrading:
  def stop(self):self.stop_event.set()
  def configure(self,portfolio,enabled):
   if portfolio not in ENGINES or not isinstance(enabled,bool):raise ValueError('Choose a paper basket and a true/false enabled value.')
+  if enabled and portfolio in RETIRED:raise ValueError(RETIRED[portfolio])
   with connect(self.path) as db:
    db.execute('BEGIN IMMEDIATE');cfg=get_state(db,'auto_config');cfg[portfolio]={**cfg.get(portfolio,{}),'enabled':enabled,'updated_at':now()};set_state(db,'auto_config',cfg)
    statuses=get_state(db,'auto_status',{});statuses[portfolio]={'state':'waiting' if enabled else 'paused','message':'Enabled; awaiting the next engine check.' if enabled else 'Automatic paper trading is paused.','checked_at':now()};set_state(db,'auto_status',statuses)
@@ -315,7 +316,7 @@ class AutoTrading:
   with self.scan_lock:
    with connect(self.path) as db:cfg=get_state(db,'auto_config',{});stream=get_state(db,'stream',{})
    statuses={p:{'state':'paused','message':'Automatic paper trading is paused.'} for p in ENGINES}
-   enabled=[p for p in ENGINES if cfg.get(p,{}).get('enabled')]
+   enabled=[p for p in ENGINES if cfg.get(p,{}).get('enabled') and p not in RETIRED]
    opened=stream.get('status')=='connected' and stream.get('market_status',{}).get('NSE_EQ')=='NORMAL_OPEN'
    if enabled and opened:
     with connect(self.path) as db:

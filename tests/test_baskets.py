@@ -82,6 +82,14 @@ class BasketEngineTests(unittest.TestCase):
             sold=[r[0] for r in db.execute("SELECT reason FROM trades WHERE portfolio='momentum' AND side='SELL' AND symbol='S03'")]
         self.assertEqual(rows['S11'],'2026-10')
         self.assertEqual(sold,['No valid completed history at monthly review'])
+    def test_retired_basket_cannot_be_enabled_and_never_trades(self):
+        with connect(self.path) as db:
+            cfg=get_state(db,'auto_config');self.assertTrue(cfg['reversion']['retired']);self.assertFalse(cfg['reversion']['enabled'])
+            cfg['reversion']['enabled']=True;set_state(db,'auto_config',cfg)   # even a hand-edited flag is ignored
+        with self.assertRaisesRegex(ValueError,'Retired'):self.engine.configure('reversion',True)
+        self.engine.cycle(self.clock,{})
+        self.assertEqual(self.engine.snapshot()['status']['reversion']['state'],'paused')
+        self.engine.configure('reversion',False)                               # pausing stays allowed
     def test_paused_basket_never_trades(self):
         with connect(self.path) as db:
             cfg=get_state(db,'auto_config');cfg['momentum']['enabled']=False;set_state(db,'auto_config',cfg)
