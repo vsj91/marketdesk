@@ -33,7 +33,11 @@ function quantDetail(b,open){
  ${group('q-'+b.basket+'-log','Rebalance audit log',b.rebalance_log.length?`latest ${b.rebalance_log.length}`:'',quantLog(b),open.has('q-'+b.basket+'-log'))}`;
 }
 function renderQuant(){
- if(!quantData)return;const list=quantData.baskets.filter(b=>!b.retired||b.holdings.length),root=$('quant');  // retired baskets stay in the ledger, hidden here
+ if(!quantData)return;
+ // Retired baskets stay in the ledger, hidden here. Baskets that now trade live show in the Live group only.
+ const live=new Set((typeof paperData!=='undefined'&&paperData?paperData.portfolios:[]).map(p=>p.name));
+ const all=quantData.baskets.filter(b=>!b.retired||b.holdings.length),list=all.filter(b=>!live.has(b.basket)),root=$('quant');
+ root.hidden=all.length>0&&!list.length;if(root.hidden&&typeof useDetailGroup==='function'&&detailGroup==='daily')useDetailGroup('live',false);
  if(!list.length){$('quantGrid').innerHTML='';$('quantDetail').innerHTML=`<div class="empty">${esc(quantData.status?.message||'Baskets are created on the first daily run.')}</div>`;return;}
  if(!list.some(b=>b.basket===quantPick))quantPick=list[0].basket;
  const open=new Set(Array.from(root.querySelectorAll('details[open]')).map(el=>el.dataset.disclosure));
