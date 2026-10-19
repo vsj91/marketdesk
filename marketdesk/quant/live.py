@@ -19,7 +19,8 @@ from .engine import BasketEngine
 from .names import LIVE_BASKETS,TITLES
 from .runner import ledger_path
 
-DEFAULT_CONFIG={'buy_universe':'nifty500','full_session_buying':True,'max_round_trip_fee_pct':2.5}
+# A flat ₹20 brokerage plus DP charges make a delivery round trip about ₹80-90, so 1.5% blocks orders under ~₹5,800.
+DEFAULT_CONFIG={'buy_universe':'nifty500','full_session_buying':True,'max_round_trip_fee_pct':1.5}
 MAX_SIGNAL_DRIFT=.15     # skip a buy when the live price is more than 15% away from the signal close
 CASH_BUFFER=50           # rupees kept back for rounding of charges
 

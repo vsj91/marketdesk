@@ -57,5 +57,5 @@ def init(path):
         for name in SIGNAL_BASKETS:
             if name not in cfg:
                 # EMA trades intraday (MIS-style) and squares off itself, so its fee check uses intraday charges.
-                cfg[name]={'enabled':True,'full_session_buying':True,'max_round_trip_fee_pct':1. if name=='ema_price_action' else 2.5,'params':{}}
+                cfg[name]={'enabled':True,'full_session_buying':True,'max_round_trip_fee_pct':1. if name=='ema_price_action' else 1.5,'params':{}}
         set_state(db,'auto_config',cfg)

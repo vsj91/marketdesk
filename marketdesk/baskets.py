@@ -15,7 +15,8 @@ from .price_reconciliation import confirmed,jumps
 from . import drawdown
 
 # The server sets buy_universe to Nifty 500 for every basket while the working universe is enabled.
-DEFAULT_CONFIG={'full_session_buying':True,'max_round_trip_fee_pct':2.5}
+# A flat ₹20 brokerage plus DP charges make a delivery round trip about ₹80-90, so 1.5% blocks orders under ~₹5,800.
+DEFAULT_CONFIG={'full_session_buying':True,'max_round_trip_fee_pct':1.5}
 # Fee-dominated at ₹10,000 positions in the backtest; created paused so the reader opts in knowingly.
 START_PAUSED={'reversion'}
 

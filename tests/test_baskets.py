@@ -90,6 +90,11 @@ class BasketEngineTests(unittest.TestCase):
             sold=[r[0] for r in db.execute("SELECT reason FROM trades WHERE portfolio='momentum' AND side='SELL' AND symbol='S03'")]
         self.assertEqual(rows['S11'],'2026-10')
         self.assertEqual(sold,['No valid completed history at monthly review'])
+    def test_new_baskets_cap_round_trip_fees_at_one_and_a_half_percent(self):
+        with connect(self.path) as db:cfg=get_state(db,'auto_config')
+        for name in ('lowvol','smart_beta','risk_parity','stat_arb','regime','news_momentum','news_catalyst'):
+            self.assertEqual(cfg[name]['max_round_trip_fee_pct'],1.5,name)
+        self.assertEqual(cfg['ema_price_action']['max_round_trip_fee_pct'],1.)
     def test_retired_basket_cannot_be_enabled_and_never_trades(self):
         with connect(self.path) as db:
             cfg=get_state(db,'auto_config');self.assertTrue(cfg['reversion']['retired']);self.assertFalse(cfg['reversion']['enabled'])
