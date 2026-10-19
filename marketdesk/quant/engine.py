@@ -10,7 +10,7 @@ One call to run_day(snapshot) per completed session, for every basket, in this o
 Signals use completed closes and fill one session later, so no fill ever uses the price that
 produced its own signal. Reruns of the same (basket, session) are no-ops."""
 import json,math
-from datetime import date
+from datetime import date,datetime,timedelta,timezone
 from ..storage import connect,now
 from .schema import SCHEMA
 from .strategies import STRATEGIES,config,features
@@ -21,8 +21,10 @@ from . import calc
 def j(x):return json.dumps(x,sort_keys=True,default=float)
 
 class BasketEngine:
-    def __init__(self,ledger_path,simulator=None,drift_threshold=.02,risk_free=RISK_FREE):
+    def __init__(self,ledger_path,simulator=None,drift_threshold=.02,risk_free=RISK_FREE,live_db=None):
         self.path=ledger_path;self.sim=simulator or ExecutionSimulator();self.drift=drift_threshold;self.risk_free=risk_free
+        # live_db: the MarketDesk database whose paper portfolios hold the cash and positions of live baskets.
+        self.live_db=live_db
         with connect(self.path) as db:db.executescript(SCHEMA)
 
     # ------------------------------------------------------------ definitions
@@ -61,6 +63,42 @@ class BasketEngine:
             self._log(db,name,day,None,'NOTE',None,None,f'Basket retired: {reason}')
             return True
 
+    def go_live(self,name):
+        """Switch a basket to live execution: from now on its cash and holdings are the paper portfolio of the
+        same name in live_db, filled by quant.live during market hours instead of the simulator."""
+        if not self.live_db:raise ValueError('Live execution needs the MarketDesk database.')
+        with connect(self.path) as db:
+            db.execute('BEGIN IMMEDIATE')
+            b=db.execute('SELECT state FROM qb_baskets WHERE name=?',(name,)).fetchone()
+            if not b:raise ValueError(f'No basket named {name!r}.')
+            state=json.loads(b[0])
+            if state.get('mode')=='live':return False
+            state['mode']='live';db.execute('UPDATE qb_baskets SET state=? WHERE name=?',(j(state),name))
+            self._log(db,name,date.today().isoformat(),None,'NOTE',None,None,'Live execution on: queued orders now fill at live prices during market hours through the paper ledger.')
+            return True
+
+    def live(self,name):
+        with connect(self.path) as db:
+            b=db.execute('SELECT state FROM qb_baskets WHERE name=?',(name,)).fetchone()
+        return bool(b) and json.loads(b[0]).get('mode')=='live'
+
+    def sync_live(self,db,name,day):
+        """Mirror the live paper portfolio (cash, holdings) into the ledger. Returns the session's fills, turnover and charges."""
+        with connect(self.live_db) as live:
+            account=live.execute('SELECT cash FROM portfolios WHERE name=?',(name,)).fetchone()
+            held={r['symbol']:dict(r) for r in live.execute('SELECT symbol,quantity,cost FROM positions WHERE portfolio=? AND quantity>0',(name,))}
+            start=datetime.fromisoformat(day+'T00:00:00+05:30').astimezone(timezone.utc).isoformat()
+            end=(datetime.fromisoformat(day+'T00:00:00+05:30')+timedelta(days=1)).astimezone(timezone.utc).isoformat()
+            t=live.execute('SELECT COUNT(*),COALESCE(SUM(quantity*price),0),COALESCE(SUM(fee),0) FROM trades WHERE portfolio=? AND created_at>=? AND created_at<?',(name,start,end)).fetchone()
+        if account is None:raise ValueError(f'No live paper portfolio named {name!r}.')
+        db.execute('UPDATE qb_baskets SET cash=? WHERE name=?',(account['cash'],name))
+        for s,p in held.items():
+            db.execute('''INSERT INTO qb_positions(basket,symbol,qty,cost,entry_price,entry_day,high_close) VALUES(?,?,?,?,?,?,NULL)
+                ON CONFLICT(basket,symbol) DO UPDATE SET qty=excluded.qty,cost=excluded.cost,entry_price=excluded.entry_price''',(name,s,p['quantity'],p['cost'],p['cost']/p['quantity'],day))
+        for r in db.execute('SELECT symbol FROM qb_positions WHERE basket=?',(name,)).fetchall():
+            if r[0] not in held:db.execute('DELETE FROM qb_positions WHERE basket=? AND symbol=?',(name,r[0]))
+        return t[0],t[1],t[2]
+
     def names(self):
         with connect(self.path) as db:return [r[0] for r in db.execute('SELECT name FROM qb_baskets ORDER BY name')]
 
@@ -80,7 +118,8 @@ class BasketEngine:
             last=db.execute('SELECT MAX(day) FROM qb_runs WHERE basket=?',(name,)).fetchone()[0]
             if last and day<last:return dict(skipped=f'out of order: last run {last}')
             cfg=config(basket['strategy'],json.loads(basket['config']));state=json.loads(basket['state'])
-            fills,turnover,fees=self._fill_pending(db,basket,snapshot)
+            live=state.get('mode')=='live'
+            fills,turnover,fees=self.sync_live(db,name,day) if live else self._fill_pending(db,basket,snapshot)
             for p in db.execute('SELECT symbol,high_close FROM qb_positions WHERE basket=?',(name,)).fetchall():
                 bar=self._bar(snapshot,p['symbol'])
                 if bar:db.execute('UPDATE qb_positions SET high_close=MAX(COALESCE(high_close,0),?) WHERE basket=? AND symbol=?',(bar['close'],name,p['symbol']))
@@ -98,6 +137,11 @@ class BasketEngine:
                     if note:self._log(db,name,day,None,'NOTE',None,None,note)
                 # An empty plan for an empty book (e.g. not enough history yet) does not use up the schedule.
                 if not plan.get('hold') and (plan['targets'] or book):
+                    if live:
+                        # A new plan replaces whatever the last one could not fill at live prices.
+                        for o in db.execute("SELECT id,symbol,side FROM qb_orders WHERE basket=? AND status='pending'",(name,)).fetchall():
+                            db.execute("UPDATE qb_orders SET status='cancelled',fill_day=? WHERE id=?",(day,o['id']))
+                            self._log(db,name,day,o['symbol'],'CANCEL',None,None,f"{o['side'].title()} {o['symbol']} unfilled; replaced by the {day} plan")
                     targets,queued=self._queue(db,name,day,plan,book,prices,nav,snapshot,why,cash);ran=True
                     db.execute('UPDATE qb_baskets SET last_rebalance=? WHERE name=?',(day,name))
                 state['regime']=reg
@@ -298,6 +342,7 @@ class BasketEngine:
         return dict(basket=name,strategy=b['strategy'],config=config(b['strategy'],json.loads(b['config'])),as_of=as_of,
             capital=b['capital'],nav=nav[-1] if nav else b['capital'],cash=round(b['cash'],2),regime=json.loads(b['state']).get('regime'),
             retired=bool(json.loads(b['state']).get('retired')),retired_day=json.loads(b['state']).get('retired_day'),
+            execution='live' if json.loads(b['state']).get('mode')=='live' else 'simulated',
             last_rebalance=b['last_rebalance'],holdings=holdings,
             performance=dict(**perf,realized_pnl=round(realized[0],2),total_charges=round(realized[1],2),fills=realized[2],risk_free_rate=self.risk_free),
             pending_orders=pending,rebalance_log=log,paper_only=True)

@@ -24,9 +24,13 @@ def current_identity(db,portfolio,automatic):
     cfg=get_state(db,'auto_config',{}).get(portfolio,{})
     from .autotrading import capacity_rules
     from .basket_rules import BASKETS
+    from .quant.names import LIVE_BASKETS
     if portfolio in BASKETS:
         from .baskets import rules as basket_rules
         rules=basket_rules(portfolio,cfg);family='basket-'+portfolio
+    elif portfolio in LIVE_BASKETS:
+        from .quant.live import rules as quant_rules
+        rules=quant_rules(portfolio,cfg);family='quant-'+portfolio
     elif portfolio=='trader' and cfg.get('strategy')=='claude-original-v2':
         from .claude_trader import active_rule
         rules=active_rule(cfg);family='claude-v2'

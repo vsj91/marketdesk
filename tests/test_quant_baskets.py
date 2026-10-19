@@ -195,8 +195,9 @@ def snapshot_of(market,day):
 class RunnerTests(unittest.TestCase):
     def setUp(self):
         from marketdesk.storage import init
+        from marketdesk.paper import init_paper
         self.temp=tempfile.TemporaryDirectory();self.addCleanup(self.temp.cleanup)
-        self.db=Path(self.temp.name)/'m.db';init(self.db)
+        self.db=Path(self.temp.name)/'m.db';init(self.db);init_paper(self.db)
         snap=market();self.days=[b['day'] for b in snap['bars']['S00']]
         self.market=dict(bars=snap['bars'],days={s:[b['day'] for b in r] for s,r in snap['bars'].items()},sectors=snap['sectors'],size=snap['size'],
             caps={},cap_anchor={},fundamentals={},benchmark=list(zip(self.days,snap['benchmark'])))

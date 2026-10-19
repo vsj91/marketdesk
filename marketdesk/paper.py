@@ -5,7 +5,8 @@ from .execution import fetch_book,match,charges,money,automatic_buy_cost_check
 from .quality import init_quality,require_buy_quality
 from .buy_universe import require_buy_universe
 from .basket_rules import BASKETS
-PORTFOLIOS=('trader','investor',*BASKETS)
+from .quant.names import LIVE_BASKETS,LIVE_CAPITAL
+PORTFOLIOS=('trader','investor',*BASKETS,*LIVE_BASKETS)
 from .order_audit import init_metadata,current_identity,save_identity,annotate,init_attempts,diagnostics,save_attempt,blocked_category
 
 def init_paper(path):
@@ -24,6 +25,8 @@ def init_paper(path):
         for name in ('trader','investor'):db.execute('INSERT OR IGNORE INTO portfolios VALUES(?,?,?)',(name,1000000,1000000))
         # Additional baskets start at ₹1,00,000, the same capital the Trader and Investor ledgers use.
         for name in BASKETS:db.execute('INSERT OR IGNORE INTO portfolios VALUES(?,?,?)',(name,100000,100000))
+        # Quant baskets: daily signals from marketdesk.quant, live fills through this ledger.
+        for name in LIVE_BASKETS:db.execute('INSERT OR IGNORE INTO portfolios VALUES(?,?,?)',(name,LIVE_CAPITAL,LIVE_CAPITAL))
         init_metadata(db)
         init_attempts(db)
 

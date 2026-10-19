@@ -11,14 +11,13 @@ from pathlib import Path
 from ..storage import connect,get_state,now
 from .engine import BasketEngine
 from .data import load_market,sessions,snapshot
+from .names import LIVE_BASKETS,TITLES,LIVE_CAPITAL
 
 IST=timezone(timedelta(hours=5,minutes=30))
 DEFAULT_BASKETS={'smart_beta':'multifactor','risk_parity':'risk_parity','stat_arb':'stat_arb','trend':'trend','regime':'regime'}
-TITLES={'smart_beta':'Multi-factor smart beta','risk_parity':'Risk parity','stat_arb':'Stat-arb mean reversion',
-    'trend':'ATR trend following','regime':'Regime switching'}
 # Retired baskets keep their ledger history but never trade again (and are not created on a fresh ledger).
 RETIRED={'trend':'Duplicates the Trader basket (breakout entries with ATR trailing stops).'}
-CAPITAL=100_000
+CAPITAL=LIVE_CAPITAL
 INTERVAL=300
 
 def ledger_path(db_path):return Path(db_path).parent/'quant_baskets.sqlite3'
@@ -26,7 +25,7 @@ def ledger_path(db_path):return Path(db_path).parent/'quant_baskets.sqlite3'
 class QuantRunner:
     def __init__(self,path,ledger=None,capital=CAPITAL):
         self.path=path;self.ledger=Path(ledger) if ledger else ledger_path(path);self.capital=capital
-        self.engine=BasketEngine(self.ledger);self.stop_event=threading.Event();self.thread=None;self.lock=threading.Lock()
+        self.engine=BasketEngine(self.ledger,live_db=path);self.stop_event=threading.Event();self.thread=None;self.lock=threading.Lock()
         self.status=dict(state='starting',message='Waiting for the first check.',checked_at=None,last_session=None)
 
     def start(self):
@@ -53,6 +52,9 @@ class QuantRunner:
             last=self._last_run()
             for name,reason in RETIRED.items():
                 if name in self.engine.names():self.engine.retire(name,last or done[-1],reason)
+            # Live baskets take cash and holdings from the paper portfolio of the same name and fill during market hours.
+            for name in LIVE_BASKETS:
+                if name in self.engine.names():self.engine.go_live(name)
             todo=[d for d in done if (last is None or d>last) and d>=self._start()]
             for day in todo:self.engine.run_day(snapshot(market,day))
             return self._set('ok',f'Up to date through {done[-1]}.' if not todo else f'Processed {len(todo)} session(s) through {todo[-1]}.',last_session=todo[-1] if todo else last)

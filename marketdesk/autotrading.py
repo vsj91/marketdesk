@@ -13,7 +13,8 @@ from .history_rules import MIN_SESSIONS,long_window,effective_rows
 from .quote_health import fresh,stale_holdings,stale_message,refresh_held_quotes
 from .buy_universe import allowed_symbols,require_buy_universe,universe_status,MembershipRefresh
 from .basket_rules import BASKETS,RETIRED
-ENGINES=(*('trader','investor'),*BASKETS)
+from .quant.names import LIVE_BASKETS
+ENGINES=(*('trader','investor'),*BASKETS,*LIVE_BASKETS)
 
 IST=timezone(timedelta(hours=5,minutes=30))
 RULES={
@@ -205,6 +206,8 @@ class AutoTrading:
   self.membership_refresh=MembershipRefresh(path)
   self.claude=None;self.quality_checked=0;self.refresh=refresh;self.path=path;init_auto(path)
   from .baskets import BasketEngine
+  from .quant.live import QuantLive
+  self.quant=QuantLive(path)
   self.baskets=BasketEngine(path);self.stop_event=threading.Event();self.thread=None;self.scan_lock=threading.Lock();self.signals={};self.loaded=0
  def start(self):
   if self.thread and self.thread.is_alive():return
@@ -248,6 +251,11 @@ class AutoTrading:
    if cfg.get(p,{}).get('full_session_buying') is True:
     rules[p]={**rules[p],'entry_window':entry_window_label(cfg[p])}
   from .baskets import rules as basket_rules
+  from .quant.live import rules as quant_rules
+  for p in LIVE_BASKETS:
+   rules[p]=quant_rules(p,cfg.get(p,{}))
+   if cfg.get(p,{}).get('buy_universe')=='nifty500':rules[p]['buy_universe']=universe_status(db,p)
+   if cfg.get(p,{}).get('full_session_buying') is True:rules[p]['entry_window']=entry_window_label(cfg[p])
   for p in BASKETS:
    rules[p]=basket_rules(p,cfg.get(p,{}))
    if cfg.get(p,{}).get('buy_universe')=='nifty500':rules[p]['buy_universe']=universe_status(db,p)
@@ -256,6 +264,14 @@ class AutoTrading:
  def scan_selected(self,portfolio,signals,clock,realtime,cfg):
   from .claude_trader import STRATEGY,ClaudeTrader
   if portfolio in BASKETS:return self.baskets.scan(portfolio,clock,realtime)
+  if portfolio in LIVE_BASKETS:
+   try:return self.quant.scan(portfolio,clock,realtime)
+   except Exception as error:
+    # A quant executor failure pauses only that basket, never Trader, Investor or the other baskets.
+    with connect(self.path) as db:
+     current=get_state(db,'auto_config',{});current[portfolio]['enabled']=False;set_state(db,'auto_config',current)
+     event(db,portfolio,'error','Paused after '+type(error).__name__+' in live quant execution. Review before enabling again.')
+    return {'state':'error','message':'Paused after a live execution error; other baskets unchanged.'}
   if portfolio!='trader' or cfg.get('trader',{}).get('strategy')!=STRATEGY:
    return self.scan(portfolio,signals,clock,realtime)
   try:
