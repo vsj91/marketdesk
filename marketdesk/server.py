@@ -59,12 +59,15 @@ class App:
             # Banks, insurers and NBFCs report borrowings/leases/finance costs differently; those gaps are not actionable.
             from .history_rules import is_financial
             from .liability_bound import attach,bounded_debt_pass
+            from .bank_inputs import not_applicable
             missing={};financial_gaps={};bounded=[];financial_incomplete=0
             records={r[0]:(json.loads(r[1]),is_financial(r[2])) for r in db.execute('SELECT f.symbol,f.details,i.sector FROM fundamentals f JOIN instruments i USING(symbol) WHERE f.'+symbol_filter(db))}
             attach(db,{k:v[0] for k,v in records.items()})
             for symbol,(details,financial) in records.items():
-                target=financial_gaps if financial else missing
-                if financial and details.get('status')!='COMPLETE':financial_incomplete+=1
+                # Only a line the verified filing framework does not carry is excused; other lender gaps still block buys.
+                excused=financial and details.get('status')!='COMPLETE' and set(details.get('missing_fields') or [])<=not_applicable(details)
+                target=financial_gaps if excused else missing
+                if excused:financial_incomplete+=1
                 if not financial and bounded_debt_pass(details):bounded.append(symbol);continue
                 for key in details.get('missing_fields',[]):target[key]=target.get(key,0)+1
             missing_records=counts['instruments']-counts['fundamentals']

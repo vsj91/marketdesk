@@ -33,6 +33,18 @@ class WorkingUniverseTests(unittest.TestCase):
   self.assertEqual([r['symbol'] for r in targets(self.path)],['INCLUDED'])
   self.assertEqual(load_snapshot(self.path)['symbols'],['INCLUDED'])
   with connect(self.path) as db:self.assertEqual(db.execute('SELECT COUNT(*) FROM instruments').fetchone()[0],3)
+ def test_health_excuses_a_lender_gap_only_when_its_filing_has_no_such_line(self):
+  from marketdesk.bank_inputs import SOURCE as BANK,FRAMEWORK
+  latest={'period':'Mar 2026','statement_type':'standalone'}
+  def save(extra):
+   with connect(self.path) as db:
+    db.execute("UPDATE instruments SET sector='Bank' WHERE symbol='INCLUDED'")
+    db.execute("UPDATE fundamentals SET details=? WHERE symbol='INCLUDED'",(json.dumps({'status':'PARTIAL','missing_fields':['total_lease_liabilities'],'latest':{**latest,**extra}}),))
+   return App(self.path,read_only=True).health()
+  h=save({})
+  self.assertEqual(h['financial_incomplete'],0);self.assertEqual(h['actionable_partial_fundamentals'],1);self.assertEqual(h['missing_fields']['total_lease_liabilities'],1)
+  h=save({'not_applicable':{'total_lease_liabilities':{'source':BANK,'framework':FRAMEWORK,**latest}}})
+  self.assertEqual(h['financial_incomplete'],1);self.assertEqual(h['actionable_partial_fundamentals'],0);self.assertNotIn('total_lease_liabilities',h['missing_fields'])
  def test_missing_membership_fails_closed_but_pending_hold_keeps_quotes(self):
   with connect(self.path) as db:
    db.execute('DELETE FROM state WHERE key=?',(KEY,))

@@ -21,7 +21,7 @@ async function load(){
   const when=t.window?`${t.window[0].slice(0,7)} → ${t.window[1].slice(0,7)}${t.trades!=null?` · ${t.trades} trades`:''}`:'';
   const name=`<strong>${esc(title(x.name))}</strong>${x.state==='retired'?' <span class="tag">Retired</span>':x.state==='off'?' <span class="tag">Off</span>':x.state==='exits_only'?' <span class="tag" title="No new buys; stops and exits keep running">Exits only</span>':''}<small>${esc(when)}</small><small>${esc(t.method||'')}</small>`;
   return `<tr><td class="wrap">${name}</td>${cell(f.cagr)}${cell(t.hold_cagr)}<td>${f.maxdd==null?'—':'−'+f.maxdd+'%'}</td><td class="wrap">${verdict(t)}${t.note?`<small>${esc(t.note)}</small>`:''}</td>
-   <td>${p.since?esc(p.since)+`<br><small class="muted">${p.days} days · ${p.trades} trades</small>`:'<span class="muted">No trades yet</span>'}</td>${cell(p.return_pct)}${cell(p.nifty500_pct)}${cell(p.backtest_pace_pct)}</tr>`}).join('');
+   <td>${p.since?esc(p.since)+`<br><small class="muted">${p.days} day${p.days===1?"":"s"} · ${p.trades} trade${p.trades===1?"":"s"}</small>`:'<span class="muted">No trades yet</span>'}</td>${cell(p.return_pct)}${cell(p.nifty500_pct)}${cell(p.backtest_pace_pct)}</tr>`}).join('');
  const years=[...new Set(d.baskets.flatMap(x=>Object.keys(x.backtest?.years||{})))].sort();
  document.getElementById('yearHead').innerHTML=`<tr><th>Basket</th>${years.map(y=>`<th>${y}</th>`).join('')}</tr>`;
  const hold=b.ew_years||{};

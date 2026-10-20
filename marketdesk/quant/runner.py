@@ -26,6 +26,8 @@ class QuantRunner:
     def __init__(self,path,ledger=None,capital=CAPITAL):
         self.path=path;self.ledger=Path(ledger) if ledger else ledger_path(path);self.capital=capital
         self.engine=BasketEngine(self.ledger,live_db=path);self.stop_event=threading.Event();self.thread=None;self.lock=threading.Lock()
+        from ..claude_trader import ClaudeTrader
+        self.index=ClaudeTrader(path)
         self.status=dict(state='starting',message='Waiting for the first check.',checked_at=None,last_session=None)
 
     def start(self):
@@ -42,8 +44,10 @@ class QuantRunner:
         try:
             clock=clock or datetime.now(timezone.utc);today=clock.astimezone(IST).date().isoformat()
             with connect(self.path) as db:job=get_state(db,'refresh',{})
-            if job.get('status')=='running' and job.get('mode') in ('candles','both'):
+            # An interrupted refresh is resumed by maintenance; until then the day is only half refreshed.
+            if job.get('status') in ('running','interrupted') and job.get('mode') in ('candles','both'):
                 return self._set('waiting','Candle refresh running; the daily run waits for it to finish.')
+            self.index.refresh_benchmark(clock)      # the trader only fetches the index close during sessions
             market=load_market(self.path);done=[d for d in sessions(market) if d<today]
             if not done:return self._set('data_wait','No completed sessions in the database yet.')
             if not self.engine.names():
@@ -57,6 +61,7 @@ class QuantRunner:
                 if name in self.engine.names():self.engine.go_live(name)
             todo=[d for d in done if (last is None or d>last) and d>=self._start()]
             for day in todo:self.engine.run_day(snapshot(market,day))
+            if last and not todo:self.engine.remark(snapshot(market,last))
             return self._set('ok',f'Up to date through {done[-1]}.' if not todo else f'Processed {len(todo)} session(s) through {todo[-1]}.',last_session=todo[-1] if todo else last)
         except Exception as error:
             traceback.print_exc(file=sys.stderr)

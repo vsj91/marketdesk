@@ -215,7 +215,8 @@ class RunnerTests(unittest.TestCase):
         return datetime.fromisoformat(day+'T12:00:00+05:30').astimezone(timezone.utc)
     def runner(self):
         from marketdesk.quant.runner import QuantRunner
-        return QuantRunner(self.db)
+        r=QuantRunner(self.db);r.index.refresh_benchmark=lambda clock:None      # no index download in tests
+        return r
     def test_forward_only_start_catch_up_and_idempotent(self):
         from unittest import mock
         r=self.runner()
@@ -258,9 +259,30 @@ class RunnerTests(unittest.TestCase):
         r=self.runner()
         with connect(self.db) as db:set_state(db,'refresh',{'status':'running','mode':'candles'})
         self.assertEqual(r.tick(self.clock(self.days[300]))['state'],'waiting');self.assertEqual(r.engine.names(),[])
+        # A refresh cut short by a restart is resumed by maintenance; its day is still half refreshed.
+        with connect(self.db) as db:set_state(db,'refresh',{'status':'interrupted','mode':'candles'})
+        self.assertEqual(r.tick(self.clock(self.days[300]))['state'],'waiting')
         with connect(self.db) as db:set_state(db,'refresh',{'status':'done','mode':'candles'})
         with mock.patch('marketdesk.quant.runner.load_market',side_effect=RuntimeError('boom')),mock.patch('sys.stderr'):
             st=r.tick(self.clock(self.days[300]))
         self.assertEqual(st['state'],'error');self.assertIn('RuntimeError',st['message'])
+    def test_remark_heals_a_mid_refresh_mark_only_while_the_book_is_unchanged(self):
+        from marketdesk.storage import connect
+        e=self.runner().engine;e.create('rp','risk_parity',1_000_000,dict(sector_cap=1.),day=self.days[290])
+        for k in range(291,300):e.run_day(snapshot_of(self.market,self.days[k]))
+        last=snapshot_of(self.market,self.days[299]);good=e.payload('rp');held=good['holdings'][0]['ticker']
+        self.assertEqual(e.remark(last),[])      # already complete: nothing to change
+        def stale():
+            with connect(e.path) as db:
+                db.execute('UPDATE qb_nav SET nav=nav-1000,benchmark=NULL WHERE basket=? AND day=?',('rp',self.days[299]))
+                db.execute('UPDATE qb_weights SET close=1 WHERE basket=? AND day=? AND symbol=?',('rp',self.days[299],held))
+        stale();missing=dict(last,bars={s:b for s,b in last['bars'].items() if s!=held})
+        self.assertEqual(e.remark(missing),[])   # the held close is still missing: keep the record
+        self.assertEqual(e.remark(last),['rp']);healed=e.payload('rp')
+        self.assertEqual(healed['nav'],good['nav']);self.assertEqual(healed['holdings'],good['holdings'])
+        with connect(e.path) as db:self.assertIsNotNone(db.execute('SELECT benchmark FROM qb_nav WHERE basket=? AND day=?',('rp',self.days[299])).fetchone()[0])
+        stale()
+        with connect(e.path) as db:db.execute('UPDATE qb_baskets SET cash=cash-1 WHERE name=?',('rp',))
+        self.assertEqual(e.remark(last),[])      # a later fill changed the book: the day's record stays
 
 if __name__=='__main__':unittest.main()

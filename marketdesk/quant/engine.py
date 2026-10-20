@@ -107,6 +107,30 @@ class BasketEngine:
     def run_day(self,snapshot):
         return {name:self.run_basket(name,snapshot) for name in self.names()}
 
+    def remark(self,snapshot):
+        """Re-value the latest recorded day from now-complete closes and benchmark. Valuation rows only, and only
+        while the book and cash still equal that day's record (no later fill), so a mid-refresh mark heals."""
+        day=snapshot['day'];changed=[]
+        bench=(snapshot.get('benchmark') or [None])[-1] if snapshot.get('benchmark_day')==day else None
+        with connect(self.path) as db:
+            db.execute('BEGIN IMMEDIATE')
+            for name in self.names():
+                row=db.execute('SELECT * FROM qb_nav WHERE basket=? AND day=?',(name,day)).fetchone()
+                if not row or db.execute('SELECT MAX(day) FROM qb_nav WHERE basket=?',(name,)).fetchone()[0]!=day:continue
+                book=self._book(db,name);cash=self._cash(db,name)
+                kept={r['symbol']:r for r in db.execute('SELECT * FROM qb_weights WHERE basket=? AND day=?',(name,day))}
+                if round(cash,2)!=row['cash'] or {s:p['qty'] for s,p in book.items()}!={s:r['qty'] for s,r in kept.items()}:continue
+                prices={s:b[-1]['close'] for s in book if (b:=snapshot['bars'].get(s)) and b[-1]['day']==day}
+                if set(prices)!=set(book):continue      # still incomplete: keep the recorded mark
+                invested=sum(p['qty']*prices[s] for s,p in book.items());nav=cash+invested
+                bench=row['benchmark'] if bench is None else bench
+                if round(nav,2)==row['nav'] and bench==row['benchmark']:continue
+                db.execute('UPDATE qb_nav SET nav=?,invested=?,benchmark=? WHERE basket=? AND day=?',(round(nav,2),round(invested,2),bench,name,day))
+                for s,p in book.items():
+                    db.execute('UPDATE qb_weights SET close=?,weight=? WHERE basket=? AND day=? AND symbol=?',(prices[s],p['qty']*prices[s]/nav,name,day,s))
+                changed.append(name)
+        return changed
+
     def run_basket(self,name,snapshot):
         day=snapshot['day']
         with connect(self.path) as db:
