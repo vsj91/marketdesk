@@ -76,9 +76,61 @@ BASKETS={
    risk='Equal weight: up to 10% of starting capital per stock including buy fees. New buys pause at a 15% fall from the equity peak; exits stay active. Backtest: 1.5% a year, behind the 12.1% equal-weight hold.'),
 }
 
-# Retired baskets keep their ledger history but never trade again and are hidden from the screens.
-RETIRED={'reversion':'Retired: it duplicates the daily Stat-arb basket, and fees outweighed gains in the backtest.',
- 'high52':'Retired before its first trade: 2.2% a year vs 12.1% for the equal-weight hold in the 2018-2026 point-in-time backtest (scripts/research_baskets.py).'}
+# Research baskets: every other strategy tested in scripts/research_baskets.py and scripts/research_fundamentals.py, traded on
+# paper for a live comparison with its backtest. Signals come from the backtest code itself (research_live.py); most failed
+# their backtest and each card says so. (name, family, rebalance, stop %, keep rank, entry, exit)
+_STD='Equal weight: up to 10% of starting capital per stock including buy fees. New buys pause at a 15% fall from the equity peak; exits stay active.'
+def _research(name,family,rebalance,stop,keep,entry,exit):
+    return dict(name=name+' · research paper basket',family=family,max_positions=10,position_pct=10,max_buys_per_day=10,stop_pct=stop,
+        keep_rank=keep,rebalance=rebalance,entry=entry,exit=exit,risk=_STD+' Research basket traded for comparison with its backtest.',research=True)
+_MONTHLY='At the first session of each month, sell holdings that drop out of the top {keep} of the same ranking.'
+RESEARCH_BASKETS={
+ 'vol_momentum':_research('Volatility-adjusted momentum','6- and 12-month return over volatility (NSE Momentum 30-style)','monthly',20,30,
+   'Average the z-scores of 6-1 and 12-1 returns divided by one-year volatility; buy the top 10 with positive 12-1 momentum above the 200-day average.',_MONTHLY.format(keep=30)+' A 20% loss from average cost exits.'),
+ 'residual_momentum':_research('Residual momentum','Blitz-Huij-Martens residual momentum','monthly',20,30,
+   'Rank by the 6-1 return the Nifty 500 does not explain (beta-adjusted), scaled by residual volatility; buy the top 10 positive scores above the 200-day average.',_MONTHLY.format(keep=30)+' A 20% loss from average cost exits.'),
+ 'smooth_momentum':_research('Smooth momentum','Frog-in-the-pan (Da-Gurun-Warachka)','monthly',20,30,
+   'Among the top 20% by 12-1 momentum, buy the 10 whose gains came in the most small, steady daily steps.',_MONTHLY.format(keep=30)+' A 20% loss from average cost exits.'),
+ 'volume_surge':_research('Volume surge','Gervais-Kaniel-Mingelgrin high-volume return premium','monthly',15,30,
+   'Buy the 10 stocks with the biggest 5-day volume against their 50-day norm (at least 2x) and a positive 5-day return, above the 200-day average.',_MONTHLY.format(keep=30)+' A 15% loss from average cost exits.'),
+ 'pullback':_research('Pullback in leaders','Market leaders at their 50-day average','monthly',15,None,
+   'Among the top 10% by 12-1 momentum, buy stocks that pulled back to within 2% of their 50-day average.','At the first session of each month, sell holdings that leave the top 20% by 12-1 momentum. A 15% loss from average cost exits.'),
+ 'low_max':_research('Low max-return','Bali-Cakici-Whitelaw lottery avoidance','monthly',15,30,
+   'Buy the 10 stocks whose biggest one-day gain in the last month was smallest, above the 200-day average.',_MONTHLY.format(keep=30)+' A 15% loss from average cost exits.'),
+ 'reversal':_research('Short-term reversal','Jegadeesh one-month reversal, 100 most traded','monthly',15,30,
+   'Among the 100 most traded stocks, buy the 10 biggest one-month losers that are still above the 200-day average.',_MONTHLY.format(keep=30)+' A 15% loss from average cost exits.'),
+ 'minervini':_research('Minervini trend template','SEPA trend template with IBD-style relative strength (Mark Minervini)','monthly',8,30,
+   'Stocks passing the trend template (price above rising 150- and 200-day averages, 50 above 150 above 200, within 25% of the 52-week high and 30% above the low) with relative strength in the top 30%; buy the 10 strongest.',_MONTHLY.format(keep=30)+' An 8% loss from average cost exits.'),
+ 'conservative':_research('Conservative Formula','van Vliet-Blitz: momentum in the calmer half, price only','monthly',20,30,
+   'Among the calmer half of stocks by one-year volatility, buy the 10 with the best positive 12-1 momentum above the 200-day average.',_MONTHLY.format(keep=30)+' A 20% loss from average cost exits.'),
+ 'turtle':_research('Turtle breakout 55/20','Richard Dennis Turtles: 55-day breakout','daily',None,None,
+   'Buy closes at a new 55-day high above the 200-day average, strongest 6-1 momentum first.','Sell the session after a close below the prior 20-day low, or at a stop of twice the 20-day ATR (up to 30%) fixed at entry.'),
+ 'connors':_research('Connors RSI-2','Larry Connors RSI(2) dip buying','daily',None,None,
+   'Buy stocks above the 200-day average whose 2-day RSI closed below 5, deepest first.','Sell the session after a close above the 5-day average. No stop loss, as published.'),
+ 'dual_momentum':_research('Dual Momentum','Gary Antonacci: relative plus absolute momentum','monthly',20,30,
+   'While the Nifty 500 has beaten T-bills (6.5%) over 12 months, buy the top 10 by 12-1 momentum above the 200-day average.',_MONTHLY.format(keep=30)+' Everything sells at the month end when the index trails T-bills. A 20% loss from average cost exits.'),
+ 'golden_cross':_research('Golden cross + ADX','50/200-day EMA cross with ADX above 20 (retail algo guides)','daily',None,None,
+   'Buy stocks whose 50-day EMA crossed above the 200-day EMA in the last 5 sessions with ADX(14) above 20.','Sell the session after the 50-day EMA closes back below the 200-day EMA.'),
+ 'macd':_research('MACD crossover','MACD(12,26,9) signal-line cross above zero (retail algo guides)','daily',None,None,
+   'Buy stocks whose MACD crossed above its signal line while above zero, above the 200-day average.','Sell the session after MACD closes back below its signal line.'),
+ 'bollinger_rsi':_research('Bollinger + RSI-14','Lower Bollinger band with RSI(14) under 30 (retail algo guides)','daily',None,None,
+   'Buy stocks above the 200-day average that closed below the lower Bollinger band (20, 2) with RSI(14) under 30.','Sell the session after a close back at the middle band.'),
+ 'quality_value':_research('Quality at a reasonable price','Buffett-style quality and value on NSE annual results','monthly',20,30,
+   'ROE of 15%+ in each of the latest two years, profit rising, interest cover 5+; buy the 10 cheapest by earnings yield above the 200-day average.',_MONTHLY.format(keep=30)+' A 20% loss from average cost exits.'),
+ 'magic_formula':_research('Magic Formula','Joel Greenblatt, proxy: EBIT / market cap + EBIT / equity','daily',None,None,
+   'Rank non-financial, non-utility stocks by earnings yield and return on capital; buy the 10 best combined ranks above the 200-day average.','Each holding is sold after 250 sessions (one year), as in the book. No stop loss.'),
+ 'net_buyback':_research('Net buybacks','Pontiff-Woodgate net share issuance','monthly',20,30,
+   'Profitable companies whose share count fell 1%+ over the latest fiscal year; biggest reduction first, above the 200-day average.',_MONTHLY.format(keep=30)+' A 20% loss from average cost exits.'),
+ 'dividend_quality':_research('Dividend yield with quality','Trailing dividend yield with ROE and payout screens','monthly',20,30,
+   'ROE 12%+, profitable, dividends within profit; buy the 10 highest trailing-12-month dividend yields above the 200-day average.',_MONTHLY.format(keep=30)+' A 20% loss from average cost exits.'),
+ 'value_momentum':_research('Value and momentum','Asness-Moskowitz-Pedersen value plus momentum','monthly',20,30,
+   'Average the z-scores of earnings yield and 12-1 momentum; buy the 10 best with positive momentum above the 200-day average.',_MONTHLY.format(keep=30)+' A 20% loss from average cost exits.'),
+}
+BASKETS.update(RESEARCH_BASKETS)
+
+# Retired baskets keep their ledger history but never trade again and are hidden from the screens. Mean reversion and
+# 52-week high trade again from 21 Oct 2026 as comparison-only baskets (failed backtests shown on their cards).
+RETIRED={}
 
 def rsi(closes,period=2):
     gain=loss=None

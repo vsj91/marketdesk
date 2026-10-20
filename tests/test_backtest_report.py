@@ -23,7 +23,7 @@ class BacktestReportTests(unittest.TestCase):
         self.assertEqual(m['paper']['nifty500_pct'],10.0)                          # from the close before the first trade
         self.assertAlmostEqual(m['paper']['backtest_pace_pct'],round(100*(1.264**(30/365.25)-1),2))
         self.assertIsNone(rows['trader']['paper']['since']);self.assertIsNone(rows['trader']['backtest'])
-        self.assertEqual(rows['reversion']['state'],'retired');self.assertEqual(rows['high52']['state'],'retired')
+        self.assertNotIn('retired',(rows['high52']['state'],rows['reversion']['state']))   # nothing retired since the comparison month
         self.assertIsNone(r['missing'])
         with patch.object(br,'SUMMARY',Path(d)/'absent.json'):
             with tempfile.TemporaryDirectory() as d2:

@@ -151,11 +151,31 @@ const BASKETS={
  news_momentum:{title:'AI News Momentum Trader',blurb:'Buys verified positive NSE filings once the next completed session confirms volume, trend and a reaction that is not already priced in. Holds 1–20 sessions.'},
  news_catalyst:{title:'AI News Catalyst Investor',blurb:'Owns companies whose verified business catalyst is backed by growth, financial quality and a reasonable valuation. Holds months, reviewed weekly.'},
  ema_price_action:{title:'EMA + Price Action Trader',blurb:'Intraday 5-minute EMA 9/21 crossovers above the 200 EMA with RSI, ATR, structural stops, partial profits and an EMA20 trail. Squares off at 15:12.'},
+ vol_momentum:{title:'Vol-adjusted momentum',blurb:'Holds the 10 stocks with the best 6- and 12-month returns per unit of volatility. Reviewed monthly.'},
+ residual_momentum:{title:'Residual momentum',blurb:'Holds the 10 stocks whose recent gains are least explained by the market’s move. Reviewed monthly.'},
+ smooth_momentum:{title:'Smooth momentum',blurb:'Among last year’s winners, holds the 10 that climbed in the steadiest small steps. Reviewed monthly.'},
+ volume_surge:{title:'Volume surge',blurb:'Holds stocks rising on at least twice their normal trading volume. Reviewed monthly.'},
+ pullback:{title:'Pullback in leaders',blurb:'Buys last year’s strongest stocks when they dip back to their 50-day average.'},
+ low_max:{title:'Low max-return',blurb:'Holds the 10 stocks with the smallest single-day jump last month, avoiding “lottery” stocks. Reviewed monthly.'},
+ reversal:{title:'Short-term reversal',blurb:'Buys the biggest one-month losers among the 100 most traded stocks while their long trend still rises.'},
+ minervini:{title:'Minervini trend template',blurb:'Holds strong leaders that pass Mark Minervini’s trend template, with an 8% stop.'},
+ conservative:{title:'Conservative Formula',blurb:'Holds the 10 calmer-half stocks with the best 12-month momentum. Reviewed monthly.'},
+ turtle:{title:'Turtle breakout',blurb:'Buys 55-day highs and sells at a 20-day low or a 2-ATR stop, as the Turtles did.'},
+ connors:{title:'Connors RSI-2',blurb:'Buys sharp 2-day dips in rising stocks and sells on the bounce above the 5-day average.'},
+ dual_momentum:{title:'Dual Momentum',blurb:'Holds 12-month leaders only while the Nifty 500 beats T-bills; otherwise cash.'},
+ golden_cross:{title:'Golden cross + ADX',blurb:'Buys fresh 50/200-day EMA golden crosses with a strong trend, sells on the cross back.'},
+ macd:{title:'MACD crossover',blurb:'Buys MACD signal-line crosses above zero, sells when MACD crosses back down.'},
+ bollinger_rsi:{title:'Bollinger + RSI',blurb:'Buys closes below the lower Bollinger band with RSI under 30, sells at the middle band.'},
+ quality_value:{title:'Quality at a fair price',blurb:'Buffett-style: high and steady ROE, rising profit, low debt burden, cheapest first. Reviewed monthly.'},
+ magic_formula:{title:'Magic Formula',blurb:'Greenblatt: high earnings yield plus high return on capital, each pick held a year.'},
+ net_buyback:{title:'Net buybacks',blurb:'Holds profitable companies that shrank their share count by 1%+ last year. Reviewed monthly.'},
+ dividend_quality:{title:'Dividend + quality',blurb:'Holds the highest dividend yields among profitable, well-run companies. Reviewed monthly.'},
+ value_momentum:{title:'Value + momentum',blurb:'Holds stocks that are both cheap on earnings and rising over the past year. Reviewed monthly.'},
  reversion:{title:'Mean reversion',blurb:'Buys sharp two-day dips in uptrending stocks and sells on the bounce.',caution:'In the one-year backtest, trading fees outweighed the gains at ₹10,000 per trade, so this basket starts switched off.'}};
 const basketTitle=n=>BASKETS[n]?.title||String(n).charAt(0).toUpperCase()+String(n).slice(1);
 const signedInr=x=>x==null?'—':(x>0?'+':'')+inr(x);
 const tone=x=>x==null||Math.abs(x)<.005?'flat':x>0?'up':'down';
-let basket='trader',paperData=null,detailGroup='live';try{basket=localStorage.getItem('marketdesk-basket')||basket;detailGroup=localStorage.getItem('marketdesk-detail-group')||detailGroup;}catch{}
+let basket='trader',paperData=null,backtestData=null,backtestAt=0,detailGroup='live';try{basket=localStorage.getItem('marketdesk-basket')||basket;detailGroup=localStorage.getItem('marketdesk-detail-group')||detailGroup;}catch{}
 // One detail panel at a time: under the live group or under the daily group, whichever was tapped last.
 function applyDetailGroup(){$('paper').dataset.detail=detailGroup;$('basketDetail').hidden=detailGroup!=='live';$('quantDetail').hidden=detailGroup!=='daily';}
 function useDetailGroup(group,scroll){detailGroup=group;try{localStorage.setItem('marketdesk-detail-group',group);}catch{}applyDetailGroup();if(scroll)setTimeout(()=>$(group==='live'?'basketDetail':'quantDetail').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'}),0);}
@@ -171,10 +191,24 @@ function switchHtml(name,on){return `<button class="switch" role="switch" aria-c
 function kpi(label,value,note){return `<div class="kpi"><span>${esc(label)}</span><strong>${value}</strong>${note?`<small>${note}</small>`:''}</div>`;}
 function group(key,title,count,body,open){return `<details class="group" data-disclosure="${esc(key)}" ${open?'open':''}><summary>${esc(title)}${count?`<small>${esc(count)}</small>`:''}</summary><div>${body}</div></details>`;}
 function todayBuys(p){const today=new Date().toLocaleDateString('en-CA',{timeZone:'Asia/Kolkata'});return p.trades.filter(t=>t.side==='BUY'&&t.source==='automatic'&&new Date(t.created_at).toLocaleDateString('en-CA',{timeZone:'Asia/Kolkata'})===today).length;}
+// What the basket's backtest showed, kept beside its live paper record so a failed rule is never mistaken for a tested one.
+const VERDICTS={pass:['Passed every backtest check','up','Backtest passed'],mixed:['Mixed backtest: beat the hold, failed other checks','warn','Backtest mixed'],fail:['Failed its backtest','down','Backtest failed'],untested:['Not backtested','flat','Not backtested']};
+function backtestRow(n){return backtestData?.baskets?.find(x=>x.name===n);}
+function backtestTag(n){const v=VERDICTS[backtestRow(n)?.backtest?.verdict];return v?` <span class="tag ${v[1]}" title="${esc(backtestRow(n).backtest.note||'')}">${v[2]}</span>`:'';}
+function backtestCard(n){
+ const row=backtestRow(n);if(!row)return '';const b=row.backtest||{},v=VERDICTS[b.verdict||'untested']||VERDICTS.untested,f=b.full||{},cfg=paperData?.automation?.config?.[n]||{};
+ const span=b.window?`${b.window[0].slice(0,4)}–${b.window[1].slice(0,4)}`:'',lines=[];
+ if(f.cagr!=null)lines.push(`<strong class="${tone(b.hold_cagr==null?null:f.cagr-b.hold_cagr)}">${pct(f.cagr)} a year</strong>${b.hold_cagr!=null?` vs ${pct(b.hold_cagr)} for holding the same stocks`:''}${span?` · ${span}`:''}${f.maxdd!=null?` · worst fall −${fmt(f.maxdd,1)}%`:''}`);
+ if(b.h1?.cagr!=null&&b.h2?.cagr!=null)lines.push(`First half ${pct(b.h1.cagr)} · second half ${pct(b.h2.cagr)}`);
+ if(b.note)lines.push(esc(b.note));
+ const p=row.paper||{};if(p.days)lines.push(`Paper so far: ${pct(p.return_pct)} over ${p.days} day${p.days===1?'':'s'} · backtest pace ${pct(p.backtest_pace_pct)} · Nifty 500 ${pct(p.nifty500_pct)}`);
+ if(cfg.comparison_only)lines.push(`<strong>Comparison-only.</strong> ${esc(cfg.comparison_reason||'')}`);
+ return `<div class="backtest-card ${v[1]}"><div class="backtest-head"><span class="tag ${v[1]}">${esc(v[0])}</span>${b.method?`<small>${esc(b.method)}</small>`:''}</div>${lines.map(l=>`<p>${l}</p>`).join('')}<p><a href="/backtests.html">All backtests and live results →</a></p></div>`;
+}
 function basketCard(p,auto){
  const n=p.name,cfg=auto.config[n]||{},[label,dotTone]=friendlyStatus(cfg.enabled,auto.status[n]);
  const invested=p.equity?Math.min(100,Math.max(0,(p.equity-p.cash)/p.equity*100)):0;
- return `<div class="basket ${n===basket?'selected':''}" role="button" tabindex="0" aria-pressed="${n===basket}" data-basket="${esc(n)}"><div class="basket-top"><span class="basket-name">${esc(basketTitle(n))}${cfg.enabled&&cfg.exits_only?' <span class="tag warn" title="No new buys; stops and exits keep running">Exits only</span>':''}</span>${switchHtml(n,cfg.enabled)}</div><div class="basket-value">${inr(p.equity)}</div><div class="basket-change ${tone(p.pnl)}">${signedInr(p.pnl)} · ${pct(p.pnl==null?null:p.pnl/p.initial_cash*100)}</div><div class="alloc"><i data-width="${invested.toFixed(1)}"></i></div><div class="alloc-label"><span>${fmt(invested,0)}% invested</span><span>${p.positions.length} held</span></div>${typeof signalCardLine==='function'?signalCardLine(n):''}<div class="basket-status"><span class="dot ${dotTone}"></span>${esc(label)}</div></div>`;
+ return `<div class="basket ${n===basket?'selected':''}" role="button" tabindex="0" aria-pressed="${n===basket}" data-basket="${esc(n)}"><div class="basket-top"><span class="basket-name">${esc(basketTitle(n))}${cfg.enabled&&cfg.exits_only?' <span class="tag warn" title="No new buys; stops and exits keep running">Exits only</span>':''}${backtestTag(n)}</span>${switchHtml(n,cfg.enabled)}</div><div class="basket-value">${inr(p.equity)}</div><div class="basket-change ${tone(p.pnl)}">${signedInr(p.pnl)} · ${pct(p.pnl==null?null:p.pnl/p.initial_cash*100)}</div><div class="alloc"><i data-width="${invested.toFixed(1)}"></i></div><div class="alloc-label"><span>${fmt(invested,0)}% invested</span><span>${p.positions.length} held</span></div>${typeof signalCardLine==='function'?signalCardLine(n):''}<div class="basket-status"><span class="dot ${dotTone}"></span>${esc(label)}</div></div>`;
 }
 function eventHtml(e){
  const m=e.kind==='fill'&&/^(BUY|SELL) (\d+) \/ (\d+) shares \(([A-Z_]+)\): ([\s\S]*)$/.exec(e.reason||'');
@@ -202,7 +236,7 @@ function basketDetail(p,auto,openDetails){
  const stale=st.stale_holdings?.length?`<p class="callout">Waiting for fresh prices: ${st.stale_holdings.map(q=>stockReference(q.symbol)).join(', ')}. Older prices are used for the value shown, never for orders.</p>`:'';
  const open=k=>openDetails.has(n+'-'+k);
  return `<div class="detail-top"><div><h2>${esc(basketTitle(n))}</h2><p>${esc(meta.blurb||r.name||'')}</p></div><div class="toggle"><span title="${cfg.exits_only?esc(cfg.exits_only_reason||''):''}">${cfg.enabled?(cfg.exits_only?'Exits only':'On'):'Off'}</span>${switchHtml(n,cfg.enabled)}</div></div>
- ${meta.caution&&!cfg.enabled?`<div class="note">${esc(meta.caution)}</div>`:''}
+ ${backtestCard(n)}${meta.caution&&!cfg.enabled?`<div class="note">${esc(meta.caution)}</div>`:''}
  <div class="status-banner"><span class="dot ${dotTone}"></span><div><strong>${esc(label)}</strong><p>${esc(cfg.enabled?(st.message||'Waiting for the next check.'):'Automatic buying and selling is off. Holdings stay as they are until you turn it back on.')}</p>${stale}${cfg.enabled&&Number.isFinite(r.max_buys_per_day)&&buys>=r.max_buys_per_day?'<p class="callout">Today’s new-buy limit is reached. Sell checks continue.</p>':''}<small class="muted">Checked ${esc(dt(st.checked_at))}</small></div></div>
  <div class="kpis">${kpi('Value',inr(p.equity),esc(close))}${kpi('Total gain',`<span class="${tone(p.pnl)}">${signedInr(p.pnl)}</span>`,pct(p.pnl==null?null:p.pnl/p.initial_cash*100))}${kpi('Invested',inr(invested),Number.isFinite(r.max_positions)?`${p.positions.length} of ${r.max_positions} holdings`:`${p.positions.length} holdings`)}${kpi('Cash',inr(p.cash),Number.isFinite(r.max_buys_per_day)?`${buys} of ${r.max_buys_per_day} buys today`:`${buys} buys today`)}</div>
  <div class="section-title"><h3>Holdings</h3><span>Gain shown after buy fees</span></div>${holdingsHtml(p)}
@@ -229,7 +263,9 @@ function renderPaper(){
  root.querySelectorAll('[data-basket]').forEach(card=>{const pick=()=>{basket=card.dataset.basket;try{localStorage.setItem('marketdesk-basket',basket);}catch{}renderPaper();$('basketDetail').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});};card.onclick=pick;card.onkeydown=e=>{if((e.key==='Enter'||e.key===' ')&&e.target===card){e.preventDefault();pick();}};});
  root.querySelectorAll('[data-toggle]').forEach(sw=>sw.onclick=async e=>{e.stopPropagation();if(automationAction)return;automationAction=true;const name=sw.dataset.toggle,on=sw.getAttribute('aria-checked')!=='true';sw.setAttribute('aria-checked',String(on));try{await api('/api/paper/automation',{portfolio:name,enabled:on});toast(`${basketTitle(name)} ${on?'turned on':'turned off'}.`);}catch(err){toast(err.message);}finally{automationAction=false;await renderPortfolios();}});
 }
-async function renderPortfolios(){try{paperData=await api('/api/paper');renderPaper();}catch(e){toast(e.message);}}
+async function renderPortfolios(){try{
+ if(Date.now()-backtestAt>300000){backtestAt=Date.now();api('/api/backtests').then(d=>{backtestData=d;renderPaper();if(typeof renderQuant==='function'&&typeof quantData!=='undefined'&&quantData)renderQuant();}).catch(()=>{backtestAt=0;});}
+ paperData=await api('/api/paper');renderPaper();}catch(e){toast(e.message);}}
 async function refresh(symbols=[]){try{await api('/api/refresh',{symbols,mode:!symbols.length&&health.refresh?.scope==='all'&&['failed','interrupted'].includes(health.refresh.status)?health.refresh.mode:'both'});toast('Data refresh started. See Data health for progress.');await update();}catch(e){toast(e.message);}}
 async function update(){if(polling)return;polling=true;try{const [h,s]=await Promise.all([api('/api/health'),api('/api/stocks')]);health=h;csrf=h.csrf;stocks=s.stocks;if(selected&&!stocks.some(x=>x.symbol===selected)){selected='';detail=null;$('detail').textContent='Select a Nifty 500 stock.';}renderHealth();renderTable();if(!selected&&stocks.length)await selectStock(stocks.find(x=>x.symbol==='MARUTI')?.symbol||stocks[0].symbol);else if(selected&&$('detailPrice')){const x=stocks.find(x=>x.symbol===selected);if(x){const v=priceView(x);$('detailPrice').textContent='₹'+fmt(v.price);$('priceTime').textContent=v.label+' · '+v.time;$('priceTime').className=v.stale?'warn':'muted';}}if(tab==='paper')await renderPortfolios();}catch(e){$('connection').textContent='LOCAL SERVER UNAVAILABLE';}finally{polling=false;}}
 document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>{tab=b.dataset.tab;document.querySelectorAll('[data-tab]').forEach(n=>n.classList.toggle('active',n===b));$('research').hidden=!['trader','investor'].includes(tab);$('paper').hidden=tab!=='paper';$('stats').hidden=true;$('health').hidden=tab!=='health';if(tab==='paper')renderPortfolios();else if(['trader','investor'].includes(tab)){renderTable();renderDetail();}});

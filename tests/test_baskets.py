@@ -165,14 +165,44 @@ class BasketEngineTests(unittest.TestCase):
             self.assertEqual(cfg[name]['max_round_trip_fee_pct'],1.5,name)
         self.assertEqual(cfg['ema_price_action']['max_round_trip_fee_pct'],1.)
     def test_retired_basket_cannot_be_enabled_and_never_trades(self):
+        with patch.dict('marketdesk.autotrading.RETIRED',{'reversion':'Retired: test'}):
+            with connect(self.path) as db:
+                cfg=get_state(db,'auto_config');cfg['reversion']['enabled']=True;set_state(db,'auto_config',cfg)   # even a hand-edited flag is ignored
+            with self.assertRaisesRegex(ValueError,'Retired'):self.engine.configure('reversion',True)
+            self.engine.cycle(self.clock,{})
+            self.assertEqual(self.engine.snapshot()['status']['reversion']['state'],'paused')
+            self.engine.configure('reversion',False)                               # pausing stays allowed
+    def test_comparison_month_lifts_exits_only_and_retired_once(self):
+        from marketdesk.baskets import init as basket_init
         with connect(self.path) as db:
-            cfg=get_state(db,'auto_config');self.assertTrue(cfg['reversion']['retired']);self.assertFalse(cfg['reversion']['enabled'])
-            self.assertTrue(cfg['high52']['retired']);self.assertFalse(cfg['high52']['enabled'])
-            cfg['reversion']['enabled']=True;set_state(db,'auto_config',cfg)   # even a hand-edited flag is ignored
-        with self.assertRaisesRegex(ValueError,'Retired'):self.engine.configure('reversion',True)
-        self.engine.cycle(self.clock,{})
-        self.assertEqual(self.engine.snapshot()['status']['reversion']['state'],'paused')
-        self.engine.configure('reversion',False)                               # pausing stays allowed
+            db.execute("DELETE FROM state WHERE key='comparison_month'")
+            cfg=get_state(db,'auto_config');cfg['lowvol'].update(exits_only=True,exits_only_reason='failed');cfg['high52'].update(enabled=False,retired=True,retired_reason='old')
+            cfg['momentum'].update(enabled=True,exits_only=False);set_state(db,'auto_config',cfg)
+        basket_init(self.path)
+        with connect(self.path) as db:cfg=get_state(db,'auto_config')
+        for name in ('lowvol','high52'):
+            self.assertTrue(cfg[name]['enabled']);self.assertFalse(cfg[name]['exits_only']);self.assertTrue(cfg[name]['comparison_only']);self.assertFalse(cfg[name]['retired'])
+        self.assertEqual(cfg['lowvol']['previous']['exits_only_reason'],'failed');self.assertNotIn('comparison_only',cfg['momentum'])   # untouched
+        with connect(self.path) as db:cfg['lowvol']['exits_only']=True;set_state(db,'auto_config',cfg)   # the owner switches it back
+        basket_init(self.path)
+        with connect(self.path) as db:self.assertTrue(get_state(db,'auto_config')['lowvol']['exits_only'])  # applied once only
+    def test_research_basket_trades_the_backtest_ranking_exit_rule_and_entry_stop(self):
+        latest=candles(0)[-1]['ts'][:10]
+        def research(exit_now=()):
+            return {'turtle':dict(as_of=latest,order=['S03','S07','S01'],keep_order=[],keep=30,monthly=False,max_hold=None,n=10,exit_now=set(exit_now),
+                stop=None,stop_frame={'2026-09-30':{'S03':.10,'S07':.05},latest:{'S03':.10,'S07':.05}})}   # S01: no measurable stop, never bought
+        held=lambda:dict(connect(self.path).execute("SELECT symbol,cost/quantity FROM positions WHERE portfolio='turtle' AND quantity>0").fetchall())
+        with connect(self.path) as db:
+            cfg=get_state(db,'auto_config');cfg['momentum']['enabled']=False;cfg['turtle']={'enabled':True,'buy_universe':'all','full_session_buying':True};set_state(db,'auto_config',cfg)
+        with patch('marketdesk.research_live.signals',return_value=research()):self.engine.cycle(self.clock,{})
+        self.assertEqual(sorted(held()),['S03','S07'])
+        with connect(self.path) as db:
+            db.execute("UPDATE basket_positions SET entry_session='2026-10-01' WHERE portfolio='turtle'")                 # bought before the signal session
+            db.execute("UPDATE quotes SET price=? WHERE symbol='S07'",(held()['S07']*.94,))                              # 6% down: through its 5% stop
+        self.engine.baskets.research={};self.engine.baskets.loaded=0
+        with patch('marketdesk.research_live.signals',return_value=research(exit_now={'S03'})):self.engine.cycle(self.clock+timedelta(seconds=5),{})
+        with connect(self.path) as db:reasons=dict(db.execute("SELECT symbol,reason FROM trades WHERE portfolio='turtle' AND side='SELL'").fetchall())
+        self.assertEqual(held(),{});self.assertEqual(reasons,{'S03':'Exit rule met on the completed session','S07':'5% stop from average cost'})
     def test_paused_basket_never_trades(self):
         with connect(self.path) as db:
             cfg=get_state(db,'auto_config');cfg['momentum']['enabled']=False;set_state(db,'auto_config',cfg)

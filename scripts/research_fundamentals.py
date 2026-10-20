@@ -33,10 +33,13 @@ from pathlib import Path
 import numpy as np,pandas as pd
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT));sys.path.insert(0,str(ROOT/'scripts'))
 import research_baskets as rb
-import research_multi_year as rm
 from marketdesk.history_rules import is_financial
 SRC=ROOT/'data/backtests/fundamentals-history.json';OUT=ROOT/'data/backtests/research-fundamentals.json'
 START='2019-06-01';H1=(START,'2021-12-31');H2=('2022-01-01','2026-12-31')
+# Lenders, brokers and market infrastructure the app's sector test (history_rules.is_financial) does not name; their
+# interest cost is their cost of goods, so EBIT, interest cover and ROE screens do not apply.
+FIN_EXTRA={'Investment','Stock/ Commodity Brokers','Financial Services'}
+def financial(sector):return is_financial(sector) or sector in FIN_EXTRA
 ACTIVE=('ref_momentum','ref_lowvol','mom121','alpha','overnight','gap_drift','sector','clenow')
 
 def frames(P):
@@ -76,7 +79,7 @@ def frames(P):
 
 def candidates(P,I,F,elig):
     C=P['c'];sec=pd.Series(P['sector']).reindex(C.columns).fillna('')
-    nonfin=pd.Series([not is_financial(x) for x in sec],index=C.columns);util=pd.Series(['power' in x.lower() or 'utilit' in x.lower() for x in sec],index=C.columns)
+    nonfin=pd.Series([not financial(x) for x in sec],index=C.columns);util=pd.Series(['power' in x.lower() or 'utilit' in x.lower() for x in sec],index=C.columns)
     rows=lambda m:pd.DataFrame(np.repeat(m.values[None,:],len(C),axis=0),index=C.index,columns=C.columns)
     ebit=F['pbt']+F['fin'];cover=(ebit/F['fin']).where(F['fin']>0)
     safe=(cover>=5)|((F['fin']==0)&(F['pbt']>0))
@@ -106,7 +109,7 @@ def faithful_magic(P,I,F,elig,start='2023-06-01'):
             if fy<2023 or r.get('borrowings') is None or r.get('cash') is None:continue
             nxt=next((ys[str(f)]['available_from'] for f in fys if f>fy),'9999');rows=(C.index>=r['available_from'])&(C.index<nxt)
             debt.loc[rows,s]=r['borrowings'];cash.loc[rows,s]=r['cash']
-    sec=pd.Series(P['sector']).reindex(C.columns).fillna('');keep=np.array([not is_financial(x) and 'power' not in x.lower() and 'utilit' not in x.lower() for x in sec])
+    sec=pd.Series(P['sector']).reindex(C.columns).fillna('');keep=np.array([not financial(x) and 'power' not in x.lower() and 'utilit' not in x.lower() for x in sec])
     ebit=F['pbt']+F['fin'];ev=F['mcap']+debt-cash;capital=F['equity']+debt-cash
     ok=elig&pd.DataFrame(np.repeat(keep[None,:],len(C),axis=0),index=C.index,columns=C.columns)&(ebit>0)&(ev>0)&(capital>0)
     score=-((ebit/ev).where(ok).rank(axis=1,ascending=False)+(ebit/capital).where(ok).rank(axis=1,ascending=False))
@@ -145,6 +148,7 @@ def run():
         print(f"{name:14} cagr {b['full']['cagr']:6} h1 {b['h1']['cagr']:6} h2 {b['h2']['cagr']:6} dd {b['full']['maxdd']:5} trades {b['trades']:4} | top200 {res['top200']['full']['cagr']:6} | "+('PASS' if res['passed'] else 'fail: '+','.join(res['failed'])),flush=True)
     out['magic_faithful']=faithful_magic(P,I,F,E);print('magic_faithful (informational)',out['magic_faithful'],flush=True)
     # Uniqueness over the same window against every active rule basket.
+    import research_multi_year as rm                                         # summary tooling; not needed by the live app
     rm.TITLES.update(quality_value='Quality at a reasonable price',magic_proxy='Magic Formula (proxy)',net_buyback='Net buybacks',
         dividend_quality='Dividend yield with quality',value_momentum='Value and momentum')
     price=rb.candidates(P,I,E);pick={**{k:price[k] for k in ACTIVE},**base};saved=rb.START;rb.START=START

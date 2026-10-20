@@ -275,7 +275,12 @@ def investor(start='2024-06-14'):
 # ---- Summary for the Backtests page -------------------------------------------------------------------
 
 RULE_BASKETS={'ref_momentum':'momentum','ref_lowvol':'lowvol','ref_high52':'high52','mom121':'momentum12','alpha':'alpha',
-    'overnight':'overnight','gap_drift':'gap_drift','sector':'sector_rotation','clenow':'clenow'}
+    'overnight':'overnight','gap_drift':'gap_drift','sector':'sector_rotation','clenow':'clenow',
+    # Research baskets traded on paper for comparison (marketdesk/research_live.py).
+    'volmom':'vol_momentum','resmom':'residual_momentum','fip':'smooth_momentum','volume':'volume_surge','pullback':'pullback','lowmax':'low_max',
+    'strev':'reversal','minervini':'minervini','conservative':'conservative','turtle':'turtle','connors':'connors','dual_mom':'dual_momentum',
+    'golden_cross':'golden_cross','macd':'macd','bollinger_rsi':'bollinger_rsi'}
+FUND_BASKETS={'quality_value':'quality_value','magic_proxy':'magic_formula','net_buyback':'net_buyback','dividend_quality':'dividend_quality','value_momentum':'value_momentum'}
 TITLES={'ref_momentum':'Momentum 6-1 (existing)','ref_lowvol':'Low volatility (existing)','ref_high52':'52-week high (retired)','mom121':'Momentum 12-1',
     'alpha':'Alpha (NSE Alpha-style)','volmom':'Volatility-adjusted momentum (NSE Momentum 30-style)','resmom':'Residual momentum','fip':'Smooth momentum',
     'sector':'Sector rotation','overnight':'Overnight momentum','volume':'Volume surge','gap_drift':'Gap-up drift','pullback':'Pullback in market leaders',
@@ -383,7 +388,12 @@ def summary():
             b=r['base'];u=Fr.get('uniqueness',{}).get(key,{})
             candidates.append(dict(key=key,title=FUND_TITLES[key],family=f"{FUND_FAMILIES[key]} · tested Jun 2019–2026 vs {fh}% a year for the hold; first half from Jun 2019",
                 cagr=b['full']['cagr'],h1=b['h1']['cagr'],h2=b['h2']['cagr'],maxdd=b['full']['maxdd'],top200=r['top200']['full']['cagr'],passed=r['passed'],
-                failed=[FAILS[f] for f in r['failed']],basket=None,why_not=u.get('reason'),twin_note=None))
+                failed=[FAILS[f] for f in r['failed']],basket=FUND_BASKETS.get(key),why_not=None if key in FUND_BASKETS else u.get('reason'),twin_note=None))
+            if key in FUND_BASKETS:
+                baskets[FUND_BASKETS[key]]=dict(window=Fr['window'],universe=universe,method='Point-in-time NSE annual results from period end + 60 days, next-open fills, 0.25% slippage, live fees',
+                    full=b['full'],h1=b['h1'],h2=b['h2'],trades=b['trades'],years=b['years'],hold_cagr=fh,
+                    verdict='pass' if r['passed'] else 'mixed' if 'beats_hold' not in r['failed'] else 'fail',
+                    note=('Failed: '+', '.join(FAILS[f] for f in r['failed']) if r['failed'] else 'Passed every check')+(f". {u['reason']}" if u.get('reason') else ''))
         m=Fr.get('magic_faithful')
         if m:notes.append(f"Fundamentals: NSE annual results FY2018-FY2026 (scripts/fundamentals_history.py), from period end + 60 days. Greenblatt's formula with real debt and cash exists only from June 2023: {m['result']['cagr']}% a year vs {m['hold']['cagr']}% for the hold, {m['result']['maxdd']}% worst fall, {m['trades']} trades. Too short to judge.")
     out=dict(generated=time.strftime('%Y-%m-%d'),benchmarks=dict(ew_cagr=R['bench']['ew']['full']['cagr'],nifty500_cagr=R['bench']['nifty500']['full']['cagr'],ew_years=years(ew)),
