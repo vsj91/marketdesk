@@ -36,10 +36,8 @@ import research_baskets as rb
 from marketdesk.history_rules import is_financial
 SRC=ROOT/'data/backtests/fundamentals-history.json';OUT=ROOT/'data/backtests/research-fundamentals.json'
 START='2019-06-01';H1=(START,'2021-12-31');H2=('2022-01-01','2026-12-31')
-# Lenders, brokers and market infrastructure the app's sector test (history_rules.is_financial) does not name; their
-# interest cost is their cost of goods, so EBIT, interest cover and ROE screens do not apply.
-FIN_EXTRA={'Investment','Stock/ Commodity Brokers','Financial Services'}
-def financial(sector):return is_financial(sector) or sector in FIN_EXTRA
+# Lenders, brokers and market infrastructure (history_rules.is_financial): their interest cost is their cost of goods,
+# so EBIT, interest cover and ROE screens do not apply.
 ACTIVE=('ref_momentum','ref_lowvol','mom121','alpha','overnight','gap_drift','sector','clenow')
 
 def frames(P):
@@ -79,7 +77,7 @@ def frames(P):
 
 def candidates(P,I,F,elig):
     C=P['c'];sec=pd.Series(P['sector']).reindex(C.columns).fillna('')
-    nonfin=pd.Series([not financial(x) for x in sec],index=C.columns);util=pd.Series(['power' in x.lower() or 'utilit' in x.lower() for x in sec],index=C.columns)
+    nonfin=pd.Series([not is_financial(x,s) for s,x in sec.items()],index=C.columns);util=pd.Series(['power' in x.lower() or 'utilit' in x.lower() for x in sec],index=C.columns)
     rows=lambda m:pd.DataFrame(np.repeat(m.values[None,:],len(C),axis=0),index=C.index,columns=C.columns)
     ebit=F['pbt']+F['fin'];cover=(ebit/F['fin']).where(F['fin']>0)
     safe=(cover>=5)|((F['fin']==0)&(F['pbt']>0))
@@ -109,7 +107,7 @@ def faithful_magic(P,I,F,elig,start='2023-06-01'):
             if fy<2023 or r.get('borrowings') is None or r.get('cash') is None:continue
             nxt=next((ys[str(f)]['available_from'] for f in fys if f>fy),'9999');rows=(C.index>=r['available_from'])&(C.index<nxt)
             debt.loc[rows,s]=r['borrowings'];cash.loc[rows,s]=r['cash']
-    sec=pd.Series(P['sector']).reindex(C.columns).fillna('');keep=np.array([not financial(x) and 'power' not in x.lower() and 'utilit' not in x.lower() for x in sec])
+    sec=pd.Series(P['sector']).reindex(C.columns).fillna('');keep=np.array([not is_financial(x,s) and 'power' not in x.lower() and 'utilit' not in x.lower() for s,x in sec.items()])
     ebit=F['pbt']+F['fin'];ev=F['mcap']+debt-cash;capital=F['equity']+debt-cash
     ok=elig&pd.DataFrame(np.repeat(keep[None,:],len(C),axis=0),index=C.index,columns=C.columns)&(ebit>0)&(ev>0)&(capital>0)
     score=-((ebit/ev).where(ok).rank(axis=1,ascending=False)+(ebit/capital).where(ok).rank(axis=1,ascending=False))
@@ -122,7 +120,7 @@ def run():
     base,free,large=candidates(P,I,F,E),candidates(P,I,F,T),candidates(P,I,F,E&big200)
     ew,ewL=rb.hold_curve(I,start=START),rb.hold_curve(I,start=START,mask=big200)
     bench={k:dict(full=rb.stats(c),h1=rb.stats(c,*H1),h2=rb.stats(c,*H2)) for k,c in (('ew',ew),('ew_top200',ewL))}
-    sec=pd.Series(P['sector']).reindex(T.columns).fillna('');nf=T&pd.DataFrame(np.repeat(np.array([not is_financial(x) for x in sec])[None,:],len(T),axis=0),index=T.index,columns=T.columns)
+    sec=pd.Series(P['sector']).reindex(T.columns).fillna('');nf=T&pd.DataFrame(np.repeat(np.array([not is_financial(x,s) for s,x in sec.items()])[None,:],len(T),axis=0),index=T.index,columns=T.columns)
     def share(X):v=X.where(nf).notna().sum(axis=1)/nf.sum(axis=1);v=v[v.index>=START];return {y:round(float(g.mean()),3) for y,g in v.groupby(v.index.str[:4])}
     covered=None
     out=dict(created=time.strftime('%Y-%m-%d %H:%M'),window=[START,P['c'].index[-1]],bench=bench,

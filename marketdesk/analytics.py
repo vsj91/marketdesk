@@ -52,6 +52,6 @@ def listing(db_path):
             fundamentals_status=f.get('status','MISSING'),fundamentals_period=latest.get('period'),fundamentals_observed=observed,
             missing_fields=f.get('missing_fields',list(__import__('marketdesk.provider',fromlist=['FUNDAMENTAL_REQUIRED_FIELDS']).FUNDAMENTAL_REQUIRED_FIELDS)),
             summary=summary,watched=sym in watched,candle_issues=sym in bad,
-            valuation=metrics(f,q['price'] if q else t.get('close'),_SHARES.get(sym,(None,None))[1],quality.get(sym,{}).get('financial_sector',is_financial(item['sector']))))
+            valuation=metrics(f,q['price'] if q else t.get('close'),_SHARES.get(sym,(None,None))[1],quality.get(sym,{}).get('financial_sector',is_financial(item['sector'],sym))))
         result.append(item)
     return result

@@ -102,7 +102,7 @@ def catalyst_inputs(db,symbol,today,price,catalyst,p):
     price=price or (ctx['close'] if ctx else None)
     cash_flow=db.execute("SELECT payload FROM payloads WHERE symbol=? AND endpoint='cash_flow'",(symbol,)).fetchone()
     ocf=_operating_cash(cash_flow['payload'],((details.get('latest') or {}).get('period'))) if cash_flow else None
-    profile=news_rules.fundamental_profile(details,is_financial(sector),price,market_cap(db,symbol,price),ocf)
+    profile=news_rules.fundamental_profile(details,is_financial(sector,symbol),price,market_cap(db,symbol,price),ocf)
     if catalyst is None:
         since=(date.fromisoformat(today)-timedelta(days=p['catalyst_lookback_days'])).isoformat()
         row=db.execute('''SELECT a.details FROM sb_news n JOIN sb_news_analysis a ON a.news_id=n.id WHERE n.symbol=? AND n.published_at>=? AND n.verification='verified'

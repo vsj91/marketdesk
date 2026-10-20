@@ -179,7 +179,7 @@ def fundamentals_records(db):
             prev=f'{p[:4]}{int(p[4:])-1}';g=lambda h:(h[p]/h[prev]-1)*100 if p in h and prev in h and h[prev] and h[prev]>0 else None
             recs.append(dict(period=p,period_end=pe.isoformat(),pbt=a.get('profit_before_tax'),finance=a.get('finance_costs'),equity=a.get('equity'),
                 cash=a.get('cash_and_cash_equivalents'),total_debt=a['total_borrowings']+(a.get('total_lease_liabilities') or 0) if a.get('total_borrowings') is not None else None,
-                net_profit=np_.get(p),ocf=ocf.get(p),rev_growth=g(rev),np_growth=g(np_),financial=is_financial(sector or ''),
+                net_profit=np_.get(p),ocf=ocf.get(p),rev_growth=g(rev),np_growth=g(np_),financial=is_financial(sector or '',s),
                 ebit=a['profit_before_tax']+a['finance_costs'] if a.get('profit_before_tax') is not None and a.get('finance_costs') is not None else None))
         out[s]=sorted(recs,key=lambda x:x['period_end'])
     return out

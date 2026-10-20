@@ -64,7 +64,7 @@ def load_market(path):
                 available_from=(date.fromisoformat(latest['period_end'])+timedelta(days=FILING_LAG_DAYS)).isoformat(),
                 ebit=pbt+fc if finite(pbt) and finite(fc) else None,equity=latest.get('equity'),net_profit=np_,total_debt=debt,
                 cash=latest.get('cash_and_cash_equivalents'),ocf=_operating_cash(cash_flow.get(r['symbol']),latest.get('period')),
-                dividend_yield=None,financial=is_financial(sector or ''))
+                dividend_yield=None,financial=is_financial(sector or '',r['symbol']))
         bench=[(r['day'],r['close']) for r in db.execute('SELECT day,close FROM claude_benchmark ORDER BY day')]
         # Large moves NSE verified as ordinary market moves (the proofs the data audit accepts) are not breaks.
         clock=datetime.now(timezone.utc);moves={}

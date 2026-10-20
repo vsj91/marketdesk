@@ -61,7 +61,7 @@ class App:
             from .liability_bound import attach,bounded_debt_pass
             from .bank_inputs import not_applicable
             missing={};financial_gaps={};bounded=[];financial_incomplete=0
-            records={r[0]:(json.loads(r[1]),is_financial(r[2])) for r in db.execute('SELECT f.symbol,f.details,i.sector FROM fundamentals f JOIN instruments i USING(symbol) WHERE f.'+symbol_filter(db))}
+            records={r[0]:(json.loads(r[1]),is_financial(r[2],r[0])) for r in db.execute('SELECT f.symbol,f.details,i.sector FROM fundamentals f JOIN instruments i USING(symbol) WHERE f.'+symbol_filter(db))}
             attach(db,{k:v[0] for k,v in records.items()})
             for symbol,(details,financial) in records.items():
                 # Only a line the verified filing framework does not carry is excused; other lender gaps still block buys.

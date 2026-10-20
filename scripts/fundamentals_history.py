@@ -37,7 +37,7 @@ PER_SHARE={'face_value':('FaceValueOfEquityShareCapital',),'eps_cont':('BasicEar
 def universe():
     import research_baskets as rb
     P=rb.load();pit=rb.indicators(P)['pit500']
-    return sorted(c for c in pit.columns if pit[c].loc['2019-06-01':].any() and not is_financial(P['sector'].get(c) or ''))
+    return sorted(c for c in pit.columns if pit[c].loc['2019-06-01':].any() and not is_financial(P['sector'].get(c) or '',c))
 
 class Client:
     def __init__(self):
