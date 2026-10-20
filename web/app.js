@@ -202,7 +202,7 @@ function backtestCard(n){
  if(b.h1?.cagr!=null&&b.h2?.cagr!=null)lines.push(`First half ${pct(b.h1.cagr)} · second half ${pct(b.h2.cagr)}`);
  if(b.note)lines.push(esc(b.note));
  const p=row.paper||{};if(p.days)lines.push(`Paper so far: ${pct(p.return_pct)} over ${p.days} day${p.days===1?'':'s'} · backtest pace ${pct(p.backtest_pace_pct)} · Nifty 500 ${pct(p.nifty500_pct)}`);
- if(cfg.comparison_only)lines.push(`<strong>Comparison-only.</strong> ${esc(cfg.comparison_reason||'')}`);
+ if(cfg.comparison_only)lines.push(`<strong>${esc(cfg.comparison_reason||'Comparison-only basket.')}</strong>`);
  return `<div class="backtest-card ${v[1]}"><div class="backtest-head"><span class="tag ${v[1]}">${esc(v[0])}</span>${b.method?`<small>${esc(b.method)}</small>`:''}</div>${lines.map(l=>`<p>${l}</p>`).join('')}<p><a href="/backtests.html">All backtests and live results →</a></p></div>`;
 }
 function basketCard(p,auto){

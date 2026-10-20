@@ -206,6 +206,8 @@ class BasketEngine:
         pending=[p['symbol'] for p in held if p['pending_exit']]
         if halted:return status(drawdown.message(info),'risk_wait')
         if not self.signals:return status('Waiting for completed daily history; new buys blocked. Exits remain active.','data_wait')
+        if rule.get('research') and not self.research_signal(name):
+            return status('Research signals unavailable'+(f' ({self.research_error})' if self.research_error else ' for the latest session')+'; new buys wait. Stops and exits still run.','data_wait')
         if not entry_window_open(clock,cfg):return status('Monitoring exits. New entries run '+entry_window_label(cfg)+'.')
         try:
             with connect(self.path) as db:order,targets=self.targets(db,name,clock,rule)

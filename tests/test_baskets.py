@@ -203,6 +203,9 @@ class BasketEngineTests(unittest.TestCase):
         with patch('marketdesk.research_live.signals',return_value=research(exit_now={'S03'})):self.engine.cycle(self.clock+timedelta(seconds=5),{})
         with connect(self.path) as db:reasons=dict(db.execute("SELECT symbol,reason FROM trades WHERE portfolio='turtle' AND side='SELL'").fetchall())
         self.assertEqual(held(),{});self.assertEqual(reasons,{'S03':'Exit rule met on the completed session','S07':'5% stop from average cost'})
+        self.engine.baskets.research={};self.engine.baskets.loaded=0
+        with patch('marketdesk.research_live.signals',side_effect=RuntimeError('boom')):self.engine.cycle(self.clock+timedelta(seconds=10),{})
+        self.assertIn('Research signals unavailable (RuntimeError: boom)',self.engine.snapshot()['status']['turtle']['message'])
     def test_paused_basket_never_trades(self):
         with connect(self.path) as db:
             cfg=get_state(db,'auto_config');cfg['momentum']['enabled']=False;set_state(db,'auto_config',cfg)

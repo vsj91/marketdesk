@@ -336,7 +336,7 @@ def summary():
     baskets={};universe='Point-in-time top 500 of all listed stocks'
     for key,name in RULE_BASKETS.items():
         r=R['results'][key];b=r['base']
-        baskets[name]=dict(window=[rb.START if key!='seasonal' else '2022-01-01',P['c'].index[-1]],universe=universe,method='Live rules, monthly review, next-open fills, 0.25% slippage, live fees',
+        baskets[name]=dict(window=[rb.START if key!='seasonal' else '2022-01-01',P['c'].index[-1]],universe=universe,method='Basket rules on the point-in-time top 500, next-open fills, 0.25% slippage, live fees',
             full=b['full'],h1=b['h1'],h2=b['h2'],trades=b['trades'],years=b['years'],hold_cagr=R['bench']['ew']['full']['cagr'],
             verdict='pass' if r['passed'] else 'mixed' if 'beats_hold' not in r['failed'] else 'fail',
             note=('Failed: '+', '.join(FAILS[f] for f in r['failed']) if r['failed'] else 'Passed every check')+(f'. {TWINS[key]}' if key in TWINS else ''))
