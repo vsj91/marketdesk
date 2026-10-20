@@ -1,7 +1,7 @@
 from .working_universe import symbol_filter,status as working_status,enabled,scope_report,sync_instruments
 from .history_rules import MIN_SESSIONS
 from .scorecard import scorecard
-import json,os,re,secrets,threading,time,mimetypes,hashlib
+import json,os,re,secrets,threading,time,mimetypes,hashlib,ipaddress
 from pathlib import Path
 from http.server import ThreadingHTTPServer,BaseHTTPRequestHandler
 from urllib.parse import urlsplit,parse_qs,unquote
@@ -85,8 +85,23 @@ class App:
                 report={}
         return {'universe':universe,'fundamental_repair':repair,'sleep_guard':self.power.snapshot() if self.power else None,'alerts':self.alerts.snapshot() if self.alerts else None,'quality':quality,'close_check':get_state(db,'close_check',{}),'scorecard':scorecard(db),'counts':counts,'stream':stream,'refresh':{k:v for k,v in refresh.items() if k!='completed_symbols'},'import':report,'token_saved':bool(load_token()),'complete_fundamentals':counts['fundamentals']-incomplete,'partial_fundamentals':incomplete+missing_records,'actionable_partial_fundamentals':incomplete+missing_records-financial_incomplete-len(bounded),'financial_incomplete':financial_incomplete,'bounded_debt':sorted(bounded),'financial_not_applicable_fields':financial_gaps,'missing_fields':missing,'detailed_statements':full,'failed_endpoints':failures,'latest_candle':latest,'short_histories':short,'recent_listings':recent,'mode':'local_paper_only','now':now(),'csrf':self.csrf}
 
+REMOTE_FILE=ROOT/'data/remote-access.txt'
+
+def remote_clients(file=REMOTE_FILE):
+    """LAN machines allowed in besides this Mac: one IPv4 address per line, # comments.
+    No file or no addresses keeps MarketDesk loopback-only."""
+    if not file.exists():return frozenset()
+    found=set()
+    for line in file.read_text().splitlines():
+        line=line.split('#')[0].strip()
+        if not line:continue
+        try:found.add(str(ipaddress.IPv4Address(line)))
+        except ValueError:raise ValueError(f'{file.name}: not an IPv4 address: {line}') from None
+    return frozenset(found)
+
 class Server(ThreadingHTTPServer):
     daemon_threads=True
+    remote=frozenset()
     def __init__(self,address,app):self.app=app;super().__init__(address,Handler)
 
 class Handler(BaseHTTPRequestHandler):
@@ -99,9 +114,16 @@ class Handler(BaseHTTPRequestHandler):
         self.end_headers()
         try:self.wfile.write(body)
         except (BrokenPipeError,ConnectionResetError):pass
+    def local_client(self):return self.client_address[0]=='127.0.0.1'
     def allowed(self):
         host=self.headers.get('Host','');port=self.server.server_port
-        return host in (f'127.0.0.1:{port}',f'localhost:{port}')
+        if self.local_client():return host in (f'127.0.0.1:{port}',f'localhost:{port}')
+        # Listed LAN machines only. A literal-IP Host cannot be DNS-rebound.
+        return self.client_address[0] in self.server.remote and re.fullmatch(r'\d{1,3}(\.\d{1,3}){3}:'+str(port),host) is not None
+    def origins(self):
+        port=self.server.server_port
+        if self.local_client():return (f'http://localhost:{port}',f'http://127.0.0.1:{port}')
+        return ('http://'+self.headers.get('Host',''),)
     def do_GET(self):
         if not self.allowed():return self.send({'error':'Local host required'},403)
         app=self.server.app;url=urlsplit(self.path);q=parse_qs(url.query)
@@ -151,7 +173,7 @@ class Handler(BaseHTTPRequestHandler):
         app=self.server.app
         if not self.allowed():return self.send({'error':'Local host required'},403)
         origin=self.headers.get('Origin')
-        if origin and origin not in (f'http://localhost:{self.server.server_port}',f'http://127.0.0.1:{self.server.server_port}'):
+        if origin and origin not in self.origins():
             return self.send({'error':'Local origin required'},403)
         if not secrets.compare_digest(self.headers.get('X-Local-CSRF',''),app.csrf):return self.send({'error':'Reload the local app and retry.'},403)
         try:
@@ -161,6 +183,7 @@ class Handler(BaseHTTPRequestHandler):
             if not isinstance(payload,dict):raise ValueError('Expected a JSON object')
             path=urlsplit(self.path).path
             if path=='/api/token':
+                if not self.local_client():raise ValueError('Save the Upstox token on the Mac itself.')
                 token=payload.get('token','').strip()
                 if not re.fullmatch(r'[A-Za-z0-9_.~-]{50,8192}',token):raise ValueError('Paste a valid access token.')
                 fd=os.open(ROOT/'.env',os.O_WRONLY|os.O_CREAT|os.O_TRUNC,0o600)
@@ -190,11 +213,13 @@ class Handler(BaseHTTPRequestHandler):
 
 def serve(path=DEFAULT_DB,port=8765,live=False):
     # Bind first: a duplicate launch must not reset the existing feed/job state.
-    server=Server(('127.0.0.1',port),None)
+    remote=remote_clients()
+    server=Server(('0.0.0.0' if remote else '127.0.0.1',port),None);server.remote=remote
     try:app=App(path)
     except Exception:server.server_close();raise
     server.app=app
     print(f'MarketDesk local paper app: http://127.0.0.1:{port}',flush=True)
+    if remote:print('Also open to: '+', '.join(sorted(remote)),flush=True)
     if live:
         try:app.feed.start()
         except Exception as e:print('Live feed unavailable; configure the token in the app.',flush=True)
