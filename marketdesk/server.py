@@ -68,7 +68,7 @@ class App:
                 excused=financial and details.get('status')!='COMPLETE' and set(details.get('missing_fields') or [])<=not_applicable(details)
                 target=financial_gaps if excused else missing
                 if excused:financial_incomplete+=1
-                if not financial and bounded_debt_pass(details):bounded.append(symbol);continue
+                if not excused and bounded_debt_pass(details):bounded.append(symbol);continue      # same pass as the Investor check
                 for key in details.get('missing_fields',[]):target[key]=target.get(key,0)+1
             missing_records=counts['instruments']-counts['fundamentals']
             if missing_records:
