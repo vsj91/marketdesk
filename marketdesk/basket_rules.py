@@ -12,6 +12,7 @@ HIGH_WINDOW=252          # 52-week high: about one year of sessions
 LONG_LOOKBACK=252        # 12-1 momentum: return from ~12 months ago to ~1 month ago
 OVERNIGHT_WINDOW=105     # overnight returns summed over the 6-1 window (~126 to 21 sessions ago)
 GAP_PCT,GAP_VOLUME=.04,3.  # earnings-gap proxy: open 4%+ above the prior close on 3x the prior 50-session volume
+ALPHA_WINDOW,ALPHA_MIN=250,200  # one-year Jensen alpha against the Nifty 500: 250 daily returns, at least 200 paired
 MIN_TURNOVER=10_000_000  # ₹1 crore average daily traded value, same as Trader/Investor
 
 BASKETS={
@@ -53,6 +54,13 @@ BASKETS={
    entry='A completed session that opened at least 4% above the prior close on at least 3 times the prior 50-session average volume and closed at or above its open, above the 200-day average. Buy the next session, largest volume surge first.',
    exit='Sell after 60 sessions held, or at a 15% loss from average cost.',
    risk='Equal weight: up to 10% of starting capital per stock including buy fees. New buys pause at a 15% fall from the equity peak; exits stay active. Backtest: 8.1% a year, behind the 12.1% equal-weight hold.'),
+ # Added at the user's request as a deliberate twin of 12-1 momentum, although it fails the uniqueness rule
+ # (0.86 excess-return correlation, 78% shared holdings): paper results show how far two close rules drift apart.
+ 'alpha':dict(name='Alpha · monthly · paper basket',family='One-year Jensen alpha against the Nifty 500 (NSE Alpha-style)',
+   max_positions=10,position_pct=10,max_buys_per_day=10,stop_pct=20,keep_rank=30,rebalance='monthly',
+   entry='For each Nifty 500 stock, take the average daily return of the latest 250 completed sessions minus beta times the Nifty 500 average, beta from the same sessions: the return its market sensitivity does not explain. Buy the 10 highest positive alphas that close above the 200-day average. Stocks with under a year of clean history are not ranked. Empty slots are refilled from the current top 10.',
+   exit='At the first session of each month, sell holdings that drop out of the top 30, turn negative on alpha or close below the 200-day average. Between rebalances a 20% loss from average cost exits.',
+   risk='Equal weight: up to 10% of starting capital per stock including buy fees. New buys pause at a 15% fall from the equity peak; exits stay active. Backtest: 27.3% a year vs 12.1% for the hold, with about 50% worst fall; holds mostly the same stocks as 12-1 momentum.'),
  'sector_rotation':dict(name='Sector rotation · monthly · paper basket',family='Industry momentum rotation (Moskowitz and Grinblatt)',
    max_positions=10,position_pct=10,max_buys_per_day=10,stop_pct=20,keep_rank=30,rebalance='monthly',
    entry='Average the 6-1 momentum of tradable Nifty 500 stocks in each sector with at least 5 of them. In the 3 strongest sectors, rank stocks with positive 6-1 momentum and a completed close above the 200-day average by that momentum. Buy the top 10. Empty slots are refilled from the current top 10.',
@@ -73,10 +81,23 @@ def rsi(closes,period=2):
     if gain is None:return None
     return 100. if loss==0 else 100-100/(1+gain/loss)
 
-def stats(rows,confirmed=()):
+def jensen_alpha(rows,bench):
+    """Mean daily log return minus beta times the benchmark mean over the latest ALPHA_WINDOW returns (sample
+    covariance and variance), pairing each stock return with the benchmark move between the same two sessions."""
+    pairs=[(math.log(b['close']/a['close']),math.log(bench[b['ts'][:10]]/bench[a['ts'][:10]])) for a,b in zip(rows[-ALPHA_WINDOW-1:],rows[-ALPHA_WINDOW:])
+           if a['ts'][:10] in bench and b['ts'][:10] in bench]
+    if len(pairs)<ALPHA_MIN:return None
+    r,m=[p[0] for p in pairs],[p[1] for p in pairs];mr,mm=statistics.mean(r),statistics.mean(m)
+    var=sum((x-mm)**2 for x in m)/(len(m)-1)
+    if var<=0:return None
+    beta=sum((x-mr)*(y-mm) for x,y in zip(r,m))/(len(m)-1)/var
+    return mr-beta*mm
+
+def stats(rows,confirmed=(),bench=None):
     """Indicators from completed rows (oldest first), or None if history is short or broken.
     `confirmed` holds session dates whose large move NSE verified as an ordinary market move
-    (price_reconciliation.confirmed, as in the data audit); those are not treated as breaks."""
+    (price_reconciliation.confirmed, as in the data audit); those are not treated as breaks.
+    `bench` maps session dates to Nifty 500 closes; without it the alpha field is None."""
     rows=effective_rows(rows,confirmed)
     if len(rows)<MIN_HISTORY:return None
     closes=[r['close'] for r in rows]
@@ -89,15 +110,16 @@ def stats(rows,confirmed=()):
     high52=closes[-1]/max(r['high'] for r in rows[-HIGH_WINDOW:]) if len(rows)>=HIGH_WINDOW else None
     year=rows[-(LONG_LOOKBACK+1):]
     # 12-1 momentum needs the whole year free of unverified breaks, not just the 6-month lookback.
-    mom12=closes[-SKIP-1]/closes[-LONG_LOOKBACK-1]-1 if len(rows)>LONG_LOOKBACK and not any(
-        b['ts'][:10] not in confirmed and abs(b['close']/a['close']-1)>.25 for a,b in zip(year,year[1:])) else None
+    clean_year=len(rows)>LONG_LOOKBACK and not any(b['ts'][:10] not in confirmed and abs(b['close']/a['close']-1)>.25 for a,b in zip(year,year[1:]))
+    mom12=closes[-SKIP-1]/closes[-LONG_LOOKBACK-1]-1 if clean_year else None
+    alpha=jensen_alpha(rows,bench) if clean_year and bench else None
     window_on=rows[-(OVERNIGHT_WINDOW+SKIP+1):-SKIP]
     overnight=sum(math.log(b['open']/a['close']) for a,b in zip(window_on,window_on[1:])) if len(window_on)==OVERNIGHT_WINDOW+1 and all(
         isinstance(b.get('open'),(int,float)) and math.isfinite(b['open']) and b['open']>0 for b in window_on[1:]) else None
     last,before=rows[-1],rows[-2];base=[r['volume'] for r in rows[-51:-1]]
     gap=last['open']/before['close']-1 if isinstance(last.get('open'),(int,float)) and last['open']>0 else None
     gap_volume=last['volume']/(sum(base)/len(base)) if base and sum(base)>0 else None
-    return dict(high52=high52,momentum12=mom12,overnight=overnight,gap=gap,gap_volume=gap_volume,open=last.get('open'),as_of=rows[-1]['ts'][:10],close=closes[-1],dma200=sum(closes[-window:])/window,dma5=sum(closes[-5:])/5,
+    return dict(high52=high52,momentum12=mom12,alpha=alpha,overnight=overnight,gap=gap,gap_volume=gap_volume,open=last.get('open'),as_of=rows[-1]['ts'][:10],close=closes[-1],dma200=sum(closes[-window:])/window,dma5=sum(closes[-5:])/5,
         momentum=closes[-SKIP-1]/closes[-LOOKBACK-1]-1,volatility=statistics.pstdev(rets)*math.sqrt(250),rsi2=rsi(closes[-30:]),
         turnover20=sum(r['close']*r['volume'] for r in rows[-20:])/20)
 
@@ -115,6 +137,8 @@ def ranking(basket,signals):
         pool=[(-s['high52'],k) for k,s in signals.items() if tradable(s) and s.get('high52') and s['close']>s['dma200']]
     elif basket=='momentum12':
         pool=[(-s['momentum12'],k) for k,s in signals.items() if tradable(s) and s.get('momentum12') is not None and s['momentum12']>0 and s['close']>s['dma200']]
+    elif basket=='alpha':
+        pool=[(-s['alpha'],k) for k,s in signals.items() if tradable(s) and s.get('alpha') is not None and s['alpha']>0 and s['close']>s['dma200']]
     elif basket=='overnight':
         pool=[(-s['overnight'],k) for k,s in signals.items() if tradable(s) and s.get('overnight') is not None and s['overnight']>0 and s['close']>s['dma200']]
     elif basket=='gap_drift':
@@ -136,6 +160,7 @@ def rebalance_exit(basket,symbol,signal,order):
     if signal['close']<signal['dma200']:return 'Completed close below the 200-day average at monthly review'
     if basket=='momentum' and signal['momentum']<=0:return 'Negative 6-1 momentum at monthly review'
     if basket=='momentum12' and not (signal.get('momentum12') or 0)>0:return 'Negative or unavailable 12-1 momentum at monthly review'
+    if basket=='alpha' and not (signal.get('alpha') or 0)>0:return 'Negative or unavailable one-year alpha at monthly review'
     rank=order.index(symbol)+1 if symbol in order else None
     if rank is None or rank>rule['keep_rank']:return f"Outside the top {rule['keep_rank']} at monthly review"
     return None

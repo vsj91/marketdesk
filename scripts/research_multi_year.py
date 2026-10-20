@@ -274,7 +274,7 @@ def investor(start='2024-06-14'):
 
 # ---- Summary for the Backtests page -------------------------------------------------------------------
 
-RULE_BASKETS={'ref_momentum':'momentum','ref_lowvol':'lowvol','ref_high52':'high52','mom121':'momentum12',
+RULE_BASKETS={'ref_momentum':'momentum','ref_lowvol':'lowvol','ref_high52':'high52','mom121':'momentum12','alpha':'alpha',
     'overnight':'overnight','gap_drift':'gap_drift','sector':'sector_rotation'}
 TITLES={'ref_momentum':'Momentum 6-1 (existing)','ref_lowvol':'Low volatility (existing)','ref_high52':'52-week high (retired)','mom121':'Momentum 12-1',
     'alpha':'Alpha (NSE Alpha-style)','volmom':'Volatility-adjusted momentum (NSE Momentum 30-style)','resmom':'Residual momentum','fip':'Smooth momentum',
@@ -283,6 +283,7 @@ TITLES={'ref_momentum':'Momentum 6-1 (existing)','ref_lowvol':'Low volatility (e
 FAMILIES={'mom121':'Jegadeesh-Titman','alpha':'one-year Jensen alpha vs Nifty 500','volmom':'6- and 12-month return over volatility','resmom':'Blitz-Huij-Martens',
     'fip':'Da-Gurun-Warachka frog-in-the-pan','sector':'Moskowitz-Grinblatt','overnight':'Lou-Polk-Skouras','volume':'Gervais-Kaniel-Mingelgrin',
     'gap_drift':'post-announcement drift proxy','pullback':'leaders at the 50-day average','seasonal':'Heston-Sadka','lowmax':'Bali-Cakici-Whitelaw','strev':'Jegadeesh one-month reversal'}
+TWINS={'alpha':'Added by request as a twin of Momentum 12-1, despite failing the uniqueness rule'}
 OVERRIDES={'strev':'Same idea as Stat-arb and the retired Mean reversion: buying sharp dips in rising large caps',
     'seasonal':'Needs 5+ years of monthly history; the app stores about 18 months'}
 FAILS={'beats_hold':'behind the hold','both_halves':'behind in one half','drawdown':'deeper fall than the hold','ex_top5':'loses without its 5 best trades',
@@ -319,7 +320,8 @@ def summary():
         r=R['results'][key];b=r['base']
         baskets[name]=dict(window=[rb.START if key!='seasonal' else '2022-01-01',P['c'].index[-1]],universe=universe,method='Live rules, monthly review, next-open fills, 0.25% slippage, live fees',
             full=b['full'],h1=b['h1'],h2=b['h2'],trades=b['trades'],years=b['years'],hold_cagr=R['bench']['ew']['full']['cagr'],
-            verdict='pass' if r['passed'] else 'mixed' if 'beats_hold' not in r['failed'] else 'fail',note='Failed: '+', '.join(FAILS[f] for f in r['failed']) if r['failed'] else 'Passed every check')
+            verdict='pass' if r['passed'] else 'mixed' if 'beats_hold' not in r['failed'] else 'fail',
+            note=('Failed: '+', '.join(FAILS[f] for f in r['failed']) if r['failed'] else 'Passed every check')+(f'. {TWINS[key]}' if key in TWINS else ''))
     files={k:json.loads((OUT/v).read_text()) for k,v in FILES.items() if (OUT/v).exists()}
     if 'trader' in files:
         t=files['trader']['live_rules_nifty_filter'];e=files['trader']['bench']['ew']
@@ -359,7 +361,7 @@ def summary():
         b=r['base'];ok,why=unique.get(key,(key in RULE_BASKETS,None))
         candidates.append(dict(key=key,title=TITLES.get(key,key),family=FAMILIES.get(key),cagr=b['full']['cagr'],h1=(b['h1'] or {}).get('cagr'),h2=b['h2']['cagr'],maxdd=b['full']['maxdd'],
             top200=r['top200']['full']['cagr'],passed=r['passed'],failed=[FAILS[f] for f in r['failed']],basket=RULE_BASKETS.get(key),
-            why_not=None if key in RULE_BASKETS else OVERRIDES.get(key) or why))
+            why_not=None if key in RULE_BASKETS else OVERRIDES.get(key) or why,twin_note=f'{TWINS[key]}: {why}' if key in TWINS and why else None))
     out=dict(generated=time.strftime('%Y-%m-%d'),benchmarks=dict(ew_cagr=R['bench']['ew']['full']['cagr'],nifty500_cagr=R['bench']['nifty500']['full']['cagr'],ew_years=years(ew)),
         method=['Prices: Upstox adjusted daily candles from January 2017 for all ~2,300 listed NSE stocks; 5-minute candles from 2022 for EMA.',
             'Universe: each month, the 500 most traded stocks as of the prior month-end, so stocks that later fell out of the Nifty 500 are included. Delisted stocks are still missing.',

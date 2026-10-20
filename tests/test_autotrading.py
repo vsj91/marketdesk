@@ -544,8 +544,8 @@ class AutoTradingTests(unittest.TestCase):
   self.engine.run()
   snapshot=self.engine.snapshot()
   self.assertTrue(all(not c['enabled'] for c in snapshot['config'].values()))
-  # Trader, Investor, the baskets that start enabled (momentum, low volatility, 12-1 momentum and the three research baskets), the four live quant baskets and the three signal baskets all pause.
-  self.assertEqual(sum(e['kind']=='error' for e in snapshot['events']),15)
+  # Trader, Investor, the baskets that start enabled (momentum, low volatility, 12-1 momentum, alpha and the three research baskets), the four live quant baskets and the three signal baskets all pause.
+  self.assertEqual(sum(e['kind']=='error' for e in snapshot['events']),16)
  def enable_full_session(self,p='investor'):
   self.enable(p)
   with connect(self.path) as db:

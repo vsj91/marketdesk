@@ -1,3 +1,4 @@
+import math
 import tempfile,unittest
 from datetime import datetime,timedelta,timezone
 from pathlib import Path
@@ -50,6 +51,20 @@ class BasketRuleTests(unittest.TestCase):
             night[i]['open']=night[i-1]['close']*1.002;day[i]['open']=day[i-1]['close']*.999
         self.assertEqual(ranking('overnight',{'NIGHT':stats(night),'DAY':stats(day)}),['NIGHT'])
         fast,slow=stats(candles(.004)),stats(candles(.001))
+        days=[r['ts'][:10] for r in candles(0,count=260)];index=[100.];bench={}
+        for i in range(1,260):index.append(index[-1]*(1.004 if i%2 else .998))   # Nifty 500 with alternating moves
+        bench=dict(zip(days,index))
+        def follow(extra):                                                  # beta 1 to the index plus a daily edge
+            rows=candles(0,count=260);c=100.
+            for i,r in enumerate(rows):
+                if i:c*=index[i]/index[i-1]*math.exp(extra)
+                r.update(open=c,high=c*1.01,low=c*.99,close=c)
+            return rows
+        lead,lag=stats(follow(.002),bench=bench),stats(follow(-.001),bench=bench)
+        self.assertAlmostEqual(lead['alpha'],.002,places=6);self.assertAlmostEqual(lag['alpha'],-.001,places=6)
+        self.assertIsNone(stats(follow(.002))['alpha'])                    # no benchmark, no alpha
+        self.assertEqual(ranking('alpha',{'LEAD':lead,'LAG':lag}),['LEAD'])
+        self.assertIn('alpha',rebalance_exit('alpha','LEAD',dict(lead,alpha=-.001),['LEAD']))
         sigs={**{f'A{i}':dict(fast,sector='Alpha') for i in range(5)},**{f'B{i}':dict(slow,sector='Beta') for i in range(5)},
               **{f'C{i}':dict(slow,sector='Gamma') for i in range(4)},'D0':dict(fast,sector='Delta')}
         self.assertEqual(set(ranking('sector_rotation',sigs)),{f'A{i}' for i in range(5)}|{f'B{i}' for i in range(5)})  # sectors under 5 stocks skipped
@@ -123,7 +138,7 @@ class BasketEngineTests(unittest.TestCase):
         self.assertEqual(sold,['No valid completed history at monthly review'])
     def test_new_baskets_cap_round_trip_fees_at_one_and_a_half_percent(self):
         with connect(self.path) as db:cfg=get_state(db,'auto_config')
-        for name in ('lowvol','high52','momentum12','overnight','gap_drift','sector_rotation','smart_beta','risk_parity','stat_arb','regime','news_momentum','news_catalyst'):
+        for name in ('lowvol','high52','momentum12','alpha','overnight','gap_drift','sector_rotation','smart_beta','risk_parity','stat_arb','regime','news_momentum','news_catalyst'):
             self.assertEqual(cfg[name]['max_round_trip_fee_pct'],1.5,name)
         self.assertEqual(cfg['ema_price_action']['max_round_trip_fee_pct'],1.)
     def test_retired_basket_cannot_be_enabled_and_never_trades(self):
