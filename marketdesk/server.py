@@ -13,6 +13,7 @@ from .refresh import Refresh
 from .autotrading import AutoTrading
 from .quality import audit
 from .power import SleepGuard
+from .alerts import Alerts
 from .maintenance import Maintenance
 from .universe_exits import RequestedExits
 from .market_caps import classifications,decorate_html,ClassificationRefresh
@@ -42,6 +43,7 @@ class App:
         self.maintenance=None if read_only else Maintenance(path,self.refresh)
         self.quant=None if read_only else QuantRunner(path)
         self.signals=None if read_only else SignalRunner(path)
+        self.alerts=None if read_only else Alerts(path,self.feed)
         self.csrf=secrets.token_urlsafe(32);self.cache=None;self.cached_at=0;self.cache_lock=threading.Lock()
     def stocks(self):
         with self.cache_lock:
@@ -81,7 +83,7 @@ class App:
                 if refresh.get('working_universe')!='nifty500':refresh={'status':'ready','mode':'Nifty 500','total':len(active),'done':0}
                 if repair.get('working_universe')!='nifty500':repair={}
                 report={}
-        return {'universe':universe,'fundamental_repair':repair,'sleep_guard':self.power.snapshot() if self.power else None,'quality':quality,'close_check':get_state(db,'close_check',{}),'scorecard':scorecard(db),'counts':counts,'stream':stream,'refresh':{k:v for k,v in refresh.items() if k!='completed_symbols'},'import':report,'token_saved':bool(load_token()),'complete_fundamentals':counts['fundamentals']-incomplete,'partial_fundamentals':incomplete+missing_records,'actionable_partial_fundamentals':incomplete+missing_records-financial_incomplete-len(bounded),'financial_incomplete':financial_incomplete,'bounded_debt':sorted(bounded),'financial_not_applicable_fields':financial_gaps,'missing_fields':missing,'detailed_statements':full,'failed_endpoints':failures,'latest_candle':latest,'short_histories':short,'recent_listings':recent,'mode':'local_paper_only','now':now(),'csrf':self.csrf}
+        return {'universe':universe,'fundamental_repair':repair,'sleep_guard':self.power.snapshot() if self.power else None,'alerts':self.alerts.snapshot() if self.alerts else None,'quality':quality,'close_check':get_state(db,'close_check',{}),'scorecard':scorecard(db),'counts':counts,'stream':stream,'refresh':{k:v for k,v in refresh.items() if k!='completed_symbols'},'import':report,'token_saved':bool(load_token()),'complete_fundamentals':counts['fundamentals']-incomplete,'partial_fundamentals':incomplete+missing_records,'actionable_partial_fundamentals':incomplete+missing_records-financial_incomplete-len(bounded),'financial_incomplete':financial_incomplete,'bounded_debt':sorted(bounded),'financial_not_applicable_fields':financial_gaps,'missing_fields':missing,'detailed_statements':full,'failed_endpoints':failures,'latest_candle':latest,'short_histories':short,'recent_listings':recent,'mode':'local_paper_only','now':now(),'csrf':self.csrf}
 
 class Server(ThreadingHTTPServer):
     daemon_threads=True
@@ -203,6 +205,7 @@ def serve(path=DEFAULT_DB,port=8765,live=False):
     app.auto.start()
     app.quant.start()
     app.signals.start()
+    app.alerts.start()
     try:server.serve_forever()
     except KeyboardInterrupt:pass
-    finally:app.signals.stop();app.quant.stop();app.maintenance.stop();app.requested_exits.stop();app.cap_refresh.stop();app.power.stop();app.auto.stop();app.feed.stop();server.server_close()
+    finally:app.alerts.stop();app.signals.stop();app.quant.stop();app.maintenance.stop();app.requested_exits.stop();app.cap_refresh.stop();app.power.stop();app.auto.stop();app.feed.stop();server.server_close()

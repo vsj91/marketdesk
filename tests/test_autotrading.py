@@ -538,10 +538,22 @@ class AutoTradingTests(unittest.TestCase):
    self.assertEqual(self.engine.execute('trader','TEST','BUY',1,self.signal,self.clock,realtime=True),0)
   self.assertEqual(self.trades(),[])
 
+ def run_checks(self,count):
+  calls=[]
+  def wait(seconds):
+   calls.append(seconds)
+   if len(calls)>=count:self.engine.stop_event.set()
+  self.engine.stop_event.wait=wait;self.engine.run()
+ def test_one_off_engine_error_retries_without_pausing(self):
+  self.enable();self.enable('investor')
+  self.engine.cycle=Mock(side_effect=[RuntimeError('blip'),RuntimeError('blip'),None,RuntimeError('blip'),RuntimeError('blip')])
+  with patch('sys.stderr'):self.run_checks(5)
+  snapshot=self.engine.snapshot()
+  self.assertTrue(snapshot['config']['trader']['enabled']);self.assertTrue(snapshot['config']['investor']['enabled'])
+  self.assertFalse(any(e['kind']=='error' for e in snapshot['events']))
  def test_unexpected_engine_error_pauses_enabled_portfolios(self):
   self.enable();self.enable('investor');self.engine.cycle=Mock(side_effect=RuntimeError('test failure'))
-  self.engine.stop_event.wait=lambda seconds:self.engine.stop_event.set()
-  self.engine.run()
+  with patch('sys.stderr'):self.run_checks(3)
   snapshot=self.engine.snapshot()
   self.assertTrue(all(not c['enabled'] for c in snapshot['config'].values()))
   # Trader, Investor, the baskets that start enabled (momentum, low volatility, 12-1 momentum, alpha and the three research baskets), the four live quant baskets and the three signal baskets all pause.

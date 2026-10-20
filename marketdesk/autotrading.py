@@ -1,6 +1,6 @@
 from .working_universe import symbol_filter
 """Deterministic experimental strategies. All execution uses the local paper ledger."""
-import collections,json,math,threading,time,uuid
+import collections,json,math,sys,threading,time,uuid
 from datetime import datetime,timedelta,timezone
 from .storage import connect,get_state,set_state,number,now
 from .paper import trade
@@ -18,6 +18,7 @@ from .signal_baskets.names import SIGNAL_BASKETS
 ENGINES=(*('trader','investor'),*BASKETS,*LIVE_BASKETS,*SIGNAL_BASKETS)
 
 IST=timezone(timedelta(hours=5,minutes=30))
+PAUSE_AFTER_FAILURES=3
 RULES={
  'trader':{'name':'Daily breakout · swing paper strategy','max_positions':5,'position_pct':10,'max_buys_per_day':3,'stop_pct':3,'take_profit_pct':6,'daily_loss_pct':2,
  'entry':'200+ completed daily candles; price above the previous 20-session high; 50-day average above 200-day; historical 10/30-session volume ratio ≥ 1.2.',
@@ -498,6 +499,7 @@ class AutoTrading:
    queued.update(status='started',started_at=now());set_state(db,'quality_repair_queue',queued)
 
  def run(self):
+  failures=0
   while not self.stop_event.is_set():
    try:
     self.membership_refresh.start_if_due()
@@ -506,13 +508,23 @@ class AutoTrading:
     self.cycle()
     self.refresh_quality_gaps()
     self.refresh_daily_candles()
+    failures=0
    except Exception as error:
-    with connect(self.path) as db:
-     cfg=get_state(db,'auto_config',{})
-     for p in ENGINES:
-      if cfg.get(p,{}).get('enabled'):
-       cfg[p]['enabled']=False;event(db,p,'error','Engine paused after '+type(error).__name__+'. Review before enabling again.')
-     set_state(db,'auto_config',cfg)
+    # A one-off database or network blip retries on the next check; a fault that repeats pauses trading.
+    failures+=1
+    print('Engine check failed ('+type(error).__name__+'), attempt '+str(failures)+' of '+str(PAUSE_AFTER_FAILURES)+'.',file=sys.stderr,flush=True)
+    if failures>=PAUSE_AFTER_FAILURES:
+     try:
+      with connect(self.path) as db:
+       cfg=get_state(db,'auto_config',{})
+       for p in ENGINES:
+        if cfg.get(p,{}).get('enabled'):
+         cfg[p]['enabled']=False;event(db,p,'error','Engine paused after '+type(error).__name__+' repeated on '+str(failures)+' checks in a row. Review before enabling again.')
+       set_state(db,'auto_config',cfg)
+      failures=0
+     except Exception as pause_error:
+      # Never let the engine thread die; the next check retries the pause.
+      print('Engine pause failed ('+type(pause_error).__name__+').',file=sys.stderr,flush=True)
    self.stop_event.wait(15)
 
 
