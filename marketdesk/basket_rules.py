@@ -41,7 +41,8 @@ BASKETS={
 }
 
 # Retired baskets keep their ledger history but never trade again and are hidden from the screens.
-RETIRED={'reversion':'Retired: it duplicates the daily Stat-arb basket, and fees outweighed gains in the backtest.'}
+RETIRED={'reversion':'Retired: it duplicates the daily Stat-arb basket, and fees outweighed gains in the backtest.',
+ 'high52':'Retired before its first trade: 2.2% a year vs 12.1% for the equal-weight hold in the 2018-2026 point-in-time backtest (scripts/research_baskets.py).'}
 
 def rsi(closes,period=2):
     gain=loss=None

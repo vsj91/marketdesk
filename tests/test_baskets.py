@@ -112,6 +112,7 @@ class BasketEngineTests(unittest.TestCase):
     def test_retired_basket_cannot_be_enabled_and_never_trades(self):
         with connect(self.path) as db:
             cfg=get_state(db,'auto_config');self.assertTrue(cfg['reversion']['retired']);self.assertFalse(cfg['reversion']['enabled'])
+            self.assertTrue(cfg['high52']['retired']);self.assertFalse(cfg['high52']['enabled'])
             cfg['reversion']['enabled']=True;set_state(db,'auto_config',cfg)   # even a hand-edited flag is ignored
         with self.assertRaisesRegex(ValueError,'Retired'):self.engine.configure('reversion',True)
         self.engine.cycle(self.clock,{})
