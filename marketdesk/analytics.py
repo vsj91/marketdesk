@@ -2,6 +2,9 @@ from .working_universe import symbol_filter
 import json
 from datetime import datetime, timezone
 from .storage import connect, get_state, number
+from .history_rules import is_financial
+from .valuation import shares_crore,metrics
+_SHARES={}
 
 def technical(rows):
     closes=[r['close'] for r in rows];volumes=[r['volume'] for r in rows]
@@ -26,6 +29,13 @@ def listing(db_path):
         candles={}
         for r in db.execute('SELECT symbol,ts,close,volume FROM candles WHERE '+symbol_filter(db)+' ORDER BY symbol,ts'):candles.setdefault(r['symbol'],[]).append(r)
         stream=get_state(db,'stream',{})
+        # Shares are re-derived only when a symbol's income statement payload changes.
+        for r in db.execute("SELECT symbol,observed_at FROM payloads WHERE endpoint='income_statement' AND "+symbol_filter(db)).fetchall():
+            latest=fundamentals.get(r['symbol'],({},None))[0].get('latest') or {}
+            key=(r['observed_at'],latest.get('period'),latest.get('statement_type'),latest.get('units_in'))
+            if _SHARES.get(r['symbol'],(None,))[0]!=key:
+                raw=db.execute("SELECT payload FROM payloads WHERE symbol=? AND endpoint='income_statement'",(r['symbol'],)).fetchone()[0]
+                _SHARES[r['symbol']]=(key,shares_crore(raw,latest))
     result=[];clock=datetime.now(timezone.utc).timestamp()*1000
     for item in instruments:
         sym=item['symbol'];t=technical(candles.get(sym,[]));f,observed=fundamentals.get(sym,({},None));q=quotes.get(sym)
@@ -41,6 +51,7 @@ def listing(db_path):
         item.update(quality=quality.get(sym,{}),technical=t,quote=q,quote_status='LIVE' if fresh else 'LAST TRADE' if q else 'EOD',quote_age_seconds=age,
             fundamentals_status=f.get('status','MISSING'),fundamentals_period=latest.get('period'),fundamentals_observed=observed,
             missing_fields=f.get('missing_fields',list(__import__('marketdesk.provider',fromlist=['FUNDAMENTAL_REQUIRED_FIELDS']).FUNDAMENTAL_REQUIRED_FIELDS)),
-            summary=summary,watched=sym in watched,candle_issues=sym in bad)
+            summary=summary,watched=sym in watched,candle_issues=sym in bad,
+            valuation=metrics(f,q['price'] if q else t.get('close'),_SHARES.get(sym,(None,None))[1],quality.get(sym,{}).get('financial_sector',is_financial(item['sector']))))
         result.append(item)
     return result
