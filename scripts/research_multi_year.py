@@ -281,13 +281,21 @@ TITLES={'ref_momentum':'Momentum 6-1 (existing)','ref_lowvol':'Low volatility (e
     'sector':'Sector rotation','overnight':'Overnight momentum','volume':'Volume surge','gap_drift':'Gap-up drift','pullback':'Pullback in market leaders',
     'seasonal':'Same-month seasonality','lowmax':'Low max-return (lottery avoidance)','strev':'Short-term reversal, large caps',
     'minervini':'Minervini trend template','clenow':'Stocks on the Move (Clenow)','conservative':'Conservative Formula, price only',
-    'turtle':'Turtle breakout 55/20','connors':'Connors RSI-2 dip buying','dual_mom':'Dual Momentum (Antonacci)'}
+    'turtle':'Turtle breakout 55/20','connors':'Connors RSI-2 dip buying','dual_mom':'Dual Momentum (Antonacci)',
+    'golden_cross':'Golden cross 50/200 EMA + ADX','macd':'MACD signal-line cross','bollinger_rsi':'Bollinger Band + RSI-14 dip buying'}
 FAMILIES={'mom121':'Jegadeesh-Titman','alpha':'one-year Jensen alpha vs Nifty 500','volmom':'6- and 12-month return over volatility','resmom':'Blitz-Huij-Martens',
     'fip':'Da-Gurun-Warachka frog-in-the-pan','sector':'Moskowitz-Grinblatt','overnight':'Lou-Polk-Skouras','volume':'Gervais-Kaniel-Mingelgrin',
     'gap_drift':'post-announcement drift proxy','pullback':'leaders at the 50-day average','seasonal':'Heston-Sadka','lowmax':'Bali-Cakici-Whitelaw','strev':'Jegadeesh one-month reversal',
     'minervini':'SEPA trend template + IBD-style relative strength, 8% stop','clenow':'90-day regression slope x R squared, index filter',
     'conservative':'van Vliet-Blitz: 12-1 momentum in the calmer half','turtle':'Dennis Turtles: 55-day breakout, 20-day low exit, 2 ATR stop',
-    'connors':'RSI(2) under 5 above the 200-day average, exit above the 5-day average','dual_mom':'12-1 momentum, cash when the index trails T-bills'}
+    'connors':'RSI(2) under 5 above the 200-day average, exit above the 5-day average','dual_mom':'12-1 momentum, cash when the index trails T-bills',
+    'golden_cross':'retail algo guides: 50/200 EMA cross with ADX(14) > 20','macd':'retail algo guides: MACD(12,26,9) cross above zero',
+    'bollinger_rsi':'retail algo guides: lower Bollinger band with RSI(14) < 30'}
+FUND_TITLES={'quality_value':'Quality at a reasonable price (Buffett-style)','magic_proxy':'Magic Formula (Greenblatt), proxy','net_buyback':'Net buybacks',
+    'dividend_quality':'Dividend yield with quality','value_momentum':'Value and momentum'}
+FUND_FAMILIES={'quality_value':'ROE 15%+ two years, rising profit, interest cover 5+, cheapest earnings first','magic_proxy':'EBIT / market cap + EBIT / equity; no debt or cash before FY2023',
+    'net_buyback':'Pontiff-Woodgate: share count down 1%+ in a year','dividend_quality':'trailing dividend yield, ROE 12%+, payout within profit',
+    'value_momentum':'Asness-Moskowitz-Pedersen: earnings yield + 12-1 momentum'}
 TWINS={'alpha':'Added by request as a twin of Momentum 12-1, despite failing the uniqueness rule'}
 OVERRIDES={'strev':'Same idea as Stat-arb and the retired Mean reversion: buying sharp dips in rising large caps',
     'seasonal':'Needs 5+ years of monthly history; the app stores about 18 months'}
@@ -367,6 +375,17 @@ def summary():
         candidates.append(dict(key=key,title=TITLES.get(key,key),family=FAMILIES.get(key),cagr=b['full']['cagr'],h1=(b['h1'] or {}).get('cagr'),h2=b['h2']['cagr'],maxdd=b['full']['maxdd'],
             top200=r['top200']['full']['cagr'],passed=r['passed'],failed=[FAILS[f] for f in r['failed']],basket=RULE_BASKETS.get(key),
             why_not=None if key in RULE_BASKETS else OVERRIDES.get(key) or why,twin_note=f'{TWINS[key]}: {why}' if key in TWINS and why else None))
+    # Fundamentals rules (scripts/research_fundamentals.py) run on a shorter window with its own hold; each row says so.
+    notes=[]
+    if (OUT/'research-fundamentals.json').exists():
+        Fr=json.loads((OUT/'research-fundamentals.json').read_text());fh=Fr['bench']['ew']['full']['cagr']
+        for key,r in Fr['results'].items():
+            b=r['base'];u=Fr.get('uniqueness',{}).get(key,{})
+            candidates.append(dict(key=key,title=FUND_TITLES[key],family=f"{FUND_FAMILIES[key]} · tested Jun 2019–2026 vs {fh}% a year for the hold; first half from Jun 2019",
+                cagr=b['full']['cagr'],h1=b['h1']['cagr'],h2=b['h2']['cagr'],maxdd=b['full']['maxdd'],top200=r['top200']['full']['cagr'],passed=r['passed'],
+                failed=[FAILS[f] for f in r['failed']],basket=None,why_not=u.get('reason'),twin_note=None))
+        m=Fr.get('magic_faithful')
+        if m:notes.append(f"Fundamentals: NSE annual results FY2018-FY2026 (scripts/fundamentals_history.py), from period end + 60 days. Greenblatt's formula with real debt and cash exists only from June 2023: {m['result']['cagr']}% a year vs {m['hold']['cagr']}% for the hold, {m['result']['maxdd']}% worst fall, {m['trades']} trades. Too short to judge.")
     out=dict(generated=time.strftime('%Y-%m-%d'),benchmarks=dict(ew_cagr=R['bench']['ew']['full']['cagr'],nifty500_cagr=R['bench']['nifty500']['full']['cagr'],ew_years=years(ew)),
         method=['Prices: Upstox adjusted daily candles from January 2017 for all ~2,300 listed NSE stocks; 5-minute candles from 2022 for EMA.',
             'Universe: each month, the 500 most traded stocks as of the prior month-end, so stocks that later fell out of the Nifty 500 are included. Delisted stocks are still missing.',
@@ -374,7 +393,7 @@ def summary():
             'Fills: signals from completed closes, fills at the next open with 0.25% adverse slippage, stops at the stop or the gapped open, live delivery charges and the 1.5% round-trip fee cap.',
             'Fundamentals: each annual report counts only from 60 days (quant) or 75 days (Investor) after its period end. Finance costs, borrowings and leases exist only for FY2026.',
             'Uniqueness for new baskets: excess-return correlation at most 0.65 and at most 50% shared holdings against every active rule basket and every basket already added.',
-            'No dividends, no taxes. A backtest is evidence about the past, not a forecast.'],
+            *notes,'No dividends, no taxes. A backtest is evidence about the past, not a forecast.'],
         baskets=baskets,candidates=sorted(candidates,key=lambda c:-c['cagr']))
     (OUT/'basket-backtests.json').write_text(json.dumps(out,indent=1,default=float));print('saved',OUT/'basket-backtests.json')
 

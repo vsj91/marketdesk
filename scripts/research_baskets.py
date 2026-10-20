@@ -118,6 +118,16 @@ def indicators(P):
     I['rsi2']=100-100/(1+up/dn.replace(0,np.nan));I['rsi2']=I['rsi2'].where(dn>0,100.).where(d.notna())
     I['dma5']=C.rolling(5,min_periods=5).mean()
     I['index_abs']=(P['index']/P['index'].shift(252)-1)>.065          # Antonacci: market 12-month return above T-bills (~6.5% a year)
+    # Retail algo-trading staples (Groww, IG, RMoney guides), standard textbook parameters.
+    ema=lambda X,n:X.ewm(span=n,adjust=False,min_periods=n).mean()
+    I['ema50'],I['ema200']=ema(C,50),ema(C,200)
+    pdm=(H-H.shift(1)).where((H-H.shift(1))>(L.shift(1)-L),0.).clip(lower=0);ndm=(L.shift(1)-L).where((L.shift(1)-L)>(H-H.shift(1)),0.).clip(lower=0)
+    w=lambda X:X.ewm(alpha=1/14,adjust=False,min_periods=14).mean();atr=w(tr.reindex(C.index))
+    pdi,ndi=100*w(pdm)/atr,100*w(ndm)/atr;I['adx14']=w(100*(pdi-ndi).abs()/(pdi+ndi).replace(0,np.nan))
+    macd=ema(C,12)-ema(C,26);sig=ema(macd,9);I['macd'],I['macd_sig']=macd,sig
+    mid=C.rolling(20,min_periods=20).mean();sd=C.rolling(20,min_periods=20).std(ddof=0);I['bb_mid'],I['bb_low']=mid,mid-2*sd
+    up14=d.clip(lower=0).ewm(alpha=1/14,adjust=False).mean();dn14=(-d).clip(lower=0).ewm(alpha=1/14,adjust=False).mean()
+    I['rsi14']=(100-100/(1+up14/dn14.replace(0,np.nan))).where(dn14>0,100.).where(d.notna())
     ends=C.groupby(C.index.str[:7]).last();mr=ends/ends.shift(1)-1;seas=pd.DataFrame(index=mr.index,columns=C.columns,dtype=float)
     for ym in mr.index:                                                   # Heston-Sadka: same calendar month, 5-10 prior years
         prior=[p for p in (f'{int(ym[:4])-k}{ym[4:]}' for k in range(1,11)) if p in mr.index]
@@ -172,6 +182,14 @@ def practitioners(P,I,elig):
      'turtle':dict(score=I['mom61'].where(elig&I['brk55']),exit_when=I['low20'],monthly=False,stop=(2*I['atr20']).clip(upper=.3)),
      'connors':dict(score=(-I['rsi2']).where(elig&(I['rsi2']<5)),exit_when=C>I['dma5'],monthly=False,stop=1.),
      'dual_mom':dict(score=I['mom121'].where(elig&(I['mom121']>0)&absm),exit_when=rows(month_end)&~absm,keep=30,stop=.20),
+     # Golden cross: 50-day EMA crossed above the 200-day EMA in the last 5 sessions with ADX(14) above 20; exit on the cross back.
+     'golden_cross':dict(score=I['adx14'].where(elig&(I['ema50']>I['ema200'])&((I['ema50'].shift(5)<=I['ema200'].shift(5)))&(I['adx14']>20)),
+         exit_when=I['ema50']<I['ema200'],monthly=False,stop=1.),
+     # MACD(12,26,9) crosses above its signal line while above zero; exit when it crosses back below.
+     'macd':dict(score=(I['macd']-I['macd_sig']).div(C).where(elig&(I['macd']>I['macd_sig'])&(I['macd'].shift(1)<=I['macd_sig'].shift(1))&(I['macd']>0)),
+         exit_when=I['macd']<I['macd_sig'],monthly=False,stop=1.),
+     # Bollinger(20,2) + RSI(14): close under the lower band with RSI below 30; exit back at the middle band or after 10 sessions.
+     'bollinger_rsi':dict(score=(-I['rsi14']).where(elig&(C<I['bb_low'])&(I['rsi14']<30)),exit_when=C>=I['bb_mid'],monthly=False,max_hold=10,stop=1.),
     }
 
 def simulate(P,I,score,exit_score=None,n=10,keep=30,stop=.20,max_hold=None,slip=.0025,mkt=False,start=START,end='9999',monthly=True,capital=1e5,exit_when=None):
