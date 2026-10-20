@@ -304,7 +304,7 @@ def uniqueness(P,I,cands,active=('ref_momentum','ref_lowvol','mom121'),max_corr=
     for n in sorted((n for n in cands if n not in active and n!='ref_high52'),key=lambda n:-(rb.stats(rb.simulate(P,I,**cands[n])[0])['cagr'] if n!='seasonal' else -99)):
         clash=[(o,corr.loc[n,o],overlap(n,o)) for o in taken if corr.loc[n,o]>max_corr or overlap(n,o)>max_overlap]
         if clash:
-            o,c,v=max(clash,key=lambda x:x[1]);out[n]=(False,f'Too close to {TITLES[o]}: {c:.2f} excess-return correlation, {100*v:.0f}% shared holdings')
+            o,c,v=max(clash,key=lambda x:x[1]);out[n]=(False,f'Too close to {TITLES[o]}: {c:.2f} excess-return correlation, {100*v:.1f}% shared holdings')
         else:out[n]=(True,None);taken.append(n)
     return out
 

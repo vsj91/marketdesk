@@ -10,7 +10,7 @@ const title=n=>TITLES[n]||n;
 const VERDICT={pass:['up','Beat the hold'],mixed:['warn','Mixed'],fail:['down','Behind the hold'],untested:['','Not testable']};
 function verdict(b){const [cls,label]=VERDICT[b?.verdict]||VERDICT.untested;return `<span class="tag ${cls}">${esc(label)}</span>`}
 async function load(){
- let d;try{const r=await fetch('/api/backtests');d=await r.json();if(!r.ok)throw new Error(d.error||r.status)}catch(e){document.getElementById('rows').innerHTML=`<tr><td colspan="11">Could not load backtests: ${esc(e.message)}</td></tr>`;return}
+ let d;try{const r=await fetch('/api/backtests');d=await r.json();if(!r.ok)throw new Error(d.error||r.status)}catch(e){document.getElementById('rows').innerHTML=`<tr><td colspan="9">Could not load backtests: ${esc(e.message)}</td></tr>`;return}
  document.getElementById('asof').textContent=d.generated?`Backtests saved ${d.generated} · paper live`:'Paper live';
  if(d.missing){const m=document.getElementById('missing');m.hidden=false;m.textContent=d.missing}
  const b=d.benchmarks||{};
@@ -18,16 +18,17 @@ async function load(){
   ['Baskets beating the hold',null,`${d.baskets.filter(x=>x.backtest?.verdict==='pass').length} of ${d.baskets.filter(x=>x.backtest&&x.backtest.verdict!=='untested').length} tested`],['Paper record',null,(()=>{const s=d.baskets.map(x=>x.paper?.since).filter(Boolean).sort()[0];return s?`first trade ${s}`:'no trades yet'})()]]
   .map(([l,v,s])=>`<div class="stat"><div class="stat-label">${esc(l)}</div><div class="stat-value ${v==null?'':tone(v)}">${v==null?'':pct(v)+' a year'}</div><small>${esc(s)}</small></div>`).join('');
  document.getElementById('rows').innerHTML=d.baskets.map(x=>{const t=x.backtest||{},f=t.full||{},p=x.paper||{};
-  const name=`<strong>${esc(title(x.name))}</strong>${x.state==='retired'?' <span class="tag">Retired</span>':x.state==='off'?' <span class="tag">Off</span>':''}<br><small class="muted">${esc(t.method||'')}</small>`;
-  return `<tr><td>${name}</td><td>${esc(t.window?t.window.join(' → '):'—')}<br><small class="muted">${esc(t.universe||'')}</small></td>${cell(f.cagr)}${cell(t.hold_cagr)}<td>${f.maxdd==null?'—':'−'+f.maxdd+'%'}</td><td>${t.trades??'—'}</td><td>${verdict(t)}${t.note?`<br><small class="muted">${esc(t.note)}</small>`:''}</td>
+  const when=t.window?`${t.window[0].slice(0,7)} → ${t.window[1].slice(0,7)}${t.trades!=null?` · ${t.trades} trades`:''}`:'';
+  const name=`<strong>${esc(title(x.name))}</strong>${x.state==='retired'?' <span class="tag">Retired</span>':x.state==='off'?' <span class="tag">Off</span>':''}<small>${esc(when)}</small><small>${esc(t.method||'')}</small>`;
+  return `<tr><td class="wrap">${name}</td>${cell(f.cagr)}${cell(t.hold_cagr)}<td>${f.maxdd==null?'—':'−'+f.maxdd+'%'}</td><td class="wrap">${verdict(t)}${t.note?`<small>${esc(t.note)}</small>`:''}</td>
    <td>${p.since?esc(p.since)+`<br><small class="muted">${p.days} days · ${p.trades} trades</small>`:'<span class="muted">No trades yet</span>'}</td>${cell(p.return_pct)}${cell(p.nifty500_pct)}${cell(p.backtest_pace_pct)}</tr>`}).join('');
  const years=[...new Set(d.baskets.flatMap(x=>Object.keys(x.backtest?.years||{})))].sort();
  document.getElementById('yearHead').innerHTML=`<tr><th>Basket</th>${years.map(y=>`<th>${y}</th>`).join('')}</tr>`;
  const hold=b.ew_years||{};
  document.getElementById('years').innerHTML=`<tr><td><strong>Equal-weight hold</strong></td>${years.map(y=>cell(hold[y])).join('')}</tr>`+
   d.baskets.filter(x=>x.backtest?.years).map(x=>`<tr><td>${esc(title(x.name))}</td>${years.map(y=>cell(x.backtest.years[y])).join('')}</tr>`).join('');
- document.getElementById('candidates').innerHTML=(d.candidates||[]).map(c=>`<tr><td><strong>${esc(c.title)}</strong><br><small class="muted">${esc(c.family||'')}</small></td>${cell(c.cagr)}${cell(c.h1)}${cell(c.h2)}<td>${c.maxdd==null?'—':'−'+c.maxdd+'%'}</td>${cell(c.top200)}
-  <td>${c.passed?'<span class="tag up">Passed every check</span>':`<span class="tag down">Failed</span><br><small class="muted">${esc((c.failed||[]).join(', '))}</small>`}</td><td>${c.basket?esc(title(c.basket)):`<small class="muted">${esc(c.why_not||'')}</small>`}</td></tr>`).join('');
+ document.getElementById('candidates').innerHTML=(d.candidates||[]).map(c=>`<tr><td class="wrap"><strong>${esc(c.title)}</strong><small>${esc(c.family||'')}</small></td>${cell(c.cagr)}${cell(c.h1)}${cell(c.h2)}<td>${c.maxdd==null?'—':'−'+c.maxdd+'%'}</td>${cell(c.top200)}
+  <td class="wrap">${c.passed?'<span class="tag up">Passed every check</span>':`<span class="tag down">Failed</span><small>${esc((c.failed||[]).join(', '))}</small>`}</td><td class="wrap">${c.basket?esc(title(c.basket)):`<small>${esc(c.why_not||'')}</small>`}</td></tr>`).join('');
  document.getElementById('method').innerHTML=(d.method||[]).map(m=>`<li>${esc(m)}</li>`).join('');
 }
 load();

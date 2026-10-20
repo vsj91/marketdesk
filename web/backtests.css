@@ -1,0 +1,4 @@
+/* Backtests page: full-height report tables with wrapping text cells (the shared .table-scroll caps height for stock lists). */
+.table-scroll.report{max-height:none}
+.report td.wrap{white-space:normal;text-align:left;min-width:190px;max-width:300px}
+.report td.wrap small{line-height:1.35}
