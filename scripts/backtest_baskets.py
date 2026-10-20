@@ -17,6 +17,7 @@ def load(path):
     db=sqlite3.connect(f'file:{path}?mode=ro',uri=True);db.row_factory=sqlite3.Row
     bars=collections.defaultdict(list)
     for r in db.execute('SELECT symbol,ts,open,high,low,close,volume FROM candles WHERE '+symbol_filter(db)+' ORDER BY symbol,ts'):bars[r['symbol']].append(dict(r))
+    load.sectors=dict(db.execute('SELECT symbol,sector FROM instruments'))
     return bars
 
 def prepare(bars):
@@ -25,7 +26,7 @@ def prepare(bars):
     for s,rows in bars.items():
         for n in range(len(rows)):
             st=stats(rows[max(0,n-299):n+1])
-            if st:signals[rows[n]['ts'][:10]][s]=st
+            if st:st['sector']=getattr(load,'sectors',{}).get(s);signals[rows[n]['ts'][:10]][s]=st
     return signals,by_day
 
 def run(basket,signals,by_day,capital=100000,start=None):

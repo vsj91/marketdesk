@@ -122,6 +122,9 @@ class Handler(BaseHTTPRequestHandler):
             if url.path=='/api/signal-baskets':
                 from .signal_baskets.report import snapshot as signal_snapshot
                 return self.send(signal_snapshot(app.path))
+            if url.path=='/api/backtests':
+                from .backtest_report import report as backtest_report
+                return self.send(backtest_report(app.path))
             if url.path=='/api/paper':return self.send({'portfolios':portfolios(app.path),'automation':app.auto.snapshot()})
             if url.path=='/api/stock':
                 symbol=q.get('symbol',[''])[0]

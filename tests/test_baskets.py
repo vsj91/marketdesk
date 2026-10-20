@@ -37,6 +37,23 @@ class BasketRuleTests(unittest.TestCase):
         self.assertIn('12-1',rebalance_exit('momentum12','A',{**strong['FAST'],'momentum12':-.1},['A']))
         self.assertIsNone(rebalance_exit('momentum12','FAST',strong['FAST'],['FAST']))
 
+    def test_research_basket_rankings(self):
+        gapped=candles(.002,count=200);last=gapped[-1];prior=gapped[-2]['close']
+        gapped[-1]=dict(last,open=prior*1.05,high=prior*1.08,low=prior*1.04,close=prior*1.07,volume=200000*4)
+        quiet=stats(candles(.002,count=200));g=stats(gapped)
+        self.assertEqual(ranking('gap_drift',{'GAP':g,'QUIET':quiet}),['GAP'])
+        self.assertEqual(ranking('gap_drift',{'GAP':dict(g,close=g['open']*.99)}),[])   # faded below its open
+        self.assertIn('Held 60',daily_exit('gap_drift',g,60));self.assertIsNone(daily_exit('gap_drift',g,59))
+        self.assertIsNone(daily_exit('momentum',g,500))
+        night,day=candles(.002,count=200),candles(.002,count=200)
+        for i in range(1,200):
+            night[i]['open']=night[i-1]['close']*1.002;day[i]['open']=day[i-1]['close']*.999
+        self.assertEqual(ranking('overnight',{'NIGHT':stats(night),'DAY':stats(day)}),['NIGHT'])
+        fast,slow=stats(candles(.004)),stats(candles(.001))
+        sigs={**{f'A{i}':dict(fast,sector='Alpha') for i in range(5)},**{f'B{i}':dict(slow,sector='Beta') for i in range(5)},
+              **{f'C{i}':dict(slow,sector='Gamma') for i in range(4)},'D0':dict(fast,sector='Delta')}
+        self.assertEqual(set(ranking('sector_rotation',sigs)),{f'A{i}' for i in range(5)}|{f'B{i}' for i in range(5)})  # sectors under 5 stocks skipped
+
     def test_only_unverified_large_moves_break_history(self):
         rows=candles(.002)
         for r in rows[170:]:
@@ -106,7 +123,7 @@ class BasketEngineTests(unittest.TestCase):
         self.assertEqual(sold,['No valid completed history at monthly review'])
     def test_new_baskets_cap_round_trip_fees_at_one_and_a_half_percent(self):
         with connect(self.path) as db:cfg=get_state(db,'auto_config')
-        for name in ('lowvol','high52','momentum12','smart_beta','risk_parity','stat_arb','regime','news_momentum','news_catalyst'):
+        for name in ('lowvol','high52','momentum12','overnight','gap_drift','sector_rotation','smart_beta','risk_parity','stat_arb','regime','news_momentum','news_catalyst'):
             self.assertEqual(cfg[name]['max_round_trip_fee_pct'],1.5,name)
         self.assertEqual(cfg['ema_price_action']['max_round_trip_fee_pct'],1.)
     def test_retired_basket_cannot_be_enabled_and_never_trades(self):

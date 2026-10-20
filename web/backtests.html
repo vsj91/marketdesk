@@ -1,0 +1,15 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MarketDesk · Backtests</title><link rel="stylesheet" href="/style.css"><script src="/backtests.js" defer></script></head><body>
+<header><a class="brand" href="/"><span>MarketDesk</span></a><div class="topright"><span class="paper-label">Paper only</span></div></header>
+<main><a href="/">← Dashboard</a>
+<div class="heading"><div><p class="eyebrow">PAPER ONLY · RESEARCH</p><h1>Backtests vs paper trading</h1><p>What each basket's rules did on past data, next to what the same rules are doing now with paper money.</p></div><div class="asof" id="asof">Loading…</div></div>
+<div id="missing" class="note" hidden></div>
+<section class="stats" id="bench"></section>
+<h2>Every basket</h2>
+<p class="muted">Backtest columns come from the saved research run. Paper columns are live: equity at current marks, from each basket's first trade. <strong>Backtest pace</strong> is the backtest's yearly return compounded over the same number of days, so a short paper record is compared like for like. A few weeks of paper trading cannot confirm or reject a backtest; the gap only becomes meaningful after many months.</p>
+<div class="table-scroll"><table><thead><tr><th>Basket</th><th>Backtest window</th><th>Backtest a year</th><th>Hold a year</th><th>Worst fall</th><th>Trades</th><th>Verdict</th><th>Paper since</th><th>Paper return</th><th>Nifty 500, same days</th><th>Backtest pace, same days</th></tr></thead><tbody id="rows"><tr><td colspan="11" class="muted">Loading…</td></tr></tbody></table></div>
+<h2>Year by year</h2><p class="muted">Backtest return per calendar year (partial first and last years).</p>
+<div class="table-scroll"><table><thead id="yearHead"></thead><tbody id="years"></tbody></table></div>
+<h2>All strategies tested</h2><p class="muted">Every candidate from the ten-year research, including those not turned into baskets, with the checks each one failed.</p>
+<div class="table-scroll"><table><thead><tr><th>Strategy</th><th>Return a year</th><th>2018–21</th><th>2022–26</th><th>Worst fall</th><th>Top 200 only</th><th>Result</th><th>Basket</th></tr></thead><tbody id="candidates"></tbody></table></div>
+<h2>How these were tested</h2><ul id="method"></ul>
+</main></body></html>

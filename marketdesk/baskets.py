@@ -1,4 +1,4 @@
-"""Live paper engine for the additional baskets (momentum, 12-1 momentum, low volatility, 52-week high, mean reversion).
+"""Live paper engine for the additional baskets (momentum, 12-1 momentum, low volatility, overnight momentum, gap-up drift, sector rotation, 52-week high, mean reversion).
 
 Rules live in basket_rules and are shared with scripts/backtest_baskets.py. Orders go through
 paper.trade with an automatic guard, so the same fresh-quote, depth, data-quality, universe and
@@ -55,11 +55,14 @@ class BasketEngine:
             groups=collections.defaultdict(list)
             for r in db.execute('SELECT symbol,ts,open,high,low,close,volume FROM candles WHERE '+symbol_filter(db,include_holdings=True)+' AND substr(ts,1,10)<? ORDER BY symbol,ts',(today,)):
                 groups[r['symbol']].append(dict(r))
+            sectors=dict(db.execute('SELECT symbol,sector FROM instruments'))
             self.bad={r[0] for r in db.execute("SELECT symbol FROM quality WHERE json_extract(report,'$.trader_ready')=0")}
             self.bad.update(r[0] for r in db.execute("SELECT DISTINCT symbol FROM issues WHERE kind IN ('candle','identity')"))
             # Large moves NSE verified as ordinary (the same proofs the data audit accepts) are genuine, not breaks.
             moves={s:confirmed(db,s,rows[-300:],clock) for s,rows in groups.items() if jumps(rows[-300:])}
         signals={s:stats(rows[-300:],moves.get(s,())) for s,rows in groups.items()}
+        for s,sig in signals.items():
+            if sig:sig['sector']=sectors.get(s)                     # sector rotation groups by instrument sector
         latest=max((s['as_of'] for s in signals.values() if s),default='')
         # Only signals from the latest completed session are current; older ones are stale.
         self.signals={k:s for k,s in signals.items() if s and s['as_of']==latest}
