@@ -43,7 +43,7 @@ function renderQuant(){
  const open=new Set(Array.from(root.querySelectorAll('details[open]')).map(el=>el.dataset.disclosure));
  const total=list.reduce((a,b)=>a+b.nav,0),start=list.reduce((a,b)=>a+b.capital,0);
  $('quantTotal').innerHTML=`<div class="muted">Daily baskets total</div><div class="big">${inr(total)}</div><div class="${tone(total-start)}">${signedInr(total-start)} · ${pct((total-start)/start*100)}</div>`;
- $('quantGrid').innerHTML=list.map(quantCard).join('');
+ $('quantGrid').innerHTML=[...list].sort((a,b)=>(b.nav/b.capital)-(a.nav/a.capital)).map(quantCard).join('');   // best return first
  $('quantGrid').querySelectorAll('[data-width]').forEach(el=>el.style.width=el.dataset.width+'%');
  $('quantDetail').innerHTML=quantDetail(list.find(b=>b.basket===quantPick),open);
  root.querySelectorAll('[data-quant]').forEach(card=>{const pick=()=>{quantPick=card.dataset.quant;try{localStorage.setItem('marketdesk-quant',quantPick);}catch{}renderQuant();};card.onclick=pick;card.onkeydown=e=>{if((e.key==='Enter'||e.key===' ')&&e.target===card){e.preventDefault();pick();}};});

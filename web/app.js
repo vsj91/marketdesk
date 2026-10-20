@@ -254,7 +254,9 @@ function renderPaper(){
  const scrolls=new Map(Array.from(root.querySelectorAll('[data-scroll]')).map(el=>[el.dataset.scroll,[el.scrollLeft,el.scrollTop]]));
  const total=list.reduce((a,p)=>a+(p.equity??NaN),0),start=list.reduce((a,p)=>a+p.initial_cash,0),live=list.filter(p=>auto.config[p.name]?.enabled).length,exitsOnly=list.filter(p=>auto.config[p.name]?.enabled&&auto.config[p.name]?.exits_only).length;
  $('paperTotal').innerHTML=Number.isFinite(total)?`<div class="muted">${live} of ${list.length} on${exitsOnly?` · ${exitsOnly} exits only`:''}</div><div class="big">${inr(total)}</div><div class="${tone(total-start)}">${signedInr(total-start)} · ${pct((total-start)/start*100)}</div>`:'';
- $('basketGrid').innerHTML=list.map(p=>basketCard(p,auto)).join('');
+ // Best total return first, so the leaders are easy to spot; baskets without a value yet go last, ties keep their order.
+ const ret=p=>p.pnl!=null&&p.initial_cash?p.pnl/p.initial_cash:-Infinity;
+ $('basketGrid').innerHTML=list.map((p,i)=>[p,i]).sort((a,b)=>ret(b[0])-ret(a[0])||a[1]-b[1]).map(([p])=>basketCard(p,auto)).join('');
  $('basketGrid').querySelectorAll('[data-width]').forEach(el=>el.style.width=el.dataset.width+'%');
  if(typeof quantData!=='undefined'&&quantData&&typeof renderQuant==='function')renderQuant();
  const current=list.find(p=>p.name===basket);$('basketDetail').innerHTML=current?basketDetail(current,auto,openDetails):'<div class="empty">No baskets.</div>';
