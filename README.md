@@ -33,13 +33,7 @@ The supplied token is an Upstox Analytics token, which supports read-only fundam
 
 ## Data and repair
 
-The starting inputs were copied from:
-
-- `/Users/vinayjain/Documents/Codex/2026-10-09/root-cause-investigation-low-data-valid/outputs/plansip_fetch_data.py`
-- The adjacent `RAW_CANDLES`, `RAW_FUNDAMENTALS`, `VALID_STOCK_INPUT.csv`, and `complete (1).json`.
-- The adjacent `stock_dashboard.html` is the design reference. Its original file is unchanged.
-
-The original project and exports are untouched. `marketdesk/provider.py` is the copied and corrected collector. Corrections include rejecting JSON API errors returned with HTTP 200, validating NSE common-equity instruments against the master, portable paths, atomic export writes, and preserving all merged candle windows in JSON.
+The starting inputs were copied from an earlier standalone collector (`plansip_fetch_data.py`) and its exports: `RAW_CANDLES`, `RAW_FUNDAMENTALS`, `VALID_STOCK_INPUT.csv` and `complete (1).json`. Its `stock_dashboard.html` was the design reference. MarketDesk no longer reads any of those originals. `marketdesk/provider.py` is the copied and corrected collector. Corrections include rejecting JSON API errors returned with HTTP 200, validating NSE common-equity instruments against the master, portable paths, atomic export writes, and preserving all merged candle windows in JSON.
 
 Data lives in `data/marketdesk.sqlite3` (SQLite WAL), with raw imports under `data/imports/`. All runtime data, prior raw-response archives, credentials and virtual environments are excluded from Git. A code-only clone will therefore need a data copy or a fresh import.
 

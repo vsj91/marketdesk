@@ -2,7 +2,7 @@
 
 ## Batch 1 — lease-liability pattern (15 stocks)
 
-**Completed:** 2026-10-18. Backup: `/Users/vinayjain/Documents/Codex/2026-10-18/rader-489-500-investor-355-500/work/marketdesk-before-batch1.sqlite3`.
+**Completed:** 2026-10-18. Pre-change database snapshot not retained.
 
 | Stocks | Result | Evidence / reason |
 |---|---|---|
@@ -26,7 +26,7 @@ The duplicate guard now keys re-use on the current parser revision and verified 
 
 ## Follow-up 5 — two-stock raw-page trace, 2026-10-18
 
-The earlier statements that the diagnosis was complete and missing single totals were the dominant root cause were not established. Both inspected consolidated pages print lease components, basis and dates. The full raw-page report, before/after executed-gate traces, source records and corrected 30-stock classifications are under `/Users/vinayjain/Documents/Codex/2026-10-18/rader-489-500-investor-355-500/outputs/followup5/`.
+The earlier statements that the diagnosis was complete and missing single totals were the dominant root cause were not established. Both inspected consolidated pages print lease components, basis and dates. The full raw-page report, before/after executed-gate traces, source records and corrected 30-stock classifications are under `data/research-archive/lease-repair-2026-10-18/followup5/`.
 
 - **Backup:** SQLite online backup at `work/followup5/before.sqlite3` in the task workspace, before writes.
 - **ASHOKLEY:** official NSE PDF fetched HTTP 200. PDF page 225 (printed 220) shows non-current 202.37 + current 83.53 = **285.90 crore**. Fixed dotted note suffix `1.13a`, which prevented the cash anchor from being recognized. Cash 6,280.89 and total equity 18,546.24 now both match. Lease value applied live with the full source record and arithmetic. Borrowings remain 63,935.70 selected versus 63,649.80 printed, so the source conflict is retained and Investor eligibility stays blocked.
@@ -324,10 +324,10 @@ Live counts: Trader 490; Investor 372. Categories: {"Fixable": 91, "Needs source
 
 All 54 stocks attempted; 11 lease totals accepted, 43 lease inputs still blocked. Investor 363→372; Trader 490 unchanged. Numeric audit 13/13; tests 402 passed. Rules unchanged; banks/insurers/REITs parked. The final diagnostic selection prefers the intended period/basis and the layout with the most matching anchors; it supersedes the initial batch labels.
 
-Final manifest: /Users/vinayjain/Documents/Codex/2026-10-18/rader-489-500-investor-355-500/outputs/followup7/all-lease-results.json
-Latest per-stock table: /Users/vinayjain/Documents/Codex/2026-10-18/rader-489-500-investor-355-500/outputs/followup7/LEASE_STOCK_RESULTS.md
-Live verification: /Users/vinayjain/Documents/Codex/2026-10-18/rader-489-500-investor-355-500/outputs/followup7/verification.json
-Backup: /Users/vinayjain/Documents/Codex/2026-10-18/rader-489-500-investor-355-500/work/followup7/before.sqlite3
+Final manifest: data/research-archive/lease-repair-2026-10-18/followup7/all-lease-results.json
+Latest per-stock table: data/research-archive/lease-repair-2026-10-18/followup7/LEASE_STOCK_RESULTS.md
+Live verification: data/research-archive/lease-repair-2026-10-18/followup7/verification.json
+Pre-change database snapshot not retained
 
 Resume with the 43 rejected rows in all-lease-results.json, using traces/<symbol>/gates.json and its page text files. FIRSTCRY/PARADEEP leases are already accepted; do not treat them as missing. Do not repeat settled acceptances or alter parked sectors.
 
@@ -399,7 +399,7 @@ Live counts: Trader 490; Investor 377. Categories: {"Fixable": 86, "Needs source
 
 All 43 remaining lease stocks tried in batches 15/15/13. Five accepted: AIIL 2.62, GVT&D 24.00, NUVAMA 195.58, GRSE 37.3978, PTCIL 6.3783 crore. Investor 372→377; Trader 490 unchanged. 38 lease stocks remain blocked. Tests 424 passed; numeric source audit 5/5. Rules unchanged; sectors parked; protected data hashes match.
 
-Resume manifest: /Users/vinayjain/Documents/Codex/2026-10-18/rader-489-500-investor-355-500/outputs/followup8/all-lease-results.json (accepted=false rows only). Exact gates/text: /Users/vinayjain/Documents/Codex/2026-10-18/rader-489-500-investor-355-500/outputs/followup8/traces. Broader note review: /Users/vinayjain/Documents/Codex/2026-10-18/rader-489-500-investor-355-500/outputs/followup8/lease-note-gates.json. Do not repeat accepted values, infer zero from dashes, widen anchor tolerance, or unpark sectors. Backup: /Users/vinayjain/Documents/Codex/2026-10-18/rader-489-500-investor-355-500/work/followup8/before.sqlite3.
+Resume manifest: data/research-archive/lease-repair-2026-10-18/followup8/all-lease-results.json (accepted=false rows only). Exact gates/text: data/research-archive/lease-repair-2026-10-18/followup8/traces. Broader note review: data/research-archive/lease-repair-2026-10-18/followup8/lease-note-gates.json. Do not repeat accepted values, infer zero from dashes, widen anchor tolerance, or unpark sectors. Pre-change database snapshot not retained.
 
 ## Follow-up 9 batch-1
 
@@ -465,7 +465,7 @@ Live counts: Trader 490; Investor 379. Categories: {"Fixable": 84, "Needs source
 
 38 distinct lease stocks retried in batches 15/15/8; HUDCO additionally rerun after subtotal fix. Accepted SUNDARMFIN 154.24 and M&MFIN 487.29 crore. Investor 377→379; Trader 490 unchanged. 36 lease stocks remain blocked. HUDCO anchor now passes but its note context fails. Parser revision 34; rule revision 2 unchanged. 429 tests pass; new numeric source audit 2/2; protected hashes and parked fundamentals unchanged.
 
-Resume manifest: /Users/vinayjain/Documents/Codex/2026-10-18/rader-489-500-investor-355-500/outputs/followup9/all-lease-results.json (accepted=false only). Exact traces: /Users/vinayjain/Documents/Codex/2026-10-18/rader-489-500-investor-355-500/outputs/followup9/traces. Fresh alternate retrievals: /Users/vinayjain/Documents/Codex/2026-10-18/rader-489-500-investor-355-500/outputs/followup9/alternate-source-attempts.json. Basis text review: /Users/vinayjain/Documents/Codex/2026-10-18/rader-489-500-investor-355-500/outputs/followup9/basis-whole-report.json. Do not repeat accepted repairs, use management notes as auditor basis evidence, turn dashes into zero, widen anchor tolerances or unpark sectors. Backup: /Users/vinayjain/Documents/Codex/2026-10-18/rader-489-500-investor-355-500/work/followup9/before.sqlite3.
+Resume manifest: data/research-archive/lease-repair-2026-10-18/followup9/all-lease-results.json (accepted=false only). Exact traces: data/research-archive/lease-repair-2026-10-18/followup9/traces. Fresh alternate retrievals: data/research-archive/lease-repair-2026-10-18/followup9/alternate-source-attempts.json. Basis text review: data/research-archive/lease-repair-2026-10-18/followup9/basis-whole-report.json. Do not repeat accepted repairs, use management notes as auditor basis evidence, turn dashes into zero, widen anchor tolerances or unpark sectors. Pre-change database snapshot not retained.
 
 ## Follow-up 10 batch-1
 
