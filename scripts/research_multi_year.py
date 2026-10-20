@@ -275,14 +275,19 @@ def investor(start='2024-06-14'):
 # ---- Summary for the Backtests page -------------------------------------------------------------------
 
 RULE_BASKETS={'ref_momentum':'momentum','ref_lowvol':'lowvol','ref_high52':'high52','mom121':'momentum12','alpha':'alpha',
-    'overnight':'overnight','gap_drift':'gap_drift','sector':'sector_rotation'}
+    'overnight':'overnight','gap_drift':'gap_drift','sector':'sector_rotation','clenow':'clenow'}
 TITLES={'ref_momentum':'Momentum 6-1 (existing)','ref_lowvol':'Low volatility (existing)','ref_high52':'52-week high (retired)','mom121':'Momentum 12-1',
     'alpha':'Alpha (NSE Alpha-style)','volmom':'Volatility-adjusted momentum (NSE Momentum 30-style)','resmom':'Residual momentum','fip':'Smooth momentum',
     'sector':'Sector rotation','overnight':'Overnight momentum','volume':'Volume surge','gap_drift':'Gap-up drift','pullback':'Pullback in market leaders',
-    'seasonal':'Same-month seasonality','lowmax':'Low max-return (lottery avoidance)','strev':'Short-term reversal, large caps'}
+    'seasonal':'Same-month seasonality','lowmax':'Low max-return (lottery avoidance)','strev':'Short-term reversal, large caps',
+    'minervini':'Minervini trend template','clenow':'Stocks on the Move (Clenow)','conservative':'Conservative Formula, price only',
+    'turtle':'Turtle breakout 55/20','connors':'Connors RSI-2 dip buying','dual_mom':'Dual Momentum (Antonacci)'}
 FAMILIES={'mom121':'Jegadeesh-Titman','alpha':'one-year Jensen alpha vs Nifty 500','volmom':'6- and 12-month return over volatility','resmom':'Blitz-Huij-Martens',
     'fip':'Da-Gurun-Warachka frog-in-the-pan','sector':'Moskowitz-Grinblatt','overnight':'Lou-Polk-Skouras','volume':'Gervais-Kaniel-Mingelgrin',
-    'gap_drift':'post-announcement drift proxy','pullback':'leaders at the 50-day average','seasonal':'Heston-Sadka','lowmax':'Bali-Cakici-Whitelaw','strev':'Jegadeesh one-month reversal'}
+    'gap_drift':'post-announcement drift proxy','pullback':'leaders at the 50-day average','seasonal':'Heston-Sadka','lowmax':'Bali-Cakici-Whitelaw','strev':'Jegadeesh one-month reversal',
+    'minervini':'SEPA trend template + IBD-style relative strength, 8% stop','clenow':'90-day regression slope x R squared, index filter',
+    'conservative':'van Vliet-Blitz: 12-1 momentum in the calmer half','turtle':'Dennis Turtles: 55-day breakout, 20-day low exit, 2 ATR stop',
+    'connors':'RSI(2) under 5 above the 200-day average, exit above the 5-day average','dual_mom':'12-1 momentum, cash when the index trails T-bills'}
 TWINS={'alpha':'Added by request as a twin of Momentum 12-1, despite failing the uniqueness rule'}
 OVERRIDES={'strev':'Same idea as Stat-arb and the retired Mean reversion: buying sharp dips in rising large caps',
     'seasonal':'Needs 5+ years of monthly history; the app stores about 18 months'}

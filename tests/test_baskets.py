@@ -4,7 +4,7 @@ from datetime import datetime,timedelta,timezone
 from pathlib import Path
 from unittest.mock import patch
 from marketdesk.autotrading import AutoTrading,IST
-from marketdesk.basket_rules import stats,ranking,rebalance_exit,daily_exit,stop_exit,rsi
+from marketdesk.basket_rules import stats,ranking,exit_ranking,rebalance_exit,daily_exit,stop_exit,rsi,clenow_score
 from marketdesk.paper import init_paper
 from marketdesk.storage import init,connect,set_state,get_state
 from support import seed_quality,fixture_book
@@ -17,6 +17,29 @@ def candles(growth,count=200,end=datetime(2026,10,9).date()):
     return [dict(ts=d.isoformat()+'T00:00:00+05:30',open=100*(1+growth)**n,high=100*(1+growth)**n*1.01,low=100*(1+growth)**n*.99,close=100*(1+growth)**n,volume=200000) for n,d in enumerate(reversed(days))]
 
 class BasketRuleTests(unittest.TestCase):
+    def test_clenow_scores_steady_climbs_and_buys_only_in_a_rising_market(self):
+        self.assertAlmostEqual(clenow_score([100*1.002**n for n in range(90)]),1.002**250-1)   # a straight line: R squared is 1
+        self.assertIsNone(clenow_score([100.]*89))
+        days=[r['ts'][:10] for r in candles(0,count=260)]
+        rising={d:1000+i for i,d in enumerate(days)};falling={d:2000-i for i,d in enumerate(days)}
+        def jumpy(growth):
+            rows=candles(growth,count=260)
+            for i,r in enumerate(rows):
+                for k in ('open','high','low','close'):r[k]*=1.04 if i%2 else .96       # same trend, 8% swings
+            return rows
+        sig=lambda bench:{'STEADY':stats(candles(.002,count=260),bench=bench),'JUMPY':stats(jumpy(.002),bench=bench),'FALL':stats(candles(-.002,count=260),bench=bench)}
+        up=sig(rising)
+        self.assertGreater(up['STEADY']['clenow'],up['JUMPY']['clenow']);self.assertTrue(up['STEADY']['index_up'])
+        self.assertEqual(ranking('clenow',up),['STEADY','JUMPY'])                 # falling stock excluded
+        self.assertEqual(ranking('clenow',sig(falling)),[])                      # Nifty 500 below its 200-day average
+        self.assertEqual(ranking('clenow',sig({d:v for d,v in rising.items() if d!=days[-1]})),[])   # index close missing: no buys
+        gap=candles(.002,count=260);gap[-30]=dict(gap[-30],close=gap[-30]['close']*1.2)
+        self.assertNotIn('GAP',ranking('clenow',{**up,'GAP':stats(gap,bench=rising)}))   # 15%+ one-day move in 90 sessions
+        self.assertIsNone(stop_exit('clenow',100.,1.))                            # no per-stock stop, as published
+        self.assertIsNone(rebalance_exit('clenow','STEADY',up['STEADY'],exit_ranking('clenow',up)))
+        self.assertIn('100-day',rebalance_exit('clenow','STEADY',{**up['STEADY'],'close':up['STEADY']['dma100']*.99},['STEADY']))
+        self.assertIn('top 100',rebalance_exit('clenow','STEADY',up['STEADY'],[f'X{i}' for i in range(100)]+['STEADY']))
+        self.assertEqual(exit_ranking('clenow',sig(falling))[0],'STEADY')         # exits keep ranking in a falling market
     def test_rankings_follow_each_basket_definition(self):
         signals={'FAST':stats(candles(.004)),'SLOW':stats(candles(.001)),'FALL':stats(candles(-.002))}
         self.assertEqual(ranking('momentum',signals),['FAST','SLOW'])  # falling stock fails absolute momentum
@@ -138,7 +161,7 @@ class BasketEngineTests(unittest.TestCase):
         self.assertEqual(sold,['No valid completed history at monthly review'])
     def test_new_baskets_cap_round_trip_fees_at_one_and_a_half_percent(self):
         with connect(self.path) as db:cfg=get_state(db,'auto_config')
-        for name in ('lowvol','high52','momentum12','alpha','overnight','gap_drift','sector_rotation','smart_beta','risk_parity','stat_arb','regime','news_momentum','news_catalyst'):
+        for name in ('lowvol','high52','momentum12','alpha','clenow','overnight','gap_drift','sector_rotation','smart_beta','risk_parity','stat_arb','regime','news_momentum','news_catalyst'):
             self.assertEqual(cfg[name]['max_round_trip_fee_pct'],1.5,name)
         self.assertEqual(cfg['ema_price_action']['max_round_trip_fee_pct'],1.)
     def test_retired_basket_cannot_be_enabled_and_never_trades(self):

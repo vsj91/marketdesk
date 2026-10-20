@@ -100,6 +100,24 @@ def indicators(P):
     I['ret5']=C/C.shift(5)-1;I['ret21']=C/C.shift(21)-1;I['max21']=r.rolling(21,min_periods=21).max()
     I['gap']=O/C.shift(1)-1;I['gapvol']=V/V.shift(1).rolling(50,min_periods=40).mean()
     I['mkt_up']=P['index']>P['index'].rolling(200,min_periods=200).mean()
+    # Practitioner rules, each with its author's published parameters (fixed before any result was seen).
+    I['dma150']=C.rolling(150,min_periods=150).mean();I['dma100']=C.rolling(100,min_periods=100).mean()
+    I['low52']=L.rolling(252,min_periods=252).min();I['hi52']=H.rolling(252,min_periods=252).max()
+    I['rs_ibd']=.4*(C/C.shift(63)-1)+.2*(C/C.shift(126)-1)+.2*(C/C.shift(189)-1)+.2*(C/C.shift(252)-1)   # O'Neil/IBD-style weighting
+    y=np.log(C);t=pd.Series(np.arange(len(C),dtype=float),index=C.index);n=90
+    St,Stt=t.rolling(n).sum(),(t*t).rolling(n).sum();Sy,Syy=y.rolling(n,min_periods=n).sum(),(y*y).rolling(n,min_periods=n).sum()
+    Sty=y.mul(t,axis=0).rolling(n,min_periods=n).sum();cov=Sty.mul(n)-Sy.mul(St,axis=0);vt=n*Stt-St*St
+    slope=cov.div(vt,axis=0);r2=cov.pow(2).div((n*Syy-Sy*Sy).mul(vt,axis=0))
+    I['clenow']=(np.exp(slope*250)-1)*r2                                   # Clenow: annualized regression slope x R squared
+    I['bigmove90']=r.abs().rolling(90,min_periods=90).max()
+    I['vol250']=lr.rolling(250,min_periods=200).std()
+    tr=pd.concat({k:v for k,v in (('a',H-L),('b',(H-C.shift(1)).abs()),('c',(L-C.shift(1)).abs()))}).groupby(level=1).max().reindex(C.index)
+    I['atr20']=tr.rolling(20,min_periods=20).mean()/C
+    I['brk55']=C>=H.shift(1).rolling(55,min_periods=55).max();I['low20']=C<L.shift(1).rolling(20,min_periods=20).min()
+    d=C.diff();up=d.clip(lower=0).ewm(alpha=.5,adjust=False).mean();dn=(-d).clip(lower=0).ewm(alpha=.5,adjust=False).mean()
+    I['rsi2']=100-100/(1+up/dn.replace(0,np.nan));I['rsi2']=I['rsi2'].where(dn>0,100.).where(d.notna())
+    I['dma5']=C.rolling(5,min_periods=5).mean()
+    I['index_abs']=(P['index']/P['index'].shift(252)-1)>.065          # Antonacci: market 12-month return above T-bills (~6.5% a year)
     ends=C.groupby(C.index.str[:7]).last();mr=ends/ends.shift(1)-1;seas=pd.DataFrame(index=mr.index,columns=C.columns,dtype=float)
     for ym in mr.index:                                                   # Heston-Sadka: same calendar month, 5-10 prior years
         prior=[p for p in (f'{int(ym[:4])-k}{ym[4:]}' for k in range(1,11)) if p in mr.index]
@@ -134,14 +152,38 @@ def candidates(P,I,elig):
      'seasonal':dict(score=I['seasonal'].where(elig),keep=30,stop=.20),
      'lowmax':dict(score=(-I['max21']).where(elig),keep=30,stop=.15),
      'strev':dict(score=(-I['ret21']).where(elig&big100),keep=30,stop=.15),
+     **practitioners(P,I,elig),
     }
 
-def simulate(P,I,score,exit_score=None,n=10,keep=30,stop=.20,max_hold=None,slip=.0025,mkt=False,start=START,end='9999',monthly=True,capital=1e5):
+def practitioners(P,I,elig):
+    """Well-known trader/investor rules, price-only, as published (one shot, no tuning on these backtests)."""
+    C=P['c'];T=I['tradable'];rows=lambda s:pd.DataFrame({c:s for c in C.columns},index=C.index)
+    template=(C>I['dma150'])&(C>I['dma200'])&(I['dma150']>I['dma200'])&(I['dma200']>I['dma200'].shift(21))&(I['dma50']>I['dma150'])&(C>I['dma50'])&(
+        C>=1.3*I['low52'])&(C>=.75*I['hi52'])                                     # Minervini trend template
+    rs=I['rs_ibd'].where(T).rank(axis=1,pct=True)
+    clean=I['bigmove90']<.15;mkt=rows(I['mkt_up'])
+    calm=I['vol250'].where(T).rank(axis=1,pct=True)<=.5
+    month_end=pd.Series(C.index.str[:7],index=C.index);month_end=month_end!=month_end.shift(-1)
+    absm=rows(I['index_abs'])
+    return {
+     'minervini':dict(score=I['rs_ibd'].where(elig&template&(rs>=.7)),keep=30,stop=.08),
+     'clenow':dict(score=I['clenow'].where(elig&mkt&clean&(C>I['dma100'])&(I['clenow']>0)),exit_score=I['clenow'].where(clean&(C>I['dma100'])),keep=100,stop=1.),
+     'conservative':dict(score=I['mom121'].where(elig&calm&(I['mom121']>0)),keep=30,stop=.20),
+     'turtle':dict(score=I['mom61'].where(elig&I['brk55']),exit_when=I['low20'],monthly=False,stop=(2*I['atr20']).clip(upper=.3)),
+     'connors':dict(score=(-I['rsi2']).where(elig&(I['rsi2']<5)),exit_when=C>I['dma5'],monthly=False,stop=1.),
+     'dual_mom':dict(score=I['mom121'].where(elig&(I['mom121']>0)&absm),exit_when=rows(month_end)&~absm,keep=30,stop=.20),
+    }
+
+def simulate(P,I,score,exit_score=None,n=10,keep=30,stop=.20,max_hold=None,slip=.0025,mkt=False,start=START,end='9999',monthly=True,capital=1e5,exit_when=None):
     """score/exit_score: higher is better, NaN is ineligible, read at the prior session's close.
     monthly: holdings outside the top `keep` of exit_score sell at the first session of a month; empty slots
-    refill daily from the top `n`. Otherwise exits are stop and max_hold only. mkt: no buys while Nifty 500 < 200-DMA."""
+    refill daily from the top `n`. Otherwise exits are stop and max_hold only. mkt: no buys while Nifty 500 < 200-DMA.
+    exit_when: boolean frame read at the prior close; True sells at the open. stop: a fraction, or a frame of
+    fractions fixed per position at its entry signal (e.g. 2 x ATR)."""
     O,L,C=P['o'].values,P['l'].values,P['c'].values;cal=list(P['c'].index);cols=list(P['c'].columns);col={s:j for j,s in enumerate(cols)}
     Sv=score.values;Ev=(exit_score if exit_score is not None else score).values;up=I['mkt_up'].values
+    Xv=exit_when.reindex(index=P['c'].index,columns=P['c'].columns).fillna(False).values if exit_when is not None else None
+    Stop=stop.reindex(index=P['c'].index,columns=P['c'].columns).values if isinstance(stop,pd.DataFrame) else None
     days=[(t,d) for t,d in enumerate(cal) if start<=d<=end and t>0]
     cash=float(capital);hold={};trades=[];curve=[];fees=0.;mark={}
     def order(row):
@@ -150,9 +192,10 @@ def simulate(P,I,score,exit_score=None,n=10,keep=30,stop=.20,max_hold=None,slip=
         p=t-1;equity=cash+sum(h['q']*mark.get(s,h['px']) for s,h in hold.items());sells=set()
         if monthly and d[:7]!=cal[p][:7]:sells={s for s in hold if s not in set(order(Ev[p])[:keep])}
         if max_hold:sells|={s for s,h in hold.items() if k-h['k']>=max_hold}
+        if Xv is not None:sells|={s for s in hold if Xv[p,col[s]]}
         sold=set()
         for s in list(hold):
-            o=O[t,col[s]];h=hold[s];level=h['px']*(1-stop)
+            o=O[t,col[s]];h=hold[s];level=h['px']*(1-h['stop'])
             if np.isnan(o):continue
             px=o if s in sells or o<=level else level if L[t,col[s]]<=level else None
             if px is None:continue
@@ -167,7 +210,9 @@ def simulate(P,I,score,exit_score=None,n=10,keep=30,stop=.20,max_hold=None,slip=
                 if q<1:continue
                 v=q*price;f=fee(v,'BUY')
                 if v+f>cash or f+fee(v,'SELL')>v*.015:continue                 # live 1.5% round-trip fee cap
-                cash-=v+f;fees+=f;hold[s]=dict(q=q,px=price,cost=v+f,d=d,k=k)
+                cut=stop if Stop is None else Stop[p,col[s]]
+                if Stop is not None and not cut>0:continue                      # no entry without a measurable stop
+                cash-=v+f;fees+=f;hold[s]=dict(q=q,px=price,cost=v+f,d=d,k=k,stop=cut)
         for s in hold:
             c=C[t,col[s]]
             if not np.isnan(c):mark[s]=c
@@ -193,6 +238,7 @@ def research(only=None,rebuild=False):
     bench={k:dict(full=stats(c),h1=stats(c,*H1),h2=stats(c,*H2)) for k,c in (('ew',ew),('ew_top200',ewL),('nifty500',idx))}
     out=dict(created=time.strftime('%Y-%m-%d %H:%M'),universe_per_year=T.groupby(T.index.str[:4]).mean().sum(axis=1).round().to_dict(),
         share_in_current_nifty500=round(float((T&I['cur500']).sum().sum()/T.sum().sum()),3),bench=bench,results={});curves={}
+    if only and OUT.exists():out['results']=json.loads(OUT.read_text())['results']      # --only updates, never drops, saved results
     print('benchmarks',json.dumps(bench),flush=True)
     for name,spec in base.items():
         if only and name not in only:continue
@@ -214,7 +260,8 @@ def research(only=None,rebuild=False):
             top200=res['top200']['full']['cagr']>bench['ew_top200']['full']['cagr'] and res['top200']['h2']['cagr']>bench['ew_top200']['h2']['cagr'])
         res['failed']=[k for k,v in checks.items() if not v];res['passed']=not res['failed'];out['results'][name]=res
         print(f"{name:13} cagr {b['full']['cagr']:6} h1 {(b['h1'] or {}).get('cagr','-'):>6} h2 {b['h2']['cagr']:6} dd {b['full']['maxdd']:5} trades {b['trades']:4} | top200 {res['top200']['full']['cagr']:6} | "+('PASS' if res['passed'] else 'fail: '+','.join(res['failed'])),flush=True)
-    out['correlation']=pd.DataFrame(curves).corr().round(2).to_dict()
+    if not only:out['correlation']=pd.DataFrame(curves).corr().round(2).to_dict()
+    elif OUT.exists():out['correlation']=json.loads(OUT.read_text()).get('correlation',{})
     OUT.write_text(json.dumps(out,indent=1));print('saved',OUT)
 
 if __name__=='__main__':

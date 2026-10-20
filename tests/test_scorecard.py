@@ -13,7 +13,7 @@ class ScorecardTests(unittest.TestCase):
                 sc=scorecard(db,datetime(2026,10,19,tzinfo=timezone.utc))
         self.assertFalse(sc['ready']);self.assertEqual(sc['met'],1)
         self.assertFalse(next(g for g in sc['shared'] if g['key']=='orders')['met'])
-        self.assertEqual({k:len(v) for k,v in sc['baskets'].items()},{'trader':4,'investor':4,'momentum':4,'lowvol':4,'momentum12':4,'alpha':4,'overnight':4,'gap_drift':4,'sector_rotation':4,'smart_beta':4,'risk_parity':4,'stat_arb':4,'regime':4,'news_momentum':4,'news_catalyst':4,'ema_price_action':4})
+        self.assertEqual({k:len(v) for k,v in sc['baskets'].items()},{'trader':4,'investor':4,'momentum':4,'lowvol':4,'momentum12':4,'alpha':4,'overnight':4,'gap_drift':4,'sector_rotation':4,'clenow':4,'smart_beta':4,'risk_parity':4,'stat_arb':4,'regime':4,'news_momentum':4,'news_catalyst':4,'ema_price_action':4})
     def test_price_gate_needs_enough_clean_sessions(self):
         with tempfile.TemporaryDirectory() as folder:
             path=Path(folder)/'s.db';init(path);init_paper(path)

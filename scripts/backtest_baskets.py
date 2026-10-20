@@ -8,7 +8,7 @@ Limits: today's Nifty 500 membership for the whole history (survivorship bias), 
 import argparse,collections,json,sqlite3,statistics,sys
 from pathlib import Path
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
-from marketdesk.basket_rules import BASKETS,stats,ranking,rebalance_exit,daily_exit,stop_exit
+from marketdesk.basket_rules import BASKETS,stats,ranking,exit_ranking,rebalance_exit,daily_exit,stop_exit
 from marketdesk.execution import charges
 from marketdesk.working_universe import symbol_filter
 SLIP=.0025
@@ -34,17 +34,17 @@ def run(basket,signals,by_day,capital=100000,start=None):
     cash=float(capital);pos={};trades=[];equity=[];prev=None;fees=0.
     for i,day in enumerate(days):
         if prev:
-            sig=signals[prev];order=ranking(basket,sig)
+            sig=signals[prev];order=ranking(basket,sig);keep=exit_ranking(basket,sig)
             review=rule['rebalance']=='monthly' and day[:7]!=prev[:7]
             sells={}
             for s,p in pos.items():
                 if not by_day[s].get(day):continue
-                reason=rebalance_exit(basket,s,sig.get(s),order) if review else daily_exit(basket,sig.get(s),i-p['i'])
+                reason=rebalance_exit(basket,s,sig.get(s),keep) if review else daily_exit(basket,sig.get(s),i-p['i'])
                 if reason:sells[s]=reason
             for s,p in list(pos.items()):
                 bar=by_day[s].get(day)
                 if not bar:continue
-                level=p['cost']/p['qty']*(1-rule['stop_pct']/100);px=None
+                level=p['cost']/p['qty']*(1-rule['stop_pct']/100) if rule['stop_pct'] else 0;px=None
                 if s in sells:px,reason=bar['open'],sells[s]
                 elif bar['open']<=level:px,reason=bar['open'],'stop (gap)'
                 elif bar['low']<=level:px,reason=level,'stop'

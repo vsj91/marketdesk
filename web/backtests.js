@@ -3,7 +3,7 @@ const pct=x=>x==null?'—':(x>0?'+':'')+Number(x).toFixed(1)+'%';
 const tone=x=>x==null||Math.abs(x)<.05?'flat':x>0?'up':'down';
 const cell=x=>`<td class="${tone(x)}">${pct(x)}</td>`;
 const TITLES={trader:'Trader',investor:'Investor',momentum:'Momentum (6-1)',lowvol:'Low volatility',reversion:'Mean reversion',high52:'52-week high',
- momentum12:'Momentum 12-1',alpha:'Alpha',overnight:'Overnight momentum',gap_drift:'Gap-up drift',sector_rotation:'Sector rotation',
+ momentum12:'Momentum 12-1',alpha:'Alpha',clenow:'Stocks on the Move',overnight:'Overnight momentum',gap_drift:'Gap-up drift',sector_rotation:'Sector rotation',
  smart_beta:'Multi-factor',risk_parity:'Risk parity',stat_arb:'Stat-arb',regime:'Regime switching',news_momentum:'AI News Momentum',
  news_catalyst:'AI News Catalyst',ema_price_action:'EMA + Price Action'};
 const title=n=>TITLES[n]||n;

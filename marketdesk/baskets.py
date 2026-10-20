@@ -1,4 +1,4 @@
-"""Live paper engine for the additional baskets (momentum, 12-1 momentum, alpha, low volatility, overnight momentum, gap-up drift, sector rotation, 52-week high, mean reversion).
+"""Live paper engine for the additional baskets (momentum, 12-1 momentum, alpha, Stocks on the Move, low volatility, overnight momentum, gap-up drift, sector rotation, 52-week high, mean reversion).
 
 Rules live in basket_rules and are shared with scripts/backtest_baskets.py. Orders go through
 paper.trade with an automatic guard, so the same fresh-quote, depth, data-quality, universe and
@@ -7,7 +7,7 @@ import collections,math,time,uuid
 from datetime import datetime,timezone
 from .storage import connect,get_state,set_state
 from .sectors import sector_group
-from .basket_rules import BASKETS,RETIRED,stats,ranking,rebalance_exit,daily_exit,stop_exit
+from .basket_rules import BASKETS,RETIRED,stats,ranking,exit_ranking,rebalance_exit,daily_exit,stop_exit
 from .paper import trade
 from .quote_health import fresh,refresh_held_quotes
 from .buy_universe import allowed_symbols,require_buy_universe
@@ -122,7 +122,7 @@ class BasketEngine:
     def review(self,db,name,clock):
         """Mark monthly-rebalance and daily completed-close exits; returns holdings with a pending exit."""
         from .autotrading import session
-        today=session(clock);month=today[:7];order=self.candidates(name)
+        today=session(clock);month=today[:7];order=exit_ranking(name,{k:s for k,s in self.signals.items() if k not in self.bad})
         sessions=get_state(db,'quality_sessions',[])
         for p in db.execute('SELECT * FROM positions WHERE portfolio=? AND quantity>0',(name,)).fetchall():
             state=db.execute('SELECT * FROM basket_positions WHERE portfolio=? AND symbol=?',(name,p['symbol'])).fetchone()
