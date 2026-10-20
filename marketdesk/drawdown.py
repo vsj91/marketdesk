@@ -20,6 +20,15 @@ def update(db,portfolio,equity,starting_capital,limit):
     set_state(db,'drawdown',state)
     return halted,state[portfolio]
 
+def gate(db,portfolio,equity,starting_capital,config):
+    """(halted, info) for new buys: the drawdown breaker, or a manual exits-only switch that keeps stops and exits running."""
+    halted,info=update(db,portfolio,equity,starting_capital,limit_pct(config)) if equity else (False,None)
+    if (config or {}).get('exits_only'):
+        return True,dict(info or {},exits_only=True,exits_only_reason=config.get('exits_only_reason') or 'set by the owner')
+    return halted,info
+
 def message(info):
+    if info.get('exits_only'):
+        return f"Exits only: {info['exits_only_reason']} New buys are off; stops and exits keep running."
     return (f"Drawdown limit reached: equity is {info['drawdown_pct']:.1f}% below its ₹{info['peak']:,.0f} peak (limit {info['limit_pct']:g}%). "
             f"New buys pause until the fall is under {info['limit_pct']*RESUME_FRACTION:.1f}%. Exits remain active.")

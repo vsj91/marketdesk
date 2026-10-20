@@ -365,7 +365,7 @@ class ClaudeTrader:
             db.execute('BEGIN IMMEDIATE')
             account=db.execute("SELECT * FROM portfolios WHERE name='trader'").fetchone()
             marked,_=portfolio_valuation(db,account,clock)
-            dd_halted,dd_info=drawdown.update(db,'trader',marked,account['initial_cash'],drawdown.limit_pct(cfg)) if marked else (False,None)
+            dd_halted,dd_info=drawdown.gate(db,'trader',marked,account['initial_cash'],cfg)
         if dd_halted:return status(drawdown.message(dd_info),'risk_wait')
         if not self.benchmark:return status('Waiting for verified completed Nifty 500 history; new buys blocked. Exits remain active.','data_wait')
         if use_market_filter and not self.benchmark['allowed']:return status('Nifty 500 is below its 200-day average; no new entries. Exits remain active.','market_wait')

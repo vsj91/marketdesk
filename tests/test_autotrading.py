@@ -508,6 +508,14 @@ class AutoTradingTests(unittest.TestCase):
   self.set_price('TEST',98);self.run_cycle();self.assertEqual(self.trades()[-1]['side'],'SELL')
   self.add_stock('NEW');self.run_cycle();self.assertNotIn('NEW',[t['symbol'] for t in self.trades()])
 
+ def test_exits_only_skips_buys_but_still_sells(self):
+  self.enable()
+  with connect(self.path) as db:
+   cfg=get_state(db,'auto_config');cfg['trader'].update(exits_only=True,exits_only_reason='Backtest lost money.');set_state(db,'auto_config',cfg)
+   db.execute('INSERT INTO positions VALUES(?,?,?,?)',('trader','TEST',1,102))
+  self.add_stock('NEW');self.run_cycle();self.assertNotIn('NEW',[t['symbol'] for t in self.trades()])
+  self.set_price('TEST',98);self.run_cycle();self.assertEqual(self.trades()[-1]['side'],'SELL')
+
  def test_new_session_waits_for_previous_session_candles(self):
   self.enable();self.run_cycle()
   self.clock+=timedelta(days=1);self.set_price('TEST',102);self.add_stock('NEW');self.run_cycle()
@@ -522,6 +530,18 @@ class AutoTradingTests(unittest.TestCase):
   with connect(self.path) as db:set_state(db,'refresh',{'status':'complete'})
   self.engine.refresh_daily_candles(self.clock);self.engine.refresh_daily_candles(self.clock)
   refresh.start.assert_called_once_with([],'candles')
+ def test_daily_refresh_retries_only_stocks_still_behind(self):
+  self.enable();self.run_cycle();refresh=Mock();self.engine.refresh=refresh;self.add_stock('LATE')
+  self.clock+=timedelta(days=1)
+  with connect(self.path) as db:
+   for symbol in ('TEST','LATE'):db.execute('DELETE FROM candles WHERE symbol=?',(symbol,))
+   db.execute("INSERT INTO candles VALUES('TEST','2026-10-12T00:00:00+05:30',1,1,1,1,1,'test','x')")
+   db.execute("INSERT INTO candles VALUES('LATE','2026-10-09T00:00:00+05:30',1,1,1,1,1,'test','x')")
+  self.engine.refresh_daily_candles(self.clock);refresh.start.assert_called_once_with([],'candles')
+  self.engine.refresh_daily_candles(self.clock+timedelta(minutes=5));self.assertEqual(refresh.start.call_count,1)
+  for attempt in range(1,5):self.engine.refresh_daily_candles(self.clock+timedelta(minutes=20*attempt))
+  self.assertEqual(refresh.start.call_count,4)
+  self.assertEqual(refresh.start.call_args.args,(['LATE'],'candles'))
  def test_stale_holdings_block_new_buys_but_fresh_stop_exit_runs(self):
   self.enable();self.run_cycle();self.add_stock('STALE');self.add_stock('NEW')
   with connect(self.path) as db:

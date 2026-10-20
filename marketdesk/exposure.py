@@ -1,18 +1,14 @@
 """Read-only descriptive exposures, never an entry or exit filter."""
 import math
 from itertools import combinations
-
-
-def sector_group(raw):
-    raw=(raw or '').strip()
-    return 'Financials' if raw.casefold() in ('bank','banks','finance','financial services') else raw or 'Unknown'
+from .sectors import sector_group
 
 
 def exposure(db,positions,equity):
     sectors={};series={};pairs=[];gross=sum(p['value'] for p in positions) if all(p['value'] is not None for p in positions) else None
     for p in positions:
         row=db.execute('SELECT sector FROM instruments WHERE symbol=?',(p['symbol'],)).fetchone()
-        raw=row[0] if row else None;name=sector_group(raw)
+        raw=row[0] if row else None;name=sector_group(raw,symbol=p['symbol'])
         g=sectors.setdefault(name,dict(sector=name,symbols=[],raw_sectors=[],cost=0,value=0))
         g['symbols'].append(p['symbol']);g['raw_sectors'].append(raw);g['cost']+=p['cost']
         g['value']=g['value']+p['value'] if g['value'] is not None and p['value'] is not None else None
@@ -29,4 +25,4 @@ def exposure(db,positions,equity):
             if den:corr=max(-1,min(1,sum((v-mx)*(w-my) for v,w in zip(x,y))/den))
         pairs.append(dict(a=a,b=b,observations=n,correlation=corr,first=dates[0][0] if dates else None,last=dates[-1][1] if dates else None))
     return dict(sectors=sorted(sectors.values(),key=lambda x:-(x['value'] or 0)),correlations=pairs,gross_value=gross,
-       basis='Current marked holdings; Bank/Banks/Finance/Financial Services grouped as Financials. Pearson correlation over up to 60 common daily returns; minimum 30. Descriptive only; no sector or correlation limit is applied.')
+       basis='Current marked holdings; provider sectors grouped into broad sectors (Bank/Banks/Finance as Financials, REITs as Real Estate). Pearson correlation over up to 60 common daily returns; minimum 30. Descriptive only; no sector or correlation limit is applied.')

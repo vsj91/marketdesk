@@ -16,6 +16,7 @@ Sources and their limits (each is a known approximation, not hidden):
 import bisect,collections,json,sqlite3
 from datetime import date,datetime,timedelta,timezone
 from ..history_rules import is_financial
+from ..sectors import sector_group
 from ..working_universe import symbol_filter
 from ..price_reconciliation import confirmed,jumps
 from .calc import finite
@@ -78,7 +79,7 @@ def load_market(path):
         for s,rows in bars.items():
             w=[b['close'] for b in rows if start<=b['day']<=period]
             if len(w)>=60:anchor[s]=sum(w)/len(w)
-    sectors={s:i.get('sector') for s,i in inst.items()}
+    sectors={s:sector_group(i.get('sector'),symbol=s) for s,i in inst.items()}
     return dict(bars=dict(bars),days={s:[b['day'] for b in rows] for s,rows in bars.items()},sectors=sectors,size=size,caps=caps,
         cap_anchor=anchor,fundamentals=funds,benchmark=bench,amfi_period=period,confirmed=moves)
 

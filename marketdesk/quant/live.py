@@ -128,7 +128,7 @@ class QuantLive:
             held={r['symbol']:r['quantity'] for r in db.execute('SELECT symbol,quantity FROM positions WHERE portfolio=? AND quantity>0',(name,))}
             quotes={r['symbol']:dict(r) for r in db.execute('SELECT * FROM quotes')}
             marked=account['cash']+sum(q*quotes[s]['price'] for s,q in held.items() if s in quotes) if all(s in quotes for s in held) else None
-            halted,info=drawdown.update(db,name,marked,account['initial_cash'],drawdown.limit_pct(cfg)) if marked else (False,None)
+            halted,info=drawdown.gate(db,name,marked,account['initial_cash'],cfg)
             remaining={o['id']:o['qty']-self.filled(db,name,o['id']) for o in orders}
         for o in orders:
             left=remaining[o['id']]

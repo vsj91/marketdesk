@@ -19,7 +19,7 @@ async function load(){
   .map(([l,v,s])=>`<div class="stat"><div class="stat-label">${esc(l)}</div><div class="stat-value ${v==null?'':tone(v)}">${v==null?'':pct(v)+' a year'}</div><small>${esc(s)}</small></div>`).join('');
  document.getElementById('rows').innerHTML=d.baskets.map(x=>{const t=x.backtest||{},f=t.full||{},p=x.paper||{};
   const when=t.window?`${t.window[0].slice(0,7)} → ${t.window[1].slice(0,7)}${t.trades!=null?` · ${t.trades} trades`:''}`:'';
-  const name=`<strong>${esc(title(x.name))}</strong>${x.state==='retired'?' <span class="tag">Retired</span>':x.state==='off'?' <span class="tag">Off</span>':''}<small>${esc(when)}</small><small>${esc(t.method||'')}</small>`;
+  const name=`<strong>${esc(title(x.name))}</strong>${x.state==='retired'?' <span class="tag">Retired</span>':x.state==='off'?' <span class="tag">Off</span>':x.state==='exits_only'?' <span class="tag" title="No new buys; stops and exits keep running">Exits only</span>':''}<small>${esc(when)}</small><small>${esc(t.method||'')}</small>`;
   return `<tr><td class="wrap">${name}</td>${cell(f.cagr)}${cell(t.hold_cagr)}<td>${f.maxdd==null?'—':'−'+f.maxdd+'%'}</td><td class="wrap">${verdict(t)}${t.note?`<small>${esc(t.note)}</small>`:''}</td>
    <td>${p.since?esc(p.since)+`<br><small class="muted">${p.days} days · ${p.trades} trades</small>`:'<span class="muted">No trades yet</span>'}</td>${cell(p.return_pct)}${cell(p.nifty500_pct)}${cell(p.backtest_pace_pct)}</tr>`}).join('');
  const years=[...new Set(d.baskets.flatMap(x=>Object.keys(x.backtest?.years||{})))].sort();

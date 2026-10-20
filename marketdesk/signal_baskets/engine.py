@@ -16,6 +16,7 @@ from ..quote_health import fresh,refresh_held_quotes
 from ..buy_universe import require_buy_universe
 from ..execution import intraday_charges,charges
 from .. import drawdown
+from ..sectors import sector_group
 from . import ema_rules,news_rules
 from .names import NEWS_MOMENTUM,NEWS_CATALYST,EMA_PRICE_ACTION,SIGNAL_BASKETS,TITLES,STRATEGY_VERSIONS
 from .schema import init as init_schema
@@ -182,7 +183,7 @@ class SignalEngine:
             self.sync_positions(db,name,clock)
             equity=self.snapshot(db,name,clock)
             initial=db.execute('SELECT initial_cash FROM portfolios WHERE name=?',(name,)).fetchone()[0]
-            halted,info=drawdown.update(db,name,equity,initial,drawdown.limit_pct(cfg)) if equity else (False,None)
+            halted,info=drawdown.gate(db,name,equity,initial,cfg)
         handler={EMA_PRICE_ACTION:self.scan_ema,NEWS_MOMENTUM:self.scan_momentum,NEWS_CATALYST:self.scan_catalyst}[name]
         status=handler(name,clock,realtime,p,cfg,halted,equity)
         if halted:status.update(state='risk_wait',message=drawdown.message(info)+' '+status.get('message',''))
@@ -342,7 +343,8 @@ class SignalEngine:
 
     def sector_counts(self,db,name):
         out={}
-        for r in db.execute("SELECT COALESCE(i.sector,'Unclassified') s,COUNT(*) n FROM positions p JOIN instruments i USING(symbol) WHERE p.portfolio=? AND p.quantity>0 GROUP BY s",(name,)):out[r['s']]=r['n']
+        for r in db.execute("SELECT p.symbol,i.sector FROM positions p JOIN instruments i USING(symbol) WHERE p.portfolio=? AND p.quantity>0",(name,)):
+            g=sector_group(r['sector'],symbol=r['symbol']);out[g]=out.get(g,0)+1
         return out
 
     def negative_news(self,db,symbol,since,min_impact,governance_only=False):
@@ -405,7 +407,7 @@ class SignalEngine:
             if not fresh(q,clock):continue
             with connect(self.path) as db:
                 if db.execute('SELECT 1 FROM positions WHERE portfolio=? AND symbol=? AND quantity>0',(name,s['symbol'])).fetchone():continue
-                sector=(db.execute('SELECT sector FROM instruments WHERE symbol=?',(s['symbol'],)).fetchone() or ['Unclassified'])[0] or 'Unclassified'
+                sector=sector_group((db.execute('SELECT sector FROM instruments WHERE symbol=?',(s['symbol'],)).fetchone() or [None])[0],symbol=s['symbol'])
                 if sectors.get(sector,0)>=p['max_per_sector']:continue
                 gap=(q['price']/plan['reference']-1)*100
                 if abs(gap)>p['max_gap_pct']:
@@ -510,9 +512,9 @@ class SignalEngine:
 
     def sector_pct(self,db,name,symbol,equity):
         if not equity:return 0.
-        sector=(db.execute('SELECT sector FROM instruments WHERE symbol=?',(symbol,)).fetchone() or [None])[0]
-        value=db.execute('''SELECT COALESCE(SUM(p.quantity*q.price),0) FROM positions p JOIN instruments i USING(symbol) LEFT JOIN quotes q USING(symbol)
-            WHERE p.portfolio=? AND p.quantity>0 AND COALESCE(i.sector,'')=COALESCE(?,'')''',(name,sector)).fetchone()[0]
+        group=sector_group((db.execute('SELECT sector FROM instruments WHERE symbol=?',(symbol,)).fetchone() or [None])[0],symbol=symbol)
+        value=sum(r['value'] for r in db.execute('''SELECT p.symbol,i.sector,COALESCE(p.quantity*q.price,0) value FROM positions p JOIN instruments i USING(symbol) LEFT JOIN quotes q USING(symbol)
+            WHERE p.portfolio=? AND p.quantity>0''',(name,)) if sector_group(r['sector'],symbol=r['symbol'])==group)
         return value/equity*100
 
     def catalyst_entry_guard(self,name,signal,p):

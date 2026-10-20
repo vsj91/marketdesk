@@ -19,6 +19,8 @@ ENGINES=(*('trader','investor'),*BASKETS,*LIVE_BASKETS,*SIGNAL_BASKETS)
 
 IST=timezone(timedelta(hours=5,minutes=30))
 PAUSE_AFTER_FAILURES=3
+CANDLE_RETRIES=3
+CANDLE_RETRY_MINUTES=15
 RULES={
  'trader':{'name':'Daily breakout · swing paper strategy','max_positions':5,'position_pct':10,'max_buys_per_day':3,'stop_pct':3,'take_profit_pct':6,'daily_loss_pct':2,
  'entry':'200+ completed daily candles; price above the previous 20-session high; 50-day average above 200-day; historical 10/30-session volume ratio ≥ 1.2.',
@@ -396,9 +398,8 @@ class AutoTrading:
    if realtime:clock=datetime.now(timezone.utc)
    okay,risk_message=daily_risk(db,portfolio,clock)
    cfg=get_state(db,'auto_config',{}).get(portfolio,{})
-   dd_halted,dd_info=False,None
    marked=equity(db,portfolio,clock)
-   if marked:dd_halted,dd_info=drawdown.update(db,portfolio,marked,db.execute('SELECT initial_cash FROM portfolios WHERE name=?',(portfolio,)).fetchone()[0],drawdown.limit_pct(cfg))
+   dd_halted,dd_info=drawdown.gate(db,portfolio,marked,db.execute('SELECT initial_cash FROM portfolios WHERE name=?',(portfolio,)).fetchone()[0],cfg)
    held=[dict(r) for r in db.execute('SELECT * FROM positions WHERE portfolio=? AND quantity>0',(portfolio,))]
    quotes={r['symbol']:dict(r) for r in db.execute('SELECT * FROM quotes')}
   for p in held:
@@ -476,12 +477,26 @@ class AutoTrading:
    if not any(c.get('enabled') for c in get_state(db,'auto_config',{}).values()):return
    if get_state(db,'refresh',{}).get('status')=='running':return
    previous=get_state(db,'auto_candle_refresh',{})
-   if previous.get('session')==target:return
+   if previous.get('session')==target:
+    self.retry_stale_candles(db,target,previous,clock);return
   try:self.refresh.start([],'candles')
   except ValueError:return
   with connect(self.path) as db:
    set_state(db,'auto_candle_refresh',{'session':target,'started_at':clock.isoformat()})
    event(db,'system','data_refresh','Daily candle refresh started for the last observed session: '+target+'.')
+
+ def retry_stale_candles(self,db,target,previous,clock):
+  # A network drop during the daily refresh leaves some stocks a session behind; retry only those, a few times.
+  retries=previous.get('retries',0)
+  if retries>=CANDLE_RETRIES:return
+  last=datetime.fromisoformat(previous.get('retried_at') or previous['started_at'])
+  if clock-last<timedelta(minutes=CANDLE_RETRY_MINUTES):return
+  stale=[r[0] for r in db.execute('SELECT i.symbol FROM instruments i LEFT JOIN candles c ON c.symbol=i.symbol WHERE '+symbol_filter(db,'i.symbol',include_holdings=True)+' GROUP BY i.symbol HAVING MAX(substr(c.ts,1,10)) IS NULL OR MAX(substr(c.ts,1,10))<? ORDER BY i.symbol',(target,))]
+  if not stale:return
+  try:self.refresh.start(stale,'candles')
+  except ValueError:return
+  previous.update(retries=retries+1,retried_at=clock.isoformat(),retried_symbols=stale);set_state(db,'auto_candle_refresh',previous)
+  event(db,'system','data_refresh',f'Retrying daily candles for {len(stale)} stocks still missing session {target} (attempt {retries+1} of {CANDLE_RETRIES}): '+', '.join(stale[:20])+('…' if len(stale)>20 else '')+'.')
 
  def refresh_quality_gaps(self):
   if self.refresh is None:return

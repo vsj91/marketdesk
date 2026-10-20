@@ -6,6 +6,7 @@ fee checks apply as for Trader and Investor. No broker order APIs."""
 import collections,math,time,uuid
 from datetime import datetime,timezone
 from .storage import connect,get_state,set_state
+from .sectors import sector_group
 from .basket_rules import BASKETS,RETIRED,stats,ranking,rebalance_exit,daily_exit,stop_exit
 from .paper import trade
 from .quote_health import fresh,refresh_held_quotes
@@ -55,7 +56,7 @@ class BasketEngine:
             groups=collections.defaultdict(list)
             for r in db.execute('SELECT symbol,ts,open,high,low,close,volume FROM candles WHERE '+symbol_filter(db,include_holdings=True)+' AND substr(ts,1,10)<? ORDER BY symbol,ts',(today,)):
                 groups[r['symbol']].append(dict(r))
-            sectors=dict(db.execute('SELECT symbol,sector FROM instruments'))
+            sectors={r[0]:sector_group(r[1],symbol=r[0]) for r in db.execute('SELECT symbol,sector FROM instruments')}
             has=db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='claude_benchmark'").fetchone()
             bench=dict(db.execute('SELECT day,close FROM claude_benchmark')) if has else {}   # Nifty 500 closes for alpha
             self.bad={r[0] for r in db.execute("SELECT symbol FROM quality WHERE json_extract(report,'$.trader_ready')=0")}
@@ -153,7 +154,7 @@ class BasketEngine:
             held=[dict(r) for r in db.execute('SELECT p.*,b.pending_exit FROM positions p LEFT JOIN basket_positions b ON b.portfolio=p.portfolio AND b.symbol=p.symbol WHERE p.portfolio=? AND p.quantity>0',(name,))]
             account=db.execute('SELECT * FROM portfolios WHERE name=?',(name,)).fetchone()
             marked=valuation(db,name)
-            halted,info=drawdown.update(db,name,marked,account['initial_cash'],drawdown.limit_pct(cfg)) if marked else (False,None)
+            halted,info=drawdown.gate(db,name,marked,account['initial_cash'],cfg)
         for p in held:
             q=quotes.get(p['symbol'])
             if fresh(q,clock) and (p['pending_exit'] or stop_exit(name,p['cost']/p['quantity'],q['price'])):

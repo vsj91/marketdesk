@@ -13,7 +13,7 @@ from .autotrading import IST,entry_signal,exit_signal,investor_stop_risk,investo
 from .replay import signal_from
 from .quality import financial_reasons,source_reasons,inspect_history
 from .execution import charges,money
-from .exposure import sector_group
+from .sectors import sector_group
 
 PROTOCOL={
  'model':'Daily-open proxy; current rules sampled once per session. No intraday stops, live breakout or order-book reconstruction.',
@@ -34,7 +34,7 @@ def load(path):
   for s in symbols:
    rows=[dict(r) for r in db.execute('SELECT * FROM candles WHERE symbol=? ORDER BY ts',(s,))]
    bars[s]={r['ts'][:10]:r for r in rows};signals[s]={r['as_of']:r for r in features(rows) or []}
-   sector=db.execute('SELECT sector FROM instruments WHERE symbol=?',(s,)).fetchone();sectors[s]=sector_group(sector[0] if sector else None)
+   sector=db.execute('SELECT sector FROM instruments WHERE symbol=?',(s,)).fetchone();sectors[s]=sector_group(sector[0] if sector else None,symbol=s)
    fund=db.execute('SELECT * FROM fundamentals WHERE symbol=?',(s,)).fetchone()
    funds[s]=(json.loads(fund['details']),fund['observed_at']) if fund else ({},None)
    evidence[s]={r['endpoint']:r['observed_at'] for r in db.execute('SELECT endpoint,observed_at FROM payloads WHERE symbol=?',(s,))}

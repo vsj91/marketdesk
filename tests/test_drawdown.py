@@ -20,4 +20,9 @@ class DrawdownTests(unittest.TestCase):
         _,info=self.step(90000);self.assertEqual(info['peak'],100000)
         self.assertEqual(drawdown.limit_pct({'max_drawdown_pct':'x'}),15.0);self.assertEqual(drawdown.limit_pct({'max_drawdown_pct':10}),10.0)
         self.assertIn('Exits remain active',drawdown.message(info))
+    def test_exits_only_blocks_buys_without_equity_and_names_the_reason(self):
+        with connect(self.path) as db:
+            halted,info=drawdown.gate(db,'trader',None,100000,{'exits_only':True,'exits_only_reason':'Backtest lost money.'})
+            self.assertTrue(halted);self.assertIn('Exits only: Backtest lost money.',drawdown.message(info))
+            self.assertFalse(drawdown.gate(db,'trader',100000,100000,{})[0])
 if __name__=='__main__':unittest.main()

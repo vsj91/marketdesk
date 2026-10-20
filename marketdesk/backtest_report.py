@@ -37,7 +37,8 @@ def report(path,clock=None):
                 return_pct=round(100*a['pnl']/a['initial_cash'],2) if a.get('pnl') is not None and start else None,
                 nifty500_pct=_pct(base,bench[-1][1]) if base and bench else None,
                 backtest_pace_pct=round(100*((1+cagr/100)**(days/365.25)-1),2) if cagr is not None and days else None)
-            state='retired' if name in RETIRED else 'on' if (cfg.get(name) or {}).get('enabled') else 'off'
+            c=cfg.get(name) or {}
+            state='retired' if name in RETIRED else 'off' if not c.get('enabled') else 'exits_only' if c.get('exits_only') else 'on'
             rows.append(dict(name=name,state=state,retired_reason=RETIRED.get(name),backtest=test or None,paper=paper))
     return dict(generated=saved.get('generated'),method=saved.get('method',[]),benchmarks=saved.get('benchmarks',{}),
         baskets=rows,candidates=saved.get('candidates',[]),paper_only=True,

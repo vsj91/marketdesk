@@ -236,6 +236,9 @@ def regime(snapshot,book,cfg):
         for s,x in w.items():
             t=targets.setdefault(s,dict(weight=0.,score=score_card(s,parts),reason=''))
             t['weight']+=alloc*x;t['reason']=(t['reason']+' + ' if t['reason'] else f"{reg['regime']} regime: ")+f'{name} sleeve'
+    # Each sleeve is capped on its own; cap the combined basket too, so overlapping sleeves cannot stack one sector.
+    capped=calc.cap_weights({s:t['weight'] for s,t in targets.items()},{s:sectors.get(s) or 'Unclassified' for s in targets},cfg['sector_cap'])
+    for s,x in capped.items():targets[s]['weight']=x
     exits={s:f"Not in the {reg['regime']} regime sleeves" for s in book if s not in targets}
     return dict(targets=targets,exits=exits,meta=dict(regime=reg['regime'],regime_detail={k:(round(v,4) if isinstance(v,float) else v) for k,v in reg.items() if k!='regime'},notes=notes))
 
