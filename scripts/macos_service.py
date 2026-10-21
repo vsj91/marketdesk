@@ -39,7 +39,8 @@ def deploy():
         elif target.exists():source.symlink_to(target)
         else:
             target.touch(mode=0o600);source.symlink_to(target)
-    for name in ('marketdesk','web'):
+    # scripts/: the research baskets run the backtest scripts' own rule code (marketdesk/research_live.py).
+    for name in ('marketdesk','web','scripts'):
         shutil.copytree(ROOT/name,RUNTIME/name,dirs_exist_ok=True,ignore=shutil.ignore_patterns('__pycache__','*.pyc'))
     if not (RUNTIME/'.venv').exists():
         shutil.copytree(ROOT/'.venv',RUNTIME/'.venv',symlinks=True,ignore=shutil.ignore_patterns('__pycache__','*.pyc'))

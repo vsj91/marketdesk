@@ -22,7 +22,11 @@ def script(name):
     if name in sys.modules:return sys.modules[name]
     if str(ROOT/'scripts') not in sys.path:sys.path.insert(0,str(ROOT/'scripts'))   # research_fundamentals imports research_baskets by name
     spec=importlib.util.spec_from_file_location(name,ROOT/'scripts'/f'{name}.py');module=importlib.util.module_from_spec(spec)
-    sys.modules[name]=module;spec.loader.exec_module(module);return module
+    sys.modules[name]=module
+    # A failed load must not stay cached half-built, or every later call fails with a misleading AttributeError.
+    try:spec.loader.exec_module(module)
+    except BaseException:sys.modules.pop(name,None);raise
+    return module
 
 def panel(path,today):
     """Completed daily candles as the research panel: {'o','h','l','c','v'} frames (sessions x symbols) plus index, sectors, members."""

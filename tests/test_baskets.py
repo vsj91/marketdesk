@@ -212,4 +212,17 @@ class BasketEngineTests(unittest.TestCase):
         self.engine.cycle(self.clock,{})
         self.assertEqual(self.holdings(),[])
 
+class ResearchScriptLoading(unittest.TestCase):
+    def test_failed_load_is_not_cached(self):
+        import sys
+        from marketdesk import research_live
+        with tempfile.TemporaryDirectory() as folder,patch.object(research_live,'ROOT',Path(folder)):
+            (Path(folder)/'scripts').mkdir()
+            for _ in range(2):
+                with self.assertRaises(FileNotFoundError):research_live.script('md_missing_rules')
+                self.assertNotIn('md_missing_rules',sys.modules)
+            (Path(folder)/'scripts/md_missing_rules.py').write_text('def indicators():return 1\n')
+            try:self.assertEqual(research_live.script('md_missing_rules').indicators(),1)
+            finally:sys.modules.pop('md_missing_rules',None)
+
 if __name__=='__main__':unittest.main()
