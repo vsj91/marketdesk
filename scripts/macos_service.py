@@ -71,6 +71,23 @@ def install():
     print('Installed login service. MarketDesk starts at login and restarts if it exits.')
     print('Local paper dashboard: http://127.0.0.1:8765/')
 
+WATCH_LABEL='com.vinayjain.marketdesk-watch'
+WATCH_PLIST=Path.home()/'Library'/'LaunchAgents'/(WATCH_LABEL+'.plist')
+
+def install_watch():
+    """Every 2 minutes run scripts/health_watch.py from the runtime copy; it exits at once outside market hours."""
+    if not (RUNTIME/'scripts/health_watch.py').exists():raise RuntimeError('Deploy first: scripts/health_watch.py is not in the runtime copy.')
+    target=f'{DOMAIN}/{WATCH_LABEL}'
+    if run('print',target,check=False).returncode==0:run('bootout',target)
+    cfg={'Label':WATCH_LABEL,'ProgramArguments':[str(RUNTIME/'.venv/bin/python'),str(RUNTIME/'scripts/health_watch.py')],
+         'WorkingDirectory':str(RUNTIME),'StartInterval':120,'RunAtLoad':True,'Umask':0o077,
+         'EnvironmentVariables':{'PATH':'/usr/bin:/bin:/usr/sbin:/sbin'},
+         'StandardOutPath':'/dev/null','StandardErrorPath':str(RUNTIME/'data/logs/health-watch.err.log')}
+    temp=WATCH_PLIST.with_suffix('.plist.tmp');temp.write_bytes(plistlib.dumps(cfg));temp.chmod(0o600);os.replace(temp,WATCH_PLIST)
+    subprocess.run(['/usr/bin/plutil','-lint',str(WATCH_PLIST)],check=True)
+    run('enable',target);run('bootstrap',DOMAIN,str(WATCH_PLIST))
+    print('Health watch installed: every 2 minutes in market hours; problems go to data/logs/health-watch.log.')
+
 def remove():
     if run('print',TARGET,check=False).returncode==0:run('bootout',TARGET)
     if PLIST.exists():
@@ -79,8 +96,9 @@ def remove():
     print('Login service disabled and stopped. Project, saved settings and paper ledger retained.')
 
 def main():
-    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('action',choices=['install','status','restart','remove']);args=parser.parse_args()
+    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('action',choices=['install','install-watch','status','restart','remove']);args=parser.parse_args()
     if args.action=='install':install()
+    elif args.action=='install-watch':install_watch()
     elif args.action=='remove':remove()
     elif args.action=='restart':run('kickstart','-k',TARGET);print('Restart requested.')
     else:
