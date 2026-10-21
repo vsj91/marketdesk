@@ -285,4 +285,13 @@ class RunnerTests(unittest.TestCase):
         with connect(e.path) as db:db.execute('UPDATE qb_baskets SET cash=cash-1 WHERE name=?',('rp',))
         self.assertEqual(e.remark(last),[])      # a later fill changed the book: the day's record stays
 
+class DisasterStopTests(unittest.TestCase):
+    def test_stop_exits_only_at_25_percent_below_cost_on_the_current_session(self):
+        from marketdesk.quant.strategies import stop_exits,config
+        snap=dict(day='2026-10-21',bars={'A':[dict(day='2026-10-21',close=75.)],'B':[dict(day='2026-10-21',close=76.)],'C':[dict(day='2026-10-20',close=10.)]})
+        book={s:dict(qty=10,entry_price=100.) for s in 'ABC'}
+        self.assertEqual(list(stop_exits(book,snap,config('multifactor'))),['A'])
+        self.assertEqual(stop_exits(book,snap,config('stat_arb')),{})              # stat-arb keeps its own Z-score stop
+        for name in ('multifactor','risk_parity','regime'):self.assertEqual(config(name)['stop_pct'],.25)
+
 if __name__=='__main__':unittest.main()

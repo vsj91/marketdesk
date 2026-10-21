@@ -25,17 +25,28 @@ MAX_DAILY_JUMP=.25           # a >25% close-to-close move is an unadjusted corpo
 
 DEFAULTS={
  'multifactor':dict(rebalance='monthly',n=15,sector_cap=.30,factor_weights=dict(value=.25,quality=.30,momentum=.30,lowvol=.15),
-    roe_min=.15,require_positive_accruals=True,min_coverage=.5),
+    roe_min=.15,require_positive_accruals=True,min_coverage=.5,stop_pct=.25),
  'risk_parity':dict(rebalance='biweekly',n=20,sector_cap=.30,vol_window=60,min_coverage=.4,
-    factor_weights=dict(value=.25,quality=.30,momentum=.30,lowvol=.15)),
+    factor_weights=dict(value=.25,quality=.30,momentum=.30,lowvol=.15),stop_pct=.25),
  'stat_arb':dict(rebalance='daily',max_positions=10,entry_z=-2.,exit_z=0.,stop_z=-3.2,z_window=20,
     sizes=('Large cap','Mid cap'),require_fundamentals=True),
  'trend':dict(rebalance='daily',max_positions=20,breakout_window=50,volume_ratio=1.5,risk_pct=.01,atr_mult=2.,
     trail_atr=3.,max_weight=.20),
  'regime':dict(rebalance='monthly',confirm_days=3,sleeve_size=8,sector_cap=.30,bear_defensive='low_beta',roe_min=.15,
     allocations={'bull':{'momentum':.70,'quality':.30},'choppy':{'quality':.50,'lowvol':.50},
-                 'bear':{'defensive':.60,'value':.40}}),
+                 'bear':{'defensive':.60,'value':.40}},stop_pct=.25),
 }
+
+def stop_exits(book,snapshot,cfg):
+    """{symbol: reason} for holdings whose completed close is at least cfg['stop_pct'] below average cost (disaster stop)."""
+    pct=cfg.get('stop_pct')
+    if not pct:return {}
+    out={}
+    for s,pos in book.items():
+        bars=snapshot.get('bars',{}).get(s)
+        if bars and bars[-1]['day']==snapshot['day'] and pos.get('entry_price') and bars[-1]['close']<=pos['entry_price']*(1-pct):
+            out[s]=f"Stop: close {bars[-1]['close']:.2f} is {pct:.0%} or more below average cost {pos['entry_price']:.2f}"
+    return out
 
 def config(strategy,overrides=None):
     out={**DEFAULTS[strategy]}

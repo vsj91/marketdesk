@@ -18,6 +18,8 @@ def _pct(a,b):return round(100*(b/a-1),2) if a and b else None
 # A paper record is judged after this many closed trades; fewer is mostly luck. The days needed follow from
 # the basket's own backtest trade rate, never less than a month.
 JUDGE_TRADES=30;MIN_DAYS=30
+# Baskets whose rules changed after they started trading; their paper record restarts on that day.
+RULES_SINCE={'smart_beta':'2026-10-21','risk_parity':'2026-10-21','regime':'2026-10-21'}   # 25% disaster stop added
 
 def paper_length(test):
     """(trades per year, calendar days to JUDGE_TRADES closed trades) at the backtest pace; (None, None) when untested."""
@@ -41,6 +43,7 @@ def report(path,clock=None):
             if not a:continue
             first,count,closed=db.execute("SELECT MIN(created_at),COUNT(*),SUM(side='SELL') FROM trades WHERE portfolio=?",(name,)).fetchone()
             start=datetime.fromisoformat(first).astimezone(IST).date() if first else None
+            if start and name in RULES_SINCE:start=max(start,date.fromisoformat(RULES_SINCE[name]))
             days=(clock.astimezone(IST).date()-start).days if start else 0
             base=next((c for d,c in reversed(bench) if start and d<start.isoformat()),None)
             test=tests.get(name) or {}

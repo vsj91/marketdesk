@@ -35,7 +35,7 @@ class BasketRuleTests(unittest.TestCase):
         self.assertEqual(ranking('clenow',sig({d:v for d,v in rising.items() if d!=days[-1]})),[])   # index close missing: no buys
         gap=candles(.002,count=260);gap[-30]=dict(gap[-30],close=gap[-30]['close']*1.2)
         self.assertNotIn('GAP',ranking('clenow',{**up,'GAP':stats(gap,bench=rising)}))   # 15%+ one-day move in 90 sessions
-        self.assertIsNone(stop_exit('clenow',100.,1.))                            # no per-stock stop, as published
+        self.assertIsNone(stop_exit('clenow',100.,76.));self.assertIsNotNone(stop_exit('clenow',100.,75.))   # 25% disaster stop
         self.assertIsNone(rebalance_exit('clenow','STEADY',up['STEADY'],exit_ranking('clenow',up)))
         self.assertIn('100-day',rebalance_exit('clenow','STEADY',{**up['STEADY'],'close':up['STEADY']['dma100']*.99},['STEADY']))
         self.assertIn('top 100',rebalance_exit('clenow','STEADY',up['STEADY'],[f'X{i}' for i in range(100)]+['STEADY']))

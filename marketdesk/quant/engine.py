@@ -13,7 +13,7 @@ import json,math
 from datetime import date,datetime,timedelta,timezone
 from ..storage import connect,now
 from .schema import SCHEMA
-from .strategies import STRATEGIES,config,features
+from .strategies import STRATEGIES,config,features,stop_exits
 from .execution import ExecutionSimulator,drift_orders
 from .analytics import performance,RISK_FREE
 from . import calc
@@ -152,8 +152,13 @@ class BasketEngine:
             due,why=self._due(basket,cfg,state,snapshot)
             if state.get('retired'):due=False      # retired: pending exits still fill and NAV is still marked
             targets={};queued=0;ran=False;reg=state.get('regime')
+            stops={} if state.get('retired') else stop_exits(book,snapshot,cfg)
+            if stops and not due:
+                # The disaster stop is checked every session; between rebalances it only sells, it never resizes the rest.
+                queued+=self._queue_stops(db,name,day,stops,book,prices,nav)
             if due:
                 plan=self._plan(basket['strategy'],snapshot,book,dict(cfg,current_regime=state.get('regime')),nav)
+                if stops:plan=dict(plan,targets={s:x for s,x in plan['targets'].items() if s not in stops},exits={**plan['exits'],**stops})
                 reg=plan['meta'].get('regime',reg)
                 if basket['strategy']=='regime' and reg and reg!=state.get('regime'):
                     self._log(db,name,day,None,'REGIME',None,None,f"Regime {state.get('regime') or 'unset'} -> {reg}",plan['meta'].get('regime_detail'))
@@ -198,6 +203,16 @@ class BasketEngine:
     def _plan(self,strategy,snapshot,book,cfg,nav):
         fn=STRATEGIES[strategy]
         return fn(snapshot,book,cfg,nav) if strategy=='trend' else fn(snapshot,book,cfg)
+
+    def _queue_stops(self,db,name,day,stops,book,prices,nav):
+        pending={r[0] for r in db.execute("SELECT symbol FROM qb_orders WHERE basket=? AND status='pending' AND side='SELL'",(name,))}
+        queued=0
+        for s,reason in stops.items():
+            if s in pending or s not in book:continue
+            db.execute('INSERT INTO qb_orders(basket,signal_day,symbol,side,qty,kind,reason,details) VALUES(?,?,?,?,?,?,?,?)',
+                (name,day,s,'SELL',book[s]['qty'],'exit',reason,j(dict(signal_close=prices.get(s)))))
+            self._log(db,name,day,s,'EXIT',book[s]['qty']*prices[s]/nav if prices.get(s) else None,0.,f'Exit {s}: {reason}');queued+=1
+        return queued
 
     def _queue(self,db,name,day,plan,book,prices,nav,snapshot,why,cash):
         feats=features(snapshot);size=snapshot.get('size',{})

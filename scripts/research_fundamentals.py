@@ -94,7 +94,7 @@ def candidates(P,I,F,elig):
             'net_buyback':dict(score=(-F['issuance']).where(elig&rows(nonfin)&(F['issuance']<=-.01)&(F['np']>0)),keep=30,stop=.20),
             'dividend_quality':dict(score=dy.where(elig&rows(nonfin)&(F['roe']>=.12)&(F['np']>0)&(payout<=1)),keep=30,stop=.20),
             'value_momentum':dict(score=vm.where(pool),keep=30,stop=.20),
-            'magic_proxy':dict(score=(-combined).where(ok),monthly=False,max_hold=250,stop=1.)}
+            'magic_proxy':dict(score=(-combined).where(ok),monthly=False,max_hold=250,stop=.25)}
 
 def faithful_magic(P,I,F,elig,start='2023-06-01'):
     """Greenblatt with real debt and cash (FY2023+), as an informational short-window result."""
@@ -111,7 +111,7 @@ def faithful_magic(P,I,F,elig,start='2023-06-01'):
     ebit=F['pbt']+F['fin'];ev=F['mcap']+debt-cash;capital=F['equity']+debt-cash
     ok=elig&pd.DataFrame(np.repeat(keep[None,:],len(C),axis=0),index=C.index,columns=C.columns)&(ebit>0)&(ev>0)&(capital>0)
     score=-((ebit/ev).where(ok).rank(axis=1,ascending=False)+(ebit/capital).where(ok).rank(axis=1,ascending=False))
-    e,tr,_=rb.simulate(P,I,score=score.where(ok),monthly=False,max_hold=250,stop=1.,start=start)
+    e,tr,_=rb.simulate(P,I,score=score.where(ok),monthly=False,max_hold=250,stop=.25,start=start)
     return dict(window=[start,C.index[-1]],result=rb.stats(e),trades=len([t for t in tr if t['exit']]),hold=rb.stats(rb.hold_curve(I,start=start)))
 
 def run():

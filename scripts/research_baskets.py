@@ -177,19 +177,19 @@ def practitioners(P,I,elig):
     absm=rows(I['index_abs'])
     return {
      'minervini':dict(score=I['rs_ibd'].where(elig&template&(rs>=.7)),keep=30,stop=.08),
-     'clenow':dict(score=I['clenow'].where(elig&mkt&clean&(C>I['dma100'])&(I['clenow']>0)),exit_score=I['clenow'].where(clean&(C>I['dma100'])),keep=100,stop=1.),
+     'clenow':dict(score=I['clenow'].where(elig&mkt&clean&(C>I['dma100'])&(I['clenow']>0)),exit_score=I['clenow'].where(clean&(C>I['dma100'])),keep=100,stop=.25),
      'conservative':dict(score=I['mom121'].where(elig&calm&(I['mom121']>0)),keep=30,stop=.20),
      'turtle':dict(score=I['mom61'].where(elig&I['brk55']),exit_when=I['low20'],monthly=False,stop=(2*I['atr20']).clip(upper=.3)),
-     'connors':dict(score=(-I['rsi2']).where(elig&(I['rsi2']<5)),exit_when=C>I['dma5'],monthly=False,stop=1.),
+     'connors':dict(score=(-I['rsi2']).where(elig&(I['rsi2']<5)),exit_when=C>I['dma5'],monthly=False,stop=.25),
      'dual_mom':dict(score=I['mom121'].where(elig&(I['mom121']>0)&absm),exit_when=rows(month_end)&~absm,keep=30,stop=.20),
      # Golden cross: 50-day EMA crossed above the 200-day EMA in the last 5 sessions with ADX(14) above 20; exit on the cross back.
      'golden_cross':dict(score=I['adx14'].where(elig&(I['ema50']>I['ema200'])&((I['ema50'].shift(5)<=I['ema200'].shift(5)))&(I['adx14']>20)),
-         exit_when=I['ema50']<I['ema200'],monthly=False,stop=1.),
+         exit_when=I['ema50']<I['ema200'],monthly=False,stop=.25),
      # MACD(12,26,9) crosses above its signal line while above zero; exit when it crosses back below.
      'macd':dict(score=(I['macd']-I['macd_sig']).div(C).where(elig&(I['macd']>I['macd_sig'])&(I['macd'].shift(1)<=I['macd_sig'].shift(1))&(I['macd']>0)),
-         exit_when=I['macd']<I['macd_sig'],monthly=False,stop=1.),
+         exit_when=I['macd']<I['macd_sig'],monthly=False,stop=.25),
      # Bollinger(20,2) + RSI(14): close under the lower band with RSI below 30; exit back at the middle band or after 10 sessions.
-     'bollinger_rsi':dict(score=(-I['rsi14']).where(elig&(C<I['bb_low'])&(I['rsi14']<30)),exit_when=C>=I['bb_mid'],monthly=False,max_hold=10,stop=1.),
+     'bollinger_rsi':dict(score=(-I['rsi14']).where(elig&(C<I['bb_low'])&(I['rsi14']<30)),exit_when=C>=I['bb_mid'],monthly=False,max_hold=10,stop=.25),
     }
 
 def simulate(P,I,score,exit_score=None,n=10,keep=30,stop=.20,max_hold=None,slip=.0025,mkt=False,start=START,end='9999',monthly=True,capital=1e5,exit_when=None):

@@ -27,16 +27,16 @@ CASH_BUFFER=50           # rupees kept back for rounding of charges
 SUMMARY={
  'smart_beta':('Multi-factor smart beta · daily signals · live fills','Multi-factor (value, quality, 12-1 momentum, low volatility)',
    'Top 15 Nifty 500 stocks by a value/quality/momentum/low-volatility composite, ROE above 15% and cash-backed profit, at most 30% per sector. Equal weight. Rebalanced monthly.',
-   'Sold at the monthly rebalance when a stock leaves the top 15 or fails the quality screen.'),
+   'Sold at the monthly rebalance when a stock leaves the top 15 or fails the quality screen. A 25% loss from average cost (completed close) also exits, checked every session.'),
  'risk_parity':('Risk parity · daily signals · live fills','Inverse-volatility weighting',
    'Top 20 multi-factor names weighted by 1 / 60-day volatility, at most 30% per sector. Rebalanced every two weeks; weights are only changed when they drift more than 2 points.',
-   'Sold at a rebalance when a stock leaves the selection.'),
+   'Sold at a rebalance when a stock leaves the selection. A 25% loss from average cost (completed close) also exits, checked every session.'),
  'stat_arb':('Stat-arb mean reversion · daily signals · live fills','Statistical mean reversion inside an uptrend',
    'Large and mid caps with positive ROE and operating cash flow whose close is 2+ standard deviations below its 20-day mean while the 200-day average rises. 10 slots of 10%.',
    'Sold when the close returns to its 20-day mean (Z ≥ 0) or stops out below Z = −3.2. Checked on every completed session.'),
  'regime':('Regime switching · daily signals · live fills','Macro regime allocation',
    'Nifty 500 trend and volatility pick the mix: bull 70% momentum / 30% quality, choppy 50% quality / 50% low volatility, bear 60% low-beta defensive / 40% deep value. A regime change needs 3 sessions of confirmation.',
-   'Sold at the monthly rebalance or on a confirmed regime change when a stock leaves the new sleeves.'),
+   'Sold at the monthly rebalance or on a confirmed regime change when a stock leaves the new sleeves. A 25% loss from average cost (completed close) also exits, checked every session.'),
 }
 
 def rules(name,config=None):
