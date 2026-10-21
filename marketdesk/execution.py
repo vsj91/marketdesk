@@ -51,6 +51,12 @@ def automatic_buy_cost_check(config,value,buy_fee,product='delivery'):
         basis=('Same-price intraday sale' if product=='intraday' else 'Same-price delivery sale including DP charges')+'; spread, slippage and partial-exit costs excluded')
 
 
+def uneconomic(config,value):
+    """True when the whole order value fails the automatic buy fee floor, so no later fill can pass it."""
+    try:automatic_buy_cost_check(config,value,charges(value,'BUY')['total'])
+    except ValueError:return True
+    return False
+
 def normalize(raw,key,symbol,received):
     if raw.get('instrument_token')!=key or raw.get('symbol')!=symbol:raise ValueError('Depth instrument identity mismatch.')
     try:

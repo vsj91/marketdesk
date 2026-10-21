@@ -46,11 +46,8 @@ def rules(name,config=None):
         max_positions={'smart_beta':15,'risk_parity':20,'stat_arb':10,'regime':16}[name],position_pct=None,max_buys_per_day=None,rebalance=True)
 
 def uneconomic(cfg,value):
-    """True when the whole order value fails the automatic buy fee floor, so no later fill can pass it."""
-    from ..execution import automatic_buy_cost_check,charges
-    try:automatic_buy_cost_check(cfg,value,charges(value,'BUY')['total'])
-    except ValueError:return True
-    return False
+    from ..execution import uneconomic as check
+    return check(cfg,value)
 
 def init_config(path):
     with connect(path) as db:

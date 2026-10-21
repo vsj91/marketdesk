@@ -272,6 +272,16 @@ class AutoTradingTests(unittest.TestCase):
   self.assertEqual([r['symbol'] for r in self.trades('investor')],['ZZZ'])
   with connect(self.path) as db:
    self.assertEqual(db.execute("SELECT COUNT(*) FROM auto_events WHERE kind='blocked' AND reason LIKE 'Buy too small%'").fetchone()[0],1)
+ def test_scan_skips_full_size_buy_below_fee_floor_without_retrying(self):
+  self.increase_investor_capacity()
+  with connect(self.path) as db:
+   cfg=get_state(db,'auto_config');cfg['investor']['max_round_trip_fee_pct']=.01;set_state(db,'auto_config',cfg)
+  with patch('marketdesk.paper.fetch_book',side_effect=fixture_book) as book:
+   self.run_cycle();self.clock+=timedelta(seconds=15);self.run_cycle()
+  book.assert_not_called();self.assertEqual(self.trades('investor'),[])
+  with connect(self.path) as db:
+   rows=db.execute("SELECT reason FROM auto_events WHERE kind='blocked' AND portfolio='investor'").fetchall()
+  self.assertEqual([r[0] for r in rows],['Buy too small for fee floor even at its full size; estimated round-trip fees exceed the limit.'])
  def test_investor_fee_cap_keeps_budget_and_daily_loss_checks(self):
   self.enable_investor_fee_cap()
   with self.assertRaisesRegex(ValueError,'Position budget'):self.investor_order(qty=1000)

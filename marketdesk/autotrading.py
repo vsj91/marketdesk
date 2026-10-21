@@ -4,7 +4,7 @@ import collections,json,math,sys,threading,time,uuid
 from datetime import datetime,timedelta,timezone
 from .storage import connect,get_state,set_state,number,now
 from .paper import trade
-from .execution import charges,money
+from .execution import charges,money,uneconomic
 from .order_audit import init_attempts,blocked_category,current_identity
 from .quality import audit
 from .liability_bound import attach,bounded_debt_pass,BOUNDED_FIELDS
@@ -444,6 +444,10 @@ class AutoTrading:
     if risk:qty=investor_risk_quantity(qty,quotes[symbol]['price']*1.005,quotes[symbol]['price'],risk)
    if qty<sizing['quantity_before_risk']:sizing['binding_constraints']=['risk_budget']
    sizing['quantity_after_risk']=qty
+   # A full-size buy that fails the fee floor can never fill; skip it instead of retrying every 15-second scan.
+   if qty>0 and uneconomic(buy_config,qty*quotes[symbol]['price']):
+    with connect(self.path) as db:event(db,portfolio,'blocked','Buy too small for fee floor even at its full size; estimated round-trip fees exceed the limit.',symbol,clock=clock,details=dict(sizing,requested_quantity=qty,filled_quantity=0,risk_used_inr=0))
+    continue
    if qty>0:fills+=self.execute(portfolio,symbol,'BUY',qty,signals[symbol],clock,realtime,sizing)
    else:
     with connect(self.path) as db:event(db,portfolio,'blocked','No whole share fits the current risk or position budget.',symbol,clock=clock,details=dict(sizing,blocked_by='risk_budget' if sizing['quantity_before_risk'] else 'position_cap',requested_quantity=0,filled_quantity=0,risk_used_inr=0))
