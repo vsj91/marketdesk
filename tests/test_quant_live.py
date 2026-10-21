@@ -95,6 +95,14 @@ class QuantLiveTests(unittest.TestCase):
         self.assertEqual(result['holdings'],1);self.assertAlmostEqual(result['nav'],cash+50*100.,2)
         self.assertEqual(self.order(stale)['status'],'cancelled')                # superseded by the 19 Oct plan
 
+    def test_buy_too_small_for_fee_floor_is_cancelled_once(self):
+        oid=self.queue('AAA','BUY',2)                                            # Rs 200: fees far above 2.5% at any fill
+        self.auto.cycle(self.clock,{})
+        self.assertEqual(self.trades(),[]);self.assertEqual(self.order(oid)['status'],'cancelled')
+        self.auto.cycle(self.clock,{})
+        with connect(self.path) as db:n=db.execute("SELECT COUNT(*) FROM auto_events WHERE portfolio='stat_arb' AND reason LIKE 'Buy too small%'").fetchone()[0]
+        self.assertEqual(n,1)
+
     def test_executor_error_pauses_only_that_basket(self):
         with connect(self.path) as db:
             cfg=get_state(db,'auto_config');cfg['momentum']['enabled']=True;set_state(db,'auto_config',cfg)

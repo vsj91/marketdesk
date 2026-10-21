@@ -45,6 +45,13 @@ def rules(name,config=None):
         exit=exit_,risk='Paper only. Buys need the Nifty 500 universe, data checks, fresh depth and estimated round-trip fees within the configured limit; a 15% fall from the equity peak pauses new buys while exits continue.',
         max_positions={'smart_beta':15,'risk_parity':20,'stat_arb':10,'regime':16}[name],position_pct=None,max_buys_per_day=None,rebalance=True)
 
+def uneconomic(cfg,value):
+    """True when the whole order value fails the automatic buy fee floor, so no later fill can pass it."""
+    from ..execution import automatic_buy_cost_check,charges
+    try:automatic_buy_cost_check(cfg,value,charges(value,'BUY')['total'])
+    except ValueError:return True
+    return False
+
 def init_config(path):
     with connect(path) as db:
         cfg=get_state(db,'auto_config',{})
@@ -154,6 +161,9 @@ class QuantLive:
                 if o['side']=='SELL':held[o['symbol']]=held.get(o['symbol'],0)-result['quantity']
             except ValueError as error:
                 with connect(self.path) as db:event(db,name,'blocked',str(error),o['symbol'],clock=clock,details=getattr(error,'order_audit',None))
+                # A buy that fails the fee floor even at its full remaining size can never fill; stop retrying it every scan.
+                if o['side']=='BUY' and str(error).startswith('Buy too small for fee floor') and uneconomic(cfg,left*q['price']):
+                    self.cancel(name,o,clock,f"too small for the fee floor even at its full remaining size (Rs {left*q['price']:,.0f})")
         left=self.pending(name)
         with connect(self.path) as db:count=db.execute('SELECT COUNT(*) FROM positions WHERE portfolio=? AND quantity>0',(name,)).fetchone()[0]
         if halted:return dict(state='risk_wait',message=drawdown.message(info),fills_this_scan=fills,position_count=count)
