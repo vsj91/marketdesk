@@ -1,14 +1,17 @@
 'use strict';
-// Signal baskets (AI News Momentum, AI News Catalyst, EMA + Price Action) inside the Paper baskets tab.
+// Signal baskets (AI News Momentum, AI News Catalyst, EMA + Price Action, Vinay Intraday) inside the Paper baskets tab.
 // Adds a card line and detail sections to the existing basket views; reuses helpers from app.js.
 let signalData=null,signalBusy=false;
-const SIGNAL_NAMES=['news_momentum','news_catalyst','ema_price_action'];
+const SIGNAL_NAMES=['news_momentum','news_catalyst','ema_price_action','vinay_intraday'];
+const INTRADAY=['ema_price_action','vinay_intraday'];
 function signalBasket(n){return signalData?.baskets?.find(b=>b.name===n);}
 function signalCardLine(n){
  const b=signalBasket(n);if(!b)return '';
  const t=b.today||{},open=b.positions.length;
  if(n==='ema_price_action'){const pending=b.signals.filter(s=>s.status==='ENTRY_PENDING').length,partial=b.positions.filter(p=>p.partial_done).length;
   return `<div class="alloc-label"><span>${(t.ENTRY_PENDING||0)+(t.ENTRY_FILLED||0)+(t.REJECTED||0)+(t.EXPIRED||0)+(t.CANCELLED||0)} crossovers today · ${pending} armed</span><span>${open} open SL/TP${partial?` · ${partial} trailing`:''}</span></div>`;}
+ if(n==='vinay_intraday'){const m=b.runner?.vinay_scan||{},trail=b.positions.filter(p=>p.trail_active).length;
+  return `<div class="alloc-label"><span>${m.scanned??0} scanned · ${b.signals.filter(s=>s.status==='BUY_CANDIDATE').length} candidates</span><span>${open} open SL/TP${trail?` · ${trail} trailing`:''}</span></div>`;}
  if(n==='news_momentum')return `<div class="alloc-label"><span>${b.news.length} news items · ${b.signals.filter(s=>s.status==='WATCHLIST').length} watch</span><span>${b.signals.filter(s=>s.status==='BUY_CANDIDATE').length} confirmed</span></div>`;
  const best=b.signals.filter(s=>['BUY_CANDIDATE','WATCHLIST'].includes(s.status)).sort((x,y)=>(y.score||0)-(x.score||0))[0];
  return `<div class="alloc-label"><span>${b.signals.filter(s=>s.status==='BUY_CANDIDATE').length} selected · ${b.signals.filter(s=>s.status==='WATCHLIST').length} watch</span><span>${best?`top score ${fmt(best.score,0)}`:'no catalyst yet'}</span></div>`;
@@ -19,13 +22,14 @@ function signalRows(b){
  return b.signals.slice(0,40).map(s=>{const e=s.evidence||{};
   const levels=s.initial_stop!=null?`<small>${s.entry_trigger!=null?`Trigger ₹${fmt(s.entry_trigger)} · `:''}${s.limit_price!=null?`limit ₹${fmt(s.limit_price)} · `:''}SL ₹${fmt(s.initial_stop)} · TP ₹${fmt(s.initial_target)}${s.risk_reward!=null?` · RR ${fmt(s.risk_reward)}`:''}</small>`:'';
   const ema=b.name==='ema_price_action'&&e.ema9!=null?`<small>EMA9 ${fmt(e.ema9)} / EMA21 ${fmt(e.ema21)} / EMA200 ${fmt(e.ema200)} · RSI ${fmt(e.rsi14,1)} · ATR ${fmt(e.atr14)} (${fmt(e.atr_pct)}%) · support ${e.structural_level==null?'none':'₹'+fmt(e.structural_level)} · resistance ${e.resistance_level==null?'none':'₹'+fmt(e.resistance_level)}</small>`:'';
-  const news=b.name!=='ema_price_action'&&e.components?`<small>Components: ${Object.entries(e.components).map(([k,v])=>`${esc(k)} ${fmt(v,0)}`).join(' · ')}${e.missing?.length?` · missing: ${esc(e.missing.join('; '))}`:''}</small>`:'';
+  const leader=b.name==='vinay_intraday'&&e.day_change_pct!=null?`<small>Day ${fmt(e.day_change_pct)}% · gap ${fmt(e.gap_pct)}% · volume ${fmt(e.rvol,1)}x · opening range high ₹${fmt(e.or_high)} · VWAP ₹${fmt(e.vwap)} (+${fmt(e.vwap_extension_pct)}%) · stop ${fmt(e.stop_pct)}%</small>`:'';
+  const news=!INTRADAY.includes(b.name)&&e.components?`<small>Components: ${Object.entries(e.components).map(([k,v])=>`${esc(k)} ${fmt(v,0)}`).join(' · ')}${e.missing?.length?` · missing: ${esc(e.missing.join('; '))}`:''}</small>`:'';
   const score=b.name==='news_catalyst'&&e.score?`<small>Score parts: ${Object.entries(e.score.components||{}).map(([k,v])=>`${esc(k)} ${fmt(v,0)}`).join(' · ')} · coverage ${fmt(e.score.coverage*100,0)}%</small>`:'';
-  return `<div class="event"><strong><span class="tag ${STATUS_TONE[s.status]||''}">${esc(s.status.replaceAll('_',' '))}</span> ${stockReference(s.symbol)}${s.score!=null?` · ${b.name==='ema_price_action'?'RR':'score'} ${fmt(s.score,b.name==='ema_price_action'?2:0)}`:''}</strong><p>${esc(s.explanation)}</p>${s.rejection_reason?`<p class="muted">Why not: ${esc(s.rejection_reason)}</p>`:''}${levels}${ema}${news}${score}<small>${esc(dt(s.updated_at))}${s.expires_at?` · expires ${esc(s.expires_at.length>10?dt(s.expires_at):s.expires_at)}`:''}</small></div>`;}).join('');
+  return `<div class="event"><strong><span class="tag ${STATUS_TONE[s.status]||''}">${esc(s.status.replaceAll('_',' '))}</span> ${stockReference(s.symbol)}${s.score!=null?` · ${b.name==='ema_price_action'?'RR':'score'} ${fmt(s.score,b.name==='ema_price_action'||b.name==='vinay_intraday'?2:0)}`:''}</strong><p>${esc(s.explanation)}</p>${s.rejection_reason?`<p class="muted">Why not: ${esc(s.rejection_reason)}</p>`:''}${levels}${ema}${leader}${news}${score}<small>${esc(dt(s.updated_at))}${s.expires_at?` · expires ${esc(s.expires_at.length>10?dt(s.expires_at):s.expires_at)}`:''}</small></div>`;}).join('');
 }
 function positionRows(b){
  if(!b.positions.length)return '<p class="muted">No open positions.</p>';
- return `<div class="table-scroll"><table><thead><tr><th>Stock</th><th>Stage</th><th>Qty</th><th>Entry</th><th>Stop</th><th>Target</th><th>Last</th></tr></thead><tbody>${b.positions.map(p=>`<tr><td>${stockReference(p.symbol)}<small>since ${esc(dt(p.entry_at))}</small></td><td><span class="tag">${esc(String(p.stage).replaceAll('_',' '))}</span>${p.be_trigger!=null?`<small>BE at ₹${fmt(p.be_trigger)} · partial at ₹${fmt(p.partial_trigger)}${p.partial_done?' ✓':''}${p.trail_active?' · EMA20 trail':''}</small>`:''}${p.pending_exit?`<small>Exit pending: ${esc(p.pending_exit[1])}</small>`:''}</td><td>${p.qty}${p.original_qty&&p.original_qty!==p.qty?' / '+p.original_qty:''}</td><td>${fmt(p.entry??p.average_cost)}</td><td>${p.stop==null?'—':fmt(p.stop)}${p.initial_stop!=null&&p.stop!==p.initial_stop?`<small>initial ${fmt(p.initial_stop)}</small>`:''}</td><td>${p.target==null||p.target_active===false?'—':fmt(p.target)}</td><td>${fmt(p.price)}</td></tr>`).join('')}</tbody></table></div>`;
+ return `<div class="table-scroll"><table><thead><tr><th>Stock</th><th>Stage</th><th>Qty</th><th>Entry</th><th>Stop</th><th>Target</th><th>Last</th></tr></thead><tbody>${b.positions.map(p=>`<tr><td>${stockReference(p.symbol)}<small>since ${esc(dt(p.entry_at))}</small></td><td><span class="tag">${esc(String(p.stage).replaceAll('_',' '))}</span>${p.be_trigger!=null?`<small>BE at ₹${fmt(p.be_trigger)} · partial at ₹${fmt(p.partial_trigger)}${p.partial_done?' ✓':''}${p.trail_active?(b.name==='vinay_intraday'?' · trailing':' · EMA20 trail'):''}</small>`:''}${p.exit_now?`<small>Exit pending: ${esc(p.exit_now[1])}</small>`:''}${p.pending_exit?`<small>Exit pending: ${esc(p.pending_exit[1])}</small>`:''}</td><td>${p.qty}${p.original_qty&&p.original_qty!==p.qty?' / '+p.original_qty:''}</td><td>${fmt(p.entry??p.average_cost)}</td><td>${p.stop==null?'—':fmt(p.stop)}${p.initial_stop!=null&&p.stop!==p.initial_stop?`<small>initial ${fmt(p.initial_stop)}</small>`:''}</td><td>${p.target==null||p.target_active===false?'—':fmt(p.target)}</td><td>${fmt(p.price)}</td></tr>`).join('')}</tbody></table></div>`;
 }
 function newsRows(b){
  if(!b.news.length)return '<p class="muted">No analysed announcements yet. NSE corporate announcements are polled every 5 minutes on weekdays.</p>';
@@ -57,11 +61,12 @@ function paramForm(b){
 function signalSection(n,open){
  const b=signalBasket(n);if(!b)return SIGNAL_NAMES.includes(n)?'<p class="muted">Loading signal details…</p>':'';
  const r=b.runner||{},news=b.checkpoints.news||{},ema=b.checkpoints.ema||{};
- const feed=n==='ema_price_action'?`Candles: last refresh ${esc(dt(ema.last_success))} · ${ema.symbols??0} symbols${r.ema_cycle?.error?` · ${esc(r.ema_cycle.error)}`:''}`:`NSE announcements: last success ${esc(dt(news.last_success))}${news.ok===false?` · failing: ${esc(news.error)}`:''}`;
+ const misses=n==='vinay_intraday'&&r.vinay_scan?.near_misses?Object.entries(r.vinay_scan.near_misses).map(([k,v])=>`${v} ${esc(k)}`).join(', '):'';
+ const feed=INTRADAY.includes(n)?`Candles: last refresh ${esc(dt(ema.last_success))} · ${ema.symbols??0} symbols${r.ema_cycle?.error?` · ${esc(r.ema_cycle.error)}`:''}${misses?` · last scan misses: ${misses}`:''}`:`NSE announcements: last success ${esc(dt(news.last_success))}${news.ok===false?` · failing: ${esc(news.error)}`:''}`;
  return `<div class="note"><strong>PAPER</strong> · ${esc(b.version)} · every order, stop and target here is simulated; nothing is sent to a broker. ${feed}</div>
  ${group(n+'-signals','Signals and decisions',`${b.signals.length} recent`,signalRows(b),open('signals'))}
- ${group(n+'-positions',n==='ema_price_action'?'Open trades: stop, target, stage':'Open positions: stop, target, review',String(b.positions.length),positionRows(b),open('positions'))}
- ${n!=='ema_price_action'?group(n+'-news','Announcements and analysis',`${b.news.length}`,newsRows(b),open('news')):''}
+ ${group(n+'-positions',INTRADAY.includes(n)?'Open trades: stop, target, stage':'Open positions: stop, target, review',String(b.positions.length),positionRows(b),open('positions'))}
+ ${!INTRADAY.includes(n)?group(n+'-news','Announcements and analysis',`${b.news.length}`,newsRows(b),open('news')):''}
  ${group(n+'-perf','Performance (PAPER)','',performanceHtml(b),open('perf'))}
  ${group(n+'-log','State machine and event log',`${b.transitions.length}`,transitionRows(b),open('log'))}
  ${group(n+'-params','Parameters','',paramForm(b),open('params'))}

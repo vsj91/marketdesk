@@ -50,12 +50,12 @@ CREATE TABLE IF NOT EXISTS sb_intraday(
 '''
 
 def init(path):
-    from .names import SIGNAL_BASKETS
+    from .names import SIGNAL_BASKETS,INTRADAY_BASKETS
     with connect(path) as db:
         db.executescript(SCHEMA)
         cfg=get_state(db,'auto_config',{})
         for name in SIGNAL_BASKETS:
             if name not in cfg:
-                # EMA trades intraday (MIS-style) and squares off itself, so its fee check uses intraday charges.
-                cfg[name]={'enabled':True,'full_session_buying':True,'max_round_trip_fee_pct':1. if name=='ema_price_action' else 1.5,'params':{}}
+                # Intraday baskets trade MIS-style and square off themselves, so their fee check uses intraday charges.
+                cfg[name]={'enabled':True,'full_session_buying':True,'max_round_trip_fee_pct':1. if name in INTRADAY_BASKETS else 1.5,'params':{}}
         set_state(db,'auto_config',cfg)

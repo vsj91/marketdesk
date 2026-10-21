@@ -446,7 +446,7 @@ class EngineTests(unittest.TestCase):
             sig=db.execute("SELECT status FROM sb_signals WHERE portfolio='news_momentum'").fetchall()
         self.assertEqual(len(sig),1)                   # only the verified original gets a decision
         payload=report(self.path,self.clock)
-        self.assertEqual([b['name'] for b in payload['baskets']],['news_momentum','news_catalyst','ema_price_action'])
+        self.assertEqual([b['name'] for b in payload['baskets']],['news_momentum','news_catalyst','ema_price_action','vinay_intraday'])
         json.dumps(payload,allow_nan=False)
 
 

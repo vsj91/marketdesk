@@ -5,7 +5,7 @@ const cell=x=>`<td class="${tone(x)}">${pct(x)}</td>`;
 const TITLES={trader:'Trader',investor:'Investor',momentum:'Momentum (6-1)',lowvol:'Low volatility',reversion:'Mean reversion',high52:'52-week high',
  momentum12:'Momentum 12-1',alpha:'Alpha',clenow:'Stocks on the Move',vol_momentum:'Vol-adjusted momentum',residual_momentum:'Residual momentum',smooth_momentum:'Smooth momentum',volume_surge:'Volume surge',pullback:'Pullback in leaders',low_max:'Low max-return',reversal:'Short-term reversal',minervini:'Minervini trend template',conservative:'Conservative Formula',turtle:'Turtle breakout',connors:'Connors RSI-2',dual_momentum:'Dual Momentum',golden_cross:'Golden cross + ADX',macd:'MACD crossover',bollinger_rsi:'Bollinger + RSI',quality_value:'Quality at a fair price',magic_formula:'Magic Formula',net_buyback:'Net buybacks',dividend_quality:'Dividend + quality',value_momentum:'Value + momentum',overnight:'Overnight momentum',gap_drift:'Gap-up drift',sector_rotation:'Sector rotation',
  smart_beta:'Multi-factor',risk_parity:'Risk parity',stat_arb:'Stat-arb',regime:'Regime switching',news_momentum:'AI News Momentum',
- news_catalyst:'AI News Catalyst',ema_price_action:'EMA + Price Action'};
+ news_catalyst:'AI News Catalyst',ema_price_action:'EMA + Price Action',vinay_intraday:'Vinay Intraday'};
 const title=n=>TITLES[n]||n;
 const VERDICT={pass:['up','Beat the hold'],mixed:['warn','Mixed'],fail:['down','Behind the hold'],untested:['','Not testable']};
 function verdict(b){const [cls,label]=VERDICT[b?.verdict]||VERDICT.untested;return `<span class="tag ${cls}">${esc(label)}</span>`}

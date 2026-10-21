@@ -28,7 +28,7 @@ import marketdesk.claude_trader as ct
 from marketdesk.execution import charges
 from marketdesk.history_rules import is_financial
 OUT=ROOT/'data/backtests';DB=ROOT/'data/marketdesk.sqlite3';SLIP=.0025
-FILES=dict(trader='trader-10y.json',ema='ema-2022-2026.json',news='news-momentum-2019-2026.json',quant='quant-pit-2023-2026.json',investor='investor-pit-2024-2026.json')
+FILES=dict(trader='trader-10y.json',ema='ema-2022-2026.json',news='news-momentum-2019-2026.json',quant='quant-pit-2023-2026.json',investor='investor-pit-2024-2026.json',vinay='vinay-intraday-2022-2026.json')
 
 def signal_module():
     spec=importlib.util.spec_from_file_location('bsb',ROOT/'scripts/backtest_signal_baskets.py');m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m);return m
@@ -372,6 +372,13 @@ def summary():
         baskets['ema_price_action']=dict(window=[a,b],universe='40 most traded stocks as of each 1 January',method='Live 5-minute rules (defaults); capital resets each year',
             full=dict(cagr=cagr,maxdd=round(dd,2),sharpe=None),trades=trades,hold_cagr=hold(a,b),years={y:t[y]['defaults']['metrics']['net_return_pct'] for y in ys},
             verdict='pass' if cagr>hold(a,b) else 'fail',note='Worst fall is the worst within a single year')
+    if 'vinay' in files:
+        t=files['vinay'];a,b=t['window'];yrs=(date.fromisoformat(b)-date.fromisoformat(a)).days/365.25
+        cagr=round(100*((1+t['compounded_pct']/100)**(1/yrs)-1),2)
+        baskets['vinay_intraday']=dict(window=[a,b],universe=t['universe'],method='Live 5-minute rules (defaults, scripts/backtest_vinay_intraday.py); compounding, Upstox intraday charges',
+            full=dict(cagr=cagr,maxdd=max(m['max_drawdown_pct'] for m in t['years'].values()),sharpe=None),trades=t['trades'],hold_cagr=hold(a,b),
+            years={y:m['net_return_pct'] for y,m in t['years'].items()},verdict='pass' if cagr>hold(a,b) else 'fail',
+            note='Lost money after fees in every year; worst fall is the worst within a single year')
     baskets['news_catalyst']=dict(verdict='untested',note='Holds 3-24 months on verified catalysts plus point-in-time financials; not testable with the stored history')
     baskets['reversion']=dict(verdict='fail',note='Retired: fees outweighed gains in the one-year test (scripts/backtest_baskets.py)')
     cands=rb.candidates(P,I,I['tradable']&I['trend']);unique=uniqueness(P,I,cands);candidates=[]

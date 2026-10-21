@@ -7,7 +7,8 @@ Every 15 seconds `tick` runs whichever jobs are due, each idempotent and checkpo
   confirm    promote News Momentum watchlist items once their news session's daily candle is complete
   catalyst   re-score News Catalyst candidates once per new completed session
   ema        on each completed 5-minute boundary (+15 s publication grace) while NSE is NORMAL_OPEN:
-             fetch candles for a liquidity-ranked universe, evaluate the newest completed candle, arm entries
+             fetch candles once for a liquidity-ranked universe shared by both intraday baskets, then evaluate
+             the newest completed candle for EMA crossovers and Vinay intraday momentum leaders
   retention  daily pruning of cached candles, routine news and fine-grained equity snapshots
 Unique keys on news (source id) and signals (event key) make a retry or overlapping tick a no-op."""
 import json,math,sys,threading,time,traceback
@@ -18,9 +19,9 @@ from ..storage import connect,get_state,set_state,now
 from ..feed import load_token
 from ..buy_universe import allowed_symbols
 from ..history_rules import is_financial
-from . import news as newslib,news_rules,ema_rules
+from . import news as newslib,news_rules,ema_rules,vinay_rules
 from .engine import params,set_status,transition,daily_bars,benchmark,intraday_bars,session,local_hm,IST
-from .names import NEWS_MOMENTUM,NEWS_CATALYST,EMA_PRICE_ACTION,STRATEGY_VERSIONS
+from .names import NEWS_MOMENTUM,NEWS_CATALYST,EMA_PRICE_ACTION,VINAY_INTRADAY,INTRADAY_BASKETS,STRATEGY_VERSIONS
 from .schema import init as init_schema
 
 def clean(x):
@@ -311,48 +312,83 @@ class SignalRunner:
         self.status(refresh_catalysts=dict(ok=True,error=None,session=latest,reviewed=len(rows)))
 
     # ---- EMA data and signals --------------------------------------------------------------------
-    def ema_universe(self,db,clock,p):
+    def ema_universe(self,db,clock,p,name=EMA_PRICE_ACTION):
         day=session(clock)
-        if self.universe[0]==(day,p['universe_size']):return self.universe[1]
-        allowed=allowed_symbols(db,EMA_PRICE_ACTION,clock)
+        if self.universe[0]==(day,p['universe_size'],name):return self.universe[1]
+        allowed=allowed_symbols(db,name,clock)
         bad={r[0] for r in db.execute("SELECT symbol FROM quality WHERE json_extract(report,'$.trader_ready')=0")}
         ranked=[]
         for r in db.execute('''SELECT symbol,AVG(close*volume) t,MAX(ts) last,(SELECT close FROM candles c2 WHERE c2.symbol=c.symbol ORDER BY ts DESC LIMIT 1) px
             FROM (SELECT * FROM candles WHERE substr(ts,1,10)<? AND substr(ts,1,10)>=?) c GROUP BY symbol''',(day,(date.fromisoformat(day)-timedelta(days=35)).isoformat())):
             if (allowed is None or r['symbol'] in allowed) and r['symbol'] not in bad and r['px'] and r['px']>=p['min_price'] and r['t']>=p['min_turnover_cr']*1e7:ranked.append((r['t'],r['symbol']))
         out=[s for _,s in sorted(ranked,reverse=True)[:p['universe_size']]]
-        self.universe=((day,p['universe_size']),out);return out
+        self.universe=((day,p['universe_size'],name),out);return out
 
     def ema_cycle(self,clock):
+        """Candle refresh for both intraday baskets (one fetch per symbol and timeframe), then each basket's signals."""
         with connect(self.path) as db:
-            cfg=get_state(db,'auto_config',{}).get(EMA_PRICE_ACTION,{});stream=get_state(db,'stream',{})
+            cfgs=get_state(db,'auto_config',{});stream=get_state(db,'stream',{})
             checkpoint=get_state(db,'signal_ema_checkpoint',{})
-        if not cfg.get('enabled'):return
+        active={n:params(n,cfgs.get(n)) for n in INTRADAY_BASKETS if cfgs.get(n,{}).get('enabled')}
+        if not active:return
         if stream.get('status')!='connected' or stream.get('market_status',{}).get('NSE_EQ')!='NORMAL_OPEN':return
-        p=params(EMA_PRICE_ACTION,cfg);tf=p['timeframe_minutes'];local=clock.astimezone(IST)
+        tfs=sorted({p['timeframe_minutes'] for p in active.values()});tf=tfs[0];local=clock.astimezone(IST)
         boundary=local.replace(minute=local.minute-local.minute%tf,second=0,microsecond=0)
         if (local-boundary).total_seconds()<15 or checkpoint.get('boundary',' ')>=boundary.isoformat():return
+        widest=max(active,key=lambda n:active[n]['universe_size'])
         with connect(self.path) as db:
-            universe=self.ema_universe(db,clock,p)
-            extra={r[0] for r in db.execute("SELECT symbol FROM sb_positions WHERE portfolio=? UNION SELECT symbol FROM sb_signals WHERE portfolio=? AND status='ENTRY_PENDING'",(EMA_PRICE_ACTION,EMA_PRICE_ACTION))}
+            universe=self.ema_universe(db,clock,active[widest],widest)
+            extra={r[0] for n in active for r in db.execute("SELECT symbol FROM sb_positions WHERE portfolio=? UNION SELECT symbol FROM sb_signals WHERE portfolio=? AND status IN ('ENTRY_PENDING','BUY_CANDIDATE')",(n,n))}
             keys=dict(db.execute('SELECT symbol,instrument_key FROM instruments'))
         symbols=list(dict.fromkeys([*universe,*sorted(extra)]))
         today=session(clock);errors=[];stored=0
         for s in symbols:
             if s not in keys:continue
-            try:
-                rows=[]
-                if self.warm.get(s)!=(today,tf):
-                    start=(local.date()-timedelta(days=10)).isoformat();end=(local.date()-timedelta(days=1)).isoformat()
-                    rows+=valid_candles(self.candles.history(keys[s],tf,start,end),tf,clock);self.warm[s]=(today,tf)
-                rows+=valid_candles(self.candles.intraday(keys[s],tf),tf,clock)
-            except (ValueError,requests.RequestException) as error:errors.append(f'{s}: {error}');continue
-            with connect(self.path) as db:
-                db.executemany('INSERT OR REPLACE INTO sb_intraday VALUES(?,?,?,?,?,?,?,?)',[(s,tf,*r) for r in rows]);stored+=len(rows)
-        evaluated=self.ema_signals(symbols,clock,p)
+            for t in tfs:
+                if (local.hour*60+local.minute)%t:continue          # a slower timeframe refreshes on its own boundaries
+                try:
+                    rows=[]
+                    if self.warm.get((s,t))!=today:
+                        start=(local.date()-timedelta(days=10)).isoformat();end=(local.date()-timedelta(days=1)).isoformat()
+                        rows+=valid_candles(self.candles.history(keys[s],t,start,end),t,clock);self.warm[(s,t)]=today
+                    rows+=valid_candles(self.candles.intraday(keys[s],t),t,clock)
+                except (ValueError,requests.RequestException) as error:errors.append(f'{s}: {error}');continue
+                with connect(self.path) as db:
+                    db.executemany('INSERT OR REPLACE INTO sb_intraday VALUES(?,?,?,?,?,?,?,?)',[(s,t,*r) for r in rows]);stored+=len(rows)
+        evaluated=self.ema_signals(symbols,clock,active[EMA_PRICE_ACTION]) if EMA_PRICE_ACTION in active else 0
+        leaders=self.vinay_signals(symbols,clock,active[VINAY_INTRADAY]) if VINAY_INTRADAY in active else None
         with connect(self.path) as db:set_state(db,'signal_ema_checkpoint',dict(boundary=boundary.isoformat(),symbols=len(symbols),errors=len(errors),
             last_success=clock.isoformat() if len(errors)<len(symbols)/2 else checkpoint.get('last_success')))
-        self.status(ema_cycle=dict(ok=len(errors)<len(symbols)/2,error='; '.join(errors[:3]) or None,boundary=boundary.isoformat(),universe=len(symbols),candles_stored=stored,crossovers=evaluated))
+        self.status(ema_cycle=dict(ok=len(errors)<len(symbols)/2,error='; '.join(errors[:3]) or None,boundary=boundary.isoformat(),universe=len(symbols),candles_stored=stored,crossovers=evaluated),
+            **({'vinay_scan':leaders} if leaders is not None else {}))
+
+    def vinay_signals(self,symbols,clock,p):
+        """Rank the universe on the newest completed candle. Only candidates are stored (one open per stock);
+        near misses are summarised in the runner status so the screen can say why nothing was bought."""
+        tf=p['timeframe_minutes'];today=session(clock);hm=local_hm(clock);found=0;scanned=0;misses={}
+        window=p['entry_start']<=hm<p['entry_cutoff']
+        for s in symbols:
+            with connect(self.path) as db:
+                db.execute('BEGIN IMMEDIATE')
+                bars=intraday_bars(db,s,tf,clock,limit=900)
+                if not bars or bars[-1]['ts'][:10]!=today:continue
+                prev=daily_bars(db,s,today,limit=1);last=max((b['ts'][:10] for b in bars if b['ts'][:10]<today),default=None)
+                # The official close only when the daily candle is for the last intraday session; else that session's last candle.
+                ev=vinay_rules.evaluate(bars,p,prev[-1]['close'] if prev and prev[-1]['ts'][:10]==last else None)
+                if not ev:continue
+                scanned+=1
+                if ev['status']!='BUY_CANDIDATE':
+                    for r in ev['reasons']:k=vinay_rules.miss_label(r);misses[k]=misses.get(k,0)+1
+                    continue
+                if not window:misses['Outside window']=misses.get('Outside window',0)+1;continue
+                if db.execute("SELECT 1 FROM sb_signals WHERE portfolio=? AND symbol=? AND session=? AND status IN ('BUY_CANDIDATE','ENTRY_FILLED')",(VINAY_INTRADAY,s,today)).fetchone():continue
+                key=f"{s}:{ev['trigger_ts']}:{tf}"
+                end=datetime.fromisoformat(ev['trigger_ts'])+timedelta(minutes=tf*(1+p['candidate_expiry_candles']))
+                found+=1
+                upsert_signal(db,VINAY_INTRADAY,key,s,'BUY_CANDIDATE',clock,valid_from=today,expires_at=end.astimezone(timezone.utc).isoformat(),score=ev['score'],
+                    explanation=(f"Up {ev['day_change_pct']:+.2f}% on {ev['rvol']:.1f}x usual volume; close {ev['close']:.2f} above opening range high {ev['or_high']:.2f} "
+                        f"and VWAP {ev['vwap']:.2f} (+{ev['vwap_extension_pct']:.2f}%); stop {ev['stop_pct']:.2f}%"),details=ev)
+        return dict(ok=True,error=None,scanned=scanned,candidates=found,near_misses=dict(sorted(misses.items(),key=lambda x:-x[1])[:6]))
 
     def ema_signals(self,symbols,clock,p):
         found=0;tf=p['timeframe_minutes'];today=session(clock);hm=local_hm(clock)

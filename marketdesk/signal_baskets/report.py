@@ -4,7 +4,7 @@ import json,math,statistics
 from datetime import datetime,timezone
 from ..storage import connect,get_state
 from .engine import params,rules,LIMITS,session
-from .names import SIGNAL_BASKETS,TITLES,STRATEGY_VERSIONS,NEWS_MOMENTUM,NEWS_CATALYST,EMA_PRICE_ACTION
+from .names import SIGNAL_BASKETS,TITLES,STRATEGY_VERSIONS,NEWS_MOMENTUM,NEWS_CATALYST,EMA_PRICE_ACTION,VINAY_INTRADAY
 from .runner import STATUS_KEY
 
 def round_trips(trades):
@@ -56,6 +56,7 @@ def basket_payload(db,name,clock):
     for r in db.execute('SELECT * FROM sb_signals WHERE portfolio=? ORDER BY updated_at DESC LIMIT 80',(name,)):
         s=dict(r);d=json.loads(s.pop('details') or '{}')
         if name==EMA_PRICE_ACTION:s['evidence']={k:d.get(k) for k in ('trigger_ts','ema9','ema21','ema200','rsi14','atr14','atr_pct','structural_level','structural_stop','atr_stop','atr_target','resistance_level','structural_target','reasons')}
+        elif name==VINAY_INTRADAY:s['evidence']={k:d.get(k) for k in ('trigger_ts','day_change_pct','gap_pct','or_high','vwap','vwap_extension_pct','rvol','atr14','close_location','stop_pct','reasons')}
         else:
             a=d.get('analysis') or d.get('catalyst') or {}
             s['evidence']=dict(category=a.get('category'),label=a.get('label'),impact=a.get('impact_score'),confidence=a.get('confidence'),components=a.get('components'),
@@ -67,7 +68,7 @@ def basket_payload(db,name,clock):
     for r in db.execute('SELECT s.*,q.price FROM sb_positions s LEFT JOIN quotes q USING(symbol) WHERE s.portfolio=?',(name,)):
         st=json.loads(r['state']);positions.append(dict(symbol=r['symbol'],stage=r['stage'],entry_session=r['entry_session'],entry_at=r['entry_at'],signal_id=r['signal_id'],
             price=r['price'],**{k:st.get(k) for k in ('entry','qty','original_qty','stop','initial_stop','target','target_active','be_trigger','partial_trigger','partial_done',
-            'trail_active','entry_atr','atr','best_close','best_price','average_cost','entry_score','last_review','last_score','pending_exit','adopted')}))
+            'trail_active','trail_trigger','exit_now','candles_held','entry_atr','atr','best_close','best_price','average_cost','entry_score','last_review','last_score','pending_exit','adopted')}))
     log=[dict(r) for r in db.execute('SELECT * FROM sb_transitions WHERE portfolio=? ORDER BY id DESC LIMIT 100',(name,))]
     news=[]
     if name in (NEWS_MOMENTUM,NEWS_CATALYST):
@@ -94,6 +95,10 @@ LIMITATIONS={
    'Live triggers, stops and targets are checked on last-trade observations every 15 seconds; fills use live depth, so exits can be worse than the stop (gaps, thin books).',
    'With the default hybrid stop (>= 1.5 ATR) and an ATR target capped at 3 ATR, risk-reward cannot exceed 2.0, and tick rounding pulls it just below 2.0, so a 2.0 minimum admits almost no trades. The default minimum is therefore 1.8 (configurable 1.5-2.0); setups still need the ATR stop to bind or a close structural stop.',
    'Intraday charges are an estimate (not a contract note). Shorts are research-only; the paper ledger is long-only.'],
+ VINAY_INTRADAY:['No rule set can promise no losses: the 2.5% stop can fill lower on gaps and thin books, and most days the stock simply drifts until the 15:10 square-off.',
+   'Uses the same Upstox 5-minute candles as the EMA basket for the 60 most traded Nifty 500 stocks; relative volume needs 3 prior sessions of candles.',
+   'Paper ledger is cash-only, so positions use the basket\'s own money (no MIS leverage). Intraday charges are an estimate, not a contract note.',
+   'Long only: falling stocks are never shorted. Backtest (scripts/backtest_vinay_intraday.py, 5-minute candles 2022-2026, top 40 stocks a year plus Nifty 500 ranks 41-200 for 2025-2026): lost money after fees every year, -4% to -23%.'],
 }
 
 def snapshot(path,clock=None):
