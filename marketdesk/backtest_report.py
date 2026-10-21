@@ -15,6 +15,18 @@ IST=timezone(timedelta(hours=5,minutes=30))
 
 def _pct(a,b):return round(100*(b/a-1),2) if a and b else None
 
+# A paper record is judged after this many closed trades; fewer is mostly luck. The days needed follow from
+# the basket's own backtest trade rate, never less than a month.
+JUDGE_TRADES=30;MIN_DAYS=30
+
+def paper_length(test):
+    """(trades per year, calendar days to JUDGE_TRADES closed trades) at the backtest pace; (None, None) when untested."""
+    window,trades=test.get('window'),test.get('trades')
+    if not window or not trades:return None,None
+    years=(date.fromisoformat(window[1])-date.fromisoformat(window[0])).days/365.25
+    rate=trades/years if years>0 else None
+    return (round(rate,1),max(MIN_DAYS,round(JUDGE_TRADES/rate*365.25))) if rate else (None,None)
+
 def report(path,clock=None):
     clock=clock or datetime.now(timezone.utc)
     saved=json.loads(SUMMARY.read_text()) if SUMMARY.exists() else {}
@@ -27,13 +39,16 @@ def report(path,clock=None):
         for name in PORTFOLIOS:
             a=accounts.get(name)
             if not a:continue
-            first,count=db.execute('SELECT MIN(created_at),COUNT(*) FROM trades WHERE portfolio=?',(name,)).fetchone()
+            first,count,closed=db.execute("SELECT MIN(created_at),COUNT(*),SUM(side='SELL') FROM trades WHERE portfolio=?",(name,)).fetchone()
             start=datetime.fromisoformat(first).astimezone(IST).date() if first else None
             days=(clock.astimezone(IST).date()-start).days if start else 0
             base=next((c for d,c in reversed(bench) if start and d<start.isoformat()),None)
             test=tests.get(name) or {}
             cagr=(test.get('full') or {}).get('cagr')
-            paper=dict(since=start.isoformat() if start else None,days=days,trades=count,equity=a.get('equity'),initial_cash=a['initial_cash'],
+            rate,needed=paper_length(test)
+            paper=dict(since=start.isoformat() if start else None,days=days,trades=count,closed_trades=closed or 0,equity=a.get('equity'),initial_cash=a['initial_cash'],
+                judge_trades=JUDGE_TRADES,backtest_trades_per_year=rate,days_needed=needed,
+                judge_on=(start+timedelta(days=needed)).isoformat() if start and needed else None,
                 return_pct=round(100*a['pnl']/a['initial_cash'],2) if a.get('pnl') is not None and start else None,
                 nifty500_pct=_pct(base,bench[-1][1]) if base and bench else None,
                 backtest_pace_pct=round(100*((1+cagr/100)**(days/365.25)-1),2) if cagr is not None and days else None)

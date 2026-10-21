@@ -202,6 +202,8 @@ function backtestCard(n){
  if(b.h1?.cagr!=null&&b.h2?.cagr!=null)lines.push(`First half ${pct(b.h1.cagr)} · second half ${pct(b.h2.cagr)}`);
  if(b.note)lines.push(esc(b.note));
  const p=row.paper||{};if(p.days)lines.push(`Paper so far: ${pct(p.return_pct)} over ${p.days} day${p.days===1?'':'s'} · backtest pace ${pct(p.backtest_pace_pct)} · Nifty 500 ${pct(p.nifty500_pct)}`);
+ if(p.days_needed){const left=Math.max(0,p.days_needed-(p.days||0)),m=p.days_needed/30.4;lines.push(`<strong>Paper test length: about ${fmt(p.days_needed,0)} days${m>=2?` (~${m>=24?fmt(m/12,1)+' years':fmt(m,0)+' months'})`:''}</strong> to reach ${p.judge_trades} closed trades at its backtest pace of ${fmt(p.backtest_trades_per_year,0)} a year · day ${fmt(p.days||0,0)} of ${fmt(p.days_needed,0)}${left?` · ${fmt(left,0)} to go`:' · ready to judge'}${p.judge_on?` (${esc(p.judge_on)})`:''} · ${fmt(p.closed_trades||0,0)} of ${p.judge_trades} closed so far`);}
+ else lines.push(`<strong>Paper test length: judge after ${p.judge_trades||30} closed trades</strong> (no backtest trade rate) · ${fmt(p.closed_trades||0,0)} closed so far`);
  if(cfg.comparison_only)lines.push(`<strong>${esc(cfg.comparison_reason||'Comparison-only basket.')}</strong>`);
  return `<div class="backtest-card ${v[1]}"><div class="backtest-head"><span class="tag ${v[1]}">${esc(v[0])}</span>${b.method?`<small>${esc(b.method)}</small>`:''}</div>${lines.map(l=>`<p>${l}</p>`).join('')}<p><a href="/backtests.html">All backtests and live results →</a></p></div>`;
 }
