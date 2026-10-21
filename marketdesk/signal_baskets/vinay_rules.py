@@ -109,7 +109,7 @@ def evaluate(bars,cfg=None,prev_close=None):
     out.update(stop_pct=stop_pct,score=change*min(rv or 0,3.),status='REJECTED' if reasons else 'BUY_CANDIDATE',reasons=reasons)
     return out
 
-MISS_LABELS=(('Day change','day change outside the band'),('gapped','gap too big'),('opening range','not above the opening range'),
+MISS_LABELS=(('Day change','day change outside the band'),('gapped, below','gap under the minimum'),('gapped up','gap too big'),('opening range','not above the opening range'),
     ('chasing','too far above VWAP'),('VWAP','below VWAP'),('Relative volume','volume too low'),('green','red candle'),('lower','weak close'),('ATR','no ATR'))
 
 def miss_label(reason):

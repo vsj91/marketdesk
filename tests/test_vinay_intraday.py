@@ -60,6 +60,8 @@ class LeaderScanTests(unittest.TestCase):
         ev=vinay_rules.evaluate(bars)
         self.assertEqual(ev['status'],'BUY_CANDIDATE',ev['reasons']);self.assertEqual(ev['stop_pct'],2.5)
         self.assertEqual(vinay_rules.evaluate(leader())['reasons'],['Opened +0.50% gapped, below +1%'])
+        self.assertEqual(vinay_rules.miss_label('Opened +0.50% gapped, below +1%'),'gap under the minimum')
+        self.assertEqual(vinay_rules.miss_label('Opened +3.00% gapped up, above 2.5%'),'gap too big')
         st=vinay_rules.arm(1000.,90,2.5,{});self.assertFalse(st['target_active'])
         self.assertEqual(vinay_rules.on_price(st,1100,{}),(None,[]))                           # no target: rides to 15:10
         self.assertEqual(vinay_rules.on_price(st,974,{})[0]['kind'],'STOP_LOSS')
