@@ -13,7 +13,9 @@ sb_signals         every basket decision (BUY_CANDIDATE, WATCHLIST, REJECTED, EX
 sb_positions       per-basket open position state: stop, target, stage, entry ATR, original quantity, best price
 sb_transitions     append-only state-machine log; `dedup` is unique so repeated scans log a transition once
 sb_equity          equity/cash snapshots (5-minute buckets) for drawdown, utilization and the chart
-sb_intraday        cached completed intraday candles for the EMA basket's universe (retention-pruned)"""
+sb_intraday        cached completed intraday candles for the EMA basket's universe (retention-pruned)
+sb_live_bars       5-minute candles built from the live feed for every streamed stock (Vinay Intraday; retention-pruned)
+sb_live_volume     last volume-traded-today snapshot per stock, for booking each live candle's volume"""
 from ..storage import connect,get_state,set_state
 
 SCHEMA='''
@@ -47,6 +49,10 @@ CREATE TABLE IF NOT EXISTS sb_equity(portfolio TEXT NOT NULL, ts TEXT NOT NULL, 
 CREATE TABLE IF NOT EXISTS sb_intraday(
   symbol TEXT NOT NULL, interval INTEGER NOT NULL, ts TEXT NOT NULL, open REAL NOT NULL, high REAL NOT NULL, low REAL NOT NULL,
   close REAL NOT NULL, volume REAL NOT NULL, PRIMARY KEY(symbol,interval,ts));
+CREATE TABLE IF NOT EXISTS sb_live_bars(
+  symbol TEXT NOT NULL, interval INTEGER NOT NULL, ts TEXT NOT NULL, open REAL NOT NULL, high REAL NOT NULL, low REAL NOT NULL,
+  close REAL NOT NULL, volume REAL, PRIMARY KEY(symbol,interval,ts));
+CREATE TABLE IF NOT EXISTS sb_live_volume(symbol TEXT PRIMARY KEY, day TEXT NOT NULL, volume REAL NOT NULL);
 '''
 
 def init(path):

@@ -105,7 +105,7 @@ class EngineTests(unittest.TestCase):
             cfg['vinay_intraday'].update(enabled=True,buy_universe='all',params=dict(FULL))
             set_state(db,'auto_config',cfg);set_state(db,'stream',{'status':'connected','market_status':{'NSE_EQ':'NORMAL_OPEN'}})
             db.execute("INSERT INTO instruments VALUES('ABC','NSE_EQ|INE000A01011','INE000A01011','ABC Ltd','Industrials')")
-            db.executemany('INSERT INTO sb_intraday VALUES(?,?,?,?,?,?,?,?)',[('ABC',5,b['ts'],b['open'],b['high'],b['low'],b['close'],b['volume']) for b in leader()])
+            db.executemany('INSERT INTO sb_live_bars VALUES(?,?,?,?,?,?,?,?)',[('ABC',5,b['ts'],b['open'],b['high'],b['low'],b['close'],b['volume']) for b in leader()])
         seed_quality(self.path,'ABC',self.clock)
         with connect(self.path) as db:db.execute("UPDATE candles SET open=1000,high=1010,low=990,close=1000 WHERE symbol='ABC'")
         self.quote(1015.5)
@@ -117,7 +117,7 @@ class EngineTests(unittest.TestCase):
         with connect(self.path) as db:
             db.execute('INSERT OR REPLACE INTO quotes VALUES(?,?,?,?,?,?)',('ABC',price,None,int(clock.timestamp()*1000),clock.isoformat(),'test'))
             db.execute('UPDATE quality SET checked_at=?',(clock.isoformat(),))
-            set_state(db,'signal_ema_checkpoint',{'last_success':clock.isoformat()})
+            set_state(db,'signal_live_checkpoint',{'last_success':clock.isoformat()})
     def held(self):
         with connect(self.path) as db:return (db.execute("SELECT quantity FROM positions WHERE portfolio='vinay_intraday' AND symbol='ABC'").fetchone() or [0])[0]
     def state(self):
@@ -166,5 +166,67 @@ class EngineTests(unittest.TestCase):
         payload=report(self.path,self.clock);b=[x for x in payload['baskets'] if x['name']=='vinay_intraday'][0]
         self.assertEqual(b['title'],'Vinay Intraday Trader');self.assertEqual(b['capital'],100000)
         self.assertEqual(b['signals'][0]['evidence']['or_high'],1008);json.dumps(payload,allow_nan=False)
+
+class FakeQuotes:
+    def __init__(self,volume):self.volume=volume;self.calls=0
+    def snapshot(self,keys):self.calls+=1;return {s:dict(volume=self.volume,vwap=1010.,prev_close=1000.,last_price=1015.5) for s in keys}
+
+class LiveCandleTests(unittest.TestCase):
+    def setUp(self):
+        self.temp=tempfile.TemporaryDirectory();self.path=Path(self.temp.name)/'l.sqlite3';init(self.path);init_paper(self.path)
+        from marketdesk.signal_baskets.schema import init as schema;schema(self.path)
+    def tearDown(self):self.temp.cleanup()
+    def tick(self,price,hms):
+        from marketdesk.signal_baskets import live_bars
+        t=datetime.fromisoformat(f'2026-10-16T{hms}+05:30')
+        with connect(self.path) as db:live_bars.record(db,'ABC',{'ltp':price,'ltt':str(int(t.timestamp()*1000))})
+
+    def test_ticks_make_ohlc_and_batch_volume_completes_the_candle(self):
+        from marketdesk.signal_baskets import live_bars
+        for p,t in ((100,'09:15:01'),(103,'09:16:00'),(99,'09:18:00'),(101,'09:19:59'),(102,'09:20:01')):self.tick(p,t)
+        clock=datetime(2026,10,16,9,20,15,tzinfo=IST)
+        with connect(self.path) as db:
+            self.assertEqual(live_bars.bars(db,'ABC',clock),[])                                  # volume not booked yet
+            live_bars.finalize(db,{'ABC':{'volume':5000}},clock.replace(second=0))
+            got=live_bars.bars(db,'ABC',clock)
+        self.assertEqual([(b['open'],b['high'],b['low'],b['close'],b['volume']) for b in got],[(100,103,99,101,5000)])
+        self.tick(102.5,'09:21:00')
+        with connect(self.path) as db:
+            live_bars.finalize(db,{'ABC':{'volume':7500}},datetime(2026,10,16,9,25,tzinfo=IST))
+            got=live_bars.bars(db,'ABC',datetime(2026,10,16,9,25,15,tzinfo=IST))
+        self.assertEqual(got[-1]['volume'],2500);self.assertEqual((got[-1]['open'],got[-1]['close']),(102,102.5))
+        with connect(self.path) as db:                                                           # no trade 09:25-09:30: flat candle
+            live_bars.finalize(db,{'ABC':{'volume':7500}},datetime(2026,10,16,9,30,tzinfo=IST))
+            got=live_bars.bars(db,'ABC',datetime(2026,10,16,9,30,15,tzinfo=IST))
+        self.assertEqual((got[-1]['ts'][11:16],got[-1]['high'],got[-1]['volume']),('09:25',102.5,0))
+        self.tick(104,'15:30:05')
+        with connect(self.path) as db:self.assertEqual(db.execute("SELECT COUNT(*) FROM sb_live_bars WHERE ts LIKE '%T15:30%'").fetchone()[0],0)
+
+    def test_feed_message_builds_live_candles(self):
+        from marketdesk.feed import Feed
+        t=int(datetime(2026,10,16,9,15,30,tzinfo=IST).timestamp()*1000)
+        with connect(self.path) as db:db.execute("INSERT INTO instruments VALUES('ABC','NSE_EQ|INE000A01011','INE000A01011','ABC Ltd','Industrials')")
+        with patch('marketdesk.storage.datetime') as d:
+            d.now.return_value=datetime(2026,10,16,9,15,31,tzinfo=IST);d.fromisoformat=datetime.fromisoformat
+            Feed(self.path).message({'feeds':{'NSE_EQ|INE000A01011':{'ltpc':{'ltp':101.5,'ltt':str(t),'cp':100}}}},{'NSE_EQ|INE000A01011':'ABC'})
+        with connect(self.path) as db:self.assertEqual(tuple(db.execute('SELECT open,close,volume FROM sb_live_bars').fetchone()),(101.5,101.5,None))
+
+    def test_live_cycle_scans_the_whole_universe_with_one_snapshot(self):
+        with connect(self.path) as db:
+            cfg=get_state(db,'auto_config');cfg['vinay_intraday'].update(enabled=True,buy_universe='all',params=dict(FULL))
+            set_state(db,'auto_config',cfg);set_state(db,'stream',{'status':'connected','market_status':{'NSE_EQ':'NORMAL_OPEN'}})
+            db.execute("INSERT INTO instruments VALUES('ABC','NSE_EQ|INE000A01011','INE000A01011','ABC Ltd','Industrials')")
+            db.execute("INSERT INTO quotes VALUES('ABC',1015.5,1000,1,'x','test')")
+            db.executemany('INSERT INTO sb_live_bars VALUES(?,?,?,?,?,?,?,?)',[('ABC',5,b['ts'],b['open'],b['high'],b['low'],b['close'],b['volume']) for b in leader()[:-1]])
+            db.execute("INSERT INTO sb_live_bars VALUES('ABC',5,'2026-10-16T10:05:00+05:30',1014.5,1016,1014,1015.5,NULL)")
+            db.execute("INSERT INTO sb_live_volume VALUES('ABC','2026-10-16',100000)")
+        runner=SignalRunner(self.path,candles=object(),quotes=FakeQuotes(120000))
+        runner.live_cycle(datetime(2026,10,16,10,10,20,tzinfo=IST).astimezone(timezone.utc))
+        with connect(self.path) as db:
+            self.assertEqual(db.execute("SELECT volume FROM sb_live_bars WHERE ts='2026-10-16T10:05:00+05:30'").fetchone()[0],20000)
+            self.assertEqual(db.execute("SELECT status FROM sb_signals WHERE portfolio='vinay_intraday'").fetchone()[0],'BUY_CANDIDATE')
+            self.assertTrue(get_state(db,'signal_live_checkpoint')['last_success'])
+        runner.live_cycle(datetime(2026,10,16,10,10,40,tzinfo=IST).astimezone(timezone.utc))
+        self.assertEqual(runner.quotes.calls,1)                                                     # one snapshot per boundary
 
 if __name__=='__main__':unittest.main()

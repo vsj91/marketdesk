@@ -4,7 +4,7 @@ Designed separately from the EMA basket, which waits for a rare EMA9/21 crossove
 one on structural risk-reward. This basket instead ranks the whole liquid universe on every completed 5-minute
 candle and buys the strongest stocks of the day while their move is confirmed, with fixed, reachable exits.
 
-Leader scan on the newest completed candle (all required, entries 09:35-13:30 IST):
+Leader scan on the newest completed candle (all required, entries 09:35-14:30 IST):
   1  Up on the day: +min_day_change_pct .. +max_day_change_pct vs the previous close (moving, not near a circuit)
   2  Open gap at most max_gap_open_pct (big gaps tend to fade)
   3  Close above the 15-minute opening range high (the morning's buyers are winning)
@@ -41,13 +41,13 @@ DEFAULTS=dict(
     time_stop_candles=0,time_stop_progress_r=.5,vwap_exit=False,max_chase_pct=.4,max_slippage_pct=.25,tick_size=.05,fee_max_pct=.1,
     monthly_fee_budget=500.,risk_pct=3.,max_position_pct=98.,max_positions=1,max_open_risk_pct=6.,max_entries_per_day=1,
     max_daily_loss_pct=2.,max_losing_trades=3,candidate_expiry_candles=1,
-    entry_start='09:35',entry_cutoff='13:30',square_off='15:10',universe_size=60,min_price=50.,min_turnover_cr=20.,slippage_bps=5.)
+    entry_start='09:35',entry_cutoff='14:30',square_off='15:10',min_price=50.,slippage_bps=5.)
 
 LIMITS=dict(min_day_change_pct=(0.,3.),max_day_change_pct=(2.,8.),min_gap_open_pct=(-5.,3.),max_gap_open_pct=(.5,5.),max_vwap_extension_pct=(.3,10.),
     min_rvol=(0.,3.),atr_stop_mult=(.5,3.),min_stop_pct=(.3,3.),max_stop_pct=(.6,5.),target_r=(0.,4.),breakeven_r=(0.,2.),
     trail_start_r=(0.,3.),trail_r=(.5,2.),time_stop_candles=(0,36),vwap_exit=(True,False),max_chase_pct=(.1,1.),fee_max_pct=(.05,.5),
     monthly_fee_budget=(0.,5000.),risk_pct=(.1,3.),max_position_pct=(5.,100.),max_positions=(1,10),max_open_risk_pct=(.5,6.),
-    max_entries_per_day=(1,20),max_daily_loss_pct=(.5,5.),max_losing_trades=(1,10),entry_cutoff=('11:00','14:30'),square_off=('15:00','15:20'),universe_size=(10,120))
+    max_entries_per_day=(1,20),max_daily_loss_pct=(.5,5.),max_losing_trades=(1,10),entry_cutoff=('11:00','15:20'),square_off=('15:00','15:25'))
 
 def merged(cfg=None):return {**DEFAULTS,**(cfg or {})}
 
@@ -77,17 +77,17 @@ def evaluate(bars,cfg=None,prev_close=None):
     data (before the opening range completes or without history); otherwise status BUY_CANDIDATE or REJECTED with
     every failed rule in `reasons`, the evidence, the score and the planned stop distance."""
     cfg=merged(cfg)
-    if len(bars)<cfg['atr_period']+2:return None
+    if not bars:return None
     today=day(bars[-1]);session=[b for b in bars if day(b)==today]
     or_bars=cfg['opening_range_minutes']//cfg['timeframe_minutes']
-    if len(session)<=or_bars:return None
+    if len(session)<=or_bars or hm(session[0])!='09:15':return None      # needs the whole opening range
     if prev_close is None:
         before=[b for b in bars if day(b)<today]
         prev_close=before[-1]['close'] if before else None
     if not (finite(prev_close) and prev_close>0):return None
     bar=bars[-1];close=bar['close'];reasons=[]
     or_high=max(b['high'] for b in session[:or_bars]);or_low=min(b['low'] for b in session[:or_bars])
-    vw=vwap(session);rv=rvol(bars,today,cfg);atr=atr_series(bars,cfg['atr_period'])[-1]
+    vw=vwap(session);rv=rvol(bars,today,cfg);atr=atr_series(bars,cfg['atr_period'])[-1] if len(bars)>=cfg['atr_period']+2 else None
     change=(close/prev_close-1)*100;gap=(session[0]['open']/prev_close-1)*100
     rng=bar['high']-bar['low'];location=(close-bar['low'])/rng if rng>0 else .5
     out=dict(trigger_ts=bar['ts'],close=close,prev_close=prev_close,day_change_pct=change,gap_pct=gap,or_high=or_high,or_low=or_low,
@@ -100,13 +100,16 @@ def evaluate(bars,cfg=None,prev_close=None):
     if vw is None:reasons.append('VWAP unavailable (no volume)')
     elif close<=vw:reasons.append(f"Close {close:.2f} not above VWAP {vw:.2f}")
     elif out['vwap_extension_pct']>cfg['max_vwap_extension_pct']:reasons.append(f"{out['vwap_extension_pct']:.2f}% above VWAP (chasing; max {cfg['max_vwap_extension_pct']:g}%)")
-    if rv is None:reasons.append('Relative volume needs 3 prior sessions of candles')
-    elif rv<cfg['min_rvol']:reasons.append(f"Relative volume {rv:.2f}x below {cfg['min_rvol']:g}x")
+    if cfg['min_rvol']>0 and rv is None:reasons.append('Relative volume needs 3 prior sessions of candles')
+    elif rv is not None and rv<cfg['min_rvol']:reasons.append(f"Relative volume {rv:.2f}x below {cfg['min_rvol']:g}x")
     if not close>bar['open']:reasons.append('Signal candle is not green')
     if location<cfg['min_close_location']:reasons.append(f"Closed in the lower {location*100:.0f}% of the candle (selling into strength)")
-    if not (finite(atr) and atr>0):reasons.append('ATR14 unavailable');atr=None
-    stop_pct=min(cfg['max_stop_pct'],max(cfg['min_stop_pct'],cfg['atr_stop_mult']*atr/close*100)) if atr else None
-    out.update(stop_pct=stop_pct,score=change*min(rv or 0,3.),status='REJECTED' if reasons else 'BUY_CANDIDATE',reasons=reasons)
+    fixed=cfg['min_stop_pct']>=cfg['max_stop_pct']       # a fixed-percentage stop needs no ATR
+    if not (finite(atr) and atr>0):
+        atr=None
+        if not fixed:reasons.append('ATR14 unavailable')
+    stop_pct=cfg['max_stop_pct'] if fixed else min(cfg['max_stop_pct'],max(cfg['min_stop_pct'],cfg['atr_stop_mult']*atr/close*100)) if atr else None
+    out.update(stop_pct=stop_pct,score=change*min(rv,3.) if rv else change,status='REJECTED' if reasons else 'BUY_CANDIDATE',reasons=reasons)
     return out
 
 MISS_LABELS=(('Day change','day change outside the band'),('gapped, below','gap under the minimum'),('gapped up','gap too big'),('opening range','not above the opening range'),

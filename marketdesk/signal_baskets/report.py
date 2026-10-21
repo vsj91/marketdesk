@@ -80,7 +80,7 @@ def basket_payload(db,name,clock):
     runner=get_state(db,STATUS_KEY,{})
     return dict(name=name,title=TITLES[name],version=STRATEGY_VERSIONS[name],enabled=bool(cfg.get('enabled')),capital=initial,cash=cash,params=p,
         limits={k:list(v) for k,v in LIMITS[name].items()},rules=rules(name,cfg),signals=signals,today=counts,positions=positions,transitions=log,news=news,
-        performance=performance(db,name,initial),runner=runner,checkpoints=dict(news=get_state(db,'signal_news_checkpoint',{}),ema=get_state(db,'signal_ema_checkpoint',{})),
+        performance=performance(db,name,initial),runner=runner,checkpoints=dict(news=get_state(db,'signal_news_checkpoint',{}),ema=get_state(db,'signal_ema_checkpoint',{}),live=get_state(db,'signal_live_checkpoint',{})),
         paper_only=True,limitations=LIMITATIONS[name])
 
 LIMITATIONS={
@@ -96,9 +96,9 @@ LIMITATIONS={
    'With the default hybrid stop (>= 1.5 ATR) and an ATR target capped at 3 ATR, risk-reward cannot exceed 2.0, and tick rounding pulls it just below 2.0, so a 2.0 minimum admits almost no trades. The default minimum is therefore 1.8 (configurable 1.5-2.0); setups still need the ATR stop to bind or a close structural stop.',
    'Intraday charges are an estimate (not a contract note). Shorts are research-only; the paper ledger is long-only.'],
  VINAY_INTRADAY:['No rule set can promise no losses: the 2.5% stop can fill lower on gaps and thin books, and most days the stock simply drifts until the 15:10 square-off.',
-   'Uses the same Upstox 5-minute candles as the EMA basket for the 60 most traded Nifty 500 stocks; relative volume needs 3 prior sessions of candles.',
+   'Scans every Nifty 500 stock on 5-minute candles built from the live LTPC feed: highs and lows are the ticks the feed delivered, volume is booked from a batch quote about 15 seconds after each candle closes, and candles exist only while the app was running from 09:15 (a later start skips that day). Relative volume (off by default) needs 3 prior sessions.',
    'Paper ledger is cash-only, so positions use the basket\'s own money (no MIS leverage). Intraday charges are an estimate, not a contract note.',
-   'Long only: falling stocks are never shorted. Backtest (scripts/backtest_vinay_intraday.py, 5-minute candles 2022-2026, top 40 stocks a year plus Nifty 500 ranks 41-200 for 2025-2026): lost money after fees every year, -4% to -23%.'],
+   'Long only: falling stocks are never shorted. Backtest (scripts/backtest_vinay_intraday.py, 5-minute candles 2022-2026, top 40 stocks a year plus Nifty 500 ranks 41-200 for 2025-2026): lost money after fees every year, -5% to -24%.'],
 }
 
 def snapshot(path,clock=None):

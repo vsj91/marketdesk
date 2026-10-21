@@ -7,8 +7,9 @@ Every 15 seconds `tick` runs whichever jobs are due, each idempotent and checkpo
   confirm    promote News Momentum watchlist items once their news session's daily candle is complete
   catalyst   re-score News Catalyst candidates once per new completed session
   ema        on each completed 5-minute boundary (+15 s publication grace) while NSE is NORMAL_OPEN:
-             fetch candles once for a liquidity-ranked universe shared by both intraday baskets, then evaluate
-             the newest completed candle for EMA crossovers and Vinay intraday momentum leaders
+             fetch candles for a liquidity-ranked universe, evaluate the newest completed candle, arm entries
+  live       Vinay Intraday: on the same boundaries book volume on the live-feed 5-minute candles (live_bars)
+             with one batch quote snapshot, then scan every stock in the Nifty 500
   retention  daily pruning of cached candles, routine news and fine-grained equity snapshots
 Unique keys on news (source id) and signals (event key) make a retry or overlapping tick a no-op."""
 import json,math,sys,threading,time,traceback
@@ -19,9 +20,9 @@ from ..storage import connect,get_state,set_state,now
 from ..feed import load_token
 from ..buy_universe import allowed_symbols
 from ..history_rules import is_financial
-from . import news as newslib,news_rules,ema_rules,vinay_rules
+from . import news as newslib,news_rules,ema_rules,vinay_rules,live_bars
 from .engine import params,set_status,transition,daily_bars,benchmark,intraday_bars,session,local_hm,IST
-from .names import NEWS_MOMENTUM,NEWS_CATALYST,EMA_PRICE_ACTION,VINAY_INTRADAY,INTRADAY_BASKETS,STRATEGY_VERSIONS
+from .names import NEWS_MOMENTUM,NEWS_CATALYST,EMA_PRICE_ACTION,VINAY_INTRADAY,STRATEGY_VERSIONS
 from .schema import init as init_schema
 
 def clean(x):
@@ -68,6 +69,26 @@ class UpstoxCandles:
         return j['data']['candles']
     def intraday(self,key,minutes):return self._get(self.BASE+'intraday/'+urlquote(key,safe='')+f'/minutes/{minutes}')
     def history(self,key,minutes,start,end):return self._get(self.BASE+urlquote(key,safe='')+f'/minutes/{minutes}/{end}/{start}')
+
+class UpstoxQuotes:
+    """Read-only Upstox V3 batch quote snapshot: volume traded today, VWAP and previous close per stock."""
+    URL='https://api.upstox.com/v3/market-quote/quotes'
+    def snapshot(self,keys):
+        """{symbol: instrument_key} (at most 250) -> {symbol: dict(volume, vwap, prev_close, last_price)}; identity checked."""
+        token=load_token()
+        if not token:raise ValueError('Upstox token missing')
+        r=requests.get(self.URL,params={'instrument_key':','.join(keys.values())},headers={'Authorization':'Bearer '+token,'Accept':'application/json'},timeout=(5,15))
+        if r.status_code!=200:raise ValueError(f'Upstox quotes HTTP {r.status_code}')
+        j=r.json()
+        if j.get('status')!='success' or not isinstance(j.get('data'),dict):raise ValueError('Upstox quotes: unexpected payload')
+        out={}
+        for symbol,key in keys.items():
+            q=j['data'].get('NSE_EQ:'+symbol) or {}
+            if q.get('instrument_token')!=key:continue
+            vol,vw,pc,lp=(q.get(k) for k in ('volume','average_price','prev_close_price','last_price'))
+            if not all(isinstance(x,(int,float)) and math.isfinite(x) and x>=0 for x in (vol,vw,pc,lp)):continue
+            out[symbol]=dict(volume=float(vol),vwap=vw or None,prev_close=pc or None,last_price=lp)
+        return out
 
 def valid_candles(rows,minutes,clock):
     """Validated, completed candles inside the 09:15-15:30 IST session. In-progress candles are dropped."""
@@ -138,8 +159,8 @@ def upsert_signal(db,name,key,symbol,status,clock,valid_from=None,expires_at=Non
     return row['id']
 
 class SignalRunner:
-    def __init__(self,path,provider=None,candles=None):
-        self.path=path;init_schema(path);self.provider=provider or newslib.NseAnnouncements();self.candles=candles or UpstoxCandles()
+    def __init__(self,path,provider=None,candles=None,quotes=None):
+        self.path=path;init_schema(path);self.provider=provider or newslib.NseAnnouncements();self.candles=candles or UpstoxCandles();self.quotes=quotes or UpstoxQuotes()
         self.lock=threading.Lock();self.stop_event=threading.Event();self.thread=None;self.universe=(None,[]);self.warm={}
     def start(self):
         if self.thread and self.thread.is_alive():return
@@ -160,7 +181,7 @@ class SignalRunner:
         if not self.lock.acquire(blocking=False):return
         try:
             clock=clock or datetime.now(timezone.utc)
-            for job in (self.poll_news,self.confirm_momentum,self.refresh_catalysts,self.ema_cycle,self.retention):
+            for job in (self.poll_news,self.confirm_momentum,self.refresh_catalysts,self.ema_cycle,self.live_cycle,self.retention):
                 try:job(clock)
                 except Exception as error:
                     traceback.print_exc(file=sys.stderr)
@@ -325,70 +346,99 @@ class SignalRunner:
         self.universe=((day,p['universe_size'],name),out);return out
 
     def ema_cycle(self,clock):
-        """Candle refresh for both intraday baskets (one fetch per symbol and timeframe), then each basket's signals."""
+        """EMA basket: download candles for its liquidity-ranked universe on each completed boundary, then signals."""
         with connect(self.path) as db:
-            cfgs=get_state(db,'auto_config',{});stream=get_state(db,'stream',{})
+            cfg=get_state(db,'auto_config',{}).get(EMA_PRICE_ACTION,{});stream=get_state(db,'stream',{})
             checkpoint=get_state(db,'signal_ema_checkpoint',{})
-        active={n:params(n,cfgs.get(n)) for n in INTRADAY_BASKETS if cfgs.get(n,{}).get('enabled')}
-        if not active:return
+        if not cfg.get('enabled'):return
         if stream.get('status')!='connected' or stream.get('market_status',{}).get('NSE_EQ')!='NORMAL_OPEN':return
-        tfs=sorted({p['timeframe_minutes'] for p in active.values()});tf=tfs[0];local=clock.astimezone(IST)
+        p=params(EMA_PRICE_ACTION,cfg);tf=p['timeframe_minutes'];local=clock.astimezone(IST)
         boundary=local.replace(minute=local.minute-local.minute%tf,second=0,microsecond=0)
         if (local-boundary).total_seconds()<15 or checkpoint.get('boundary',' ')>=boundary.isoformat():return
-        widest=max(active,key=lambda n:active[n]['universe_size'])
         with connect(self.path) as db:
-            universe=self.ema_universe(db,clock,active[widest],widest)
-            extra={r[0] for n in active for r in db.execute("SELECT symbol FROM sb_positions WHERE portfolio=? UNION SELECT symbol FROM sb_signals WHERE portfolio=? AND status IN ('ENTRY_PENDING','BUY_CANDIDATE')",(n,n))}
+            universe=self.ema_universe(db,clock,p)
+            extra={r[0] for r in db.execute("SELECT symbol FROM sb_positions WHERE portfolio=? UNION SELECT symbol FROM sb_signals WHERE portfolio=? AND status='ENTRY_PENDING'",(EMA_PRICE_ACTION,EMA_PRICE_ACTION))}
             keys=dict(db.execute('SELECT symbol,instrument_key FROM instruments'))
         symbols=list(dict.fromkeys([*universe,*sorted(extra)]))
         today=session(clock);errors=[];stored=0
         for s in symbols:
             if s not in keys:continue
-            for t in tfs:
-                if (local.hour*60+local.minute)%t:continue          # a slower timeframe refreshes on its own boundaries
-                try:
-                    rows=[]
-                    if self.warm.get((s,t))!=today:
-                        start=(local.date()-timedelta(days=10)).isoformat();end=(local.date()-timedelta(days=1)).isoformat()
-                        rows+=valid_candles(self.candles.history(keys[s],t,start,end),t,clock);self.warm[(s,t)]=today
-                    rows+=valid_candles(self.candles.intraday(keys[s],t),t,clock)
-                except (ValueError,requests.RequestException) as error:errors.append(f'{s}: {error}');continue
-                with connect(self.path) as db:
-                    db.executemany('INSERT OR REPLACE INTO sb_intraday VALUES(?,?,?,?,?,?,?,?)',[(s,t,*r) for r in rows]);stored+=len(rows)
-        evaluated=self.ema_signals(symbols,clock,active[EMA_PRICE_ACTION]) if EMA_PRICE_ACTION in active else 0
-        leaders=self.vinay_signals(symbols,clock,active[VINAY_INTRADAY]) if VINAY_INTRADAY in active else None
+            try:
+                rows=[]
+                if self.warm.get((s,tf))!=today:
+                    start=(local.date()-timedelta(days=10)).isoformat();end=(local.date()-timedelta(days=1)).isoformat()
+                    rows+=valid_candles(self.candles.history(keys[s],tf,start,end),tf,clock);self.warm[(s,tf)]=today
+                rows+=valid_candles(self.candles.intraday(keys[s],tf),tf,clock)
+            except (ValueError,requests.RequestException) as error:errors.append(f'{s}: {error}');continue
+            with connect(self.path) as db:
+                db.executemany('INSERT OR REPLACE INTO sb_intraday VALUES(?,?,?,?,?,?,?,?)',[(s,tf,*r) for r in rows]);stored+=len(rows)
+        evaluated=self.ema_signals(symbols,clock,p)
         with connect(self.path) as db:set_state(db,'signal_ema_checkpoint',dict(boundary=boundary.isoformat(),symbols=len(symbols),errors=len(errors),
             last_success=clock.isoformat() if len(errors)<len(symbols)/2 else checkpoint.get('last_success')))
-        self.status(ema_cycle=dict(ok=len(errors)<len(symbols)/2,error='; '.join(errors[:3]) or None,boundary=boundary.isoformat(),universe=len(symbols),candles_stored=stored,crossovers=evaluated),
-            **({'vinay_scan':leaders} if leaders is not None else {}))
+        self.status(ema_cycle=dict(ok=len(errors)<len(symbols)/2,error='; '.join(errors[:3]) or None,boundary=boundary.isoformat(),universe=len(symbols),candles_stored=stored,crossovers=evaluated))
 
-    def vinay_signals(self,symbols,clock,p):
-        """Rank the universe on the newest completed candle. Only candidates are stored (one open per stock);
+    def live_universe(self,db,clock,p):
+        """Every buyable stock for Vinay Intraday (the verified Nifty 500 when that universe is on), priced >= min_price."""
+        allowed=allowed_symbols(db,VINAY_INTRADAY,clock)
+        bad={r[0] for r in db.execute("SELECT symbol FROM quality WHERE json_extract(report,'$.trader_ready')=0")}
+        rows=db.execute('SELECT i.symbol,i.instrument_key,q.price FROM instruments i JOIN quotes q USING(symbol)').fetchall()
+        return {r['symbol']:r['instrument_key'] for r in rows if (allowed is None or r['symbol'] in allowed) and r['symbol'] not in bad and r['price']>=p['min_price']}
+
+    def live_cycle(self,clock):
+        """Vinay Intraday: on each completed 5-minute boundary book volume on the live-feed candles with one batch quote
+        snapshot (up to 250 stocks a request), then scan every stock in the universe."""
+        with connect(self.path) as db:
+            cfg=get_state(db,'auto_config',{}).get(VINAY_INTRADAY,{});stream=get_state(db,'stream',{})
+            checkpoint=get_state(db,'signal_live_checkpoint',{})
+        if not cfg.get('enabled'):return
+        if stream.get('status')!='connected' or stream.get('market_status',{}).get('NSE_EQ')!='NORMAL_OPEN':return
+        p=params(VINAY_INTRADAY,cfg);tf=p['timeframe_minutes'];local=clock.astimezone(IST)
+        boundary=local.replace(minute=local.minute-local.minute%tf,second=0,microsecond=0)
+        if (local-boundary).total_seconds()<15 or checkpoint.get('boundary',' ')>=boundary.isoformat():return
+        with connect(self.path) as db:
+            keys=self.live_universe(db,clock,p)
+            for r in db.execute("SELECT p.symbol,i.instrument_key FROM sb_positions p JOIN instruments i USING(symbol) WHERE p.portfolio=?",(VINAY_INTRADAY,)):keys[r[0]]=r[1]
+        snapshot={};errors=[];names=sorted(keys)
+        for i in range(0,len(names),250):
+            try:snapshot.update(self.quotes.snapshot({s:keys[s] for s in names[i:i+250]}))
+            except (ValueError,requests.RequestException) as error:errors.append(str(error)[:120])
+        with connect(self.path) as db:
+            db.execute('BEGIN IMMEDIATE');booked=live_bars.finalize(db,snapshot,boundary,tf)
+        prev={s:q['prev_close'] for s,q in snapshot.items() if q.get('prev_close')}
+        leaders=self.vinay_signals(sorted(snapshot),clock,p,prev)
+        ok=bool(snapshot) and not errors
+        with connect(self.path) as db:set_state(db,'signal_live_checkpoint',dict(boundary=boundary.isoformat(),symbols=len(snapshot),errors=len(errors),
+            last_success=clock.isoformat() if ok else checkpoint.get('last_success')))
+        self.status(vinay_scan=dict(leaders,ok=ok,error='; '.join(errors[:2]) or None,boundary=boundary.isoformat(),universe=len(keys),candles_booked=booked))
+
+    def vinay_signals(self,symbols,clock,p,prev_close=None):
+        """Rank the universe on the newest completed live candle. Only candidates are stored (one open per stock);
         near misses are summarised in the runner status so the screen can say why nothing was bought."""
-        tf=p['timeframe_minutes'];today=session(clock);hm=local_hm(clock);found=0;scanned=0;misses={}
+        tf=p['timeframe_minutes'];today=session(clock);hm=local_hm(clock);found=0;scanned=0;misses={};prev_close=prev_close or {}
         window=p['entry_start']<=hm<p['entry_cutoff']
         for s in symbols:
             with connect(self.path) as db:
                 db.execute('BEGIN IMMEDIATE')
-                bars=intraday_bars(db,s,tf,clock,limit=900)
+                bars=live_bars.bars(db,s,clock,tf)
                 if not bars or bars[-1]['ts'][:10]!=today:continue
-                prev=daily_bars(db,s,today,limit=1);last=max((b['ts'][:10] for b in bars if b['ts'][:10]<today),default=None)
-                # The official close only when the daily candle is for the last intraday session; else that session's last candle.
-                ev=vinay_rules.evaluate(bars,p,prev[-1]['close'] if prev and prev[-1]['ts'][:10]==last else None)
+                pc=prev_close.get(s)
+                if pc is None:
+                    q=db.execute('SELECT previous_close FROM quotes WHERE symbol=?',(s,)).fetchone();pc=q[0] if q else None
+                ev=vinay_rules.evaluate(bars,p,pc)
                 if not ev:continue
                 scanned+=1
                 if ev['status']!='BUY_CANDIDATE':
                     for r in ev['reasons']:k=vinay_rules.miss_label(r);misses[k]=misses.get(k,0)+1
                     continue
-                if not window:misses['Outside window']=misses.get('Outside window',0)+1;continue
+                if not window:misses['outside the entry window']=misses.get('outside the entry window',0)+1;continue
                 if db.execute("SELECT 1 FROM sb_signals WHERE portfolio=? AND symbol=? AND session=? AND status IN ('BUY_CANDIDATE','ENTRY_FILLED')",(VINAY_INTRADAY,s,today)).fetchone():continue
                 key=f"{s}:{ev['trigger_ts']}:{tf}"
                 end=datetime.fromisoformat(ev['trigger_ts'])+timedelta(minutes=tf*(1+p['candidate_expiry_candles']))
                 found+=1
                 upsert_signal(db,VINAY_INTRADAY,key,s,'BUY_CANDIDATE',clock,valid_from=today,expires_at=end.astimezone(timezone.utc).isoformat(),score=ev['score'],
-                    explanation=(f"Up {ev['day_change_pct']:+.2f}% on {ev['rvol']:.1f}x usual volume; close {ev['close']:.2f} above opening range high {ev['or_high']:.2f} "
-                        f"and VWAP {ev['vwap']:.2f} (+{ev['vwap_extension_pct']:.2f}%); stop {ev['stop_pct']:.2f}%"),details=ev)
-        return dict(ok=True,error=None,scanned=scanned,candidates=found,near_misses=dict(sorted(misses.items(),key=lambda x:-x[1])[:6]))
+                    explanation=(f"Opened {ev['gap_pct']:+.2f}%, now up {ev['day_change_pct']:+.2f}%"+(f" on {ev['rvol']:.1f}x usual volume" if ev['rvol'] else '')
+                        +f"; close {ev['close']:.2f} above opening range high {ev['or_high']:.2f} and VWAP {ev['vwap']:.2f} (+{ev['vwap_extension_pct']:.2f}%); stop {ev['stop_pct']:.2f}%"),details=ev)
+        return dict(scanned=scanned,candidates=found,near_misses=dict(sorted(misses.items(),key=lambda x:-x[1])[:6]))
 
     def ema_signals(self,symbols,clock,p):
         found=0;tf=p['timeframe_minutes'];today=session(clock);hm=local_hm(clock)
@@ -421,6 +471,7 @@ class SignalRunner:
             if get_state(db,'signal_retention_day')==today:return
             db.execute('BEGIN IMMEDIATE')
             db.execute('DELETE FROM sb_intraday WHERE ts<?',((date.fromisoformat(today)-timedelta(days=15)).isoformat(),))
+            db.execute('DELETE FROM sb_live_bars WHERE ts<?',((date.fromisoformat(today)-timedelta(days=15)).isoformat(),))
             old=(date.fromisoformat(today)-timedelta(days=45)).isoformat()
             ids=[r[0] for r in db.execute('''SELECT n.id FROM sb_news n LEFT JOIN sb_news_analysis a ON a.news_id=n.id WHERE n.published_at<? AND
                 (a.category IS NULL OR a.category IN ('routine','other')) AND n.id NOT IN (SELECT news_id FROM sb_signals WHERE news_id IS NOT NULL)''',(old,))]

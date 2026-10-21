@@ -61,8 +61,9 @@ function paramForm(b){
 function signalSection(n,open){
  const b=signalBasket(n);if(!b)return SIGNAL_NAMES.includes(n)?'<p class="muted">Loading signal details…</p>':'';
  const r=b.runner||{},news=b.checkpoints.news||{},ema=b.checkpoints.ema||{};
- const misses=n==='vinay_intraday'&&r.vinay_scan?.near_misses?Object.entries(r.vinay_scan.near_misses).map(([k,v])=>`${v} ${esc(k)}`).join(', '):'';
- const feed=INTRADAY.includes(n)?`Candles: last refresh ${esc(dt(ema.last_success))} · ${ema.symbols??0} symbols${r.ema_cycle?.error?` · ${esc(r.ema_cycle.error)}`:''}${misses?` · last scan misses: ${misses}`:''}`:`NSE announcements: last success ${esc(dt(news.last_success))}${news.ok===false?` · failing: ${esc(news.error)}`:''}`;
+ const live=b.checkpoints.live||{},v=r.vinay_scan||{},misses=v.near_misses?Object.entries(v.near_misses).map(([k,x])=>`${x} ${esc(k)}`).join(', '):'';
+ const feed=n==='vinay_intraday'?`Live-feed candles: last scan ${esc(dt(live.last_success))} · ${v.scanned??0} of ${live.symbols??0} Nifty 500 stocks had a full session${v.error?` · ${esc(v.error)}`:''}${misses?` · last scan misses: ${misses}`:''}`
+  :INTRADAY.includes(n)?`Candles: last refresh ${esc(dt(ema.last_success))} · ${ema.symbols??0} symbols${r.ema_cycle?.error?` · ${esc(r.ema_cycle.error)}`:''}`:`NSE announcements: last success ${esc(dt(news.last_success))}${news.ok===false?` · failing: ${esc(news.error)}`:''}`;
  return `<div class="note"><strong>PAPER</strong> · ${esc(b.version)} · every order, stop and target here is simulated; nothing is sent to a broker. ${feed}</div>
  ${group(n+'-signals','Signals and decisions',`${b.signals.length} recent`,signalRows(b),open('signals'))}
  ${group(n+'-positions',INTRADAY.includes(n)?'Open trades: stop, target, stage':'Open positions: stop, target, review',String(b.positions.length),positionRows(b),open('positions'))}

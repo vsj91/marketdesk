@@ -17,7 +17,7 @@ from ..buy_universe import require_buy_universe
 from ..execution import intraday_charges,charges
 from .. import drawdown
 from ..sectors import sector_group
-from . import ema_rules,news_rules,vinay_rules
+from . import ema_rules,news_rules,vinay_rules,live_bars
 from .names import NEWS_MOMENTUM,NEWS_CATALYST,EMA_PRICE_ACTION,VINAY_INTRADAY,SIGNAL_BASKETS,TITLES,STRATEGY_VERSIONS
 from .schema import init as init_schema
 
@@ -66,9 +66,9 @@ RULE_TEXT={
    exit='Hybrid initial stop MIN(structural support - 3 ticks, entry - 1.5 ATR); target MIN(entry + 3 ATR, next resistance - 2 ticks) with RR >= 1.8 (configurable 1.5-2.0). Breakeven after the later of 1.5 ATR and 1R, 50% partial at 2.5 ATR, then EMA20 trailing for the rest. Square-off of everything at 15:12 IST.',
    risk='1% of basket equity at risk per trade including costs and slippage, 25% of equity per position, 4 positions, 3% total open risk, 6 entries a session; no new entries after 14:45 IST. Long only: short rules exist for research but are not traded live.'),
  VINAY_INTRADAY:dict(family='Intraday gap-up leaders (minutes to hours, MIS-style, flat by the close)',
-   entry='Every completed 5-minute candle from 09:35 to 13:30 IST checks the 60 most traded Nifty 500 stocks. A stock qualifies when it opened 1-2.5% above the previous close, is up 0.8-4% on the day, and closes above its 15-minute opening range high and above session VWAP. The strongest one is bought at the live price, within 0.4% of the signal close. At most one trade a day and one stock per day.',
+   entry='Every completed 5-minute candle from 09:35 to 14:30 IST checks every Nifty 500 stock on 5-minute candles built from the live price feed. A stock qualifies when it opened 1-2.5% above the previous close, is up 0.8-4% on the day, and closes above its 15-minute opening range high and above session VWAP. The strongest one is bought at the live price, within 0.4% of the signal close. At most one trade a day and one stock per day.',
    exit='Stop loss 2.5% below the entry. No fixed profit target by default: the position is sold at 15:10 IST (backtests showed targets and tighter stops lost more, because these stocks swing about 1-1.5% either way within the day). Optional settings add a profit target, breakeven and trailing stops, a VWAP exit and a time stop.',
-   risk='One position of up to 98% of basket equity, so the flat ₹20 per-order brokerage stays near 0.08% of the trade. Round-trip Upstox intraday charges must be under 0.1% of the position, and new entries stop for the month once that month\'s charges reach ₹500 (about ₹6,000 a year). New entries also stop for the day after a 2% fall from the day\'s opening equity. Backtest 2022-2026: lost money every year after fees (-4% to -23%); paper experiment only.'),
+   risk='One position of up to 98% of basket equity, so the flat ₹20 per-order brokerage stays near 0.08% of the trade. Round-trip Upstox intraday charges must be under 0.1% of the position, and new entries stop for the month once that month\'s charges reach ₹500 (about ₹6,000 a year). New entries also stop for the day after a 2% fall from the day\'s opening equity. Backtest 2022-2026: lost money every year after fees (-5% to -24%); paper experiment only.'),
 }
 
 def rules(name,cfg):
@@ -205,7 +205,8 @@ class SignalEngine:
     def data_block(self,db,name,clock,p):
         """Message when the basket's signal data provider has failed recently (new entries wait; exits continue)."""
         if name in (EMA_PRICE_ACTION,VINAY_INTRADAY):
-            last=get_state(db,'signal_ema_checkpoint',{}).get('last_success');limit=3*p['timeframe_minutes']*60;what='intraday candles'
+            key,what=('signal_ema_checkpoint','intraday candles') if name==EMA_PRICE_ACTION else ('signal_live_checkpoint','live-feed candles and volume')
+            last=get_state(db,key,{}).get('last_success');limit=3*p['timeframe_minutes']*60
             if local_hm(clock)<'09:35':return None   # the first completed candles of the session are still arriving
         else:last=get_state(db,'signal_news_checkpoint',{}).get('last_success');limit=1800;what='NSE announcements'
         if not last or (clock-datetime.fromisoformat(last)).total_seconds()>limit:
@@ -417,7 +418,7 @@ class SignalEngine:
             if not fresh(q,clock):notes.append(f'{symbol}: exits wait for a fresh price');continue
             with connect(self.path) as db:
                 db.execute('BEGIN IMMEDIATE')
-                bars=intraday_bars(db,symbol,tf,clock)
+                bars=live_bars.bars(db,symbol,clock,tf)
                 if bars and bars[-1]['ts']!=st.get('last_bar_ts'):
                     for stage,why in vinay_rules.on_bar(st,bars,p):transition(db,name,symbol,row['signal_id'],st['stage'],stage,why,clock=clock)
                     st['last_bar_ts']=bars[-1]['ts']

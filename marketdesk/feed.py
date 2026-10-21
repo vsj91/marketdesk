@@ -1,11 +1,12 @@
 from .working_universe import symbol_filter
-import os,threading,json,ssl,uuid,time
+import os,threading,json,ssl,uuid,time,sqlite3
 import socket as network
 from urllib.parse import urlsplit
 import requests,certifi,websocket
 from google.protobuf.json_format import MessageToDict
 from upstox_client.feeder.proto import MarketDataFeedV3_pb2
 from .storage import connect,set_state,store_quote,now,ROOT
+from .signal_baskets import live_bars
 
 def load_token():
     p=ROOT/'.env'
@@ -131,7 +132,13 @@ class Feed:
         with connect(self.path) as db:
             for key,value in message.get('feeds',{}).items():
                 symbol=keys.get(key)
-                if symbol and isinstance(value,dict):accepted+=store_quote(db,symbol,value.get('ltpc') or {})
+                if symbol and isinstance(value,dict):
+                    ltpc=value.get('ltpc') or {}
+                    if store_quote(db,symbol,ltpc):
+                        accepted+=1
+                        # Live 5-minute candles for the Vinay Intraday scan; never blocks the quote itself.
+                        try:live_bars.record(db,symbol,ltpc)
+                        except sqlite3.Error:pass
         extra={'last_message':now(),'stage':'receiving','messages_received':self.state.get('messages_received',0)+1}
         market=message.get('marketInfo',{}).get('segmentStatus')
         if isinstance(market,dict):extra['market_status']=market
