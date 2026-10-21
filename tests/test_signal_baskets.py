@@ -449,4 +449,15 @@ class EngineTests(unittest.TestCase):
         self.assertEqual([b['name'] for b in payload['baskets']],['news_momentum','news_catalyst','ema_price_action'])
         json.dumps(payload,allow_nan=False)
 
+
+class OutsideUniverse(unittest.TestCase):
+    def test_candidates_outside_the_buy_universe_are_rejected(self):
+        from unittest.mock import patch
+        from marketdesk.signal_baskets import runner
+        with patch.object(runner,'allowed_symbols',return_value={'KPIL'}):
+            self.assertEqual(runner.outside_universe(None,'news_catalyst','KPIL',None,'BUY_CANDIDATE',['ok']),('BUY_CANDIDATE',['ok']))
+            self.assertEqual(runner.outside_universe(None,'news_catalyst','EPL',None,'BUY_CANDIDATE',['ok']),('REJECTED',['Outside the Nifty 500 buy universe','ok']))
+        with patch.object(runner,'allowed_symbols',side_effect=ValueError('membership stale')):
+            self.assertEqual(runner.outside_universe(None,'news_momentum','EPL',None,'WATCHLIST',[]),('WATCHLIST',[]))
+
 if __name__=='__main__':unittest.main()

@@ -92,6 +92,13 @@ def market_cap(db,symbol,price):
     row=db.execute('SELECT AVG(close),COUNT(*) FROM candles WHERE symbol=? AND substr(ts,1,10) BETWEEN ? AND ?',(symbol,start,period)).fetchone()
     return cap*price/row[0] if row[1]>=60 and row[0] else None
 
+def outside_universe(db,portfolio,symbol,clock,status,reasons):
+    """Reject a candidate the basket's buy universe can never buy (and the live feed does not price), instead of listing it."""
+    try:allowed=allowed_symbols(db,portfolio,clock)
+    except ValueError:return status,reasons          # membership not verified today: the buy guard still decides
+    if allowed is None or symbol in allowed or status=='REJECTED':return status,reasons
+    return 'REJECTED',['Outside the Nifty 500 buy universe']+list(reasons)
+
 def catalyst_inputs(db,symbol,today,price,catalyst,p):
     """(profile, score, daily context, catalyst) for a symbol at `today` using only completed sessions."""
     from ..quant.data import _operating_cash
@@ -241,7 +248,7 @@ class SignalRunner:
         cfgs=get_state(db,'auto_config',{});sess=news_session(item['published_at'])
         headline=f"{item['subject']}: {item['headline'][:160]}"
         if cfgs.get(NEWS_MOMENTUM,{}).get('enabled') and (a['direction']!=0 or a['momentum_eligible']):
-            p=params(NEWS_MOMENTUM,cfgs.get(NEWS_MOMENTUM));status,reasons=news_rules.momentum_screen(a,p)
+            p=params(NEWS_MOMENTUM,cfgs.get(NEWS_MOMENTUM));status,reasons=outside_universe(db,NEWS_MOMENTUM,item['symbol'],clock,*news_rules.momentum_screen(a,p))
             upsert_signal(db,NEWS_MOMENTUM,f"news:{item['id']}",item['symbol'],status,clock,news_id=item['id'],score=a['impact_score'],
                 explanation=f"{a['label']} {a['category'].replace('_',' ')} (impact {a['impact_score']:.0f}, confidence {a['confidence']:.2f}). {headline}",
                 rejection='; '.join(reasons) if status=='REJECTED' else None,details=dict(analysis=a,news_session=sess,reasons=reasons))
@@ -251,7 +258,7 @@ class SignalRunner:
     def catalyst_decision(self,db,symbol,catalyst,valid_from,clock):
         cfgs=get_state(db,'auto_config',{});p=params(NEWS_CATALYST,cfgs.get(NEWS_CATALYST));today=session(clock)
         profile,result,ctx,catalyst=catalyst_inputs(db,symbol,today,None,catalyst,p)
-        status,reasons=news_rules.catalyst_decision(catalyst,profile,result,ctx,p)
+        status,reasons=outside_universe(db,NEWS_CATALYST,symbol,clock,*news_rules.catalyst_decision(catalyst,profile,result,ctx,p))
         upsert_signal(db,NEWS_CATALYST,f"catalyst:{catalyst['news_id']}",symbol,status,clock,valid_from=valid_from,
             expires_at=add_weekdays(valid_from,p['signal_expiry_sessions']) if status=='BUY_CANDIDATE' else None,news_id=catalyst['news_id'],score=result['score'],
             explanation=f"Opportunity score {result['score']:.0f} (coverage {result['coverage']*100:.0f}%); catalyst: {catalyst.get('headline','')}",
