@@ -159,6 +159,15 @@ class BasketEngineTests(unittest.TestCase):
             sold=[r[0] for r in db.execute("SELECT reason FROM trades WHERE portfolio='momentum' AND side='SELL' AND symbol='S03'")]
         self.assertEqual(rows['S11'],'2026-10')
         self.assertEqual(sold,['No valid completed history at monthly review'])
+    def test_full_size_buy_below_fee_floor_is_skipped_once_without_retrying(self):
+        with connect(self.path) as db:
+            cfg=get_state(db,'auto_config');cfg['momentum']['max_round_trip_fee_pct']=.01;set_state(db,'auto_config',cfg)
+        with patch('marketdesk.paper.fetch_book') as book:
+            self.engine.cycle(self.clock,{});self.engine.cycle(self.clock+timedelta(seconds=15),{})
+        book.assert_not_called();self.assertEqual(self.holdings(),[])
+        with connect(self.path) as db:
+            rows=db.execute("SELECT symbol,COUNT(*) FROM auto_events WHERE portfolio='momentum' AND kind='blocked' AND reason LIKE '%even at its full size%' GROUP BY symbol").fetchall()
+        self.assertEqual(len(rows),10);self.assertTrue(all(n==1 for _,n in rows))
     def test_new_baskets_cap_round_trip_fees_at_one_and_a_half_percent(self):
         with connect(self.path) as db:cfg=get_state(db,'auto_config')
         for name in ('lowvol','high52','momentum12','alpha','clenow','overnight','gap_drift','sector_rotation','smart_beta','risk_parity','stat_arb','regime','news_momentum','news_catalyst'):

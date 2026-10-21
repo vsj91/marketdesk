@@ -9,6 +9,7 @@ from .storage import connect,get_state,set_state,now
 from .sectors import sector_group
 from .basket_rules import BASKETS,RETIRED,stats,ranking,exit_ranking,rebalance_exit,daily_exit,stop_exit
 from .paper import trade
+from .execution import uneconomic
 from .quote_health import fresh,refresh_held_quotes
 from .buy_universe import allowed_symbols,require_buy_universe
 from .working_universe import symbol_filter
@@ -223,6 +224,10 @@ class BasketEngine:
             if not fresh(q,clock):continue
             budget=min(account['cash'],account['initial_cash']*rule['position_pct']/100)
             qty=max(0,math.floor((budget-25)/(q['price']*1.025)))
+            # A full-size buy that fails the fee floor can never fill; skip it instead of retrying every scan.
+            if qty>0 and uneconomic(cfg,qty*q['price']):
+                with connect(self.path) as db:event(db,name,'blocked','Buy too small for fee floor even at its full size; estimated round-trip fees exceed the limit.',symbol,clock=clock,details=dict(blocked_by='fee_floor',requested_quantity=qty,filled_quantity=0,risk_used_inr=0,position_budget=budget))
+                continue
             if qty>0:fills+=self.execute(name,symbol,'BUY',qty,clock,realtime)
             else:
                 with connect(self.path) as db:event(db,name,'blocked','No whole share fits the equal-weight position budget.',symbol,clock=clock,details=dict(blocked_by='position_cap',requested_quantity=0,filled_quantity=0,risk_used_inr=0,position_budget=budget))
