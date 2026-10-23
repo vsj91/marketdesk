@@ -175,7 +175,17 @@ def practitioners(P,I,elig):
     calm=I['vol250'].where(T).rank(axis=1,pct=True)<=.5
     month_end=pd.Series(C.index.str[:7],index=C.index);month_end=month_end!=month_end.shift(-1)
     absm=rows(I['index_abs'])
+    # Minervini volatility contraction pattern (VCP): three back-to-back 20-session ranges, each tighter than the last and the
+    # newest under 10% of its high; volume drying up (10-day below 50-day average); then a close above the newest range's high
+    # on 1.4x the 50-day volume. All windows end the session before the breakout.
+    H,L,V=P['h'],P['l'],P['v']
+    box=lambda k:(H.shift(1+20*k).rolling(20,min_periods=20).max(),L.shift(1+20*k).rolling(20,min_periods=20).min())
+    (h2,l2),(h1,l1),(h0,l0)=box(2),box(1),box(0)
+    r2,r1,r0=1-l2/h2,1-l1/h1,1-l0/h0
+    v50=V.shift(1).rolling(50,min_periods=40).mean()
+    vcp=(r2>r1)&(r1>r0)&(r0<=.10)&(V.shift(1).rolling(10,min_periods=10).mean()<v50)&(C>h0)&(V>=1.4*v50)
     return {
+     'vcp':dict(score=I['rs_ibd'].where(elig&template&(rs>=.7)&vcp),exit_when=C<I['dma50'],monthly=False,stop=.08),
      'minervini':dict(score=I['rs_ibd'].where(elig&template&(rs>=.7)),keep=30,stop=.08),
      'clenow':dict(score=I['clenow'].where(elig&mkt&clean&(C>I['dma100'])&(I['clenow']>0)),exit_score=I['clenow'].where(clean&(C>I['dma100'])),keep=100,stop=.25),
      'conservative':dict(score=I['mom121'].where(elig&calm&(I['mom121']>0)),keep=30,stop=.20),

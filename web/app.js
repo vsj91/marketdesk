@@ -165,6 +165,7 @@ const BASKETS={
  low_max:{title:'Low max-return',blurb:'Holds the 10 stocks with the smallest single-day jump last month, avoiding “lottery” stocks. Reviewed monthly.'},
  reversal:{title:'Short-term reversal',blurb:'Buys the biggest one-month losers among the 100 most traded stocks while their long trend still rises.'},
  minervini:{title:'Minervini trend template',blurb:'Holds strong leaders that pass Mark Minervini’s trend template, with an 8% stop.'},
+ vcp:{title:'Minervini VCP',blurb:'Buys trend leaders breaking out of a tightening base on rising volume, with an 8% stop.'},
  conservative:{title:'Conservative Formula',blurb:'Holds the 10 calmer-half stocks with the best 12-month momentum. Reviewed monthly.'},
  turtle:{title:'Turtle breakout',blurb:'Buys 55-day highs and sells at a 20-day low or a 2-ATR stop, as the Turtles did.'},
  connors:{title:'Connors RSI-2',blurb:'Buys sharp 2-day dips in rising stocks and sells on the bounce above the 5-day average.'},

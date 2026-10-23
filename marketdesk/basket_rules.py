@@ -101,6 +101,8 @@ RESEARCH_BASKETS={
    'Among the 100 most traded stocks, buy the 10 biggest one-month losers that are still above the 200-day average.',_MONTHLY.format(keep=30)+' A 15% loss from average cost exits.'),
  'minervini':_research('Minervini trend template','SEPA trend template with IBD-style relative strength (Mark Minervini)','monthly',8,30,
    'Stocks passing the trend template (price above rising 150- and 200-day averages, 50 above 150 above 200, within 25% of the 52-week high and 30% above the low) with relative strength in the top 30%; buy the 10 strongest.',_MONTHLY.format(keep=30)+' An 8% loss from average cost exits.'),
+ 'vcp':_research('Minervini VCP','Volatility contraction pattern breakout (Mark Minervini)','daily',8,None,
+   'Trend-template leaders with relative strength in the top 30% whose last three 20-session ranges each tightened, the newest under 10%, while 10-day volume fell below the 50-day average; buy the session after a close above the newest range high on 1.4x the 50-day volume, strongest first.','Sell the session after a close below the 50-day average. An 8% loss from average cost exits.'),
  'conservative':_research('Conservative Formula','van Vliet-Blitz: momentum in the calmer half, price only','monthly',20,30,
    'Among the calmer half of stocks by one-year volatility, buy the 10 with the best positive 12-1 momentum above the 200-day average.',_MONTHLY.format(keep=30)+' A 20% loss from average cost exits.'),
  'turtle':_research('Turtle breakout 55/20','Richard Dennis Turtles: 55-day breakout','daily',None,None,

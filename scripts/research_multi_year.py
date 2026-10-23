@@ -278,20 +278,21 @@ RULE_BASKETS={'ref_momentum':'momentum','ref_lowvol':'lowvol','ref_high52':'high
     'overnight':'overnight','gap_drift':'gap_drift','sector':'sector_rotation','clenow':'clenow',
     # Research baskets traded on paper for comparison (marketdesk/research_live.py).
     'volmom':'vol_momentum','resmom':'residual_momentum','fip':'smooth_momentum','volume':'volume_surge','pullback':'pullback','lowmax':'low_max',
-    'strev':'reversal','minervini':'minervini','conservative':'conservative','turtle':'turtle','connors':'connors','dual_mom':'dual_momentum',
+    'strev':'reversal','minervini':'minervini','vcp':'vcp','conservative':'conservative','turtle':'turtle','connors':'connors','dual_mom':'dual_momentum',
     'golden_cross':'golden_cross','macd':'macd','bollinger_rsi':'bollinger_rsi'}
 FUND_BASKETS={'quality_value':'quality_value','magic_proxy':'magic_formula','net_buyback':'net_buyback','dividend_quality':'dividend_quality','value_momentum':'value_momentum'}
 TITLES={'ref_momentum':'Momentum 6-1 (existing)','ref_lowvol':'Low volatility (existing)','ref_high52':'52-week high (retired)','mom121':'Momentum 12-1',
     'alpha':'Alpha (NSE Alpha-style)','volmom':'Volatility-adjusted momentum (NSE Momentum 30-style)','resmom':'Residual momentum','fip':'Smooth momentum',
     'sector':'Sector rotation','overnight':'Overnight momentum','volume':'Volume surge','gap_drift':'Gap-up drift','pullback':'Pullback in market leaders',
     'seasonal':'Same-month seasonality','lowmax':'Low max-return (lottery avoidance)','strev':'Short-term reversal, large caps',
-    'minervini':'Minervini trend template','clenow':'Stocks on the Move (Clenow)','conservative':'Conservative Formula, price only',
+    'minervini':'Minervini trend template','vcp':'Minervini VCP breakout','clenow':'Stocks on the Move (Clenow)','conservative':'Conservative Formula, price only',
     'turtle':'Turtle breakout 55/20','connors':'Connors RSI-2 dip buying','dual_mom':'Dual Momentum (Antonacci)',
     'golden_cross':'Golden cross 50/200 EMA + ADX','macd':'MACD signal-line cross','bollinger_rsi':'Bollinger Band + RSI-14 dip buying'}
 FAMILIES={'mom121':'Jegadeesh-Titman','alpha':'one-year Jensen alpha vs Nifty 500','volmom':'6- and 12-month return over volatility','resmom':'Blitz-Huij-Martens',
     'fip':'Da-Gurun-Warachka frog-in-the-pan','sector':'Moskowitz-Grinblatt','overnight':'Lou-Polk-Skouras','volume':'Gervais-Kaniel-Mingelgrin',
     'gap_drift':'post-announcement drift proxy','pullback':'leaders at the 50-day average','seasonal':'Heston-Sadka','lowmax':'Bali-Cakici-Whitelaw','strev':'Jegadeesh one-month reversal',
-    'minervini':'SEPA trend template + IBD-style relative strength, 8% stop','clenow':'90-day regression slope x R squared, index filter',
+    'minervini':'SEPA trend template + IBD-style relative strength, 8% stop',
+    'vcp':'three tightening 20-session ranges, volume dry-up, breakout on 1.4x volume, 8% stop','clenow':'90-day regression slope x R squared, index filter',
     'conservative':'van Vliet-Blitz: 12-1 momentum in the calmer half','turtle':'Dennis Turtles: 55-day breakout, 20-day low exit, 2 ATR stop',
     'connors':'RSI(2) under 5 above the 200-day average, exit above the 5-day average','dual_mom':'12-1 momentum, cash when the index trails T-bills',
     'golden_cross':'retail algo guides: 50/200 EMA cross with ADX(14) > 20','macd':'retail algo guides: MACD(12,26,9) cross above zero',

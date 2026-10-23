@@ -13,7 +13,7 @@ from .working_universe import symbol_filter
 # basket -> backtest candidate key, and which script defines it.
 RESEARCH={'vol_momentum':('price','volmom'),'residual_momentum':('price','resmom'),'smooth_momentum':('price','fip'),
     'volume_surge':('price','volume'),'pullback':('price','pullback'),'low_max':('price','lowmax'),'reversal':('price','strev'),
-    'minervini':('price','minervini'),'conservative':('price','conservative'),'turtle':('price','turtle'),'connors':('price','connors'),
+    'minervini':('price','minervini'),'vcp':('price','vcp'),'conservative':('price','conservative'),'turtle':('price','turtle'),'connors':('price','connors'),
     'dual_momentum':('price','dual_mom'),'golden_cross':('price','golden_cross'),'macd':('price','macd'),'bollinger_rsi':('price','bollinger_rsi'),
     'quality_value':('fund','quality_value'),'magic_formula':('fund','magic_proxy'),'net_buyback':('fund','net_buyback'),
     'dividend_quality':('fund','dividend_quality'),'value_momentum':('fund','value_momentum')}
