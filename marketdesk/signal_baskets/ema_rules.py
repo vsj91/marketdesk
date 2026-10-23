@@ -35,7 +35,7 @@ LIMITS=dict(timeframe_minutes=(5,15,30),entry_buffer_pct=(.05,.10),stop_tick_buf
     limit_protection_pct=(.05,1.),signal_expiry_candles=(1,12),max_gap_pct=(.1,3.),risk_pct=(.1,2.),max_position_pct=(5.,50.),
     max_positions=(1,10),max_open_risk_pct=(.5,6.),universe_size=(5,120),trail_buffer_mode=('ticks','atr'),
     trail_buffer_ticks=(1,10),trail_buffer_atr=(.05,1.),cancel_target_after_partial=(True,False),allow_no_resistance=(True,False),
-    entry_cutoff=('14:00','15:00'),square_off=('15:00','15:20'),slippage_bps=(0.,50.))
+    entry_cutoff=('14:00','15:00'),square_off=('15:00','15:14'),slippage_bps=(0.,50.))
 
 SHORT_LIVE_REASON=('Short entries are research-only: the paper ledger holds long positions only (quantity >= 0, '
     'no borrow or MIS short product), so live short selling is not supported safely.')

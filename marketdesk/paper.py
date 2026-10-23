@@ -97,7 +97,8 @@ def _trade(path,payload,clock=None,auto_guard=None,audit_details=None,audit_iden
         if existing:return existing
         quote,account,position=preflight(db,payload,clock,auto_guard)
         if book['symbol']!=symbol:raise ValueError('Depth identity mismatch.')
-        fill=match(db,book,side,requested,clock)
+        # Intraday baskets only hold longs, so their sells are stop-loss, target or square-off exits: one market order.
+        fill=match(db,book,side,requested,clock,full_depth=side=='SELL' and getattr(auto_guard,'product','delivery')=='intraday')
         qty,price,value=fill['quantity'],fill['price'],fill['value']
         audit_details.update(diagnostics(db,payload,fill,auto_guard,clock,audit_details))
         if abs(price/quote['price']-1)>.05:raise ValueError('Depth and live price disagree by more than 5%.')

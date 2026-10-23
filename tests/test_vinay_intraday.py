@@ -153,6 +153,33 @@ class EngineTests(unittest.TestCase):
         self.assertEqual(self.held(),0)
         with connect(self.path) as db:self.assertIn('square-off',db.execute("SELECT reason FROM trades WHERE side='SELL'").fetchone()[0])
 
+    def thin(self,side):
+        # Five levels 0.2% apart: 10% participation inside the 0.5% band gives 9 shares; the whole book gives 1,120.
+        def book(path,symbol,clock=None):
+            b=fixture_book(path,symbol,clock);best=b['depth'][side][0]['price'];step=-.002 if side=='buy' else .002
+            b['depth'][side]=[{'price':round(best*(1+step*k),2),'quantity':q} for k,q in enumerate((30,30,30,30,1000))];return b
+        return book
+
+    def test_square_off_sells_the_whole_position_in_one_order_against_full_depth(self):
+        self.scan();self.auto.cycle(self.clock,{});held=self.held();self.assertGreater(held,9)
+        close=datetime(2026,10,16,15,10,5,tzinfo=IST).astimezone(timezone.utc);self.quote(1016,close)
+        with patch('marketdesk.paper.fetch_book',side_effect=self.thin('buy')):self.auto.cycle(close,{})
+        self.assertEqual(self.held(),0)
+        with connect(self.path) as db:sells=db.execute("SELECT quantity FROM trades WHERE side='SELL'").fetchall()
+        self.assertEqual([r[0] for r in sells],[held])                                     # one order, not 9 shares at a time
+
+    def test_entries_keep_the_ten_percent_depth_limit_and_exits_take_the_whole_book(self):
+        from marketdesk.execution import match
+        book=self.thin('buy')(self.path,'ABC',self.clock)
+        with connect(self.path) as db:
+            self.assertEqual(match(db,book,'SELL',500,self.clock)['quantity'],9)              # 10% of the three levels within 0.5%
+            self.assertEqual(match(db,book,'SELL',500,self.clock,full_depth=True)['quantity'],500)
+
+    def test_square_off_can_never_be_set_after_the_broker_auto_square_off(self):
+        from marketdesk.signal_baskets.engine import validate_params
+        with self.assertRaisesRegex(ValueError,'15:14'):validate_params('vinay_intraday',{'square_off':'15:16'})
+        with self.assertRaisesRegex(ValueError,'15:14'):validate_params('ema_price_action',{'square_off':'15:16'})
+
     def test_daily_loss_limit_stops_new_entries(self):
         with connect(self.path) as db:
             set_state(db,'signal_day_open_equity',{'vinay_intraday':{'session':'2026-10-16','equity':100000}})   # recorded at the first scan of the day

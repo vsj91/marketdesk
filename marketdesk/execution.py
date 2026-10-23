@@ -102,20 +102,23 @@ def fetch_book(path,symbol):
         return normalize(raw,row[0],symbol,datetime.now(timezone.utc))
     except requests.RequestException:raise ValueError('Depth request failed; no paper fill.') from None
 
-def match(db,book,side,requested,clock):
+def match(db,book,side,requested,clock,full_depth=False):
+    """Fill against the live book: 10% of each level within 0.5% of the best price, or with full_depth (intraday
+    stop-loss and square-off exits, which a broker sends as one market order) every visible level in full."""
+    share,band=(1.,None) if full_depth else (.1,.005)
     for field in ('timestamp','received_at'):
         if not 0<=(clock-datetime.fromisoformat(book[field])).total_seconds()<=5:raise ValueError('Depth older than 5 seconds; no paper fill.')
     if not 0<=clock.timestamp()*1000-book['trade_time']<=30000:raise ValueError('Depth last trade older than 30 seconds; no paper fill.')
     levels=book['depth']['sell' if side=='BUY' else 'buy'];best=levels[0]['price'];fills=[];remaining=requested
     for level in levels:
         price=level['price']
-        if abs(price/best-1)>.005:break
+        if band is not None and abs(price/best-1)>band:break
         used=db.execute('SELECT quantity FROM depth_used WHERE book_key=? AND side=? AND price=?',(book['key'],side,price)).fetchone()
-        available=max(0,int(level['quantity']*.1)-(used[0] if used else 0))
+        available=max(0,int(level['quantity']*share)-(used[0] if used else 0))
         quantity=min(remaining,available)
         if quantity:
             fills.append({'price':price,'quantity':quantity});remaining-=quantity
         if not remaining:break
-    if not fills:raise ValueError('No unused depth within the 10% participation and 0.5% price limits.')
+    if not fills:raise ValueError('No unused visible depth for this exit.' if full_depth else 'No unused depth within the 10% participation and 0.5% price limits.')
     quantity=requested-remaining;value=money(sum(Decimal(str(x['price']))*x['quantity'] for x in fills))
     return {'quantity':quantity,'price':value/quantity,'value':value,'levels':fills,'best_price':best,'unfilled_quantity':remaining,'status':'PARTIAL_CANCELLED' if remaining else 'FILLED','model':VERSION}

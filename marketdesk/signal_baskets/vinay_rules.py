@@ -47,7 +47,7 @@ LIMITS=dict(min_day_change_pct=(0.,3.),max_day_change_pct=(2.,8.),min_gap_open_p
     min_rvol=(0.,3.),atr_stop_mult=(.5,3.),min_stop_pct=(.3,3.),max_stop_pct=(.6,5.),target_r=(0.,4.),breakeven_r=(0.,2.),
     trail_start_r=(0.,3.),trail_r=(.5,2.),time_stop_candles=(0,36),vwap_exit=(True,False),max_chase_pct=(.1,1.),fee_max_pct=(.05,.5),
     monthly_fee_budget=(0.,5000.),risk_pct=(.1,3.),max_position_pct=(5.,100.),max_positions=(1,10),max_open_risk_pct=(.5,6.),
-    max_entries_per_day=(1,20),max_daily_loss_pct=(.5,5.),max_losing_trades=(1,10),entry_cutoff=('11:00','15:20'),square_off=('15:00','15:25'))
+    max_entries_per_day=(1,20),max_daily_loss_pct=(.5,5.),max_losing_trades=(1,10),entry_cutoff=('11:00','15:00'),square_off=('15:00','15:14'))   # exit before the broker's 15:15 MIS auto square-off
 
 def merged(cfg=None):return {**DEFAULTS,**(cfg or {})}
 
