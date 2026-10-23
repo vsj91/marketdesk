@@ -50,9 +50,10 @@ class Refresh:
             rows=json.loads(saved.read_text()) if resume and saved.exists() else targets(self.path)
             with connect(self.path) as db:
                 active={r[0] for r in db.execute('SELECT symbol FROM instruments WHERE '+symbol_filter(db))}
+                universe='nifty500' if enabled(db) else 'all'
             rows=[r for r in rows if r['symbol'] in active]
             # A changed scope starts a fresh checkpoint rather than carrying old totals.
-            if resume and previous.get('working_universe')!=('nifty500' if enabled(db) else 'all'):
+            if resume and previous.get('working_universe')!=universe:
                 resume=False;started=now();rows=targets(self.path)
             if not rows:raise ValueError('All annual inputs are already complete.')
             with connect(self.path) as db:

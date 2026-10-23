@@ -5,6 +5,20 @@ from datetime import datetime, timezone
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_DB = ROOT / 'data' / 'marketdesk.sqlite3'
 def now(): return datetime.now(timezone.utc).isoformat()
+
+class ClosingConnection(sqlite3.Connection):
+    """Make `with connect(...)` close its SQLite file handles after commit/rollback.
+
+    sqlite3.Connection's built-in context manager only manages the transaction; it does not
+    close the connection. The app opens short-lived connections throughout its worker loops,
+    so leaving them open eventually exhausts the macOS LaunchAgent's file-descriptor limit.
+    """
+    def __exit__(self, exc_type, exc_value, traceback):
+        try:
+            return super().__exit__(exc_type, exc_value, traceback)
+        finally:
+            self.close()
+
 def number(v):
     if v is None or isinstance(v, bool): return None
     try:
@@ -14,11 +28,15 @@ def number(v):
 
 def connect(path=DEFAULT_DB):
     Path(path).parent.mkdir(parents=True,exist_ok=True)
-    db=sqlite3.connect(path,timeout=30)
+    db=sqlite3.connect(path,timeout=30,factory=ClosingConnection)
     db.row_factory=sqlite3.Row
-    db.execute('PRAGMA journal_mode=WAL')
-    db.execute('PRAGMA foreign_keys=ON')
-    db.execute('PRAGMA busy_timeout=30000')
+    try:
+        db.execute('PRAGMA journal_mode=WAL')
+        db.execute('PRAGMA foreign_keys=ON')
+        db.execute('PRAGMA busy_timeout=30000')
+    except Exception:
+        db.close()
+        raise
     return db
 
 def init(path=DEFAULT_DB):
