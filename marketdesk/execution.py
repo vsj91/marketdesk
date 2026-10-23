@@ -10,21 +10,22 @@ _lock=threading.Lock();_last_request=0
 
 def money(x):return float(Decimal(str(x)).quantize(Decimal('.01'),rounding=ROUND_HALF_UP))
 
-def charges(value,side,dp=False):
+def charges(value,side,dp=False,brokerage=True):
     # Delivery-style estimates for both swing portfolios; not a contract note.
     # Published Upstox schedule checked 2026-10-12. Exchange rate effective March 2026.
+    # brokerage=False: a later fill of the same day's order for this stock and side, which a broker bills once.
     v=Decimal(str(value))
-    raw={'brokerage':Decimal(20),'stt':v*Decimal('.001'),'exchange':v*Decimal('.0000307'),'sebi':v*Decimal('.000001'),'ipft':v*Decimal('.000000001'),'stamp':v*Decimal('.00015') if side=='BUY' else Decimal(0),'dp':Decimal(20) if dp else Decimal(0)}
+    raw={'brokerage':Decimal(20) if brokerage else Decimal(0),'stt':v*Decimal('.001'),'exchange':v*Decimal('.0000307'),'sebi':v*Decimal('.000001'),'ipft':v*Decimal('.000000001'),'stamp':v*Decimal('.00015') if side=='BUY' else Decimal(0),'dp':Decimal(20) if dp else Decimal(0)}
     raw['gst']=(raw['brokerage']+raw['exchange']+raw['ipft']+raw['dp'])*Decimal('.18')
     result={k:money(v) for k,v in raw.items()};result['total']=money(sum(Decimal(str(v)) for v in result.values()))
     return result
 
-def intraday_charges(value,side,dp=False):
+def intraday_charges(value,side,dp=False,brokerage=True):
     # Intraday (MIS-style) estimate for the EMA + Price Action basket, which squares off the same session:
     # brokerage the lower of ₹20 or 0.1% per order, 0.025% STT on sells, 0.003% buy stamp duty, the same
     # exchange/SEBI/IPFT/GST basis as charges(); no DP charge. Not verified against a contract note.
     v=Decimal(str(value))
-    raw={'brokerage':min(Decimal(20),v*Decimal('.001')),'stt':v*Decimal('.00025') if side=='SELL' else Decimal(0),'exchange':v*Decimal('.0000307'),'sebi':v*Decimal('.000001'),'ipft':v*Decimal('.000000001'),'stamp':v*Decimal('.00003') if side=='BUY' else Decimal(0),'dp':Decimal(0)}
+    raw={'brokerage':min(Decimal(20),v*Decimal('.001')) if brokerage else Decimal(0),'stt':v*Decimal('.00025') if side=='SELL' else Decimal(0),'exchange':v*Decimal('.0000307'),'sebi':v*Decimal('.000001'),'ipft':v*Decimal('.000000001'),'stamp':v*Decimal('.00003') if side=='BUY' else Decimal(0),'dp':Decimal(0)}
     raw['gst']=(raw['brokerage']+raw['exchange']+raw['ipft'])*Decimal('.18')
     result={k:money(v) for k,v in raw.items()};result['total']=money(sum(Decimal(str(v)) for v in result.values()))
     return result

@@ -70,6 +70,13 @@ class ExecutionTests(unittest.TestCase):
   self.order(qty=20);a=self.order(qty=5,side='SELL');b=self.order(qty=5,side='SELL')
   self.assertEqual(json.loads(a['execution'])['charges']['dp'],20)
   self.assertEqual(json.loads(b['execution'])['charges']['dp'],0)
+ def test_later_fills_of_the_same_days_order_pay_no_second_brokerage(self):
+  first=self.order(qty=10);second=self.order(qty=10)
+  self.assertEqual(json.loads(first['execution'])['charges']['brokerage'],20)
+  self.assertEqual(json.loads(second['execution'])['charges']['brokerage'],0)
+  a=self.order(qty=5,side='SELL');b=self.order(qty=5,side='SELL')
+  self.assertEqual(json.loads(a['execution'])['charges']['brokerage'],20)                # a sell is a new order
+  self.assertEqual([json.loads(b['execution'])['charges'][k] for k in ('brokerage','dp')],[0,0])
  def test_price_protection_never_walks_far_level(self):
   self.assertEqual(self.order(qty=500)['quantity'],30)
  def test_data_gate_blocks_manual_buy_allows_exit(self):

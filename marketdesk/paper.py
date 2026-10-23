@@ -103,10 +103,12 @@ def _trade(path,payload,clock=None,auto_guard=None,audit_details=None,audit_iden
         audit_details.update(diagnostics(db,payload,fill,auto_guard,clock,audit_details))
         if abs(price/quote['price']-1)>.05:raise ValueError('Depth and live price disagree by more than 5%.')
         day=clock.astimezone(timezone(timedelta(hours=5,minutes=30))).replace(hour=0,minute=0,second=0,microsecond=0).astimezone(timezone.utc).isoformat()
-        dp=side=='SELL' and not db.execute("SELECT 1 FROM trades WHERE portfolio=? AND symbol=? AND side='SELL' AND created_at>=?",(portfolio,symbol,day)).fetchone()
+        # A depth-limited order that fills in pieces is one order to a broker: brokerage (and, on sells, the DP charge) is
+        # billed on the first fill of the day for this stock and side only.
+        first=not db.execute("SELECT 1 FROM trades WHERE portfolio=? AND symbol=? AND side=? AND created_at>=?",(portfolio,symbol,side,day)).fetchone()
         # A guard may declare an intraday product (signal_baskets EMA); every other order keeps delivery charges.
-        product=getattr(auto_guard,'product','delivery');dp=dp and product!='intraday'
-        costs=charges_for(product)(value,side,dp);fee=costs['total']
+        product=getattr(auto_guard,'product','delivery');dp=side=='SELL' and first and product!='intraday'
+        costs=charges_for(product)(value,side,dp,brokerage=first);fee=costs['total']
         audit_identity[:]=current_identity(db,portfolio,auto_guard is not None)
         if auto_guard is not None and side=='BUY':
             cost_check=automatic_buy_cost_check(get_state(db,'auto_config',{}).get(portfolio,{}),value,fee,product)
