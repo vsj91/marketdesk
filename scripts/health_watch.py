@@ -2,8 +2,8 @@
 """One health check of the running MarketDesk app, run every 2 minutes by the watch LaunchAgent during market hours.
 
 Checks the server, the live feed, the data audit's age, every basket's state, orders blocked over and over,
-and new tracebacks in the server log. Each problem is appended to data/logs/health-watch.log with an IST time;
-a problem not seen in the previous check also raises a macOS notification. Read-only against the app."""
+and new tracebacks in the server log. A problem not seen in the previous check is appended to
+data/logs/health-watch.log with an IST time and raises a macOS notification; a CLEARED line marks when it goes away. Read-only against the app."""
 import json,os,sqlite3,sys,urllib.request
 from datetime import datetime,timedelta,timezone
 from pathlib import Path
@@ -54,10 +54,12 @@ def main():
     try:state=json.loads(STATE.read_text())
     except (OSError,ValueError):state={}
     found=problems(now,state);stamp=now.astimezone(IST).strftime('%Y-%m-%d %H:%M')
-    with LOG.open('a') as log:
-        for line in found:log.write(f'{stamp} {line}\n')
-        if not found and now.astimezone(IST).minute<2:log.write(f'{stamp} OK\n')      # one heartbeat an hour
     new=[line for line in found if line.split(':')[0] not in state.get('open',[])]
+    cleared=[key for key in state.get('open',[]) if key not in {line.split(':')[0] for line in found}]
+    with LOG.open('a') as log:
+        for line in new:log.write(f'{stamp} {line}\n')                                   # each problem once, when it starts
+        for key in cleared:log.write(f'{stamp} CLEARED {key}\n')
+        if not found and now.astimezone(IST).minute<2:log.write(f'{stamp} OK\n')      # one heartbeat an hour
     if new:mac_notify('MarketDesk health',new[0][:200]+(f' (+{len(new)-1} more)' if len(new)>1 else ''))
     state['open']=[line.split(':')[0] for line in found];state['checked_at']=now.isoformat()
     STATE.write_text(json.dumps(state))

@@ -531,7 +531,7 @@ class AutoTrading:
    except Exception as error:
     # A one-off database or network blip retries on the next check; a fault that repeats pauses trading.
     failures+=1
-    print('Engine check failed ('+type(error).__name__+'), attempt '+str(failures)+' of '+str(PAUSE_AFTER_FAILURES)+'.',file=sys.stderr,flush=True)
+    print('Engine check failed ('+type(error).__name__+'), '+str(failures)+' in a row; trading pauses after '+str(PAUSE_AFTER_FAILURES)+'.',file=sys.stderr,flush=True)
     if failures>=PAUSE_AFTER_FAILURES:
      try:
       with connect(self.path) as db:

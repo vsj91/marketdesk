@@ -1,5 +1,5 @@
 """Restart-safe Nifty 500 maintenance, independent of whether baskets are enabled."""
-import threading,json
+import sys,threading,json
 from datetime import datetime,timedelta,timezone
 from .storage import connect,get_state,set_state,now
 from .working_universe import enabled,symbol_filter
@@ -65,7 +65,10 @@ class Maintenance:
         while not self.stop_event.is_set():
             try:self.tick()
             except Exception as error:
-                with connect(self.path) as db:
-                    state=get_state(db,'nifty500_maintenance',{});state['last_error']={'at':now(),'reason':str(error)[:180]};set_state(db,'nifty500_maintenance',state)
+                # Recording the error needs the database too; if that is what failed, keep the loop alive.
+                try:
+                    with connect(self.path) as db:
+                        state=get_state(db,'nifty500_maintenance',{});state['last_error']={'at':now(),'reason':str(error)[:180]};set_state(db,'nifty500_maintenance',state)
+                except Exception as record_error:print('Maintenance check failed ('+type(error).__name__+'/'+type(record_error).__name__+').',file=sys.stderr,flush=True)
             self.stop_event.wait(60)
     def stop(self):self.stop_event.set()

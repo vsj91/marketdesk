@@ -8,6 +8,13 @@ from marketdesk.analytics import listing
 
 class FeedConnectionTests(unittest.TestCase):
     url='wss://feed.upstox.com/feeds?code=private-one-time-code'
+    def test_status_save_failure_never_kills_the_feed_thread(self):
+        import sqlite3
+        with tempfile.TemporaryDirectory() as folder:
+            path=Path(folder)/'f.sqlite3';init(path);feed=Feed(path)
+            with patch('marketdesk.feed.connect',side_effect=sqlite3.OperationalError('unable to open database file')):
+                feed.update(status='error',error='Upstox connection failed')                # would raise inside the reconnect loop
+            self.assertEqual(feed.state['status'],'error')
     def test_ipv6_timeout_falls_back_to_ipv4_with_verified_tls(self):
         v6=Mock();v6.connect.side_effect=TimeoutError('unreachable IPv6')
         v4=Mock();secure=Mock();context=Mock();context.wrap_socket.return_value=secure

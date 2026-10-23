@@ -41,6 +41,12 @@ class AlternateDataTests(unittest.TestCase):
 class MaintenanceTests(unittest.TestCase):
  def setUp(self):
   self.fixture=scope_tests.WorkingUniverseTests();self.fixture.setUp();self.addCleanup(self.fixture.doCleanups);self.path=self.fixture.path;self.refresh=Mock();self.m=Maintenance(self.path,self.refresh);self.clock=datetime(2026,10,15,8,tzinfo=timezone.utc)
+ def test_loop_survives_when_recording_the_error_also_fails(self):
+  import sqlite3
+  self.m.tick=Mock(side_effect=sqlite3.OperationalError('unable to open database file'))
+  self.m.stop_event.wait=lambda seconds:self.m.stop_event.set()
+  with patch('marketdesk.maintenance.connect',side_effect=sqlite3.OperationalError('unable to open database file')):self.m.run()
+  self.m.tick.assert_called_once()
  def test_running_job_not_duplicated_and_interrupted_job_resumes(self):
   with connect(self.path) as db:set_state(db,'refresh',{'working_universe':'nifty500','status':'running','started_at':self.clock.isoformat(),'mode':'fundamental_repair'})
   self.m.tick(self.clock);self.refresh.start.assert_not_called()

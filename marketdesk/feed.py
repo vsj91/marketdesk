@@ -1,5 +1,5 @@
 from .working_universe import symbol_filter
-import os,threading,json,ssl,uuid,time,sqlite3
+import os,sys,threading,json,ssl,uuid,time,sqlite3
 import socket as network
 from urllib.parse import urlsplit
 import requests,certifi,websocket
@@ -47,7 +47,10 @@ class Feed:
         self.path=path;self.socket=None;self.lock=threading.RLock();self.lifecycle=threading.RLock();self.stop_event=threading.Event();self.generation=0
         self.state={'status':'disconnected','market_status':{},'subscriptions':0};self.save()
     def save(self):
-        with connect(self.path) as db:set_state(db,'stream',dict(self.state,updated_at=now()))
+        # Status bookkeeping only: a database fault must never kill the feed thread mid-reconnect.
+        try:
+            with connect(self.path) as db:set_state(db,'stream',dict(self.state,updated_at=now()))
+        except sqlite3.Error as error:print('Feed status save failed ('+type(error).__name__+').',file=sys.stderr,flush=True)
     def update(self,**values):
         with self.lock:self.state.update(values);self.save()
     def stop(self):

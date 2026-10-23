@@ -1,5 +1,6 @@
 """AMFI size labels, joined by ISIN. Display metadata only, never a trading signal."""
 import collections
+import sys
 import hashlib
 import io
 import re
@@ -107,7 +108,8 @@ class ClassificationRefresh:
         self.thread=threading.Thread(target=self.run,daemon=True);self.thread.start()
     def run(self):
         while not self.stop_event.is_set():
-            refresh(self.path)
+            try:refresh(self.path)
+            except Exception as error:print('Market cap refresh failed ('+type(error).__name__+').',file=sys.stderr,flush=True)
             self.stop_event.wait(86400)
     def stop(self):self.stop_event.set()
 

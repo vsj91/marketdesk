@@ -188,7 +188,9 @@ class SignalRunner:
                 try:job(clock)
                 except Exception as error:
                     traceback.print_exc(file=sys.stderr)
-                    self.status(**{job.__name__:dict(ok=False,error=f'{error.__class__.__name__}: {error}'[:300])})
+                    # Recording the error needs the database too; if that is what failed, the next tick retries.
+                    try:self.status(**{job.__name__:dict(ok=False,error=f'{error.__class__.__name__}: {error}'[:300])})
+                    except Exception as record_error:print('Signal basket status save failed ('+type(record_error).__name__+').',file=sys.stderr,flush=True)
         finally:self.lock.release()
 
     # ---- news -------------------------------------------------------------------------------------

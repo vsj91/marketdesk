@@ -324,6 +324,12 @@ class EngineTests(unittest.TestCase):
         self.depth=patch('marketdesk.paper.fetch_book',side_effect=fixture_book);self.depth.start();self.addCleanup(self.depth.stop)
         self.runner=SignalRunner(self.path,provider=FakeNews([]),candles=object())
     def tearDown(self):self.temp.cleanup()
+    def test_tick_survives_when_recording_a_job_error_also_fails(self):
+        import sqlite3
+        with patch.object(self.runner,'poll_news',side_effect=sqlite3.OperationalError('unable to open database file')),\
+             patch.object(self.runner,'status',side_effect=sqlite3.OperationalError('unable to open database file')),patch('sys.stderr'):
+            self.runner.tick(self.clock)                                                    # must not raise and kill the runner thread
+        self.assertTrue(self.runner.lock.acquire(blocking=False));self.runner.lock.release()
     def quote(self,price,clock=None):
         clock=clock or self.clock
         with connect(self.path) as db:

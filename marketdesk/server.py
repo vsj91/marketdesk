@@ -100,9 +100,8 @@ class Handler(BaseHTTPRequestHandler):
         self.send_response(status);self.send_header('Content-Type',content);self.send_header('Content-Length',str(len(body)))
         self.send_header('Cache-Control','no-store');self.send_header('X-Content-Type-Options','nosniff');self.send_header('Referrer-Policy','no-referrer')
         self.send_header('Content-Security-Policy',"default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'")
-        self.end_headers()
-        try:self.wfile.write(body)
-        except (BrokenPipeError,ConnectionResetError):pass
+        try:self.end_headers();self.wfile.write(body)
+        except (BrokenPipeError,ConnectionResetError):pass     # the client stopped waiting; nothing left to send
     def allowed(self):
         host=self.headers.get('Host','');port=self.server.server_port
         return host in (f'127.0.0.1:{port}',f'localhost:{port}')
