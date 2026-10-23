@@ -139,6 +139,39 @@ def _trade(path,payload,clock=None,auto_guard=None,audit_details=None,audit_iden
             event(db,portfolio,'fill',side+' '+str(qty)+' / '+str(requested)+' shares ('+fill['status']+'): '+reason,symbol,row[0],clock,details=audit_details)
         return annotate(db,[dict(db.execute('SELECT * FROM trades WHERE id=?',(row[0],)).fetchone())])[0]
 
+def final_market_exit(path,portfolio,symbol,quantity,clock,on_fill):
+    """Last-chance intraday exit, 4 minutes after the square-off and before the broker's 15:15 MIS auto square-off (Rs 75 + GST):
+    if the normal depth-checked square-off has not filled, the whole position is sold at the last traded price as a market
+    order would be, with normal intraday charges and no depth or freshness check.
+    on_fill(db, order, quote, position, execution) updates the basket's own state and returns the reason."""
+    from .autotrading import event
+    with connect(path) as db:
+        db.execute('BEGIN IMMEDIATE')
+        position=db.execute('SELECT * FROM positions WHERE portfolio=? AND symbol=?',(portfolio,symbol)).fetchone()
+        quote=db.execute('SELECT * FROM quotes WHERE symbol=?',(symbol,)).fetchone()
+        account=db.execute('SELECT * FROM portfolios WHERE name=?',(portfolio,)).fetchone()
+        held=position['quantity'] if position else 0;qty=min(quantity,held)
+        if qty<1:raise ValueError('No open position to square off.')
+        if not quote or not quote['price'] or quote['price']<=0:raise ValueError('No last traded price for the final market exit.')
+        price=quote['price'];value=money(price*qty)
+        day=clock.astimezone(timezone(timedelta(hours=5,minutes=30))).replace(hour=0,minute=0,second=0,microsecond=0).astimezone(timezone.utc).isoformat()
+        first=not db.execute("SELECT 1 FROM trades WHERE portfolio=? AND symbol=? AND side='SELL' AND created_at>=?",(portfolio,symbol,day)).fetchone()
+        costs=charges_for('intraday')(value,'SELL',False,brokerage=first);fee=costs['total']
+        order=dict(portfolio=portfolio,symbol=symbol,side='SELL',quantity=qty,request_id=f'final-exit-{uuid.uuid4().hex[:20]}')
+        effective=dict(quote);effective.update(price=price,fill_quantity=qty,fill_fee=fee,execution_time=clock.isoformat())
+        reason=on_fill(db,order,effective,position,clock)
+        cash=money(account['cash']+value-fee);new_qty=held-qty;new_cost=money(position['cost']*new_qty/held)
+        db.execute('UPDATE portfolios SET cash=? WHERE name=?',(cash,portfolio))
+        db.execute('UPDATE positions SET quantity=?,cost=? WHERE portfolio=? AND symbol=?',(new_qty,new_cost,portfolio,symbol))
+        identity=current_identity(db,portfolio,True)
+        fill=dict(model='final-market-exit',quantity=qty,price=price,value=value,charges=costs,status='FILLED',
+            price_source='last traded price at the final market exit',charge_basis='Intraday (MIS-style) estimate; same-day netting and settlement not modeled')
+        row=(str(uuid.uuid4()),order['request_id'],portfolio,symbol,'SELL',qty,price,fee,quote['trade_time'],clock.isoformat(),'automatic',reason,qty,json.dumps(fill),fill['model'])
+        db.execute('INSERT INTO trades(id,request_id,portfolio,symbol,side,quantity,price,fee,quote_time,created_at,source,reason,requested_quantity,execution,fill_model) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',row)
+        save_identity(db,row[0],identity,'captured at execution')
+        event(db,portfolio,'fill',f'SELL {qty} / {qty} shares (FINAL MARKET EXIT): {reason}',symbol,row[0],clock)
+        return dict(db.execute('SELECT * FROM trades WHERE id=?',(row[0],)).fetchone())
+
 def portfolios(path,clock=None):
     clock=clock or datetime.now(timezone.utc)
     with connect(path) as db:

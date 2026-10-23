@@ -408,7 +408,7 @@ class EngineTests(unittest.TestCase):
 
     def test_square_off_without_price_is_not_claimed(self):
         self.arm();self.auto.cycle(self.clock,{})
-        close=datetime(2026,10,16,15,12,5,tzinfo=IST).astimezone(timezone.utc)   # quote is now hours old
+        close=datetime(2026,10,16,15,2,5,tzinfo=IST).astimezone(timezone.utc)   # quote is now hours old
         with connect(self.path) as db:set_state(db,'signal_ema_checkpoint',{'last_success':close.isoformat()})
         self.auto.cycle(close,{})
         self.assertGreater(self.held(),0)

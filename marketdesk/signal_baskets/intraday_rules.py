@@ -7,7 +7,7 @@ from .indicators import atr_series,ema_series,finite,round_tick
 from . import vinay_rules as common
 from .names import LIQUIDITY_SWEEP,ORDER_FLOW_REVERSAL,VOLATILITY_COMPRESSION,ORB_VOLUME_BREAKOUT
 
-COMMON=dict(timeframe_minutes=5,atr_period=14,entry_start='10:00',entry_cutoff='14:00',square_off='15:10',
+COMMON=dict(timeframe_minutes=5,atr_period=14,entry_start='10:00',entry_cutoff='14:00',square_off='15:00',
     max_positions=1,max_entries_per_day=1,max_position_pct=95.,risk_pct=1.,max_open_risk_pct=6.,max_daily_loss_pct=2.,
     fee_max_pct=.1,monthly_fee_budget=500.,max_chase_pct=.3,max_slippage_pct=.25,
     target_r=2.,breakeven_r=1.,tick_size=.05,slippage_bps=5.,min_price=50.)

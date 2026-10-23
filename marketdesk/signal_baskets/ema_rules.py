@@ -25,7 +25,7 @@ DEFAULTS=dict(
     breakeven_atr_mult=1.5,partial_atr_mult=2.5,partial_fraction=.5,min_partial_qty=2,cancel_target_after_partial=True,
     trail_buffer_mode='ticks',trail_buffer_ticks=2,trail_buffer_atr=.25,
     risk_pct=1.,max_position_pct=25.,max_positions=4,max_open_risk_pct=3.,max_entries_per_day=6,
-    entry_start='09:30',entry_cutoff='14:45',square_off='15:12',swing_k=3,structure_lookback=150,
+    entry_start='09:30',entry_cutoff='14:45',square_off='15:00',swing_k=3,structure_lookback=150,
     universe_size=50,min_price=50.,min_turnover_cr=20.,slippage_bps=5.,
     allow_short=False,short_rsi_min=30.,short_rsi_max=45.)
 

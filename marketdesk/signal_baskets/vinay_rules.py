@@ -41,7 +41,7 @@ DEFAULTS=dict(
     time_stop_candles=0,time_stop_progress_r=.5,vwap_exit=False,max_chase_pct=.4,max_slippage_pct=.25,tick_size=.05,fee_max_pct=.1,
     monthly_fee_budget=500.,risk_pct=3.,max_position_pct=98.,max_positions=1,max_open_risk_pct=6.,max_entries_per_day=1,
     max_daily_loss_pct=2.,max_losing_trades=3,candidate_expiry_candles=1,
-    entry_start='09:35',entry_cutoff='14:30',square_off='15:10',min_price=50.,slippage_bps=5.)
+    entry_start='09:35',entry_cutoff='14:30',square_off='15:00',min_price=50.,slippage_bps=5.)
 
 LIMITS=dict(min_day_change_pct=(0.,3.),max_day_change_pct=(2.,8.),min_gap_open_pct=(-5.,3.),max_gap_open_pct=(.5,5.),max_vwap_extension_pct=(.3,10.),
     min_rvol=(0.,3.),atr_stop_mult=(.5,3.),min_stop_pct=(.3,3.),max_stop_pct=(.6,5.),target_r=(0.,4.),breakeven_r=(0.,2.),

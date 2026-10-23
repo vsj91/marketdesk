@@ -26,6 +26,12 @@ DEFAULTS={NEWS_MOMENTUM:news_rules.MOMENTUM_DEFAULTS,NEWS_CATALYST:news_rules.CA
 LIMITS={NEWS_MOMENTUM:news_rules.MOMENTUM_LIMITS,NEWS_CATALYST:news_rules.CATALYST_LIMITS,EMA_PRICE_ACTION:ema_rules.LIMITS,VINAY_INTRADAY:vinay_rules.LIMITS}
 for _n in NEW_INTRADAY_BASKETS:DEFAULTS[_n]=intraday_rules.DEFAULTS[_n];LIMITS[_n]=intraday_rules.LIMITS[_n]
 DEFAULTS[SECTOR_RELATIVE_STRENGTH]=sector_rules.DEFAULTS;LIMITS[SECTOR_RELATIVE_STRENGTH]=sector_rules.LIMITS
+LATEST_EXIT='15:14'   # Upstox's MIS auto square-off (Rs 75 + GST) starts at 15:15
+
+def final_exit(p):
+    """Last-chance market exit: 4 minutes after the basket's square-off, never later than 15:14."""
+    h,m=map(int,p['square_off'].split(':'));t=h*60+m+4
+    return min(f'{t//60:02d}:{t%60:02d}',LATEST_EXIT)
 WINDOWS={NEWS_MOMENTUM:('09:20','15:15'),NEWS_CATALYST:('09:20','15:15')}
 
 def session(clock):return clock.astimezone(IST).date().isoformat()
@@ -65,16 +71,16 @@ RULE_TEXT={
    risk='Up to 10% of starting capital per company, 10 holdings, 30% per sector for new buys, 2 new buys a session; the drawdown breaker pauses new buys.'),
  EMA_PRICE_ACTION:dict(family='Technical momentum / price action (intraday, MIS-style)',
    entry='Completed 5-minute candles: EMA9 crosses above EMA21, close above EMA200, RSI14 55-70, ATR14 % of price inside the band, and a confirmed swing support below the trigger candle. Entry is a paper stop-limit 0.05% above the trigger candle high with limit protection, gap protection and expiry after 3 candles.',
-   exit='Hybrid initial stop MIN(structural support - 3 ticks, entry - 1.5 ATR); target MIN(entry + 3 ATR, next resistance - 2 ticks) with RR >= 1.8 (configurable 1.5-2.0). Breakeven after the later of 1.5 ATR and 1R, 50% partial at 2.5 ATR, then EMA20 trailing for the rest. Square-off of everything at 15:12 IST.',
+   exit='Hybrid initial stop MIN(structural support - 3 ticks, entry - 1.5 ATR); target MIN(entry + 3 ATR, next resistance - 2 ticks) with RR >= 1.8 (configurable 1.5-2.0). Breakeven after the later of 1.5 ATR and 1R, 50% partial at 2.5 ATR, then EMA20 trailing for the rest. Square-off of everything at 15:00 IST.',
    risk='1% of basket equity at risk per trade including costs and slippage, 25% of equity per position, 4 positions, 3% total open risk, 6 entries a session; no new entries after 14:45 IST. Long only: short rules exist for research but are not traded live.'),
  VINAY_INTRADAY:dict(family='Intraday gap-up leaders (minutes to hours, MIS-style, flat by the close)',
    entry='Every completed 5-minute candle from 09:35 to 14:30 IST checks every Nifty 500 stock on 5-minute candles built from the live price feed. A stock qualifies when it opened 1-2.5% above the previous close, is up 0.8-4% on the day, and closes above its 15-minute opening range high and above session VWAP. The strongest one is bought at the live price, within 0.4% of the signal close. At most one trade a day and one stock per day.',
-   exit='Stop loss 2.5% below the entry. No fixed profit target by default: the position is sold at 15:10 IST (backtests showed targets and tighter stops lost more, because these stocks swing about 1-1.5% either way within the day). Optional settings add a profit target, breakeven and trailing stops, a VWAP exit and a time stop.',
+   exit='Stop loss 2.5% below the entry. No fixed profit target by default: the position is sold at 15:00 IST (backtests showed targets and tighter stops lost more, because these stocks swing about 1-1.5% either way within the day). Optional settings add a profit target, breakeven and trailing stops, a VWAP exit and a time stop.',
    risk='One position of up to 98% of basket equity, so the flat ₹20 per-order brokerage stays near 0.08% of the trade. Round-trip Upstox intraday charges must be under 0.1% of the position, and new entries stop for the month once that month\'s charges reach ₹500 (about ₹6,000 a year). New entries also stop for the day after a 2% fall from the day\'s opening equity. Backtest 2022-2026: lost money every year after fees (-5% to -24%); paper experiment only.'),
- LIQUIDITY_SWEEP:dict(family='Intraday liquidity sweep and reclaim reversal (MIS-style)',entry='From 10:00–14:00 IST, a completed 5-minute candle sweeps below the 15-minute opening-range low or a rolling 30-candle low, then reclaims the level on that candle or the next. Candle RVOL must be at least 2.0x. One long per session, chased by at most 0.3%.',exit='Stop is sweep low minus 0.4 ATR, clamped to 0.8–1.8%; target 2.5R; breakeven at 1.2R, then trail by 1 ATR; square-off 15:10.',risk='Cash-only paper execution; position cap 95% and default risk budget 1% of equity per trade (both configurable), one entry/session, 2% daily-loss breaker, round-trip fee cap 0.1%, monthly fees capped at ₹500. Experimental; no profitability is implied.'),
- ORDER_FLOW_REVERSAL:dict(family='Intraday trend pullback with live order-book confirmation (MIS-style)',entry='From 10:00–14:00 IST, price must be above daily EMA50 and session VWAP; a completed 5-minute candle must close within 0.3% of VWAP without closing below it, while the live top-five bid/ask quantity ratio is at least 3:1. One long per session, chased by at most 0.25%.',exit='Stop below the pullback swing low or 1.2 ATR, clamped to 0.7–1.5%; target 2R; breakeven at 1R, then trail by 0.8 ATR; square-off 15:10.',risk='Order-book depth is sampled from the live Upstox full quote at the candle scan. Historical candles do not contain order-book depth, so backtests can only use a disclosed proxy. Cash-only; 95% position cap and default 1% equity risk budget (configurable), 2% daily breaker, fees ≤0.1% round trip and ₹500/month.'),
- VOLATILITY_COMPRESSION:dict(family='Intraday volatility squeeze and expansion breakout (MIS-style)',entry='From 10:00–14:00 IST, 20-period Bollinger width must be at its lowest 15th percentile over 30 candles and ATR14 flat/declining; a 5-minute close must break above the upper band and VWAP on at least 2.5x rolling volume. One long per session, chased by at most 0.35%.',exit='Stop at the lower band or 1.5 ATR, clamped to 0.8–2.0%; target 2R; breakeven at 1R; square-off 15:10.',risk='Cash-only paper execution; position cap 95% and default risk budget 1% of equity per trade (both configurable), one entry/session, 2% daily-loss breaker, round-trip fee cap 0.1%, monthly fees capped at ₹500. Experimental; no profitability is implied.'),
- ORB_VOLUME_BREAKOUT:dict(family='Opening range breakout with volume confirmation (MIS-style)',entry='The first 15 minutes (09:15–09:30 IST) define the range. From 09:30 until 10:00, buy a completed 5-minute close strictly above the opening-range high and session VWAP with at least 3x rolling 20-candle volume. One trade per day, chased by at most 0.3%.',exit='Stop at the higher of opening-range midpoint and close minus 1 ATR, clamped to 0.6–1.5%; target 1.5R; stop moves to entry at 1R; square-off 15:10.',risk='Cash-only paper execution; up to 95% position value, 1% default risk budget, 2% daily-loss breaker, round-trip fee cap 0.1%, and monthly fees capped at ₹500. Experimental; no profitability is implied.'),
+ LIQUIDITY_SWEEP:dict(family='Intraday liquidity sweep and reclaim reversal (MIS-style)',entry='From 10:00–14:00 IST, a completed 5-minute candle sweeps below the 15-minute opening-range low or a rolling 30-candle low, then reclaims the level on that candle or the next. Candle RVOL must be at least 2.0x. One long per session, chased by at most 0.3%.',exit='Stop is sweep low minus 0.4 ATR, clamped to 0.8–1.8%; target 2.5R; breakeven at 1.2R, then trail by 1 ATR; square-off 15:00.',risk='Cash-only paper execution; position cap 95% and default risk budget 1% of equity per trade (both configurable), one entry/session, 2% daily-loss breaker, round-trip fee cap 0.1%, monthly fees capped at ₹500. Experimental; no profitability is implied.'),
+ ORDER_FLOW_REVERSAL:dict(family='Intraday trend pullback with live order-book confirmation (MIS-style)',entry='From 10:00–14:00 IST, price must be above daily EMA50 and session VWAP; a completed 5-minute candle must close within 0.3% of VWAP without closing below it, while the live top-five bid/ask quantity ratio is at least 3:1. One long per session, chased by at most 0.25%.',exit='Stop below the pullback swing low or 1.2 ATR, clamped to 0.7–1.5%; target 2R; breakeven at 1R, then trail by 0.8 ATR; square-off 15:00.',risk='Order-book depth is sampled from the live Upstox full quote at the candle scan. Historical candles do not contain order-book depth, so backtests can only use a disclosed proxy. Cash-only; 95% position cap and default 1% equity risk budget (configurable), 2% daily breaker, fees ≤0.1% round trip and ₹500/month.'),
+ VOLATILITY_COMPRESSION:dict(family='Intraday volatility squeeze and expansion breakout (MIS-style)',entry='From 10:00–14:00 IST, 20-period Bollinger width must be at its lowest 15th percentile over 30 candles and ATR14 flat/declining; a 5-minute close must break above the upper band and VWAP on at least 2.5x rolling volume. One long per session, chased by at most 0.35%.',exit='Stop at the lower band or 1.5 ATR, clamped to 0.8–2.0%; target 2R; breakeven at 1R; square-off 15:00.',risk='Cash-only paper execution; position cap 95% and default risk budget 1% of equity per trade (both configurable), one entry/session, 2% daily-loss breaker, round-trip fee cap 0.1%, monthly fees capped at ₹500. Experimental; no profitability is implied.'),
+ ORB_VOLUME_BREAKOUT:dict(family='Opening range breakout with volume confirmation (MIS-style)',entry='The first 15 minutes (09:15–09:30 IST) define the range. From 09:30 until 10:00, buy a completed 5-minute close strictly above the opening-range high and session VWAP with at least 3x rolling 20-candle volume. One trade per day, chased by at most 0.3%.',exit='Stop at the higher of opening-range midpoint and close minus 1 ATR, clamped to 0.6–1.5%; target 1.5R; stop moves to entry at 1R; square-off 15:00.',risk='Cash-only paper execution; up to 95% position value, 1% default risk budget, 2% daily-loss breaker, round-trip fee cap 0.1%, and monthly fees capped at ₹500. Experimental; no profitability is implied.'),
  SECTOR_RELATIVE_STRENGTH:dict(family='Weekly sector relative-strength rotation (delivery)',entry='At the Monday review, rank broad sectors by equal-weight constituent 4-week return relative to the Nifty 500; select the top two outperformers and up to five positive-momentum stocks per sector with average daily turnover ≥₹2 crore. Buy at most 10 holdings, no more than 10% of starting capital each.',exit='Exit at the weekly review if a sector leaves the top two. Also trail at the higher of 8% below cost or two weekly ATR below the best completed weekly close.',risk='Cash-only delivery paper execution; maximum ten holdings across two sectors, estimated round-trip charges under 0.1%, monthly fees capped at ₹500, and a 2% daily loss breaker. Local sector returns use equal-weight constituent proxies because this archive has no sector-index histories.'),
 }
 
@@ -140,6 +146,16 @@ class SignalEngine:
                 None if realtime else clock,auto_guard=guard)
         except ValueError as error:
             with connect(self.path) as db:event(db,name,'blocked',str(error),symbol,clock=clock,details=getattr(error,'order_audit',None))
+            return None
+
+    def final_market_exit(self,name,symbol,st,p,clock,realtime):
+        """Square-off still unfilled at 15:14: sell at the last traded price before the broker's 15:15 auto square-off."""
+        from ..paper import final_market_exit
+        from ..autotrading import event
+        intent=dict(kind='CLOCK_EXIT',quantity=st['qty'],order='market',level=None,reason=f"Final market exit at {final_exit(p)} IST, before the broker's 15:15 auto square-off")
+        try:return final_market_exit(self.path,name,symbol,st['qty'],datetime.now(timezone.utc) if realtime else clock,self.ema_exit_guard(name,intent,p))
+        except ValueError as error:
+            with connect(self.path) as db:event(db,name,'blocked',str(error),symbol,clock=clock)
             return None
 
     def guard(self,name,on_fill,product='delivery',side='BUY',signal=None):
@@ -300,6 +316,9 @@ class SignalEngine:
                 kind='CARRIED_OVER' if carried and not squaring else 'CLOCK_EXIT'
                 intent=dict(kind=kind,quantity=st['qty'],order='market',level=None,
                     reason=('Intraday square-off at '+p['square_off']+' IST') if kind=='CLOCK_EXIT' else f"Recovery exit: intraday position from {row['entry_session']} was not squared off")
+                if kind=='CLOCK_EXIT' and local_hm(clock)>=final_exit(p):
+                    if self.final_market_exit(name,symbol,st,p,clock,realtime):fills+=1
+                    continue
                 if not fresh(q,clock):
                     with connect(self.path) as db:transition(db,name,symbol,row['signal_id'],row['stage'],'SQUARE_OFF_BLOCKED',
                         'No executable live price for the square-off; retrying every scan. The position is still open.',clock=clock,dedup=f'sqoff:{name}:{symbol}:{today}')
@@ -432,6 +451,9 @@ class SignalEngine:
                 kind='CARRIED_OVER' if carried and not squaring else 'CLOCK_EXIT'
                 intent=dict(kind=kind,quantity=st['qty'],order='market',level=None,
                     reason=('Intraday square-off at '+p['square_off']+' IST') if kind=='CLOCK_EXIT' else f"Recovery exit: intraday position from {row['entry_session']} was not squared off")
+                if kind=='CLOCK_EXIT' and local_hm(clock)>=final_exit(p):
+                    if self.final_market_exit(name,symbol,st,p,clock,realtime):fills+=1
+                    continue
                 if not fresh(q,clock):
                     with connect(self.path) as db:transition(db,name,symbol,row['signal_id'],row['stage'],'SQUARE_OFF_BLOCKED',
                         'No executable live price for the square-off; retrying every scan. The position is still open.',clock=clock,dedup=f'sqoff:{name}:{symbol}:{today}')
@@ -522,6 +544,9 @@ class SignalEngine:
             if hm>=p['square_off'] or row['entry_session']<today:
                 kind='CLOCK_EXIT' if row['entry_session']==today else 'CARRIED_OVER'
                 intent=dict(kind=kind,quantity=st['qty'],order='market',level=None,reason=f"Intraday square-off at {p['square_off']} IST" if kind=='CLOCK_EXIT' else 'Recovery exit: carried intraday paper position')
+                if kind=='CLOCK_EXIT' and hm>=final_exit(p):
+                    if self.final_market_exit(name,symbol,st,p,clock,realtime):fills+=1
+                    continue
                 if fresh(q,clock) and self.execute(name,symbol,'SELL',st['qty'],self.guard(name,self.ema_exit_guard(name,intent,p),'intraday','SELL'),clock,realtime):fills+=1
                 continue
             if not fresh(q,clock):continue

@@ -175,6 +175,25 @@ class EngineTests(unittest.TestCase):
             self.assertEqual(match(db,book,'SELL',500,self.clock)['quantity'],9)              # 10% of the three levels within 0.5%
             self.assertEqual(match(db,book,'SELL',500,self.clock,full_depth=True)['quantity'],500)
 
+    def test_unfilled_square_off_sells_at_the_last_price_at_1504_before_the_broker_does(self):
+        self.scan();self.auto.cycle(self.clock,{});held=self.held();self.assertGreater(held,0)
+        stale=datetime(2026,10,16,14,55,tzinfo=IST).astimezone(timezone.utc);self.quote(1012,stale)        # feed stopped at 14:55
+        missed=datetime(2026,10,16,15,2,tzinfo=IST).astimezone(timezone.utc);self.auto.cycle(missed,{})
+        self.assertEqual(self.held(),held)                                                    # 15:00 square-off cannot fill
+        last=datetime(2026,10,16,15,4,5,tzinfo=IST).astimezone(timezone.utc);self.auto.cycle(last,{})
+        self.assertEqual(self.held(),0);self.assertIsNone(self.state())
+        with connect(self.path) as db:
+            t=dict(db.execute("SELECT * FROM trades WHERE side='SELL'").fetchone());b=dict(db.execute("SELECT * FROM trades WHERE side='BUY'").fetchone())
+            cash=db.execute("SELECT cash FROM portfolios WHERE name='vinay_intraday'").fetchone()[0]
+        self.assertEqual((t['quantity'],t['price'],t['fill_model']),(held,1012,'final-market-exit'))
+        self.assertIn('before the broker',t['reason'])
+        self.assertAlmostEqual(t['fee'],intraday_charges(1012*held,'SELL')['total'],places=2)        # no Rs 75 auto square-off charge
+        self.assertAlmostEqual(cash,100000-b['price']*b['quantity']-b['fee']+1012*held-t['fee'],places=1)
+
+    def test_final_exit_follows_the_square_off_but_never_reaches_1515(self):
+        from marketdesk.signal_baskets.engine import final_exit
+        self.assertEqual([final_exit({'square_off':t}) for t in ('15:00','15:08','15:14')],['15:04','15:12','15:14'])
+
     def test_square_off_can_never_be_set_after_the_broker_auto_square_off(self):
         from marketdesk.signal_baskets.engine import validate_params
         with self.assertRaisesRegex(ValueError,'15:14'):validate_params('vinay_intraday',{'square_off':'15:16'})
