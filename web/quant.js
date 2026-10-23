@@ -51,4 +51,4 @@ function renderQuant(){
 async function loadQuant(){if(quantBusy)return;quantBusy=true;try{quantData=await api('/api/quant-baskets');renderQuant();}catch(e){$('quantDetail').innerHTML=`<div class="empty">${esc(e.message)}</div>`;}finally{quantBusy=false;}}
 // Daily baskets live inside the Paper baskets tab.
 document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>{if(b.dataset.tab==='paper')loadQuant();}));
-setInterval(()=>{if(!$('paper').hidden)loadQuant();},30000);
+setInterval(()=>{if(!$('paper').hidden&&!document.hidden)loadQuant();},30000);

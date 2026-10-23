@@ -91,5 +91,5 @@ document.addEventListener('submit',async e=>{
  try{await api('/api/signal-baskets/config',body);toast('Saved.');await loadSignals();}catch(err){toast(err.message);}
 });
 document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>{if(b.dataset.tab==='paper')loadSignals();}));
-setInterval(()=>{if(!$('paper').hidden)loadSignals();},15000);
+setInterval(()=>{if(!$('paper').hidden&&!document.hidden)loadSignals();},15000);
 loadSignals();
