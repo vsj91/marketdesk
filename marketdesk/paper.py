@@ -28,7 +28,7 @@ def init_paper(path):
         for name in BASKETS:db.execute('INSERT OR IGNORE INTO portfolios VALUES(?,?,?)',(name,100000,100000))
         # Quant baskets: daily signals from marketdesk.quant, live fills through this ledger.
         for name in LIVE_BASKETS:db.execute('INSERT OR IGNORE INTO portfolios VALUES(?,?,?)',(name,LIVE_CAPITAL,LIVE_CAPITAL))
-        # Signal baskets (news momentum, news catalyst, EMA + price action): own cash, positions and orders.
+        # Signal baskets have independent cash, positions and orders.
         for name in SIGNAL_BASKETS:db.execute('INSERT OR IGNORE INTO portfolios VALUES(?,?,?)',(name,SIGNAL_CAPITAL,SIGNAL_CAPITAL))
         init_metadata(db)
         init_attempts(db)

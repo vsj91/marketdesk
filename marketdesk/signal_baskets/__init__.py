@@ -1,4 +1,4 @@
-"""Signal baskets: AI News Momentum Trader, AI News Catalyst Investor, EMA + Price Action Trader and Vinay Intraday Trader.
+"""Signal baskets: Verified News Momentum Trader, Fundamental News Catalyst Investor, EMA + Price Action Trader and Vinay Intraday Trader.
 
 names        basket names/titles (import-free, shared with paper.py and autotrading.py)
 indicators   EMA, Wilder RSI/ATR, tick rounding, confirmed swing structure (pure)

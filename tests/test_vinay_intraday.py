@@ -155,7 +155,7 @@ class EngineTests(unittest.TestCase):
 
     def test_daily_loss_limit_stops_new_entries(self):
         with connect(self.path) as db:
-            db.execute("INSERT INTO sb_equity VALUES('vinay_intraday','2026-10-16T09:15:00+05:30',100000,100000,0)")
+            set_state(db,'signal_day_open_equity',{'vinay_intraday':{'session':'2026-10-16','equity':100000}})   # recorded at the first scan of the day
             db.execute("UPDATE portfolios SET cash=97500 WHERE name='vinay_intraday'")
         self.scan();self.auto.cycle(self.clock,{})
         self.assertEqual(self.held(),0)

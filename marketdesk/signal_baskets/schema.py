@@ -1,4 +1,4 @@
-"""Tables for the three signal baskets, inside the main MarketDesk database so that a fill, its position
+"""Tables for the signal baskets, inside the main MarketDesk database so that a fill, its position
 state and its state-machine transition commit in the same transaction as the paper trade.
 
 Additive only (CREATE ... IF NOT EXISTS): existing tables, portfolios and ledgers are never altered or reset.
@@ -17,6 +17,7 @@ sb_intraday        cached completed intraday candles for the EMA basket's univer
 sb_live_bars       5-minute candles built from the live feed for every streamed stock (Vinay Intraday; retention-pruned)
 sb_live_volume     last volume-traded-today snapshot per stock, for booking each live candle's volume"""
 from ..storage import connect,get_state,set_state
+from .names import NEW_INTRADAY_BASKETS
 
 SCHEMA='''
 CREATE TABLE IF NOT EXISTS sb_news(
@@ -56,12 +57,13 @@ CREATE TABLE IF NOT EXISTS sb_live_volume(symbol TEXT PRIMARY KEY, day TEXT NOT 
 '''
 
 def init(path):
-    from .names import SIGNAL_BASKETS,INTRADAY_BASKETS
+    from .names import SIGNAL_BASKETS,INTRADAY_BASKETS,NEW_PAPER_BASKETS
     with connect(path) as db:
         db.executescript(SCHEMA)
         cfg=get_state(db,'auto_config',{})
         for name in SIGNAL_BASKETS:
             if name not in cfg:
                 # Intraday baskets trade MIS-style and square off themselves, so their fee check uses intraday charges.
-                cfg[name]={'enabled':True,'full_session_buying':True,'max_round_trip_fee_pct':1. if name in INTRADAY_BASKETS else 1.5,'params':{}}
+                cfg[name]={'enabled':name not in NEW_PAPER_BASKETS,'full_session_buying':True,
+                    'max_round_trip_fee_pct':.1 if name in NEW_PAPER_BASKETS else 1. if name in INTRADAY_BASKETS else 1.5,'params':{}}
         set_state(db,'auto_config',cfg)

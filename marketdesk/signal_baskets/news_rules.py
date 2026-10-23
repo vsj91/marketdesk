@@ -4,7 +4,7 @@ News Momentum Trader (event-driven swing, 1-20 sessions)
   A verified positive filing becomes a candidate. It is confirmed on the first COMPLETED daily session at or
   after publication (relative volume, positive reaction that is not already priced in, EMA20 > EMA50 trend,
   ATR band, relative strength against Nifty 500, market regime, room to the next resistance). A confirmed
-  candidate buys during the NEXT session at a live price inside the gap limit. An AI/impact score alone never trades.
+  candidate buys during the NEXT session at a live price inside the gap limit. A filing impact score alone never trades.
 
 News Catalyst Investor (fundamental event-driven, 3-24 months)
   A verified business catalyst plus an explainable Investor Opportunity Score (catalyst 25, earnings growth 20,

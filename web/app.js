@@ -148,8 +148,13 @@ const BASKETS={
  risk_parity:{title:'Risk parity',blurb:'Holds the top multi-factor names, giving calmer stocks more money so no single stock dominates the swings.'},
  stat_arb:{title:'Stat-arb',blurb:'Buys sound large and mid caps after an unusually sharp fall below their 20-day average while the long trend still rises; sells at the average.'},
  regime:{title:'Regime switching',blurb:'Shifts between momentum, quality, low-volatility and value stocks depending on whether the market is rising, choppy or falling.'},
- news_momentum:{title:'AI News Momentum Trader',blurb:'Buys verified positive NSE filings once the next completed session confirms volume, trend and a reaction that is not already priced in. Holds 1–20 sessions.'},
- news_catalyst:{title:'AI News Catalyst Investor',blurb:'Owns companies whose verified business catalyst is backed by growth, financial quality and a reasonable valuation. Holds months, reviewed weekly.'},
+ news_momentum:{title:'Verified News Momentum Trader',blurb:'Buys verified positive NSE filings once the next completed session confirms volume, trend and a reaction that is not already priced in. Holds 1–20 sessions.'},
+ news_catalyst:{title:'Fundamental News Catalyst Investor',blurb:'Owns companies whose verified business catalyst is backed by growth, financial quality and a reasonable valuation. Holds months, reviewed weekly.'},
+ liquidity_sweep_reversal:{title:'Liquidity Sweep Reversal',blurb:'Paper-only 5-minute reversal setup: buy a swept opening-range or rolling swing low after price reclaims it on at least 2x volume. Target 2.5R; flat by 15:10.',caution:'Experimental paper strategy. Historical depth and full point-in-time Nifty 500 coverage are unavailable; backtest results are limited and are not evidence of profitability.'},
+ order_flow_reversal:{title:'Order Flow Reversal',blurb:'Paper-only VWAP pullback in an uptrend, confirmed by a live top-five bid/ask depth ratio of at least 3:1. Target 2R; flat by 15:10.',caution:'Experimental paper strategy. Historical order-book depth is unavailable, so the candle-based backtest proxy cannot validate the live order-flow condition.'},
+ volatility_compression_breakout:{title:'Volatility Compression Breakout',blurb:'Paper-only 5-minute Bollinger squeeze breakout above VWAP with at least 2.5x volume. Target 2R; flat by 15:10.',caution:'Experimental paper strategy. Backtests use a limited and incomplete local candle archive and do not establish future profitability.'},
+ orb_volume_breakout:{title:'ORB Volume Breakout',blurb:'Trades a 5-minute close above the first 15-minute range and VWAP on at least 3x relative volume, before 10:00. 1.5R target; flat by 15:10.',caution:'Experimental paper strategy. Local historical coverage is incomplete and full depth execution is simulated; backtests do not establish future profitability.'},
+ sector_relative_strength:{title:'Sector Relative Strength',blurb:'Each Monday, rotates into up to five liquid, positive-momentum stocks from the two strongest 4-week sectors, with a 10% allocation per stock.',caution:'Sector returns use equal-weight constituent proxies because historical sector-index data is unavailable. The historical Nifty 500 archive is incomplete.'},
  vinay_intraday:{title:'Vinay Intraday Trader',blurb:'One intraday trade a day at most: a stock that opened 1–2.5% higher and broke above its opening range and VWAP. 2.5% stop loss, sold by 15:10. Fees capped at ₹500 a month.',caution:'Paper experiment, starts switched off: lost money after Upstox fees in every 2022–2026 backtest year (−5% to −24%), on large and mid-cap Nifty 500 stocks.'},
  ema_price_action:{title:'EMA + Price Action Trader',blurb:'Intraday 5-minute EMA 9/21 crossovers above the 200 EMA with RSI, ATR, structural stops, partial profits and an EMA20 trail. Squares off at 15:12.'},
  vol_momentum:{title:'Vol-adjusted momentum',blurb:'Holds the 10 stocks with the best 6- and 12-month returns per unit of volatility. Reviewed monthly.'},
@@ -257,9 +262,14 @@ function renderPaper(){
  const scrolls=new Map(Array.from(root.querySelectorAll('[data-scroll]')).map(el=>[el.dataset.scroll,[el.scrollLeft,el.scrollTop]]));
  const total=list.reduce((a,p)=>a+(p.equity??NaN),0),start=list.reduce((a,p)=>a+p.initial_cash,0),live=list.filter(p=>auto.config[p.name]?.enabled).length,exitsOnly=list.filter(p=>auto.config[p.name]?.enabled&&auto.config[p.name]?.exits_only).length;
  $('paperTotal').innerHTML=Number.isFinite(total)?`<div class="muted">${live} of ${list.length} on${exitsOnly?` · ${exitsOnly} exits only`:''}</div><div class="big">${inr(total)}</div><div class="${tone(total-start)}">${signedInr(total-start)} · ${pct((total-start)/start*100)}</div>`:'';
- // Best total return first, so the leaders are easy to spot; baskets without a value yet go last, ties keep their order.
+ // Sort every basket with a current or past investment by return; keep never-traded baskets last.
  const ret=p=>p.pnl!=null&&p.initial_cash?p.pnl/p.initial_cash:-Infinity;
- $('basketGrid').innerHTML=list.map((p,i)=>[p,i]).sort((a,b)=>ret(b[0])-ret(a[0])||a[1]-b[1]).map(([p])=>basketCard(p,auto)).join('');
+ const traded=p=>p.positions.some(x=>x.quantity>0)||Boolean(p.trades?.length);
+ $('basketGrid').innerHTML=list.map((p,i)=>[p,i]).sort((a,b)=>{
+  const aTraded=traded(a[0]),bTraded=traded(b[0]);
+  if(aTraded!==bTraded)return aTraded?-1:1;
+  return aTraded?(ret(b[0])-ret(a[0])||a[1]-b[1]):a[1]-b[1];
+ }).map(([p])=>basketCard(p,auto)).join('');
  $('basketGrid').querySelectorAll('[data-width]').forEach(el=>el.style.width=el.dataset.width+'%');
  if(typeof quantData!=='undefined'&&quantData&&typeof renderQuant==='function')renderQuant();
  const current=list.find(p=>p.name===basket);$('basketDetail').innerHTML=current?basketDetail(current,auto,openDetails):'<div class="empty">No baskets.</div>';

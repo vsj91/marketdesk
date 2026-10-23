@@ -22,7 +22,7 @@ from ..buy_universe import allowed_symbols
 from ..history_rules import is_financial
 from . import news as newslib,news_rules,ema_rules,vinay_rules,live_bars
 from .engine import params,set_status,transition,daily_bars,benchmark,intraday_bars,session,local_hm,IST
-from .names import NEWS_MOMENTUM,NEWS_CATALYST,EMA_PRICE_ACTION,VINAY_INTRADAY,STRATEGY_VERSIONS
+from .names import NEWS_MOMENTUM,NEWS_CATALYST,EMA_PRICE_ACTION,VINAY_INTRADAY,STRATEGY_VERSIONS,NEW_INTRADAY_BASKETS,ORB_VOLUME_BREAKOUT,LIQUIDITY_SWEEP,ORDER_FLOW_REVERSAL,VOLATILITY_COMPRESSION
 from .schema import init as init_schema
 
 def clean(x):
@@ -87,7 +87,10 @@ class UpstoxQuotes:
             if q.get('instrument_token')!=key:continue
             vol,vw,pc,lp=(q.get(k) for k in ('volume','average_price','prev_close_price','last_price'))
             if not all(isinstance(x,(int,float)) and math.isfinite(x) and x>=0 for x in (vol,vw,pc,lp)):continue
-            out[symbol]=dict(volume=float(vol),vwap=vw or None,prev_close=pc or None,last_price=lp)
+            depth=q.get('depth') or {};bids=depth.get('buy') or [];asks=depth.get('sell') or []
+            bid=sum(float(x.get('quantity') or 0) for x in bids[:5]);ask=sum(float(x.get('quantity') or 0) for x in asks[:5])
+            out[symbol]=dict(volume=float(vol),vwap=vw or None,prev_close=pc or None,last_price=lp,
+                depth_ratio=bid/ask if ask>0 else None)
         return out
 
 def valid_candles(rows,minutes,clock):
@@ -388,11 +391,13 @@ class SignalRunner:
         """Vinay Intraday: on each completed 5-minute boundary book volume on the live-feed candles with one batch quote
         snapshot (up to 250 stocks a request), then scan every stock in the universe."""
         with connect(self.path) as db:
-            cfg=get_state(db,'auto_config',{}).get(VINAY_INTRADAY,{});stream=get_state(db,'stream',{})
+            allcfg=get_state(db,'auto_config',{});cfg=allcfg.get(VINAY_INTRADAY,{})
+            active_new=[n for n in NEW_INTRADAY_BASKETS if allcfg.get(n,{}).get('enabled')]
+            stream=get_state(db,'stream',{})
             checkpoint=get_state(db,'signal_live_checkpoint',{})
-        if not cfg.get('enabled'):return
+        if not cfg.get('enabled') and not active_new:return
         if stream.get('status')!='connected' or stream.get('market_status',{}).get('NSE_EQ')!='NORMAL_OPEN':return
-        p=params(VINAY_INTRADAY,cfg);tf=p['timeframe_minutes'];local=clock.astimezone(IST)
+        p=params(VINAY_INTRADAY,cfg);tf=5;local=clock.astimezone(IST)
         boundary=local.replace(minute=local.minute-local.minute%tf,second=0,microsecond=0)
         if (local-boundary).total_seconds()<15 or checkpoint.get('boundary',' ')>=boundary.isoformat():return
         with connect(self.path) as db:
@@ -405,11 +410,53 @@ class SignalRunner:
         with connect(self.path) as db:
             db.execute('BEGIN IMMEDIATE');booked=live_bars.finalize(db,snapshot,boundary,tf)
         prev={s:q['prev_close'] for s,q in snapshot.items() if q.get('prev_close')}
-        leaders=self.vinay_signals(sorted(snapshot),clock,p,prev)
+        leaders=self.vinay_signals(sorted(snapshot),clock,p,prev) if cfg.get('enabled') else dict(scanned=0,candidates=0,near_misses={})
+        new_signals={}
+        for name in active_new:
+            basket_cfg=allcfg.get(name,{})
+            new_signals[name]=self.experimental_signals(name,sorted(snapshot),clock,params(name,basket_cfg),snapshot)
         ok=bool(snapshot) and not errors
         with connect(self.path) as db:set_state(db,'signal_live_checkpoint',dict(boundary=boundary.isoformat(),symbols=len(snapshot),errors=len(errors),
             last_success=clock.isoformat() if ok else checkpoint.get('last_success')))
-        self.status(vinay_scan=dict(leaders,ok=ok,error='; '.join(errors[:2]) or None,boundary=boundary.isoformat(),universe=len(keys),candles_booked=booked))
+        self.status(vinay_scan=dict(leaders,ok=ok,error='; '.join(errors[:2]) or None,boundary=boundary.isoformat(),universe=len(keys),candles_booked=booked),**{
+            f'{name}_scan':dict(result,ok=ok,error='; '.join(errors[:2]) or None,boundary=boundary.isoformat(),universe=len(keys),candles_booked=booked)
+            for name,result in new_signals.items()})
+
+    def experimental_signals(self,name,symbols,clock,p,snapshot):
+        """Evaluate isolated experimental baskets on completed live-feed bars."""
+        from . import intraday_rules
+        from .names import LIQUIDITY_SWEEP,ORDER_FLOW_REVERSAL,VOLATILITY_COMPRESSION
+        today=session(clock);hm=local_hm(clock);found=scanned=0;misses={}
+        for symbol in symbols:
+            with connect(self.path) as db:
+                db.execute('BEGIN IMMEDIATE');bars=live_bars.bars(db,symbol,clock,p['timeframe_minutes'])
+                if not bars or bars[-1]['ts'][:10]!=today:continue
+                daily_ema=None
+                if name==ORDER_FLOW_REVERSAL:
+                    from .indicators import ema_series
+                    prior=daily_bars(db,symbol,today,limit=120);series=ema_series([b['close'] for b in prior],50)
+                    daily_ema=series[-1] if series else None
+                ratio=(snapshot.get(symbol) or {}).get('depth_ratio') if name==ORDER_FLOW_REVERSAL else None
+                ev=intraday_rules.evaluate(name,bars,p,depth_ratio=ratio,daily_ema50=daily_ema)
+                if not ev:continue
+                scanned+=1
+                if ev['status']!='BUY_CANDIDATE':
+                    for reason in ev['reasons']:
+                        key='depth unavailable/weak' if 'depth' in reason.lower() else 'setup not confirmed'
+                        misses[key]=misses.get(key,0)+1
+                    continue
+                if not p['entry_start']<=hm<p['entry_cutoff']:continue
+                if db.execute("SELECT 1 FROM sb_signals WHERE portfolio=? AND symbol=? AND session=? AND status IN ('BUY_CANDIDATE','ENTRY_FILLED')",(name,symbol,today)).fetchone():continue
+                key=f"{symbol}:{ev['trigger_ts']}:{p['timeframe_minutes']}";end=datetime.fromisoformat(ev['trigger_ts'])+timedelta(minutes=p['timeframe_minutes']*2)
+                why=f"{name.replace('_',' ').title()} setup; RVOL {ev.get('rvol') or 0:.1f}x; stop {ev['stop_pct']:.2f}%; target {p['target_r']:g}R"
+                if name==ORB_VOLUME_BREAKOUT:why+=f"; opening-range high ₹{ev['opening_range_high']:.2f}; above VWAP"
+                elif name==LIQUIDITY_SWEEP:why+=f"; swept/reclaimed ₹{ev['level']:.2f}"
+                elif name==ORDER_FLOW_REVERSAL:why+=f"; top-five bid/ask {ev['depth_ratio']:.1f}:1; above daily EMA50"
+                elif name==VOLATILITY_COMPRESSION:why+=f"; BB width {ev['bb_width_pct']:.2f}% compressed and expanded above upper band"
+                upsert_signal(db,name,key,symbol,'BUY_CANDIDATE',clock,valid_from=today,expires_at=end.astimezone(timezone.utc).isoformat(),score=ev['score'],
+                    explanation=why,details=ev,initial_stop=ev['initial_stop'],initial_target=ev['initial_target'],risk_reward=ev['risk_reward'])
+                found+=1
+        return dict(scanned=scanned,candidates=found,near_misses=misses)
 
     def vinay_signals(self,symbols,clock,p,prev_close=None):
         """Rank the universe on the newest completed live candle. Only candidates are stored (one open per stock);

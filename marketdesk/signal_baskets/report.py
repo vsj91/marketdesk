@@ -4,7 +4,7 @@ import json,math,statistics
 from datetime import datetime,timezone
 from ..storage import connect,get_state
 from .engine import params,rules,LIMITS,session
-from .names import SIGNAL_BASKETS,TITLES,STRATEGY_VERSIONS,NEWS_MOMENTUM,NEWS_CATALYST,EMA_PRICE_ACTION,VINAY_INTRADAY
+from .names import SIGNAL_BASKETS,TITLES,STRATEGY_VERSIONS,NEWS_MOMENTUM,NEWS_CATALYST,EMA_PRICE_ACTION,VINAY_INTRADAY,NEW_INTRADAY_BASKETS,SECTOR_RELATIVE_STRENGTH
 from .runner import STATUS_KEY
 
 def round_trips(trades):
@@ -57,6 +57,8 @@ def basket_payload(db,name,clock):
         s=dict(r);d=json.loads(s.pop('details') or '{}')
         if name==EMA_PRICE_ACTION:s['evidence']={k:d.get(k) for k in ('trigger_ts','ema9','ema21','ema200','rsi14','atr14','atr_pct','structural_level','structural_stop','atr_stop','atr_target','resistance_level','structural_target','reasons')}
         elif name==VINAY_INTRADAY:s['evidence']={k:d.get(k) for k in ('trigger_ts','day_change_pct','gap_pct','or_high','vwap','vwap_extension_pct','rvol','atr14','close_location','stop_pct','reasons')}
+        elif name in NEW_INTRADAY_BASKETS:s['evidence']={k:d.get(k) for k in ('trigger_ts','vwap','atr14','rvol','depth_ratio','daily_ema50','level','opening_range_high','opening_range_low','opening_range_mid','swing_low','bb_upper','bb_lower','bb_width_pct','compressed','initial_stop','initial_target','stop_pct','reasons')}
+        elif name==SECTOR_RELATIVE_STRENGTH:s['evidence']={k:d.get(k) for k in ('sector','momentum','sector_excess_return','avg_turnover','weekly_atr','as_of')}
         else:
             a=d.get('analysis') or d.get('catalyst') or {}
             s['evidence']=dict(category=a.get('category'),label=a.get('label'),impact=a.get('impact_score'),confidence=a.get('confidence'),components=a.get('components'),
@@ -68,7 +70,8 @@ def basket_payload(db,name,clock):
     for r in db.execute('SELECT s.*,q.price FROM sb_positions s LEFT JOIN quotes q USING(symbol) WHERE s.portfolio=?',(name,)):
         st=json.loads(r['state']);positions.append(dict(symbol=r['symbol'],stage=r['stage'],entry_session=r['entry_session'],entry_at=r['entry_at'],signal_id=r['signal_id'],
             price=r['price'],**{k:st.get(k) for k in ('entry','qty','original_qty','stop','initial_stop','target','target_active','be_trigger','partial_trigger','partial_done',
-            'trail_active','trail_trigger','exit_now','candles_held','entry_atr','atr','best_close','best_price','average_cost','entry_score','last_review','last_score','pending_exit','adopted')}))
+            'trail_active','trail_trigger','trail_atr_mult','exit_now','candles_held','entry_atr','atr','best_close','best_price','average_cost','entry_score','last_review','last_score','pending_exit','adopted',
+            'sector','momentum','sector_excess_return','weekly_atr','last_review_week')}))
     log=[dict(r) for r in db.execute('SELECT * FROM sb_transitions WHERE portfolio=? ORDER BY id DESC LIMIT 100',(name,))]
     news=[]
     if name in (NEWS_MOMENTUM,NEWS_CATALYST):
@@ -80,7 +83,7 @@ def basket_payload(db,name,clock):
     runner=get_state(db,STATUS_KEY,{})
     return dict(name=name,title=TITLES[name],version=STRATEGY_VERSIONS[name],enabled=bool(cfg.get('enabled')),capital=initial,cash=cash,params=p,
         limits={k:list(v) for k,v in LIMITS[name].items()},rules=rules(name,cfg),signals=signals,today=counts,positions=positions,transitions=log,news=news,
-        performance=performance(db,name,initial),runner=runner,checkpoints=dict(news=get_state(db,'signal_news_checkpoint',{}),ema=get_state(db,'signal_ema_checkpoint',{}),live=get_state(db,'signal_live_checkpoint',{})),
+        performance=performance(db,name,initial),runner=runner,checkpoints=dict(news=get_state(db,'signal_news_checkpoint',{}),ema=get_state(db,'signal_ema_checkpoint',{}),live=get_state(db,'signal_live_checkpoint',{}),sector=get_state(db,'sector_rotation_state',{}).get(name,{})),
         paper_only=True,limitations=LIMITATIONS[name])
 
 LIMITATIONS={
@@ -90,6 +93,7 @@ LIMITATIONS={
    'Sector-wide effects and analyst expectations are not modeled. No LLM is connected; the analysis is rule-based.'],
  NEWS_CATALYST:['Fundamentals are the latest stored annual record; quarterly figures, free cash flow (capex), promoter holding and pledging are not available and are flagged.',
    'Valuation uses AMFI six-month average market cap scaled by price; it is an estimate.',
+   'Catalyst and fundamental scores use fixed, explainable rules; no AI model is connected.',
    'The 3-24 month horizon cannot be validated by a backtest over the news history available.'],
  EMA_PRICE_ACTION:['Signals use Upstox 5-minute candles fetched for a liquidity-ranked universe (default 50 Nifty 500 stocks) to stay inside API rate limits.',
    'Live triggers, stops and targets are checked on last-trade observations every 15 seconds; fills use live depth, so exits can be worse than the stop (gaps, thin books).',
@@ -99,7 +103,19 @@ LIMITATIONS={
    'Scans every Nifty 500 stock on 5-minute candles built from the live LTPC feed: highs and lows are the ticks the feed delivered, volume is booked from a batch quote about 15 seconds after each candle closes, and candles exist only while the app was running from 09:15 (a later start skips that day). Relative volume (off by default) needs 3 prior sessions.',
    'Paper ledger is cash-only, so positions use the basket\'s own money (no MIS leverage). Intraday charges are an estimate, not a contract note.',
    'Long only: falling stocks are never shorted. Backtest (scripts/backtest_vinay_intraday.py, 5-minute candles 2022-2026, top 40 stocks a year plus Nifty 500 ranks 41-200 for 2025-2026): lost money after fees every year, -5% to -24%.'],
+ **{n:[
+   'Experimental paper strategy; no profitability is implied. Starts switched off and uses the same paper ledger, fresh live depth fill simulation and fee estimate as other MIS baskets.',
+   'The source feed is LTPC. Five-minute bars are constructed only while MarketDesk is running; high/low reflect received ticks and volume is booked from a batch quote shortly after each candle closes.',
+   'The local 2022–2026 candle archive covers 40 symbols/year in 2022–2024 and a larger but incomplete set in 2025–2026, not a point-in-time full Nifty 500. Historical order-book depth is unavailable; any order-flow backtest uses a clearly labeled candle proxy and is not an order-flow validation.',
+   'Paper ledger is cash-only; intraday fees are estimates, not contract notes. Stops can slip on gaps or thin books; square-off requires a fresh executable paper quote.'
+ ] for n in NEW_INTRADAY_BASKETS}
 }
+LIMITATIONS[SECTOR_RELATIVE_STRENGTH]=[
+ 'The local archive has Nifty 500 constituents and benchmark closes but no historical sector-index series. Sector returns are equal-weight constituent proxies, not official sector indices.',
+ 'Historical point-in-time Nifty 500 constituents and sector classifications are not available for all of 2022–2026; results have survivorship and classification limitations.',
+ 'The 20-day turnover filter is computed from stored daily close × volume. Paper fills require current verified Nifty 500 membership, fresh live prices and order-book depth.',
+ 'Delivery charges and DP fees are estimates, not contract notes. The system blocks a buy if the 0.1% round-trip cap or ₹500 monthly budget cannot be met at the 10% allocation.'
+]
 
 def snapshot(path,clock=None):
     clock=clock or datetime.now(timezone.utc)

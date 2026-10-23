@@ -13,17 +13,19 @@ import json,math,uuid
 from datetime import datetime,timedelta,timezone
 from ..storage import connect,get_state,set_state,now
 from ..quote_health import fresh,refresh_held_quotes
-from ..buy_universe import require_buy_universe
+from ..buy_universe import require_buy_universe,allowed_symbols
 from ..execution import intraday_charges,charges
 from .. import drawdown
 from ..sectors import sector_group
-from . import ema_rules,news_rules,vinay_rules,live_bars
-from .names import NEWS_MOMENTUM,NEWS_CATALYST,EMA_PRICE_ACTION,VINAY_INTRADAY,SIGNAL_BASKETS,TITLES,STRATEGY_VERSIONS
+from . import ema_rules,news_rules,vinay_rules,live_bars,intraday_rules,sector_rules
+from .names import NEWS_MOMENTUM,NEWS_CATALYST,EMA_PRICE_ACTION,VINAY_INTRADAY,SIGNAL_BASKETS,TITLES,STRATEGY_VERSIONS,NEW_INTRADAY_BASKETS,LIQUIDITY_SWEEP,ORDER_FLOW_REVERSAL,VOLATILITY_COMPRESSION,ORB_VOLUME_BREAKOUT,SECTOR_RELATIVE_STRENGTH
 from .schema import init as init_schema
 
 IST=timezone(timedelta(hours=5,minutes=30))
 DEFAULTS={NEWS_MOMENTUM:news_rules.MOMENTUM_DEFAULTS,NEWS_CATALYST:news_rules.CATALYST_DEFAULTS,EMA_PRICE_ACTION:ema_rules.DEFAULTS,VINAY_INTRADAY:vinay_rules.DEFAULTS}
 LIMITS={NEWS_MOMENTUM:news_rules.MOMENTUM_LIMITS,NEWS_CATALYST:news_rules.CATALYST_LIMITS,EMA_PRICE_ACTION:ema_rules.LIMITS,VINAY_INTRADAY:vinay_rules.LIMITS}
+for _n in NEW_INTRADAY_BASKETS:DEFAULTS[_n]=intraday_rules.DEFAULTS[_n];LIMITS[_n]=intraday_rules.LIMITS[_n]
+DEFAULTS[SECTOR_RELATIVE_STRENGTH]=sector_rules.DEFAULTS;LIMITS[SECTOR_RELATIVE_STRENGTH]=sector_rules.LIMITS
 WINDOWS={NEWS_MOMENTUM:('09:20','15:15'),NEWS_CATALYST:('09:20','15:15')}
 
 def session(clock):return clock.astimezone(IST).date().isoformat()
@@ -69,6 +71,11 @@ RULE_TEXT={
    entry='Every completed 5-minute candle from 09:35 to 14:30 IST checks every Nifty 500 stock on 5-minute candles built from the live price feed. A stock qualifies when it opened 1-2.5% above the previous close, is up 0.8-4% on the day, and closes above its 15-minute opening range high and above session VWAP. The strongest one is bought at the live price, within 0.4% of the signal close. At most one trade a day and one stock per day.',
    exit='Stop loss 2.5% below the entry. No fixed profit target by default: the position is sold at 15:10 IST (backtests showed targets and tighter stops lost more, because these stocks swing about 1-1.5% either way within the day). Optional settings add a profit target, breakeven and trailing stops, a VWAP exit and a time stop.',
    risk='One position of up to 98% of basket equity, so the flat ₹20 per-order brokerage stays near 0.08% of the trade. Round-trip Upstox intraday charges must be under 0.1% of the position, and new entries stop for the month once that month\'s charges reach ₹500 (about ₹6,000 a year). New entries also stop for the day after a 2% fall from the day\'s opening equity. Backtest 2022-2026: lost money every year after fees (-5% to -24%); paper experiment only.'),
+ LIQUIDITY_SWEEP:dict(family='Intraday liquidity sweep and reclaim reversal (MIS-style)',entry='From 10:00–14:00 IST, a completed 5-minute candle sweeps below the 15-minute opening-range low or a rolling 30-candle low, then reclaims the level on that candle or the next. Candle RVOL must be at least 2.0x. One long per session, chased by at most 0.3%.',exit='Stop is sweep low minus 0.4 ATR, clamped to 0.8–1.8%; target 2.5R; breakeven at 1.2R, then trail by 1 ATR; square-off 15:10.',risk='Cash-only paper execution; position cap 95% and default risk budget 1% of equity per trade (both configurable), one entry/session, 2% daily-loss breaker, round-trip fee cap 0.1%, monthly fees capped at ₹500. Experimental; no profitability is implied.'),
+ ORDER_FLOW_REVERSAL:dict(family='Intraday trend pullback with live order-book confirmation (MIS-style)',entry='From 10:00–14:00 IST, price must be above daily EMA50 and session VWAP; a completed 5-minute candle must close within 0.3% of VWAP without closing below it, while the live top-five bid/ask quantity ratio is at least 3:1. One long per session, chased by at most 0.25%.',exit='Stop below the pullback swing low or 1.2 ATR, clamped to 0.7–1.5%; target 2R; breakeven at 1R, then trail by 0.8 ATR; square-off 15:10.',risk='Order-book depth is sampled from the live Upstox full quote at the candle scan. Historical candles do not contain order-book depth, so backtests can only use a disclosed proxy. Cash-only; 95% position cap and default 1% equity risk budget (configurable), 2% daily breaker, fees ≤0.1% round trip and ₹500/month.'),
+ VOLATILITY_COMPRESSION:dict(family='Intraday volatility squeeze and expansion breakout (MIS-style)',entry='From 10:00–14:00 IST, 20-period Bollinger width must be at its lowest 15th percentile over 30 candles and ATR14 flat/declining; a 5-minute close must break above the upper band and VWAP on at least 2.5x rolling volume. One long per session, chased by at most 0.35%.',exit='Stop at the lower band or 1.5 ATR, clamped to 0.8–2.0%; target 2R; breakeven at 1R; square-off 15:10.',risk='Cash-only paper execution; position cap 95% and default risk budget 1% of equity per trade (both configurable), one entry/session, 2% daily-loss breaker, round-trip fee cap 0.1%, monthly fees capped at ₹500. Experimental; no profitability is implied.'),
+ ORB_VOLUME_BREAKOUT:dict(family='Opening range breakout with volume confirmation (MIS-style)',entry='The first 15 minutes (09:15–09:30 IST) define the range. From 09:30 until 10:00, buy a completed 5-minute close strictly above the opening-range high and session VWAP with at least 3x rolling 20-candle volume. One trade per day, chased by at most 0.3%.',exit='Stop at the higher of opening-range midpoint and close minus 1 ATR, clamped to 0.6–1.5%; target 1.5R; stop moves to entry at 1R; square-off 15:10.',risk='Cash-only paper execution; up to 95% position value, 1% default risk budget, 2% daily-loss breaker, round-trip fee cap 0.1%, and monthly fees capped at ₹500. Experimental; no profitability is implied.'),
+ SECTOR_RELATIVE_STRENGTH:dict(family='Weekly sector relative-strength rotation (delivery)',entry='At the Monday review, rank broad sectors by equal-weight constituent 4-week return relative to the Nifty 500; select the top two outperformers and up to five positive-momentum stocks per sector with average daily turnover ≥₹2 crore. Buy at most 10 holdings, no more than 10% of starting capital each.',exit='Exit at the weekly review if a sector leaves the top two. Also trail at the higher of 8% below cost or two weekly ATR below the best completed weekly close.',risk='Cash-only delivery paper execution; maximum ten holdings across two sectors, estimated round-trip charges under 0.1%, monthly fees capped at ₹500, and a 2% daily loss breaker. Local sector returns use equal-weight constituent proxies because this archive has no sector-index histories.'),
 }
 
 def rules(name,cfg):
@@ -76,7 +83,9 @@ def rules(name,cfg):
     caps={NEWS_MOMENTUM:(p.get('max_positions'),p.get('max_position_pct'),p.get('max_entries_per_day')),
         NEWS_CATALYST:(p.get('max_positions'),p.get('position_pct'),p.get('max_entries_per_day')),
         EMA_PRICE_ACTION:(p.get('max_positions'),p.get('max_position_pct'),p.get('max_entries_per_day')),
-        VINAY_INTRADAY:(p.get('max_positions'),p.get('max_position_pct'),p.get('max_entries_per_day'))}[name]
+        VINAY_INTRADAY:(p.get('max_positions'),p.get('max_position_pct'),p.get('max_entries_per_day')),
+        **{n:(p.get('max_positions'),p.get('max_position_pct'),p.get('max_entries_per_day')) for n in NEW_INTRADAY_BASKETS},
+        SECTOR_RELATIVE_STRENGTH:(p.get('max_positions'),p.get('max_position_pct'),p.get('max_positions'))}[name]
     return dict(name=TITLES[name]+' · paper basket',family=t['family'],entry=t['entry'],exit=t['exit'],risk=t['risk'],
         max_positions=caps[0],position_pct=caps[1],max_buys_per_day=caps[2],version=STRATEGY_VERSIONS[name],params=p,paper_only=True)
 
@@ -169,6 +178,14 @@ class SignalEngine:
             if name==NEWS_MOMENTUM:st.update(stop=round(avg*.92,2),initial_stop=round(avg*.92,2),target=round(avg*1.16,2),atr=avg*.04,entry_session=session(clock))
             if name==EMA_PRICE_ACTION:st.update(side='long',stop=0.,target=None,target_active=False,stage='ADOPTED',trail_active=False,partial_done=True,entry_atr=0,best_price=avg)
             if name==VINAY_INTRADAY:st=vinay_rules.adopt(avg,row['quantity'],params(name,self.config(db,name)))
+            if name in NEW_INTRADAY_BASKETS:
+                p=params(name,self.config(db,name));fake=dict(initial_stop=avg*(1-p['max_stop_pct']/100),initial_target=avg*(1-p['max_stop_pct']/100)+avg*p['target_r']*p['max_stop_pct']/100,trigger_ts=None)
+                st=intraday_rules.arm(avg,row['quantity'],fake,p,entry_at=None);st.update(adopted=True,stage='ADOPTED',average_cost=avg)
+            if name==SECTOR_RELATIVE_STRENGTH:
+                raw=(db.execute('SELECT sector FROM instruments WHERE symbol=?',(symbol,)).fetchone() or [None])[0]
+                st=dict(entry=avg,qty=row['quantity'],original_qty=row['quantity'],adopted=True,average_cost=avg,
+                    sector=sector_group(raw,symbol=symbol),stop=avg*(1-p['stop_loss_pct']/100),
+                    initial_stop=avg*(1-p['stop_loss_pct']/100),best_close=avg,weekly_atr=None,stage='ROTATION_HOLD')
             db.execute('INSERT INTO sb_positions VALUES(?,?,?,?,?,?,?,?,?)',(name,symbol,None,STRATEGY_VERSIONS[name],session(clock),clock.isoformat(),'ADOPTED',json.dumps(st),clock.isoformat()))
             transition(db,name,symbol,None,None,'ADOPTED','Holding without basket state (e.g. a manual buy while paused) adopted with conservative exits',clock=clock)
         return held
@@ -190,7 +207,8 @@ class SignalEngine:
             equity=self.snapshot(db,name,clock)
             initial=db.execute('SELECT initial_cash FROM portfolios WHERE name=?',(name,)).fetchone()[0]
             halted,info=drawdown.gate(db,name,equity,initial,cfg)
-        handler={EMA_PRICE_ACTION:self.scan_ema,VINAY_INTRADAY:self.scan_vinay,NEWS_MOMENTUM:self.scan_momentum,NEWS_CATALYST:self.scan_catalyst}[name]
+        handler={EMA_PRICE_ACTION:self.scan_ema,VINAY_INTRADAY:self.scan_vinay,NEWS_MOMENTUM:self.scan_momentum,NEWS_CATALYST:self.scan_catalyst,
+            **{n:self.scan_experimental for n in NEW_INTRADAY_BASKETS},SECTOR_RELATIVE_STRENGTH:self.scan_sector_rotation}[name]
         status=handler(name,clock,realtime,p,cfg,halted,equity)
         if halted:status.update(state='risk_wait',message=drawdown.message(info)+' '+status.get('message',''))
         return status
@@ -204,7 +222,7 @@ class SignalEngine:
 
     def data_block(self,db,name,clock,p):
         """Message when the basket's signal data provider has failed recently (new entries wait; exits continue)."""
-        if name in (EMA_PRICE_ACTION,VINAY_INTRADAY):
+        if name in (EMA_PRICE_ACTION,VINAY_INTRADAY,*NEW_INTRADAY_BASKETS):
             key,what=('signal_ema_checkpoint','intraday candles') if name==EMA_PRICE_ACTION else ('signal_live_checkpoint','live-feed candles and volume')
             last=get_state(db,key,{}).get('last_success');limit=3*p['timeframe_minutes']*60
             if local_hm(clock)<'09:35':return None   # the first completed candles of the session are still arriving
@@ -345,13 +363,17 @@ class SignalEngine:
         """Reason new entries stop for the session (daily loss or losing-trade limit), else None. Exits continue."""
         from .report import round_trips
         today=session(clock);_,_,start=self.counts(db,name,clock)
-        first=db.execute('SELECT equity FROM sb_equity WHERE portfolio=? AND substr(ts,1,10)=? ORDER BY ts LIMIT 1',(name,today)).fetchone()
         _,equity,_=valuation(db,name)
-        if first and equity is not None and equity<=first[0]*(1-p['max_daily_loss_pct']/100):
-            return f"Day loss {(1-equity/first[0])*100:.2f}% reached the {p['max_daily_loss_pct']:g}% limit: no new entries today."
+        baselines=get_state(db,'signal_day_open_equity',{});baseline=baselines.get(name,{})
+        if equity is not None and baseline.get('session')!=today:
+            baseline=dict(session=today,equity=equity);baselines[name]=baseline;set_state(db,'signal_day_open_equity',baselines)
+        opening=baseline.get('equity')
+        if opening and equity is not None and equity<=opening*(1-p['max_daily_loss_pct']/100):
+            return f"Day loss {(1-equity/opening)*100:.2f}% reached the {p['max_daily_loss_pct']:g}% limit: no new entries today."
         trades=[dict(r) for r in db.execute('SELECT symbol,side,quantity,price,fee,created_at FROM trades WHERE portfolio=? AND created_at>=? ORDER BY created_at',(name,start))]
         losers=sum(1 for t in round_trips(trades) if t['pnl']<0)
-        if losers>=p['max_losing_trades']:return f"{losers} losing trades today (limit {p['max_losing_trades']}): no new entries today."
+        losing_limit=p.get('max_losing_trades')
+        if losing_limit is not None and losers>=losing_limit:return f"{losers} losing trades today (limit {losing_limit}): no new entries today."
         return None
 
     def month_fees(self,db,name,clock):
@@ -385,7 +407,8 @@ class SignalEngine:
             transition(db,name,order['symbol'],signal['id'],'ENTRY_FILLED','INITIAL_EXITS_ARMED',
                 f"Stop {st['stop']:.2f}"+(f" / target {st['target']:.2f}" if st['target_active'] else '')+(f"; breakeven after fees at {st['be_trigger']:.2f}" if st['be_trigger'] else '')
                 +(f"; trailing from {st['trail_trigger']:.2f}" if st['trail_trigger'] else '')+f"; square-off {p['square_off']} IST",dict(state=st),clock=execution)
-            return (f"{TITLES[name]}: up {details['day_change_pct']:+.2f}% on {details['rvol']:.1f}x volume, above opening range {details['or_high']:.2f} and VWAP {details['vwap']:.2f}; "
+            volume_note=f" on {details['rvol']:.1f}x volume" if details.get('rvol') is not None else ''
+            return (f"{TITLES[name]}: up {details['day_change_pct']:+.2f}%{volume_note}, above opening range {details['or_high']:.2f} and VWAP {details['vwap']:.2f}; "
                 f"SL {st['stop']:.2f}"+(f", TP {st['target']:.2f}" if st['target_active'] else f", sell by {p['square_off']}")+"; PAPER")
         return on_fill
 
@@ -455,6 +478,201 @@ class SignalEngine:
         if blocked:note+=' '+blocked
         elif not window:note+=f" New entries run {p['entry_start']}-{p['entry_cutoff']} IST; square-off {p['square_off']}."
         return dict(state='monitoring',message=note+(' '+' '.join(notes[:4]) if notes else ''),fills_this_scan=fills,position_count=positions,buy_count=buys)
+
+    # ---- Experimental live 5-minute baskets -------------------------------------------------------
+    def experimental_entry_guard(self,name,signal,p):
+        from . import intraday_rules
+        details=json.loads(signal['details'])
+        def on_fill(db,order,quote,position,execution):
+            current=db.execute('SELECT status FROM sb_signals WHERE id=?',(signal['id'],)).fetchone()
+            if not current or current['status']!='BUY_CANDIDATE':raise ValueError('Candidate is no longer open.')
+            if not p['entry_start']<=local_hm(execution)<p['entry_cutoff']:raise ValueError(f"New entries run {p['entry_start']}-{p['entry_cutoff']} IST.")
+            if position and position['quantity']>0:raise ValueError('Already holding this stock; no averaging.')
+            fill=quote['price'];qty=quote.get('fill_quantity',order['quantity'])
+            if fill>details['close']*(1+p['max_chase_pct']/100)+1e-9:raise ValueError(f"Fill exceeds the {p['max_chase_pct']:g}% chase limit.")
+            if fill<=details['initial_stop']:raise ValueError('Live fill is at or below the planned stop; no entry.')
+            if name in (ORDER_FLOW_REVERSAL,VOLATILITY_COMPRESSION) and fill<=details.get('vwap',0):raise ValueError('Live price lost VWAP after the signal; no entry.')
+            self.slippage_ok(db,order['symbol'],fill,'BUY',p['max_slippage_pct'])
+            positions,buys,_=self.counts(db,name,execution)
+            if positions>=p['max_positions'] or buys>=p['max_entries_per_day']:raise ValueError('Position or daily entry limit reached.')
+            cost=lambda value:intraday_charges(value,'BUY')['total']+intraday_charges(value,'SELL')['total']
+            why=vinay_rules.fee_check(fill,qty,cost,p,self.month_fees(db,name,execution))
+            if why:raise ValueError(why)
+            cash,equity,_=valuation(db,name)
+            if equity is None:raise ValueError('Basket equity cannot be marked; new entries wait.')
+            sized=ema_rules.size(equity,cash+qty*fill,fill,details['initial_stop'],p,self.open_risk(db,name),cost)
+            if qty>sized['quantity']:raise ValueError(f"Risk limits allow {sized['quantity']} shares at the actual fill; resized next scan.")
+            st=intraday_rules.arm(fill,qty,details,p,cost_per_share(fill,qty),execution.isoformat())
+            db.execute('INSERT INTO sb_positions VALUES(?,?,?,?,?,?,?,?,?)',(name,order['symbol'],signal['id'],STRATEGY_VERSIONS[name],session(execution),execution.isoformat(),st['stage'],json.dumps(st),execution.isoformat()))
+            set_status(db,signal['id'],'ENTRY_FILLED',f'Bought {qty} at {fill:.2f}; stop {st["stop"]:.2f}, target {st["target"]:.2f}',execution,quantity=qty)
+            transition(db,name,order['symbol'],signal['id'],'ENTRY_FILLED','INITIAL_EXITS_ARMED',
+                f"Initial stop {st['stop']:.2f}; target {st['target']:.2f} ({p['target_r']:g}R); breakeven trigger {st['be_trigger']:.2f}; square-off {p['square_off']} IST",dict(state=st),clock=execution)
+            return f"{TITLES[name]}: {details['trigger_ts']} entry at {fill:.2f}; stop {st['stop']:.2f}, target {st['target']:.2f}; PAPER"
+        return on_fill
+
+    def scan_experimental(self,name,clock,realtime,p,cfg,halted,equity):
+        fills=0;hm=local_hm(clock);today=session(clock);tf=p['timeframe_minutes']
+        cost=lambda value:intraday_charges(value,'BUY')['total']+intraday_charges(value,'SELL')['total']
+        with connect(self.path) as db:
+            quotes={r['symbol']:dict(r) for r in db.execute('SELECT * FROM quotes')}
+            states=[dict(r) for r in db.execute('SELECT * FROM sb_positions WHERE portfolio=?',(name,))]
+            candidates=[dict(r) for r in db.execute("SELECT * FROM sb_signals WHERE portfolio=? AND status='BUY_CANDIDATE' AND session=? ORDER BY score DESC",(name,today))]
+        for row in states:
+            st=json.loads(row['state']);symbol=row['symbol'];q=quotes.get(symbol)
+            if hm>=p['square_off'] or row['entry_session']<today:
+                kind='CLOCK_EXIT' if row['entry_session']==today else 'CARRIED_OVER'
+                intent=dict(kind=kind,quantity=st['qty'],order='market',level=None,reason=f"Intraday square-off at {p['square_off']} IST" if kind=='CLOCK_EXIT' else 'Recovery exit: carried intraday paper position')
+                if fresh(q,clock) and self.execute(name,symbol,'SELL',st['qty'],self.guard(name,self.ema_exit_guard(name,intent,p),'intraday','SELL'),clock,realtime):fills+=1
+                continue
+            if not fresh(q,clock):continue
+            with connect(self.path) as db:
+                db.execute('BEGIN IMMEDIATE');bars=live_bars.bars(db,symbol,clock,tf)
+                atr=intraday_rules.atr_series(bars,p['atr_period'])[-1] if len(bars)>=p['atr_period']+2 else None
+                intent,moved=intraday_rules.on_price(st,q['price'],p,atr)
+                for stage,why in moved:transition(db,name,symbol,row['signal_id'],st['stage'],stage,why,clock=clock,dedup=f'{name}:{symbol}:{row["entry_at"]}:{stage}');
+                db.execute('UPDATE sb_positions SET state=?,stage=?,updated_at=? WHERE portfolio=? AND symbol=?',(json.dumps(st),st['stage'],clock.isoformat(),name,symbol))
+            target_level=intent.get('level') if intent and intent['kind']=='TARGET' else None
+            if intent and self.execute(name,symbol,'SELL',intent['quantity'],self.guard(name,self.exit_guard(name,symbol,intent['kind'],intent['reason'],target_level),'intraday','SELL'),clock,realtime):fills+=1
+        with connect(self.path) as db:
+            blocked=self.data_block(db,name,clock,p) or self.day_loss_block(db,name,clock,p)
+            positions,buys,start=self.counts(db,name,clock)
+            traded={r[0] for r in db.execute("SELECT DISTINCT symbol FROM trades WHERE portfolio=? AND created_at>=?",(name,start))}
+            for s in db.execute("SELECT id,expires_at FROM sb_signals WHERE portfolio=? AND status='BUY_CANDIDATE'",(name,)).fetchall():
+                if s['expires_at'] and clock.isoformat()>=s['expires_at']:set_status(db,s['id'],'EXPIRED','Not bought within the two-candle signal window',clock)
+            candidates=[dict(r) for r in db.execute("SELECT * FROM sb_signals WHERE portfolio=? AND status='BUY_CANDIDATE' AND session=? ORDER BY score DESC",(name,today))]
+        window=p['entry_start']<=hm<p['entry_cutoff'] and hm<p['square_off']
+        for signal in candidates:
+            if blocked or halted or not window or positions>=p['max_positions'] or buys>=p['max_entries_per_day']:break
+            symbol=signal['symbol'];q=quotes.get(symbol);d=json.loads(signal['details'])
+            if symbol in traded or not fresh(q,clock) or q['price']>d['close']*(1+p['max_chase_pct']/100):continue
+            if name==ORDER_FLOW_REVERSAL and q['price']<d.get('vwap',0):continue
+            with connect(self.path) as db:
+                cash,equity_now,_=valuation(db,name)
+                if equity_now is None:continue
+                estimate=q['price']*(1+p['max_slippage_pct']/100)
+                sized=ema_rules.size(equity_now,cash,estimate,d['initial_stop'],p,self.open_risk(db,name),cost)
+                why='Quantity zero after risk/capital limits' if sized['quantity']<1 else vinay_rules.fee_check(estimate,sized['quantity'],cost,p,self.month_fees(db,name,clock))
+                if why:set_status(db,signal['id'],'REJECTED',why,clock,rejection_reason=why);continue
+            if self.execute(name,symbol,'BUY',sized['quantity'],self.guard(name,self.experimental_entry_guard(name,signal,p),'intraday','BUY',d),clock,realtime):
+                fills+=1;positions+=1;buys+=1;traded.add(symbol)
+        with connect(self.path) as db:positions,buys,_=self.counts(db,name,clock)
+        note=f"{positions}/{p['max_positions']} positions; {buys}/{p['max_entries_per_day']} entries today."
+        if blocked:note+=' '+blocked
+        elif not window:note+=f" New entries run {p['entry_start']}-{p['entry_cutoff']} IST; square-off {p['square_off']}."
+        return dict(state='monitoring',message=note,fills_this_scan=fills,position_count=positions,buy_count=buys)
+
+    def sector_entry_guard(self,name,signal,p,review_week):
+        details=json.loads(signal['details'])
+        def on_fill(db,order,quote,position,execution):
+            cfg=self.config(db,name)
+            if not cfg.get('enabled'):raise ValueError('Basket automation was paused.')
+            current=db.execute('SELECT status FROM sb_signals WHERE id=?',(signal['id'],)).fetchone()
+            if not current or current['status']!='BUY_CANDIDATE':raise ValueError('Sector candidate is no longer pending.')
+            local=execution.astimezone(IST)
+            if local.weekday()!=0 or not ('09:15'<=local.strftime('%H:%M')<'10:00') or review_week!=sector_rules.weekly_key(local.date().isoformat()):
+                raise ValueError('Sector rotation buys run at the Monday open after the weekly review.')
+            require_buy_universe(db,name,order['symbol'],execution)
+            if position and position['quantity']>0:raise ValueError('Already holding; sector basket does not average down.')
+            held=db.execute('SELECT COUNT(*) FROM positions WHERE portfolio=? AND quantity>0',(name,)).fetchone()[0]
+            if held>=p['max_positions']:raise ValueError('Sector basket has reached its ten-holding limit.')
+            fill=quote['price'];qty=quote.get('fill_quantity',order['quantity']);value=fill*qty
+            initial=db.execute('SELECT initial_cash FROM portfolios WHERE name=?',(name,)).fetchone()[0]
+            if value+quote.get('fill_fee',0)>initial*p['max_position_pct']/100+1:raise ValueError('Position exceeds the 10% per-stock allocation limit.')
+            roundtrip=charges(value,'BUY')['total']+charges(value,'SELL',True)['total']
+            if roundtrip>value*p['max_round_trip_fee_pct']/100:raise ValueError(f'Estimated round-trip delivery charges {roundtrip/value*100:.2f}% exceed the {p["max_round_trip_fee_pct"]:g}% fee cap.')
+            if self.month_fees(db,name,execution)+roundtrip>p['monthly_fee_budget']:raise ValueError('Monthly ₹500 fee budget would be exceeded.')
+            blocked=self.day_loss_block(db,name,execution,p)
+            if blocked:raise ValueError(blocked)
+            halted,_=drawdown.gate(db,name,valuation(db,name)[1],initial,cfg)
+            if halted:raise ValueError('Portfolio drawdown breaker is active; no new sector buys.')
+            stop=fill*(1-p['stop_loss_pct']/100);weekly_atr=details.get('weekly_atr')
+            state=dict(entry=fill,qty=qty,original_qty=qty,sector=details['sector'],stop=stop,initial_stop=stop,
+                best_close=details.get('close',fill),weekly_atr=weekly_atr,stage='ROTATION_HOLD',last_review_week=review_week,
+                momentum=details.get('momentum'),sector_excess_return=details.get('sector_excess_return'))
+            db.execute('INSERT INTO sb_positions VALUES(?,?,?,?,?,?,?,?,?)',(name,order['symbol'],signal['id'],STRATEGY_VERSIONS[name],
+                session(execution),execution.isoformat(),'ROTATION_HOLD',json.dumps(state),execution.isoformat()))
+            set_status(db,signal['id'],'ENTRY_FILLED',f"Bought {qty} at {fill:.2f}; {details['sector']} 4-week relative strength; stop {stop:.2f}",execution,quantity=qty)
+            transition(db,name,order['symbol'],signal['id'],'ENTRY_FILLED','ROTATION_HOLD',
+                f"10% allocation; initial 8% stop {stop:.2f}; weekly review {review_week}",dict(state=state),clock=execution)
+            return f"Sector Relative Strength: {details['sector']} leader, {details['momentum']*100:+.1f}% 4-week momentum; paper only"
+        return on_fill
+
+    def scan_sector_rotation(self,name,clock,realtime,p,cfg,halted,equity):
+        """Weekly portfolio review, live depth fills and daily stop monitoring; delivery paper only."""
+        from datetime import date
+        p=sector_rules.DEFAULTS|p;today=session(clock);local=clock.astimezone(IST);week=sector_rules.weekly_key(today)
+        with connect(self.path) as db:
+            allstate=get_state(db,'sector_rotation_state',{});state=allstate.get(name)
+            positions=[dict(r) for r in db.execute('SELECT * FROM sb_positions WHERE portfolio=?',(name,))]
+        due=not state or state.get('review_week')!=week
+        if due:
+            if local.weekday()!=0 or local.strftime('%H:%M')<'09:20':
+                return dict(state='monitoring',message='Waiting for the Monday 09:20 IST sector review; no new allocation until then.',fills_this_scan=0)
+            try:
+                with connect(self.path) as db:
+                    allowed=allowed_symbols(db,name,clock)
+                    if allowed is None:raise ValueError('Sector rotation requires the verified Nifty 500 buy universe.')
+                    ranked=sector_rules.rank(db,clock,p,allowed)
+                    state={**ranked,'review_week':week,'reviewed_at':clock.isoformat()}
+                    allstate=get_state(db,'sector_rotation_state',{});allstate[name]=state;set_state(db,'sector_rotation_state',allstate)
+                    expiry=(local.date()+timedelta(days=7)).isoformat()
+                    for item in ranked['picks']:
+                        key=f"{week}:{item['symbol']}"
+                        upsert_signal(db,name,key,item['symbol'],'BUY_CANDIDATE',clock,valid_from=today,expires_at=expiry,
+                            score=item['momentum']*100+item['sector_excess_return']*100,
+                            explanation=f"{item['sector']} sector +{item['sector_excess_return']*100:.2f}% vs Nifty 500; stock momentum {item['momentum']*100:.2f}%; average turnover ₹{item['avg_turnover']:,.0f}/day",
+                            details=item)
+            except ValueError as error:
+                return dict(state='data_wait',message=str(error),fills_this_scan=0)
+            with connect(self.path) as db:positions=[dict(r) for r in db.execute('SELECT * FROM sb_positions WHERE portfolio=?',(name,))]
+        if not state:return dict(state='data_wait',message='No completed sector ranking is available yet.',fills_this_scan=0)
+        sectors={x['sector'] for x in state.get('sectors',[])};stock_stats={x['symbol']:x for x in state.get('stocks',[])}
+        with connect(self.path) as db:quotes={r['symbol']:dict(r) for r in db.execute('SELECT * FROM quotes')}
+        fills=0
+        for row in positions:
+            st=json.loads(row['state']);symbol=row['symbol'];q=quotes.get(symbol)
+            if due and st.get('sector') in sectors and st.get('last_review_week')!=week:
+                metric=stock_stats.get(symbol,{})
+                peak=max(st.get('best_close',st['entry']),metric.get('close') or st.get('best_close',st['entry']))
+                st['best_close']=peak;st['weekly_atr']=metric.get('weekly_atr') or st.get('weekly_atr')
+                st['stop']=sector_rules.stop(st['entry'],peak,st.get('weekly_atr'),p);st['last_review_week']=week
+                with connect(self.path) as db:db.execute('UPDATE sb_positions SET state=?,stage=?,updated_at=? WHERE portfolio=? AND symbol=?',
+                    (json.dumps(st),'ROTATION_HOLD',clock.isoformat(),name,symbol))
+            rotation_exit=st.get('sector') not in sectors and st.get('last_review_week')!=week
+            stop_exit=q is not None and q.get('price',0)>0 and q['price']<=st.get('stop',st['entry']*(1-p['stop_loss_pct']/100))
+            if rotation_exit or stop_exit:
+                if not fresh(q,clock):continue
+                reason=f"Sector {st.get('sector')} left the leading two" if rotation_exit else f"Weekly trailing stop {st['stop']:.2f} reached"
+                intent=dict(kind='SECTOR_ROTATION' if rotation_exit else 'WEEKLY_ATR_STOP',quantity=st['qty'],order='market',level=None,reason=reason)
+                guard=self.guard(name,self.exit_guard(name,symbol,intent['kind'],reason),'delivery','SELL')
+                if self.execute(name,symbol,'SELL',st['qty'],guard,clock,realtime):fills+=1
+        buys=0
+        monday_open=local.weekday()==0 and '09:15'<=local.strftime('%H:%M')<'10:00'
+        if monday_open and not halted:
+            with connect(self.path) as db:
+                blocked=self.day_loss_block(db,name,clock,p)
+                candidates=[dict(r) for r in db.execute("SELECT * FROM sb_signals WHERE portfolio=? AND status='BUY_CANDIDATE' AND session=? ORDER BY score DESC",(name,today))]
+            if not blocked:
+                for sig in candidates:
+                    with connect(self.path) as db:
+                        held=db.execute('SELECT COUNT(*) FROM positions WHERE portfolio=? AND quantity>0',(name,)).fetchone()[0]
+                        if held>=p['max_positions'] or db.execute('SELECT 1 FROM positions WHERE portfolio=? AND symbol=? AND quantity>0',(name,sig['symbol'])).fetchone():continue
+                        account=db.execute('SELECT initial_cash,cash FROM portfolios WHERE name=?',(name,)).fetchone()
+                    q=quotes.get(sig['symbol'])
+                    if not fresh(q,clock):continue
+                    value=min(account['cash'],account['initial_cash']*p['max_position_pct']/100)
+                    qty=math.floor(value/(q['price']*1.003))
+                    if qty<1:continue
+                    d=json.loads(sig['details']);guard=self.guard(name,self.sector_entry_guard(name,sig,p,week),'delivery','BUY',d)
+                    if self.execute(name,sig['symbol'],'BUY',qty,guard,clock,realtime):fills+=1;buys+=1
+        with connect(self.path) as db:
+            held=db.execute('SELECT COUNT(*) FROM positions WHERE portfolio=? AND quantity>0',(name,)).fetchone()[0]
+            bought=db.execute("SELECT COUNT(*) FROM trades WHERE portfolio=? AND side='BUY' AND source='automatic' AND created_at>=?",(name,local.replace(hour=0,minute=0,second=0,microsecond=0).astimezone(timezone.utc).isoformat())).fetchone()[0]
+        msg=f"Sectors: {', '.join(sorted(sectors)) or 'none ranked'}; {held}/{p['max_positions']} holdings; {bought} buys today."
+        if local.weekday()!=0:msg+=' Weekly review runs Monday at the open.'
+        elif not monday_open:msg+=' New sector buys run 09:15–10:00 IST.'
+        return dict(state='monitoring',message=msg,fills_this_scan=fills,position_count=held,buy_count=bought,
+            sectors=state.get('sectors',[]),as_of=state.get('as_of'),review_week=week)
 
     # ---- News momentum ---------------------------------------------------------------------------
     def context(self,db,symbol,day):

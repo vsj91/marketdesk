@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Independent backtests for the EMA + Price Action Trader and the AI News Momentum Trader.
+"""Independent backtests for the EMA + Price Action Trader and the Verified News Momentum Trader.
 
 Uses the same rule functions as the live engine (signal_baskets.ema_rules / news / news_rules); paper only.
 
@@ -12,13 +12,13 @@ EMA + Price Action: real Upstox 5-minute candles (cached under data/backtests/em
   Walk-forward: min_rr is chosen on the first half (in-sample) by expectancy and then applied unchanged to the
   second half (out-of-sample).
 
-AI News Momentum: real NSE corporate announcements with exchange broadcast timestamps (cached under
+Verified News Momentum: real NSE corporate announcements with exchange broadcast timestamps (cached under
   data/backtests/news) and stored daily candles. Screen at publication, confirm on the completed news-session
   candle, buy the next session's open, exit on daily candles (stop first when a candle touches both).
   Revenue for materiality comes from today's stored annual record (FY2026, filed before the window); the
   surprise component is unavailable without historical live prices. Defaults only; nothing is fitted.
 
-AI News Catalyst Investor is not backtested: its 3-24 month horizon exceeds the available news history.
+Fundamental News Catalyst Investor is not backtested: its 3-24 month horizon exceeds the available news history.
 
 Usage: .venv/bin/python scripts/backtest_signal_baskets.py [--symbols 40] [--start 2026-09-01] [--end 2026-10-16]
        [--news-start 2026-07-01] [--news-end 2026-09-30]"""
