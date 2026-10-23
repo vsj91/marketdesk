@@ -201,11 +201,14 @@ function todayBuys(p){const today=new Date().toLocaleDateString('en-CA',{timeZon
 // What the basket's backtest showed, kept beside its live paper record so a failed rule is never mistaken for a tested one.
 const VERDICTS={pass:['Passed every backtest check','up','Backtest passed'],mixed:['Mixed backtest: beat the hold, failed other checks','warn','Backtest mixed'],fail:['Failed its backtest','down','Backtest failed'],untested:['Not backtested','flat','Not backtested']};
 function backtestRow(n){return backtestData?.baskets?.find(x=>x.name===n);}
-function backtestTag(n){const v=VERDICTS[backtestRow(n)?.backtest?.verdict];return v?` <span class="tag ${v[1]}" title="${esc(backtestRow(n).backtest.note||'')}">${v[2]}</span>`:'';}
+// A pass means higher returns over the backtest, not a smoother ride: show how far and how badly it fell beside the label.
+function worstYear(b){const y=Object.entries(b?.years||{});return y.length?y.reduce((a,x)=>x[1]<a[1]?x:a):null;}
+function backtestRisk(b){const w=worstYear(b),dd=b?.full?.maxdd;return [dd!=null?`worst fall −${fmt(dd,0)}%`:'',w&&w[1]<0?`worst year −${fmt(-w[1],0)}% (${w[0]})`:''].filter(Boolean).join(' · ');}
+function backtestTag(n){const b=backtestRow(n)?.backtest,v=VERDICTS[b?.verdict];if(!v)return '';const risk=backtestRisk(b);return ` <span class="tag ${v[1]}" title="${esc(b.note||'')}">${v[2]}</span>${risk?` <small class="muted backtest-risk">${risk}</small>`:''}`;}
 function backtestCard(n){
  const row=backtestRow(n);if(!row)return '';const b=row.backtest||{},v=VERDICTS[b.verdict||'untested']||VERDICTS.untested,f=b.full||{},cfg=paperData?.automation?.config?.[n]||{};
  const span=b.window?`${b.window[0].slice(0,4)}–${b.window[1].slice(0,4)}`:'',lines=[];
- if(f.cagr!=null)lines.push(`<strong class="${tone(b.hold_cagr==null?null:f.cagr-b.hold_cagr)}">${pct(f.cagr)} a year</strong>${b.hold_cagr!=null?` vs ${pct(b.hold_cagr)} for holding the same stocks`:''}${span?` · ${span}`:''}${f.maxdd!=null?` · worst fall −${fmt(f.maxdd,1)}%`:''}`);
+ if(f.cagr!=null)lines.push(`<strong class="${tone(b.hold_cagr==null?null:f.cagr-b.hold_cagr)}">${pct(f.cagr)} a year</strong>${b.hold_cagr!=null?` vs ${pct(b.hold_cagr)} for holding the same stocks`:''}${span?` · ${span}`:''}${f.maxdd!=null?` · worst fall −${fmt(f.maxdd,1)}%`:''}${(w=>w&&w[1]<0?` · worst year ${pct(w[1])} (${w[0]})`:'')(worstYear(b))}`);
  if(b.h1?.cagr!=null&&b.h2?.cagr!=null)lines.push(`First half ${pct(b.h1.cagr)} · second half ${pct(b.h2.cagr)}`);
  if(b.note)lines.push(esc(b.note));
  const p=row.paper||{};if(p.days)lines.push(`Paper so far: ${pct(p.return_pct)} over ${p.days} day${p.days===1?'':'s'} · backtest pace ${pct(p.backtest_pace_pct)} · Nifty 500 ${pct(p.nifty500_pct)}`);

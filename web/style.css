@@ -24,6 +24,7 @@ h2{font-size:24px;letter-spacing:-.02em;font-weight:700;margin:0 0 4px}
 h3{font-size:17px;letter-spacing:-.015em;font-weight:600;margin:0 0 8px}
 h4{font-size:13px;font-weight:600;color:var(--muted);margin:18px 0 4px}
 .muted{color:var(--muted);font-size:13px}
+.backtest-risk{display:block;margin-top:3px;font-size:12px}
 .up{color:var(--up)}.down{color:var(--bad)}.warn{color:var(--warn)}
 [hidden]{display:none!important}
 :focus-visible{outline:3px solid var(--accent-soft);outline-offset:2px;border-radius:8px}
